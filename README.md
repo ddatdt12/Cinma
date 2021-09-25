@@ -28,6 +28,11 @@
 
 ## Tác giả
 
+[Đỗ Thành Đạt](https://github.com/thaoht194)
+[Trần Đình Khô](https://github.com/TranDKhoi)
+[Lê Hải Phong](https://github.com/HaiPhong146)
+[Kiều Bá Dương](https://github.com/TranDKhoi)
+[Huỳnh Trung Thảo](https://github.com/thaoht194)
 
-
-## Phản hồi
+## Người hướng dẫn
+* Giảng viên: Nguyễn Tấn Toàn
