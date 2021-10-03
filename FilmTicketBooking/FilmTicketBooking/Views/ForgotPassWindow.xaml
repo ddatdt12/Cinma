@@ -1,0 +1,57 @@
+﻿<Window x:Class="FilmTicketBooking.ForgotPassWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FilmTicketBooking"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+         Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource MainVM}"
+        mc:Ignorable="d"
+        Height="300"
+        Width="500"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown">
+    <Grid>
+        <TextBox x:Name="userforgot" 
+             materialDesign:HintAssist.Hint="Username"
+             FontSize="20"
+             Width="287"
+             Height="45"
+             Margin="104,80,109,175"
+             Foreground="#FF6EA878" FontStyle="Normal"/>
+        <TextBox x:Name="userhint"
+             materialDesign:HintAssist.Hint="User's birthday is?"
+             ToolTip ="Type: day/month"
+             FontSize="20"
+             Width="287"
+             Height="45"
+             Foreground="#FF6EA878"
+             Margin="104,150,109,105" FontStyle="Normal"/>
+        <Label Content="Something's wrong here ^^ "
+               Margin="101,200,84,65"
+               FontSize="15"
+               Foreground="white"
+               x:Name="error"/>
+        <Button 
+            Content="Confirm"
+            HorizontalAlignment="Left" 
+            Margin="157,240,0,0" 
+            VerticalAlignment="Top" 
+            Width="103" Height="27"
+            FontSize="10"
+            Click="Button_Click"/>
+        <Button 
+            Content="Cancel"
+            HorizontalAlignment="Left" 
+            Margin="288,240,0,0" 
+            VerticalAlignment="Top" 
+            Width="103" Height="27"
+            FontSize="10"
+            Click="Button_Click_1"/>
+    </Grid>
+</Window>

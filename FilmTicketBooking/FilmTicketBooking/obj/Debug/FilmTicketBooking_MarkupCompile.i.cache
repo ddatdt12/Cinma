@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\Năm 2\Lập trình trực quan\DoAn\FilmTicketBooking\FilmTicketBooking\obj\Debug\
+C:\Users\XyzTranKT\source\repos\TestGit\FilmTicketBooking\FilmTicketBooking\obj\Debug\
 FilmTicketBooking
 none
 false
 DEBUG;TRACE
-E:\Năm 2\Lập trình trực quan\DoAn\FilmTicketBooking\FilmTicketBooking\App.xaml
-22079336165
+C:\Users\XyzTranKT\source\repos\TestGit\FilmTicketBooking\FilmTicketBooking\App.xaml
+4-1945975640
 
-8-1284508827
-151441161352
-MainWindow.xaml;ResourceXAML\MainResource.xaml;
+11841230139
+15-453844303
+Views\LoginWindow.xaml;Views\Admin\MainAdminWindow.xaml;ResourceXAML\MainResource.xaml;Views\ForgotPassWindow.xaml;
 
 True
 
