@@ -19,8 +19,9 @@
         Title="MainWindow"
         ResizeMode="NoResize"
         WindowStyle="None"
-        MouseDown="Window_MouseDown"
         WindowStartupLocation="CenterScreen">
+
+
 
 
     <Grid>
@@ -54,8 +55,7 @@
                    HorizontalAlignment="Center" Height="50" Width="311">
             </Label>
             <Label Content="Forgot password?" 
-                   Margin="274,369,49,42"
-                   MouseLeftButtonDown="Label_MouseLeftButtonDown">
+                   Margin="274,369,49,42">
                 <Label.Style>
                     <Style TargetType="Label">
                         <Setter Property="Foreground" Value="#FF6EA878" />
@@ -94,15 +94,13 @@
                    Content="Sign in"
                    Margin="274,322,45,87" Height="Auto" Background="#FFA5C877" 
                    BorderBrush="#FFA5C877"
-                   BorderThickness="15"
-                   Click="Signin_btn_Click"/>
+                   BorderThickness="15"/>
         </Grid>
 
         <!--Close_Minimize bar-->
         <Image Source="/Resources/LayoutSignin/_.png"
                VerticalAlignment="Top"
                HorizontalAlignment="Right"
-               MouseLeftButtonDown="Image_MouseLeftButtonDown_1"
                    Width="26"
                    Height="8" Margin="0,10,36,0" RenderTransformOrigin="0.6,1.458">
             <Image.Style>
@@ -121,7 +119,7 @@
                HorizontalAlignment="right"
                VerticalAlignment="Top"
                Width="26"
-               Height="27" MouseLeftButtonDown="Image_MouseLeftButtonDown">
+               Height="27">
             <Image.Style>
                 <Style TargetType="Image">
                     <Setter Property="Cursor" Value="Arrow"/>

@@ -26,16 +26,15 @@
 
 
 
-
             <Storyboard x:Key="LoginStoryBoard" RepeatBehavior="Forever" >
                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Source">
-                    
+
                     <DiscreteObjectKeyFrame KeyTime="0:0:0">
                         <DiscreteObjectKeyFrame.Value>
                             <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/spiderman.jpg"/>
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
-                    
+
                     <DiscreteObjectKeyFrame KeyTime="0:0:1.5" >
                         <DiscreteObjectKeyFrame.Value>
                             <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/squidgame.jpg"/>
@@ -59,10 +58,17 @@
                             <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/spiderman.jpg"/>
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
-                    
-                    
+
+
                 </ObjectAnimationUsingKeyFrames>
             </Storyboard>
+
+
+
+
+
+
+
 
         </ResourceDictionary>
     </Application.Resources>
