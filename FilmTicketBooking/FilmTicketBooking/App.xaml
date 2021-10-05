@@ -13,63 +13,43 @@
                 <ResourceDictionary Source="/ResourceXAML/MainResource.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- primary -->
-            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#FF6EA878"/>
-            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFFFF"/>
-            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FF6EA878"/>
-            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF"/>
-            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#FF6EA878"/>
-            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
-            <!-- accent -->
-            <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#5C5B5E"/>
-            <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="#FFFFFF"/>
 
 
 
             <Storyboard x:Key="LoginStoryBoard" RepeatBehavior="Forever" >
                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Source">
-
                     <DiscreteObjectKeyFrame KeyTime="0:0:0">
                         <DiscreteObjectKeyFrame.Value>
-                            <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/spiderman.jpg"/>
+                            <Image Source="/Resources/LayoutSignin/StoryboardMovie/spiderman.jpg" />
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
 
                     <DiscreteObjectKeyFrame KeyTime="0:0:1.5" >
                         <DiscreteObjectKeyFrame.Value>
-                            <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/squidgame.jpg"/>
+                            <Image Source="/Resources/LayoutSignin/StoryboardMovie/squidgame.jpg" />
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
 
                     <DiscreteObjectKeyFrame KeyTime="0:0:3">
                         <DiscreteObjectKeyFrame.Value>
-                            <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/twd.jpeg"/>
+                            <Image Source="/Resources/LayoutSignin/StoryboardMovie/twd.jpeg" />
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
 
                     <DiscreteObjectKeyFrame KeyTime="0:0:4.5">
                         <DiscreteObjectKeyFrame.Value>
-                            <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/captain.jpg"/>
+                            <Image Source="/Resources/LayoutSignin/StoryboardMovie/captain.jpg" />
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
 
                     <DiscreteObjectKeyFrame KeyTime="0:0:6">
                         <DiscreteObjectKeyFrame.Value>
-                            <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/spiderman.jpg"/>
+                            <Image Source="/Resources/LayoutSignin/StoryboardMovie/spiderman2.jpg" />
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
-
-
                 </ObjectAnimationUsingKeyFrames>
             </Storyboard>
-
-
-
-
-
-
-
-
+            
         </ResourceDictionary>
     </Application.Resources>
     

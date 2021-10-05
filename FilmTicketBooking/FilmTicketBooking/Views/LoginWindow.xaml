@@ -32,11 +32,10 @@
                Width="314">
             <Image.Style>
                 <Style TargetType="Image">
-                    <Setter Property="Source" Value="/Resources/LayoutSignin/StoryboardMovie/spiderman2.jpg">
-                    </Setter>
+                    <Setter Property="Source" Value="/Resources/LayoutSignin/StoryboardMovie/spiderman2.jpg"/>
                     <Style.Triggers>
                         <EventTrigger RoutedEvent="Window.Loaded">
-                            <BeginStoryboard Storyboard="{StaticResource LoginStoryBoard}">
+                            <BeginStoryboard Storyboard.TargetName="LoginStoryBoard">
                             </BeginStoryboard>
                         </EventTrigger>
                     </Style.Triggers>
