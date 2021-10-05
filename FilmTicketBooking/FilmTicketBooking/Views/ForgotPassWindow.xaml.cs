@@ -23,50 +23,5 @@ namespace FilmTicketBooking
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            string returnpass;
-            if(!IsTrueUser(userforgot.Text, out returnpass))
-            {
-                error.Foreground = new SolidColorBrush(Colors.Red);
-            }
-            else
-            {
-                error.Foreground = new SolidColorBrush(Colors.White);
-                MessageBox.Show("Your password is: " + returnpass);
-            }
-        }
-
-        private bool IsTrueUser(string value, out string returnpass)
-        {
-            foreach (var item in LoginWindow.ListUserAccount)
-            {
-                if (value == item.Username)
-                {
-                    if (userhint.Text == "25/03")
-                    {
-                        returnpass = item.Password;
-                        return true;
-                    }
-                }
-            }
-            returnpass = "";
-            return false;
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            LoginWindow Logiwindow = new LoginWindow();
-            Logiwindow.ShowDialog();
-            this.Close();
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
     }
 }

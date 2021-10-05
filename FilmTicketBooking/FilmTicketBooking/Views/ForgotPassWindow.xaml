@@ -14,8 +14,7 @@
         Width="500"
         ResizeMode="NoResize"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen"
-        MouseDown="Window_MouseDown">
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBox x:Name="userforgot" 
              materialDesign:HintAssist.Hint="Username"
@@ -43,15 +42,13 @@
             Margin="157,240,0,0" 
             VerticalAlignment="Top" 
             Width="103" Height="27"
-            FontSize="10"
-            Click="Button_Click"/>
+            FontSize="10"/>
         <Button 
             Content="Cancel"
             HorizontalAlignment="Left" 
             Margin="288,240,0,0" 
             VerticalAlignment="Top" 
             Width="103" Height="27"
-            FontSize="10"
-            Click="Button_Click_1"/>
+            FontSize="10"/>
     </Grid>
 </Window>
