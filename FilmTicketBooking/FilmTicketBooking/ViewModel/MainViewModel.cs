@@ -11,7 +11,6 @@ namespace FilmTicketBooking.ViewModel
     {
         public MainViewModel()
         {
-            MessageBox.Show("Da vao trong MainViewModel");
         }
     }
 }
