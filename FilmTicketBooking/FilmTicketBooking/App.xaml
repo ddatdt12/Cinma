@@ -32,31 +32,31 @@
                     
                     <DiscreteObjectKeyFrame KeyTime="0:0:0">
                         <DiscreteObjectKeyFrame.Value>
-                            <BitmapImage UriSource="PicturesFolder/LayoutSignin/StoryboardMovie/spiderman.jpg"/>
+                            <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/spiderman.jpg"/>
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
                     
                     <DiscreteObjectKeyFrame KeyTime="0:0:1.5" >
                         <DiscreteObjectKeyFrame.Value>
-                            <BitmapImage UriSource="PicturesFolder/LayoutSignin/StoryboardMovie/squidgame.jpg"/>
+                            <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/squidgame.jpg"/>
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
 
                     <DiscreteObjectKeyFrame KeyTime="0:0:3">
                         <DiscreteObjectKeyFrame.Value>
-                            <BitmapImage UriSource="PicturesFolder/LayoutSignin/StoryboardMovie/twd.jpeg"/>
+                            <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/twd.jpeg"/>
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
 
                     <DiscreteObjectKeyFrame KeyTime="0:0:4.5">
                         <DiscreteObjectKeyFrame.Value>
-                            <BitmapImage UriSource="PicturesFolder/LayoutSignin/StoryboardMovie/captain.jpg"/>
+                            <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/captain.jpg"/>
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
 
                     <DiscreteObjectKeyFrame KeyTime="0:0:6">
                         <DiscreteObjectKeyFrame.Value>
-                            <BitmapImage UriSource="PicturesFolder/LayoutSignin/StoryboardMovie/spiderman.jpg"/>
+                            <BitmapImage UriSource="Resources/LayoutSignin/StoryboardMovie/spiderman.jpg"/>
                         </DiscreteObjectKeyFrame.Value>
                     </DiscreteObjectKeyFrame>
                     

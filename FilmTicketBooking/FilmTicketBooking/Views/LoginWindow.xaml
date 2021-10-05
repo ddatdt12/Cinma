@@ -31,7 +31,7 @@
                Width="314">
             <Image.Style>
                 <Style TargetType="Image">
-                    <Setter Property="Source" Value="/PicturesFolder/LayoutSignin/StoryboardMovie/spiderman2.jpg">
+                    <Setter Property="Source" Value="/Resources/LayoutSignin/StoryboardMovie/spiderman2.jpg">
                     </Setter>
                     <Style.Triggers>
                         <EventTrigger RoutedEvent="Window.Loaded">
@@ -99,7 +99,7 @@
         </Grid>
 
         <!--Close_Minimize bar-->
-        <Image Source="/PicturesFolder/LayoutSignin/_.png"
+        <Image Source="/Resources/LayoutSignin/_.png"
                VerticalAlignment="Top"
                HorizontalAlignment="Right"
                MouseLeftButtonDown="Image_MouseLeftButtonDown_1"
@@ -117,7 +117,7 @@
             </Image.Style>
         </Image>
 
-        <Image Source="/PicturesFolder/LayoutSignin/X.png" 
+        <Image Source="/Resources/LayoutSignin/X.png" 
                HorizontalAlignment="right"
                VerticalAlignment="Top"
                Width="26"
