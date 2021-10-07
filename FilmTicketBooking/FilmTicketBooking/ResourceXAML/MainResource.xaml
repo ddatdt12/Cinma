@@ -2,5 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewmodel="clr-namespace:FilmTicketBooking.ViewModel">
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
+    <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
+    <viewmodel:ForgotPassViewModel x:Key="ForgotPassVM"></viewmodel:ForgotPassViewModel>
+    <viewmodel:MainAdminViewModel x:Key="MainAdminVM"></viewmodel:MainAdminViewModel>
 </ResourceDictionary>
     
