@@ -1,10 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:viewmodel="clr-namespace:FilmTicketBooking.ViewModel">
+                    xmlns:viewmodel="clr-namespace:FilmTicketBooking.ViewModel" xmlns:viewmodel1="clr-namespace:FilmTicketBooking.ViewModel.AdminVM.QuanLyPhimPageVM">
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
     <viewmodel:MainStaffViewModel x:Key="MainStaffVM"></viewmodel:MainStaffViewModel>
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
     <viewmodel:ForgotPassViewModel x:Key="ForgotPassVM"></viewmodel:ForgotPassViewModel>
     <viewmodel:MainAdminViewModel x:Key="MainAdminVM"></viewmodel:MainAdminViewModel>
+    <viewmodel1:MonPageViewModel x:Key="MonPageVM"></viewmodel1:MonPageViewModel>
 </ResourceDictionary>
     

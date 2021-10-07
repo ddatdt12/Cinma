@@ -33,3 +33,6 @@ C:\Users\XyzTranKT\source\repos\FilmTicketBooking\FilmTicketBooking\FilmTicketBo
 C:\Users\XyzTranKT\source\repos\FilmTicketBooking\FilmTicketBooking\FilmTicketBooking\obj\Debug\FilmTicketBooking.csproj.CopyComplete
 C:\Users\XyzTranKT\source\repos\FilmTicketBooking\FilmTicketBooking\FilmTicketBooking\obj\Debug\FilmTicketBooking.exe
 C:\Users\XyzTranKT\source\repos\FilmTicketBooking\FilmTicketBooking\FilmTicketBooking\obj\Debug\FilmTicketBooking.pdb
+C:\Users\XyzTranKT\source\repos\FilmTicketBooking\FilmTicketBooking\FilmTicketBooking\obj\Debug\FilmTicketBooking.csproj.AssemblyReference.cache
+C:\Users\XyzTranKT\source\repos\FilmTicketBooking\FilmTicketBooking\FilmTicketBooking\obj\Debug\Views\Admin\QuanLyPhimPage\MonPage.g.cs
+C:\Users\XyzTranKT\source\repos\FilmTicketBooking\FilmTicketBooking\FilmTicketBooking\obj\Debug\Views\Admin\QuanLyPhimPage\MonPage.baml

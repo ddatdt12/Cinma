@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FilmTicketBooking"
         mc:Ignorable="d"
-        Name="Login"
+        Name="Loginwindow"
         Height="444"
         Width="780"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -90,7 +90,7 @@
                    BorderThickness="15"
                     Height="auto"
                     Command="{Binding ForgotPassCM}"
-                    CommandParameter="{Binding ElementName=Login}"
+                    CommandParameter="{Binding ElementName=Loginwindow}"
                     >
             </Button>
             <Button
@@ -106,14 +106,14 @@
               VerticalAlignment="Top"
               HorizontalAlignment="Stretch">
             <Button Command="{Binding CloseWindowCM}"     
-                    CommandParameter="{Binding ElementName=Login}"       
+                    CommandParameter="{Binding ElementName=Loginwindow}"       
                     ToolTip="Đóng" ToolBar.OverflowMode="AsNeeded" Background="OrangeRed" 
                     Margin="735,0,0,-2">
                 <materialDesign:PackIcon Kind="WindowClose" />
             </Button>
             
             <Button Command="{Binding MinimizeWindowCM}"
-                    CommandParameter="{Binding ElementName=Login}"
+                    CommandParameter="{Binding ElementName=Loginwindow}"
                     ToolTip="Đóng" ToolBar.OverflowMode="AsNeeded" Background="ForestGreen" 
                     Margin="683,0,52,-2">
                 <materialDesign:PackIcon Kind="WindowMinimize" />

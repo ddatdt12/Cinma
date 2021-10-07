@@ -24,10 +24,24 @@
 
 
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction 
+                Command="{Binding MouseLeftButtonDownWindowCM}"
+                CommandParameter="{Binding ElementName=mainadminwindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
 
     <Grid Margin="0,0,4,-19">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="31*"/>
+        </Grid.RowDefinitions>
+
         <!--thanh cong cu-->
-        <Grid Margin="0,0,0,10" Panel.ZIndex="1">
+        <Grid Margin="0,0,0,10" Panel.ZIndex="1" Grid.RowSpan="2">
             <Grid.Resources>
                 <system:Double x:Key="SlideOffSet">260</system:Double>
                 <Storyboard x:Key="SlideRight">
@@ -49,9 +63,8 @@
                         DockPanel.Dock="Right"
                         PlacementMode="BottomAndAlignRightEdges">
                         <StackPanel Orientation="Vertical">
-                            <Button Name="signout"
-                                Content="Quản lý tài khoản">
-                            </Button>
+                            <Button x:Name="signout"
+                                Content="Quản lý tài khoản"/>
 
                             <Button
                                 Content="Đăng xuất"
@@ -60,9 +73,9 @@
                         </StackPanel>
 
                     </materialDesign:PopupBox>
-                    <StackPanel Orientation="Horizontal" Panel.ZIndex="1">
+                    <StackPanel Orientation="Horizontal">
                         <StackPanel.Style>
-                            <Style TargetType="StackPanel">
+                            <Style TargetType="{x:Type StackPanel}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsChecked, ElementName=SlideButton}" Value="True">
                                         <DataTrigger.EnterActions>
@@ -86,22 +99,21 @@
                                         Height="50"
                                         FontSize="25"
                                         Background="Transparent"
-                                        BorderBrush="Transparent">
-                                </Button>
+                                        BorderBrush="Transparent"/>
                                 <Button Margin="0,0,0,5"
                                         Content="Quản lý vé"
                                         Height="50"
                                         FontSize="25"
                                         Background="Transparent"
                                         BorderBrush="Transparent"
-                                        ></Button>
+                                        />
                                 <Button Margin="0,0,0,5"
                                         Content="Thống kê"
                                         Height="50"
                                         FontSize="25"
                                         Background="Transparent"
                                         BorderBrush="Transparent"
-                                        ></Button>
+                                        />
                             </StackPanel>
                         </Grid>
                         <ToggleButton x:Name="SlideButton" 
@@ -121,81 +133,39 @@
 
         <!--Noi dung chinh-->
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="170"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid Background="#FFD3D1D1" Height="85" Margin="0,85,0,0">
-                <Grid.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="FontFamily" Value="junegull"/>
-                        <Setter Property="FontSize" Value="30"/>
-                        <Setter Property="Foreground" Value="Blue"/>
-                        <Setter Property="Margin" Value="30,0,40,0"/>
-                    </Style>
-                </Grid.Resources>
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="Phim"
+        <Grid Background="#FFD3D1D1" Height="85" Margin="0,85,-4,649" Grid.RowSpan="2">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontFamily" Value="junegull"/>
+                    <Setter Property="FontSize" Value="30"/>
+                    <Setter Property="Foreground" Value="Blue"/>
+                    <Setter Property="Margin" Value="30,0,40,0"/>
+                </Style>
+            </Grid.Resources>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Phim"
                                Margin="30,0,500,0"/>
-                    <TextBlock Text="Mon"/>
-                    <TextBlock Text="tue"/>
-                    <TextBlock Text="wed"/>
-                    <TextBlock Text="thu"/>
-                    <TextBlock Text="fri"/>
-                    <TextBlock Text="sat"/>
-                    <TextBlock Text="sun"/>
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Row="1">
-                <Grid.Resources>
-                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-                        <Setter Property="Margin" Value="10,5,0,15"/>
-                        <Setter Property="Background" Value="#FFD3D1D1"/>
-                        <Setter Property="Width" Value="110"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                    </Style>
-                    <Style TargetType="materialDesign:Card">
-                        <Setter Property="Margin" Value="0,10,0,1"/>
-                    </Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="FontSize" Value="25"/>
-                        <Setter Property="Margin" Value="30,0,160,0"/>
-                    </Style>
-                </Grid.Resources>
-                <StackPanel Orientation="Vertical" Margin="0,0,0,10">
-                    <materialDesign:Card>
-                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                            <TextBlock Text="Captain America: The Winter Soldier"></TextBlock>
-                            <Button></Button>
-                            <Button></Button>
-                            <Button></Button>
-                            <Button></Button>
-                            <Button></Button>
-                            <Button></Button>
-                            <Button></Button>
-                        </StackPanel>
-                    </materialDesign:Card>
-                    <materialDesign:Card>
-                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                            <TextBlock Text="Captain America: The Winter Soldier"></TextBlock>
-                            <Button></Button>
-                            <Button></Button>
-                            <Button/>
-                        </StackPanel>
-                    </materialDesign:Card>
-                    <materialDesign:Card>
-                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                            <TextBlock Text="Captain America: The Winter Soldier"></TextBlock>
-                            <Button></Button>
-                            <Button></Button>
-                            <Button></Button>
-                        </StackPanel>
-                    </materialDesign:Card>
-                </StackPanel>
-            </Grid>
+                <TextBlock Text="Mon"/>
+                <TextBlock Text="tue"/>
+                <TextBlock Text="wed"/>
+                <TextBlock Text="thu"/>
+                <TextBlock Text="fri"/>
+                <TextBlock Text="sat"/>
+                <TextBlock Text="sun"/>
+            </StackPanel>
         </Grid>
+        <!--Phim Page-->
+        <Frame x:Name="MainQuanLyPhimPage"
+               Margin="0,170,-4,19" Grid.RowSpan="2">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding LoadMonPageCM}"
+                                           CommandParameter="{Binding ElementName=MainQuanLyPhimPage}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Frame>
+
+
 
     </Grid>
 </Window>

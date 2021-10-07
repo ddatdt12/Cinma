@@ -74,6 +74,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\MonPageViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
@@ -82,6 +83,9 @@
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Views\Admin\QuanLyPhimPage\MonPage.xaml.cs">
+      <DependentUpon>MonPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ForgotPassWindow.xaml.cs">
       <DependentUpon>ForgotPassWindow.xaml</DependentUpon>
     </Compile>
@@ -91,6 +95,10 @@
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyPhimPage\MonPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

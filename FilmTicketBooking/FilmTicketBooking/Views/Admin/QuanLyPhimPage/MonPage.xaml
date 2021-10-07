@@ -1,0 +1,78 @@
+﻿<Page x:Class="FilmTicketBooking.Views.Admin.QuanLyPhimPage.MonPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:FilmTicketBooking" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Name="monPage"
+        d:DesignHeight="630" d:DesignWidth="1440">
+
+    <Grid>
+        <Grid>
+            <Grid Grid.Row="1" Margin="0,170,0,0">
+                <Grid.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Setter Property="Margin" Value="10,5,0,15"/>
+                        <Setter Property="Background" Value="#FFD3D1D1"/>
+                        <Setter Property="Width" Value="110"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                    <Style TargetType="materialDesign:Card">
+                        <Setter Property="Margin" Value="0,10,0,1"/>
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="25"/>
+                        <Setter Property="Margin" Value="30,0,160,0"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Vertical" Margin="0,-170,0,10">
+                    <materialDesign:Card>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="Captain America: The Winter Soldier"></TextBlock>
+                            <Button></Button>
+                            <Button></Button>
+                            <Button></Button>
+                            <Button></Button>
+                            <Button></Button>
+                            <Button></Button>
+                            <Button></Button>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="Captain America: The Winter Soldier"></TextBlock>
+                            <Button></Button>
+                            <Button></Button>
+                            <Button/>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="Captain America: The Winter Soldier"></TextBlock>
+                            <Button></Button>
+                            <Button></Button>
+                            <Button></Button>
+                        </StackPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Page>
