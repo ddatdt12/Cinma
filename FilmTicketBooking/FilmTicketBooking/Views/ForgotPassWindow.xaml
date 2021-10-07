@@ -6,52 +6,52 @@
         xmlns:local="clr-namespace:FilmTicketBooking"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-         Background="{DynamicResource MaterialDesignPaper}"
+        Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{StaticResource MainVM}"
+        DataContext="{StaticResource ForgotPassVM}"
         mc:Ignorable="d"
         Height="300"
         Width="500"
         ResizeMode="NoResize"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        MouseDown="Window_MouseDown">
+        Name="forgotpasswindow">
     <Grid>
-        <TextBox x:Name="userforgot" 
-             materialDesign:HintAssist.Hint="Username"
+        <TextBox
+             materialDesign:HintAssist.Hint="Tên đăng nhập"
              FontSize="20"
              Width="287"
              Height="45"
              Margin="104,80,109,175"
              Foreground="#FF6EA878" FontStyle="Normal"/>
-        <TextBox x:Name="userhint"
-             materialDesign:HintAssist.Hint="User's birthday is?"
+        <TextBox
+             materialDesign:HintAssist.Hint="Ngày sinh là?"
              ToolTip ="Type: day/month"
              FontSize="20"
              Width="287"
              Height="45"
              Foreground="#FF6EA878"
              Margin="104,150,109,105" FontStyle="Normal"/>
-        <Label Content="Something's wrong here ^^ "
+        <Label Content="Có vẻ sai rồi ^^"
                Margin="101,200,84,65"
                FontSize="15"
-               Foreground="white"
-               x:Name="error"/>
+               Foreground="white"/>
         <Button 
-            Content="Confirm"
+            Content="Xác nhận"
             HorizontalAlignment="Left" 
             Margin="157,240,0,0" 
             VerticalAlignment="Top" 
             Width="103" Height="27"
             FontSize="10"
-            Click="Button_Click"/>
+            Command="{Binding ConfirmCM}"/>
         <Button 
-            Content="Cancel"
+            Content="Huỷ"
             HorizontalAlignment="Left" 
             Margin="288,240,0,0" 
             VerticalAlignment="Top" 
             Width="103" Height="27"
             FontSize="10"
-            Click="Button_Click_1"/>
+            Command="{Binding CancelCM}"
+            CommandParameter="{Binding ElementName=forgotpasswindow}"/>
     </Grid>
 </Window>
