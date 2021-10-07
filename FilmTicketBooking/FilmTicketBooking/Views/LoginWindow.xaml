@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FilmTicketBooking"
         mc:Ignorable="d"
+        Name="Login"
         Height="444"
         Width="780"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -15,13 +17,20 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{StaticResource MainVM}"
-        Title="MainWindow"
+        DataContext="{StaticResource LoginVM}"
         ResizeMode="NoResize"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
 
-
+    
+    <!--DragMove window-->
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction 
+                Command="{Binding MouseLeftButtonDownWindowCM}"
+                CommandParameter="{Binding ElementName=Login}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
 
     <Grid>
@@ -54,82 +63,62 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center" Height="50" Width="311">
             </Label>
-            <Label Content="Forgot password?" 
-                   Margin="274,369,49,42">
-                <Label.Style>
-                    <Style TargetType="Label">
-                        <Setter Property="Foreground" Value="#FF6EA878" />
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="FontStyle" Value="Oblique" />
-                                <Setter Property="Cursor" Value="Hand"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Label.Style>
-            </Label>
-            <Label x:Name="error" Grid.ColumnSpan="2" 
-                   Margin="66,294,142,122"
-                   Content="Wrong username or password, try again!!!"
-                   Foreground="white" FontStyle="Italic">
-            </Label>
+            <Label x:Name="error" 
+                   Margin="66,315,142,101"
+                   Content="Tài khoản hoặc mật khẩu không hợp lệ!"
+                   Foreground="white" FontStyle="Italic"/>
+            
             <TextBox
-                        x:Name="UserName"
-                        materialDesign:HintAssist.Hint="Username"
-                        FontSize="20"
-                        FontWeight="Bold"
-                        RenderTransformOrigin="0.503,0.321" Margin="66,168,45,236"
-                        Foreground="#FF6EA878" Grid.ColumnSpan="2">
-            </TextBox>
-            <PasswordBox
-                x:Name="PassWord"
-                materialDesign:HintAssist.Hint="Password"
-                FontSize="20"
-                Margin="66,245,45,159"
-                Foreground="#FF6EA878" Grid.ColumnSpan="2"
+                materialDesign:HintAssist.Hint="Tên đăng nhập"
+                Foreground="#FF6EA878"
+                FontSize="15"
                 FontWeight="Bold"
-                >
-            </PasswordBox>
-            <Button x:Name="Signin_btn"
-                   Content="Sign in"
-                   Margin="274,322,45,87" Height="Auto" Background="#FFA5C877" 
-                   BorderBrush="#FFA5C877"
-                   BorderThickness="15"/>
+                Margin="66,175,45,224"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <PasswordBox
+                x:Name="FloatingPasswordBox"
+                materialDesign:HintAssist.Hint="Mật khẩu"
+                Foreground="#FF6EA878"
+                FontSize="15"
+                FontWeight="Bold"
+                Margin="66,253,45,146"
+                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
+            <Button Content="Quên mật khẩu?"
+                   Margin="112,348,211,61"
+                   Background="ForestGreen"
+                   BorderBrush="ForestGreen"
+                   BorderThickness="15"
+                    Height="auto"
+                    Command="{Binding ForgotPassCM}"
+                    CommandParameter="{Binding ElementName=Login}"
+                    >
+            </Button>
+            <Button
+                   Content="Đăng nhập"
+                   Margin="274,348,45,61" Height="Auto" Background="ForestGreen" 
+                   BorderBrush="ForestGreen"
+                   BorderThickness="15"
+                   />
         </Grid>
 
         <!--Close_Minimize bar-->
-        <Image Source="/Resources/LayoutSignin/_.png"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Right"
-                   Width="26"
-                   Height="8" Margin="0,10,36,0" RenderTransformOrigin="0.6,1.458">
-            <Image.Style>
-                <Style TargetType="Image">
-                    <Setter  Property="Cursor" Value="Arrow"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Cursor" Value="Hand"></Setter>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Image.Style>
-        </Image>
+        <Grid Height="30"
+              VerticalAlignment="Top"
+              HorizontalAlignment="Stretch">
+            <Button Command="{Binding CloseWindowCM}"     
+                    CommandParameter="{Binding ElementName=Login}"       
+                    ToolTip="Đóng" ToolBar.OverflowMode="AsNeeded" Background="OrangeRed" 
+                    Margin="735,0,0,-2">
+                <materialDesign:PackIcon Kind="WindowClose" />
+            </Button>
+            
+            <Button Command="{Binding MinimizeWindowCM}"
+                    CommandParameter="{Binding ElementName=Login}"
+                    ToolTip="Đóng" ToolBar.OverflowMode="AsNeeded" Background="ForestGreen" 
+                    Margin="683,0,52,-2">
+                <materialDesign:PackIcon Kind="WindowMinimize" />
+            </Button>
+        </Grid>
 
-        <Image Source="/Resources/LayoutSignin/X.png" 
-               HorizontalAlignment="right"
-               VerticalAlignment="Top"
-               Width="26"
-               Height="27">
-            <Image.Style>
-                <Style TargetType="Image">
-                    <Setter Property="Cursor" Value="Arrow"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Cursor" Value="Hand"></Setter>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Image.Style>
-        </Image>
     </Grid>
 </Window>
