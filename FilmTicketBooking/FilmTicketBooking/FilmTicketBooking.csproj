@@ -43,8 +43,14 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.2.1.2, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.2.1\lib\net452\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,6 +70,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Account.cs" />
+    <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="Views\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
     </Compile>
@@ -71,6 +78,9 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Views\ForgotPassWindow.xaml.cs">
       <DependentUpon>ForgotPassWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
+      <DependentUpon>MainStaffWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -93,6 +103,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ForgotPassWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Staff\MainStaffWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,7 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="Views\Staff\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\LayoutSignin\google.png" />
