@@ -28,7 +28,7 @@
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction 
                 Command="{Binding MouseLeftButtonDownWindowCM}"
-                CommandParameter="{Binding ElementName=Login}"/>
+                CommandParameter="{Binding ElementName=Loginwindow}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
