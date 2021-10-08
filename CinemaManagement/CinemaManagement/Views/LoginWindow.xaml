@@ -1,0 +1,124 @@
+﻿<Window x:Class="CinemaManagement.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CinemaManagement"
+        mc:Ignorable="d"
+        Name="Loginwindow"
+        Height="444"
+        Width="780"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource LoginVM}"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+
+    
+    <!--DragMove window-->
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction 
+                Command="{Binding MouseLeftButtonDownWindowCM}"
+                CommandParameter="{Binding ElementName=Loginwindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
+    <Grid>
+        <!--Left-->
+        <Image HorizontalAlignment="
+               Left" Height="446" 
+               VerticalAlignment="Top"
+               Width="314">
+            <Image.Style>
+                <Style TargetType="Image">
+                    <Setter Property="Source" Value="/Resources/LayoutSignin/StoryboardMovie/spiderman2.jpg">
+                    </Setter>
+                    <Style.Triggers>
+                        <EventTrigger RoutedEvent="Window.Loaded">
+                            <BeginStoryboard Storyboard="{StaticResource LoginStoryBoard}">
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
+        <!--Right-->
+        <Grid Margin="314,0,0,0">
+            <Label 
+                   FontFamily="/FilmTicketBooking;component/Font/#Junegull"
+                   FontSize="40" Margin="97,83,58,311" 
+                   FontWeight="Bold"
+                   Foreground="#FF6EA878"
+                   Content="Welcome Back" Grid.ColumnSpan="2"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center" Height="50" Width="311">
+            </Label>
+            <Label x:Name="error" 
+                   Margin="66,315,142,101"
+                   Content="Tài khoản hoặc mật khẩu không hợp lệ!"
+                   Foreground="white" FontStyle="Italic"/>
+            
+            <TextBox
+                materialDesign:HintAssist.Hint="Tên đăng nhập"
+                Foreground="#FF6EA878"
+                FontSize="15"
+                FontWeight="Bold"
+                Margin="66,175,45,224"
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+            <PasswordBox
+                x:Name="FloatingPasswordBox"
+                materialDesign:HintAssist.Hint="Mật khẩu"
+                Foreground="#FF6EA878"
+                FontSize="15"
+                FontWeight="Bold"
+                Margin="66,253,45,146"
+                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
+            <Button Content="Quên mật khẩu?"
+                   Margin="112,348,211,61"
+                   Background="ForestGreen"
+                   BorderBrush="ForestGreen"
+                   BorderThickness="15"
+                    Height="auto"
+                    Command="{Binding ForgotPassCM}"
+                    CommandParameter="{Binding ElementName=Loginwindow}"
+                    >
+            </Button>
+            <Button
+                   Content="Đăng nhập"
+                   Margin="274,348,45,61" Height="Auto" Background="ForestGreen" 
+                   BorderBrush="ForestGreen"
+                   BorderThickness="15"
+                   />
+        </Grid>
+
+        <!--Close_Minimize bar-->
+        <Grid Height="30"
+              VerticalAlignment="Top"
+              HorizontalAlignment="Stretch">
+            <Button Command="{Binding CloseWindowCM}"     
+                    CommandParameter="{Binding ElementName=Loginwindow}"       
+                    ToolTip="Đóng" ToolBar.OverflowMode="AsNeeded" Background="OrangeRed" 
+                    Margin="735,0,0,-2">
+                <materialDesign:PackIcon Kind="WindowClose" />
+            </Button>
+            
+            <Button Command="{Binding MinimizeWindowCM}"
+                    CommandParameter="{Binding ElementName=Loginwindow}"
+                    ToolTip="Đóng" ToolBar.OverflowMode="AsNeeded" Background="ForestGreen" 
+                    Margin="683,0,52,-2">
+                <materialDesign:PackIcon Kind="WindowMinimize" />
+            </Button>
+        </Grid>
+
+    </Grid>
+</Window>
