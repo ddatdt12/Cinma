@@ -36,3 +36,10 @@ E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\Ci
 E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.Properties.Resources.resources
 E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.exe
 E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.pdb
+E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.g.cs
+E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_Content.g.cs
+E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.dll
+E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.SqlServer.dll
+E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.xml
+E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.SqlServer.xml
+E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.baml
