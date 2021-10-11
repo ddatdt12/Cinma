@@ -266,6 +266,10 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
+    <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
+    <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
+    <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\LayoutSignin\google.png" />
