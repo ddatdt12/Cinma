@@ -1,14 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewmodel="clr-namespace:CinemaManagement.ViewModel"
-                    xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM">
+                    xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM" 
+                    xmlns:viewmodel11="clr-namespace:CinemaManagement.ViewModel.StaffViewModel">
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
     <viewmodel:MainStaffViewModel x:Key="MainStaffVM"></viewmodel:MainStaffViewModel>
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
     <viewmodel:ForgotPassViewModel x:Key="ForgotPassVM"></viewmodel:ForgotPassViewModel>
     <viewmodel:MainAdminViewModel x:Key="MainAdminVM"></viewmodel:MainAdminViewModel>
-    <viewmodel1:ListMoviePageViewModel x:Key="MonPageVM"></viewmodel1:ListMoviePageViewModel>
-    <viewmodel1:QuanLyPhimPageViewModel x:Key="QuanLyPhimPageVM"></viewmodel1:QuanLyPhimPageViewModel>
-    <viewmodel1:AddMovieWindowViewModel x:Key="AddMovieWindowVM"></viewmodel1:AddMovieWindowViewModel>
+    <viewmodel1:MonPageViewModel x:Key="MonPageVM"></viewmodel1:MonPageViewModel>
+    <viewmodel11:MainStaffPageViewModel x:Key="MainStaffPageVM"></viewmodel11:MainStaffPageViewModel>
 </ResourceDictionary>
     

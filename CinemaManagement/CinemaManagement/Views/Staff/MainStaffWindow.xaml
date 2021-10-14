@@ -23,6 +23,7 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <DockPanel LastChildFill="False">
+            <!--Thanh cong cu ben trai-->
             <StackPanel Width="200"                        
                         Background="#FF1F2F55">
                 <Button BorderBrush="#FF16274D"
@@ -31,11 +32,31 @@
                         Background="Transparent">
                     <materialDesign:PackIcon Kind="Movie" Width="100" Height="100"/>
                 </Button>
-                <Button Content="Phim đang chiếu"
-                        FontSize="20"
-                        Height="50"
-                        BorderBrush="#FF16274D"
-                        Background="Transparent"/>
+                <Label Content="Phim đang chiếu"
+                       Foreground="White"
+                       Height="50"
+                       FontSize="17"
+                       BorderBrush="#FF16274D"
+                       HorizontalAlignment="Stretch"
+                       HorizontalContentAlignment="Center"
+                       Cursor="Hand"
+                       x:Name="Phimdangchieu">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding ChangeLabelBackgroundCM1}"
+                                                   CommandParameter="{Binding ElementName=Phimdangchieu}"/>
+                        </i:EventTrigger>
+
+                        <i:EventTrigger EventName="MouseEnter">
+                            <i:InvokeCommandAction Command="{Binding ChangeLabelBackgroundCM2}"
+                                                   CommandParameter="{Binding ElementName=Phimdangchieu}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="MouseLeave">
+                            <i:InvokeCommandAction Command="{Binding ChangeLabelBackgroundCM2}"
+                                                   CommandParameter="{Binding ElementName=Phimdangchieu}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
                 <Button Content="Phim sắp chiếu"
                         FontSize="20"
                         Height="50"
@@ -47,8 +68,9 @@
                         BorderBrush="#FF16274D"
                         Background="Transparent"
                         Command="{Binding ButtonVisibility}"
-                        CommandParameter="{Binding ElementName=Number12345}"/>
+                        CommandParameter="{Binding ElementName=ButtonCategoryFilm}"/>
             </StackPanel>
+            <!--thanh task bar de keo-->
             <StackPanel DockPanel.Dock="Top"
                         Height="40"
                         VerticalAlignment="Top"
@@ -105,6 +127,7 @@
                     </Button.Style>
                 </Button>
             </StackPanel>
+            <!--thanh tim kiem-->
             <StackPanel DockPanel.Dock="Top"
                         Height="60"
                         VerticalAlignment="Top"
@@ -114,129 +137,127 @@
                                          Width="25"
                                          Height="35"
                                          Foreground="White"
-                                         Margin="15 22 0 0"
+                                         Margin="15 20 0 0"
                                          VerticalAlignment="Center"/>
-                <TextBlock Width="500"
+                <TextBox  x:Name="CommentTextBox"
+                          Width="500"
                            Height="40"
-                           FontSize="25"
+                           FontSize="20"
                            Foreground="White"
-                           Margin="10 25 0 10">
-                    <Italic>Tìm kiếm phim</Italic>
-                </TextBlock>
+                           Margin="10,25,0,0"
+                          materialDesign:HintAssist.Hint="Tìm kiếm phim" />
                 <TextBlock VerticalAlignment="Center"
-                           Width="100"
+                           Width="140"
                            Height="25"
                            FontSize="22"
                            Foreground="White"
-                           Margin="450 25 0 0">
-                    <Italic>Username</Italic></TextBlock>
+                           Margin="421 25 0 0">
+                    <Italic>HaiPhong_146</Italic></TextBlock>
                 <Button Background="Transparent"
                         BorderBrush="Transparent"
                         Foreground="White"
+                        Command="{Binding ButtonVisibility}"
+                        CommandParameter="{Binding ElementName=ButtonUserName}"
                         Height="63">
-                    <materialDesign:PackIcon Kind="AccountCircle" Width="60" Height="60"/>
+                    <materialDesign:PackIcon Kind="AccountCircle" 
+                                             Width="60" 
+                                             Height="60"/>
                 </Button>
             </StackPanel>
-            <StackPanel DockPanel.Dock="Left" Background="#FF0E1C40"
-                        x:Name="Number12345" Visibility="Collapsed"
-                        >
-                <Button Content="1"
-                        BorderBrush="#FF1F2F55"
-                        Width="50"
-                        Height="75"
+        </DockPanel>
+        <!--Frame show noi dung-->
+        <Frame x:Name="Frameshow" Height="688" Width="1186"
+               VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction 
+                Command="{Binding LoadMainStaffPageCM}"
+                        CommandParameter="{Binding ElementName=Frameshow}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Frame>
+        <!--thanh cong cu cua then username-->
+        <Grid Height="200"
+              VerticalAlignment="Top"
+              Width="240"
+              HorizontalAlignment="Right"
+              Margin="0 100 0 0">
+            <StackPanel Background="#FF0E1C40"
+                        x:Name="ButtonUserName"                     
+                        Visibility="Collapsed">
+                <TextBlock Height="35"
+                           FontSize="30"
+                           Foreground="White"
+                           Background="Transparent"
+                           TextAlignment="Center"
+                           Margin="0 10 0 0">
+                   <Italic>Lê Hải Phong</Italic>
+                </TextBlock>
+                <TextBlock Height="35"
+                           FontSize="30"
+                           Foreground="White"
+                           Background="Transparent"
+                           TextAlignment="Center"
+                           Margin="0 10 0 0"
+                           >
+                   <Italic>212454483</Italic>
+                </TextBlock>
+                <TextBlock Height="35"
+                           FontSize="30"
+                           Foreground="White"
+                           Background="Transparent"
+                           TextAlignment="Center"
+                           Margin="0 10 0 0"
+                           >
+                   <Italic>20/04/2002</Italic>
+                </TextBlock>
+                <TextBlock Height="35"
+                           FontSize="30"
+                           Foreground="White"
+                           Background="Transparent"
+                           TextAlignment="Center"
+                           Margin="0 10 0 0"
+                           >
+                   <Italic>0325339883</Italic>
+                </TextBlock>
+
+            </StackPanel>
+        </Grid>
+        <!--thanh cong cu cua then the loai-->
+        <Grid Height="688"
+              VerticalAlignment="Bottom"
+              Width="240"
+              HorizontalAlignment="Left"
+              Margin="200 0 0 0">
+            <StackPanel Background="#FF0E1C40"
+                        x:Name="ButtonCategoryFilm"
+                        Visibility="Collapsed">
+                <Button Content="Kinh dị"
+                        Height="50"
+                        FontSize="20"
+                        BorderBrush="#FF16274D"
                         Background="Transparent"/>
-                <Button Content="2"
-                        BorderBrush="#FF1F2F55"
-                        Width="50"
-                        Height="75"
+                <Button Content="Hài hước"
+                         Height="50"
+                        FontSize="20"
+                        BorderBrush="#FF16274D"
                         Background="Transparent"/>
-                <Button Content="3"
-                        BorderBrush="#FF1F2F55"
-                        Width="50"
-                        Height="75"
+                <Button Content="Khoa học - viễn tưởng"
+                         Height="50"
+                        FontSize="20"
+                        BorderBrush="#FF16274D"
                         Background="Transparent"/>
-                <Button Content="4"
-                        BorderBrush="#FF1F2F55"
-                        Width="50"
-                        Height="75"
+                <Button Content="Hài kịch"
+                        Height="50"
+                        FontSize="20"
+                        BorderBrush="#FF16274D"
                         Background="Transparent"/>
-                <Button Content="5"
-                        BorderBrush="#FF1F2F55"
-                        Width="50"
-                        Height="75"
+                <Button Content="Tình cảm"
+                         Height="50"
+                        FontSize="20"
+                        BorderBrush="#FF16274D"
                         Background="Transparent"/>
             </StackPanel>
-            <Grid Height="700"
-                  Width="1190">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <WrapPanel Background="#FF2B3D66">
-                        <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30">
-                            <Image Source="/Resources/LayoutSignin/conan_movie_24.jpg" 
-                                   Height="260" Margin="0,0,49,0"
-                                   />
-                            <TextBlock Text="Tham tu lung danh conan"
-                                       FontSize="20"
-                                       Foreground="White"
-                                       TextAlignment="Left"/>
-                            <TextBlock Text="2020"
-                                       FontSize="15"
-                                       Foreground="#FFD6C6C3"
-                                       TextAlignment="Left"
-                                       Margin="0 0 0 0"/>
-                        </StackPanel>
-                        <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30">
-                            <Image Source="/Resources/LayoutSignin/bo-gia.jpg" 
-                                   Height="260" Margin="0,0,49,0"
-                                   />
-                            <TextBlock Text="Bố già"
-                                       FontSize="20"
-                                       Foreground="White"
-                                       TextAlignment="Left"/>
-                            <TextBlock Text="2021"
-                                       FontSize="15"
-                                       Foreground="#FFD6C6C3"
-                                       TextAlignment="Left"
-                                       Margin="0 0 0 0"/>
-                        </StackPanel>
-                        <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30">
-                            <Image Source="/Resources/LayoutSignin/godzilla_vs_Kong.jpg" 
-                                   Height="260" Margin="0,0,49,0"
-                                   />
-                            <TextBlock Text="Godzilla vs Kong"
-                                       FontSize="20"
-                                       Foreground="White"
-                                       TextAlignment="Left"/>
-                            <TextBlock Text="2021"
-                                       FontSize="15"
-                                       Foreground="#FFD6C6C3"
-                                       TextAlignment="Left"
-                                       Margin="0 0 0 0"/>
-                        </StackPanel>
-                        <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30">
-                            <Image Source="/Resources/LayoutSignin/Mat_biec.jpg" 
-                                   Height="260" Margin="0,0,49,0"
-                                   />
-                            <TextBlock Text="Mắt biếc"
-                                       FontSize="20"
-                                       Foreground="White"
-                                       TextAlignment="Left"/>
-                            <TextBlock Text="2019"
-                                       FontSize="15"
-                                       Foreground="#FFD6C6C3"
-                                       TextAlignment="Left"
-                                       Margin="0 0 0 0"/>
-                        </StackPanel>
-                    </WrapPanel>
-                </ScrollViewer>
-            </Grid>
-        </DockPanel>
+        </Grid>
     </Grid>
 </Window>

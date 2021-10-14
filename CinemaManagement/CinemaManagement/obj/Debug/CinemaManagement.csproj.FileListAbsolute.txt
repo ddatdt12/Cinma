@@ -1,140 +1,47 @@
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.exe.config
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.exe
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.pdb
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.dll
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.SqlServer.dll
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignColors.dll
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.dll
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\Microsoft.Expression.Interactions.dll
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\System.Windows.Interactivity.dll
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.xml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.SqlServer.xml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignColors.pdb
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.pdb
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.xml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\Microsoft.Expression.Interactions.xml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\System.Windows.Interactivity.xml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.g.cs
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\MonPage.g.cs
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.g.cs
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\LoginWindow.g.cs
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\MainAdminWindow.g.cs
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\ForgotPassWindow.g.cs
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffWindow.g.cs
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\App.g.cs
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_Content.g.cs
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_MarkupCompile.cache
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_MarkupCompile.lref
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\App.baml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.baml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\MonPage.baml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.baml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\LoginWindow.baml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\MainAdminWindow.baml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\ResourceXAML\MainResource.baml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\ForgotPassWindow.baml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffWindow.baml
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.g.resources
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.Properties.Resources.resources
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.GenerateResource.cache
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CoreCompileInputs.cache
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CopyComplete
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.exe
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.pdb
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.exe.config
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.exe
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.pdb
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.dll
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignColors.dll
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.dll
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\Microsoft.Expression.Interactions.dll
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\System.Windows.Interactivity.dll
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.xml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignColors.pdb
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.pdb
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.xml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\Microsoft.Expression.Interactions.xml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\bin\Debug\System.Windows.Interactivity.xml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.AssemblyReference.cache
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.g.cs
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.g.cs
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\LoginWindow.g.cs
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\MainAdminWindow.g.cs
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\ForgotPassWindow.g.cs
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffWindow.g.cs
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\App.g.cs
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_Content.g.cs
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_MarkupCompile.cache
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_MarkupCompile.lref
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\App.baml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.baml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.baml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\LoginWindow.baml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\MainAdminWindow.baml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\ResourceXAML\MainResource.baml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\ForgotPassWindow.baml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffWindow.baml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.g.resources
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.Properties.Resources.resources
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.GenerateResource.cache
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CoreCompileInputs.cache
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CopyComplete
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.exe
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.pdb
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\QuanLyPhimPage.g.cs
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\QuanLyPhimPage.baml
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\ListMoviePage.g.cs
-C:\Users\XyzTranKT\source\repos\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\ListMoviePage.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.exe.config
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.exe
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.pdb
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.dll
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignColors.dll
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.dll
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Microsoft.Expression.Interactions.dll
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\System.Windows.Interactivity.dll
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.xml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignColors.pdb
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.pdb
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.xml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Microsoft.Expression.Interactions.xml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\System.Windows.Interactivity.xml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.AssemblyReference.cache
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\ListMoviePage.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\QuanLyPhimPage.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\LoginWindow.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\MainAdminWindow.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\ForgotPassWindow.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffWindow.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\App.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_Content.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_MarkupCompile.cache
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_MarkupCompile.lref
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\App.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\ListMoviePage.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\QuanLyPhimPage.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\LoginWindow.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\MainAdminWindow.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\ResourceXAML\MainResource.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\ForgotPassWindow.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffWindow.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.g.resources
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.Properties.Resources.resources
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.GenerateResource.cache
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CoreCompileInputs.cache
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CopyComplete
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.exe
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.pdb
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\AddMovieWindow.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\AddMovieWindow.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.exe.config
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.exe
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.pdb
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.dll
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.SqlServer.dll
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignColors.dll
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.dll
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Microsoft.Expression.Interactions.dll
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\System.Windows.Interactivity.dll
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.xml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.SqlServer.xml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignColors.pdb
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.pdb
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\MaterialDesignThemes.Wpf.xml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Microsoft.Expression.Interactions.xml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\System.Windows.Interactivity.xml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.AssemblyReference.cache
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\MonPage.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\LoginWindow.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\MainAdminWindow.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\ForgotPassWindow.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffWindow.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\App.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_Content.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\GeneratedInternalTypeHelper.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_MarkupCompile.cache
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement_MarkupCompile.lref
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\App.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\MonPage.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\LoginWindow.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\MainAdminWindow.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\ResourceXAML\MainResource.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\ForgotPassWindow.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffWindow.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.g.resources
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.Properties.Resources.resources
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.GenerateResource.cache
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CoreCompileInputs.cache
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CopyComplete
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.exe
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.pdb
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffPage.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffPage.baml
