@@ -1,4 +1,4 @@
-﻿F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.exe.config
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.exe.config
 F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.exe
 F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\CinemaManagement.pdb
 F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\EntityFramework.dll
@@ -43,3 +43,5 @@ F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManage
 F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CopyComplete
 F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.exe
 F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.pdb
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffPage.g.cs
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffPage.baml
