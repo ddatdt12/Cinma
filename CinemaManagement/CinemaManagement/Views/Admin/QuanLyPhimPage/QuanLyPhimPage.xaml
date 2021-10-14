@@ -1,0 +1,62 @@
+﻿<Page x:Class="CinemaManagement.Views.Admin.QuanLyPhimPage.QuanLyPhimPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CinemaManagement" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource QuanLyPhimPageVM}"
+        d:DesignHeight="720" d:DesignWidth="1440"
+      >
+
+    <Grid Background="#f0f2f5">
+
+        <!--cong cu va cac button-->
+        <TextBox materialDesign:HintAssist.Hint="Tìm kiếm" 
+                 Margin="50,60,1020,630" FontSize="20" 
+                 Foreground="#DD000000" FontFamily="Arial" AllowDrop="True" 
+                 BorderThickness="0,0,0,1"/>
+
+        <Button  Content="Thêm" 
+                 x:Name="AddMoviebtn"
+                 VerticalAlignment="Top"
+                 HorizontalAlignment="Center" 
+                 Width="150" Height="50" FontSize="20" 
+                 FontFamily="ariall" Margin="465,40,825,0" 
+                 Command="{Binding Open_AddMovieWindowCM}"
+                 >
+        </Button>
+       
+        <Button  Content="Sửa" VerticalAlignment="Top" HorizontalAlignment="Center" 
+                 Width="150" Height="50" FontSize="20" 
+                 FontFamily="ariall" Margin="660,40,630,0">
+        </Button>
+        
+        <DatePicker x:Name="Calendar"
+                    materialDesign:HintAssist.Hint="{Binding SetCurrentDate}"
+                    ToolTip="mm/dd/yyyy"
+                    Style="{StaticResource MaterialDesignOutlinedDatePicker}" Margin="1225,40,50,625" FirstDayOfWeek="Monday" Focusable="False" SelectedDateFormat="Short" Foreground="Black" FontSize="20" Height="55" BorderBrush="Blue">
+            <!--<i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectedDateChanged">
+                    <i:InvokeCommandAction 
+                Command="{Binding ChosenDateCM}"
+                CommandParameter="{Binding ElementName=Calendar}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+        </DatePicker>
+
+        <!--Day la cho show phim theo thu ngay-->
+        <materialDesign:Card Margin="50,120,50,50"/>
+
+    </Grid>
+</Page>

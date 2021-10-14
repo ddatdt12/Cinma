@@ -11,35 +11,27 @@ using CinemaManagement.DTOs;
 
 namespace CinemaManagement.ViewModel
 {
-    
+
     public class MainAdminViewModel : BaseViewModel
     {
         public ICommand SignoutCM { get; set; }
-        public ICommand LoadMonPageCM { get; set; }
         public ICommand MouseLeftButtonDownWindowCM { get; set; }
+        public ICommand LoadQLPPageCM { get; set; }
 
         public MainAdminViewModel()
         {
-            SignoutCM = new RelayCommand<FrameworkElement>((p) =>{return p == null ? false : true;}, (p) =>
-            {
-                FrameworkElement window = GetParentWindow(p);
-                var w = window as Window;
-               if (w!=null)
-                {
-                    w.Hide();
-                    LoginWindow w1 = new LoginWindow();
-                    w1.ShowDialog();
-                    w.Close();
-                }
-            });
-            LoadMonPageCM = new RelayCommand<Frame>((p) => { return p == null ? false : true; }, (p) =>
-            {
-               Frame fr = p as Frame;
-                if (fr != null)
-                {
-                    fr.Source = new Uri("QuanLyPhimPage/MonPage.xaml", UriKind.RelativeOrAbsolute);
-                }
-            });
+            SignoutCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
+               {
+                   FrameworkElement window = GetParentWindow(p);
+                   var w = window as Window;
+                   if (w != null)
+                   {
+                       w.Hide();
+                       LoginWindow w1 = new LoginWindow();
+                       w1.ShowDialog();
+                       w.Close();
+                   }
+               });
             MouseLeftButtonDownWindowCM = new RelayCommand<FrameworkElement>((p) => { return true; }, (p) =>
              {
                  FrameworkElement window = GetParentWindow(p);
@@ -49,7 +41,14 @@ namespace CinemaManagement.ViewModel
                      w.DragMove();
                  }
              });
+            LoadQLPPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
+            {
+                if (p != null)
+                    p.Content = new QuanLyPhimPage();
+            });
+
         }
+
 
         FrameworkElement GetParentWindow(FrameworkElement p)
         {

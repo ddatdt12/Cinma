@@ -23,14 +23,13 @@
              Width="287"
              Height="45"
              Margin="104,80,109,175"
-             Foreground="#FF6EA878" FontStyle="Normal"/>
+             FontStyle="Normal"/>
         <TextBox
              materialDesign:HintAssist.Hint="Ngày sinh là?"
              ToolTip ="Type: day/month"
              FontSize="20"
              Width="287"
              Height="45"
-             Foreground="#FF6EA878"
              Margin="104,150,109,105" FontStyle="Normal"/>
         <Label Content="Có vẻ sai rồi ^^"
                Margin="101,200,84,65"

@@ -89,14 +89,6 @@ namespace CinemaManagement.Models.Services
                 return (false, "DbEntityValidationException");
 
             }
-            catch (DbUpdateException e)
-            {
-                return (false, "DbUpdateException");
-            }
-            catch (Exception e)
-            {
-                return (false, "Error Server");
-            }
             return (true, "");
 
         }

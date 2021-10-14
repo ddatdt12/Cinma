@@ -55,10 +55,10 @@
         <!--Right-->
         <Grid Margin="314,0,0,0">
             <Label 
-                   FontFamily="/FilmTicketBooking;component/Font/#Junegull"
+                   FontFamily="junegull"
                    FontSize="40" Margin="97,83,58,311" 
-                   FontWeight="Bold"
-                   Foreground="#FF6EA878"
+                   FontWeight="UltraBlack"
+                   Foreground="#FFA5B9D6"
                    Content="Welcome Back" Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center" Height="50" Width="311">
@@ -70,23 +70,31 @@
             
             <TextBox
                 materialDesign:HintAssist.Hint="Tên đăng nhập"
-                Foreground="#FF6EA878"
+                Foreground="Black"
                 FontSize="15"
                 FontWeight="Bold"
                 Margin="66,175,45,224"
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                Text="{Binding Username}"
+                />
             <PasswordBox
                 x:Name="FloatingPasswordBox"
                 materialDesign:HintAssist.Hint="Mật khẩu"
-                Foreground="#FF6EA878"
+                Foreground="Black"
                 FontSize="15"
                 FontWeight="Bold"
                 Margin="66,253,45,146"
-                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"/>
+                Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PasswordChanged">
+                        <i:InvokeCommandAction Command="{Binding PasswordChangedCM}" 
+                                   CommandParameter="{Binding ElementName=FloatingPasswordBox}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </PasswordBox>
             <Button Content="Quên mật khẩu?"
                    Margin="112,348,211,61"
-                   Background="ForestGreen"
-                   BorderBrush="ForestGreen"
+                  
                    BorderThickness="15"
                     Height="auto"
                     Command="{Binding ForgotPassCM}"
@@ -95,10 +103,11 @@
             </Button>
             <Button
                    Content="Đăng nhập"
-                   Margin="274,348,45,61" Height="Auto" Background="ForestGreen" 
-                   BorderBrush="ForestGreen"
+                   Margin="274,348,45,61" Height="Auto"
+                 
                    BorderThickness="15"
-                   />
+                Command="{Binding LoginCM}"
+                />
         </Grid>
 
         <!--Close_Minimize bar-->
@@ -114,7 +123,7 @@
             
             <Button Command="{Binding MinimizeWindowCM}"
                     CommandParameter="{Binding ElementName=Loginwindow}"
-                    ToolTip="Đóng" ToolBar.OverflowMode="AsNeeded" Background="ForestGreen" 
+                    ToolTip="Đóng" ToolBar.OverflowMode="AsNeeded" 
                     Margin="683,0,52,-2">
                 <materialDesign:PackIcon Kind="WindowMinimize" />
             </Button>

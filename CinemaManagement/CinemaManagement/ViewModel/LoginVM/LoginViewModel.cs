@@ -15,8 +15,23 @@ namespace CinemaManagement.ViewModel
         public ICommand MinimizeWindowCM { get; set; }
         public ICommand MouseLeftButtonDownWindowCM { get; set; }
         public ICommand ForgotPassCM { get; set; }
-        
-        
+        public ICommand LoginCM { get; set; }
+        public ICommand PasswordChangedCM { get; set; }
+        private string _username;
+
+        public string Username
+        {
+            get { return _username; }
+            set { _username = value; OnPropertyChanged(); }
+        }
+        private string _password;
+
+        public string Password
+        {
+            get { return _password; }
+            set { _password = value; OnPropertyChanged(); }
+        }
+
         public LoginViewModel()
         {
             CloseWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null? false : true; }, (p) => {
@@ -54,7 +69,18 @@ namespace CinemaManagement.ViewModel
                     ForgotPassWindow w1 = new ForgotPassWindow();
                     w1.ShowDialog();
                 }
+            });
 
+            LoginCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                string username = Username;
+                string password = Password;
+
+            });
+
+            PasswordChangedCM = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
+            {
+                Password = p.Password;
             });
         }
 
@@ -68,5 +94,6 @@ namespace CinemaManagement.ViewModel
             }
             return parent;
         }
+
     }
 }
