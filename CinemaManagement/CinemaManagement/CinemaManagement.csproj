@@ -158,35 +158,27 @@
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\NhanVienPageViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\TimePageViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\MonPageViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\ThongKePageVM\ThongKeVeViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\MainStaffPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="Views\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml.cs">
-      <DependentUpon>NhanVienPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\TimePage.xaml.cs">
-      <DependentUpon>TimePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Admin\QuanLyPhimPage\MonPage.xaml.cs">
       <DependentUpon>MonPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\ThongKePage\ThongKeVePage.xaml.cs">
-      <DependentUpon>ThongKeVePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExampleWindow.xaml.cs">
       <DependentUpon>ExampleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ForgotPassWindow.xaml.cs">
       <DependentUpon>ForgotPassWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\MainStaffPage.xaml.cs">
+      <DependentUpon>MainStaffPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
@@ -195,19 +187,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\TimePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Admin\QuanLyPhimPage\MonPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Admin\ThongKePage\ThongKeVePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -236,6 +216,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ForgotPassWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Staff\MainStaffPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -290,7 +274,10 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\ImageStaff\staff.png" />
+    <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
+    <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
+    <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
+    <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\LayoutSignin\google.png" />

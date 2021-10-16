@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CinemaManagement.Views.Staff
 {
     /// <summary>
-    /// Interaction logic for MainStaffWindow.xaml
+    /// Interaction logic for MainStaffPage.xaml
     /// </summary>
-    public partial class MainStaffWindow : Window
+    public partial class MainStaffPage : Page
     {
-        public MainStaffWindow()
+        public MainStaffPage()
         {
             InitializeComponent();
         }

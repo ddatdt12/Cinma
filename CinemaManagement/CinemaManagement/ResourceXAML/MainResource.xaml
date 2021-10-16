@@ -4,6 +4,8 @@
                     xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM"
                     xmlns:viewmodel2="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyNhanVienPageVM"
                     xmlns:viewmodel3="clr-namespace:CinemaManagement.ViewModel.AdminVM.ThongKePageVM">
+                    xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM" 
+                    xmlns:viewmodel11="clr-namespace:CinemaManagement.ViewModel.StaffViewModel">
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
     <viewmodel:MainStaffViewModel x:Key="MainStaffVM"></viewmodel:MainStaffViewModel>
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
@@ -13,5 +15,6 @@
     <viewmodel2:TimePageViewModel x:Key="TimePageVM"></viewmodel2:TimePageViewModel>
     <viewmodel2:NhanVienPageViewModel x:Key="NhanVienPageVM"></viewmodel2:NhanVienPageViewModel>
     <viewmodel3:ThongKeVeViewModel x:Key="ThongKeVePageVM"></viewmodel3:ThongKeVeViewModel>
+    <viewmodel11:MainStaffPageViewModel x:Key="MainStaffPageVM"></viewmodel11:MainStaffPageViewModel>
 </ResourceDictionary>
     
