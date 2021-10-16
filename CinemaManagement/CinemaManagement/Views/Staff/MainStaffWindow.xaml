@@ -166,7 +166,7 @@
             </StackPanel>
         </DockPanel>
         <!--Frame show noi dung-->
-        <Frame x:Name="Frameshow" Height="688" Width="1186"
+        <Frame x:Name="Frameshow" Height="700" Width="1240"
                VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">

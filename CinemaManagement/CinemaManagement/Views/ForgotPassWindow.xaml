@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:CinemaManagement"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource ForgotPassVM}"
         mc:Ignorable="d"
@@ -14,43 +13,60 @@
         Width="500"
         ResizeMode="NoResize"
         WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        MouseDown="forgotpasswindow_MouseDown"
         WindowStartupLocation="CenterScreen"
         Name="forgotpasswindow">
-    <Grid>
-        <TextBox
-             materialDesign:HintAssist.Hint="Tên đăng nhập"
-             FontSize="20"
-             Width="287"
-             Height="45"
-             Margin="104,80,109,175"
-             FontStyle="Normal"/>
-        <TextBox
-             materialDesign:HintAssist.Hint="Ngày sinh là?"
-             ToolTip ="Type: day/month"
-             FontSize="20"
-             Width="287"
-             Height="45"
-             Margin="104,150,109,105" FontStyle="Normal"/>
-        <Label Content="Có vẻ sai rồi ^^"
-               Margin="101,200,84,65"
-               FontSize="15"
-               Foreground="white"/>
-        <Button 
-            Content="Xác nhận"
-            HorizontalAlignment="Left" 
-            Margin="157,240,0,0" 
-            VerticalAlignment="Top" 
-            Width="103" Height="27"
-            FontSize="10"
-            Command="{Binding ConfirmCM}"/>
-        <Button 
-            Content="Huỷ"
-            HorizontalAlignment="Left" 
-            Margin="288,240,0,0" 
-            VerticalAlignment="Top" 
-            Width="103" Height="27"
-            FontSize="10"
-            Command="{Binding CancelCM}"
-            CommandParameter="{Binding ElementName=forgotpasswindow}"/>
-    </Grid>
+
+    <Border BorderThickness="1"
+            CornerRadius="20"
+            BorderBrush="Gray"
+            Background="#f0f2f5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70*"/>
+                <RowDefinition Height="30*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0"
+                        Orientation="Vertical"
+                        Margin="0,50,0,0">
+                <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
+                         FontSize="20"
+                         Width="287"
+                         Height="45"
+                         FontStyle="Normal" 
+                         />
+                <TextBox materialDesign:HintAssist.Hint="Ngày sinh là?"
+                         ToolTip="Type: day/month"
+                         FontSize="20"
+                         Width="287"
+                         Height="45"
+                         FontStyle="Normal"
+                         Margin="0,20,0,0" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Content="Xác nhận"
+                        VerticalAlignment="Top"
+                        Width="100"
+                        Height="30"
+                        FontSize="10"
+                        Command="{Binding ConfirmCM}"
+                        Margin="0,0,10,0"/>
+                <Button Content="Huỷ"
+                        VerticalAlignment="Top"
+                        Width="100"
+                        Height="30"
+                        FontSize="10"
+                        Command="{Binding CancelCM}"
+                        CommandParameter="{Binding ElementName=forgotpasswindow}"
+                        Margin="10,0,110,0" />
+
+            </StackPanel>
+        </Grid>
+    </Border>
+
 </Window>

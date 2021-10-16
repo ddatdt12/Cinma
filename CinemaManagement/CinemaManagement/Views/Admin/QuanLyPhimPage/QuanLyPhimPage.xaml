@@ -13,7 +13,6 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource QuanLyPhimPageVM}"
         d:DesignHeight="720" d:DesignWidth="1440"
@@ -37,7 +36,9 @@
                  >
         </Button>
        
-        <Button  Content="Sửa" VerticalAlignment="Top" HorizontalAlignment="Center" 
+        <Button  Content="Sửa" 
+                 VerticalAlignment="Top" 
+                 HorizontalAlignment="Center" 
                  Width="150" Height="50" FontSize="20" 
                  FontFamily="ariall" Margin="660,40,630,0">
         </Button>

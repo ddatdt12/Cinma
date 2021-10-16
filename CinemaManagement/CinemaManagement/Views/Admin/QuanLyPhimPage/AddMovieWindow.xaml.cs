@@ -28,5 +28,10 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
         {
             this.DragMove();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

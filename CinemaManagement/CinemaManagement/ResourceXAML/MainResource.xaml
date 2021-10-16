@@ -8,7 +8,8 @@
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
     <viewmodel:ForgotPassViewModel x:Key="ForgotPassVM"></viewmodel:ForgotPassViewModel>
     <viewmodel:MainAdminViewModel x:Key="MainAdminVM"></viewmodel:MainAdminViewModel>
-    <viewmodel1:MonPageViewModel x:Key="MonPageVM"></viewmodel1:MonPageViewModel>
+    <viewmodel1:QuanLyPhimPageViewModel x:Key="QuanLyPhimPageVM"></viewmodel1:QuanLyPhimPageViewModel>
+    <viewmodel1:AddMovieWindowViewModel x:Key="AddMovieWindowVM"></viewmodel1:AddMovieWindowViewModel>
     <viewmodel11:MainStaffPageViewModel x:Key="MainStaffPageVM"></viewmodel11:MainStaffPageViewModel>
 </ResourceDictionary>
     

@@ -23,5 +23,10 @@ namespace CinemaManagement
         {
             InitializeComponent();
         }
+
+        private void forgotpasswindow_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

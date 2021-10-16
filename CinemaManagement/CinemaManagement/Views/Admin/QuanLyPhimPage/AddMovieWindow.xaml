@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement" 
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:local="clr-namespace:CinemaManagement"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
@@ -14,149 +14,240 @@
         TextOptions.TextRenderingMode="Auto"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        AllowsTransparency="True" Background="Transparent"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"    
+        AllowsTransparency="True"
+        Background="Transparent"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Height="450" Width="700"
+        Height="485"
+        Width="795"
         DataContext="{StaticResource AddMovieWindowVM}">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Border Background="#FFF0F3F7" CornerRadius="20" 
-                BorderBrush="Gray" BorderThickness="1">
+        <Border Background="#FFF0F3F7"
+                CornerRadius="20"
+                BorderBrush="Gray"
+                BorderThickness="1">
+
             <Grid>
-                <Grid Margin="0,10,0,55">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40*" />
+                    <RowDefinition Height="60*" />
+                </Grid.RowDefinitions>
 
-                    <!--NAME-->
-                    <Grid Margin="10,0,279,285">
-                        <TextBox Margin="0,10,0,0"
-                            Style="{StaticResource MaterialDesignFilledTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            FontSize="20"
-                            Background="#FFF0F3F7"
-                            Height="60" BorderThickness="0,0,0,1" />
-                        <Label Content="Tên phim"
-                            FontSize="20"
-                            FontWeight="Black" Margin="0,0,0,64"/>
+                <Grid  Grid.Row="0"
+                       Margin="0,15,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65*" />
+                            <ColumnDefinition Width="45*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--NAME-->
+                        <StackPanel Grid.Column="0"
+                                    Margin="25,0,25,0">
+                            <StackPanel>
+                                <Label Content="Tên phim"
+                                       FontSize="20" />
+                                <TextBox Padding="0"
+                                         Style="{StaticResource MaterialDesignFilledTextBox}"
+                                         VerticalAlignment="Top"
+                                         AcceptsReturn="True"
+                                         TextWrapping="Wrap"
+                                         FontSize="25"
+                                         Background="#FFF0F3F7"
+                                         BorderThickness="0,0,0,1"
+                                         Foreground="Black"
+                                         Opacity="0.5" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--GENRE-->
+                        <StackPanel Grid.Column="1"
+                                    Margin="0,0,25,0">
+                            <Label Content="Thể loại"
+                                   FontSize="20" />
+                            <ComboBox ItemsSource="{Binding ListMovieGenreSource}"
+                                      IsEditable="True"
+                                      FontSize="25"
+                                      BorderThickness="0,0,0,1"
+                                      MaxDropDownHeight="280"
+                                      Opacity="0.5"
+                                      Height="52"
+                                      VerticalContentAlignment="Bottom" />
+
+                        </StackPanel>
+
                     </Grid>
 
-                    <!--GENRE-->
-                    <Grid Margin="452,0,10,289">
-                        <ComboBox ItemsSource="{Binding ListMovieGenreSource}"
-                                  IsEditable="True"
-                                  FontSize="20" BorderThickness="0,0,0,1" Margin="0,24"
-                                  MaxDropDownHeight="280">
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-                        </ComboBox>
-                        <Label Content="Thể loại"
-                            FontSize="20"
-                            FontWeight="Black" Margin="0,0,119,60"/>
+                        <!--Tac gia-->
+                        <StackPanel Grid.Column="0"
+                                    Margin="25,10,10,0">
+                            <StackPanel Grid.Column="0">
+                                <Label Content="Tác giả"
+                                       FontSize="20"
+                                       Margin="0,0,35,0"
+                                       Height="35" />
+                                <TextBox AcceptsReturn="True"
+                                         TextWrapping="Wrap"
+                                         FontSize="25"
+                                         Background="#FFF0F3F7"
+                                         Opacity="0.5"
+                                         Padding="0"
+                                         VerticalContentAlignment="Center"
+                                         Height="40"
+                                         Text="hihihi" />
+
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Country-->
+                        <StackPanel Grid.Column="1"
+                                    Margin="10,10,10,0">
+                            <Label Content="Quốc gia"
+                                   FontSize="20"
+                                   Height="35" />
+                            <StackPanel>
+                                <ComboBox ItemsSource="{Binding ListCountrySource}"
+                                          IsEditable="True"
+                                          FontSize="25"
+                                          Opacity="0.5"
+                                          Height="40"
+                                          VerticalContentAlignment="Bottom"
+                                          MaxDropDownHeight="240">
+
+                                </ComboBox>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Duration-->
+                        <StackPanel Grid.Column="2"
+                                    Margin="10,10,25,0">
+                            <Label Content="Thời lượng"
+                                   FontSize="20"
+                                   Height="40" />
+                            <StackPanel>
+                                <materialDesign:TimePicker materialDesign:HintAssist.Hint=""
+                                                           Is24Hours="True"
+                                                           x:Name="WithSecondsTimePicker"
+                                                           WithSeconds="True"
+                                                           Opacity="0.5"
+                                                           FontSize="25"
+                                                           VerticalContentAlignment="Bottom"
+                                                           Height="35" />
+
+                            </StackPanel>
+                        </StackPanel>
                     </Grid>
-
-                    <!--Tac gia-->
-                    <Grid Margin="10,114,480,171" Width="220">
-                        <TextBox Margin="0,10,0,0"
-                            Style="{StaticResource MaterialDesignFilledTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            FontSize="20"
-                            Background="#FFF0F3F7"
-                            Height="60" BorderThickness="0,0,0,1" />
-                        <Label Content="Tác giả"
-                            FontSize="20"
-                            FontWeight="Black" Margin="0,0,0,64"/>
-                    </Grid>
-
-                    <!--Country-->
-                    <Grid Margin="230,114,248,171" Width="220">
-                        <ComboBox ItemsSource="{Binding ListCountrySource}"
-                                  IsEditable="True" Margin="0,25,10,28"
-                                  FontSize="20" BorderThickness="0,0,0,1"
-                                  MaxDropDownHeight="240">
-
-                        </ComboBox>
-                        <Label Content="Quốc gia"
-                            FontSize="20"
-                            FontWeight="Black" Margin="0,0,0,64"/>
-                    </Grid>
-
-                    <!--Duration-->
-                    <Grid Margin="452,114,10,171" Width="220">
-                        <materialDesign:TimePicker
-                            materialDesign:HintAssist.Hint=""
-                            Is24Hours="True"
-                            x:Name="WithSecondsTimePicker"
-                            WithSeconds="True" Height="33" Margin="0,37,60,28" BorderThickness="1,0,0,1" />
-                        <Label Content="Thời lượng"
-                            FontSize="20"
-                            FontWeight="Black" Margin="0,0,0,66"/>
-                    </Grid>
-
-                    <!--<Grid Margin="10,212,484,73">
-                        <ComboBox ItemsSource="{Binding ListMoviGenreSource}"
-                                  IsEditable="True"
-                                  FontSize="20" BorderThickness="0,0,0,1" Margin="0,39,0,0">
-
-                        </ComboBox>
-                        <Label Content="Thể loại"
-                            FontSize="20"
-                            FontWeight="Black" Margin="0,17,0,23"/>
-                    </Grid>-->
-
-                    <!--YEAR-->
-                    <Grid Margin="511,212,18,73">
-                        <TextBox Margin="75,10,10,0"
-                            Style="{StaticResource MaterialDesignFilledTextBox}"
-                            VerticalAlignment="Top"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap"
-                            FontSize="20"
-                            Background="#FFF0F3F7"
-                            Height="60" />
-                        <Label Content="    Năm sản xuất"
-                            FontSize="20"
-                            FontWeight="Black" Margin="0,10,0,59"/>
-                    </Grid>
-
-                    <!--Descripstion-->
-                    <Grid Margin="10,222,374,-28">
-
-
-                        <TextBox
-                            Style="{StaticResource MaterialDesignOutlinedTextBox}"  
-                            VerticalAlignment="Top"
-                            Height="157"
-                            AcceptsReturn="True"
-                            TextWrapping="Wrap" 
-                            VerticalScrollBarVisibility="Auto"
-                            materialDesign:HintAssist.Hint="Giới thiệu phim"
-                            Margin="0,32,75,0" />
-                        <Label Content="Mô tả"
-                               FontSize="20"
-                               FontWeight="Black" Margin="0,0,225,154"></Label>
-                    </Grid>
-
-
-
-
-
 
                 </Grid>
 
+                <Grid Grid.Row="1">
 
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                            Orientation="Horizontal">
-                    <Button Content="Lưu" FontSize="20" Height="40" Width="100" Margin="0,0,20,10"/>
-                    <Button Content="Huỷ" FontSize="20" Height="40" Width="100" Margin="0,0,20,10"
-                            Background="#FFF17979"/>
-                </StackPanel>
+                        <Grid Grid.Column="0">
+                            <!--Descripstion-->
+                            <StackPanel HorizontalAlignment="Left"
+                                        Width="290"
+                                        Margin="25,0,0,0">
+
+                                <StackPanel>
+                                    <Label Content="Mô tả"
+                                           FontSize="20"
+                                           Foreground="Black"
+                                           Margin="0,10,0,0" />
+                                    <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                             VerticalAlignment="Top"
+                                             AcceptsReturn="True"
+                                             TextWrapping="Wrap"
+                                             VerticalScrollBarVisibility="Auto"
+                                             materialDesign:HintAssist.Hint="Giới thiệu phim"
+                                             Opacity="0.5"
+                                             Height="174"
+                                             Foreground="Black" />
+
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Grid.Column="1">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <!--YEAR-->
+                            <Grid Grid.Row="0">
+                                <StackPanel Margin="0,0,25,0"
+                                            HorizontalAlignment="Right">
+                                    <Label Content="Năm SX"
+                                           FontSize="20"
+                                           Height="31"
+                                           Margin="0,10,0,0" />
+                                    <Grid>
+                                        <TextBox AcceptsReturn="True"
+                                                 TextWrapping="Wrap"
+                                                 FontSize="25"
+                                                 Background="Transparent"
+                                                 Opacity="0.5"
+                                                 VerticalAlignment="Top"
+                                                 Height="48"
+                                                 Margin="0,-15,0,0"
+                                                 Text="2021"
+                                                 Padding="0"
+                                                 VerticalContentAlignment="Bottom" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+
+                            <!--Button-->
+                            <Grid Grid.Row="1">
+                                <StackPanel VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Right"
+                                            Orientation="Horizontal"
+                                            Margin="0,0,24,10">
+
+                                    <Button Content="Huỷ"
+                                            FontSize="20"
+                                            Height="40"
+                                            Width="100"
+                                            Margin="0,0,20,10"
+                                            BorderBrush="Transparent"
+                                            Click="Button_Click"
+                                            materialDesign:ButtonAssist.CornerRadius="8" />
+
+                                    <Button Content="Lưu"
+                                            FontSize="20"
+                                            Height="40"
+                                            Width="100"
+                                            Margin="10,0,0,10"
+                                            Background="#FF5980B8"
+                                            materialDesign:ButtonAssist.CornerRadius="8" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
 
             </Grid>
         </Border>
+
     </Grid>
 </Window>

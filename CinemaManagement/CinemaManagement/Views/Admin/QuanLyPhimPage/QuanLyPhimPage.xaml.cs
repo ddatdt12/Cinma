@@ -19,7 +19,7 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
     /// Interaction logic for QuanLyPhimPage.xaml
     /// </summary>
     public partial class QuanLyPhimPage : Page
-    {
+    { 
         public QuanLyPhimPage()
         {
             InitializeComponent();
