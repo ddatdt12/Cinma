@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\
+D:\OneDrive - Trường ĐH CNTT - University of Information Technology\Tài liệu\GitHub\FilmTicketBooking\CinemaManagement\CinemaManagement\obj\Debug\
 CinemaManagement
 none
 false
 DEBUG;TRACE
-E:\Năm 2\Lập trình trực quan\FromGit\FilmTicketBooking\CinemaManagement\CinemaManagement\App.xaml
-8-1798840394
+D:\OneDrive - Trường ĐH CNTT - University of Information Technology\Tài liệu\GitHub\FilmTicketBooking\CinemaManagement\CinemaManagement\App.xaml
+11-589027827
 2-998632777
-522043933050
-222019449329
-MainWindow.xaml;Views\Admin\QuanLyPhimPage\MonPage.xaml;Views\ExampleWindow.xaml;Views\LoginWindow.xaml;Views\Admin\MainAdminWindow.xaml;ResourceXAML\MainResource.xaml;Views\ForgotPassWindow.xaml;Views\Staff\MainStaffWindow.xaml;
+58-1224765847
+221046931140
+MainWindow.xaml;Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml;Views\Admin\QuanLyNhanVienPage\TimePage.xaml;Views\Admin\QuanLyPhimPage\MonPage.xaml;Views\Admin\ThongKePage\ThongKeVePage.xaml;Views\ExampleWindow.xaml;Views\LoginWindow.xaml;Views\Admin\MainAdminWindow.xaml;ResourceXAML\MainResource.xaml;Views\ForgotPassWindow.xaml;Views\Staff\MainStaffWindow.xaml;
 
 False
 

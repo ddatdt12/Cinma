@@ -1,0 +1,291 @@
+﻿<Page x:Class="CinemaManagement.Views.Admin.QuanLyNhanVienPage.TimePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CinemaManagement.Views.Admin.QuanLyNhanVienPage"
+      mc:Ignorable="d" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto"
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="{DynamicResource MaterialDesignFont}"
+      d:DesignHeight="715" d:DesignWidth="1440"
+      Title="TimePage"
+      DataContext="{StaticResource TimePageVM}"
+      ShowsNavigationUI="False">
+    <DockPanel >
+        <Border Background="#66d3e0"
+                Height="60"
+                Width="500"
+                Margin="0 10 0 0"
+                DockPanel.Dock="Top"
+                CornerRadius="12">
+            <Grid>
+                <Border BorderBrush="White"
+                    Margin="5"
+                    BorderThickness="2"
+                    CornerRadius="12">
+                    <TextBlock Text="LỊCH NHÂN VIÊN"
+                               FontFamily="/FilmTicketBooking;component/Font/#Google Sans"
+                               FontSize="35"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Center"
+                               Foreground="White"
+                               Padding="0 1 0 0"/>
+                </Border>
+            </Grid>
+        </Border>
+        <Grid Background="#66d3e0"
+              DockPanel.Dock="Bottom"
+              Margin="20">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Margin" Value="5 5 5 2"/>
+                    <Setter Property="FontFamily" Value="/FilmTicketBooking;component/Font/#Google Sans"/>
+                    <Setter Property="Padding" Value="0 7 0 0"/>
+                </Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Margin" Value="2"/>
+                </Style>
+                <Style TargetType="TextBlock" x:Key="TimeBtn">
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="Background" Value="#a1e9e9"/>
+                    <Setter Property="FontFamily" Value="/FilmTicketBooking;component/Font/#Google Sans"/>
+                    <Setter Property="Padding" Value="0 3 0 0"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="TextAlignment" Value="Center"/>
+                </Style>
+                <ControlTemplate TargetType="Label" x:Key="TimeBlock">
+                    <Border BorderBrush="White"
+                            BorderThickness="2"
+                            Grid.Row="1"
+                            Margin="3">
+                        <TextBlock Text="{TemplateBinding Content}"
+                                   Style="{StaticResource TimeBtn}"/>
+                    </Border>
+                </ControlTemplate>
+            </Grid.Resources>
+            <Border BorderThickness="2"
+                    BorderBrush="White"
+                    Margin="4">
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <materialDesign:PackIcon Kind="ClockTimeFourOutline" 
+                                                 Height="40"
+                                                 Width="40"
+                                                 HorizontalAlignment="Center"/>
+                    </Grid>
+                    <!--#region Hàng thứ-->
+                    <TextBlock Text="THỨ HAI"
+                               Grid.Column="1"
+                               Background="#fece00"/>
+                    <TextBlock Text="THỨ BA"
+                               Grid.Column="2"
+                               Background="#d477c6"/>
+                    <TextBlock Text="THỨ TƯ"
+                               TextAlignment="Center"
+                               Grid.Column="3"
+                               Background="#fe3476"/>
+                    <TextBlock Text="THỨ NĂM"
+                               TextAlignment="Center"
+                               Grid.Column="4"
+                               Background="#b9d000"/>
+                    <TextBlock Text="THỨ SÁU"
+                               TextAlignment="Center"
+                               Grid.Column="5"
+                               Background="#fd8abd"/>
+                    <TextBlock Text="THỨ BẢY"
+                               TextAlignment="Center"
+                               Grid.Column="6"
+                               Background="#FF003AFF"/>
+                    <TextBlock Text="CHỦ NHẬT"
+                               TextAlignment="Center"
+                               Grid.Column="7"
+                               Background="#FFB900FF"/>
+                    <!--#endregion-->
+                    <!--#region Cột thứ 2-->
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="1"/>
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="1"/>
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="1"/>
+                    <StackPanel Grid.Row="4"
+                                Grid.Column="1"/>
+                    <StackPanel Grid.Row="5"
+                                Grid.Column="1"/>
+                    <StackPanel Grid.Row="6"
+                                Grid.Column="1"/>
+                    <StackPanel Grid.Row="7"
+                                Grid.Column="1"/>
+                    <StackPanel Grid.Row="8"
+                                Grid.Column="1"/>
+                    <!--#endregion-->
+                    <!--#region Cột thứ 3-->
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="2"/>
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="2"/>
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="2"/>
+                    <StackPanel Grid.Row="4"
+                                Grid.Column="2"/>
+                    <StackPanel Grid.Row="5"
+                                Grid.Column="2"/>
+                    <StackPanel Grid.Row="6"
+                                Grid.Column="2"/>
+                    <StackPanel Grid.Row="7"
+                                Grid.Column="2"/>
+                    <StackPanel Grid.Row="8"
+                                Grid.Column="2"/>
+                    <!--#endregion-->
+                    <!--#region Cột thứ 4-->
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="3"/>
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="3"/>
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="3"/>
+                    <StackPanel Grid.Row="4"
+                                Grid.Column="3"/>
+                    <StackPanel Grid.Row="5"
+                                Grid.Column="3"/>
+                    <StackPanel Grid.Row="6"
+                                Grid.Column="3"/>
+                    <StackPanel Grid.Row="7"
+                                Grid.Column="3"/>
+                    <StackPanel Grid.Row="8"
+                                Grid.Column="3"/>
+                    <!--#endregion-->
+                    <!--#region Cột thứ 5-->
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="4"/>
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="4"/>
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="4"/>
+                    <StackPanel Grid.Row="4"
+                                Grid.Column="4"/>
+                    <StackPanel Grid.Row="5"
+                                Grid.Column="4"/>
+                    <StackPanel Grid.Row="6"
+                                Grid.Column="4"/>
+                    <StackPanel Grid.Row="7"
+                                Grid.Column="4"/>
+                    <StackPanel Grid.Row="8"
+                                Grid.Column="4"/>
+                    <!--#endregion-->
+                    <!--#region Cột thứ 6-->
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="5"/>
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="5"/>
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="5"/>
+                    <StackPanel Grid.Row="4"
+                                Grid.Column="5"/>
+                    <StackPanel Grid.Row="5"
+                                Grid.Column="5"/>
+                    <StackPanel Grid.Row="6"
+                                Grid.Column="5"/>
+                    <StackPanel Grid.Row="7"
+                                Grid.Column="5"/>
+                    <StackPanel Grid.Row="8"
+                                Grid.Column="5"/>
+                    <!--#endregion-->
+                    <!--#region Cột thứ 7-->
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="6"/>
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="6"/>
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="6"/>
+                    <StackPanel Grid.Row="4"
+                                Grid.Column="6"/>
+                    <StackPanel Grid.Row="5"
+                                Grid.Column="6"/>
+                    <StackPanel Grid.Row="6"
+                                Grid.Column="6"/>
+                    <StackPanel Grid.Row="7"
+                                Grid.Column="6"/>
+                    <StackPanel Grid.Row="8"
+                                Grid.Column="6"/>
+                    <!--#endregion-->
+                    <!--#region Cột chủ nhật-->
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="7"/>
+                    <StackPanel Grid.Row="2"
+                                Grid.Column="7"/>
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="7"/>
+                    <StackPanel Grid.Row="4"
+                                Grid.Column="7"/>
+                    <StackPanel Grid.Row="5"
+                                Grid.Column="7"/>
+                    <StackPanel Grid.Row="6"
+                                Grid.Column="7"/>
+                    <StackPanel Grid.Row="7"
+                                Grid.Column="7"/>
+                    <StackPanel Grid.Row="8"
+                                Grid.Column="7"/>
+                    <!--#endregion-->
+                    <!--#region Cột giờ-->
+                    <Label Grid.Row="1"
+                           Template="{StaticResource TimeBlock}"
+                           Content="8:00-10:00"/>
+                    <Label Grid.Row="2"
+                           Template="{StaticResource TimeBlock}"
+                           Content="10:00-12:00"/>
+                    <Label Grid.Row="3"
+                           Template="{StaticResource TimeBlock}"
+                           Content="12:00-14:00"/>
+                    <Label Grid.Row="4"
+                           Template="{StaticResource TimeBlock}"
+                           Content="14:00-16:00"/>
+                    <Label Grid.Row="5"
+                           Template="{StaticResource TimeBlock}"
+                           Content="16:00-18:00"/>
+                    <Label Grid.Row="6"
+                           Template="{StaticResource TimeBlock}"
+                           Content="18:00-20:00"/>
+                    <Label Grid.Row="7"
+                           Template="{StaticResource TimeBlock}"
+                           Content="20:00-22:00"/>
+                    <Label Grid.Row="8"
+                           Template="{StaticResource TimeBlock}"
+                           Content="22:00-24:00"/>
+                    <!--#endregion-->
+                </Grid>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Page>

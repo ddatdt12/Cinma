@@ -13,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CinemaManagement
+namespace CinemaManagement.Views.Admin.ThongKePage
 {
-
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ThongKeVePage.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class ThongKeVePage : Page
     {
-        public LoginWindow()
+        public ThongKeVePage()
         {
             InitializeComponent();
         }
-
-
     }
 }

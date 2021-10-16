@@ -90,8 +90,7 @@
                    BorderThickness="15"
                     Height="auto"
                     Command="{Binding ForgotPassCM}"
-                    CommandParameter="{Binding ElementName=Loginwindow}"
-                    >
+                    CommandParameter="{Binding ElementName=Loginwindow}">
             </Button>
             <Button
                    Content="Đăng nhập"

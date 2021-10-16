@@ -158,7 +158,10 @@
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\NhanVienPageViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\TimePageViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\MonPageViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\ThongKePageVM\ThongKeVeViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
@@ -167,8 +170,17 @@
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml.cs">
+      <DependentUpon>NhanVienPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyNhanVienPage\TimePage.xaml.cs">
+      <DependentUpon>TimePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\QuanLyPhimPage\MonPage.xaml.cs">
       <DependentUpon>MonPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ThongKePage\ThongKeVePage.xaml.cs">
+      <DependentUpon>ThongKeVePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExampleWindow.xaml.cs">
       <DependentUpon>ExampleWindow.xaml</DependentUpon>
@@ -183,7 +195,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\QuanLyNhanVienPage\TimePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin\QuanLyPhimPage\MonPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\ThongKePage\ThongKeVePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -266,6 +290,7 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\ImageStaff\staff.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\LayoutSignin\google.png" />

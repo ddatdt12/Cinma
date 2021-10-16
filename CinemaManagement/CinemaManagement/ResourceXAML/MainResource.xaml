@@ -1,12 +1,17 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewmodel="clr-namespace:CinemaManagement.ViewModel"
-                    xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM">
+                    xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM"
+                    xmlns:viewmodel2="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyNhanVienPageVM"
+                    xmlns:viewmodel3="clr-namespace:CinemaManagement.ViewModel.AdminVM.ThongKePageVM">
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
     <viewmodel:MainStaffViewModel x:Key="MainStaffVM"></viewmodel:MainStaffViewModel>
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
     <viewmodel:ForgotPassViewModel x:Key="ForgotPassVM"></viewmodel:ForgotPassViewModel>
     <viewmodel:MainAdminViewModel x:Key="MainAdminVM"></viewmodel:MainAdminViewModel>
     <viewmodel1:MonPageViewModel x:Key="MonPageVM"></viewmodel1:MonPageViewModel>
+    <viewmodel2:TimePageViewModel x:Key="TimePageVM"></viewmodel2:TimePageViewModel>
+    <viewmodel2:NhanVienPageViewModel x:Key="NhanVienPageVM"></viewmodel2:NhanVienPageViewModel>
+    <viewmodel3:ThongKeVeViewModel x:Key="ThongKeVePageVM"></viewmodel3:ThongKeVeViewModel>
 </ResourceDictionary>
     
