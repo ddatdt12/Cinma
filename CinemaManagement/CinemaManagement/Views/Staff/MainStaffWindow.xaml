@@ -25,14 +25,28 @@
             <StackPanel Width="200"                        
                         Background="#FF1F2F55">
                 <Label x:Name="HomeButton"
-                    BorderBrush="#FF16274D"
-                        Width="200"
-                        Height="100"
+                       BorderBrush="#FF16274D"
                        Foreground="White"
                        Cursor="Hand"
+                       Height="100"
                        HorizontalContentAlignment="Center"
-                        Background="Transparent">
-                    <materialDesign:PackIcon Kind="Movie" Width="100" Height="100"/>
+                       Background="Transparent">
+                    <materialDesign:PackIcon Kind="Movie"
+                                             VerticalAlignment="Center">
+                        <materialDesign:PackIcon.Style>
+                            <Style TargetType="materialDesign:PackIcon">
+                                <Setter Property="Height" Value="80"></Setter>
+                                <Setter Property="Width" Value="100"></Setter>
+                                <Style.Triggers >
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Height" Value="95"></Setter>
+                                        <Setter Property="Width" Value="120"></Setter>
+                                        <Setter Property="Background" Value="Blue"></Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PackIcon.Style>
+                    </materialDesign:PackIcon>
                 </Label>
                 <Label Content="Phim đang chiếu"
                        Foreground="White"
@@ -44,8 +58,6 @@
                        x:Name="PhimDangChieu">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding CategoryFilmVisibility}"
-                                                   CommandParameter="{Binding ElementName=CategoryFilm}"/>
                             <i:InvokeCommandAction Command="{Binding ChangeBackgroundAndFontSizeLabel1}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -82,8 +94,6 @@
                        Cursor="Hand">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding CategoryFilmVisibility}"
-                                                   CommandParameter="{Binding ElementName=CategoryFilm}"/>
                             <i:InvokeCommandAction Command="{Binding ChangeBackgroundAndFontSizeLabel2}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -111,44 +121,6 @@
                         </Style>
                     </Label.Style>
                 </Label>
-                <!--<Label Content="Thể loại"
-                       Foreground="White"
-                       Height="50"
-                       BorderBrush="#FF16274D"
-                       HorizontalAlignment="Stretch"
-                       HorizontalContentAlignment="Center"
-                       Cursor="Hand">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDown">
-                            <i:InvokeCommandAction Command="{Binding ChangeBackgroundAndFontSizeLabel3}"/>
-                            <i:InvokeCommandAction Command="{Binding CategoryFilmLabel}"
-                                                   CommandParameter="{Binding ElementName=CategoryFilm}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <Label.Style>
-                        <Style TargetType="Label">
-                            <Setter Property="FontSize" Value="17"></Setter>
-                            <Setter Property="Background" Value="#FF1F2F55"></Setter>
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsClickLabel3}" Value="True"></Condition>
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="FontSize" Value="22"></Setter>
-                                    <Setter Property="Background" Value="#FFDC7777"></Setter>
-                                </MultiDataTrigger>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding IsClickLabel3}" Value="False"></Condition>
-                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"></Condition>
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="FontSize" Value="22"></Setter>
-                                    <Setter Property="Background" Value="#FFDC7777"></Setter>
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Label.Style>
-                </Label>-->
             </StackPanel>
             <!--thanh task bar de keo-->
             <StackPanel DockPanel.Dock="Top"
@@ -268,7 +240,7 @@
                            Height="25"
                            FontSize="22"
                            Foreground="White"
-                           Margin="238 25 0 0">
+                           Margin="230 25 0 0">
                     <Italic>HaiPhong_146</Italic></TextBlock>
                 <Button Background="Transparent"
                         BorderBrush="Transparent"
@@ -290,10 +262,6 @@
                 <i:EventTrigger EventName="Loaded">
                     <i:InvokeCommandAction Command="{Binding LoadMainStaffPageCM}"
                                            CommandParameter="{Binding ElementName=Frameshow}"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="Loaded">
-                    <i:InvokeCommandAction  Command="{Binding TheFirstHomePageCM}"
-                                            CommandParameter="{Binding ElementName=HomeButton}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Frame>
@@ -342,42 +310,6 @@
                    <Italic>0325339883</Italic>
                 </TextBlock>
 
-            </StackPanel>
-        </Grid>
-        <!--thanh cong cu cua then the loai-->
-        <Grid Height="700"
-              VerticalAlignment="Bottom"
-              Width="240"
-              HorizontalAlignment="Left"
-              Margin="200 0 0 0"
-              x:Name="CategoryFilm"
-              Visibility="Collapsed">
-            <StackPanel Background="#FF0E1C40">
-                <Button Content="Kinh dị"
-                        Height="50"
-                        FontSize="20"
-                        BorderBrush="#FF16274D"
-                        Background="Transparent"/>
-                <Button Content="Hài hước"
-                         Height="50"
-                        FontSize="20"
-                        BorderBrush="#FF16274D"
-                        Background="Transparent"/>
-                <Button Content="Khoa học - viễn tưởng"
-                         Height="50"
-                        FontSize="20"
-                        BorderBrush="#FF16274D"
-                        Background="Transparent"/>
-                <Button Content="Hài kịch"
-                        Height="50"
-                        FontSize="20"
-                        BorderBrush="#FF16274D"
-                        Background="Transparent"/>
-                <Button Content="Tình cảm"
-                         Height="50"
-                        FontSize="20"
-                        BorderBrush="#FF16274D"
-                        Background="Transparent"/>
             </StackPanel>
         </Grid>
     </Grid>
