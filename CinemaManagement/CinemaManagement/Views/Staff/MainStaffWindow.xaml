@@ -3,11 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Staff" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        mc:Ignorable="d"
-        
+        mc:Ignorable="d" 
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -26,49 +24,131 @@
             <!--Thanh cong cu ben trai-->
             <StackPanel Width="200"                        
                         Background="#FF1F2F55">
-                <Button BorderBrush="#FF16274D"
+                <Label x:Name="HomeButton"
+                    BorderBrush="#FF16274D"
                         Width="200"
                         Height="100"
+                       Foreground="White"
+                       Cursor="Hand"
+                       HorizontalContentAlignment="Center"
                         Background="Transparent">
                     <materialDesign:PackIcon Kind="Movie" Width="100" Height="100"/>
-                </Button>
+                </Label>
                 <Label Content="Phim đang chiếu"
                        Foreground="White"
                        Height="50"
-                       FontSize="17"
                        BorderBrush="#FF16274D"
                        HorizontalAlignment="Stretch"
                        HorizontalContentAlignment="Center"
                        Cursor="Hand"
-                       x:Name="Phimdangchieu">
+                       x:Name="PhimDangChieu">
                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                            <i:InvokeCommandAction Command="{Binding ChangeLabelBackgroundCM1}"
-                                                   CommandParameter="{Binding ElementName=Phimdangchieu}"/>
-                        </i:EventTrigger>
-
-                        <i:EventTrigger EventName="MouseEnter">
-                            <i:InvokeCommandAction Command="{Binding ChangeLabelBackgroundCM2}"
-                                                   CommandParameter="{Binding ElementName=Phimdangchieu}"/>
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="MouseLeave">
-                            <i:InvokeCommandAction Command="{Binding ChangeLabelBackgroundCM2}"
-                                                   CommandParameter="{Binding ElementName=Phimdangchieu}"/>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding CategoryFilmVisibility}"
+                                                   CommandParameter="{Binding ElementName=CategoryFilm}"/>
+                            <i:InvokeCommandAction Command="{Binding ChangeBackgroundAndFontSizeLabel1}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="FontSize" Value="17"></Setter>
+                            <Setter Property="Background" Value="#FF1F2F55"></Setter>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsClickLabel1}" Value="True"></Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="FontSize" Value="22"></Setter>
+                                    <Setter Property="Background" Value="#FFDC7777"></Setter>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsClickLabel1}" Value="False"></Condition>
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"></Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="FontSize" Value="22"></Setter>
+                                    <Setter Property="Background" Value="#FFDC7777"></Setter>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
                 </Label>
-                <Button Content="Phim sắp chiếu"
-                        FontSize="20"
-                        Height="50"
-                        BorderBrush="#FF16274D"
-                        Background="Transparent"/>
-                <Button Content="Thể loại"
-                        FontSize="20"
-                        Height="50"
-                        BorderBrush="#FF16274D"
-                        Background="Transparent"
-                        Command="{Binding ButtonVisibility}"
-                        CommandParameter="{Binding ElementName=ButtonCategoryFilm}"/>
+                <Label Content="Phim sắp chiếu"
+                       Foreground="White"
+                       Height="50"
+                       BorderBrush="#FF16274D"
+                       HorizontalAlignment="Stretch"
+                       HorizontalContentAlignment="Center"
+                       Cursor="Hand">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding CategoryFilmVisibility}"
+                                                   CommandParameter="{Binding ElementName=CategoryFilm}"/>
+                            <i:InvokeCommandAction Command="{Binding ChangeBackgroundAndFontSizeLabel2}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="FontSize" Value="17"></Setter>
+                            <Setter Property="Background" Value="#FF1F2F55"></Setter>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsClickLabel2}" Value="True"></Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="FontSize" Value="22"></Setter>
+                                    <Setter Property="Background" Value="#FFDC7777"></Setter>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsClickLabel2}" Value="False"></Condition>
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"></Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="FontSize" Value="22"></Setter>
+                                    <Setter Property="Background" Value="#FFDC7777"></Setter>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <!--<Label Content="Thể loại"
+                       Foreground="White"
+                       Height="50"
+                       BorderBrush="#FF16274D"
+                       HorizontalAlignment="Stretch"
+                       HorizontalContentAlignment="Center"
+                       Cursor="Hand">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDown">
+                            <i:InvokeCommandAction Command="{Binding ChangeBackgroundAndFontSizeLabel3}"/>
+                            <i:InvokeCommandAction Command="{Binding CategoryFilmLabel}"
+                                                   CommandParameter="{Binding ElementName=CategoryFilm}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="FontSize" Value="17"></Setter>
+                            <Setter Property="Background" Value="#FF1F2F55"></Setter>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsClickLabel3}" Value="True"></Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="FontSize" Value="22"></Setter>
+                                    <Setter Property="Background" Value="#FFDC7777"></Setter>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsClickLabel3}" Value="False"></Condition>
+                                        <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"></Condition>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="FontSize" Value="22"></Setter>
+                                    <Setter Property="Background" Value="#FFDC7777"></Setter>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>-->
             </StackPanel>
             <!--thanh task bar de keo-->
             <StackPanel DockPanel.Dock="Top"
@@ -82,50 +162,55 @@
                                                CommandParameter="{Binding ElementName=Main_Staff}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <Button Command="{Binding MinimizeMainStaffWindowCM}"
-                        CommandParameter="{Binding ElementName=Main_Staff}"
-                        Cursor="Hand"
-                        Margin="1120 0 0 0">
+                <Label Cursor="Hand"
+                       Margin="1170 0 0 0"
+                       Width="30"
+                       HorizontalAlignment="Center"
+                       Foreground="White">
                     <materialDesign:PackIcon Kind="WindowMinimize"></materialDesign:PackIcon>
-                    <Button.Style>
-                        <Style TargetType="Button">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MinimizeMainStaffWindowCM}"
+                                                   CommandParameter="{Binding ElementName=Main_Staff}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
                             <Setter Property="Height" Value="20"></Setter>
-                            <Setter Property="Width" Value="30"></Setter>
-                            <Setter Property="BorderBrush" Value="#FF16274D"></Setter>
-                            <Setter Property="Background" Value="#FF263456"></Setter>
-                            <Setter Property="Foreground" Value="#DD0FE4E4"></Setter>
+                            <Setter Property="Background" Value="Transparent"></Setter>
                             <Style.Triggers >
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Height" Value="30"></Setter>
-                                    <Setter Property="Width" Value="40"></Setter>
+                                    <Setter Property="Height" Value="25"></Setter>
+                                    <Setter Property="Background" Value="Blue"></Setter>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
-                    </Button.Style>
-                </Button>
-                <Button Foreground="#DD0FE4E4"
-                        BorderBrush="#FF16274D"
-                        Background="Transparent"
-                        Cursor="Hand"
-                        Command="{Binding CloseMainStaffWindowCM}"
-                        CommandParameter="{Binding ElementName=Main_Staff}">
+                    </Label.Style>
+                </Label>
+                <Label Cursor="Hand"
+                       Width="30"
+                       HorizontalAlignment="Center"
+                       Foreground="White">
                     <materialDesign:PackIcon Kind="WindowClose"/>
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Height" Value="20"></Setter>
-                            <Setter Property="Width" Value="30"></Setter>
-                            <Setter Property="BorderBrush" Value="#FF16274D"></Setter>
-                            <Setter Property="Background" Value="#FF263456"></Setter>
-                            <Setter Property="Foreground" Value="#DD0FE4E4"></Setter>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding CloseMainStaffWindowCM}"
+                                               CommandParameter="{Binding ElementName=Main_Staff}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Height" Value="25"></Setter>
+                            <Setter Property="Background" Value="Transparent"></Setter>
                             <Style.Triggers >
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Height" Value="30"></Setter>
-                                    <Setter Property="Width" Value="40"></Setter>
+                                    <Setter Property="Background" Value="Red"></Setter>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
-                    </Button.Style>
-                </Button>
+                    </Label.Style>
+                </Label>
             </StackPanel>
             <!--thanh tim kiem-->
             <StackPanel DockPanel.Dock="Top"
@@ -133,30 +218,62 @@
                         VerticalAlignment="Top"
                         Orientation="Horizontal" 
                         Background="#FF16274D">
-                <materialDesign:PackIcon Kind="Magnify" 
+                <materialDesign:PackIcon Kind="Filter" 
                                          Width="25"
                                          Height="35"
                                          Foreground="White"
                                          Margin="15 20 0 0"
                                          VerticalAlignment="Center"/>
-                <TextBox  x:Name="CommentTextBox"
-                          Width="500"
-                           Height="40"
-                           FontSize="20"
-                           Foreground="White"
-                           Margin="10,25,0,0"
-                          materialDesign:HintAssist.Hint="Tìm kiếm phim" />
+                <ComboBox materialDesign:HintAssist.Hint="Search"
+                          VerticalContentAlignment="Bottom"
+                          Width="175"
+                          Height="40"
+                          HorizontalAlignment="Left"
+                          FontSize="15"
+                          materialDesign:HintAssist.HintOpacity=".26"
+                          BorderBrush="Black"
+                          Margin="0 5 0 0" 
+                          Foreground="#FFA2A095">
+                    <ComboBoxItem>
+                        Hài
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Kinh dị
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Hành động
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Trinh thám
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Khoa học viễn tưởng
+                    </ComboBoxItem>
+                </ComboBox>
+                <materialDesign:PackIcon Kind="Magnify" 
+                                         Width="25"
+                                         Height="35"
+                                         Foreground="White"
+                                         Margin="40 20 0 0"
+                                         VerticalAlignment="Center"/>
+                <TextBox x:Name="CommentTextBox"
+                         Width="500"
+                         Height="40"
+                         FontSize="20"
+                         Foreground="White"
+                         Margin="10,25,0,0"
+                         materialDesign:HintAssist.Hint="Tìm kiếm phim" />
                 <TextBlock VerticalAlignment="Center"
                            Width="140"
                            Height="25"
                            FontSize="22"
                            Foreground="White"
-                           Margin="421 25 0 0">
+                           Margin="238 25 0 0">
                     <Italic>HaiPhong_146</Italic></TextBlock>
                 <Button Background="Transparent"
                         BorderBrush="Transparent"
                         Foreground="White"
-                        Command="{Binding ButtonVisibility}"
+                        Command="{Binding CategoryFilmLabel}"
                         CommandParameter="{Binding ElementName=ButtonUserName}"
                         Height="63">
                     <materialDesign:PackIcon Kind="AccountCircle" 
@@ -166,13 +283,17 @@
             </StackPanel>
         </DockPanel>
         <!--Frame show noi dung-->
-        <Frame x:Name="Frameshow" Height="688" Width="1186"
-               VerticalAlignment="Bottom" HorizontalAlignment="Right">
+        <Frame x:Name="Frameshow" Height="700" Width="1240"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Bottom" NavigationUIVisibility="Hidden">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">
-                    <i:InvokeCommandAction 
-                Command="{Binding LoadMainStaffPageCM}"
-                        CommandParameter="{Binding ElementName=Frameshow}"/>
+                    <i:InvokeCommandAction Command="{Binding LoadMainStaffPageCM}"
+                                           CommandParameter="{Binding ElementName=Frameshow}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction  Command="{Binding TheFirstHomePageCM}"
+                                            CommandParameter="{Binding ElementName=HomeButton}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Frame>
@@ -181,10 +302,10 @@
               VerticalAlignment="Top"
               Width="240"
               HorizontalAlignment="Right"
+              x:Name="ButtonUserName" 
+              Visibility="Collapsed"
               Margin="0 100 0 0">
-            <StackPanel Background="#FF0E1C40"
-                        x:Name="ButtonUserName"                     
-                        Visibility="Collapsed">
+            <StackPanel Background="#FF0E1C40">
                 <TextBlock Height="35"
                            FontSize="30"
                            Foreground="White"
@@ -224,14 +345,14 @@
             </StackPanel>
         </Grid>
         <!--thanh cong cu cua then the loai-->
-        <Grid Height="688"
+        <Grid Height="700"
               VerticalAlignment="Bottom"
               Width="240"
               HorizontalAlignment="Left"
-              Margin="200 0 0 0">
-            <StackPanel Background="#FF0E1C40"
-                        x:Name="ButtonCategoryFilm"
-                        Visibility="Collapsed">
+              Margin="200 0 0 0"
+              x:Name="CategoryFilm"
+              Visibility="Collapsed">
+            <StackPanel Background="#FF0E1C40">
                 <Button Content="Kinh dị"
                         Height="50"
                         FontSize="20"

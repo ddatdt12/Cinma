@@ -24,7 +24,7 @@
                 <Grid.Resources>
                     <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
                         <Setter Property="Margin" Value="10,5,0,15"/>
-                        <Setter Property="Background" Value="#FFD3D1D1"/>
+                        <Setter Property="Background" Value="Gray"/>
                         <Setter Property="Width" Value="110"/>
                         <Setter Property="BorderBrush" Value="Transparent"/>
                     </Style>
