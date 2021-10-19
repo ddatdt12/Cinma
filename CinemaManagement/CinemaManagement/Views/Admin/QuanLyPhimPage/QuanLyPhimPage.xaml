@@ -19,38 +19,49 @@
       d:DesignWidth="1440">
 
     <Grid Background="#f0f2f5">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="90*" />
+        </Grid.RowDefinitions>
         <!--cong cu va cac button-->
-        <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
-                 Margin="50,60,1020,630"
-                 FontSize="20"
-                 Foreground="#DD000000"
-                 FontFamily="Arial"
-                 AllowDrop="True"
-                 BorderThickness="0,0,0,1" />
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    Margin="25,0,0,0">
+            <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
+                     FontSize="25"
+                     Foreground="#DD000000"
+                     FontFamily="Arial"
+                     AllowDrop="True"
+                     BorderThickness="0,0,0,1"
+                     Width="500"
+                     Height="30"
+                     Padding="0"
+                     VerticalAlignment="Bottom" />
+            <StackPanel Orientation="Horizontal"
+                        Margin="30,0,0,0"
+                        VerticalAlignment="Bottom">
+                <Button  Content="Thêm"
+                         VerticalAlignment="Top"
+                         HorizontalAlignment="Center"
+                         Width="150"
+                         Height="50"
+                         FontSize="25"
+                         FontFamily="arial"
+                         Command="{Binding Open_AddMovieWindowCM}">
+                </Button>
 
-        <Button  Content="Thêm"
-                 x:Name="AddMoviebtn"
-                 VerticalAlignment="Top"
-                 HorizontalAlignment="Center"
-                 Width="150"
-                 Height="50"
-                 FontSize="20"
-                 FontFamily="ariall"
-                 Margin="465,40,825,0"
-                 Command="{Binding Open_AddMovieWindowCM}">
-        </Button>
+                <Button  Content="Sửa"
+                         VerticalAlignment="Top"
+                         HorizontalAlignment="Center"
+                         Width="150"
+                         Height="50"
+                         FontSize="25"
+                         Margin="30,0,0,0"
+                         FontFamily="arial">
+                </Button>
+            </StackPanel>
 
-        <Button  Content="Sửa"
-                 VerticalAlignment="Top"
-                 HorizontalAlignment="Center"
-                 Width="150"
-                 Height="50"
-                 FontSize="20"
-                 FontFamily="ariall"
-                 Margin="660,40,630,0">
-        </Button>
-        <!--<i:Interaction.Triggers>
+            <!--<i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectedDateChanged">
                     <i:InvokeCommandAction 
                 Command="{Binding ChosenDateCM}"
@@ -58,8 +69,22 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>-->
 
-        <!--Day la cho show phim theo thu ngay-->
-        <materialDesign:Card Margin="50,120,50,50" />
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <materialDesign:Card Background="White"
+                                 Margin="30,20,30,20">
+
+                <ListView>
+
+                </ListView>
+
+
+
+
+            </materialDesign:Card>
+        </Grid>
+
 
     </Grid>
 </Page>

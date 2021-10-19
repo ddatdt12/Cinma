@@ -98,3 +98,5 @@ C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManageme
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.pdb
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.g.cs
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.baml
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.g.cs
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.baml

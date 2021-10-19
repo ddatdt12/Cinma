@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\App.xaml
-12-464261281
+13570410529
 2-998632777
-61-711536714
+631805136387
 221366293493
-MainWindow.xaml;Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml;Views\Admin\QuanLyPhimPage\ListMoviePage.xaml;Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml;Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.xaml;Views\ExampleWindow.xaml;Views\LoginWindow.xaml;Views\Admin\MainAdminWindow.xaml;ResourceXAML\MainResource.xaml;Views\ForgotPassWindow.xaml;Views\Staff\MainStaffPage.xaml;Views\Staff\MainStaffWindow.xaml;
+MainWindow.xaml;Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml;Views\Admin\QuanLyPhimPage\ListMoviePage.xaml;Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml;Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml;Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.xaml;Views\ExampleWindow.xaml;Views\LoginWindow.xaml;Views\Admin\MainAdminWindow.xaml;ResourceXAML\MainResource.xaml;Views\ForgotPassWindow.xaml;Views\Staff\MainStaffPage.xaml;Views\Staff\MainStaffWindow.xaml;
 
 True
 

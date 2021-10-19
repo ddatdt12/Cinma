@@ -13,5 +13,6 @@
     <viewmodel1:AddMovieWindowViewModel x:Key="AddMovieWindowVM"></viewmodel1:AddMovieWindowViewModel>
     <viewmodel11:MainStaffPageViewModel x:Key="MainStaffPageVM"></viewmodel11:MainStaffPageViewModel>
     <viewmodel2:QuanLySuatChieuPageViewModel x:Key="QuanLySuatChieuPageVM"></viewmodel2:QuanLySuatChieuPageViewModel>
+    <viewmodel2:AddSuatChieuWindowViewModel x:Key="AddSuatChieuWindowVM" />
 </ResourceDictionary>
     
