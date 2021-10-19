@@ -98,7 +98,29 @@
                               Width="260"
                               Margin="0,0,0,-731">
                             <StackPanel>
-                                <Button Margin="0,70,0,5"
+                                
+                                <StackPanel HorizontalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="HomeCircle"
+                                                             Height="60"
+                                                             Width="80"
+                                                             Cursor="Hand">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding LoadSuatChieuPageCM}"
+                                                                       CommandParameter="{Binding ElementName=MainFrame}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </materialDesign:PackIcon>
+                                </StackPanel>
+                                <Button Margin="0,0,0,5"
+                                        Content="Quản lý phim"
+                                        Height="50"
+                                        FontSize="25"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent" 
+                                        Command="{Binding LoadQLPPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}"/>
+                                <Button Margin="0,0,0,5"
                                         Content="Quản lý nhân sự"
                                         Height="50"
                                         FontSize="25"
@@ -116,6 +138,7 @@
                                         FontSize="25"
                                         Background="Transparent"
                                         BorderBrush="Transparent" />
+                                
                             </StackPanel>
                         </Grid>
                         <ToggleButton x:Name="SlideButton"
@@ -131,11 +154,11 @@
                                              Width="50" />
                 </DockPanel>
             </materialDesign:ColorZone>
-            
+
         </Grid>
 
         <!--Frame-->
-        <Frame x:Name="FrameQLP"
+        <Frame x:Name="MainFrame"
                Height="720"
                Width="1440"
                Margin="0,79,-4,10"
@@ -143,8 +166,8 @@
                Panel.ZIndex="0">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">
-                    <i:InvokeCommandAction Command="{Binding LoadQLPPageCM}"
-                                           CommandParameter="{Binding ElementName=FrameQLP}" />
+                    <i:InvokeCommandAction Command="{Binding LoadSuatChieuPageCM}"
+                                           CommandParameter="{Binding ElementName=MainFrame}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Frame>

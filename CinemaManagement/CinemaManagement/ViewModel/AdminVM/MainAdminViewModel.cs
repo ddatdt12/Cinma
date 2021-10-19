@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CinemaManagement.DTOs;
+using CinemaManagement.Views.Admin.QuanLySuatChieuPage;
 
 namespace CinemaManagement.ViewModel
 {
@@ -17,6 +18,7 @@ namespace CinemaManagement.ViewModel
         public ICommand SignoutCM { get; set; }
         public ICommand MouseLeftButtonDownWindowCM { get; set; }
         public ICommand LoadQLPPageCM { get; set; }
+        public ICommand LoadSuatChieuPageCM { get; set; }
 
         public MainAdminViewModel()
         {
@@ -45,6 +47,11 @@ namespace CinemaManagement.ViewModel
             {
                 if (p != null)
                     p.Content = new QuanLyPhimPage();
+            });
+            LoadSuatChieuPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
+            {
+                if (p != null)
+                    p.Content = new QuanLySuatChieuPage();
             });
 
         }
