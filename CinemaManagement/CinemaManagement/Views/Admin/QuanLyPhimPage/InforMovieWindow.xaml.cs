@@ -10,19 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 {
     /// <summary>
-    /// Interaction logic for MonPage.xaml
+    /// Interaction logic for InforMovieWindow.xaml
     /// </summary>
-    public partial class MonPage : Page
+    public partial class InforMovieWindow : Window
     {
-        public MonPage()
+        public InforMovieWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

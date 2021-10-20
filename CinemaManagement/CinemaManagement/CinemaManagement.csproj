@@ -162,7 +162,7 @@
     </Compile>
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\AddMovieWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\ListMoviePageViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\InforMovieWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\QuanLyPhimPageViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\AddSuatChieuWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\QuanLySuatChieuPageViewModel.cs" />
@@ -178,8 +178,8 @@
     <Compile Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml.cs">
       <DependentUpon>AddMovieWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyPhimPage\ListMoviePage.xaml.cs">
-      <DependentUpon>ListMoviePage.xaml</DependentUpon>
+    <Compile Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml.cs">
+      <DependentUpon>InforMovieWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml.cs">
       <DependentUpon>QuanLyPhimPage.xaml</DependentUpon>
@@ -210,7 +210,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\ListMoviePage.xaml">
+    <Page Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

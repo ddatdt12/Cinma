@@ -64,7 +64,6 @@ C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManageme
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.AssemblyReference.cache
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.g.cs
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\AddMovieWindow.g.cs
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\ListMoviePage.g.cs
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\QuanLyPhimPage.g.cs
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.g.cs
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\LoginWindow.g.cs
@@ -80,7 +79,6 @@ C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManageme
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\App.baml
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.baml
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\AddMovieWindow.baml
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\ListMoviePage.baml
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\QuanLyPhimPage.baml
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\ExampleWindow.baml
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\LoginWindow.baml
@@ -100,3 +98,5 @@ C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManageme
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.baml
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.g.cs
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.baml
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\InforMovieWindow.g.cs
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\InforMovieWindow.baml

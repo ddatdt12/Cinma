@@ -2,8 +2,9 @@
 FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\App.xaml;;
 FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\MainWindow.xaml;;
 FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml;;
-FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\Admin\QuanLyPhimPage\ListMoviePage.xaml;;
+FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml;;
 FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml;;
+FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml;;
 FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.xaml;;
 FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\ExampleWindow.xaml;;
 FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\LoginWindow.xaml;;
@@ -12,5 +13,4 @@ FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagem
 FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\ForgotPassWindow.xaml;;
 FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\Staff\MainStaffPage.xaml;;
 FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\Staff\MainStaffWindow.xaml;;
-FC:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml;;
 

@@ -1,0 +1,142 @@
+﻿<Window x:Class="CinemaManagement.Views.Admin.QuanLyPhimPage.InforMovieWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.QuanLyPhimPage"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        DataContext="{StaticResource InforMovieWindowVM}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Height="485"
+        Width="795">
+    <Grid>
+        <Border Background="#FFF0F3F7"
+                CornerRadius="20"
+                BorderBrush="Gray"
+                BorderThickness="1">
+
+            <StackPanel>
+
+                <!--NAME-->
+                <StackPanel Margin="25,0,25,0">
+                    <StackPanel>
+                        <Label Content="Tên phim"
+                               FontSize="20" />
+                        <TextBlock x:Name="Name"
+                                   VerticalAlignment="Top"
+                                   TextWrapping="Wrap"
+                                   FontSize="25"
+                                   Background="#FFF0F3F7"
+                                   Foreground="Black" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!--GENRE-->
+                <!--YEAR-->
+                <StackPanel Margin="25,20,0,0"
+                            Orientation="Horizontal">
+                    <StackPanel>
+                        <Label Content="Thể loại"
+                               FontSize="20" />
+                        <TextBlock x:Name="Genre"
+                                   FontSize="20"
+                                   Foreground="Black" />
+                    </StackPanel>
+
+                    <StackPanel Margin="30,0,0,0">
+                        <Label Content="Năm SX"
+                               FontSize="20" />
+                        <Grid>
+                            <TextBlock x:Name="Year"
+                                       FontSize="20"
+                                       Foreground="Black" />
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+
+
+                <!--Tac gia-->
+                <!--Country-->
+                <!--Duration-->
+                <StackPanel Orientation="Horizontal"
+                            Margin="25,20,0,0">
+
+                    <StackPanel>
+                        <Label Content="Tác giả"
+                               FontSize="20" />
+                        <TextBlock x:Name="Author"
+                                   TextWrapping="Wrap"
+                                   FontSize="20"
+                                   Foreground="Black" />
+                    </StackPanel>
+
+                    <StackPanel Margin="100,0,0,0">
+                        <Label Content="Quốc gia"
+                               FontSize="20" />
+                        <StackPanel>
+                            <TextBlock x:Name="Country"
+                                       FontSize="20"
+                                       Foreground="Black" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="100,0,0,0">
+                        <Label Content="Thời lượng"
+                               FontSize="20" />
+                        <StackPanel>
+                            <TextBlock x:Name="Duration"
+                                       FontSize="20"
+                                       Foreground="Black" />
+
+                        </StackPanel>
+                    </StackPanel>
+
+                </StackPanel>
+
+                <!--Descripstion-->
+                <StackPanel HorizontalAlignment="Left"
+                            Margin="25,10,0,0"
+                            Orientation="Horizontal">
+
+                    <StackPanel>
+                        <Label Content="Mô tả"
+                               FontSize="20"
+                               Foreground="Black" />
+                        <TextBox x:Name="Descripstion"
+                                 VerticalAlignment="Top"
+                                 TextWrapping="Wrap"
+                                 BorderThickness="1"
+                                 IsReadOnly="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 FontSize="18"
+                                 Height="200"
+                                 Width="500"
+                                 Foreground="Black" />
+                    </StackPanel>
+
+                    <Button Content="Thoát"
+                            FontSize="20"
+                            Height="40"
+                            Width="100"
+                            Margin="150,0,0,0"
+                            BorderBrush="Transparent"
+                            Click="Button_Click"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            materialDesign:ButtonAssist.CornerRadius="10" />
+
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

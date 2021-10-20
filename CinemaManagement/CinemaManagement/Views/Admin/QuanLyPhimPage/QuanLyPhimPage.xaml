@@ -7,6 +7,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:si="http://schemas.microsoft.com/expression/2010/interactions"
       mc:Ignorable="d"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
@@ -23,6 +24,7 @@
             <RowDefinition Height="10*" />
             <RowDefinition Height="90*" />
         </Grid.RowDefinitions>
+        
         <!--cong cu va cac button-->
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
@@ -50,41 +52,87 @@
                          Command="{Binding Open_AddMovieWindowCM}">
                 </Button>
 
-                <Button  Content="Sửa"
-                         VerticalAlignment="Top"
-                         HorizontalAlignment="Center"
-                         Width="150"
-                         Height="50"
-                         FontSize="25"
-                         Margin="30,0,0,0"
-                         FontFamily="arial">
+                <Button Content="Sửa"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Width="150"
+                        Height="50"
+                        FontSize="25"
+                        Margin="30,0,0,0"
+                        FontFamily="arial">
                 </Button>
             </StackPanel>
-
-            <!--<i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectedDateChanged">
-                    <i:InvokeCommandAction 
-                Command="{Binding ChosenDateCM}"
-                CommandParameter="{Binding ElementName=Calendar}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>-->
-
         </StackPanel>
 
         <Grid Grid.Row="1">
+            
             <materialDesign:Card Background="White"
                                  Margin="30,20,30,20">
 
-                <ListView>
+                <ListView x:Name="MovieListview"
+                          ItemsSource="{Binding MovieList}"
+                          SelectedItem="{Binding SelectedItem}"
+                          Focusable="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding SelectedMovieItemCM}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                   
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Sửa"
+                                      Command="{Binding EditCM}">
+                            </MenuItem>
+                            <MenuItem Header="Xoá" />
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                    
+                    <ListView.View>
+                        <GridView>
 
+                            <GridViewColumn Header="ID">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Text="{Binding Id}"
+                                                    FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Tên phim">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding DisplayName}"
+                                                   FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Loại phim">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding MovieType}"
+                                                   Margin="10,0,0,0"
+                                                   FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Thời lượng(phút)"
+                                            Width="500">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RunningTime}"
+                                                   Margin="10,0,0,0"
+                                                   FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                    
                 </ListView>
 
-
-
-
             </materialDesign:Card>
+
         </Grid>
-
-
     </Grid>
 </Page>
