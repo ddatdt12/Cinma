@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4AD4EABD-2B42-48F1-9737-C20CB957BB48}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>CinemaManagement</RootNamespace>
     <AssemblyName>CinemaManagement</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -279,23 +279,43 @@
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\MonPageViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\AddMovieWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\InforMovieWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\QuanLyPhimPageViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\AddSuatChieuWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\QuanLySuatChieuPageViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\MainStaffPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="Views\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="Views\Admin\QuanLyPhimPage\MonPage.xaml.cs">
-      <DependentUpon>MonPage.xaml</DependentUpon>
+    <Compile Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml.cs">
+      <DependentUpon>AddMovieWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml.cs">
+      <DependentUpon>InforMovieWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml.cs">
+      <DependentUpon>QuanLyPhimPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml.cs">
+      <DependentUpon>AddSuatChieuWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.xaml.cs">
+      <DependentUpon>QuanLySuatChieuPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExampleWindow.xaml.cs">
       <DependentUpon>ExampleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ForgotPassWindow.xaml.cs">
       <DependentUpon>ForgotPassWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\MainStaffPage.xaml.cs">
+      <DependentUpon>MainStaffPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
@@ -304,9 +324,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\MonPage.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ExampleWindow.xaml">
       <SubType>Designer</SubType>
@@ -335,6 +371,10 @@
     <Page Include="Views\ForgotPassWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Staff\MainStaffPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Staff\MainStaffWindow.xaml">
       <SubType>Designer</SubType>
