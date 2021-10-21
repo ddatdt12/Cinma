@@ -37,7 +37,6 @@ namespace CinemaManagement.Models
         public virtual DbSet<Showtime> Showtimes { get; set; }
         public virtual DbSet<ShowtimeSetting> ShowtimeSettings { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
         public virtual DbSet<TicketBillInfo> TicketBillInfoes { get; set; }
     }

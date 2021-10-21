@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,17 +57,33 @@ namespace CinemaManagement.ViewModel
             SelectedGenre = null;
             List<MovieDTO> movieDTOs;
             List<GenreDTO> genreDTOs;
+            List<StaffDTO> staffDTOs;
 
             try
             {
                 movieDTOs = MovieService.Ins.GetAllMovie();
                 genreDTOs = GenreService.Ins.GetAllGenre();
+                staffDTOs = StaffService.Ins.GetAllUser();
+
+                (bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login("dothanhdat123","123456");
                 MovieList = new List<MovieDTO>(movieDTOs);
                 GenreList = new ObservableCollection<GenreDTO>(genreDTOs);
             }
+            catch(InvalidOperationException e)
+            {
+                MessageBox.Show($"InvalidOperationException : {e.Message} {e.GetType()} {e.StackTrace}");
+
+            }
+            catch (EntityException e)
+            {
+                Console.WriteLine(e);
+                MessageBox.Show($"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại");
+
+            }
             catch (Exception e)
             {
-                MessageBox.Show($"Error this: {e.Message}");
+                Console.WriteLine(e);
+                MessageBox.Show($"Server Error!");
             }
            
             EditGenre = new RelayCommand<object>(
