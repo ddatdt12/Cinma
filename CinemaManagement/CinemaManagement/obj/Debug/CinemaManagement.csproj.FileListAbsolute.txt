@@ -161,3 +161,4 @@ E:\Năm 2\Lập trình trực quan\FromGit\CinemaManagement\CinemaManagement\Cin
 E:\Năm 2\Lập trình trực quan\FromGit\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
 E:\Năm 2\Lập trình trực quan\FromGit\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 E:\Năm 2\Lập trình trực quan\FromGit\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
+E:\Năm 2\Lập trình trực quan\FromGit\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CopyComplete
