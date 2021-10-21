@@ -6,10 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core;
 
 namespace CinemaManagement.Models.Services
 {
-    class MovieService
+    public class MovieService
     {
         private MovieService() { }
         private static MovieService _ins;
@@ -28,7 +29,7 @@ namespace CinemaManagement.Models.Services
 
         public List<MovieDTO> GetAllMovie()
         {
-            List<MovieDTO> movies = null;
+            List<MovieDTO> movies  = null;
 
             try
             {
@@ -48,7 +49,7 @@ namespace CinemaManagement.Models.Services
                                       ).ToList(),
                           }
                      ).ToList();
-
+                
             }
             catch (Exception e)
             {
@@ -91,15 +92,57 @@ namespace CinemaManagement.Models.Services
             }
             catch (DbUpdateException e)
             {
-                return (false, "DbUpdateException");
+                return (false, $"DbUpdateException: {e.Message}");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return (false, "Error Server");
             }
             return (true, "");
-
         }
 
+        public (bool, string) UpdateMovie(MovieDTO movie)
+        {
+            try
+            {
+                DataProvider.Ins.DB.Movies.Add(new Movie
+                {
+                    DisplayName = movie.DisplayName,
+                    RunningTime = movie.RunningTime,
+                    Country = movie.Country,
+                    Description = movie.Description,
+                    ReleaseDate = movie.ReleaseDate,
+                    MovieType = movie?.MovieType,
+                    Director = movie.Director
+                });
+
+                DataProvider.Ins.DB.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                return (false, "DbEntityValidationException");
+
+            }
+            
+            catch (DbUpdateException e)
+            {
+                return (false, $"DbUpdateException: {e.Message}");
+            }
+            catch (Exception)
+            {
+                return (false, "Error Server");
+            }
+            return (true, "");
+        }
     }
 }
