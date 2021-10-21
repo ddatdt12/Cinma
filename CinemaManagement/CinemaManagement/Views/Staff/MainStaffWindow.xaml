@@ -190,38 +190,6 @@
                         VerticalAlignment="Top"
                         Orientation="Horizontal" 
                         Background="#FF16274D">
-                <materialDesign:PackIcon Kind="Filter" 
-                                         Width="25"
-                                         Height="35"
-                                         Foreground="White"
-                                         Margin="15 20 0 0"
-                                         VerticalAlignment="Center"/>
-                <ComboBox materialDesign:HintAssist.Hint="Search"
-                          VerticalContentAlignment="Bottom"
-                          Width="175"
-                          Height="40"
-                          HorizontalAlignment="Left"
-                          FontSize="15"
-                          materialDesign:HintAssist.HintOpacity=".26"
-                          BorderBrush="Black"
-                          Margin="0 5 0 0" 
-                          Foreground="#FFA2A095">
-                    <ComboBoxItem>
-                        Hài
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        Kinh dị
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        Hành động
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        Trinh thám
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        Khoa học viễn tưởng
-                    </ComboBoxItem>
-                </ComboBox>
                 <materialDesign:PackIcon Kind="Magnify" 
                                          Width="25"
                                          Height="35"
@@ -229,12 +197,57 @@
                                          Margin="40 20 0 0"
                                          VerticalAlignment="Center"/>
                 <TextBox x:Name="CommentTextBox"
-                         Width="500"
+                         Width="300"
                          Height="40"
                          FontSize="20"
                          Foreground="White"
-                         Margin="10,25,0,0"
+                         Margin="10 25 0 0"
                          materialDesign:HintAssist.Hint="Tìm kiếm phim" />
+                <materialDesign:PackIcon Kind="Filter" 
+                                         Width="25"
+                                         Height="35"
+                                         Foreground="White"
+                                         Margin="15 20 0 0"
+                                         VerticalAlignment="Center"/>
+                <ComboBox materialDesign:HintAssist.Hint="Thể loại"
+                          VerticalContentAlignment="Bottom"
+                          Width="175"
+                          Height="40"
+                          HorizontalAlignment="Left"
+                          FontSize="15"
+                          materialDesign:HintAssist.HintOpacity="0.5"
+                          BorderBrush="White"
+                          Foreground="White"
+                          Margin="0 15 0 0" >
+                    <ComboBox.Resources>
+                    </ComboBox.Resources>
+                    <ComboBoxItem Foreground="Black">
+                        Hài
+                    </ComboBoxItem>
+                    <ComboBoxItem Foreground="Black">
+                        Kinh dị
+                    </ComboBoxItem>
+                    <ComboBoxItem Foreground="Black">
+                        Hành động
+                    </ComboBoxItem>
+                    <ComboBoxItem Foreground="Black">
+                        Trinh thám
+                    </ComboBoxItem>
+                    <ComboBoxItem Foreground="Black">
+                        Khoa học viễn tưởng
+                    </ComboBoxItem>
+                </ComboBox>
+                <DatePicker
+                    materialDesign:HintAssist.Hint="Ngày chiếu" 
+                    Width="175"
+                    Height="40"
+                    FontSize="15"
+                    materialDesign:HintAssist.HintOpacity="3"
+                    BorderBrush="White"
+                    Margin="30,0,0,2" 
+                    HorizontalContentAlignment="Left" 
+                    VerticalAlignment="Bottom" Foreground="#DDDC7652">
+                </DatePicker>
                 <TextBlock VerticalAlignment="Center"
                            Width="140"
                            Height="25"

@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewmodel="clr-namespace:CinemaManagement.ViewModel"
                     xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM" 
-                    xmlns:viewmodel11="clr-namespace:CinemaManagement.ViewModel.StaffViewModel">
+                    xmlns:viewmodel11="clr-namespace:CinemaManagement.ViewModel.StaffViewModel" 
+                    xmlns:viewmodel2="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM">
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
     <viewmodel:MainStaffViewModel x:Key="MainStaffVM"></viewmodel:MainStaffViewModel>
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
@@ -10,5 +11,6 @@
     <viewmodel:MainAdminViewModel x:Key="MainAdminVM"></viewmodel:MainAdminViewModel>
     <viewmodel1:MonPageViewModel x:Key="MonPageVM"></viewmodel1:MonPageViewModel>
     <viewmodel11:MainStaffPageViewModel x:Key="MainStaffPageVM"></viewmodel11:MainStaffPageViewModel>
+    <viewmodel2:MovieScheduleWindowViewModel x:Key="MovieScheduleWindowVM"></viewmodel2:MovieScheduleWindowViewModel>
 </ResourceDictionary>
     

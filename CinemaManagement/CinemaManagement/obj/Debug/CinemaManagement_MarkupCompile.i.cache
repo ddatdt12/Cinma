@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\App.xaml
-9699250876
+10-1313085752
 2-998632777
-55410568491
+57716694209
 221183610691
-MainWindow.xaml;Views\Admin\QuanLyPhimPage\MonPage.xaml;Views\ExampleWindow.xaml;Views\LoginWindow.xaml;Views\Admin\MainAdminWindow.xaml;ResourceXAML\MainResource.xaml;Views\ForgotPassWindow.xaml;Views\Staff\MainStaffPage.xaml;Views\Staff\MainStaffWindow.xaml;
+MainWindow.xaml;Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml;Views\Admin\QuanLyPhimPage\MonPage.xaml;Views\ExampleWindow.xaml;Views\LoginWindow.xaml;Views\Admin\MainAdminWindow.xaml;ResourceXAML\MainResource.xaml;Views\ForgotPassWindow.xaml;Views\Staff\MainStaffPage.xaml;Views\Staff\MainStaffWindow.xaml;
 
 False
 

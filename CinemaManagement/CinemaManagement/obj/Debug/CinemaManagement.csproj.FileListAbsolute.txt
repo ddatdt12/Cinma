@@ -45,3 +45,5 @@ F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManage
 F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.pdb
 F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffPage.g.cs
 F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MainStaffPage.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MovieScheduleWindow\MovieScheduleWindow.baml
+F:\Git\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MovieScheduleWindow\MovieScheduleWindow.g.cs
