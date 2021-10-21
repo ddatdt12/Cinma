@@ -24,7 +24,7 @@
             <RowDefinition Height="10*" />
             <RowDefinition Height="90*" />
         </Grid.RowDefinitions>
-        
+
         <!--cong cu va cac button-->
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
@@ -65,7 +65,7 @@
         </StackPanel>
 
         <Grid Grid.Row="1">
-            
+
             <materialDesign:Card Background="White"
                                  Margin="30,20,30,20">
 
@@ -78,7 +78,7 @@
                             <i:InvokeCommandAction Command="{Binding SelectedMovieItemCM}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                   
+
                     <ListView.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Sửa"
@@ -87,7 +87,7 @@
                             <MenuItem Header="Xoá" />
                         </ContextMenu>
                     </ListView.ContextMenu>
-                    
+
                     <ListView.View>
                         <GridView>
 
@@ -126,9 +126,20 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Sua"
+                                                   Margin="10,0,0,0"
+                                                   FontSize="18"
+                                                Command="{Binding DataContex.EditCM, ElementName=MovieListview}"
+                                                CommandParameter="{Binding DataContex,ElementName=MovieListview}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
-                    
+
                 </ListView>
 
             </materialDesign:Card>
