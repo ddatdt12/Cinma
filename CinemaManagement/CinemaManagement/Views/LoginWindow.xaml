@@ -152,7 +152,12 @@
                             Orientation="Vertical"
                             Margin="0,0,85,0"
                             Width="300">
-                    <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Sai tài khoản hoặc mật khẩu" 
+                               Margin="0,5,0,0"
+                               x:Name="Error"
+                               Width="170"
+                               Foreground="White"/>
                         <Button Content="Quên mật khẩu?"
                                 Foreground="Blue"
                                 FontSize="12"
@@ -163,14 +168,15 @@
                                 Command="{Binding ForgotPassCM}"
                                 CommandParameter="{Binding ElementName=Loginwindow}">
                         </Button>
-                    </Grid>
+                    </StackPanel>
                     <Grid>
                         <Button Margin="0,20,0,0"
                                 Content="Đăng nhập"
                                 BorderThickness="15"
                                 Width="120"
                                 HorizontalAlignment="Right"
-                                Command="{Binding LoginCM}" />
+                                Command="{Binding LoginCM}" 
+                                CommandParameter="{Binding ElementName=Error}"/>
                     </Grid>
                 </StackPanel>
 
