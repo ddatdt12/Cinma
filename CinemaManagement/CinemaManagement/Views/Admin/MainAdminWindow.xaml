@@ -157,6 +157,7 @@
 
         </Grid>
 
+
         <!--Frame-->
         <Frame x:Name="MainFrame"
                Height="720"
@@ -164,6 +165,7 @@
                Margin="0,79,-4,10"
                NavigationUIVisibility="Hidden"
                Panel.ZIndex="0">
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">
                     <i:InvokeCommandAction Command="{Binding LoadSuatChieuPageCM}"

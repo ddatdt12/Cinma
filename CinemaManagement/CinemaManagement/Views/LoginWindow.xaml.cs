@@ -52,5 +52,6 @@ namespace CinemaManagement
             Button btn = sender as Button;
             btn.Background = new SolidColorBrush(Colors.Transparent);
         }
+
     }
 }
