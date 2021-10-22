@@ -21,15 +21,15 @@
         Width="1440"
         Name="mainadminwindow"
         ResizeMode="NoResize"
+        MouseDown="mainadminwindow_MouseDown"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
 
 
 
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseLeftButtonDown">
-            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownWindowCM}"
-                                   CommandParameter="{Binding ElementName=mainadminwindow}" />
+        <i:EventTrigger>
+            <i:InvokeCommandAction/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 

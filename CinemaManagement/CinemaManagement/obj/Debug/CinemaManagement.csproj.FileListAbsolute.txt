@@ -143,3 +143,5 @@ C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManageme
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Elasticsearch.Net.xml
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Nest.pdb
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Nest.xml
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\EditMovie.g.cs
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\EditMovie.baml

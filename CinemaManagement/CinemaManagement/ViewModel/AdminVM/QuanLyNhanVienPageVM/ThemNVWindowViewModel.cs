@@ -12,33 +12,10 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyNhanVienPageVM
 {
     public class ThemNVWindowViewModel: BaseViewModel
     {
-        public ICommand MouseMoveCommand { get; set; }
         public ICommand DoneCommand { get; set; }
-        public ICommand CloseCommand { get; set; }
 
         public ThemNVWindowViewModel()
         {
-            MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
-            {
-                Window window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
-                {
-                    w.DragMove();
-                }
-            }
-           );
-            
-            CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
-            {
-                Window window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
-                {
-                    w.Close();
-                }
-            }
-           );
         }
 
         Window GetWindowParent(Window p)

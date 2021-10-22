@@ -106,8 +106,7 @@
                                          Opacity="0.5"
                                          Padding="0"
                                          VerticalContentAlignment="Center"
-                                         Height="40"
-                                         Text="hihihi" />
+                                         Height="40"/>
 
                             </StackPanel>
                         </StackPanel>
@@ -141,12 +140,9 @@
                                 <materialDesign:TimePicker materialDesign:HintAssist.Hint=""
                                                            Is24Hours="True"
                                                            x:Name="WithSecondsTimePicker"
-                                                           WithSeconds="True"
-                                                           Opacity="0.5"
                                                            FontSize="25"
                                                            VerticalContentAlignment="Bottom"
-                                                           Height="35" />
-
+                                                           Height="35"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -178,7 +174,7 @@
                                              TextWrapping="Wrap"
                                              VerticalScrollBarVisibility="Auto"
                                              materialDesign:HintAssist.Hint="Giới thiệu phim"
-                                             Opacity="0.5"
+                                             FontSize="18"
                                              Height="174"
                                              Foreground="Black" />
 
@@ -206,11 +202,9 @@
                                                  TextWrapping="Wrap"
                                                  FontSize="25"
                                                  Background="Transparent"
-                                                 Opacity="0.5"
                                                  VerticalAlignment="Top"
                                                  Height="48"
                                                  Margin="0,-15,0,0"
-                                                 Text="2021"
                                                  Padding="0"
                                                  VerticalContentAlignment="Bottom" />
                                     </Grid>

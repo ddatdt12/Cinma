@@ -22,6 +22,7 @@
     <viewmodel21:SuaNVWindowViewModel x:Key="SuaNvWindowVM" />
     <viewmodel21:XoaNVWindowViewModel x:Key="XoaNvWindowVM" />
     <viewmodel22:MovieScheduleWindowViewModel x:Key="MovieScheduleWindowVM" />
+    <viewmodel1:EditMovieViewModel x:Key="EditMovieVM" />
 
 </ResourceDictionary>
     

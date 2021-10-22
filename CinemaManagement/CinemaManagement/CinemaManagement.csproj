@@ -290,6 +290,7 @@
     <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\ThemNVWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\XoaNVWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\AddMovieWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\EditMovieViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\InforMovieWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\QuanLyPhimPageViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\AddSuatChieuWindowViewModel.cs" />
@@ -318,6 +319,9 @@
     </Compile>
     <Compile Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml.cs">
       <DependentUpon>AddMovieWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyPhimPage\EditMovie.xaml.cs">
+      <DependentUpon>EditMovie.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml.cs">
       <DependentUpon>InforMovieWindow.xaml</DependentUpon>
@@ -385,6 +389,10 @@
     <Page Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Views\Admin\QuanLyPhimPage\EditMovie.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml">
       <SubType>Designer</SubType>

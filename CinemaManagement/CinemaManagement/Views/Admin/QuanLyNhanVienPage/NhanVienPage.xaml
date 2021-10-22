@@ -197,7 +197,7 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <materialDesign:PackIcon Kind="PencilOutline"
+                                                <materialDesign:PackIcon Kind="Pencil"
                                                                      Height="30"
                                                                      Width="30">
                                                     <i:Interaction.Triggers>

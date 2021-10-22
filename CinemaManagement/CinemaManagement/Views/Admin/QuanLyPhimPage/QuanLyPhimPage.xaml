@@ -38,7 +38,10 @@
                      Width="500"
                      Height="30"
                      Padding="0"
-                     VerticalAlignment="Bottom" />
+                     x:Name="FilterBox"
+                     TextChanged="TextBox_TextChanged"
+                     VerticalAlignment="Bottom">
+            </TextBox>
             <StackPanel Orientation="Horizontal"
                         Margin="30,0,0,0"
                         VerticalAlignment="Bottom">
@@ -51,16 +54,7 @@
                          FontFamily="arial"
                          Command="{Binding Open_AddMovieWindowCM}">
                 </Button>
-
-                <Button Content="Sửa"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Center"
-                        Width="150"
-                        Height="50"
-                        FontSize="25"
-                        Margin="30,0,0,0"
-                        FontFamily="arial">
-                </Button>
+                
             </StackPanel>
         </StackPanel>
 
@@ -78,15 +72,6 @@
                             <i:InvokeCommandAction Command="{Binding SelectedMovieItemCM}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-
-                    <ListView.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Sửa"
-                                      Command="{Binding EditCM}">
-                            </MenuItem>
-                            <MenuItem Header="Xoá" />
-                        </ContextMenu>
-                    </ListView.ContextMenu>
 
                     <ListView.View>
                         <GridView>
@@ -129,10 +114,51 @@
                             <GridViewColumn>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Label Content="Sua"
-                                                   Margin="10,0,0,0"
-                                                   FontSize="18"
-                                               />
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="Pencil"
+                                                                     Width="30"
+                                                                     Height="30"
+                                                                     Cursor="Hand">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=MovieListview, Path=DataContext.EditCM}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <materialDesign:PackIcon.Style>
+                                                    <Style TargetType="materialDesign:PackIcon">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver"
+                                                                     Value="True">
+                                                                <Setter Property="Foreground"
+                                                                        Value="LightGreen" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </materialDesign:PackIcon.Style>
+                                            </materialDesign:PackIcon>
+                                            <materialDesign:PackIcon Kind="GarbageCanEmpty"
+                                                                     Width="30"
+                                                                     Height="30"
+                                                                     Cursor="Hand">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=MovieListview, Path=DataContext.DeleteCM}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <materialDesign:PackIcon.Style>
+                                                    <Style TargetType="materialDesign:PackIcon">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver"
+                                                                     Value="True">
+                                                                <Setter Property="Foreground"
+                                                                        Value="OrangeRed" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </materialDesign:PackIcon.Style>
+                                            </materialDesign:PackIcon>
+                                        </StackPanel>
+
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
