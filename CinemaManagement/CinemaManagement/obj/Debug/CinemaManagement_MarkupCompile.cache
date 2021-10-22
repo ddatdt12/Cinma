@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-E:\Năm 2\Lập trình trực quan\GIt\Khoi\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\
+E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\
 CinemaManagement
 none
 false
 DEBUG;TRACE
-E:\Năm 2\Lập trình trực quan\GIt\Khoi\CinemaManagement\CinemaManagement\CinemaManagement\App.xaml
+E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\App.xaml
 13-1795449392
 2-998632777
 62-1735438330
-161-1916060685
+1611137425358
 MainWindow.xaml;Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml;Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml;Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml;Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml;Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.xaml;Views\ExampleWindow.xaml;Views\LoginWindow.xaml;Views\Admin\MainAdminWindow.xaml;ResourceXAML\MainResource.xaml;Views\ForgotPassWindow.xaml;Views\Staff\MainStaffPage.xaml;Views\Staff\MainStaffWindow.xaml;
 
 False
