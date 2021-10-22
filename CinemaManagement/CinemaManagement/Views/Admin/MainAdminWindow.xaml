@@ -98,7 +98,7 @@
                               Width="260"
                               Margin="0,0,0,-731">
                             <StackPanel>
-                                
+
                                 <StackPanel HorizontalAlignment="Center">
                                     <materialDesign:PackIcon Kind="HomeCircle"
                                                              Height="60"
@@ -117,15 +117,17 @@
                                         Height="50"
                                         FontSize="25"
                                         Background="Transparent"
-                                        BorderBrush="Transparent" 
+                                        BorderBrush="Transparent"
                                         Command="{Binding LoadQLPPageCM}"
-                                        CommandParameter="{Binding ElementName=MainFrame}"/>
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
                                 <Button Margin="0,0,0,5"
                                         Content="Quản lý nhân sự"
                                         Height="50"
                                         FontSize="25"
                                         Background="Transparent"
-                                        BorderBrush="Transparent" />
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadQLNVPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
                                 <Button Margin="0,0,0,5"
                                         Content="Quản lý vé"
                                         Height="50"
@@ -138,20 +140,27 @@
                                         FontSize="25"
                                         Background="Transparent"
                                         BorderBrush="Transparent" />
-                                
+
                             </StackPanel>
                         </Grid>
                         <ToggleButton x:Name="SlideButton"
                                       Margin="40,0,0,0"
                                       Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
+                        <materialDesign:PackIcon Kind="AccountCircle"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Right"
+                                                 Height="50"
+                                                 Width="50" />
+                        <Label x:Name="CurrentUserName"
+                            Content=""
+                               Foreground="White"
+                               VerticalAlignment="Center"
+                               FontSize="25" />
+                    </StackPanel>
 
-                    <materialDesign:PackIcon Kind="AccountCircle"
-                                             VerticalAlignment="Center"
-                                             HorizontalAlignment="Right"
-                                             Margin="0,0,200,0"
-                                             Height="50"
-                                             Width="50" />
                 </DockPanel>
             </materialDesign:ColorZone>
 

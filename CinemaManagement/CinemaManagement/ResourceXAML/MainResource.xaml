@@ -2,12 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewmodel="clr-namespace:CinemaManagement.ViewModel"
                     xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM"
-                    xmlns:viewmodel11="clr-namespace:CinemaManagement.ViewModel.StaffViewModel"
                     xmlns:viewmodel2="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLySuatChieuPageVM"
-                    xmlns:viewmodel21="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyNhanVienPageVM">
-			xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM" 
-                    xmlns:viewmodel11="clr-namespace:CinemaManagement.ViewModel.StaffViewModel" 
-                    xmlns:viewmodel2="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM">
+                    xmlns:viewmodel21="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLyNhanVienPageVM"
+                    xmlns:viewmodel22="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM"
+                    xmlns:viewmodel11="clr-namespace:CinemaManagement.ViewModel.StaffViewModel">
     <viewmodel:MainViewModel x:Key="MainVM" />
     <viewmodel:MainStaffViewModel x:Key="MainStaffVM" />
     <viewmodel:LoginViewModel x:Key="LoginVM" />
@@ -19,12 +17,11 @@
     <viewmodel2:QuanLySuatChieuPageViewModel x:Key="QuanLySuatChieuPageVM" />
     <viewmodel2:AddSuatChieuWindowViewModel x:Key="AddSuatChieuWindowVM" />
     <viewmodel1:InforMovieWindowViewModel x:Key="InforMovieWindowVM" />
-    <viewmodel11:MainStaffPageViewModel x:Key="MainStaffPageVM" />
     <viewmodel21:NhanVienPageViewModel x:Key="NhanVienPageVM" />
     <viewmodel21:ThemNVWindowViewModel x:Key="ThemNvWindowVM" />
     <viewmodel21:SuaNVWindowViewModel x:Key="SuaNvWindowVM" />
     <viewmodel21:XoaNVWindowViewModel x:Key="XoaNvWindowVM" />
-	<viewmodel2:MovieScheduleWindowViewModel x:Key="MovieScheduleWindowVM"></viewmodel2:MovieScheduleWindowViewModel>
+    <viewmodel22:MovieScheduleWindowViewModel x:Key="MovieScheduleWindowVM" />
 
 </ResourceDictionary>
     

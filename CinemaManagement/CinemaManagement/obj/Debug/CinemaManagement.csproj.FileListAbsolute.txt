@@ -88,7 +88,6 @@ C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManageme
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
-C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.exe.config
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.g.cs
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\MainAdminWindow.g.cs
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyNhanVienPage\NhanVienPage.g.cs
@@ -135,3 +134,12 @@ C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManageme
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CopyComplete
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.exe
 C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.pdb
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.AssemblyReference.cache
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MovieScheduleWindow\MovieScheduleWindow.baml
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Staff\MovieScheduleWindow\MovieScheduleWindow.g.cs
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Elasticsearch.Net.dll
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Nest.dll
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Elasticsearch.Net.pdb
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Elasticsearch.Net.xml
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Nest.pdb
+C:\Users\XyzTranKT\source\repos\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\Nest.xml
