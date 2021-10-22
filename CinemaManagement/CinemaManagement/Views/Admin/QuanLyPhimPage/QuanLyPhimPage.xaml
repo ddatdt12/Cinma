@@ -129,11 +129,10 @@
                             <GridViewColumn>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="Sua"
+                                        <Label Content="Sua"
                                                    Margin="10,0,0,0"
                                                    FontSize="18"
-                                                Command="{Binding DataContex.EditCM, ElementName=MovieListview}"
-                                                CommandParameter="{Binding DataContex,ElementName=MovieListview}"/>
+                                               />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
