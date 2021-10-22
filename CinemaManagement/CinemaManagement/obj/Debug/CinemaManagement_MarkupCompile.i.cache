@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\OneDrive - Trường ĐH CNTT - University of Information Technology\Tài liệu\GitHub\FilmTicketBooking\CinemaManagement\CinemaManagement\App.xaml
-11-589027827
+13-358983314
 2-998632777
-59-2067125214
+63-1915042418
 221046931140
-MainWindow.xaml;Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml;Views\Admin\QuanLyNhanVienPage\TimePage.xaml;Views\Admin\QuanLyPhimPage\MonPage.xaml;Views\Admin\ThongKePage\ThongKeVePage.xaml;Views\ExampleWindow.xaml;Views\LoginWindow.xaml;Views\Admin\MainAdminWindow.xaml;ResourceXAML\MainResource.xaml;Views\ForgotPassWindow.xaml;Views\Staff\MainStaffWindow.xaml;
+MainWindow.xaml;Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml;Views\Admin\QuanLyNhanVienPage\SuaNhanVienWindow.xaml;Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml;Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml;Views\Admin\QuanLyPhimPage\MonPage.xaml;Views\ExampleWindow.xaml;Views\LoginWindow.xaml;Views\Admin\MainAdminWindow.xaml;ResourceXAML\MainResource.xaml;Views\ForgotPassWindow.xaml;Views\Staff\MainStaffPage.xaml;Views\Staff\MainStaffWindow.xaml;
 
 True
 

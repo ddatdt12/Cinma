@@ -11,6 +11,10 @@ namespace CinemaManagement.DTOs
         public StaffDTO()
         {
         }
+        public StaffDTO( int id, string name, string gender, DateTime birthday, string phonenumber,string role, DateTime startingdate)
+        {
+            Id = id; Name = name; Gender = gender; BirthDate = birthday; PhoneNumber = phonenumber;Role = role; StartingDate = startingdate;
+        }
 
         public int Id { get; set; }
         public string Name { get; set; }

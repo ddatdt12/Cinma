@@ -74,7 +74,6 @@
                     <GridView>
                         <GridViewColumn Header="Tên thể loại"
                                         DisplayMemberBinding="{Binding DisplayName}">
-
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CinemaManagement.Views.Admin.QuanLyNhanVienPage"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
@@ -20,242 +21,231 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="100"/>
             <RowDefinition/>
-            <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
-        
-        <!--#region Tittle-->
-        <TextBlock Text="DANH SÁCH NHÂN VIÊN"
-                   FontSize="30"
-                   Padding="20 10"
-                   Margin="20 0 0 0"
-                   FontWeight="Bold" 
-                   FontFamily="Ubuntu"/>
-        <!--#endregion-->
-        
-        <!--#region Search bar-->
-        <Grid Grid.Row="1">
-            <Border 
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="450"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <!--#region Tittle-->
+                <TextBlock Text="DANH SÁCH NHÂN VIÊN"
+                       FontSize="30"
+                       Padding="20 10"
+                       Margin="20 0 0 0"
+                       FontWeight="Bold" 
+                       FontFamily="Ubuntu"/>
+                <!--#endregion-->
+
+                <!--#region Search bar-->
+                <Grid Grid.Row="1">
+                    <Border 
                     Width="400"
                     CornerRadius="8"
                     HorizontalAlignment="Left"
                     Margin="35 0 0 10"
                     BorderThickness="2"
                     BorderBrush="Black">
-                <Grid>
-                    <Rectangle StrokeThickness="1"/>
-                    <TextBox Background="Transparent"
+                        <Grid>
+                            <Rectangle StrokeThickness="1"/>
+                            <TextBox Background="Transparent"
                              
                              Padding="8 10 10 10"
                              VerticalContentAlignment="Center"
                              Foreground="Black"
                              x:Name="SearchBox"/>
-                    <TextBlock IsHitTestVisible="False"
+                            <TextBlock IsHitTestVisible="False"
                                Text="Tìm kiếm"
                                VerticalAlignment="Center"
                                Margin="10 0 0 0"
                                HorizontalAlignment="Left"
                                Foreground="Black">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-
-                    <materialDesign:PackIcon Kind="Magnify"
-                                             HorizontalAlignment="Right"
-                                             VerticalAlignment="Center"
-                                             Height="30"
-                                             Width="30"/>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <materialDesign:PackIcon Kind="Magnify"
+                                                 HorizontalAlignment="Right"
+                                                 VerticalAlignment="Center"
+                                                 Height="30"
+                                                 Width="30"/>
+                        </Grid>
+                    </Border>
                 </Grid>
-            </Border>
-      
-        </Grid>
 
-        <!--#endregion-->
-        
-        <!--#region Nút tìm kiếm-->
-        <DockPanel Grid.Row="2"
-                   Margin="25 0 0 0"
-                   LastChildFill="False">
-            <DockPanel.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Margin" Value="2"/>
-                    <Setter Property="Width" Value="20"/>
-                    <Setter Property="Height" Value="20"/>
-                    <Setter Property="Background" Value="#66d3e0"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Style>
-            </DockPanel.Resources>
-            <Button Content="A"/>
-            <Button Content="B"/>
-            <Button Content="C"/>
-            <Button Content="D"/>
-            <Button Content="E"/>
-            <Button Content="F"/>
-            <Button Content="G"/>
-            <Button Content="H"/>
-            <Button Content="I"/>
-            <Button Content="J"/>
-            <Button Content="K"/>
-            <Button Content="L"/>
-            <Button Content="M"/>
-            <Button Content="N"/>
-            <Button Content="O"/>
-            <Button Content="P"/>
-            <Button Content="Q"/>
-            <Button Content="R"/>
-            <Button Content="S"/>
-            <Button Content="T"/>
-            <Button Content="U"/>
-            <Button Content="V"/>
-            <Button Content="W"/>
-            <Button Content="X"/>
-            <Button Content="Y"/>
-            <Button Content="Z"/>
+                <!--#endregion-->
 
-        </DockPanel>
-        <!--#endregion-->
 
-        <!--#region Thông tin nhân viên-->
-        <Grid Grid.Row="3">
-            <Grid Margin="15 0 15 0">
-                <Grid.Resources>
-                    <Style TargetType="Image" x:Key="NV">
-                        <Setter Property="Source" Value="/Resources/ImageStaff/staff.png"/>
-                        <Setter Property="Height" Value="180"/>
-                        <Setter Property="VerticalAlignment" Value="Top"/>
-                    </Style>
-                    <Style TargetType="TextBlock" x:Key="Grid1">
-                        <Setter Property="Text" Value="Tên"/>
-                        <Setter Property="TextWrapping" Value="Wrap"/>
-                        <Setter Property="VerticalAlignment" Value="Bottom"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="TextAlignment" Value="Center"/>
-                        <Setter Property="FontSize" Value="14"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Margin" Value="0 0 0 7"/>
-                    </Style>
-                    <Style TargetType="TextBlock" x:Key="Grid2">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="FontSize" Value="15"/>
-                        <Setter Property="Margin" Value="0 5 0 0"/>
-                        <Setter Property="FontFamily" Value="Google Sans"/>
-                    </Style>
-                    <Style TargetType="Border" x:Key="borderNV">
-                        <Setter Property="BorderBrush" Value="Black"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Margin" Value="5"/>
-                    </Style>
-                    <Style TargetType="Border" x:Key="borderAnh">
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="BorderBrush" Value="Black"/>
-                        <Setter Property="Margin" Value="5"/>
-                    </Style>
-                    <ControlTemplate TargetType="Label" x:Key="InfoStaff">
-                        <Border Style="{StaticResource borderNV}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Border Style="{StaticResource borderAnh}">
-                                    <Grid>
-                                        <Image Style="{StaticResource NV}"/>
-                                        <TextBlock Style="{StaticResource Grid1}"/>
-                                    </Grid>
-                                </Border>
-                                <Grid Grid.Column="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Text="Tuổi:"
-                                       Style="{StaticResource Grid2}"/>
-                                    <TextBlock Text="Giới tính:"
-                                       Grid.Row="1"
-                                       Style="{StaticResource Grid2}"/>
-                                    <TextBlock Text="Vai trò:"
-                                       Grid.Row="2"
-                                       Style="{StaticResource Grid2}"/>
-                                    <TextBlock Text="SĐT:"
-                                       Grid.Row="3"
-                                       Style="{StaticResource Grid2}"/>
-                                </Grid>
-                            </Grid>
-                        </Border>
-                    </ControlTemplate>
-                </Grid.Resources>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Label Template="{StaticResource InfoStaff}"/>
-                <Label Template="{StaticResource InfoStaff}"
-                       Grid.Row="1"/>
-                <Label Template="{StaticResource InfoStaff}"
-                       Grid.Row="0"
-                       Grid.Column="1"/>
-                <Label Template="{StaticResource InfoStaff}"
-                       Grid.Row="1"
-                       Grid.Column="1"/>
-                <Label Template="{StaticResource InfoStaff}"
-                       Grid.Row="0"
-                       Grid.Column="2"/>
-                <Label Template="{StaticResource InfoStaff}"
-                       Grid.Row="1"
-                       Grid.Column="2"/>
-                <Label Template="{StaticResource InfoStaff}"
-                       Grid.Row="0"
-                       Grid.Column="3"/>
-                <Label Template="{StaticResource InfoStaff}"
-                       Grid.Row="1"
-                       Grid.Column="3"/>
             </Grid>
+
+            <!--#region Thêm nhân viên-->
+
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="200 0 0 0">
+                <StackPanel.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="40 0 0 0"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Style>
+                    <ControlTemplate TargetType="Label" x:Key="Add-edit">
+                        <materialDesign:Card UniformCornerRadius="5">
+                            <Border BorderBrush="Black"
+                            BorderThickness="2"
+                            CornerRadius="5">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="LightCyan"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <StackPanel>
+                                    <Image Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                    Height="40"
+                                   Width="50"
+                                   HorizontalAlignment="Center"
+                                   Margin="5 5 0 0"/>
+                                    <TextBlock Text="{TemplateBinding Content}"
+                                       Margin="5"
+                                       FontFamily="Google Sans"
+                                       Width="95"
+                                           TextAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </materialDesign:Card>
+                    </ControlTemplate>
+                </StackPanel.Resources>
+                <Label Tag="/Resources/ImageStaff/add-user.png"
+                       Content="Thêm nhân viên"
+                       Template="{StaticResource Add-edit}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding AddStaffCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+            </StackPanel>
+            <!--#endregion-->
         </Grid>
-        <!--#endregion-->
-        
-        <!--#region Button paging-->
-        <Grid Grid.Row="4">
-            <Grid.Resources>
-                <Style TargetType="Button" >
-                    <Setter Property="Width" Value="20"/>
-                    <Setter Property="Height" Value="20"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="Margin" Value="5 0 5 0"/>
-                    <Setter Property="Background" Value="#2edf84"/>
-                </Style>
-            </Grid.Resources>
-            <DockPanel LastChildFill="False"
-                       HorizontalAlignment="Center">
-                <Button Content="1"/>
-                <Button Content="2"/>
-                <Button Content="3"/>
-                <Image Source="/Resources/ImageStaff/next.png"
-                       Height="25"
-                       Width="25"
-                       VerticalAlignment="Center"
-                       Margin="20 0 0 0"
-                       />
-            </DockPanel>
-        </Grid>
-        <!--#endregion-->
+
+        <materialDesign:Card Grid.Row="1"
+                             Margin="5"
+                             UniformCornerRadius="5">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="listView"
+                          >
+                <ListView ItemsSource="{Binding StaffList}" FontFamily="Ubuntu"
+                          SelectedItem="{Binding SelectedItem}">
+                    
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="Height" Value="50"/>
+                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}">
+                            </GridViewColumn>
+                            <GridViewColumn Header="Họ và tên" DisplayMemberBinding="{Binding Name}">
+                            </GridViewColumn>
+                            <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding Gender}">
+                            </GridViewColumn>
+                            <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding Path=BirthDate, StringFormat=dd-MM-yyyy}">
+                            </GridViewColumn>
+                            <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding PhoneNumber}">
+                            </GridViewColumn>
+                            <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding Role}">
+                            </GridViewColumn>
+                            <GridViewColumn Header="Ngày bắt đầu" DisplayMemberBinding="{Binding Path=StartingDate, StringFormat=dd-MM-yyyy}">
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel VerticalAlignment="Center"
+                                                    Orientation="Horizontal">
+                                            <Border BorderBrush="Black"
+                                                    BorderThickness="2"
+                                                    CornerRadius="6"
+                                                    Cursor="Hand">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#00e5ff"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <materialDesign:PackIcon Kind="PencilOutline"
+                                                                     Height="30"
+                                                                     Width="30">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=listView, Path=DataContext.EditStaffCommand}"
+                                                                                   />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </materialDesign:PackIcon>
+                                            </Border>
+                                            <Border Margin="30 0 0 0"
+                                                    BorderBrush="Black"
+                                                    BorderThickness="2"
+                                                    CornerRadius="6"
+                                                    Cursor="Hand">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#ff6255"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <materialDesign:PackIcon Kind="DeleteForeverOutline"
+                                                                         Height="30"
+                                                                         Width="30">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=listView, Path=DataContext.DeleteStaffCommand}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </materialDesign:PackIcon>
+                                            </Border>
+
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Background="Red"></Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+        </materialDesign:Card>
     </Grid>
 </Page>

@@ -36,6 +36,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>CinemaManagement.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -158,6 +161,10 @@
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\NhanVienPageViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\SuaNVWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\ThemNVWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\XoaNVWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\MonPageViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
@@ -168,6 +175,18 @@
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml.cs">
+      <DependentUpon>NhanVienPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyNhanVienPage\SuaNhanVienWindow.xaml.cs">
+      <DependentUpon>SuaNhanVienWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml.cs">
+      <DependentUpon>ThemNhanVienWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml.cs">
+      <DependentUpon>XoaNhanVienWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\QuanLyPhimPage\MonPage.xaml.cs">
       <DependentUpon>MonPage.xaml</DependentUpon>
     </Compile>
@@ -186,6 +205,22 @@
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyNhanVienPage\SuaNhanVienWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\QuanLyPhimPage\MonPage.xaml">
       <SubType>Designer</SubType>
@@ -274,6 +309,10 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\ImageStaff\edit-user.png" />
+    <Resource Include="Resources\ImageStaff\add-user.png" />
+    <Resource Include="Resources\ImageStaff\next.png" />
+    <Resource Include="Resources\ImageStaff\staff.png" />
     <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
     <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
     <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
