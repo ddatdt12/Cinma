@@ -6,7 +6,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="CustomerId" Type="Int32" Nullable="false" />
-    <Property Name="StaffId" Type="Int32" />
+    <Property Name="StaffId" Type="Int32" Nullable="false" />
     <Property Name="CreatedAt" Type="DateTime" Precision="3" />
     <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <NavigationProperty Name="Customer" Relationship="Self.FK__Bill__CustomerId__571DF1D5" FromRole="Bill" ToRole="Customer" />
@@ -41,9 +41,10 @@
     <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ReleaseDate" Type="DateTime" Precision="0" />
-    <Property Name="MovieType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MovieType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Director" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Showtimes" Relationship="Self.FK__Showtime__MovieI__47DBAE45" FromRole="Movie" ToRole="Showtime" />
     <NavigationProperty Name="Genres" Relationship="Self.GenreDetails" FromRole="Movie" ToRole="Genre" />
   </EntityType>
@@ -55,7 +56,8 @@
     <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Category" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="ProductBillInfoes" Relationship="Self.FK__ProductBi__Produ__5EBF139D" FromRole="Product" ToRole="ProductBillInfo" />
   </EntityType>
   <EntityType Name="ProductBillInfo">
@@ -86,7 +88,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SeatNumber" Type="Int32" Nullable="false" />
     <Property Name="Row" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-    <Property Name="RoomId" Type="Int32" />
+    <Property Name="RoomId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Room" Relationship="Self.ROOMID_SEAT_FK" FromRole="Seat" ToRole="Room" />
     <NavigationProperty Name="SeatSettings" Relationship="Self.FK__SeatSetti__SeatI__4CA06362" FromRole="Seat" ToRole="SeatSetting" />
     <NavigationProperty Name="Tickets" Relationship="Self.FK__Ticket__SeatId__52593CB8" FromRole="Seat" ToRole="Ticket" />
@@ -107,9 +109,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ShowtimeSettingId" Type="Int32" />
-    <Property Name="MovieId" Type="Int32" />
-    <Property Name="StartTime" Type="Time" Precision="7" />
+    <Property Name="ShowtimeSettingId" Type="Int32" Nullable="false" />
+    <Property Name="MovieId" Type="Int32" Nullable="false" />
+    <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
     <NavigationProperty Name="Movie" Relationship="Self.FK__Showtime__MovieI__47DBAE45" FromRole="Showtime" ToRole="Movie" />
     <NavigationProperty Name="SeatSettings" Relationship="Self.FK__SeatSetti__Showt__4D94879B" FromRole="Showtime" ToRole="SeatSetting" />
     <NavigationProperty Name="ShowtimeSetting" Relationship="Self.FK__Showtime__Showti__48CFD27E" FromRole="Showtime" ToRole="ShowtimeSetting" />
@@ -121,7 +123,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ShowDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="RoomId" Type="Int32" />
+    <Property Name="RoomId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Room" Relationship="Self.ROOMID_SETTINGSHOWTIME_FK" FromRole="ShowtimeSetting" ToRole="Room" />
     <NavigationProperty Name="Showtimes" Relationship="Self.FK__Showtime__Showti__48CFD27E" FromRole="ShowtimeSetting" ToRole="Showtime" />
   </EntityType>
@@ -139,7 +141,7 @@
     <Property Name="Gender" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
     <Property Name="StartingDate" Type="DateTime" Precision="0" />
     <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__StaffId__5812160E" FromRole="Staff" ToRole="Bill" />
   </EntityType>
   <EntityType Name="Ticket">
@@ -178,7 +180,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Bill__StaffId__5812160E">
-    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
     <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Staff">
@@ -214,7 +216,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Showtime__MovieI__47DBAE45">
-    <End Role="Movie" Type="Self.Movie" Multiplicity="0..1" />
+    <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
     <End Role="Showtime" Type="Self.Showtime" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Movie">
@@ -238,7 +240,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ROOMID_SEAT_FK">
-    <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+    <End Role="Room" Type="Self.Room" Multiplicity="1" />
     <End Role="Seat" Type="Self.Seat" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Room">
@@ -250,7 +252,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ROOMID_SETTINGSHOWTIME_FK">
-    <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+    <End Role="Room" Type="Self.Room" Multiplicity="1" />
     <End Role="ShowtimeSetting" Type="Self.ShowtimeSetting" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Room">
@@ -298,7 +300,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Showtime__Showti__48CFD27E">
-    <End Role="ShowtimeSetting" Type="Self.ShowtimeSetting" Multiplicity="0..1" />
+    <End Role="ShowtimeSetting" Type="Self.ShowtimeSetting" Multiplicity="1" />
     <End Role="Showtime" Type="Self.Showtime" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ShowtimeSetting">

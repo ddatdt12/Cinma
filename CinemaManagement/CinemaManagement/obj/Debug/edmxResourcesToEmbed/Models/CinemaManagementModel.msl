@@ -41,6 +41,7 @@
           <ScalarProperty Name="MovieType" ColumnName="MovieType" />
           <ScalarProperty Name="Director" ColumnName="Director" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -52,6 +53,7 @@
           <ScalarProperty Name="Category" ColumnName="Category" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

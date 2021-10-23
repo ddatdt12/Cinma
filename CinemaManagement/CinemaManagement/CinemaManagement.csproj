@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -16,6 +17,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -28,7 +30,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -55,14 +56,11 @@
     <StartupObject>CinemaManagement.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Elasticsearch.Net, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Elasticsearch.Net.7.15.1\lib\net461\Elasticsearch.Net.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.3.2, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.3\lib\net452\MaterialDesignColors.dll</HintPath>
@@ -139,15 +137,12 @@
     <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.5.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
     </Reference>
-    <Reference Include="Nest, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>..\packages\NEST.7.15.1\lib\net461\Nest.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Collections.Immutable.1.7.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
@@ -162,8 +157,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
@@ -171,14 +166,14 @@
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.5.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -284,44 +279,25 @@
     <Compile Include="Models\TicketBillInfo.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Constant.cs" />
+    <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\NhanVienPageViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\SuaNVWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\ThemNVWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\XoaNVWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\AddMovieWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\EditMovieViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\InforMovieWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\QuanLyPhimPageViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\AddSuatChieuWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\QuanLySuatChieuPageViewModel.cs" />
-    <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="Views\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml.cs">
-      <DependentUpon>NhanVienPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\SuaNhanVienWindow.xaml.cs">
-      <DependentUpon>SuaNhanVienWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml.cs">
-      <DependentUpon>ThemNhanVienWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml.cs">
-      <DependentUpon>XoaNhanVienWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml.cs">
       <DependentUpon>AddMovieWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\QuanLyPhimPage\EditMovie.xaml.cs">
-      <DependentUpon>EditMovie.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml.cs">
       <DependentUpon>InforMovieWindow.xaml</DependentUpon>
@@ -341,20 +317,41 @@
     <Compile Include="Views\ForgotPassWindow.xaml.cs">
       <DependentUpon>ForgotPassWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Views\Staff\MainStaffPage.xaml.cs">
       <DependentUpon>MainStaffPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml.cs">
-      <DependentUpon>MovieScheduleWindow.xaml</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ExampleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -362,77 +359,29 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\Admin\MainAdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Admin\MainAdminWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\SuaNhanVienWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\EditMovie.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Views\ExampleWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
     <Page Include="Views\ForgotPassWindow.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Views\LoginWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Staff\MainStaffPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Views\Staff\MainStaffWindow.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -466,21 +415,39 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="Resources\Admin_MovieManagementSource\CountrySource.txt" />
-    <Resource Include="Resources\Admin_MovieManagementSource\MovieGenreSource.txt" />
-    <Resource Include="Resources\LayoutSignin\apple.png" />
-    <Resource Include="Resources\LayoutSignin\facebook.png" />
-    <Resource Include="Resources\LayoutSignin\google.png" />
-    <Resource Include="Resources\LayoutSignin\StoryboardMovie\captain.jpg" />
-    <Resource Include="Resources\LayoutSignin\StoryboardMovie\spiderman.jpg" />
-    <Resource Include="Resources\LayoutSignin\StoryboardMovie\spiderman2.jpg" />
-    <Resource Include="Resources\LayoutSignin\StoryboardMovie\squidgame.jpg" />
-    <Resource Include="Resources\LayoutSignin\StoryboardMovie\twd.jpeg" />
-    <Resource Include="Resources\LayoutSignin\X.png" />
-    <Resource Include="Resources\LayoutSignin\_.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LayoutSignin\google.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LayoutSignin\facebook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LayoutSignin\apple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\spiderman.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\spiderman2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\twd.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\captain.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\squidgame.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LayoutSignin\X.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\LayoutSignin\_.png" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -498,6 +465,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Admin_MovieManagementSource\CountrySource.txt" />
+    <Resource Include="Resources\Admin_MovieManagementSource\MovieGenreSource.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Models\CinemaManagementModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
@@ -508,14 +479,6 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\ImageStaff\add-user.png" />
-    <Resource Include="Resources\ImageStaff\edit-user.png" />
-    <Resource Include="Resources\ImageStaff\next.png" />
-    <Resource Include="Resources\ImageStaff\staff.png" />
-    <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
-    <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
-    <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
-    <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets')" />
@@ -525,6 +488,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
 </Project>

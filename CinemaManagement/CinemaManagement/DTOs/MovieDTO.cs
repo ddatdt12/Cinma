@@ -10,7 +10,7 @@ namespace CinemaManagement.DTOs
     {
         public MovieDTO()
         {
-
+            MovieType = "2D";
         }
         public int Id { get; set; }
         public string DisplayName { get; set; }

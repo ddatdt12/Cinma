@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="914446b4ee28443584895e2f0d1db287" Name="Diagram1">
+      <Diagram DiagramId="3bef0a90dabb40b1850f9dc464d1b747" Name="Diagram1">
         <EntityTypeShape EntityType="CinemaManagementModel.Bill" Width="1.5" PointX="5.25" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Customer" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Genre" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Movie" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Movie" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.ProductBillInfo" Width="1.5" PointX="7.5" PointY="16.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Room" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Seat" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
