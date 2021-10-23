@@ -24,6 +24,8 @@ namespace CinemaManagement.Models
         public string DisplayName { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }
+        public bool IsDeleted { get; set; }
+        public string Image { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductBillInfo> ProductBillInfoes { get; set; }
