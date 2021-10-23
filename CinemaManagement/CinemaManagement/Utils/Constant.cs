@@ -13,13 +13,8 @@ namespace CinemaManagement.Utils
     }
     public class SOURCE
     {
-        public static readonly string ProductsSource= "Quản lý";
-        public static readonly string MoviesSource = "Nhân viên";
+        public static readonly string ProductsSource= "/CinemaManagement;component/Resouces/Products";
+        public static readonly string MoviesSource = "/CinemaManagement;component/Resouces/Movies";
     }
 
-    //public class Role
-    //{
-    //    public static readonly string Admin = "Quản lý";
-    //    public static readonly string Staff = "Nhân viên";
-    //}
 }

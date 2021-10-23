@@ -1,8 +1,10 @@
-﻿using System;
+﻿using CinemaManagement.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace CinemaManagement.DTOs
 {
@@ -22,5 +24,21 @@ namespace CinemaManagement.DTOs
         public string Director { get; set; }
         public IList<ShowtimeDTO> Showtimes { get; set; }
         public IList<GenreDTO> Genres { get; set; }
+
+        private string _image;
+        public string Image {
+            get
+            {
+                return _image;
+            }
+            set {
+                _image = value;
+                if (value != null)
+                    ImgSource = Helper.GetMovieSource(_image);
+                else
+                    ImgSource = null;
+            }
+        }
+        public ImageSource ImgSource { get; set; }
     }
 }

@@ -48,6 +48,7 @@ namespace CinemaManagement.Models.Services
                               ReleaseDate = movie.ReleaseDate,
                               MovieType = movie.MovieType,
                               Director = movie.Director,
+                              Image = movie.Image,
                               Genres = (from genre in movie.Genres
                                         select new GenreDTO { DisplayName = genre.DisplayName, Id = genre.Id }
                                       ).ToList(),

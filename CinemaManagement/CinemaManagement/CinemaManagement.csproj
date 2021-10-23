@@ -281,6 +281,7 @@
     </Compile>
     <Compile Include="Utils\Constant.cs" />
     <Compile Include="Utils\PropertyCopier.cs" />
+    <Compile Include="Utils\Helper.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\NhanVienPageViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\SuaNVWindowViewModel.cs" />
@@ -508,6 +509,10 @@
     <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
     <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
     <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Images\Movies\" />
+    <Folder Include="Resources\Images\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images\Movies\" />
