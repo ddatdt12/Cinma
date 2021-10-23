@@ -15,6 +15,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
+        x:Name="addmoviewindow"
         Background="Transparent"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         FontFamily="{DynamicResource MaterialDesignFont}"
@@ -62,7 +63,8 @@
                                          Background="#FFF0F3F7"
                                          BorderThickness="0,0,0,1"
                                          Foreground="Black"
-                                         Opacity="0.5" />
+                                         Opacity="0.5" 
+                                         Text="{Binding movieName,Mode=TwoWay}"/>
                             </StackPanel>
                         </StackPanel>
 
@@ -78,6 +80,7 @@
                                       MaxDropDownHeight="280"
                                       Opacity="0.5"
                                       Height="52"
+                                      SelectedItem="{Binding movieGenre,Mode=TwoWay}"
                                       VerticalContentAlignment="Bottom" />
 
                         </StackPanel>
@@ -107,7 +110,8 @@
                                          Padding="0"
                                          VerticalContentAlignment="Center"
                                          Height="40"
-                                         Margin="0,0,10,0" />
+                                         Margin="0,0,10,0" 
+                                         Text="{Binding movieDirector,Mode=TwoWay}"/>
 
                             </StackPanel>
                         </StackPanel>
@@ -125,7 +129,8 @@
                                           Opacity="0.5"
                                           Height="40"
                                           VerticalContentAlignment="Bottom"
-                                          MaxDropDownHeight="240" />
+                                          MaxDropDownHeight="240"
+                                          SelectedItem="{Binding movieCountry,Mode=TwoWay}"/>
                             </StackPanel>
                         </StackPanel>
 
@@ -141,7 +146,9 @@
                                                            x:Name="WithSecondsTimePicker"
                                                            FontSize="25"
                                                            VerticalContentAlignment="Bottom"
-                                                           Height="35" />
+                                                           Height="35"
+                                                           
+                                                           SelectedTime="{Binding movieDuration,Mode=TwoWay}"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -152,8 +159,8 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="70*" />
-                            <ColumnDefinition Width="30*" />
+                            <ColumnDefinition Width="75*" />
+                            <ColumnDefinition Width="25*" />
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
@@ -166,7 +173,8 @@
                             <StackPanel HorizontalAlignment="Left"
                                         Orientation="Horizontal"
                                         Margin="25,0,0,0"
-                                        Grid.ColumnSpan="2">
+                                        Grid.ColumnSpan="2"
+                                        Width="773">
 
                                 <StackPanel>
                                     <Label Content="Mô tả"
@@ -183,18 +191,26 @@
                                              FontSize="18"
                                              Height="300"
                                              Width="400"
-                                             Foreground="Black" />
+                                             Foreground="Black"
+                                             Text="{Binding movieDes,Mode=TwoWay}"/>
 
                                 </StackPanel>
                                 <StackPanel Margin="30,10,0,00"
-                                            Orientation="Horizontal"
                                             Width="346">
-
-                                    <Image Width="219"
+                                    <Image Width="209"
                                            x:Name="imgframe"
-                                           HorizontalAlignment="Left"
-                                           Margin="10,0,0,15"/>
-
+                                           HorizontalAlignment="Right"
+                                           Margin="0,0,137,15"
+                                           Height="280"
+                                           Source="{Binding ImageSource,Mode=TwoWay}">
+                                    </Image>
+                                    <Button HorizontalAlignment="Left"
+                                            Content="Tải ảnh"
+                                            Margin="10,0,0,0"
+                                            Width="100"
+                                            VerticalAlignment="Bottom"
+                                            materialDesign:ButtonAssist.CornerRadius="10"
+                                            Command="{Binding UploadImageCM}"/>
                                 </StackPanel>
 
                             </StackPanel>
@@ -209,14 +225,7 @@
 
                             <!--YEAR-->
                             <Grid Grid.Row="0">
-                                <Button VerticalAlignment="Top"
-                                        HorizontalAlignment="Left"
-                                        Content="Tải ảnh"
-                                        Margin="10,20,0,0"
-                                        Width="100"
-                                        materialDesign:ButtonAssist.CornerRadius="10"
-                                        Command="{Binding UploadImageCM}"
-                                        CommandParameter="{Binding ElementName=imgframe}"/>
+
                                 <StackPanel Margin="0,0,25,0"
                                             HorizontalAlignment="Right">
                                     <Label Content="Năm SX"
@@ -259,7 +268,8 @@
                                             Width="100"
                                             Margin="10,0,10,10"
                                             Background="#FF5980B8"
-                                            materialDesign:ButtonAssist.CornerRadius="8" />
+                                            materialDesign:ButtonAssist.CornerRadius="8"
+                                            Command="{Binding SaveMovieCM}"/>
                                 </StackPanel>
                             </Grid>
                         </Grid>

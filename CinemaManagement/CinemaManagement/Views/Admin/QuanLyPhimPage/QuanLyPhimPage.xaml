@@ -20,11 +20,11 @@
       d:DesignWidth="1440">
 
     <Grid Background="#f0f2f5">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" />
             <RowDefinition Height="90*" />
-            
+
         </Grid.RowDefinitions>
 
         <!--cong cu va cac button-->
@@ -75,15 +75,6 @@
 
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Image Width=" 30"
-                                               Height="70"
-                                            Source="/CinemaManagement;component/Resources/LayoutSignin/bo-gia.jpg"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
                             <GridViewColumn Header="ID">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
