@@ -18,8 +18,8 @@
         Background="Transparent"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Height="485"
-        Width="795"
+        Height="600"
+        Width="1000"
         DataContext="{StaticResource AddMovieWindowVM}">
     <Grid>
         <Border Background="#FFF0F3F7"
@@ -86,9 +86,9 @@
 
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="292*" />
+                            <ColumnDefinition Width="110*" />
+                            <ColumnDefinition Width="97*" />
                         </Grid.ColumnDefinitions>
 
                         <!--Tac gia-->
@@ -106,14 +106,15 @@
                                          Opacity="0.5"
                                          Padding="0"
                                          VerticalContentAlignment="Center"
-                                         Height="40"/>
+                                         Height="40"
+                                         Margin="0,0,10,0" />
 
                             </StackPanel>
                         </StackPanel>
 
                         <!--Country-->
                         <StackPanel Grid.Column="1"
-                                    Margin="10,10,10,0">
+                                    Margin="0,10,10,0">
                             <Label Content="Quốc gia"
                                    FontSize="20"
                                    Height="35" />
@@ -124,15 +125,13 @@
                                           Opacity="0.5"
                                           Height="40"
                                           VerticalContentAlignment="Bottom"
-                                          MaxDropDownHeight="240">
-
-                                </ComboBox>
+                                          MaxDropDownHeight="240" />
                             </StackPanel>
                         </StackPanel>
 
                         <!--Duration-->
                         <StackPanel Grid.Column="2"
-                                    Margin="10,10,25,0">
+                                    Margin="0,10,25,0">
                             <Label Content="Thời lượng"
                                    FontSize="20"
                                    Height="40" />
@@ -142,7 +141,7 @@
                                                            x:Name="WithSecondsTimePicker"
                                                            FontSize="25"
                                                            VerticalContentAlignment="Bottom"
-                                                           Height="35"/>
+                                                           Height="35" />
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -153,15 +152,21 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="70*" />
+                            <ColumnDefinition Width="30*" />
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
                             <!--Descripstion-->
                             <StackPanel HorizontalAlignment="Left"
-                                        Width="290"
-                                        Margin="25,0,0,0">
+                                        Orientation="Horizontal"
+                                        Margin="25,0,0,0"
+                                        Grid.ColumnSpan="2">
 
                                 <StackPanel>
                                     <Label Content="Mô tả"
@@ -173,12 +178,25 @@
                                              AcceptsReturn="True"
                                              TextWrapping="Wrap"
                                              VerticalScrollBarVisibility="Auto"
+                                             HorizontalScrollBarVisibility="Disabled"
                                              materialDesign:HintAssist.Hint="Giới thiệu phim"
                                              FontSize="18"
-                                             Height="174"
+                                             Height="300"
+                                             Width="400"
                                              Foreground="Black" />
 
                                 </StackPanel>
+                                <StackPanel Margin="30,10,0,00"
+                                            Orientation="Horizontal"
+                                            Width="346">
+
+                                    <Image Width="219"
+                                           x:Name="imgframe"
+                                           HorizontalAlignment="Left"
+                                           Margin="10,0,0,15"/>
+
+                                </StackPanel>
+
                             </StackPanel>
                         </Grid>
 
@@ -191,6 +209,14 @@
 
                             <!--YEAR-->
                             <Grid Grid.Row="0">
+                                <Button VerticalAlignment="Top"
+                                        HorizontalAlignment="Left"
+                                        Content="Tải ảnh"
+                                        Margin="10,20,0,0"
+                                        Width="100"
+                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                        Command="{Binding UploadImageCM}"
+                                        CommandParameter="{Binding ElementName=imgframe}"/>
                                 <StackPanel Margin="0,0,25,0"
                                             HorizontalAlignment="Right">
                                     <Label Content="Năm SX"
@@ -216,13 +242,13 @@
                                 <StackPanel VerticalAlignment="Bottom"
                                             HorizontalAlignment="Right"
                                             Orientation="Horizontal"
-                                            Margin="0,0,24,10">
+                                            Margin="0,0,0,10">
 
                                     <Button Content="Huỷ"
                                             FontSize="20"
                                             Height="40"
                                             Width="100"
-                                            Margin="0,0,20,10"
+                                            Margin="0,0,10,10"
                                             BorderBrush="Transparent"
                                             Click="Button_Click"
                                             materialDesign:ButtonAssist.CornerRadius="8" />
@@ -231,7 +257,7 @@
                                             FontSize="20"
                                             Height="40"
                                             Width="100"
-                                            Margin="10,0,0,10"
+                                            Margin="10,0,10,10"
                                             Background="#FF5980B8"
                                             materialDesign:ButtonAssist.CornerRadius="8" />
                                 </StackPanel>
