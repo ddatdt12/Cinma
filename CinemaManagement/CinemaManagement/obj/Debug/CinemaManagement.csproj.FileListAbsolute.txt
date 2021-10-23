@@ -418,3 +418,4 @@ E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\Cin
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CoreCompileInputs.cache
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.exe
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.pdb
+E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.AssemblyReference.cache

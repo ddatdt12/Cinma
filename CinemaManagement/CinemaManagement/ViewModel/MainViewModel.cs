@@ -66,6 +66,9 @@ namespace CinemaManagement.ViewModel
                 genreDTOs = GenreService.Ins.GetAllGenre();
                 staffDTOs = StaffService.Ins.GetAllStaff();
 
+                string movieName= "Bố già";
+                string imageName = Helper.Slugify(movieName);
+
                 #region Staff Service
                 //StaffDTO staff = new StaffDTO
                 //{
