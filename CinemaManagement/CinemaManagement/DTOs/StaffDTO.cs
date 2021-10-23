@@ -1,5 +1,4 @@
-﻿using CinemaManagement.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +10,7 @@ namespace CinemaManagement.DTOs
     {
         public StaffDTO()
         {
-            Role = ROLE.Staff;
         }
-
 
         public int Id { get; set; }
         public string Name { get; set; }

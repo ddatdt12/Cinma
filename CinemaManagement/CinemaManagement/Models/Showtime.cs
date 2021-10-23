@@ -22,9 +22,9 @@ namespace CinemaManagement.Models
         }
     
         public int Id { get; set; }
-        public int ShowtimeSettingId { get; set; }
-        public int MovieId { get; set; }
-        public System.TimeSpan StartTime { get; set; }
+        public Nullable<int> ShowtimeSettingId { get; set; }
+        public Nullable<int> MovieId { get; set; }
+        public Nullable<System.TimeSpan> StartTime { get; set; }
     
         public virtual Movie Movie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

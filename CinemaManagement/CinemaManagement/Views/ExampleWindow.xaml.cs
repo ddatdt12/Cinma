@@ -23,6 +23,5 @@ namespace CinemaManagement.Views
         {
             InitializeComponent();
         }
-
     }
 }

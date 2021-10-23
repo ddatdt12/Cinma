@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:CinemaManagement" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
@@ -16,9 +16,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource MainAdminVM}"
-        Title="Administrator"
-        Height="800"
-        Width="1440"
+        Title="Administrator" Height="800" Width="1440"
         Name="mainadminwindow"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -28,57 +26,58 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
-            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownWindowCM}"
-                                   CommandParameter="{Binding ElementName=mainadminwindow}" />
+            <i:InvokeCommandAction 
+                Command="{Binding MouseLeftButtonDownWindowCM}"
+                CommandParameter="{Binding ElementName=mainadminwindow}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
 
 
-    <Grid>
+    <Grid Margin="0,0,4,-19">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="31*"/>
+        </Grid.RowDefinitions>
 
         <!--thanh cong cu-->
-        <Grid Panel.ZIndex="999">
+        <Grid Margin="0,0,0,10" Panel.ZIndex="1" Grid.RowSpan="2">
             <Grid.Resources>
                 <system:Double x:Key="SlideOffSet">260</system:Double>
                 <Storyboard x:Key="SlideRight">
                     <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                     From="0"
-                                     To="{StaticResource SlideOffSet}"
-                                     Duration="0:0:0.3" />
+                             From="0" To="{StaticResource SlideOffSet}"
+                             Duration="0:0:0.3" />
                 </Storyboard>
                 <Storyboard x:Key="SlideLeft">
                     <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                     From="{StaticResource SlideOffSet}"
-                                     To="0"
-                                     Duration="0:0:0.3" />
+                              From="{StaticResource SlideOffSet}" To="0" 
+                              Duration="0:0:0.3" />
                 </Storyboard>
             </Grid.Resources>
-
-            <materialDesign:ColorZone Mode="Inverted"
-                                      Padding="16"
-                                      Height="85"
-                                      Margin="-280,0,0,0">
+            <materialDesign:ColorZone
+                            Mode="Inverted"
+                            Padding="16" Height="85" Margin="-280,0,-4,0">
                 <DockPanel>
-
-                    <materialDesign:PopupBox DockPanel.Dock="Right"
-                                             PlacementMode="BottomAndAlignRightEdges">
+                    <materialDesign:PopupBox
+                        DockPanel.Dock="Right"
+                        PlacementMode="BottomAndAlignRightEdges">
                         <StackPanel Orientation="Vertical">
                             <Button x:Name="signout"
-                                    Content="Quản lý tài khoản" />
+                                Content="Quản lý tài khoản"/>
 
-                            <Button Content="Đăng xuất"
-                                    Command="{Binding SignoutCM}"
-                                    CommandParameter="{Binding ElementName=mainadminwindow}" />
+                            <Button
+                                Content="Đăng xuất"
+                                Command="{Binding SignoutCM}"
+                                CommandParameter="{Binding ElementName=mainadminwindow}"/>
                         </StackPanel>
-                    </materialDesign:PopupBox>
 
+                    </materialDesign:PopupBox>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel.Style>
                             <Style TargetType="{x:Type StackPanel}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsChecked, ElementName=SlideButton}"
-                                                 Value="True">
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=SlideButton}" Value="True">
                                         <DataTrigger.EnterActions>
                                             <BeginStoryboard Storyboard="{StaticResource SlideRight}" />
                                         </DataTrigger.EnterActions>
@@ -89,87 +88,84 @@
                                 </Style.Triggers>
                             </Style>
                         </StackPanel.Style>
-
                         <StackPanel.RenderTransform>
                             <TranslateTransform />
                         </StackPanel.RenderTransform>
 
-                        <Grid Background="black"
-                              Width="260"
-                              Margin="0,0,0,-731">
+                        <Grid Background="black" Width="260" Margin="0,0,0,-731">
                             <StackPanel>
-                                
-                                <StackPanel HorizontalAlignment="Center">
-                                    <materialDesign:PackIcon Kind="HomeCircle"
-                                                             Height="60"
-                                                             Width="80"
-                                                             Cursor="Hand">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding LoadSuatChieuPageCM}"
-                                                                       CommandParameter="{Binding ElementName=MainFrame}" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </materialDesign:PackIcon>
-                                </StackPanel>
-                                <Button Margin="0,0,0,5"
-                                        Content="Quản lý phim"
-                                        Height="50"
-                                        FontSize="25"
-                                        Background="Transparent"
-                                        BorderBrush="Transparent" 
-                                        Command="{Binding LoadQLPPageCM}"
-                                        CommandParameter="{Binding ElementName=MainFrame}"/>
-                                <Button Margin="0,0,0,5"
+                                <Button Margin="0,70,0,5"
                                         Content="Quản lý nhân sự"
                                         Height="50"
                                         FontSize="25"
                                         Background="Transparent"
-                                        BorderBrush="Transparent" />
+                                        BorderBrush="Transparent"/>
                                 <Button Margin="0,0,0,5"
                                         Content="Quản lý vé"
                                         Height="50"
                                         FontSize="25"
                                         Background="Transparent"
-                                        BorderBrush="Transparent" />
+                                        BorderBrush="Transparent"
+                                        />
                                 <Button Margin="0,0,0,5"
                                         Content="Thống kê"
                                         Height="50"
                                         FontSize="25"
                                         Background="Transparent"
-                                        BorderBrush="Transparent" />
-                                
+                                        BorderBrush="Transparent"
+                                        />
                             </StackPanel>
                         </Grid>
-                        <ToggleButton x:Name="SlideButton"
+                        <ToggleButton x:Name="SlideButton" 
                                       Margin="40,0,0,0"
-                                      Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+                        Style="{DynamicResource MaterialDesignHamburgerToggleButton}"/>
                     </StackPanel>
-
                     <materialDesign:PackIcon Kind="AccountCircle"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Right"
                                              Margin="0,0,200,0"
                                              Height="50"
-                                             Width="50" />
+                                             Width="50"/>
                 </DockPanel>
             </materialDesign:ColorZone>
 
         </Grid>
 
-        <!--Frame-->
-        <Frame x:Name="MainFrame"
-               Height="720"
-               Width="1440"
-               Margin="0,79,-4,10"
-               NavigationUIVisibility="Hidden"
-               Panel.ZIndex="0">
+        <!--Noi dung chinh-->
+
+        <Grid Background="#FFD3D1D1" Height="85" Margin="0,85,-4,649" Grid.RowSpan="2">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontFamily" Value="junegull"/>
+                    <Setter Property="FontSize" Value="30"/>
+                    <Setter Property="Foreground" Value="Blue"/>
+                    <Setter Property="Margin" Value="30,0,40,0"/>
+                </Style>
+            </Grid.Resources>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Phim"
+                               Margin="30,0,500,0"/>
+                <TextBlock Text="Mon"/>
+                <TextBlock Text="tue"/>
+                <TextBlock Text="wed"/>
+                <TextBlock Text="thu"/>
+                <TextBlock Text="fri"/>
+                <TextBlock Text="sat"/>
+                <TextBlock Text="sun"/>
+            </StackPanel>
+        </Grid>
+        <!--Phim Page-->
+        <Frame x:Name="MainQuanLyPhimPage"
+               Margin="0,170,-4,19" Grid.RowSpan="2">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">
-                    <i:InvokeCommandAction Command="{Binding LoadSuatChieuPageCM}"
-                                           CommandParameter="{Binding ElementName=MainFrame}" />
+                    <i:InvokeCommandAction Command="{Binding LoadMonPageCM}"
+                                           CommandParameter="{Binding ElementName=MainQuanLyPhimPage}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Frame>
+
+
+
     </Grid>
 </Window>

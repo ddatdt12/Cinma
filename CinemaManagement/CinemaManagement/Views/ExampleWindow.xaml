@@ -53,7 +53,7 @@
                              Command="{Binding EditGenre}"
                              Background="#FF3669F7"
                              Height="Auto" />
-
+                   
                     <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
                             Width="100"
                             ToolTip="Resource name: MaterialDesignRaisedLightDarkButton"
