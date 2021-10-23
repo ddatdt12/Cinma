@@ -381,7 +381,6 @@ E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\Cin
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
-E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.exe.config
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\MainWindow.g.cs
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\AddMovieWindow.g.cs
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\Views\Admin\QuanLyPhimPage\InforMovieWindow.g.cs
@@ -419,4 +418,3 @@ E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\Cin
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.CoreCompileInputs.cache
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.exe
 E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.pdb
-E:\Năm 2\Lập trình trực quan\GIt\Dat\CinemaManagement\CinemaManagement\CinemaManagement\obj\Debug\CinemaManagement.csproj.AssemblyReference.cache

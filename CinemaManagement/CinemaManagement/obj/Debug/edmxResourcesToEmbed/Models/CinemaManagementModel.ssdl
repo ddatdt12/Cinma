@@ -6,7 +6,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CustomerId" Type="int" Nullable="false" />
-    <Property Name="StaffId" Type="int" />
+    <Property Name="StaffId" Type="int" Nullable="false" />
     <Property Name="CreatedAt" Type="datetime" />
     <Property Name="TotalPrice" Type="money" Nullable="false" />
   </EntityType>
@@ -43,9 +43,10 @@
     <Property Name="Country" Type="nvarchar" MaxLength="50" />
     <Property Name="Description" Type="nvarchar(max)" />
     <Property Name="ReleaseDate" Type="smalldatetime" />
-    <Property Name="MovieType" Type="nvarchar" MaxLength="50" />
+    <Property Name="MovieType" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Director" Type="nvarchar" MaxLength="200" Nullable="false" />
-    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="Image" Type="varchar" MaxLength="70" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -55,7 +56,8 @@
     <Property Name="DisplayName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Category" Type="nvarchar" MaxLength="20" />
     <Property Name="Price" Type="money" Nullable="false" />
-    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="Image" Type="varchar" MaxLength="70" />
   </EntityType>
   <EntityType Name="ProductBillInfo">
     <Key>
@@ -81,7 +83,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SeatNumber" Type="int" Nullable="false" />
     <Property Name="Row" Type="char" MaxLength="1" Nullable="false" />
-    <Property Name="RoomId" Type="int" />
+    <Property Name="RoomId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="SeatSetting">
     <Key>
@@ -97,9 +99,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ShowtimeSettingId" Type="int" />
-    <Property Name="MovieId" Type="int" />
-    <Property Name="StartTime" Type="time" Precision="7" />
+    <Property Name="ShowtimeSettingId" Type="int" Nullable="false" />
+    <Property Name="MovieId" Type="int" Nullable="false" />
+    <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
   </EntityType>
   <EntityType Name="ShowtimeSetting">
     <Key>
@@ -107,7 +109,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ShowDate" Type="datetime" Nullable="false" />
-    <Property Name="RoomId" Type="int" />
+    <Property Name="RoomId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Staff">
     <Key>
@@ -123,7 +125,7 @@
     <Property Name="Gender" Type="nchar" MaxLength="3" Nullable="false" />
     <Property Name="StartingDate" Type="smalldatetime" />
     <Property Name="Role" Type="nvarchar" MaxLength="20" />
-    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Ticket">
     <Key>
@@ -156,7 +158,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Bill__StaffId__5812160E">
-    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
     <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Staff">
@@ -216,7 +218,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Showtime__MovieI__47DBAE45">
-    <End Role="Movie" Type="Self.Movie" Multiplicity="0..1" />
+    <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
     <End Role="Showtime" Type="Self.Showtime" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Movie">
@@ -228,7 +230,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__Showtime__Showti__48CFD27E">
-    <End Role="ShowtimeSetting" Type="Self.ShowtimeSetting" Multiplicity="0..1" />
+    <End Role="ShowtimeSetting" Type="Self.ShowtimeSetting" Multiplicity="1" />
     <End Role="Showtime" Type="Self.Showtime" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ShowtimeSetting">
@@ -312,7 +314,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ROOMID_SEAT_FK">
-    <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+    <End Role="Room" Type="Self.Room" Multiplicity="1" />
     <End Role="Seat" Type="Self.Seat" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Room">
@@ -324,7 +326,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="ROOMID_SETTINGSHOWTIME_FK">
-    <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+    <End Role="Room" Type="Self.Room" Multiplicity="1" />
     <End Role="ShowtimeSetting" Type="Self.ShowtimeSetting" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Room">

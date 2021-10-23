@@ -105,29 +105,6 @@ namespace CinemaManagement.Models.Services
             return (true, "");
 
         }
-        public (bool, string message) DeleteGenre(int GenreId)
-        {
-            try
-            {
-                var genre = DataProvider.Ins.DB.Genres.Where(g => g.Id == GenreId).FirstOrDefault();
-                if (genre == null)
-                {
-                    return (false, "Genre don't exist");
-                }
-                DataProvider.Ins.DB.Genres.Remove(genre);
-                DataProvider.Ins.DB.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                return (false, e.Message);
-
-            }
-            catch (DbUpdateException e)
-            {
-                return (false, e.Message);
-            }
-            return (true, "");
-        }
 
 
     }
