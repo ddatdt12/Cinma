@@ -1,18 +1,13 @@
 ﻿using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Globalization;
 using System.Windows;
 using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
-using MaterialDesignThemes.Wpf;
-using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
 {
@@ -57,6 +52,12 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
             set { _TextFilterChanged = value; OnPropertyChanged(); }
         }
 
+        public ImageSource ImageSource { get; set; }
+        public void LoadImage()
+        {
+            ImageSource = new BitmapImage(new Uri(@"/CinemaManagement;component/Resources/LayoutSignin/bo-gia.jpg", UriKind.Relative));
+        }
+
 
         public ICommand Open_AddMovieWindowCM { get; set; }
         public ICommand SelectedMovieItemCM { get; set; }
@@ -65,7 +66,7 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
 
         public QuanLyPhimPageViewModel()
         {
-
+            LoadImage();
             LoadCurrentDate();
             List<MovieDTO> movieDTOs;
             movieDTOs = MovieService.Ins.GetAllMovie();
@@ -98,6 +99,7 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
               {
                   MessageBox.Show("DELETED!");
               });
+       
         }
 
         public void LoadCurrentDate()

@@ -20,9 +20,11 @@
       d:DesignWidth="1440">
 
     <Grid Background="#f0f2f5">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" />
             <RowDefinition Height="90*" />
+            
         </Grid.RowDefinitions>
 
         <!--cong cu va cac button-->
@@ -54,15 +56,13 @@
                          FontFamily="arial"
                          Command="{Binding Open_AddMovieWindowCM}">
                 </Button>
-                
             </StackPanel>
         </StackPanel>
-
+      
         <Grid Grid.Row="1">
 
             <materialDesign:Card Background="White"
                                  Margin="30,20,30,20">
-
                 <ListView x:Name="MovieListview"
                           ItemsSource="{Binding MovieList}"
                           SelectedItem="{Binding SelectedItem}"
@@ -75,7 +75,7 @@
 
                     <ListView.View>
                         <GridView>
-
+                            
                             <GridViewColumn Header="ID">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
