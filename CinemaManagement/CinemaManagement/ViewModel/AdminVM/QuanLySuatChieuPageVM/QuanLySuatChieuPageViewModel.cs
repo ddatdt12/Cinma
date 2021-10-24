@@ -1,14 +1,10 @@
 ﻿using CinemaManagement.Views.Admin.QuanLySuatChieuPage;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.AdminVM.QuanLySuatChieuPageVM
 {
-    public class QuanLySuatChieuPageViewModel: BaseViewModel
+    public class QuanLySuatChieuPageViewModel : BaseViewModel
     {
         private DateTime _getCurrentDate;
         public DateTime GetCurrentDate
@@ -25,8 +21,9 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLySuatChieuPageVM
         }
 
 
-
         public ICommand Open_AddSuatChieuWindowCM { get; set; }
+
+      
 
 
         public QuanLySuatChieuPageViewModel()
@@ -44,5 +41,6 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLySuatChieuPageVM
             GetCurrentDate = DateTime.Now.Date;
             SetCurrentDate = GetCurrentDate.ToShortDateString();
         }
+
     }
 }

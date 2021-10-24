@@ -13,14 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CinemaManagement.Views.Staff
+namespace CinemaManagement.Views.Admin.QuanLyNhanVienPage
 {
-    public partial class MainStaffPage : Page
+    /// <summary>
+    /// Interaction logic for NhanVienPage.xaml
+    /// </summary>
+    public partial class NhanVienPage : Page
     {
-        public MainStaffPage()
+        public NhanVienPage()
         {
             InitializeComponent();
         }
-  
     }
 }

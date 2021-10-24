@@ -12,10 +12,15 @@
         <Grid>
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <WrapPanel Background="#FF2B3D66">
-                        <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
+                    <WrapPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Width" Value="245"></Setter>
+                            <Setter Property="Height" Value="320"></Setter>
+                            <Setter Property="Cursor" Value="Hand"></Setter>
+                            <Setter Property="Margin" Value="60 30 0 30"></Setter>
+                        </Style>
+                    </WrapPanel.Resources>
+                        <StackPanel>
                             <Image Source="{Binding Source_Image1}"
                                    HorizontalAlignment="Left">
                                 <Image.Style>
@@ -38,10 +43,7 @@
                                        Foreground="#FFD6C6C3"
                                        TextAlignment="Left"/>
                         </StackPanel>
-                        <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
+                        <StackPanel>
                             <Image Source="{Binding Source_Image2}"
                                    HorizontalAlignment="Left">
                                 <Image.Style>
@@ -65,10 +67,7 @@
                                        TextAlignment="Left"
                                        Margin="0 0 0 0"/>
                         </StackPanel>
-                        <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
+                        <StackPanel>
                             <Image Source="{Binding Source_Image3}" 
                                    HorizontalAlignment="Left">
                                 <Image.Style>
@@ -92,117 +91,7 @@
                                        TextAlignment="Left"
                                        Margin="0 0 0 0"/>
                         </StackPanel>
-                        <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
-                            <Image Source="{Binding Source_Image4}" 
-                                   HorizontalAlignment="Left">
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Setter Property="Height" Value="240"></Setter>
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Height" Value="262"></Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                            <TextBlock Text="{Binding TextBlock_Image4_1}"
-                                       FontSize="20"
-                                       Foreground="White"
-                                       TextAlignment="Left"/>
-                            <TextBlock Text="{Binding TextBlock_Image4_2}"
-                                       FontSize="15"
-                                       Foreground="#FFD6C6C3"
-                                       TextAlignment="Left"
-                                       Margin="0 0 0 0"/>
-                        </StackPanel>
-                    <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
-                        <Image Source="{Binding Source_Image1}"
-                                   HorizontalAlignment="Left">
-                            <Image.Style>
-                                <Style TargetType="Image">
-                                    <Setter Property="Height" Value="240"></Setter>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Height" Value="262"></Setter>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Image.Style>
-                        </Image>
-                        <TextBlock Text="{Binding TextBlock_Image1_1}"
-                                       FontSize="20"
-                                       Foreground="White"
-                                       TextAlignment="Left"/>
-                        <TextBlock Text="{Binding TextBlock_Image1_2}"
-                                       FontSize="15"
-                                       Foreground="#FFD6C6C3"
-                                       TextAlignment="Left"/>
-                    </StackPanel>
-                    <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
-                        <Image Source="{Binding Source_Image2}"
-                                   HorizontalAlignment="Left">
-                            <Image.Style>
-                                <Style TargetType="Image">
-                                    <Setter Property="Height" Value="240"></Setter>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Height" Value="262"></Setter>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Image.Style>
-                        </Image>
-                        <TextBlock Text="{Binding TextBlock_Image2_1}"
-                                       FontSize="20"
-                                       Foreground="White"
-                                       TextAlignment="Left"/>
-                        <TextBlock Text="{Binding TextBlock_Image2_2}"
-                                       FontSize="15"
-                                       Foreground="#FFD6C6C3"
-                                       TextAlignment="Left"
-                                       Margin="0 0 0 0"/>
-                    </StackPanel>
-                    <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
-                        <Image Source="{Binding Source_Image3}" 
-                                   HorizontalAlignment="Left">
-                            <Image.Style>
-                                <Style TargetType="Image">
-                                    <Setter Property="Height" Value="240"></Setter>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Height" Value="262"></Setter>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Image.Style>
-                        </Image>
-                        <TextBlock Text="{Binding TextBlock_Image3_1}"
-                                       FontSize="20"
-                                       Foreground="White"
-                                       TextAlignment="Left"/>
-                        <TextBlock Text="{Binding TextBlock_Image3_2}"
-                                       FontSize="15"
-                                       Foreground="#FFD6C6C3"
-                                       TextAlignment="Left"
-                                       Margin="0 0 0 0"/>
-                    </StackPanel>
-                    <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
+                        <StackPanel>
                         <Image Source="{Binding Source_Image4}" 
                                    HorizontalAlignment="Left">
                             <Image.Style>
@@ -226,10 +115,7 @@
                                        TextAlignment="Left"
                                        Margin="0 0 0 0"/>
                     </StackPanel>
-                    <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
+                    <StackPanel>
                         <Image Source="{Binding Source_Image1}"
                                    HorizontalAlignment="Left">
                             <Image.Style>
@@ -252,10 +138,7 @@
                                        Foreground="#FFD6C6C3"
                                        TextAlignment="Left"/>
                     </StackPanel>
-                    <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
+                    <StackPanel>
                         <Image Source="{Binding Source_Image2}"
                                    HorizontalAlignment="Left">
                             <Image.Style>
@@ -279,10 +162,7 @@
                                        TextAlignment="Left"
                                        Margin="0 0 0 0"/>
                     </StackPanel>
-                    <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
+                    <StackPanel>
                         <Image Source="{Binding Source_Image3}" 
                                    HorizontalAlignment="Left">
                             <Image.Style>
@@ -306,10 +186,102 @@
                                        TextAlignment="Left"
                                        Margin="0 0 0 0"/>
                     </StackPanel>
-                    <StackPanel Width="235"
-                                    Height="300"
-                                    Margin="50 30 0 30"
-                                    Cursor="Hand">
+                    <StackPanel>
+                        <Image Source="{Binding Source_Image4}" 
+                                   HorizontalAlignment="Left">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Height" Value="240"></Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Height" Value="262"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <TextBlock Text="{Binding TextBlock_Image4_1}"
+                                       FontSize="20"
+                                       Foreground="White"
+                                       TextAlignment="Left"/>
+                        <TextBlock Text="{Binding TextBlock_Image4_2}"
+                                       FontSize="15"
+                                       Foreground="#FFD6C6C3"
+                                       TextAlignment="Left"
+                                       Margin="0 0 0 0"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Image Source="{Binding Source_Image1}"
+                                   HorizontalAlignment="Left">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Height" Value="240"></Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Height" Value="262"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <TextBlock Text="{Binding TextBlock_Image1_1}"
+                                       FontSize="20"
+                                       Foreground="White"
+                                       TextAlignment="Left"/>
+                        <TextBlock Text="{Binding TextBlock_Image1_2}"
+                                       FontSize="15"
+                                       Foreground="#FFD6C6C3"
+                                       TextAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Image Source="{Binding Source_Image2}"
+                                   HorizontalAlignment="Left">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Height" Value="240"></Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Height" Value="262"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <TextBlock Text="{Binding TextBlock_Image2_1}"
+                                       FontSize="20"
+                                       Foreground="White"
+                                       TextAlignment="Left"/>
+                        <TextBlock Text="{Binding TextBlock_Image2_2}"
+                                       FontSize="15"
+                                       Foreground="#FFD6C6C3"
+                                       TextAlignment="Left"
+                                       Margin="0 0 0 0"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Image Source="{Binding Source_Image3}" 
+                                   HorizontalAlignment="Left">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Height" Value="240"></Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Height" Value="262"></Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <TextBlock Text="{Binding TextBlock_Image3_1}"
+                                       FontSize="20"
+                                       Foreground="White"
+                                       TextAlignment="Left"/>
+                        <TextBlock Text="{Binding TextBlock_Image3_2}"
+                                       FontSize="15"
+                                       Foreground="#FFD6C6C3"
+                                       TextAlignment="Left"
+                                       Margin="0 0 0 0"/>
+                    </StackPanel>
+                    <StackPanel>
                         <Image Source="{Binding Source_Image4}" 
                                    HorizontalAlignment="Left">
                             <Image.Style>

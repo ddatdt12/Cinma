@@ -1,17 +1,13 @@
 ﻿using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Globalization;
 using System.Windows;
 using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
-using MaterialDesignThemes.Wpf;
+using System.Windows.Media.Imaging;
 
 namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
 {
@@ -48,19 +44,36 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
             get { return _selectedItem; }
             set { _selectedItem = value; OnPropertyChanged(); }
         }
+        
+        private string _TextFilterChanged;
+        public string TextFilterChanged
+        {
+            get { return _TextFilterChanged; }
+            set { _TextFilterChanged = value; OnPropertyChanged(); }
+        }
+
+        public ImageSource ImageSource { get; set; }
+        public void LoadImage()
+        {
+            ImageSource = new BitmapImage(new Uri(@"/CinemaManagement;component/Resources/LayoutSignin/bo-gia.jpg", UriKind.Relative));
+        }
+
 
         public ICommand Open_AddMovieWindowCM { get; set; }
         public ICommand SelectedMovieItemCM { get; set; }
         public ICommand EditCM { get; set; }
+        public ICommand DeleteCM { get; set; }
 
         public QuanLyPhimPageViewModel()
         {
-
+            LoadImage();
             LoadCurrentDate();
             List<MovieDTO> movieDTOs;
             movieDTOs = MovieService.Ins.GetAllMovie();
             MovieList = new List<MovieDTO>(movieDTOs);
-
+           
+            
+            
 
             Open_AddMovieWindowCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -76,8 +89,17 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
             EditCM = new RelayCommand<ListView>((p) => { return true; }, (p) =>
             {
                 if (SelectedItem != null)
-                    MessageBox.Show(SelectedItem.DisplayName);
+                {
+                    EditMovie w1 = new EditMovie();
+                    LoadEditMovie(w1);
+                    w1.ShowDialog();
+                }
             });
+            DeleteCM = new RelayCommand<ListView>((p) => { return true; }, (p) =>
+              {
+                  MessageBox.Show("DELETED!");
+              });
+       
         }
 
         public void LoadCurrentDate()
@@ -87,6 +109,7 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
         }
         public void LoadInforMovie(InforMovieWindow w1)
         {
+
             DateTime temp = (DateTime)SelectedItem.ReleaseDate;
 
             w1.Name.Text = SelectedItem.DisplayName;
@@ -97,7 +120,19 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
             w1.Duration.Text = SelectedItem.RunningTime.ToString() + " phút";
             w1.Descripstion.Text = SelectedItem.Description;
         }
+        public void LoadEditMovie(EditMovie w1)
+        {
 
+            DateTime temp = (DateTime)SelectedItem.ReleaseDate;
+
+            w1._Displayname.Text = SelectedItem.DisplayName;
+            w1._Genre.Text = SelectedItem.Genres.ToString();
+            w1._Year.Text = temp.Year.ToString();
+            w1._Author.Text = SelectedItem.Director;
+            w1._Country.Text = SelectedItem.Country;
+            w1._Duration.Text = SelectedItem.RunningTime.ToString() + " phút";
+            w1._Description.Text = SelectedItem.Description;
+        }
     }
 
 }
