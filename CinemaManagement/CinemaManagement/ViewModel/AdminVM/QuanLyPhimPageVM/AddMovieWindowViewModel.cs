@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using System;
@@ -25,11 +26,11 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
             set { _movieName = value; OnPropertyChanged(); }
         }
 
-        private string _movieGenre;
-        public string movieGenre
+        private List<string> _ListCountrySource;
+        public List<string> ListCountrySource
         {
-            get { return _movieGenre; }
-            set { _movieGenre = value; OnPropertyChanged(); }
+            get { return _ListCountrySource; }
+            set { _ListCountrySource = value; OnPropertyChanged(); }
         }
 
         private string _movieDirector;
@@ -67,7 +68,7 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
             set { _movieDes = value; OnPropertyChanged(); }
         }
 
-        
+
         private ImageSource _ImageSource;
         public ImageSource ImageSource
         {
@@ -76,15 +77,25 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
         }
 
 
+        private GenreDTO _movieGenre;
+        public GenreDTO movieGenre
 
-        private List<string> _ListCountrySource = new List<string>();
-        public List<string> ListCountrySource
         {
-            get { return _ListCountrySource; }
-            set { _ListCountrySource.Add(value.ToString()); OnPropertyChanged(); }
+            get { return _movieGenre; }
+            set { _movieGenre = value; OnPropertyChanged(); }
         }
 
+
       
+
+        private List<GenreDTO> _GenreList = new List<GenreDTO>();
+        public List<GenreDTO> GenreList
+        {
+            get { return _GenreList; }
+            set { _GenreList = value ; OnPropertyChanged(); }
+        }
+
+ 
 
         public ICommand UploadImageCM { get; set; }
         public ICommand SaveMovieCM { get; set; }
@@ -97,6 +108,9 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
         public AddMovieWindowViewModel()
         {
             InsertCountryToComboBox();
+
+            
+            GenreList = GenreService.Ins.GetAllGenre();
 
             UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -113,29 +127,65 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
                 {
                     openfile.Dispose();
                 }
-
             });
             
 
             SaveMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                SaveImgToApp();
+                List<GenreDTO> genreDTOs = new List<GenreDTO>();
+                genreDTOs.Add(movieGenre);
+                MovieDTO movie = new MovieDTO
+                {
+                    DisplayName = movieName,
+                    Country = movieCountry,
+                    Director = movieDirector,
+                    Description = movieDes,
+                    Image = img,
+                    Genres= genreDTOs,
+                    ReleaseDate =DateTime.Now.Date,
+                    RunningTime=190,
+                };
+                (bool successAddMovie, string messageFromAddMovie) = MovieService.Ins.AddMovie(movie);
+                if (successAddMovie)
+                {
+                    System.Windows.MessageBox.Show(messageFromAddMovie);
+                    SaveImgToApp();
+                }
+
+            }
+        }
+
+
+                else
+                {
+                    System.Windows.MessageBox.Show(messageFromAddMovie);
+                }
             });
         }
 
 
-        public void InsertCountryToComboBox()
-        {
-            FileStream file = new FileStream(@"CountrySource.txt", FileMode.Open, FileAccess.Read);
-            using (var reader = new StreamReader(file, Encoding.UTF8))
-            {
-                while (reader.Peek() >= 0)
-                {
-                    ListCountrySource.Add(reader.ReadLine());
-                }
-            }
-        }
-
+        //public void InsertCountryToComboBox()
+        //{
+        //    FileStream file = new FileStream(@"CountrySource.txt", FileMode.Open, FileAccess.Read);
+        //    using (var reader = new StreamReader(file, Encoding.UTF8))
+        //    {
+        //        while (reader.Peek() >= 0)
+        //        {
+        //            ListCountrySource.Add(reader.ReadLine());
+        //        }
+        //    }
+        //}
+        //public void InsertMovieGerneToComboBox()
+        //{
+        //    FileStream file = new FileStream(@"MovieGenreSource.txt", FileMode.Open, FileAccess.Read);
+        //    using (var reader = new StreamReader(file, Encoding.UTF8))
+        //    {
+        //        while (reader.Peek() >= 0)
+        //        {
+        //            ListMovieGenreSource.Add(reader.ReadLine());
+        //        }
+        //    }
+        //}
         public void LoadImage(string filePath)
         {
             BitmapImage _image = new BitmapImage();
@@ -161,12 +211,13 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
                     Image = img
                 };
 
+                File.Copy(filepath, $"{appPath}{img}");
+
             }
             catch (Exception exp)
             {
                 System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
             }
-            File.Copy(filepath, $"{appPath}{img}");
         }
     }
 }
