@@ -98,6 +98,8 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
         string filepath;
         string appPath;
         string img;
+        string splitname;
+        
         public AddMovieWindowViewModel()
         {
             InsertCountryToComboBox();
@@ -111,27 +113,8 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
                 if (openfile.ShowDialog() == DialogResult.OK)
                 {
                     LoadImage(openfile.FileName);
-
-                    try
-                    {
-                        appPath = Helper.GetMovieImgPath();
-                        string MovieName = movieName;
-                        string imgName = Helper.CreateImageName(MovieName);
-                        img = Helper.CreateImageFullName(imgName, openfile.SafeFileName.Split('.')[1]);
-                        MovieDTO newMovie = new MovieDTO
-                        {
-                            Image = img
-                        };
-
-                        filepath = openfile.FileName;
-
-
-
-                    }
-                    catch (Exception exp)
-                    {
-                        System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
-                    }
+                    filepath = openfile.FileName;
+                    splitname = openfile.SafeFileName.Split('.')[1];
                 }
                 else
                 {
@@ -139,10 +122,11 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
                 }
 
             });
-            bool issave = false;
+            
+
             SaveMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                SaveImgToApp(filepath, appPath, img);
+                SaveImgToApp();
             });
         }
 
@@ -169,7 +153,7 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
                 }
             }
         }
-        public void LoadImage(string filepath)
+        public void LoadImage(string filePath)
         {
             BitmapImage _image = new BitmapImage();
             _image.BeginInit();
@@ -177,12 +161,30 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
             _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
             _image.CacheOption = BitmapCacheOption.OnLoad;
             _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            _image.UriSource = new Uri(filepath, UriKind.RelativeOrAbsolute);
+            _image.UriSource = new Uri(filePath, UriKind.RelativeOrAbsolute);
             _image.EndInit();
             ImageSource = _image;
         }
-        public void SaveImgToApp(string filepath, string appPath, string img)
+        public void SaveImgToApp()
         {
+            try
+            {
+                appPath = Helper.GetMovieImgPath();
+                string MovieName = movieName;
+                string imgName = Helper.CreateImageName(MovieName);
+                img = Helper.CreateImageFullName(imgName, splitname);
+                MovieDTO newMovie = new MovieDTO
+                {
+                    Image = img
+                };
+
+               
+
+            }
+            catch (Exception exp)
+            {
+                System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
+            }
             File.Copy(filepath, $"{appPath}{img}");
         }
     }
