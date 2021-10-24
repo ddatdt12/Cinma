@@ -15,14 +15,12 @@ using System.Windows.Shapes;
 
 namespace CinemaManagement.Views.Staff
 {
-    /// <summary>
-    /// Interaction logic for MainStaffPage.xaml
-    /// </summary>
     public partial class MainStaffPage : Page
     {
         public MainStaffPage()
         {
             InitializeComponent();
         }
+  
     }
 }
