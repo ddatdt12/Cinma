@@ -15,22 +15,12 @@ using System.Windows.Shapes;
 
 namespace CinemaManagement.Views.Staff
 {
-    /// <summary>
-<<<<<<< HEAD:CinemaManagement/CinemaManagement/Views/Staff/MainStaffPage.xaml.cs
-    /// Interaction logic for MainStaffPage.xaml
-    /// </summary>
     public partial class MainStaffPage : Page
     {
         public MainStaffPage()
-=======
-    /// Interaction logic for QuanLyPhimPage.xaml
-    /// </summary>
-    public partial class QuanLyPhimPage : Page
-    { 
-        public QuanLyPhimPage()
->>>>>>> Beta:CinemaManagement/CinemaManagement/Views/Admin/QuanLyPhimPage/QuanLyPhimPage.xaml.cs
         {
             InitializeComponent();
         }
+  
     }
 }
