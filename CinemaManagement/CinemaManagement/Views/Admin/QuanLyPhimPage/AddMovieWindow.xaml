@@ -89,12 +89,13 @@
                                     Margin="0,0,25,0">
                             <Label Content="Thể loại"
                                    FontSize="20" />
-                            <ComboBox ItemsSource="{Binding ListMovieGenreSource}"
+                            <ComboBox ItemsSource="{Binding GenreList}"
                                       IsEditable="True"
                                       FontSize="25"
                                       BorderThickness="0,0,0,1"
                                       MaxDropDownHeight="280"
                                       Height="53"
+                                      DisplayMemberPath="DisplayName"
                                       SelectedItem="{Binding movieGenre,Mode=TwoWay}"
                                       VerticalContentAlignment="Bottom" />
 

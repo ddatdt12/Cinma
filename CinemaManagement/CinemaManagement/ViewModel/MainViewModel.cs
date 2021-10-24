@@ -84,6 +84,7 @@ namespace CinemaManagement.ViewModel
                 //Add new staff
                 //(bool addStaffSuccess, string messageFromAddStaff) = StaffService.Ins.AddStaff(staff);
 
+
                 //Test update Staff
                 //staffDTOs.Last().Name = "Test after update";
                 //staffDTOs.Last().Age = 25;
