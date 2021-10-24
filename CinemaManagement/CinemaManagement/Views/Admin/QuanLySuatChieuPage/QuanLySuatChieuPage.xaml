@@ -22,6 +22,7 @@
                     Orientation="Horizontal"
                     Margin="25,0,0,0">
             <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
+                     x:Name="FilterBox"
                      FontSize="25"
                      Foreground="#DD000000"
                      FontFamily="Arial"
@@ -44,15 +45,6 @@
                          Command="{Binding Open_AddSuatChieuWindowCM}">
                 </Button>
 
-                <Button  Content="Sửa"
-                         VerticalAlignment="Bottom"
-                         HorizontalAlignment="Center"
-                         Width="150"
-                         Height="50"
-                         FontSize="25"
-                         Margin="30,0,0,0"
-                         FontFamily="arial">
-                </Button>
                 <DatePicker x:Name="Calendar"
                             materialDesign:HintAssist.Hint="{Binding SetCurrentDate}"
                             Style="{StaticResource MaterialDesignOutlinedDatePicker}"
@@ -62,7 +54,7 @@
                             Width="200"
                             Height="55"
                             BorderBrush="Blue"
-                            Margin="325,0,0,0"
+                            Margin="500,0,0,0"
                             Padding="10,0,20,0" />
 
             </StackPanel>
@@ -80,12 +72,10 @@
         <Grid Grid.Row="1">
             <materialDesign:Card Background="White"
                                  Margin="100,20,30,20">
-                <ListView>
+                
+                <ListView x:Name="MovieListview">
 
                 </ListView>
-
-
-
 
             </materialDesign:Card>
         </Grid>

@@ -1,12 +1,6 @@
 ﻿using CinemaManagement.DTOs;
-using CinemaManagement.Models;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Views.Staff;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -112,7 +106,7 @@ namespace CinemaManagement.ViewModel
                     p.Close();
                     return;
                 }
-                
+
             }
             else
             {

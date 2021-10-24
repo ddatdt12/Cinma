@@ -21,7 +21,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="650"
         Width="1000"
-        DataContext="{StaticResource AddMovieWindowVM}">
+        DataContext="{StaticResource MovieManagementVM}">
     <Grid>
         <Border Background="#FFF0F3F7"
                 CornerRadius="20"
@@ -31,7 +31,7 @@
             <Grid>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50" />
                     <RowDefinition Height="40*" />
                     <RowDefinition Height="60*" />
                 </Grid.RowDefinitions>
@@ -47,7 +47,7 @@
                                    Margin="20,10,0,0"
                                    FontWeight="Bold" />
                     </Border>
-                    
+
                 </Grid>
                 <Grid  Grid.Row="1"
                        Margin="0,10,0,0">
@@ -80,7 +80,7 @@
                                          BorderThickness="0,0,0,1"
                                          Foreground="Black"
                                          Height="50"
-                                         Text="{Binding movieName}"/>
+                                         Text="{Binding movieName}" />
                             </StackPanel>
                         </StackPanel>
 
@@ -127,8 +127,8 @@
                                          Padding="0"
                                          VerticalContentAlignment="Center"
                                          Height="40"
-                                         Margin="0,0,10,0" 
-                                         Text="{Binding movieDirector,Mode=TwoWay}"/>
+                                         Margin="0,0,10,0"
+                                         Text="{Binding movieDirector,Mode=TwoWay}" />
 
                             </StackPanel>
                         </StackPanel>
@@ -146,7 +146,7 @@
                                           Height="40"
                                           VerticalContentAlignment="Bottom"
                                           MaxDropDownHeight="240"
-                                          SelectedItem="{Binding movieCountry,Mode=TwoWay}"/>
+                                          SelectedItem="{Binding movieCountry,Mode=TwoWay}" />
                             </StackPanel>
                         </StackPanel>
 
@@ -157,14 +157,13 @@
                                    FontSize="20"
                                    Height="40" />
                             <StackPanel>
-                                <materialDesign:TimePicker materialDesign:HintAssist.Hint=""
-                                                           Is24Hours="True"
-                                                           x:Name="WithSecondsTimePicker"
-                                                           FontSize="25"
-                                                           VerticalContentAlignment="Bottom"
-                                                           Height="35"
-                                                           
-                                                           SelectedTime="{Binding movieDuration,Mode=TwoWay}"/>
+                                <ComboBox MinWidth="72"
+                                          Height="35"
+                                          FontSize="25"
+                                          ItemsSource="{Binding MinuteSource}"
+                                          SelectedItem="{Binding movieDuration}">
+                                </ComboBox>
+
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -208,7 +207,7 @@
                                              Height="300"
                                              Width="400"
                                              Foreground="Black"
-                                             Text="{Binding movieDes,Mode=TwoWay}"/>
+                                             Text="{Binding movieDes,Mode=TwoWay}" />
 
                                 </StackPanel>
                                 <StackPanel Margin="30,10,0,00"
@@ -226,7 +225,7 @@
                                             Width="100"
                                             VerticalAlignment="Bottom"
                                             materialDesign:ButtonAssist.CornerRadius="10"
-                                            Command="{Binding UploadImageCM}"/>
+                                            Command="{Binding UploadImageCM}" />
                                 </StackPanel>
 
                             </StackPanel>
@@ -249,15 +248,16 @@
                                            Height="31"
                                            Margin="0,10,0,0" />
                                     <Grid>
-                                        <TextBox AcceptsReturn="True"
-                                                 TextWrapping="Wrap"
-                                                 FontSize="25"
-                                                 Background="Transparent"
-                                                 VerticalAlignment="Top"
-                                                 Height="48"
-                                                 Margin="0,-15,0,0"
-                                                 Padding="0"
-                                                 VerticalContentAlignment="Bottom" />
+                                        <DatePicker FontSize="25"
+                                                    Background="Transparent"
+                                                    VerticalAlignment="Top"
+                                                    Height="48"
+                                                    DisplayDateStart="01/01/2000"
+                                                    DisplayDateEnd="01/01/2076"
+                                                    Margin="0,-15,0,0"
+                                                    Padding="0"
+                                                    VerticalContentAlignment="Bottom"
+                                                    SelectedDate="{Binding movieYear}" />
                                     </Grid>
                                 </StackPanel>
                             </Grid>
@@ -285,7 +285,8 @@
                                             Margin="10,0,10,10"
                                             Background="#FF5980B8"
                                             materialDesign:ButtonAssist.CornerRadius="8"
-                                            Command="{Binding SaveMovieCM}"/>
+                                            Command="{Binding Add_SaveMovieCM}" 
+                                            CommandParameter="{Binding ElementName=addmoviewindow}"/>
                                 </StackPanel>
                             </Grid>
                         </Grid>

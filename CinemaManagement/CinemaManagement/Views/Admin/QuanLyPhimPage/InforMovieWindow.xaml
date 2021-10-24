@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CinemaManagement.Views.Admin.QuanLyPhimPage"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        DataContext="{StaticResource InforMovieWindowVM}"
+        DataContext="{StaticResource MovieManagementVM}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal"
@@ -16,127 +16,247 @@
         AllowsTransparency="True"
         Background="Transparent"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Height="485"
-        Width="795">
+        Height="650"
+        Width="1000">
     <Grid>
         <Border Background="#FFF0F3F7"
                 CornerRadius="20"
                 BorderBrush="Gray"
                 BorderThickness="1">
-
-            <StackPanel>
-
-                <!--NAME-->
-                <StackPanel Margin="25,0,25,0">
-                    <StackPanel>
-                        <Label Content="Tên phim"
-                               FontSize="20" />
-                        <TextBlock x:Name="Name"
-                                   VerticalAlignment="Top"
-                                   TextWrapping="Wrap"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="40*" />
+                    <RowDefinition Height="60*" />
+                </Grid.RowDefinitions>
+                <!---HEADER-->
+                <Grid Grid.Row="0">
+                    <Border BorderThickness="0,0,0,1"
+                            BorderBrush="Black"
+                            materialDesign:ShadowAssist.ShadowEdges="Bottom"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                        <TextBlock Text="Chi tiết phim"
                                    FontSize="25"
-                                   Background="#FFF0F3F7"
-                                   Foreground="Black" />
-                    </StackPanel>
-                </StackPanel>
+                                   Margin="20,10,0,0"
+                                   FontWeight="Bold" />
+                    </Border>
 
-                <!--GENRE-->
-                <!--YEAR-->
-                <StackPanel Margin="25,20,0,0"
-                            Orientation="Horizontal">
-                    <StackPanel>
-                        <Label Content="Thể loại"
-                               FontSize="20" />
-                        <TextBlock x:Name="Genre"
-                                   FontSize="20"
-                                   Foreground="Black" />
-                    </StackPanel>
+                </Grid>
+                <Grid  Grid.Row="1"
+                       Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-                    <StackPanel Margin="30,0,0,0">
-                        <Label Content="Năm SX"
-                               FontSize="20" />
-                        <Grid>
-                            <TextBlock x:Name="Year"
+                    <Grid Grid.Row="0"
+                          Margin="0,24,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65*" />
+                            <ColumnDefinition Width="45*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--NAME-->
+                        <StackPanel Grid.Column="0"
+                                    Margin="25,0,25,0">
+                            <StackPanel>
+                                <Label Content="Tên phim"
                                        FontSize="20"
-                                       Foreground="Black" />
+                                       Height="36" />
+                                <TextBox x:Name="Name"
+                                         Padding="0"
+                                         Style="{StaticResource MaterialDesignFilledTextBox}"
+                                         VerticalAlignment="Top"
+                                         AcceptsReturn="True"
+                                         TextWrapping="Wrap"
+                                         FontSize="22"
+                                         Focusable="False"
+                                         Background="#FFF0F3F7"
+                                         Foreground="Black"
+                                         Height="50" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--GENRE-->
+                        <StackPanel Grid.Column="1"
+                                    Margin="0,0,25,0">
+                            <Label Content="Thể loại"
+                                   FontSize="20" />
+
+                            <TextBox x:Name="Genre"
+                                     Focusable="False"
+                                     FontSize="25"
+                                     BorderThickness="0,0,0,1"
+                                     Height="50"
+                                     VerticalContentAlignment="Bottom" />
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid Grid.Row="1"
+                          Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="292*" />
+                            <ColumnDefinition Width="110*" />
+                            <ColumnDefinition Width="97*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Tac gia-->
+                        <StackPanel Grid.Column="0"
+                                    Margin="25,10,10,0">
+                            <StackPanel Grid.Column="0">
+                                <Label Content="Tác giả"
+                                       FontSize="20"
+                                       Margin="0,0,35,0"
+                                       Height="35" />
+                                <TextBox x:Name="Author"
+                                         AcceptsReturn="True"
+                                         TextWrapping="Wrap"
+                                         FontSize="25"
+                                         Background="#FFF0F3F7"
+                                         Padding="0"
+                                         Focusable="False"
+                                         VerticalContentAlignment="Center"
+                                         Height="40"
+                                         Margin="0,0,10,0" />
+
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Country-->
+                        <StackPanel Grid.Column="1"
+                                    Margin="0,10,10,0">
+                            <Label Content="Quốc gia"
+                                   FontSize="20"
+                                   Height="35" />
+                            <StackPanel>
+                                <TextBox x:Name="Country"
+                                         FontSize="22"
+                                         Height="40"
+                                         Focusable="False"
+                                         VerticalContentAlignment="Bottom" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!--Duration-->
+                        <StackPanel Grid.Column="2"
+                                    Margin="0,10,25,0">
+                            <Label Content="Thời lượng"
+                                   FontSize="20"
+                                   Height="40" />
+                            <StackPanel>
+                                <TextBox x:Name="Duration"
+                                         Height="35"
+                                         FontSize="22"
+                                         Focusable="False">
+                                </TextBox>
+
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+
+                <Grid Grid.Row="2">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="75*" />
+                            <ColumnDefinition Width="25*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <!--Descripstion-->
+                            <StackPanel HorizontalAlignment="Left"
+                                        Orientation="Horizontal"
+                                        Margin="25,0,0,0"
+                                        Grid.ColumnSpan="2"
+                                        Width="773">
+
+                                <StackPanel>
+                                    <Label Content="Mô tả"
+                                           FontSize="20"
+                                           Foreground="Black"
+                                           Margin="0,10,0,0" />
+                                    <TextBox x:Name="Descripstion"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                             VerticalAlignment="Top"
+                                             AcceptsReturn="True"
+                                             TextWrapping="Wrap"
+                                             VerticalScrollBarVisibility="Auto"
+                                             HorizontalScrollBarVisibility="Disabled"
+                                             Focusable="False"
+                                             FontSize="18"
+                                             Height="300"
+                                             Width="400"
+                                             Foreground="Black" />
+                                </StackPanel>
+                                <StackPanel Margin="30,10,0,00"
+                                            Width="346">
+                                    <Image x:Name="imageframe"
+                                           Height="335"
+                                           Width="245"/>
+                                </StackPanel>
+                            </StackPanel>
                         </Grid>
-                    </StackPanel>
-                </StackPanel>
 
+                        <Grid Grid.Column="1">
 
-                <!--Tac gia-->
-                <!--Country-->
-                <!--Duration-->
-                <StackPanel Orientation="Horizontal"
-                            Margin="25,20,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
 
-                    <StackPanel>
-                        <Label Content="Tác giả"
-                               FontSize="20" />
-                        <TextBlock x:Name="Author"
-                                   TextWrapping="Wrap"
-                                   FontSize="20"
-                                   Foreground="Black" />
-                    </StackPanel>
+                            <!--YEAR-->
+                            <Grid Grid.Row="0">
 
-                    <StackPanel Margin="100,0,0,0">
-                        <Label Content="Quốc gia"
-                               FontSize="20" />
-                        <StackPanel>
-                            <TextBlock x:Name="Country"
-                                       FontSize="20"
-                                       Foreground="Black" />
-                        </StackPanel>
-                    </StackPanel>
+                                <StackPanel Margin="0,0,25,0"
+                                            HorizontalAlignment="Right">
+                                    <Label Content="Năm SX"
+                                           FontSize="20"
+                                           Height="31"
+                                           Margin="0,10,0,0" />
+                                    <Grid>
+                                        <DatePicker x:Name="Year"
+                                                    FontSize="25"
+                                                    Background="Transparent"
+                                                    VerticalAlignment="Top"
+                                                    Height="48"
+                                                    Margin="0,-15,0,0"
+                                                    Padding="0"
+                                                    Focusable="False"
+                                                    VerticalContentAlignment="Bottom" />
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
 
-                    <StackPanel Margin="100,0,0,0">
-                        <Label Content="Thời lượng"
-                               FontSize="20" />
-                        <StackPanel>
-                            <TextBlock x:Name="Duration"
-                                       FontSize="20"
-                                       Foreground="Black" />
+                            <!--Button-->
+                            <Grid Grid.Row="1">
+                                <StackPanel VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Right"
+                                            Orientation="Horizontal"
+                                            Margin="0,0,0,10">
 
-                        </StackPanel>
-                    </StackPanel>
-
-                </StackPanel>
-
-                <!--Descripstion-->
-                <StackPanel HorizontalAlignment="Left"
-                            Margin="25,10,0,0"
-                            Orientation="Horizontal">
-
-                    <StackPanel>
-                        <Label Content="Mô tả"
-                               FontSize="20"
-                               Foreground="Black" />
-                        <TextBox x:Name="Descripstion"
-                                 VerticalAlignment="Top"
-                                 TextWrapping="Wrap"
-                                 BorderThickness="1"
-                                 IsReadOnly="True"
-                                 VerticalScrollBarVisibility="Auto"
-                                 FontSize="18"
-                                 Height="200"
-                                 Width="500"
-                                 Foreground="Black" />
-                    </StackPanel>
-
-                    <Button Content="Thoát"
-                            FontSize="20"
-                            Height="40"
-                            Width="100"
-                            Margin="150,0,0,0"
-                            BorderBrush="Transparent"
-                            Click="Button_Click"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            materialDesign:ButtonAssist.CornerRadius="10" />
-
-                </StackPanel>
-
-            </StackPanel>
+                                    <Button Content="Thoát"
+                                            FontSize="20"
+                                            Height="40"
+                                            Width="100"
+                                            Margin="0,0,10,10"
+                                            BorderBrush="Transparent"
+                                            Click="Button_Click"
+                                            materialDesign:ButtonAssist.CornerRadius="8" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
         </Border>
     </Grid>
 </Window>

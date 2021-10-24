@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaManagement.DTOs
 {
@@ -17,7 +14,7 @@ namespace CinemaManagement.DTOs
         public Nullable<int> MovieId { get; set; }
         public Nullable<System.TimeSpan> StartTime { get; set; }
 
-        public  MovieDTO Movie { get; set; }
+        public MovieDTO Movie { get; set; }
         public virtual IList<TicketDTO> Tickets { get; set; }
     }
 }

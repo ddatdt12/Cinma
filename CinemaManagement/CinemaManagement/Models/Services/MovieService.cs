@@ -1,13 +1,10 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Core;
-using CinemaManagement.Utils;
 
 namespace CinemaManagement.Models.Services
 {
@@ -29,7 +26,7 @@ namespace CinemaManagement.Models.Services
             }
             private set => _ins = value;
         }
-        
+
         public List<MovieDTO> GetAllMovie()
         {
             List<MovieDTO> movies = null;
@@ -110,7 +107,7 @@ namespace CinemaManagement.Models.Services
                     //    Director = movie.Director
                     //});
                 }
-                
+
 
                 context.SaveChanges();
             }
@@ -132,7 +129,7 @@ namespace CinemaManagement.Models.Services
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, "Error Server");
+                return (false, $"Error Server {e}");
             }
             return (true, "Thêm phim thành công");
         }
@@ -188,9 +185,9 @@ namespace CinemaManagement.Models.Services
             try
             {
                 Movie movie = (from p in DataProvider.Ins.DB.Movies
-                                 where p.Id == Id && !p.IsDeleted
+                               where p.Id == Id && !p.IsDeleted
                                select p).SingleOrDefault();
-                if(movie == null || movie?.IsDeleted == true)
+                if (movie == null || movie?.IsDeleted == true)
                 {
                     return (false, "Phim không tồn tại!");
                 }

@@ -287,10 +287,10 @@
     <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\SuaNVWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\ThemNVWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\XoaNVWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\AddMovieWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\EditMovieViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\InforMovieWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\QuanLyPhimPageViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\MovieManagementVM\Add.MovieViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\MovieManagementVM\Edit.MovieViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\MovieManagementVM\Infor.MovieWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\MovieManagementVM\MovieManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\AddSuatChieuWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\QuanLySuatChieuPageViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
@@ -324,8 +324,8 @@
     <Compile Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml.cs">
       <DependentUpon>InforMovieWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml.cs">
-      <DependentUpon>QuanLyPhimPage.xaml</DependentUpon>
+    <Compile Include="Views\Admin\QuanLyPhimPage\MovieManagementWindow.xaml.cs">
+      <DependentUpon>MovieManagementWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml.cs">
       <DependentUpon>AddSuatChieuWindow.xaml</DependentUpon>
@@ -396,7 +396,7 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml">
+    <Page Include="Views\Admin\QuanLyPhimPage\MovieManagementWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
@@ -464,8 +464,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="Resources\Admin_MovieManagementSource\CountrySource.txt" />
-    <Resource Include="Resources\Admin_MovieManagementSource\MovieGenreSource.txt" />
+    <Resource Include="Resources\Admin\CountrySource.txt" />
+    <Resource Include="Resources\Admin\MovieGenreSource.txt" />
     <Resource Include="Resources\ImageStaff\add-user.png" />
     <Resource Include="Resources\ImageStaff\edit-user.png" />
     <Resource Include="Resources\ImageStaff\next.png" />
@@ -507,6 +507,8 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\Movies\add-user.png" />
+    <Resource Include="Resources\Images\Movies\test.jpg" />
     <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
     <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
     <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />

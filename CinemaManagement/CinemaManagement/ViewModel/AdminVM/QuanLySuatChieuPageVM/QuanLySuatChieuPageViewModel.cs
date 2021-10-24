@@ -21,9 +21,11 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLySuatChieuPageVM
         }
 
 
+
+
         public ICommand Open_AddSuatChieuWindowCM { get; set; }
 
-      
+
 
 
         public QuanLySuatChieuPageViewModel()

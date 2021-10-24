@@ -15,7 +15,7 @@
       TextOptions.TextFormattingMode="Ideal"
       TextOptions.TextRenderingMode="Auto"
       FontFamily="{DynamicResource MaterialDesignFont}"
-      DataContext="{StaticResource QuanLyPhimPageVM}"
+      DataContext="{StaticResource MovieManagementVM}"
       d:DesignHeight="720"
       d:DesignWidth="1440">
 
@@ -54,7 +54,7 @@
                          Height="50"
                          FontSize="25"
                          FontFamily="arial"
-                         Command="{Binding Open_AddMovieWindowCM}">
+                         Command="{Binding LoadAddMovieCM}">
                 </Button>
             </StackPanel>
         </StackPanel>
@@ -69,7 +69,7 @@
                           Focusable="True">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding SelectedMovieItemCM}" />
+                            <i:InvokeCommandAction Command="{Binding LoadInforMovieCM}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 
@@ -120,7 +120,7 @@
                                                                      Cursor="Hand">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=MovieListview, Path=DataContext.EditCM}" />
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=MovieListview, Path=DataContext.LoadEditMovieCM}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                                 <materialDesign:PackIcon.Style>
@@ -141,7 +141,7 @@
                                                                      Cursor="Hand">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=MovieListview, Path=DataContext.DeleteCM}" />
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=MovieListview, Path=DataContext.LoadDeleteMovieCM}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                                 <materialDesign:PackIcon.Style>
