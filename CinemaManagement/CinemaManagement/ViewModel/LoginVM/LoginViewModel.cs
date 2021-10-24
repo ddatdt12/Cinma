@@ -1,5 +1,7 @@
-﻿using CinemaManagement.Models;
+﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views.Staff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,14 +76,11 @@ namespace CinemaManagement.ViewModel
                 string username = Username;
                 string password = Password;
 
-                if (CheckValidateAccount(username, password))
-                {
-                    p.Foreground = new SolidColorBrush(Colors.White);
-                }
-                else
-                {
-                    p.Foreground = new SolidColorBrush(Colors.Red);
-                }
+                Window temp = GetParentWindow(p) as Window;
+
+                CheckValidateAccount(username, password, temp, p);
+
+
             });
 
             PasswordChangedCM = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
@@ -90,11 +89,46 @@ namespace CinemaManagement.ViewModel
             });
         }
 
-        public bool CheckValidateAccount(string usn, string pwr)
+        public void CheckValidateAccount(string usn, string pwr, Window p, Label lbl)
         {
-            if (usn == "1" && pwr == "1")
-                return true;
-            return false;
+            (bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login(usn, pwr);
+
+            if (loginSuccess)
+            {
+                if (staff.Role == "Quản lý")
+                {
+                    MainAdminWindow w1 = new MainAdminWindow();
+                    w1.CurrentUserName.Content = staff.Name;
+                    p.Hide();
+                    w1.ShowDialog();
+                    p.Close();
+                    return;
+                }
+                else
+                {
+                    MainStaffWindow w1 = new MainStaffWindow();
+                    p.Hide();
+                    w1.ShowDialog();
+                    p.Close();
+                    return;
+                }
+                
+            }
+            else
+            {
+                lbl.Foreground = new SolidColorBrush(Colors.Red);
+                return;
+            }
+        }
+        FrameworkElement GetParentWindow(FrameworkElement p)
+        {
+            FrameworkElement parent = p;
+
+            while (parent.Parent != null)
+            {
+                parent = parent.Parent as FrameworkElement;
+            }
+            return parent;
         }
 
     }

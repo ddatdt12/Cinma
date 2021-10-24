@@ -55,11 +55,8 @@
                 </Button>
                 <DatePicker x:Name="Calendar"
                             materialDesign:HintAssist.Hint="{Binding SetCurrentDate}"
-                            ToolTip="mm/dd/yyyy"
                             Style="{StaticResource MaterialDesignOutlinedDatePicker}"
                             FirstDayOfWeek="Monday"
-                            Focusable="False"
-                            SelectedDateFormat="Short"
                             Foreground="Black"
                             FontSize="25"
                             Width="200"

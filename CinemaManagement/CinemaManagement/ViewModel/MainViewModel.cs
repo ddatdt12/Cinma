@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Core;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,17 +62,12 @@ namespace CinemaManagement.ViewModel
 
             try
             {
-                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-                var path = Path.Combine(Environment.CurrentDirectory, @"..\..\..\Resources\", "Images");
-                bool isExist = !Directory.Exists(path);
-
-
                 movieDTOs = MovieService.Ins.GetAllMovie();
                 genreDTOs = GenreService.Ins.GetAllGenre();
                 staffDTOs = StaffService.Ins.GetAllStaff();
 
                 string movieName= "Bố già";
-                string imageName = Helper.Slugify(movieName);
+                //string imageName = Helper.Slugify(movieName);
 
                 #region Staff Service
                 //StaffDTO staff = new StaffDTO
@@ -89,6 +83,7 @@ namespace CinemaManagement.ViewModel
                 //};
                 //Add new staff
                 //(bool addStaffSuccess, string messageFromAddStaff) = StaffService.Ins.AddStaff(staff);
+
 
                 //Test update Staff
                 //staffDTOs.Last().Name = "Test after update";

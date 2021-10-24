@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +12,14 @@ namespace CinemaManagement.Utils
     public class Helper
     {
 
-        public static string Slugify(string imageName)
+        public static string CreateImageName(string imageName)
         {
             imageName = RemoveUnicode(imageName);
             return String.Join("_", imageName.Split(' ')).ToLower();
+        }
+        public static string CreateImageFullName(string imageName, string ext)
+        {
+            return $"{imageName}_{DateTime.Now.ToFileTime()}.{ext}";
         }
 
         public static ImageSource GetProductSource(string fileName)
@@ -25,6 +30,27 @@ namespace CinemaManagement.Utils
         {
             return new BitmapImage(new Uri($@"{SOURCE.MoviesSource}/{fileName}", UriKind.Relative));
         }
+
+        public static string GetMovieImgPath()
+        {
+            string appPath = Path.GetDirectoryName(Directory.GetParent(Directory.GetCurrentDirectory()).FullName) + "/Resources/Images/Movies/";
+            if (Directory.Exists(appPath) == false)
+            {
+                Directory.CreateDirectory(appPath);
+            }
+            return appPath;
+        }
+        
+        public static string GetProductImgPath()
+        {
+            string appPath = Path.GetDirectoryName(Directory.GetParent(Directory.GetCurrentDirectory()).FullName) + "/Resources/Images/Products/";
+            if (Directory.Exists(appPath) == false)
+            {
+                Directory.CreateDirectory(appPath);
+            }
+            return appPath;
+        }
+
         private static string RemoveUnicode(string text)
         {
             string[] arr1 = new string[] { "á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ",

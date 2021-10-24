@@ -1,0 +1,238 @@
+﻿<Window x:Class="CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindow.MovieScheduleWindow"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d" 
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource MovieScheduleWindowVM}"
+        Name="Movie_Schedule"
+        ResizeMode="NoResize"
+        Height="400" Width="600"
+        WindowStyle="None"
+        BorderBrush="Red"
+        WindowStartupLocation="CenterScreen">
+    <DockPanel Width="600" 
+               LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top"
+                    Height="40"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    Background="#FF342B2B">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding MouseMoveWindowCM}"
+                                           CommandParameter="{Binding ElementName=Movie_Schedule}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Label Cursor="Hand"
+                   Margin="535 0 0 0"
+                   Width="30"
+                   HorizontalAlignment="Center"
+                   Foreground="White">
+                <materialDesign:PackIcon Kind="WindowMinimize"></materialDesign:PackIcon>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding MinimizeMovieScheduleWindowCM}"
+                                               CommandParameter="{Binding ElementName=Movie_Schedule}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Height" Value="20"></Setter>
+                        <Setter Property="Background" Value="Transparent"></Setter>
+                        <Style.Triggers >
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Height" Value="25"></Setter>
+                                <Setter Property="Background" Value="Blue"></Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+            <Label Cursor="Hand"
+                       Width="30"
+                       HorizontalAlignment="Center"
+                       Foreground="White">
+                <materialDesign:PackIcon Kind="WindowClose"/>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding CloseMovieScheduleWindowCM}"
+                                               CommandParameter="{Binding ElementName=Movie_Schedule}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Label.Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Height" Value="25"></Setter>
+                        <Setter Property="Background" Value="Transparent"></Setter>
+                        <Style.Triggers >
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Height" Value="30"></Setter>
+                                <Setter Property="Background" Value="Red"></Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>
+            </Label>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top"
+                    Height="60"
+                    VerticalAlignment="Top"
+                    Background="#FFA1B9C0"
+                    Orientation="Horizontal">
+            <Label FontSize="25"
+                   Width="200"
+                   VerticalContentAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,0">
+                <Italic>
+                    <Bold>
+                        <Run Text="Tên Phim"/>
+                    </Bold>
+                </Italic>
+            </Label>
+            <DatePicker materialDesign:HintAssist.Hint="Ngày chiếu" 
+                        Width="150"
+                        Height="40"
+                        FontSize="20"
+                        BorderBrush="Black"
+                        materialDesign:HintAssist.HintOpacity="1" 
+                        HorizontalAlignment="Right"
+                        Margin="230 0 0 0"/>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Left"
+                    Width="170"
+                    HorizontalAlignment="Left">
+            <Image Source="/Resources/LayoutSignin/conan_movie_24.jpg"
+                   Height="200"
+                   HorizontalAlignment="Left"
+                   Margin="10 10 0 15"></Image>
+            <TextBlock Margin="10 0 0 0">
+                <Bold><Italic>Thám tử lừng danh co nan</Italic></Bold>
+            </TextBlock>
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Right"
+                    Width="430">
+            <Expander HorizontalAlignment="Stretch"
+                      Header="2D English Sub">
+                <StackPanel Orientation="Vertical"
+                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                Margin="24,8,24,16">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                                Background="Pink"
+                                Content="8:00">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ClickButton}"
+                                               CommandParameter="{Binding ElementName=RoomSchedule}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                                Background="Pink"
+                                Margin="5 0 0 0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ClickButton}"
+                                               CommandParameter="{Binding ElementName=RoomSchedule}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                10:00
+                            </Button>
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                                Background="Pink"
+                                Margin="5 0 0 0">
+                                12:00
+                            </Button>
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                                Background="Pink"
+                                Margin="5 0 0 0">
+                                14:30
+                            </Button>
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                                Background="Pink"
+                                Margin="5 0 0 0">
+                                17:00
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0"
+                                    Visibility="Collapsed"
+                                    Name="RoomSchedule">
+                            <Button Background="Gray"
+                                    BorderBrush="Black">Phòng 01</Button>
+                        </StackPanel>
+                    </StackPanel>
+            </Expander>
+            <Border Background="Black"
+                        Height="1"
+                        HorizontalAlignment="Stretch"
+                        SnapsToDevicePixels="True" />
+            <Expander HorizontalAlignment="Stretch"
+                          Header="3D English Sub">
+                    <StackPanel  Orientation="Vertical"
+                                 TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                 Margin="24,8,24,16">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                                Background="Pink"
+                                Content="8:00">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ClickButton}"
+                                               CommandParameter="{Binding ElementName=RoomSchedule1}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                                Background="Pink"
+                                Margin="5 0 0 0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding ClickButton}"
+                                               CommandParameter="{Binding ElementName=RoomSchedule1}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                10:00
+                            </Button>
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                                Background="Pink"
+                                Margin="5 0 0 0">
+                                12:00
+                            </Button>
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                                Background="Pink"
+                                Margin="5 0 0 0">
+                                14:30
+                            </Button>
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                                Background="Pink"
+                                Margin="5 0 0 0">
+                                17:00
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 10 0 0"
+                                    Visibility="Collapsed"
+                                    Name="RoomSchedule1">
+                            <Button Background="Gray"
+                                    BorderBrush="Black">Phòng 01</Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Expander>
+            <Border Background="Black"
+                        Height="1"
+                        HorizontalAlignment="Stretch"
+                        SnapsToDevicePixels="True" />
+        </StackPanel>
+    </DockPanel>
+</Window>
