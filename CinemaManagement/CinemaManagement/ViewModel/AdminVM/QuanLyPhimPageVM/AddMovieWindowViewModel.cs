@@ -67,7 +67,13 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
             set { _movieDes = value; OnPropertyChanged(); }
         }
 
-
+        
+        private ImageSource _ImageSource;
+        public ImageSource ImageSource
+        {
+            get { return _ImageSource; }
+            set { _ImageSource = value; OnPropertyChanged(); }
+        }
 
 
 
@@ -78,19 +84,7 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
             set { _ListCountrySource.Add(value.ToString()); OnPropertyChanged(); }
         }
 
-        private List<string> _ListMovieGenreSource = new List<string>();
-        public List<string> ListMovieGenreSource
-        {
-            get { return _ListMovieGenreSource; }
-            set { _ListMovieGenreSource.Add(value.ToString()); OnPropertyChanged(); }
-        }
-
-        private ImageSource _ImageSource;
-        public ImageSource ImageSource
-        {
-            get { return _ImageSource; }
-            set { _ImageSource = value; OnPropertyChanged(); }
-        }
+      
 
         public ICommand UploadImageCM { get; set; }
         public ICommand SaveMovieCM { get; set; }
@@ -103,7 +97,6 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
         public AddMovieWindowViewModel()
         {
             InsertCountryToComboBox();
-            InsertMovieGerneToComboBox();
 
             UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -142,17 +135,7 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
                 }
             }
         }
-        public void InsertMovieGerneToComboBox()
-        {
-            FileStream file = new FileStream(@"MovieGenreSource.txt", FileMode.Open, FileAccess.Read);
-            using (var reader = new StreamReader(file, Encoding.UTF8))
-            {
-                while (reader.Peek() >= 0)
-                {
-                    ListMovieGenreSource.Add(reader.ReadLine());
-                }
-            }
-        }
+
         public void LoadImage(string filePath)
         {
             BitmapImage _image = new BitmapImage();
@@ -177,8 +160,6 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
                 {
                     Image = img
                 };
-
-               
 
             }
             catch (Exception exp)

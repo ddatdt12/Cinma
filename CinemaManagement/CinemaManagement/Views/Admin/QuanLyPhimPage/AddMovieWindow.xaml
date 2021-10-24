@@ -89,7 +89,7 @@
                                     Margin="0,0,25,0">
                             <Label Content="Thể loại"
                                    FontSize="20" />
-                            <ComboBox ItemsSource="{Binding ListMovieGenreSource}"
+                            <ComboBox ItemsSource="{Binding}"
                                       IsEditable="True"
                                       FontSize="25"
                                       BorderThickness="0,0,0,1"

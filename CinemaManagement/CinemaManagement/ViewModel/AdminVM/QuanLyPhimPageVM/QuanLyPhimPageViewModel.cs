@@ -8,6 +8,8 @@ using System.Windows;
 using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using System.Windows.Media.Imaging;
+using System.Net.Cache;
+using System.IO;
 
 namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
 {
@@ -125,13 +127,27 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
 
             DateTime temp = (DateTime)SelectedItem.ReleaseDate;
 
+            w1._ID.Text= SelectedItem.Id.ToString();
             w1._Displayname.Text = SelectedItem.DisplayName;
             w1._Genre.Text = SelectedItem.Genres.ToString();
             w1._Year.Text = temp.Year.ToString();
             w1._Author.Text = SelectedItem.Director;
             w1._Country.Text = SelectedItem.Country;
-            w1._Duration.Text = SelectedItem.RunningTime.ToString() + " phút";
+            w1._Duration.Text = SelectedItem.RunningTime.ToString();
             w1._Description.Text = SelectedItem.Description;
+
+
+            BitmapImage _image = new BitmapImage();
+            _image.BeginInit();
+            _image.CacheOption = BitmapCacheOption.None;
+            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+            _image.CacheOption = BitmapCacheOption.OnLoad;
+            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache; 
+            _image.UriSource = new Uri(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Movies", "add-user.png" /*SelectedItem.Image*/));
+            _image.EndInit();
+        
+            w1.imgframe.Source = _image;
+
         }
     }
 
