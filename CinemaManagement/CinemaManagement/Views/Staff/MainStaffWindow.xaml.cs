@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FilmTicketBooking.Views.Staff
+namespace CinemaManagement.Views.Staff
 {
     /// <summary>
     /// Interaction logic for MainStaffWindow.xaml
@@ -22,10 +22,6 @@ namespace FilmTicketBooking.Views.Staff
         public MainStaffWindow()
         {
             InitializeComponent();
-        }
-        private void InitializeComponent()
-        {
-            throw new NotImplementedException();
         }
     }
 }
