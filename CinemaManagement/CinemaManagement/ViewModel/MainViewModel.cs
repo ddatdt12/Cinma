@@ -73,7 +73,7 @@ namespace CinemaManagement.ViewModel
                 staffDTOs = StaffService.Ins.GetAllStaff();
 
                 string movieName= "Bố già";
-                string imageName = Helper.Slugify(movieName);
+                //string imageName = Helper.Slugify(movieName);
 
                 #region Staff Service
                 //StaffDTO staff = new StaffDTO
@@ -89,6 +89,7 @@ namespace CinemaManagement.ViewModel
                 //};
                 //Add new staff
                 //(bool addStaffSuccess, string messageFromAddStaff) = StaffService.Ins.AddStaff(staff);
+
 
                 //Test update Staff
                 //staffDTOs.Last().Name = "Test after update";

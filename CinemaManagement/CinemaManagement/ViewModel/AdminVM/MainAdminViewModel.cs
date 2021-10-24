@@ -1,14 +1,9 @@
 ﻿using CinemaManagement.Views.Admin.QuanLyPhimPage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using CinemaManagement.DTOs;
 using CinemaManagement.Views.Admin.QuanLySuatChieuPage;
+using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 
 namespace CinemaManagement.ViewModel
 {
@@ -16,9 +11,11 @@ namespace CinemaManagement.ViewModel
     public class MainAdminViewModel : BaseViewModel
     {
         public ICommand SignoutCM { get; set; }
-        public ICommand MouseLeftButtonDownWindowCM { get; set; }
+
         public ICommand LoadQLPPageCM { get; set; }
+        public ICommand LoadQLNVPageCM { get; set; }
         public ICommand LoadSuatChieuPageCM { get; set; }
+        
 
         public MainAdminViewModel()
         {
@@ -34,15 +31,6 @@ namespace CinemaManagement.ViewModel
                        w.Close();
                    }
                });
-            MouseLeftButtonDownWindowCM = new RelayCommand<FrameworkElement>((p) => { return true; }, (p) =>
-             {
-                 FrameworkElement window = GetParentWindow(p);
-                 var w = window as Window;
-                 if (w != null)
-                 {
-                     w.DragMove();
-                 }
-             });
             LoadQLPPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
                 if (p != null)
@@ -53,7 +41,11 @@ namespace CinemaManagement.ViewModel
                 if (p != null)
                     p.Content = new QuanLySuatChieuPage();
             });
-
+            LoadQLNVPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
+            {
+                if (p != null)
+                    p.Content = new NhanVienPage();
+            });
         }
 
 
@@ -61,13 +53,11 @@ namespace CinemaManagement.ViewModel
         {
             FrameworkElement parent = p;
 
-
             while (parent.Parent != null)
             {
                 parent = parent.Parent as FrameworkElement;
             }
             return parent;
         }
-
     }
 }

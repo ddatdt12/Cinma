@@ -10,17 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CinemaManagement.Views.Staff
+namespace CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindow
 {
-    public partial class MainStaffPage : Page
+    /// <summary>
+    /// Interaction logic for MovieScheduleWindow.xaml
+    /// </summary>
+    public partial class MovieScheduleWindow : Window
     {
-        public MainStaffPage()
+        public MovieScheduleWindow()
         {
             InitializeComponent();
         }
-  
     }
 }

@@ -10,17 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CinemaManagement.Views.Staff
+namespace CinemaManagement.Views.Admin.QuanLyNhanVienPage
 {
-    public partial class MainStaffPage : Page
+    /// <summary>
+    /// Interaction logic for XoaNhanVienWindow.xaml
+    /// </summary>
+    public partial class XoaNhanVienWindow : Window
     {
-        public MainStaffPage()
+        public XoaNhanVienWindow()
         {
             InitializeComponent();
         }
-  
     }
 }
