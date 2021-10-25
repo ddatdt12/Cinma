@@ -509,10 +509,10 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\Movies\null.jpg" />
     <Resource Include="Resources\Admin\MinuteSource.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Images\Movies\" />
     <Folder Include="Resources\Images\Products\" />
   </ItemGroup>
   <ItemGroup />

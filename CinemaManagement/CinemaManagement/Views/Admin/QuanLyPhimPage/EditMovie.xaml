@@ -24,14 +24,6 @@
         Width="1000"
         x:Name="EditMovieWindow">
 
-    <!--<i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding EditWindowLoadedCommand}"
-                                   CommandParameter="{Binding ElementName=_ID}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>-->
-
-
     <Grid>
         <Border Background="#FFF0F3F7"
                 CornerRadius="20"
@@ -101,7 +93,7 @@
                             <Label Content="Thể loại"
                                    FontSize="20" />
                             <ComboBox x:Name="_Genre"
-                                ItemsSource="{Binding GenreList}"
+                                      ItemsSource="{Binding GenreList}"
                                       DisplayMemberPath="DisplayName"
                                       IsEditable="True"
                                       FontSize="25"
@@ -262,16 +254,12 @@
                                            Height="31"
                                            Margin="0,10,0,0" />
                                     <Grid>
-                                        <DatePicker x:Name="Year"
-                                                    FontSize="25"
-                                                    Background="Transparent"
-                                                    VerticalAlignment="Top"
-                                                    Height="48"
-                                                    Margin="0,-15,0,0"
-                                                    Padding="0"
-                                                    SelectedDate="{Binding movieYear,Mode=TwoWay}"
-                                                    Text="{Binding movieYear}"
-                                                    VerticalContentAlignment="Bottom" />
+                                        <TextBox x:Name="Year"
+                                                 Background="Transparent"
+                                                 Padding="0"
+                                                 FontSize="22"
+                                                 Margin="5,0,0,0"
+                                                 Text="{Binding movieYear}" />
                                     </Grid>
                                 </StackPanel>
                                 <StackPanel Margin="0,0,25,20"
@@ -322,7 +310,8 @@
                                             Margin="10,0,10,10"
                                             Background="#FF5980B8"
                                             materialDesign:ButtonAssist.CornerRadius="8"
-                                            Command="{Binding SaveMovieCM}" />
+                                            Command="{Binding UpdateMovieCM}"
+                                            CommandParameter="{Binding ElementName=EditMovieWindow}" />
                                 </StackPanel>
                             </Grid>
                         </Grid>
