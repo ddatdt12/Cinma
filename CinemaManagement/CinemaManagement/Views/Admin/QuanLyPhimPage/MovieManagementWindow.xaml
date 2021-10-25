@@ -19,6 +19,13 @@
       d:DesignHeight="720"
       d:DesignWidth="1440">
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding StoreMainListViewNameCM}"
+                                   CommandParameter="{Binding ElementName=MovieListView}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid Background="#f0f2f5">
 
         <Grid.RowDefinitions>
@@ -63,7 +70,7 @@
 
             <materialDesign:Card Background="White"
                                  Margin="30,20,30,20">
-                <ListView x:Name="MovieListview"
+                <ListView x:Name="MovieListView"
                           ItemsSource="{Binding MovieList}"
                           SelectedItem="{Binding SelectedItem}"
                           Focusable="True">
@@ -72,7 +79,6 @@
                             <i:InvokeCommandAction Command="{Binding LoadInforMovieCM}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID">
@@ -120,7 +126,7 @@
                                                                      Cursor="Hand">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=MovieListview, Path=DataContext.LoadEditMovieCM}" />
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadEditMovieCM}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                                 <materialDesign:PackIcon.Style>
@@ -141,7 +147,7 @@
                                                                      Cursor="Hand">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=MovieListview, Path=DataContext.LoadDeleteMovieCM}" />
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadDeleteMovieCM}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                                 <materialDesign:PackIcon.Style>

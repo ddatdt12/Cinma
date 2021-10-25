@@ -470,8 +470,10 @@
     <Resource Include="Resources\ImageStaff\edit-user.png" />
     <Resource Include="Resources\ImageStaff\next.png" />
     <Resource Include="Resources\ImageStaff\staff.png" />
-    <Resource Include="Resources\Images\Movies\test_132795344117041286.jpeg" />
+    <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
+    <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
     <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
+    <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\captain.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\spiderman.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\spiderman2.jpg" />
@@ -507,13 +509,10 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\Images\Movies\add-user.png" />
-    <Resource Include="Resources\Images\Movies\test.jpg" />
-    <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
-    <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
-    <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
+    <Resource Include="Resources\Admin\MinuteSource.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\Images\Movies\" />
     <Folder Include="Resources\Images\Products\" />
   </ItemGroup>
   <ItemGroup />

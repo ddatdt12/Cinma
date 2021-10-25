@@ -63,8 +63,7 @@
                                 <Label Content="Tên phim"
                                        FontSize="20"
                                        Height="36" />
-                                <TextBox x:Name="Name"
-                                         Padding="0"
+                                <TextBox Padding="0"
                                          Style="{StaticResource MaterialDesignFilledTextBox}"
                                          VerticalAlignment="Top"
                                          AcceptsReturn="True"
@@ -73,7 +72,8 @@
                                          Focusable="False"
                                          Background="#FFF0F3F7"
                                          Foreground="Black"
-                                         Height="50" />
+                                         Height="50"
+                                         Text="{Binding movieName}" />
                             </StackPanel>
                         </StackPanel>
 
@@ -89,7 +89,6 @@
                                      BorderThickness="0,0,0,1"
                                      Height="50"
                                      VerticalContentAlignment="Bottom" />
-
                         </StackPanel>
 
                     </Grid>
@@ -110,8 +109,7 @@
                                        FontSize="20"
                                        Margin="0,0,35,0"
                                        Height="35" />
-                                <TextBox x:Name="Author"
-                                         AcceptsReturn="True"
+                                <TextBox AcceptsReturn="True"
                                          TextWrapping="Wrap"
                                          FontSize="25"
                                          Background="#FFF0F3F7"
@@ -119,7 +117,8 @@
                                          Focusable="False"
                                          VerticalContentAlignment="Center"
                                          Height="40"
-                                         Margin="0,0,10,0" />
+                                         Margin="0,0,10,0"
+                                         Text="{Binding movieDirector}" />
 
                             </StackPanel>
                         </StackPanel>
@@ -131,11 +130,11 @@
                                    FontSize="20"
                                    Height="35" />
                             <StackPanel>
-                                <TextBox x:Name="Country"
-                                         FontSize="22"
+                                <TextBox FontSize="22"
                                          Height="40"
                                          Focusable="False"
-                                         VerticalContentAlignment="Bottom" />
+                                         VerticalContentAlignment="Bottom"
+                                         Text="{Binding movieCountry}" />
                             </StackPanel>
                         </StackPanel>
 
@@ -146,10 +145,10 @@
                                    FontSize="20"
                                    Height="40" />
                             <StackPanel>
-                                <TextBox x:Name="Duration"
-                                         Height="35"
+                                <TextBox Height="35"
                                          FontSize="22"
-                                         Focusable="False">
+                                         Focusable="False"
+                                         Text="{Binding movieDuration}">
                                 </TextBox>
 
                             </StackPanel>
@@ -184,8 +183,7 @@
                                            FontSize="20"
                                            Foreground="Black"
                                            Margin="0,10,0,0" />
-                                    <TextBox x:Name="Descripstion"
-                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                    <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                              VerticalAlignment="Top"
                                              AcceptsReturn="True"
                                              TextWrapping="Wrap"
@@ -195,13 +193,14 @@
                                              FontSize="18"
                                              Height="300"
                                              Width="400"
-                                             Foreground="Black" />
+                                             Foreground="Black"
+                                             Text="{Binding movieDes}" />
                                 </StackPanel>
                                 <StackPanel Margin="30,10,0,00"
                                             Width="346">
                                     <Image x:Name="imageframe"
                                            Height="335"
-                                           Width="245"/>
+                                           Width="245" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

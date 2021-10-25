@@ -80,7 +80,7 @@
                                          BorderThickness="0,0,0,1"
                                          Foreground="Black"
                                          Height="50"
-                                         Text="{Binding movieName}" />
+                                         Text="{Binding movieName,Mode=TwoWay}" />
                             </StackPanel>
                         </StackPanel>
 
@@ -91,13 +91,13 @@
                                    FontSize="20" />
 
                             <ComboBox ItemsSource="{Binding GenreList}"
+                                      DisplayMemberPath="DisplayName"
                                       IsEditable="True"
                                       FontSize="25"
+                                      SelectedItem="{Binding movieGenre, Mode=TwoWay}"
                                       BorderThickness="0,0,0,1"
                                       MaxDropDownHeight="280"
                                       Height="53"
-                                      DisplayMemberPath="DisplayName"
-                                      SelectedItem="{Binding movieGenre,Mode=TwoWay}"
                                       VerticalContentAlignment="Bottom" />
 
                         </StackPanel>
@@ -248,16 +248,14 @@
                                            Height="31"
                                            Margin="0,10,0,0" />
                                     <Grid>
-                                        <DatePicker FontSize="25"
-                                                    Background="Transparent"
+                                        <DatePicker Background="Transparent"
                                                     VerticalAlignment="Top"
                                                     Height="48"
-                                                    DisplayDateStart="01/01/2000"
-                                                    DisplayDateEnd="01/01/2076"
+                                                    FontSize="25"
                                                     Margin="0,-15,0,0"
                                                     Padding="0"
                                                     VerticalContentAlignment="Bottom"
-                                                    SelectedDate="{Binding movieYear}" />
+                                                    SelectedDate="{Binding movieYear,Mode=TwoWay}"/>
                                     </Grid>
                                 </StackPanel>
                             </Grid>
@@ -285,7 +283,7 @@
                                             Margin="10,0,10,10"
                                             Background="#FF5980B8"
                                             materialDesign:ButtonAssist.CornerRadius="8"
-                                            Command="{Binding Add_SaveMovieCM}" 
+                                            Command="{Binding SaveMovieCM}" 
                                             CommandParameter="{Binding ElementName=addmoviewindow}"/>
                                 </StackPanel>
                             </Grid>

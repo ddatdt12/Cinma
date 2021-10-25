@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
@@ -18,6 +19,16 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 {
     public partial class MovieManagementViewModel : BaseViewModel
     {
+
+        #region   bien de luu du lieu up cho database
+
+        private string _movieID;
+        public string movieID
+        {
+            get { return _movieID; }
+            set { _movieID = value; OnPropertyChanged(); }
+        }
+
         private string _movieName;
         public string movieName
         {
@@ -25,10 +36,10 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             set { _movieName = value; OnPropertyChanged(); }
         }
 
-        private List<GenreDTO> _movieGenre;
-        public List<GenreDTO> movieGenre
+        private GenreDTO _movieGenre;
+        public GenreDTO movieGenre
         {
-            get { return _movieGenre; }
+            get => _movieGenre;
             set { _movieGenre = value; OnPropertyChanged(); }
         }
 
@@ -84,7 +95,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             {
                 _updatedMovie = value;
                 movieName = value.DisplayName;
-                movieGenre = (List<GenreDTO>)value.Genres;
+                movieGenre = (GenreDTO)value.Genres;
                 movieDirector = value.Director;
                 movieCountry = value.Country;
                 movieDuration = value.RunningTime.ToString();
@@ -92,6 +103,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 movieDes = value.Description;
             }
         }
+
+        #endregion
 
 
         public ICommand UploadImageCM { get; set; }
@@ -104,6 +117,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         string imgName;
         string imgfullname;
         string extension;
+        System.Windows.Controls.ListView MainListView;
 
 
         private List<MovieDTO> _movieList;
@@ -133,8 +147,11 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         private List<GenreDTO> _GenreList;
         public List<GenreDTO> GenreList
         {
-            get { return _GenreList; }
-            set { _GenreList = value; OnPropertyChanged(); }
+            get => _GenreList;
+            set
+            {
+                _GenreList = value;
+            }
         }
 
 
@@ -159,44 +176,47 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public ICommand LoadInforMovieCM { get; set; }
         public ICommand LoadEditMovieCM { get; set; }
         public ICommand LoadDeleteMovieCM { get; set; }
+        public ICommand StoreMainListViewNameCM { get; set; }
 
         public MovieManagementViewModel()
         {
             MovieList = new List<MovieDTO>(MovieService.Ins.GetAllMovie());
             ListCountrySource = new List<string>();
             MinuteSource = new List<int>();
-            GenreList = new List<GenreDTO>(GenreService.Ins.GetAllGenre());
+            GenreList = GenreService.Ins.GetAllGenre();
 
             InsertMinuteToComboBox();
             InsertCountryToComboBox();
 
-
+            StoreMainListViewNameCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
+            {
+                MainListView = p;
+            });
             LoadAddMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 Window w1 = new AddMovieWindow();
+                RenewAddWindowData();
                 w1.ShowDialog();
             });
             LoadInforMovieCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
             {
+                RenewAddWindowData();
                 InforMovieWindow w1 = new InforMovieWindow();
                 LoadInforMovie(w1);
                 w1.ShowDialog();
             });
             LoadEditMovieCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
             {
-                if (SelectedItem != null)
-                {
+                RenewAddWindowData();
+                EditMovie w1 = new EditMovie();
+                LoadEditMovie(w1);
+                w1.ShowDialog();
 
-                    EditMovie w1 = new EditMovie();
-                    LoadEditMovie(w1);
-                    w1.ShowDialog();
-                }
             });
             LoadDeleteMovieCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
               {
                   System.Windows.MessageBox.Show("DELETED!");
               });
-
             UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openfile = new OpenFileDialog();
@@ -204,7 +224,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 openfile.Filter = "Image File (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg; *.png|" + "All |*.*";
                 if (openfile.ShowDialog() == DialogResult.OK)
                 {
-                    AddLoadImage(openfile.FileName);
+                    LoadImage(openfile.FileName);
                     filepath = openfile.FileName;
                     extension = openfile.SafeFileName.Split('.')[1];
                     imgName = Helper.CreateImageName(movieName);
@@ -216,51 +236,24 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 }
             });
 
-            //SaveMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            //{
-            //    if (movieName != null && movieCountry != null && movieDirector != null && movieDes != null && imgName != null && movieGenre != null && movieYear != null && movieDuration != null)
-            //    {
-            //        MovieDTO movie = new MovieDTO
-            //        {
-            //            DisplayName = movieName,
-            //            Country = movieCountry,
-            //            Director = movieDirector,
-            //            Description = movieDes,
-            //            Image = imgfullname,
-            //            Genres = movieGenre,
-            //            ReleaseDate = movieYear.Date,
-            //            RunningTime = int.Parse(movieDuration),
-            //        };
-
-            //        (bool successAddMovie, string messageFromAddMovie) = MovieService.Ins.AddMovie(movie);
-
-            //        if (successAddMovie)
-            //        {
-            //            System.Windows.MessageBox.Show(messageFromAddMovie);
-            //            SaveImgToApp();
-            //            p.Close();
-
-            //        }
-            //        else
-            //        {
-            //            System.Windows.MessageBox.Show(messageFromAddMovie);
-            //        }
-            //    }
-            //});
-
-            Add_SaveMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            SaveMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
-                if (movieName != null && movieCountry != null && movieDirector != null && movieDes != null && imgName != null && movieGenre != null && movieYear != null && movieDuration != null)
+                if (movieID == null && movieName != null && movieCountry != null && movieDirector != null && movieDes != null && imgName != null && movieGenre != null && movieYear != null && movieDuration != null)
                 {
+                    List<GenreDTO> temp = new List<GenreDTO>();
+                    temp.Add(movieGenre);
+
+
                     MovieDTO movie = new MovieDTO
                     {
+
                         DisplayName = movieName,
                         Country = movieCountry,
                         Director = movieDirector,
                         Description = movieDes,
                         Image = imgfullname,
-                        Genres = movieGenre,
-                        ReleaseDate = movieYear.Date,
+                        Genres = temp,
+                        ReleaseDate = movieYear,
                         RunningTime = int.Parse(movieDuration),
                     };
 
@@ -271,28 +264,34 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                         System.Windows.MessageBox.Show(messageFromAddMovie);
                         SaveImgToApp();
                         p.Close();
-
+                        ReloadMovieListView();
                     }
                     else
                     {
                         System.Windows.MessageBox.Show(messageFromAddMovie);
                     }
                 }
+                else if (movieID != null)
+                {
+                    System.Windows.MessageBox.Show("sau khi edit luu thanh cong");
+                }
             });
-
 
         }
 
         public void LoadInforMovie(InforMovieWindow w1)
         {
+            List<GenreDTO> tempgenre = new List<GenreDTO>(SelectedItem.Genres);
+
             DateTime temp = (DateTime)SelectedItem.ReleaseDate;
-            w1.Name.Text = SelectedItem.DisplayName;
-            w1.Genre.Text = SelectedItem.Genres.ToString();
-            w1.Year.Text = temp.ToShortDateString();
-            w1.Author.Text = SelectedItem.Director;
-            w1.Country.Text = SelectedItem.Country;
-            w1.Duration.Text = SelectedItem.RunningTime.ToString();
-            w1.Descripstion.Text = SelectedItem.Description;
+            movieName = SelectedItem.DisplayName;
+            w1.Genre.Text = tempgenre[0].DisplayName;
+            movieDirector = SelectedItem.Director;
+            movieCountry = SelectedItem.Country;
+            movieDuration = SelectedItem.RunningTime.ToString();
+            movieDes = SelectedItem.Description;
+            movieYear = (DateTime)SelectedItem.ReleaseDate;
+            w1.Year.Text = SelectedItem.ReleaseDate.ToString();
 
             if (SelectedItem.Image != null)
             {
@@ -310,16 +309,17 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         }
         public void LoadEditMovie(EditMovie w1)
         {
-            w1._ID.Text = SelectedItem.Id.ToString();
+            List<GenreDTO> tempgenre = new List<GenreDTO>(SelectedItem.Genres);
 
-            DateTime temp = (DateTime)SelectedItem.ReleaseDate;
-            w1.Name.Text = SelectedItem.DisplayName;
-            w1.Genre.Text = SelectedItem.Genres.ToString();
-            w1.Year.Text = temp.ToShortDateString();
-            w1.Author.Text = SelectedItem.Director;
-            w1.Country.Text = SelectedItem.Country;
-            w1.Duration.Text = SelectedItem.RunningTime.ToString();
-            w1.Descripstion.Text = SelectedItem.Description;
+            movieID = SelectedItem.Id.ToString();
+            movieName = SelectedItem.DisplayName;
+            movieGenre = tempgenre[0];
+            movieYear = (DateTime)SelectedItem.ReleaseDate;
+            movieDirector = SelectedItem.Director;
+            movieCountry = SelectedItem.Country;
+            movieDuration = SelectedItem.RunningTime.ToString();
+            movieDes = SelectedItem.Description;
+            w1._Genre.Text = tempgenre[0].DisplayName;
 
             if (SelectedItem.Image != null)
             {
@@ -335,7 +335,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 w1.imgframe.Source = _image;
             }
         }
-        public void AddLoadImage(string filePath)
+        public void LoadImage(string filePath)
         {
             BitmapImage _image = new BitmapImage();
             _image.BeginInit();
@@ -387,7 +387,21 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 }
             }
         }
-
+        public void ReloadMovieListView()
+        {
+            MainListView.ItemsSource = new List<MovieDTO>(MovieService.Ins.GetAllMovie());
+        }
+        public void RenewAddWindowData()
+        {
+            movieName = null;
+            movieGenre = null;
+            movieDirector = null;
+            movieCountry = null;
+            movieDuration = null;
+            movieDes = null;
+            ImageSource = null;
+            movieYear = DateTime.Today;
+        }
     }
 
 }

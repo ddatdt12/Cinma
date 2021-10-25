@@ -14,13 +14,13 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
         {
             InitializeComponent();
 
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(MovieListview.ItemsSource);
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(MovieListView.ItemsSource);
             view.Filter = Filter;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(MovieListview.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView(MovieListView.ItemsSource).Refresh();
         }
 
         private bool Filter(object item)
