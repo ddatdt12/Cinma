@@ -22,7 +22,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
         public void SaveMovieFunc(Window p)
         {
-            IsImageChanged = false;
+            
             if (movieID == null && movieName != null && movieCountry != null && movieDirector != null && movieDes != null && filepath != null && movieGenre != null && movieYear != null && movieDuration != null)
             {
 

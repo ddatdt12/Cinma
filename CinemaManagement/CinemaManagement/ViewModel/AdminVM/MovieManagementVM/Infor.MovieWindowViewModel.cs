@@ -27,10 +27,10 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieCountry = SelectedItem.Country;
             movieDuration = SelectedItem.RunningTime.ToString();
             movieDes = SelectedItem.Description;
-            //movieYear = SelectedItem.ReleaseDate;
+            movieYear = SelectedItem.ReleaseDate.ToString();
             w1.Year.Text = temp.ToShortDateString();
 
-            if (SelectedItem.Image != null && SelectedItem.Image != imgfullname)
+            if (SelectedItem.Image != null)
             {
                 BitmapImage _image = new BitmapImage();
                 _image.BeginInit();
@@ -41,7 +41,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 _image.UriSource = new Uri(Helper.GetMovieImgPath(SelectedItem.Image));
                 _image.EndInit();
 
-                w1.imageframe.Source = _image;
+                ImageSource = _image;
             }
             else
             {

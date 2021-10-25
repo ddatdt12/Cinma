@@ -200,7 +200,8 @@
                                             Width="346">
                                     <Image x:Name="imageframe"
                                            Height="335"
-                                           Width="245" />
+                                           Width="245" 
+                                           Source="{Binding ImageSource}"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

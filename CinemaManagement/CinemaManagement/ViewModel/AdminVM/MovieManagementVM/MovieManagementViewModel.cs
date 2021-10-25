@@ -33,7 +33,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public string movieName
         {
             get { return _movieName; }
-            set { _movieName = value; OnPropertyChanged(); MovieImageChanged(); }
+            set { _movieName = value; OnPropertyChanged();}
         }
 
         private GenreDTO _movieGenre;
@@ -176,6 +176,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             });
             LoadInforMovieCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
             {
+                if (SelectedItem == null) return;
                 RenewWindowData();
                 InforMovieWindow w1 = new InforMovieWindow();
                 LoadInforMovie(w1);
@@ -200,6 +201,9 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                               if (successDelMovie)
                               {
+                                  
+                                  File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
+                                  SelectedItem = null;
                                   System.Windows.MessageBox.Show(messageFromDelMovie);
                                   ReloadMovieListView();
                                   break;
@@ -226,12 +230,11 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     IsImageChanged = true;
                     filepath = openfile.FileName;
                     extension = openfile.SafeFileName.Split('.')[1];
-                    LoadImage(openfile);
+                    LoadImage();
+                    return;
                 }
-                else
-                {
-                    openfile.Dispose();
-                }
+                IsImageChanged = false;
+               
             });
             UpdateMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -244,7 +247,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             });
         }
 
-        public void LoadImage(OpenFileDialog openfile)
+        public void LoadImage()
         {
 
             BitmapImage _image = new BitmapImage();

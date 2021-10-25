@@ -46,7 +46,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 _image.UriSource = new Uri(Helper.GetMovieImgPath(SelectedItem.Image));
                 _image.EndInit();
 
-                w1.imgframe.Source = _image;
+                ImageSource = _image;
             }
             else
             {
@@ -66,7 +66,9 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         {
             if (movieID != null && movieName != null && movieCountry != null && movieDirector != null && movieDes != null && movieGenre != null && movieYear != null && movieDuration != null)
             {
-
+                
+                imgName = Helper.CreateImageName(movieName);
+                imgfullname = Helper.CreateImageFullName(imgName, extension);
 
                 List<GenreDTO> temp = new List<GenreDTO>();
                 temp.Add(movieGenre);

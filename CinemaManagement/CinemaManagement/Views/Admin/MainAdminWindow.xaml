@@ -21,7 +21,7 @@
         Width="1440"
         Name="mainadminwindow"
         ResizeMode="NoResize"
-        MouseDown="mainadminwindow_MouseDown"
+        MouseLeftButtonDown="mainadminwindow_MouseDown"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
 
