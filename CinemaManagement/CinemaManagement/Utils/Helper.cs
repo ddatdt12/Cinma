@@ -7,7 +7,10 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
-
+        public static string GetHourMinutes(TimeSpan t)
+        {
+            return t.ToString(@"hh\:mm");
+        }
         public static string CreateImageName(string imageName)
         {
             imageName = RemoveUnicode(imageName);

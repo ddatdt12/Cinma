@@ -8,6 +8,5 @@ namespace CinemaManagement.Views.Staff
         {
             InitializeComponent();
         }
-
     }
 }

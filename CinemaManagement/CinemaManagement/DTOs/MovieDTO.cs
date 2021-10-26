@@ -17,7 +17,7 @@ namespace CinemaManagement.DTOs
         public int RunningTime { get; set; }
         public string Country { get; set; }
         public string Description { get; set; }
-        public Nullable<System.DateTime> ReleaseDate { get; set; }
+        public Nullable<int> ReleaseYear { get; set; }
         public string MovieType { get; set; }
         public string Director { get; set; }
         public IList<ShowtimeDTO> Showtimes { get; set; }

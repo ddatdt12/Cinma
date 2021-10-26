@@ -47,7 +47,7 @@
           <Property Name="RunningTime" Type="int" Nullable="false" />
           <Property Name="Country" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="ReleaseDate" Type="smalldatetime" />
+          <Property Name="ReleaseYear" Type="int" />
           <Property Name="MovieType" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Director" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
@@ -211,7 +211,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__SeatSetti__Showt__4D94879B">
-          <End Role="Showtime" Type="Self.Showtime" Multiplicity="1" />
+          <End Role="Showtime" Type="Self.Showtime" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SeatSetting" Type="Self.SeatSetting" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Showtime">
@@ -259,7 +261,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Ticket__Showtime__534D60F1">
-          <End Role="Showtime" Type="Self.Showtime" Multiplicity="1" />
+          <End Role="Showtime" Type="Self.Showtime" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Showtime">
@@ -468,7 +472,7 @@
           <Property Name="RunningTime" Type="Int32" Nullable="false" />
           <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ReleaseDate" Type="DateTime" Precision="0" />
+          <Property Name="ReleaseYear" Type="Int32" />
           <Property Name="MovieType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Director" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
@@ -716,7 +720,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__SeatSetti__Showt__4D94879B">
-          <End Role="Showtime" Type="Self.Showtime" Multiplicity="1" />
+          <End Role="Showtime" Type="Self.Showtime" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SeatSetting" Type="Self.SeatSetting" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Showtime">
@@ -740,7 +746,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Ticket__Showtime__534D60F1">
-          <End Role="Showtime" Type="Self.Showtime" Multiplicity="1" />
+          <End Role="Showtime" Type="Self.Showtime" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Showtime">
@@ -885,7 +893,7 @@
                 <ScalarProperty Name="RunningTime" ColumnName="RunningTime" />
                 <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="ReleaseYear" ColumnName="ReleaseYear" />
                 <ScalarProperty Name="MovieType" ColumnName="MovieType" />
                 <ScalarProperty Name="Director" ColumnName="Director" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />

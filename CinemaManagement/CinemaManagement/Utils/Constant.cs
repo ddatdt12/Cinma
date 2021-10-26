@@ -1,5 +1,9 @@
 ﻿namespace CinemaManagement.Utils
 {
+    public class TIME
+    {
+        public static readonly TimeSpan BreakTime = new TimeSpan(0, 15, 0);
+    }
     public class ROLE
     {
         public static readonly string Admin = "Quản lý";
