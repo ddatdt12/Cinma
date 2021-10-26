@@ -1,6 +1,8 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -26,45 +28,55 @@ namespace CinemaManagement.Models.Services
         }
         private ShowtimeService() { }
 
-
-        //public Nullable<int> ShowtimeSettingId { get; set; }
-        //public Nullable<int> MovieId { get; set; }
-        //public Nullable<System.TimeSpan> StartTime { get; set; }
-
-        //public MovieDTO Movie { get; set; }
-        //public virtual IList<TicketDTO> Tickets { get; set; }
-        //public List<ShowtimeDTO> GetAllGenre()
-        //{
-        //    //List<ShowtimeDTO> genres;
-        //    //try
-        //    //{
-        //    //    var context = DataProvider.Ins.DB;
-        //    //    genres = (from s in context.Showtimes
-        //    //              select new ShowtimeDTO { Id = s.Id, DisplayName = s.DisplayName }).ToList();
-        //    //}
-        //    //catch (Exception e)
-        //    //{
-        //    //    throw e;
-        //    //}
-
-        //    return genres;
-        //}
-
-        public (bool, string message) AddGenre(GenreDTO genre)
+        public (bool IsSuccess, string message) AddShowtime(ShowtimeDTO newShowtime)
         {
+            var context = DataProvider.Ins.DB;
             try
             {
-                var genreInDB = DataProvider.Ins.DB.Genres.Where(g => g.DisplayName == genre.DisplayName).FirstOrDefault();
-                if (genreInDB != null)
-                {
-                    return (false, "Thể loại phim này đã tồn tại");
-                }
-                DataProvider.Ins.DB.Genres.Add(new Genre
-                {
-                    DisplayName = genre.DisplayName,
-                });
-                DataProvider.Ins.DB.SaveChanges();
+                var showtimeSet = context.ShowtimeSettings
+                    .Where(s => DbFunctions.TruncateTime(s.ShowDate) == newShowtime.ShowDate.Date
+                    && s.RoomId == newShowtime.RoomId).FirstOrDefault();
 
+                Showtime show = null;
+                if (showtimeSet == null)
+                {
+                    showtimeSet = new ShowtimeSetting
+                    {
+                        RoomId = newShowtime.RoomId,
+                        ShowDate = newShowtime.ShowDate.Date,
+                    }; ;
+                    context.ShowtimeSettings.Add(showtimeSet);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    show = showtimeSet.Showtimes.AsEnumerable().Where(s =>
+                    {
+                        var endTime = new TimeSpan(0, s.Movie.RunningTime, 0) + s.StartTime;
+                        var newStartTime = newShowtime.StartTime;
+                        return newStartTime >= s.StartTime && newStartTime < (endTime + TIME.BreakTime);
+                    }).FirstOrDefault();
+                }
+
+                if (show != null)
+                {
+                    var endTime = new TimeSpan(0, show.Movie.RunningTime, 0) + show.StartTime;
+                    return (false, $"Khoảng thời gian từ {Helper.GetHourMinutes(show.StartTime)} đến {Helper.GetHourMinutes(endTime + TIME.BreakTime)} đã có phim chiếu tại phòng {showtimeSet.RoomId}");
+                }
+
+                Showtime showtime = new Showtime
+                {
+                    MovieId = newShowtime.MovieId,
+                    ShowtimeSettingId = showtimeSet.Id,
+                    StartTime = newShowtime.StartTime,
+                };
+
+                //Lack of setting seats in room for new showtime 
+
+                context.Showtimes.Add(showtime);
+                context.SaveChanges();
+
+                return (true, "Thêm xuất chiếu thành công");
             }
             catch (DbEntityValidationException e)
             {
@@ -85,7 +97,10 @@ namespace CinemaManagement.Models.Services
             {
                 return (false, e?.InnerException.Message);
             }
-            return (true, "");
+            catch (Exception e)
+            {
+                return (false, e?.InnerException.Message);
+            }
         }
 
     }
