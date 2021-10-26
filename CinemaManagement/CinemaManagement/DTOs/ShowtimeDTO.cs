@@ -13,11 +13,11 @@ namespace CinemaManagement.DTOs
         }
 
         public int Id { get; set; }
-        public Nullable<int> ShowtimeSettingId { get; set; }
-        public Nullable<int> MovieId { get; set; }
-        public Nullable<System.TimeSpan> StartTime { get; set; }
-
+        public int MovieId { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public DateTime ShowDate { get; set; }
+        public int RoomId { get; set; }
         public  MovieDTO Movie { get; set; }
-        public virtual IList<TicketDTO> Tickets { get; set; }
+        public  IList<TicketDTO> Tickets { get; set; }
     }
 }

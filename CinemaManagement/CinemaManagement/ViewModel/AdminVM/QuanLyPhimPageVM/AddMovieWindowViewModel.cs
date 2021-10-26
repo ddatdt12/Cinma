@@ -137,7 +137,6 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
                     Description = movieDes,
                     Image = img,
                     Genres= genreDTOs,
-                    ReleaseDate =DateTime.Now.Date,
                     RunningTime=190,
                 };
                 (bool successAddMovie, string messageFromAddMovie) = MovieService.Ins.AddMovie(movie);

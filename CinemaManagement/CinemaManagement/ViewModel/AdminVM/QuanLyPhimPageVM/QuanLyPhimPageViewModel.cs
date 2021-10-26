@@ -110,11 +110,9 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
         public void LoadInforMovie(InforMovieWindow w1)
         {
 
-            DateTime temp = (DateTime)SelectedItem.ReleaseDate;
 
             w1.Name.Text = SelectedItem.DisplayName;
             w1.Genre.Text = SelectedItem.Genres.ToString();
-            w1.Year.Text = temp.ToShortDateString();
             w1.Author.Text = SelectedItem.Director;
             w1.Country.Text = SelectedItem.Country;
             w1.Duration.Text = SelectedItem.RunningTime.ToString() + " phút";
@@ -123,11 +121,9 @@ namespace CinemaManagement.ViewModel.AdminVM.QuanLyPhimPageVM
         public void LoadEditMovie(EditMovie w1)
         {
 
-            DateTime temp = (DateTime)SelectedItem.ReleaseDate;
 
             w1._Displayname.Text = SelectedItem.DisplayName;
             w1._Genre.Text = SelectedItem.Genres.ToString();
-            w1._Year.Text = temp.Year.ToString();
             w1._Author.Text = SelectedItem.Director;
             w1._Country.Text = SelectedItem.Country;
             w1._Duration.Text = SelectedItem.RunningTime.ToString() + " phút";
