@@ -5,11 +5,14 @@ using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Net.Cache;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -33,7 +36,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public string movieName
         {
             get { return _movieName; }
-            set { _movieName = value; OnPropertyChanged();}
+            set { _movieName = value; OnPropertyChanged(); }
         }
 
         private GenreDTO _movieGenre;
@@ -100,13 +103,14 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         System.Windows.Controls.ListView MainListView;
 
 
-        private List<MovieDTO> _movieList;
-        public List<MovieDTO> MovieList
+        private ObservableCollection<MovieDTO> _movieList;
+        public ObservableCollection<MovieDTO> MovieList
         {
             get => _movieList;
             set
             {
                 _movieList = value;
+                OnPropertyChanged();
             }
         }
 
@@ -153,7 +157,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
         public MovieManagementViewModel()
         {
-            MovieList = new List<MovieDTO>(MovieService.Ins.GetAllMovie());
+            MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
             ListCountrySource = new List<string>();
             MinuteSource = new List<int>();
             GenreList = GenreService.Ins.GetAllGenre();
@@ -172,7 +176,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 Window w1 = new AddMovieWindow();
                 IsAddingMovie = true;
                 w1.ShowDialog();
-                
+
             });
             LoadInforMovieCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
             {
@@ -201,11 +205,11 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                               if (successDelMovie)
                               {
-                                  
+
                                   File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-                                  SelectedItem = null;
                                   System.Windows.MessageBox.Show(messageFromDelMovie);
-                                  ReloadMovieListView();
+                                  ReloadMovieListView(SelectedItem.DisplayName);
+                                  SelectedItem = null;
                                   break;
                               }
                               else
@@ -234,7 +238,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     return;
                 }
                 IsImageChanged = false;
-               
+
             });
             UpdateMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -249,7 +253,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
         public void LoadImage()
         {
-
             BitmapImage _image = new BitmapImage();
             _image.BeginInit();
             _image.CacheOption = BitmapCacheOption.None;
@@ -274,9 +277,25 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
             }
         }
-        public void ReloadMovieListView()
+        public void ReloadMovieListView(string name = "")
         {
-            MainListView.ItemsSource = new List<MovieDTO>(MovieService.Ins.GetAllMovie());
+            if (name == "add")
+            {
+                MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
+                return;
+            }
+
+            if (name != "")
+            {
+                for (int i = 0; i < MovieList.Count; i++)
+                {
+                    if (MovieList[i].DisplayName == name)
+                        MovieList.Remove(MovieList[i]);
+                }
+            }
+            if(name == "")
+                MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
+            MainListView.Items.Refresh();
         }
         public void RenewWindowData()
         {

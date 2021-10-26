@@ -19,7 +19,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         {
             List<GenreDTO> tempgenre = new List<GenreDTO>(SelectedItem.Genres);
 
-            DateTime temp = (DateTime)SelectedItem.ReleaseDate;
 
             movieName = SelectedItem.DisplayName;
             w1.Genre.Text = tempgenre[0].DisplayName;
@@ -27,8 +26,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieCountry = SelectedItem.Country;
             movieDuration = SelectedItem.RunningTime.ToString();
             movieDes = SelectedItem.Description;
-            movieYear = SelectedItem.ReleaseDate.ToString();
-            w1.Year.Text = temp.ToShortDateString();
+            movieYear = SelectedItem.ReleaseYear.ToString();
+            w1.Year.Text = SelectedItem.ReleaseYear.ToString();
 
             if (SelectedItem.Image != null)
             {

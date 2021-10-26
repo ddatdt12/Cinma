@@ -157,12 +157,13 @@
                                    FontSize="20"
                                    Height="40" />
                             <StackPanel>
-                                <ComboBox MinWidth="72"
-                                          Height="35"
-                                          FontSize="25"
-                                          ItemsSource="{Binding MinuteSource}"
-                                          SelectedItem="{Binding movieDuration}">
-                                </ComboBox>
+                                <TextBox MinWidth="72"
+                                         Height="35"
+                                         FontSize="25"
+                                         materialDesign:HintAssist.Hint="Phút"
+                                         Text="{Binding movieDuration,Mode=TwoWay}"
+                                         PreviewTextInput="TextBox_PreviewTextInput">
+                                </TextBox>
 
                             </StackPanel>
                         </StackPanel>
@@ -255,7 +256,8 @@
                                                  Margin="0,-15,0,0"
                                                  Padding="0"
                                                  VerticalContentAlignment="Bottom"
-                                                 Text="{Binding movieYear,Mode=TwoWay}" />
+                                                 Text="{Binding movieYear,Mode=TwoWay}"
+                                                 PreviewTextInput="TextBox_PreviewTextInput" />
                                     </Grid>
                                 </StackPanel>
                             </Grid>
@@ -283,8 +285,8 @@
                                             Margin="10,0,10,10"
                                             Background="#FF5980B8"
                                             materialDesign:ButtonAssist.CornerRadius="8"
-                                            Command="{Binding SaveMovieCM}" 
-                                            CommandParameter="{Binding ElementName=addmoviewindow}"/>
+                                            Command="{Binding SaveMovieCM}"
+                                            CommandParameter="{Binding ElementName=addmoviewindow}" />
                                 </StackPanel>
                             </Grid>
                         </Grid>

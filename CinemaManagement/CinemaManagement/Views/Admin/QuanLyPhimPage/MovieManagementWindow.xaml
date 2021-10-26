@@ -73,7 +73,8 @@
                 <ListView x:Name="MovieListView"
                           ItemsSource="{Binding MovieList}"
                           SelectedItem="{Binding SelectedItem}"
-                          Focusable="True">
+                          Focusable="True"
+                          >
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding LoadInforMovieCM}" />

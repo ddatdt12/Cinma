@@ -4,6 +4,11 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core;
 using CinemaManagement.Utils;
 using System.Data.Entity;
+using CinemaManagement.DTOs;
+using System.Collections.Generic;
+using System;
+using System.Data.Entity.Validation;
+using System.Linq;
 
 namespace CinemaManagement.Models.Services
 {

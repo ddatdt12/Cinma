@@ -1,4 +1,6 @@
-﻿namespace CinemaManagement.Utils
+﻿using System;
+
+namespace CinemaManagement.Utils
 {
     public class TIME
     {

@@ -40,7 +40,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     Description = movieDes,
                     Image = imgfullname,
                     Genres = temp,
-                    ReleaseDate = DateTime.Today,
+                    ReleaseYear = int.Parse(movieYear),
                     RunningTime = int.Parse(movieDuration),
                 };
 
@@ -51,8 +51,9 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     IsAddingMovie = false;
                     System.Windows.MessageBox.Show(messageFromAddMovie);
                     SaveImgToApp();
+                    MovieList.Add(movie);
                     p.Close();
-                    ReloadMovieListView();
+                    ReloadMovieListView("add");
                 }
                 else
                 {

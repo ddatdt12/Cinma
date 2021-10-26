@@ -21,14 +21,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public void LoadEditMovie(EditMovie w1)
         {
             List<GenreDTO> tempgenre = new List<GenreDTO>(SelectedItem.Genres);
-            DateTime tempdate = (DateTime)SelectedItem.ReleaseDate;
-
-
+     
             imgfullname = SelectedItem.Image;
             movieID = SelectedItem.Id.ToString();
             movieName = SelectedItem.DisplayName;
             movieGenre = tempgenre[0];
-            movieYear = tempdate.ToShortDateString(); ;
+            movieYear = SelectedItem.ReleaseYear.ToString(); ;
             movieDirector = SelectedItem.Director;
             movieCountry = SelectedItem.Country;
             movieDuration = SelectedItem.RunningTime.ToString();
@@ -81,7 +79,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     Director = movieDirector,
                     Description = movieDes,
                     Genres = temp,
-                    ReleaseDate = DateTime.Today,
+                    ReleaseYear = int.Parse(movieYear),
                     RunningTime = int.Parse(movieDuration),
                 };
 
@@ -91,7 +89,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 }
                 else
                 {
-                    movie.Image = Helper.CreateImageFullName(movieName, SelectedItem.Image.Split('.')[1]);
+                    filepath = Helper.GetMovieImgPath(SelectedItem.Image);
+                    movie.Image = imgfullname = Helper.CreateImageFullName(movieName, SelectedItem.Image.Split('.')[1]);
                 }
 
 
@@ -102,8 +101,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     System.Windows.MessageBox.Show(messageFromUpdateMovie);
                     if (SelectedItem.Image != movie.Image)
                     {
-                        File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
                         SaveImgToApp();
+                        File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
                     }
                     else
                     {

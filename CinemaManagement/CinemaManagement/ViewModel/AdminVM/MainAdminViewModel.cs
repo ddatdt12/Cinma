@@ -1,5 +1,4 @@
-﻿using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
-using CinemaManagement.Views.Admin.QuanLyPhimPage;
+﻿using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using CinemaManagement.Views.Admin.QuanLySuatChieuPage;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,8 +42,8 @@ namespace CinemaManagement.ViewModel
             });
             LoadQLNVPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
-                if (p != null)
-                    p.Content = new NhanVienPage();
+                //if (p != null)
+                //    p.Content = new NhanVienPage();
             });
         }
 

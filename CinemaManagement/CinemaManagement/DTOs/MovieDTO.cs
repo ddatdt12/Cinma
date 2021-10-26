@@ -10,7 +10,7 @@ namespace CinemaManagement.DTOs
         public MovieDTO()
         {
             MovieType = "2D";
-            ReleaseDate = null;
+            ReleaseYear = null;
         }
         public int Id { get; set; }
         public string DisplayName { get; set; }
@@ -40,5 +40,6 @@ namespace CinemaManagement.DTOs
             }
         }
         public ImageSource ImgSource { get; set; }
+
     }
 }

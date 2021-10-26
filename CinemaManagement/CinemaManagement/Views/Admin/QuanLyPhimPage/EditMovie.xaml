@@ -167,7 +167,8 @@
                                          FontSize="25"
                                          VerticalContentAlignment="Bottom"
                                          Height="35"
-                                         Text="{Binding movieDuration,Mode=TwoWay}" />
+                                         Text="{Binding movieDuration,Mode=TwoWay}"
+                                         PreviewTextInput="Duration_PreviewTextInput" />
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -259,7 +260,8 @@
                                                  Padding="0"
                                                  FontSize="22"
                                                  Margin="5,0,0,0"
-                                                 Text="{Binding movieYear}" />
+                                                 Text="{Binding movieYear}"
+                                                 PreviewTextInput="Year_PreviewTextInput" />
                                     </Grid>
                                 </StackPanel>
                                 <StackPanel Margin="0,0,25,20"
