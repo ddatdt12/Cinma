@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core;
 using CinemaManagement.Utils;
+using System.Data.Entity;
 
 namespace CinemaManagement.Models.Services
 {
@@ -29,7 +30,7 @@ namespace CinemaManagement.Models.Services
             }
             private set => _ins = value;
         }
-        
+
         public List<MovieDTO> GetAllMovie()
         {
             List<MovieDTO> movies = null;
@@ -45,7 +46,7 @@ namespace CinemaManagement.Models.Services
                               RunningTime = movie.RunningTime,
                               Country = movie.Country,
                               Description = movie.Description,
-                              ReleaseDate = movie.ReleaseDate,
+                              ReleaseYear = movie.ReleaseYear,
                               MovieType = movie.MovieType,
                               Director = movie.Director,
                               Image = movie.Image,
@@ -63,6 +64,123 @@ namespace CinemaManagement.Models.Services
             return movies;
         }
 
+        public List<MovieDTO> GetShowingMovieByDay(DateTime date)
+        {
+            List<MovieDTO> movieList = new List<MovieDTO>();
+            var context = DataProvider.Ins.DB;
+            try
+            {
+                var MovieIdList = (from showSet in context.ShowtimeSettings
+                                   where DbFunctions.TruncateTime(showSet.ShowDate) == date.Date
+                                   select showSet into S
+                                   from show in S.Showtimes
+                                   orderby show.StartTime
+                                   select new
+                                   {
+                                       ShowTime = show,
+                                       Movie = new MovieDTO
+                                       {
+                                           Id = show.Movie.Id,
+                                           DisplayName = show.Movie.DisplayName,
+                                           RunningTime = show.Movie.RunningTime,
+                                           Country = show.Movie.Country,
+                                           Description = show.Movie.Description,
+                                           ReleaseYear = show.Movie.ReleaseYear,
+                                           MovieType = show.Movie.MovieType,
+                                           Director = show.Movie.Director,
+                                           Image = show.Movie.Image,
+                                           Genres = (from genre in show.Movie.Genres
+                                                     select new GenreDTO { DisplayName = genre.DisplayName, Id = genre.Id }
+                                                 ).ToList(),
+                                       }
+                                   }).GroupBy(m => m.Movie.Id).ToList();
+
+                for (int i = 0; i < MovieIdList.Count(); i++)
+                {
+                    int id = MovieIdList[i].Key;
+
+                    List<ShowtimeDTO> showtimeDTOsList = new List<ShowtimeDTO>();
+                    foreach (var m in MovieIdList[i])
+                    {
+                        showtimeDTOsList.Add(new ShowtimeDTO
+                        {
+                            Id = m.ShowTime.Id,
+                            MovieId = m.ShowTime.MovieId,
+                            StartTime = m.ShowTime.StartTime,
+                            RoomId = m.ShowTime.ShowtimeSetting.RoomId,
+                            ShowDate = m.ShowTime.ShowtimeSetting.ShowDate,
+                        });
+                        movieList.Add(m.Movie);
+                    }
+                    movieList[i].Showtimes = showtimeDTOsList;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return movieList;
+        }
+        public List<MovieDTO> GetShowingMovieByDay(DateTime date, int roomId)
+        {
+            List<MovieDTO> movieList = new List<MovieDTO>();
+            var context = DataProvider.Ins.DB;
+            try
+            {
+                var MovieIdList = (from showSet in context.ShowtimeSettings
+                                   where DbFunctions.TruncateTime(showSet.ShowDate) == date.Date && showSet.RoomId == roomId
+                                   select showSet into S
+                                   from show in S.Showtimes
+                                   orderby show.StartTime
+                                   select new
+                                   {
+                                       ShowTime = show,
+                                       Movie = new MovieDTO
+                                       {
+                                           Id = show.Movie.Id,
+                                           DisplayName = show.Movie.DisplayName,
+                                           RunningTime = show.Movie.RunningTime,
+                                           Country = show.Movie.Country,
+                                           Description = show.Movie.Description,
+                                           ReleaseYear = show.Movie.ReleaseYear,
+                                           MovieType = show.Movie.MovieType,
+                                           Director = show.Movie.Director,
+                                           Image = show.Movie.Image,
+                                           Genres = (from genre in show.Movie.Genres
+                                                     select new GenreDTO { DisplayName = genre.DisplayName, Id = genre.Id }
+                                                 ).ToList(),
+                                       }
+                                   }).GroupBy(m => m.Movie.Id).ToList();
+
+                for (int i = 0; i < MovieIdList.Count(); i++)
+                {
+                    int id = MovieIdList[i].Key;
+
+                    List<ShowtimeDTO> showtimeDTOsList = new List<ShowtimeDTO>();
+                    foreach (var m in MovieIdList[i])
+                    {
+                        showtimeDTOsList.Add(new ShowtimeDTO
+                        {
+                            Id = m.ShowTime.Id,
+                            MovieId = m.ShowTime.MovieId,
+                            StartTime = m.ShowTime.StartTime,
+                            RoomId =m.ShowTime.ShowtimeSetting.RoomId,
+                            ShowDate =m.ShowTime.ShowtimeSetting.ShowDate,
+                        });
+                        movieList.Add(m.Movie);
+                    }
+                    movieList[i].Showtimes = showtimeDTOsList;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return movieList;
+        }
+
+
+       
         public (bool, string) AddMovie(MovieDTO newMovie)
         {
             try
@@ -110,7 +228,7 @@ namespace CinemaManagement.Models.Services
                     //    Director = movie.Director
                     //});
                 }
-                
+
 
                 context.SaveChanges();
             }
@@ -154,7 +272,6 @@ namespace CinemaManagement.Models.Services
                 }
 
                 PropertyCopier<MovieDTO, Movie>.Copy(updatedMovie, movie);
-
                 DataProvider.Ins.DB.SaveChanges();
             }
             catch (DbEntityValidationException e)
@@ -188,9 +305,9 @@ namespace CinemaManagement.Models.Services
             try
             {
                 Movie movie = (from p in DataProvider.Ins.DB.Movies
-                                 where p.Id == Id && !p.IsDeleted
+                               where p.Id == Id && !p.IsDeleted
                                select p).SingleOrDefault();
-                if(movie == null || movie?.IsDeleted == true)
+                if (movie == null || movie?.IsDeleted == true)
                 {
                     return (false, "Phim không tồn tại!");
                 }

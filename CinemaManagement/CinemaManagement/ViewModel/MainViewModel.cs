@@ -63,18 +63,30 @@ namespace CinemaManagement.ViewModel
 
             try
             {
-                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-                var path = Path.Combine(Environment.CurrentDirectory, @"..\..\..\Resources\", "Images");
-                bool isExist = !Directory.Exists(path);
+                //string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                //var path = Path.Combine(Environment.CurrentDirectory, @"..\..\..\Resources\", "Images");
+                //bool isExist = !Directory.Exists(path);
 
 
                 movieDTOs = MovieService.Ins.GetAllMovie();
                 genreDTOs = GenreService.Ins.GetAllGenre();
-                staffDTOs = StaffService.Ins.GetAllStaff();
 
-                string movieName= "Bố già";
-                //string imageName = Helper.Slugify(movieName);
 
+                //staffDTOs = StaffService.Ins.GetAllStaff();
+
+                #region Showtime and Movie
+                    List<MovieDTO> ListMovieDtosOnDay = MovieService.Ins.GetShowingMovieByDay(DateTime.Today);
+
+                    List<MovieDTO> ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today, 1);
+                    //string movieName= "Bố già";
+                    //string imageName = Helper.Slugify(movieName);
+                    //(bool AddSuccess, string message) = ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 1, RoomId = 1, ShowDate = DateTime.Today, StartTime = new TimeSpan(13, 50, 0) });
+                    //(bool AddSuccess, string message) = ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 4, RoomId = 1, ShowDate = DateTime.Today.AddDays(2), StartTime = new TimeSpan(19, 0, 0) });
+
+                    //ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today, 1);
+                #endregion
+
+                Console.WriteLine("zxc");
                 #region Staff Service
                 //StaffDTO staff = new StaffDTO
                 //{
