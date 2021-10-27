@@ -15,17 +15,13 @@ using System.Windows.Media.Imaging;
 namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 {
 
-    public partial class MovieManagementViewModel  : BaseViewModel
+    public partial class MovieManagementViewModel : BaseViewModel
     {
         public ICommand LoadAddMovieCM { get; set; }
-
-
         public void SaveMovieFunc(Window p)
         {
-            
-            if (movieID == null && movieName != null && movieCountry != null && movieDirector != null && movieDes != null && filepath != null && movieGenre != null && movieYear != null && movieDuration != null)
+            if (movieID == null && filepath != null && IsValidData())
             {
-
                 imgName = Helper.CreateImageName(movieName);
                 imgfullname = Helper.CreateImageFullName(imgName, extension);
                 List<GenreDTO> temp = new List<GenreDTO>();
@@ -44,16 +40,15 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     RunningTime = int.Parse(movieDuration),
                 };
 
-                (bool successAddMovie, string messageFromAddMovie) = MovieService.Ins.AddMovie(movie);
+                (bool successAddMovie, string messageFromAddMovie, MovieDTO newMovie) = MovieService.Ins.AddMovie(movie);
 
                 if (successAddMovie)
                 {
                     IsAddingMovie = false;
                     System.Windows.MessageBox.Show(messageFromAddMovie);
                     SaveImgToApp();
-                    MovieList.Add(movie);
+                    LoadMovieListView(Operation.CREATE, newMovie);
                     p.Close();
-                    ReloadMovieListView("add");
                 }
                 else
                 {

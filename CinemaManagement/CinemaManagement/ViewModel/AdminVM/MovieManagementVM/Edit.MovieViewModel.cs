@@ -56,15 +56,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                 _image.UriSource = new Uri(Helper.GetMovieImgPath("null.jpg"));
                 _image.EndInit();
-
                 w1.imgframe.Source = _image;
             }
         }
         public void UpdateMovieFunc(Window p)
         {
-            if (movieID != null && movieName != null && movieCountry != null && movieDirector != null && movieDes != null && movieGenre != null && movieYear != null && movieDuration != null)
+            if (movieID != null && IsValidData())
             {
-                
                 imgName = Helper.CreateImageName(movieName);
                 imgfullname = Helper.CreateImageFullName(imgName, extension);
 
@@ -93,12 +91,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     movie.Image = imgfullname = Helper.CreateImageFullName(movieName, SelectedItem.Image.Split('.')[1]);
                 }
 
-
                 (bool successUpdateMovie, string messageFromUpdateMovie) = MovieService.Ins.UpdateMovie(movie);
 
                 if (successUpdateMovie)
                 {
-                    System.Windows.MessageBox.Show(messageFromUpdateMovie);
+                    MessageBox.Show(messageFromUpdateMovie);
+
                     if (SelectedItem.Image != movie.Image)
                     {
                         SaveImgToApp();
@@ -109,17 +107,17 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                         filepath = Helper.GetMovieImgPath(SelectedItem.Image);
                         File.Copy(filepath, Helper.GetMovieImgPath(movie.Image));
                         File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-
                     }
+
+                    LoadMovieListView(Operation.UPDATE, movie);
                     p.Close();
-                    ReloadMovieListView();
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show(messageFromUpdateMovie);
+                    MessageBox.Show(messageFromUpdateMovie);
                 }
             }
         }
-
+       
     }
 }

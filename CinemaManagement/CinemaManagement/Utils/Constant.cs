@@ -2,6 +2,13 @@
 
 namespace CinemaManagement.Utils
 {
+    public enum Operation
+    {
+        CREATE,
+        READ,
+        UPDATE,
+        DELETE
+    }
     public class TIME
     {
         public static readonly TimeSpan BreakTime = new TimeSpan(0, 15, 0);
