@@ -16,12 +16,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
     {
 
         public ICommand LoadEditMovieCM { get; set; }
-     
+
 
         public void LoadEditMovie(EditMovie w1)
         {
             List<GenreDTO> tempgenre = new List<GenreDTO>(SelectedItem.Genres);
-     
+
             imgfullname = SelectedItem.Image;
             movieID = SelectedItem.Id.ToString();
             movieName = SelectedItem.DisplayName;
@@ -33,7 +33,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieDes = SelectedItem.Description;
             w1._Genre.Text = tempgenre[0].DisplayName;
 
-            if (SelectedItem.Image != null )
+            if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)) == true)
             {
                 BitmapImage _image = new BitmapImage();
                 _image.BeginInit();
@@ -102,12 +102,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                         SaveImgToApp();
                         File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
                     }
-                    else
-                    {
-                        filepath = Helper.GetMovieImgPath(SelectedItem.Image);
-                        File.Copy(filepath, Helper.GetMovieImgPath(movie.Image));
-                        File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-                    }
 
                     LoadMovieListView(Operation.UPDATE, movie);
                     p.Close();
@@ -118,6 +112,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 }
             }
         }
-       
+
     }
 }

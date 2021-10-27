@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using CinemaManagement.ViewModel.AdminVM.MovieManagementVM;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -32,6 +33,14 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
         private static bool IsTextAllowed(string text)
         {
             return !_regex.IsMatch(text);
+        }
+
+        private void addmoviewindow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key != System.Windows.Input.Key.Escape) return;
+
+            e.Handled = true;
+            this.Close();
         }
     }
 }

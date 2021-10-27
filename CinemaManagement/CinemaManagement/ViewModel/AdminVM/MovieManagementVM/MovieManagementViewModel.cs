@@ -85,7 +85,20 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             get { return _movieYear; }
             set { _movieYear = value; OnPropertyChanged(); }
         }
+        
+        private string _strmovieGenre; // this is just for validate Genre combobox (nothing more to do with it)
+        public string strmovieGenre
+        {
+            get { return _strmovieGenre; }
+            set { _strmovieGenre = value; OnPropertyChanged(); }
+        }
 
+        private string _strmovieCountry; // this is just for validate Country combobox (nothing more to do with it)
+        public string strmovieCountry
+        {
+            get { return _strmovieCountry; }
+            set { _strmovieCountry = value; OnPropertyChanged(); }
+        }
         #endregion
 
 
@@ -168,7 +181,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 System.Windows.MessageBox.Show("Lỗi hệ thống " + e.Message);
             }
 
-            InsertMinuteToComboBox();
             InsertCountryToComboBox();
 
             StoreMainListViewNameCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
@@ -318,6 +330,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieDes = null;
             ImageSource = null;
             movieYear = null;
+            strmovieGenre = null;
+            strmovieCountry = null;
         }
         public void InsertCountryToComboBox()
         {
@@ -330,17 +344,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 }
             }
         }
-        public void InsertMinuteToComboBox()
-        {
-            FileStream file = new FileStream(Helper.GetAdminPath("MinuteSource.txt"), FileMode.Open, FileAccess.Read);
-            using (var reader = new StreamReader(file, Encoding.UTF8))
-            {
-                while (reader.Peek() >= 0)
-                {
-                    MinuteSource.Add(int.Parse(reader.ReadLine()));
-                }
-            }
-        }
+
         public void MovieImageChanged()
         {
             if (!IsAddingMovie)

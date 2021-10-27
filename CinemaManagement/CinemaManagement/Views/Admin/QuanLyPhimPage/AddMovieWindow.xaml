@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CinemaManagement"
+        xmlns:domain="clr-namespace:MaterialDesignDemo.Domain"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -21,9 +22,10 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="650"
         Width="1000"
-        DataContext="{StaticResource MovieManagementVM}">
+        DataContext="{StaticResource MovieManagementVM}"
+        PreviewKeyUp="addmoviewindow_PreviewKeyUp">
     <Grid>
-        <Border Background="#FFF0F3F7"
+        <Border Background="White"
                 CornerRadius="20"
                 BorderBrush="Gray"
                 BorderThickness="1">
@@ -71,16 +73,24 @@
                                        FontSize="20"
                                        Height="36" />
                                 <TextBox Padding="0"
-                                         Style="{StaticResource MaterialDesignFilledTextBox}"
                                          VerticalAlignment="Top"
                                          AcceptsReturn="True"
                                          TextWrapping="Wrap"
                                          FontSize="22"
-                                         Background="#FFF0F3F7"
+                                         Background="White"
                                          BorderThickness="0,0,0,1"
                                          Foreground="Black"
                                          Height="50"
-                                         Text="{Binding movieName,Mode=TwoWay}" />
+                                         materialDesign:ValidationAssist.Background="White">
+                                    <TextBox.Text>
+                                        <Binding Path="movieName"
+                                                 UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
                             </StackPanel>
                         </StackPanel>
 
@@ -98,7 +108,19 @@
                                       BorderThickness="0,0,0,1"
                                       MaxDropDownHeight="280"
                                       Height="53"
-                                      VerticalContentAlignment="Bottom" />
+                                      VerticalContentAlignment="Bottom"
+                                      materialDesign:ValidationAssist.Background="White">
+                                <ComboBox.Text>
+                                    <Binding Path="strmovieGenre"
+                                             Mode="TwoWay"
+                                             UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <colorsDomain:NotEmptyValidationRule ValidatesOnTargetUpdated="True"
+                                                                                 xmlns:colorsDomain="clr-namespace:MaterialDesignDemo.Domain" />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </ComboBox.Text>
+                            </ComboBox>
 
                         </StackPanel>
 
@@ -123,12 +145,22 @@
                                 <TextBox AcceptsReturn="True"
                                          TextWrapping="Wrap"
                                          FontSize="25"
-                                         Background="#FFF0F3F7"
+                                         Background="White"
                                          Padding="0"
                                          VerticalContentAlignment="Center"
                                          Height="40"
                                          Margin="0,0,10,0"
-                                         Text="{Binding movieDirector,Mode=TwoWay}" />
+                                         materialDesign:ValidationAssist.Background="White">
+                                    <TextBox.Text>
+                                        <Binding Path="movieDirector"
+                                                 Mode="TwoWay"
+                                                 UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
 
                             </StackPanel>
                         </StackPanel>
@@ -146,7 +178,19 @@
                                           Height="40"
                                           VerticalContentAlignment="Bottom"
                                           MaxDropDownHeight="240"
-                                          SelectedItem="{Binding movieCountry,Mode=TwoWay}" />
+                                          SelectedItem="{Binding movieCountry,Mode=TwoWay}"
+                                          materialDesign:ValidationAssist.Background="White">
+                                    <ComboBox.Text>
+                                        <Binding Path="strmovieCountry"
+                                                 Mode="TwoWay"
+                                                 UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <colorsDomain:NotEmptyValidationRule ValidatesOnTargetUpdated="True"
+                                                                                     xmlns:colorsDomain="clr-namespace:MaterialDesignDemo.Domain" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </ComboBox.Text>
+                                </ComboBox>
                             </StackPanel>
                         </StackPanel>
 
@@ -161,8 +205,17 @@
                                          Height="35"
                                          FontSize="25"
                                          materialDesign:HintAssist.Hint="Phút"
-                                         Text="{Binding movieDuration,Mode=TwoWay}"
-                                         PreviewTextInput="TextBox_PreviewTextInput">
+                                         PreviewTextInput="TextBox_PreviewTextInput"
+                                         materialDesign:ValidationAssist.Background="White">
+                                    <TextBox.Text>
+                                        <Binding Path="movieDuration"
+                                                 Mode="TwoWay"
+                                                 UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
                                 </TextBox>
 
                             </StackPanel>
@@ -205,10 +258,19 @@
                                              HorizontalScrollBarVisibility="Disabled"
                                              materialDesign:HintAssist.Hint="Giới thiệu phim"
                                              FontSize="18"
-                                             Height="300"
+                                             Height="296"
                                              Width="400"
+                                             Margin="5,0,0,0"
                                              Foreground="Black"
-                                             Text="{Binding movieDes,Mode=TwoWay}" />
+                                             materialDesign:ValidationAssist.Background="White">
+                                        <Binding Path="movieDes"
+                                                 Mode="TwoWay"
+                                                 UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox>
 
                                 </StackPanel>
                                 <StackPanel Margin="30,10,0,00"
@@ -217,8 +279,14 @@
                                            x:Name="imgframe"
                                            HorizontalAlignment="Right"
                                            Margin="0,0,137,15"
-                                           Height="280"
-                                           Source="{Binding ImageSource,Mode=TwoWay}">
+                                           Height="280">
+                                        <Image.Source>
+                                            <Binding Path="ImageSource">
+                                                <Binding.ValidationRules>
+                                                    <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </Image.Source>
                                     </Image>
                                     <Button HorizontalAlignment="Left"
                                             Content="Tải ảnh"
@@ -256,8 +324,18 @@
                                                  Margin="0,-15,0,0"
                                                  Padding="0"
                                                  VerticalContentAlignment="Bottom"
-                                                 Text="{Binding movieYear,Mode=TwoWay}"
-                                                 PreviewTextInput="TextBox_PreviewTextInput" />
+                                                 materialDesign:ValidationAssist.Background="White"
+                                                 PreviewTextInput="TextBox_PreviewTextInput">
+                                            <TextBox.Text>
+                                                <Binding Path="movieYear"
+                                                         Mode="TwoWay"
+                                                         UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <domain:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
                                     </Grid>
                                 </StackPanel>
                             </Grid>

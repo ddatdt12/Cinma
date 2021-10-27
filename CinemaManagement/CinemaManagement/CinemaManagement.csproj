@@ -281,6 +281,7 @@
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils\Constant.cs" />
+    <Compile Include="Utils\NotEmptyValidationRule.cs" />
     <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
