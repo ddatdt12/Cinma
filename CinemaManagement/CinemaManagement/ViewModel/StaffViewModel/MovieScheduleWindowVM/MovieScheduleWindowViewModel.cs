@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -47,7 +43,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM
             });
             ClickButton = new RelayCommand<StackPanel>((p) => { return true; }, (p) =>
             {
-                if(p.Visibility == Visibility.Collapsed)
+                if (p.Visibility == Visibility.Collapsed)
                 {
                     p.Visibility = Visibility.Visible;
                 }

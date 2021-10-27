@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CinemaManagement.DTOs
 {
@@ -17,6 +13,6 @@ namespace CinemaManagement.DTOs
         public string Category { get; set; }
         public decimal Price { get; set; }
 
-        public  IList<ProductBillInfoDTO> ProductBillInfoes { get; set; }
+        public IList<ProductBillInfoDTO> ProductBillInfoes { get; set; }
     }
 }

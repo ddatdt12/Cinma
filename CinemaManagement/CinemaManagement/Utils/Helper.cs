@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -22,7 +18,7 @@ namespace CinemaManagement.Utils
         }
         public static string CreateImageFullName(string imageName, string ext)
         {
-            return $"{imageName}_{DateTime.Now.ToFileTime()}.{ext}";
+            return $"{imageName}.{ext}";
         }
 
         public static ImageSource GetProductSource(string fileName)
@@ -34,16 +30,15 @@ namespace CinemaManagement.Utils
             return new BitmapImage(new Uri($@"{SOURCE.MoviesSource}/{fileName}", UriKind.Relative));
         }
 
-        public static string GetMovieImgPath()
+        public static string GetMovieImgPath(string imageName)
         {
-            string appPath = Path.GetDirectoryName(Directory.GetParent(Directory.GetCurrentDirectory()).FullName) + "/Resources/Images/Movies/";
-            if (Directory.Exists(appPath) == false)
-            {
-                Directory.CreateDirectory(appPath);
-            }
-            return appPath;
+            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Movies", $"{imageName}" /*SelectedItem.Image*/);
         }
-        
+        public static string GetAdminPath(string filename)
+        {
+            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Admin", $"{filename}" /*SelectedItem.Image*/);
+        }
+
         public static string GetProductImgPath()
         {
             string appPath = Path.GetDirectoryName(Directory.GetParent(Directory.GetCurrentDirectory()).FullName) + "/Resources/Images/Products/";

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaManagement.DTOs
 {
@@ -17,6 +13,6 @@ namespace CinemaManagement.DTOs
         public string Row { get; set; }
         public Nullable<int> RoomId { get; set; }
 
-        public  RoomDTO Room { get; set; }
+        public RoomDTO Room { get; set; }
     }
 }

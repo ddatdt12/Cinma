@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel
@@ -18,10 +13,11 @@ namespace CinemaManagement.ViewModel
 
         public ForgotPassViewModel()
         {
-            CancelCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) => {
+            CancelCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
+            {
                 FrameworkElement window = GetParentWindow(p);
                 var w = window as Window;
-                if (w!= null)
+                if (w != null)
                 {
                     w.Close();
                 }

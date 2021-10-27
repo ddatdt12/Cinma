@@ -98,7 +98,7 @@ namespace CinemaManagement.ViewModel
              });
             ChangeBackgroundAndFontSizeLabel1 = new RelayCommand<Label>((p) => { return true; }, (p) =>
             {
-                if(IsClickLabel2 == true)
+                if (IsClickLabel2 == true)
                 {
                     IsClickLabel2 = false;
                 }

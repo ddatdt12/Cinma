@@ -7,6 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:si="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -18,9 +19,11 @@
         Background="Transparent"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{StaticResource EditMovieVM}"
-        Height="485"
-        Width="795">
+        DataContext="{StaticResource MovieManagementVM}"
+        Height="650"
+        Width="1000"
+        x:Name="EditMovieWindow">
+
     <Grid>
         <Border Background="#FFF0F3F7"
                 CornerRadius="20"
@@ -30,18 +33,33 @@
             <Grid>
 
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
                     <RowDefinition Height="40*" />
                     <RowDefinition Height="60*" />
                 </Grid.RowDefinitions>
 
-                <Grid  Grid.Row="0"
-                       Margin="0,15,0,0">
+                <!---HEADER-->
+                <Grid Grid.Row="0">
+                    <Border BorderThickness="0,0,0,1"
+                            BorderBrush="Black"
+                            materialDesign:ShadowAssist.ShadowEdges="Bottom"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                        <TextBlock Text="Chỉnh sửa phim"
+                                   FontSize="25"
+                                   Margin="20,10,0,0"
+                                   FontWeight="Bold" />
+                    </Border>
+
+                </Grid>
+                <Grid  Grid.Row="1"
+                       Margin="0,10,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0">
+                    <Grid Grid.Row="0"
+                          Margin="0,24,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="65*" />
                             <ColumnDefinition Width="45*" />
@@ -52,17 +70,20 @@
                                     Margin="25,0,25,0">
                             <StackPanel>
                                 <Label Content="Tên phim"
-                                       FontSize="20" />
-                                <TextBox Name="_Displayname"
+                                       FontSize="20"
+                                       Height="36" />
+                                <TextBox x:Name="Name"
                                          Padding="0"
                                          Style="{StaticResource MaterialDesignFilledTextBox}"
                                          VerticalAlignment="Top"
                                          AcceptsReturn="True"
                                          TextWrapping="Wrap"
-                                         FontSize="25"
+                                         FontSize="22"
                                          Background="#FFF0F3F7"
                                          BorderThickness="0,0,0,1"
-                                         Foreground="Black"/>
+                                         Foreground="Black"
+                                         Height="50"
+                                         Text="{Binding movieName,Mode=TwoWay}" />
                             </StackPanel>
                         </StackPanel>
 
@@ -71,24 +92,27 @@
                                     Margin="0,0,25,0">
                             <Label Content="Thể loại"
                                    FontSize="20" />
-                            <ComboBox Name="_Genre"
-                                      ItemsSource="{Binding ListMovieGenreSource}"
+                            <ComboBox x:Name="_Genre"
+                                      ItemsSource="{Binding GenreList}"
+                                      DisplayMemberPath="DisplayName"
                                       IsEditable="True"
                                       FontSize="25"
                                       BorderThickness="0,0,0,1"
                                       MaxDropDownHeight="280"
-                                      Height="52"
+                                      Height="53"
+                                      SelectedItem="{Binding movieGenre,Mode=TwoWay}"
                                       VerticalContentAlignment="Bottom" />
 
                         </StackPanel>
 
                     </Grid>
 
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1"
+                          Margin="0,10,0,0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="292*" />
+                            <ColumnDefinition Width="110*" />
+                            <ColumnDefinition Width="97*" />
                         </Grid.ColumnDefinitions>
 
                         <!--Tac gia-->
@@ -99,87 +123,118 @@
                                        FontSize="20"
                                        Margin="0,0,35,0"
                                        Height="35" />
-                                <TextBox x:Name="_Author"
+                                <TextBox x:Name="Author"
                                          AcceptsReturn="True"
                                          TextWrapping="Wrap"
                                          FontSize="25"
                                          Background="#FFF0F3F7"
                                          Padding="0"
                                          VerticalContentAlignment="Center"
-                                         Height="40" />
+                                         Height="40"
+                                         Margin="0,0,10,0"
+                                         Text="{Binding movieDirector,Mode=TwoWay}" />
 
                             </StackPanel>
                         </StackPanel>
 
                         <!--Country-->
                         <StackPanel Grid.Column="1"
-                                    Margin="10,10,10,0">
+                                    Margin="0,10,10,0">
                             <Label Content="Quốc gia"
                                    FontSize="20"
                                    Height="35" />
                             <StackPanel>
-                                <ComboBox x:Name="_Country"
-                                          ItemsSource="{Binding ListCountrySource}"
+                                <ComboBox x:Name="Country"
+                                          ItemsSource="{Binding ListCountrySource,Mode=TwoWay}"
                                           IsEditable="True"
                                           FontSize="25"
                                           Height="40"
                                           VerticalContentAlignment="Bottom"
-                                          MaxDropDownHeight="240">
-
-                                </ComboBox>
+                                          MaxDropDownHeight="240"
+                                          SelectedItem="{Binding movieCountry,Mode=TwoWay}" />
                             </StackPanel>
                         </StackPanel>
 
                         <!--Duration-->
                         <StackPanel Grid.Column="2"
-                                    Margin="10,10,25,0">
+                                    Margin="0,10,25,0">
                             <Label Content="Thời lượng"
                                    FontSize="20"
                                    Height="40" />
                             <StackPanel>
-                                <materialDesign:TimePicker x:Name="_Duration"
-                                                           materialDesign:HintAssist.Hint=""
-                                                           Is24Hours="True"
-                                                           FontSize="25"
-                                                           VerticalContentAlignment="Bottom"
-                                                           Height="35" />
+                                <TextBox x:Name="Duration"
+                                         materialDesign:HintAssist.Hint="Phút"
+                                         FontSize="25"
+                                         VerticalContentAlignment="Bottom"
+                                         Height="35"
+                                         Text="{Binding movieDuration,Mode=TwoWay}"
+                                         PreviewTextInput="Duration_PreviewTextInput" />
                             </StackPanel>
                         </StackPanel>
                     </Grid>
 
                 </Grid>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="2">
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="75*" />
+                            <ColumnDefinition Width="25*" />
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
                             <!--Descripstion-->
                             <StackPanel HorizontalAlignment="Left"
-                                        Width="290"
-                                        Margin="25,0,0,0">
+                                        Orientation="Horizontal"
+                                        Margin="25,0,0,0"
+                                        Grid.ColumnSpan="2"
+                                        Width="773">
 
                                 <StackPanel>
                                     <Label Content="Mô tả"
                                            FontSize="20"
                                            Foreground="Black"
                                            Margin="0,10,0,0" />
-                                    <TextBox x:Name="_Description"
+                                    <TextBox x:Name="Descripstion"
                                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                              VerticalAlignment="Top"
                                              AcceptsReturn="True"
                                              TextWrapping="Wrap"
                                              VerticalScrollBarVisibility="Auto"
+                                             HorizontalScrollBarVisibility="Disabled"
                                              materialDesign:HintAssist.Hint="Giới thiệu phim"
                                              FontSize="18"
-                                             Height="174"
-                                             Foreground="Black" />
+                                             Height="300"
+                                             Width="400"
+                                             Foreground="Black"
+                                             Text="{Binding movieDes,Mode=TwoWay}" />
 
                                 </StackPanel>
+                                <StackPanel Margin="30,10,0,00"
+                                            Width="346">
+                                    <Image Width="209"
+                                           x:Name="imgframe"
+                                           HorizontalAlignment="Right"
+                                           Margin="0,0,137,15"
+                                           Height="280"
+                                           Source="{Binding ImageSource,Mode=TwoWay}">
+                                    </Image>
+                                    <Button HorizontalAlignment="Left"
+                                            Content="Tải ảnh"
+                                            Margin="10,0,0,0"
+                                            Width="100"
+                                            VerticalAlignment="Bottom"
+                                            materialDesign:ButtonAssist.CornerRadius="10"
+                                            Command="{Binding UploadImageCM}" />
+
+                                </StackPanel>
+
                             </StackPanel>
                         </Grid>
 
@@ -192,6 +247,7 @@
 
                             <!--YEAR-->
                             <Grid Grid.Row="0">
+
                                 <StackPanel Margin="0,0,25,0"
                                             HorizontalAlignment="Right">
                                     <Label Content="Năm SX"
@@ -199,7 +255,24 @@
                                            Height="31"
                                            Margin="0,10,0,0" />
                                     <Grid>
-                                        <TextBox Name="_Year"
+                                        <TextBox x:Name="Year"
+                                                 Background="Transparent"
+                                                 Padding="0"
+                                                 FontSize="22"
+                                                 Margin="5,0,0,0"
+                                                 Text="{Binding movieYear}"
+                                                 PreviewTextInput="Year_PreviewTextInput" />
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,25,20"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom">
+                                    <Label Content="ID"
+                                           FontSize="20"
+                                           Height="31"
+                                           Margin="-5,10,0,0" />
+                                    <Grid>
+                                        <TextBox x:Name="_ID"
                                                  AcceptsReturn="True"
                                                  TextWrapping="Wrap"
                                                  FontSize="25"
@@ -208,7 +281,10 @@
                                                  Height="48"
                                                  Margin="0,-15,0,0"
                                                  Padding="0"
-                                                 VerticalContentAlignment="Bottom" />
+                                                 Foreground="Black"
+                                                 VerticalContentAlignment="Bottom"
+                                                 IsEnabled="False"
+                                                 Text="{Binding movieID}" />
                                     </Grid>
                                 </StackPanel>
                             </Grid>
@@ -218,13 +294,13 @@
                                 <StackPanel VerticalAlignment="Bottom"
                                             HorizontalAlignment="Right"
                                             Orientation="Horizontal"
-                                            Margin="0,0,24,10">
+                                            Margin="0,0,0,10">
 
                                     <Button Content="Huỷ"
                                             FontSize="20"
                                             Height="40"
                                             Width="100"
-                                            Margin="0,0,20,10"
+                                            Margin="0,0,10,10"
                                             BorderBrush="Transparent"
                                             Click="Button_Click"
                                             materialDesign:ButtonAssist.CornerRadius="8" />
@@ -233,9 +309,11 @@
                                             FontSize="20"
                                             Height="40"
                                             Width="100"
-                                            Margin="10,0,0,10"
+                                            Margin="10,0,10,10"
                                             Background="#FF5980B8"
-                                            materialDesign:ButtonAssist.CornerRadius="8" />
+                                            materialDesign:ButtonAssist.CornerRadius="8"
+                                            Command="{Binding UpdateMovieCM}"
+                                            CommandParameter="{Binding ElementName=EditMovieWindow}" />
                                 </StackPanel>
                             </Grid>
                         </Grid>

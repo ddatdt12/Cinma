@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CinemaManagement.ViewModel.StaffViewModel
+﻿namespace CinemaManagement.ViewModel.StaffViewModel
 {
-    public class MainStaffPageViewModel:BaseViewModel
+    public class MainStaffPageViewModel : BaseViewModel
     {
 
         private string source_Image1;

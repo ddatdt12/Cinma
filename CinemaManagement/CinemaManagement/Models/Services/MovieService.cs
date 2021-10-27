@@ -1,14 +1,14 @@
-﻿using CinemaManagement.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Validation;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Core;
 using CinemaManagement.Utils;
 using System.Data.Entity;
+using CinemaManagement.DTOs;
+using System.Collections.Generic;
+using System;
+using System.Data.Entity.Validation;
+using System.Linq;
 
 namespace CinemaManagement.Models.Services
 {
@@ -250,7 +250,7 @@ namespace CinemaManagement.Models.Services
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, "Error Server");
+                return (false, $"Error Server {e}");
             }
             return (true, "Thêm phim thành công");
         }

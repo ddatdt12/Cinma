@@ -284,14 +284,10 @@
     <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\NhanVienPageViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\SuaNVWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\ThemNVWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyNhanVienPageVM\XoaNVWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\AddMovieWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\EditMovieViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\InforMovieWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLyPhimPageVM\QuanLyPhimPageViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\MovieManagementVM\Add.MovieViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\MovieManagementVM\Edit.MovieViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\MovieManagementVM\Infor.MovieWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\MovieManagementVM\MovieManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\AddSuatChieuWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\QuanLySuatChieuPageViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
@@ -304,18 +300,6 @@
     <Compile Include="Views\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml.cs">
-      <DependentUpon>NhanVienPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\SuaNhanVienWindow.xaml.cs">
-      <DependentUpon>SuaNhanVienWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml.cs">
-      <DependentUpon>ThemNhanVienWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml.cs">
-      <DependentUpon>XoaNhanVienWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml.cs">
       <DependentUpon>AddMovieWindow.xaml</DependentUpon>
     </Compile>
@@ -325,8 +309,8 @@
     <Compile Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml.cs">
       <DependentUpon>InforMovieWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml.cs">
-      <DependentUpon>QuanLyPhimPage.xaml</DependentUpon>
+    <Compile Include="Views\Admin\QuanLyPhimPage\MovieManagementWindow.xaml.cs">
+      <DependentUpon>MovieManagementWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml.cs">
       <DependentUpon>AddSuatChieuWindow.xaml</DependentUpon>
@@ -369,35 +353,19 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\SuaNhanVienWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Views\Admin\QuanLyPhimPage\EditMovie.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\QuanLyPhimPage.xaml">
+    <Page Include="Views\Admin\QuanLyPhimPage\MovieManagementWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
@@ -452,11 +420,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Resource Include="Font\junegull.ttf" />
     <EntityDeploy Include="Models\CinemaManagementModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CinemaManagementModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Resource Include="Font\GoogleSans-Regular.otf" />
+    <Resource Include="Font\Ubuntu-Bold.ttf" />
     <None Include="Models\CinemaManagementModel.edmx.diagram">
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
     </None>
@@ -465,13 +434,19 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Resource Include="Resources\Admin_MovieManagementSource\CountrySource.txt" />
-    <Resource Include="Resources\Admin_MovieManagementSource\MovieGenreSource.txt" />
+    <Resource Include="Font\junegull.ttf" />
+    <Resource Include="Resources\Admin\CountrySource.txt" />
+    <Resource Include="Resources\Admin\MinuteSource.txt" />
+    <Resource Include="Resources\Admin\MovieGenreSource.txt" />
     <Resource Include="Resources\ImageStaff\add-user.png" />
     <Resource Include="Resources\ImageStaff\edit-user.png" />
     <Resource Include="Resources\ImageStaff\next.png" />
     <Resource Include="Resources\ImageStaff\staff.png" />
+    <Resource Include="Resources\Images\Movies\null.jpg" />
+    <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
+    <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
     <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
+    <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\captain.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\spiderman.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\spiderman2.jpg" />
@@ -497,12 +472,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
-    <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
-    <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Images\Movies\" />
     <Folder Include="Resources\Images\Products\" />
   </ItemGroup>
   <ItemGroup>

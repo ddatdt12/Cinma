@@ -39,28 +39,32 @@
 
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="65*" />
-                            <ColumnDefinition Width="45*" />
+                            <ColumnDefinition Width="70*" />
+                            <ColumnDefinition Width="30*" />
                         </Grid.ColumnDefinitions>
 
                         <!--NAME-->
                         <StackPanel Grid.Column="0"
                                     Margin="25,0,25,10"
                                     Orientation="Horizontal">
-                            <StackPanel Width="399">
+                            <StackPanel>
                                 <Label Content="Tên phim"
                                        FontSize="20" />
-                                <ComboBox Style="{StaticResource MaterialDesignComboBox}"
+                                <ComboBox SelectedItem="{Binding movieName}"
+                                    ItemsSource="{Binding MovieList}"
+                                          DisplayMemberPath="DisplayName"
+                                          Style="{StaticResource MaterialDesignComboBox}"
                                           VerticalAlignment="Bottom"
                                           FontSize="25"
                                           Background="#FFF0F3F7"
                                           BorderThickness="0,0,0,1"
                                           Foreground="Black"
-                                          Height="47" />
+                                          Height="47"
+                                          Width="479" />
                             </StackPanel>
                         </StackPanel>
 
-                        <!--Duration-->
+                        <!--Ngay chieu-->
                         <StackPanel Grid.Column="2">
                             <Label Content="Ngày chiếu"
                                    FontSize="20"
@@ -69,18 +73,19 @@
                                 <DatePicker ToolTip="mm/dd/yyyy"
                                             Style="{StaticResource MaterialDesignDatePicker}"
                                             FirstDayOfWeek="Monday"
-                                            Focusable="False"
                                             SelectedDateFormat="Short"
                                             Foreground="Black"
                                             FontSize="25"
                                             Height="39"
                                             Padding="10,0,0,0"
-                                            Margin="0,0,154,0" />
+                                            Margin="0,0,64,0" 
+                                            SelectedDate="{Binding movieDate}"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
 
-                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal">
 
                         <!--Suat chieu-->
                         <StackPanel Margin="25,10,25,0"
@@ -94,10 +99,11 @@
                                 <materialDesign:TimePicker materialDesign:HintAssist.Hint=""
                                                            Is24Hours="True"
                                                            x:Name="WithSecondsTimePicker"
-                                                           WithSeconds="True"
+                                                           WithSeconds="False"
                                                            FontSize="25"
                                                            VerticalContentAlignment="Bottom"
-                                                           Height="35" />
+                                                           Height="35" 
+                                                           SelectedTime="{Binding movieShowtime}"/>
                             </StackPanel>
                         </StackPanel>
 
@@ -107,7 +113,8 @@
                                    FontSize="20" />
                             <ComboBox Width="175"
                                       Height="43"
-                                      FontSize="25">
+                                      FontSize="25"
+                                      SelectedItem="{Binding movieRoom}">
                                 <ComboBoxItem Content="Phòng 1" />
                                 <ComboBoxItem Content="Phòng 2" />
                                 <ComboBoxItem Content="Phòng 3" />
@@ -168,7 +175,7 @@
                                             Margin="0,0,20,10"
                                             BorderBrush="Transparent"
                                             Click="Button_Click"
-                                            materialDesign:ButtonAssist.CornerRadius="8" />
+                                            materialDesign:ButtonAssist.CornerRadius="8"/>
 
                                     <Button Content="Lưu"
                                             FontSize="20"
@@ -176,7 +183,8 @@
                                             Width="100"
                                             Margin="10,0,0,10"
                                             Background="#FF5980B8"
-                                            materialDesign:ButtonAssist.CornerRadius="8" />
+                                            materialDesign:ButtonAssist.CornerRadius="8"
+                                            Command="{Binding SaveCM}"/>
                                 </StackPanel>
                             </Grid>
                         </Grid>

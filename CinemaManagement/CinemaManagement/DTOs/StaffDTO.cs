@@ -1,9 +1,6 @@
 ﻿using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaManagement.DTOs
 {
@@ -13,9 +10,9 @@ namespace CinemaManagement.DTOs
         {
             Role = ROLE.Staff;
         }
-        public StaffDTO( int id, string name, string gender, DateTime birthday, string phonenumber,string role, DateTime startingdate)
+        public StaffDTO(int id, string name, string gender, DateTime birthday, string phonenumber, string role, DateTime startingdate)
         {
-            Id = id; Name = name; Gender = gender; BirthDate = birthday; PhoneNumber = phonenumber;Role = role; StartingDate = startingdate;
+            Id = id; Name = name; Gender = gender; BirthDate = birthday; PhoneNumber = phonenumber; Role = role; StartingDate = startingdate;
         }
 
 
