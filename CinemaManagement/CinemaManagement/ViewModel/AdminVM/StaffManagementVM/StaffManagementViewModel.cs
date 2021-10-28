@@ -155,31 +155,31 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                         staff.StartingDate = x;
                         staff.Username = TaiKhoan;
                         staff.Password = MatKhau;
-
+                        StaffList.Add(staff);
                         int value;
-                        if (int.TryParse(Phone, out value))
-                        {
-                            if (MatKhau == RePass)
-                            {
-                                (bool successAddStaff, string messageFromAddStaff) = StaffService.Ins.AddStaff(staff);
+                        //if (int.TryParse(Phone, out value))
+                        //{
+                        //    if (staff.Password == RePass)
+                        //    {
+                        //        (bool successAddStaff, string messageFromAddStaff) = StaffService.Ins.AddStaff(staff);
 
-                                if (successAddStaff)
-                                {
-                                    p.Close();
-                                    StaffList.Add(staff);
-                                    ReloadStaffListView();
-                                }
-                                MessageBox.Show(messageFromAddStaff);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Mật khẩu và mật khẩu nhập lại không trùng khớp!");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Số điện thoại không hợp lệ!");
-                        }
+                        //        if (successAddStaff)
+                        //        {
+                        //            p.Close();
+                        //            StaffList.Add(staff);
+                        //            ReloadStaffListView();
+                        //        }
+                        //        MessageBox.Show(messageFromAddStaff);
+                        //    }
+                        //    else
+                        //    {
+                        //        MessageBox.Show("Mật khẩu và mật khẩu nhập lại không trùng khớp!");
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    MessageBox.Show("Số điện thoại không hợp lệ!");
+                        //}
 
 
                     }
@@ -190,7 +190,42 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 });
             EditStaffCommand = new RelayCommand<Window>((p) => { return true; },
                 (p) => {
-                    MessageBox.Show(SelectedItem.Gender);
+                    MessageBox.Show(SelectedItem.Password);
+                    //if (Fullname != null && Gender != null && StartDate != null && Born != null && Phone != null && Role != null && TaiKhoan != null)
+                    //{
+                    //    DateTime x = DateTime.Today;
+                    //    StaffDTO staff = new StaffDTO();
+                    //    staff.Id = SelectedItem.Id;
+                    //    staff.Name = Fullname;
+                    //    staff.Gender = Gender.Content.ToString();
+                    //    staff.BirthDate = x;
+                    //    staff.PhoneNumber = Phone;
+                    //    staff.Role = Role.Content.ToString();
+                    //    staff.StartingDate = x;
+                    //    staff.Username = TaiKhoan;
+                    //    staff.Password = MatKhau;
+
+                    //    int value;
+                    //    if (int.TryParse(Phone, out value))
+                    //    {
+                    //        (bool successAddStaff, string messageFromAddStaff) = StaffService.Ins.UpdateStaff(staff);
+
+                    //        if (successAddStaff)
+                    //        {
+                    //            p.Close();
+                    //            ReloadStaffListView();
+                    //        }
+                    //        MessageBox.Show(messageFromAddStaff);
+                    //    }
+                    //    else
+                    //    {
+                    //        MessageBox.Show("Số điện thoại không hợp lệ!");
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Thông tin nhân viên bị thiếu!");
+                    //}
                 });
 
             OpenAddStaffCommand = new RelayCommand<object>((p) => { return true; },
@@ -210,7 +245,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     wd.StartDate.Text = SelectedItem.StartingDate.ToString();
                     wd.TaiKhoan.Text = SelectedItem.Username;
                     wd.MatKhau.Text = SelectedItem.Password;
+
+                    //Fullname = SelectedItem.Name;
+                    //Gender.Content = SelectedItem.Gender;
+                    //Born = DateTime.Today;
+                    //Phone = SelectedItem.PhoneNumber;
+                    //Role.Content = SelectedItem.Role;
+                    //StartDate = DateTime.Today;
+                    //TaiKhoan = SelectedItem.Username;
+                    //MatKhau = SelectedItem.Password;
+
+
                     wd.ShowDialog();
+                    
                 });
 
             OpenDeleteStaffCommand = new RelayCommand<object>((p) => { return true; }, (p) => { XoaNhanVienWindow wd = new XoaNhanVienWindow(); wd.ShowDialog(); });

@@ -209,7 +209,7 @@
                              x:Name="_MatKhau">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PasswordChanged">
-                            <i:InvokeCommandAction Command="{Binding GetPasswordCommand}"
+                            <i:InvokeCommandAction Command="{Binding GetPasswordCommand, Mode=TwoWay}"
                                                    CommandParameter="{Binding ElementName=_MatKhau}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>

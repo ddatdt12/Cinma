@@ -73,7 +73,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Họ và tên"/>
-                <TextBox x:Name="FullName" Grid.Column="1"/>
+                <TextBox x:Name="FullName" Grid.Column="1"
+                         Text="{Binding Fullname, Mode=TwoWay}"/>
             </Grid>
 
             <Grid Grid.Row="2">
@@ -86,7 +87,8 @@
                           Padding="0 12 0 0"
                           Margin="5 5 20 10"
                           Grid.Column="1"
-                          x:Name="Gender">
+                          x:Name="Gender"
+                          SelectedItem="{Binding Gender, Mode=TwoWay}">
                     <ComboBoxItem Content="Nam"/>
                     <ComboBoxItem Content="Nữ"/>
                 </ComboBox>
@@ -133,7 +135,8 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Số điện thoại"/>
                 <TextBox Grid.Column="1"
-                         x:Name="Phone"/>
+                         x:Name="Phone"
+                         Text="{Binding Phone,Mode=TwoWay}"/>
             </Grid>
 
             <Grid Grid.Row="5">
@@ -147,7 +150,7 @@
                           Margin="5 5 20 10"
                           Grid.Column="1"
                           x:Name="Role"
-                          >
+                          SelectedItem="{Binding Role,Mode=TwoWay}">
                     <ComboBoxItem Content="Quản lý"/>
                     <ComboBoxItem Content="Nhân viên"/>
                 </ComboBox>
@@ -178,7 +181,8 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Tài khoản"/>
                 <TextBox Grid.Column="1"
-                         x:Name="TaiKhoan"/>
+                         x:Name="TaiKhoan"
+                         Text="{Binding TaiKhoan,Mode=TwoWay}"/>
             </Grid>
 
             <Grid Grid.Row="8">
@@ -189,7 +193,8 @@
                 <TextBlock Text="Mật khẩu"/>
                 <TextBox Grid.Column="1"
                          x:Name="MatKhau"
-                         IsEnabled="False"/>
+                         IsEnabled="False"
+                         Text="{Binding MatKhau, Mode=TwoWay}"/>
             </Grid>
             
             <Grid Grid.Row="9">
