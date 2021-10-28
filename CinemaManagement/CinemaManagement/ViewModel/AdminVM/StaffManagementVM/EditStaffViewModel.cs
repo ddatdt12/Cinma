@@ -14,7 +14,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 {
     public  partial class StaffManagementViewModel: BaseViewModel
     {
-        public void EditStaff(SuaNhanVienWindow p)
+        public void EditStaff(Window p)
         {
             Fullname = SelectedItem.Name;
             Phone = SelectedItem.PhoneNumber;

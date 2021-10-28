@@ -34,8 +34,8 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             set { _Gender = value; OnPropertyChanged(); }
         }
 
-        private DateTime _Born;
-        public DateTime Born
+        private Nullable<System.DateTime> _Born;
+        public Nullable<System.DateTime> Born
         {
             get { return _Born; }
             set { _Born = value; OnPropertyChanged(); }
@@ -55,8 +55,8 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             set { _Role = value; OnPropertyChanged(); }
         }
 
-        private DateTime _StartDate;
-        public DateTime StartDate
+        private Nullable<System.DateTime> _StartDate;
+        public Nullable<System.DateTime> StartDate
         {
             get { return _StartDate; }
             set { _StartDate = value; OnPropertyChanged(); }
@@ -121,6 +121,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         public ICommand AddStaffCommand { get; set; }
         public ICommand EditStaffCommand { get; set; }
         public ICommand ChangePassCommand { get; set; }
+        public ICommand DeleteStaffCommand { get; set; }
 
         public ICommand OpenAddStaffCommand { get; set; }
         public ICommand OpenEditStaffCommand { get; set; }
@@ -145,8 +146,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
         public StaffManagementViewModel()
         {
-            StartDate = DateTime.Today;
-            Born = DateTime.Today;
+            
             StaffList = new ObservableCollection<StaffDTO>(StaffService.Ins.GetAllStaff());
             GetListViewCommand = new RelayCommand<ListView>((p) => { return true; },
                 (p) => {
@@ -173,7 +173,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 (p) => {
                     AddStaff(p);
                 });
-            EditStaffCommand = new RelayCommand<SuaNhanVienWindow>((p) => { return true; },
+            EditStaffCommand = new RelayCommand<Window>((p) => { return true; },
                 (p) => {
                     EditStaff(p);
                 });
@@ -181,10 +181,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 (p) => {
                     ChangePass(p);
                 });
+            DeleteStaffCommand = new RelayCommand<Window>((p) => { return true; },
+                (p) => {
+                    DeleteStaff(p);
+                });
 
             OpenAddStaffCommand = new RelayCommand<object>((p) => { return true; },
                 (p) => {
                     ThemNhanVienWindow wd = new ThemNhanVienWindow();
+                    Born = null;
+                    StartDate = null;
+                    Fullname = null;
+                    Phone = null;
+                    TaiKhoan = null;
                     wd.ShowDialog();
 
                 });
