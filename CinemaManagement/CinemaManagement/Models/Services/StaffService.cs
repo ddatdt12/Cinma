@@ -41,7 +41,8 @@ namespace CinemaManagement.Models.Services
                           Name = s.Name,
                           Role = s.Role,
                           PhoneNumber = s.PhoneNumber,
-                          StartingDate = s.StartingDate
+                          StartingDate = s.StartingDate,
+                          Password = s.Password
                       }).ToList();
             return staffs;
         }

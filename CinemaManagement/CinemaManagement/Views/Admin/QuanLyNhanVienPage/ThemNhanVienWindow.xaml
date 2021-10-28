@@ -126,7 +126,7 @@
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             Grid.Column="1"
                             x:Name="_Born"
-                            SelectedDate="{Binding Born}" />
+                            SelectedDate="{Binding Born, Mode=TwoWay}"/>
             </Grid>
 
             <Grid Grid.Row="5">
@@ -167,7 +167,7 @@
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             Grid.Column="1"
                             x:Name="_StartDate"
-                            SelectedDate="{Binding StartDate}"/>
+                            SelectedDate="{Binding StartDate,Mode=TwoWay}"/>
             </Grid>
             <!--#endregion-->
 

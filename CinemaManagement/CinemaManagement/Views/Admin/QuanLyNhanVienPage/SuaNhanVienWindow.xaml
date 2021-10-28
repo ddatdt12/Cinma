@@ -73,7 +73,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Họ và tên"/>
-                <TextBox x:Name="FullName" Grid.Column="1"
+                <TextBox x:Name="_FullName" Grid.Column="1"
                          Text="{Binding Fullname, Mode=TwoWay}"/>
             </Grid>
 
@@ -124,7 +124,8 @@
                             HorizontalAlignment="Left"
                             Margin="5"
                             Grid.Column="1"
-                            x:Name="Date">
+                            x:Name="Date"
+                            SelectedDate="{Binding Born, Mode=TwoWay}">
                 </DatePicker>
             </Grid>
 
@@ -135,7 +136,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Số điện thoại"/>
                 <TextBox Grid.Column="1"
-                         x:Name="Phone"
+                         x:Name="_Phone"
                          Text="{Binding Phone,Mode=TwoWay}"/>
             </Grid>
 
@@ -167,7 +168,8 @@
                             HorizontalAlignment="Left"
                             Margin="5"
                             Grid.Column="1"
-                            x:Name="StartDate">
+                            x:Name="StartDate"
+                            SelectedDate="{Binding StartDate, Mode=TwoWay}">
 
                 </DatePicker>
 
@@ -181,7 +183,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Tài khoản"/>
                 <TextBox Grid.Column="1"
-                         x:Name="TaiKhoan"
+                         x:Name="_TaiKhoan"
                          Text="{Binding TaiKhoan,Mode=TwoWay}"/>
             </Grid>
 
@@ -193,7 +195,7 @@
                 <TextBlock Text="Mật khẩu"/>
                 <TextBox Grid.Column="1"
                          x:Name="MatKhau"
-                         IsEnabled="False"
+                         IsEnabled="True"
                          Text="{Binding MatKhau, Mode=TwoWay}"/>
             </Grid>
             

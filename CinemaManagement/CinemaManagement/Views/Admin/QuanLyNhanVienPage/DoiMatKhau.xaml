@@ -63,10 +63,18 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="Mật khẩu"/>
             <PasswordBox Grid.Column="1"
-                             materialDesign:TextFieldAssist.HasClearButton="True"
-                             Margin="5 0 10 20"
-                             Padding="0 12 0 0"
-                             VerticalContentAlignment="Center"/>
+                         materialDesign:TextFieldAssist.HasClearButton="True"
+                         Margin="5 0 10 20"
+                         Padding="0 12 0 0"
+                         VerticalContentAlignment="Center"
+                         x:Name="_MK">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PasswordChanged">
+                        <i:InvokeCommandAction Command="{Binding GetChangePass, Mode=TwoWay}"
+                                               CommandParameter="{Binding ElementName=_MK}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </PasswordBox>
         </Grid>
 
         <Grid Grid.Row="2">
@@ -76,10 +84,18 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="Nhập lại mật khẩu"/>
             <PasswordBox Grid.Column="1"
-                             materialDesign:TextFieldAssist.HasClearButton="True"
-                             Margin="5 0 10 20"
-                             Padding="0 12 0 0"
-                             VerticalContentAlignment="Center"/>
+                         materialDesign:TextFieldAssist.HasClearButton="True"
+                         Margin="5 0 10 20"
+                         Padding="0 12 0 0"
+                         VerticalContentAlignment="Center"
+                         x:Name="_ReMK">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PasswordChanged">
+                        <i:InvokeCommandAction Command="{Binding GetChangeRePass, Mode=TwoWay}"
+                                               CommandParameter="{Binding ElementName=_ReMK}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </PasswordBox>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.Resources>
@@ -93,12 +109,15 @@
             </Grid.Resources>
             <Button Content="Xác nhận"
                         Margin="0 0 110 10"
-                        Background="#64dd17"/>
+                    Command="{Binding ChangePassCommand}"
+                    CommandParameter="{Binding ElementName=DoiMK}"
+                    Background="#64dd17"/>
             <Button Content="Hủy"
                         Margin="0 0 10 10"
                         Command="{Binding CloseCommand}"
                         CommandParameter="{Binding ElementName=DoiMK}"
                         Background="#ff6f00"/>
+            
         </Grid>
     </Grid>
 </Window>

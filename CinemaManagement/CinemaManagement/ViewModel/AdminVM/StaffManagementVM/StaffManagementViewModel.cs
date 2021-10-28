@@ -17,7 +17,9 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
     public partial class StaffManagementViewModel : BaseViewModel
     {
         ListView listView;
+
         #region Biến lưu dữ liệu thêm
+
         private string _Fullname;
         public string Fullname
         {
@@ -81,6 +83,20 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             set { _RePass = value; OnPropertyChanged(); }
         }
 
+        private string _MK;
+        public string MK
+        {
+            get { return _MK; }
+            set { _MK = value; OnPropertyChanged(); }
+        }
+
+        private string _ReMK;
+        public string ReMK
+        {
+            get { return _ReMK; }
+            set { _ReMK = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         private ObservableCollection<StaffDTO> _staffList;
@@ -97,10 +113,14 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         public ICommand GetListViewCommand { get; set; }
         public ICommand GetPasswordCommand { get; set; }
         public ICommand GetRePasswordCommand { get; set; }
-        
+        public ICommand GetChangePass { get; set; }
+        public ICommand GetChangeRePass { get; set; }
+
+
 
         public ICommand AddStaffCommand { get; set; }
         public ICommand EditStaffCommand { get; set; }
+        public ICommand ChangePassCommand { get; set; }
 
         public ICommand OpenAddStaffCommand { get; set; }
         public ICommand OpenEditStaffCommand { get; set; }
@@ -140,92 +160,26 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 (p) => {
                     RePass = p.Password;
                 });
+            GetChangePass = new RelayCommand<PasswordBox>((p) => { return true; },
+                (p) => {
+                    MK = p.Password;
+                });
+            GetChangeRePass = new RelayCommand<PasswordBox>((p) => { return true; },
+                (p) => {
+                    ReMK  = p.Password;
+                });
 
             AddStaffCommand = new RelayCommand<Window>((p) => { return true; }, 
                 (p) => {
-                    if (Fullname != null && Gender != null && StartDate != null && Born != null && Phone != null && Role != null && TaiKhoan != null)
-                    {
-                        DateTime x = DateTime.Today;
-                        StaffDTO staff = new StaffDTO();
-                        staff.Name = Fullname;
-                        staff.Gender = Gender.Content.ToString();
-                        staff.BirthDate = x;
-                        staff.PhoneNumber = Phone;
-                        staff.Role = Role.Content.ToString();
-                        staff.StartingDate = x;
-                        staff.Username = TaiKhoan;
-                        staff.Password = MatKhau;
-                        StaffList.Add(staff);
-                        int value;
-                        //if (int.TryParse(Phone, out value))
-                        //{
-                        //    if (staff.Password == RePass)
-                        //    {
-                        //        (bool successAddStaff, string messageFromAddStaff) = StaffService.Ins.AddStaff(staff);
-
-                        //        if (successAddStaff)
-                        //        {
-                        //            p.Close();
-                        //            StaffList.Add(staff);
-                        //            ReloadStaffListView();
-                        //        }
-                        //        MessageBox.Show(messageFromAddStaff);
-                        //    }
-                        //    else
-                        //    {
-                        //        MessageBox.Show("Mật khẩu và mật khẩu nhập lại không trùng khớp!");
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    MessageBox.Show("Số điện thoại không hợp lệ!");
-                        //}
-
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Chưa đủ thông tin để thêm!");
-                    }
+                    AddStaff(p);
                 });
-            EditStaffCommand = new RelayCommand<Window>((p) => { return true; },
+            EditStaffCommand = new RelayCommand<SuaNhanVienWindow>((p) => { return true; },
                 (p) => {
-                    MessageBox.Show(SelectedItem.Password);
-                    //if (Fullname != null && Gender != null && StartDate != null && Born != null && Phone != null && Role != null && TaiKhoan != null)
-                    //{
-                    //    DateTime x = DateTime.Today;
-                    //    StaffDTO staff = new StaffDTO();
-                    //    staff.Id = SelectedItem.Id;
-                    //    staff.Name = Fullname;
-                    //    staff.Gender = Gender.Content.ToString();
-                    //    staff.BirthDate = x;
-                    //    staff.PhoneNumber = Phone;
-                    //    staff.Role = Role.Content.ToString();
-                    //    staff.StartingDate = x;
-                    //    staff.Username = TaiKhoan;
-                    //    staff.Password = MatKhau;
-
-                    //    int value;
-                    //    if (int.TryParse(Phone, out value))
-                    //    {
-                    //        (bool successAddStaff, string messageFromAddStaff) = StaffService.Ins.UpdateStaff(staff);
-
-                    //        if (successAddStaff)
-                    //        {
-                    //            p.Close();
-                    //            ReloadStaffListView();
-                    //        }
-                    //        MessageBox.Show(messageFromAddStaff);
-                    //    }
-                    //    else
-                    //    {
-                    //        MessageBox.Show("Số điện thoại không hợp lệ!");
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    MessageBox.Show("Thông tin nhân viên bị thiếu!");
-                    //}
+                    EditStaff(p);
+                });
+            ChangePassCommand = new RelayCommand<Window>((p) => { return true; },
+                (p) => {
+                    ChangePass(p);
                 });
 
             OpenAddStaffCommand = new RelayCommand<object>((p) => { return true; },
@@ -237,27 +191,23 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             OpenEditStaffCommand = new RelayCommand<object>((p) => { return true; }, 
                 (p) => {
                     SuaNhanVienWindow wd = new SuaNhanVienWindow();
-                    wd.FullName.Text = SelectedItem.Name;
+                    wd._FullName.Text = SelectedItem.Name;
                     wd.Gender.Text = SelectedItem.Gender;
                     wd.Date.Text = SelectedItem.BirthDate.ToString();
-                    wd.Phone.Text = SelectedItem.PhoneNumber.ToString();
+                    wd._Phone.Text = SelectedItem.PhoneNumber.ToString();
                     wd.Role.Text = SelectedItem.Role;
                     wd.StartDate.Text = SelectedItem.StartingDate.ToString();
-                    wd.TaiKhoan.Text = SelectedItem.Username;
+                    wd._TaiKhoan.Text = SelectedItem.Username;
                     wd.MatKhau.Text = SelectedItem.Password;
 
                     //Fullname = SelectedItem.Name;
                     //Gender.Content = SelectedItem.Gender;
-                    //Born = DateTime.Today;
+                    //Born = (DateTime)SelectedItem.BirthDate;
                     //Phone = SelectedItem.PhoneNumber;
                     //Role.Content = SelectedItem.Role;
-                    //StartDate = DateTime.Today;
-                    //TaiKhoan = SelectedItem.Username;
-                    //MatKhau = SelectedItem.Password;
-
+                    //StartDate = (DateTime)SelectedItem.StartingDate;
 
                     wd.ShowDialog();
-                    
                 });
 
             OpenDeleteStaffCommand = new RelayCommand<object>((p) => { return true; }, (p) => { XoaNhanVienWindow wd = new XoaNhanVienWindow(); wd.ShowDialog(); });
