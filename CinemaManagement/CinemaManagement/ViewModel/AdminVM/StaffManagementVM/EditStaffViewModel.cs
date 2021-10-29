@@ -16,9 +16,9 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
     {
         public void EditStaff(Window p)
         {
-            Fullname = SelectedItem.Name;
-            Phone = SelectedItem.PhoneNumber;
-            TaiKhoan = SelectedItem.Username;
+            //Fullname = SelectedItem.Name;
+            //Phone = SelectedItem.PhoneNumber;
+            //TaiKhoan = SelectedItem.Username;
             MatKhau = SelectedItem.Password;
             if (Fullname != null && Gender != null && StartDate != null && Born != null && Phone != null && Role != null && TaiKhoan != null)
             {

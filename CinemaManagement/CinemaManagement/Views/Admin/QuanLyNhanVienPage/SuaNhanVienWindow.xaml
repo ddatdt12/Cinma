@@ -10,7 +10,7 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
@@ -19,37 +19,46 @@
         WindowStyle="None"
         Name="SuaNV"
         ResizeMode="NoResize"
-        Title="SuaNhanVienWindow" Height="480" Width="500">
+        Title="SuaNhanVienWindow"
+        Height="480"
+        Width="500">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
-                                   CommandParameter="{Binding ElementName=SuaNV}"/>
+                                   CommandParameter="{Binding ElementName=SuaNV}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <materialDesign:Card>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.Resources>
                 <Style TargetType="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="HorizontalAlignment" Value="Right"/>
-                    <Setter Property="Margin" Value="0 10 10 0"/>
-                    <Setter Property="FontSize" Value="15"/>
+                    <Setter Property="VerticalAlignment"
+                            Value="Center" />
+                    <Setter Property="HorizontalAlignment"
+                            Value="Right" />
+                    <Setter Property="Margin"
+                            Value="0 10 10 0" />
+                    <Setter Property="FontSize"
+                            Value="15" />
                 </Style>
-                <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
-                    <Setter Property="Margin" Value="5 2 20 10"/>
-                    <Setter Property="VerticalAlignment" Value="Center"/>
+                <Style TargetType="TextBox"
+                       BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    <Setter Property="Margin"
+                            Value="5 2 20 10" />
+                    <Setter Property="VerticalAlignment"
+                            Value="Center" />
                 </Style>
             </Grid.Resources>
             <Grid Grid.Row="0">
@@ -62,107 +71,116 @@
                                    Text="SỬA NHÂN VIÊN"
                                    Foreground="Black"
                                    FontWeight="DemiBold"
-                                   FontSize="20"/>
+                                   FontSize="20" />
                     </StackPanel>
                 </materialDesign:ColorZone>
             </Grid>
             <!--#region Thông tin-->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Họ và tên"/>
-                <TextBox x:Name="_FullName" Grid.Column="1"
-                         Text="{Binding Fullname, Mode=TwoWay}"/>
+                <TextBlock Text="Họ và tên" />
+                <TextBox x:Name="_FullName"
+                         Grid.Column="1"
+                         Text="{Binding Fullname, Mode=TwoWay}" />
             </Grid>
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Giới tính"/>
+                <TextBlock Text="Giới tính" />
                 <ComboBox VerticalContentAlignment="Center"
                           Padding="0 12 0 0"
                           Margin="5 5 20 10"
                           Grid.Column="1"
                           x:Name="Gender"
                           SelectedItem="{Binding Gender, Mode=TwoWay}">
-                    <ComboBoxItem Content="Nam"/>
-                    <ComboBoxItem Content="Nữ"/>
+                    <ComboBoxItem Content="Nam" />
+                    <ComboBoxItem Content="Nữ" />
                 </ComboBox>
             </Grid>
 
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="110*" />
+                    <ColumnDefinition Width="271*" />
                 </Grid.ColumnDefinitions>
                 <Grid.Resources>
-                    <Style TargetType="{x:Type Control}" x:Key="DatePickerTextBoxStyle">
-                        <Setter Property="BorderThickness" Value="0"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="Background" Value="{x:Null}"/>
+                    <Style TargetType="{x:Type Control}"
+                           x:Key="DatePickerTextBoxStyle">
+                        <Setter Property="BorderThickness"
+                                Value="0" />
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                        <Setter Property="Background"
+                                Value="{x:Null}" />
                     </Style>
 
-                    <Style TargetType="{x:Type DatePickerTextBox}" >
+                    <Style TargetType="{x:Type DatePickerTextBox}">
                         <Setter Property="Control.Template">
                             <Setter.Value>
                                 <ControlTemplate>
                                     <TextBox x:Name="PART_TextBox"
-                             Text="{Binding Path=SelectedDate, StringFormat='dd-MMM-yyyy', RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" Style="{StaticResource DatePickerTextBoxStyle}" >
+                                             Text="{Binding Path=SelectedDate, StringFormat='dd-MMM-yyyy', RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}"
+                                             Style="{StaticResource DatePickerTextBoxStyle}">
                                     </TextBox>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>
                     </Style>
                 </Grid.Resources>
-                <TextBlock Text="Ngày sinh"/>
+                <TextBlock Text="Ngày sinh"
+                           Margin="0,20,9,10" />
                 <DatePicker Width="358"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             HorizontalAlignment="Left"
-                            Margin="5"
+                            Margin="5,6,0,6"
                             Grid.Column="1"
                             x:Name="Date"
-                            SelectedDate="{Binding Born, Mode=TwoWay}">
+                            SelectedDate="{Binding Born, Mode=TwoWay}"
+                            Grid.ColumnSpan="2">
                 </DatePicker>
             </Grid>
 
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Số điện thoại"/>
+                <TextBlock Text="Số điện thoại" />
                 <TextBox Grid.Column="1"
                          x:Name="_Phone"
-                         Text="{Binding Phone,Mode=TwoWay}"/>
+                         Text="{Binding Phone,Mode=TwoWay}" />
             </Grid>
 
             <Grid Grid.Row="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Chức vụ"/>
+                <TextBlock Text="Chức vụ" />
                 <ComboBox VerticalContentAlignment="Center"
                           Padding="0 12 0 0"
                           Margin="5 5 20 10"
                           Grid.Column="1"
                           x:Name="Role"
                           SelectedItem="{Binding Role,Mode=TwoWay}">
-                    <ComboBoxItem Content="Quản lý"/>
-                    <ComboBoxItem Content="Nhân viên"/>
+                    <ComboBoxItem Content="Quản lý" />
+                    <ComboBoxItem Content="Nhân viên" />
                 </ComboBox>
             </Grid>
 
             <Grid Grid.Row="6">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Ngày bắt đầu"/>
+                <TextBlock Text="Ngày bắt đầu" />
                 <DatePicker Width="358"
                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             HorizontalAlignment="Left"
@@ -178,55 +196,60 @@
 
             <Grid Grid.Row="7">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Tài khoản"/>
+                <TextBlock Text="Tài khoản" />
                 <TextBox Grid.Column="1"
                          x:Name="_TaiKhoan"
-                         Text="{Binding TaiKhoan,Mode=TwoWay}"/>
+                         Text="{Binding TaiKhoan,Mode=TwoWay}" />
             </Grid>
 
             <Grid Grid.Row="8">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Mật khẩu"/>
+                <TextBlock Text="Mật khẩu" />
                 <TextBox Grid.Column="1"
                          x:Name="MatKhau"
-                         IsEnabled="True"
-                         Text="{Binding MatKhau, Mode=TwoWay}"/>
+                         IsEnabled="False"
+                         Text="{Binding MatKhau, Mode=TwoWay}" />
             </Grid>
-            
+
             <Grid Grid.Row="9">
                 <Grid.Resources>
-                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
-                        <Setter Property="VerticalAlignment" Value="Bottom"/>
-                        <Setter Property="HorizontalAlignment" Value="Right"/>
-                        <Setter Property="Width" Value="90"/>
-                        <Setter Property="Height" Value="30"/>
+                    <Style TargetType="Button"
+                           BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                        <Setter Property="VerticalAlignment"
+                                Value="Bottom" />
+                        <Setter Property="HorizontalAlignment"
+                                Value="Right" />
+                        <Setter Property="Width"
+                                Value="90" />
+                        <Setter Property="Height"
+                                Value="30" />
                     </Style>
                 </Grid.Resources>
                 <Label>
                     <TextBlock HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Margin="80 0 0 10">
+                               VerticalAlignment="Center"
+                               Margin="80 0 0 10">
                     <Hyperlink Command="{Binding OpenChangePassCommand}">Đổi mật khẩu</Hyperlink>
                     </TextBlock>
-                    
+
                 </Label>
-                
+
                 <Button Content="Lưu"
                         Margin="0 0 110 10"
                         Command="{Binding EditStaffCommand}"
                         CommandParameter="{Binding ElementName=SuaNV}"
-                        Background="#64dd17"/>
+                        Background="#64dd17" />
                 <Button Content="Hủy"
                         Margin="0 0 10 10"
                         Command="{Binding CloseCommand}"
                         CommandParameter="{Binding ElementName=SuaNV}"
-                        Background="#ff6f00"/>
+                        Background="#ff6f00" />
             </Grid>
         </Grid>
     </materialDesign:Card>

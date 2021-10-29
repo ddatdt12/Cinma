@@ -159,7 +159,7 @@
                              Margin="5"
                              UniformCornerRadius="5">
             <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="listView"
-                          >
+                          PreviewMouseWheel="listView_PreviewMouseWheel">
                 <ListView ItemsSource="{Binding StaffList}" FontFamily="Ubuntu"
                           SelectedItem="{Binding SelectedItem}"
                           x:Name="ListView">

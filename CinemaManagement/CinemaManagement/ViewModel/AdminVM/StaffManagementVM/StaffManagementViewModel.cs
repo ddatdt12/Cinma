@@ -201,7 +201,15 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 (p) => {
                     SuaNhanVienWindow wd = new SuaNhanVienWindow();
                     wd._FullName.Text = SelectedItem.Name;
-                    wd.Gender.Text = SelectedItem.Gender;
+                    string x = SelectedItem.Gender;
+                    if (x=="Nam")
+                    {
+                        wd.Gender.Text = SelectedItem.Gender;
+                    }
+                    else
+                    {
+                        wd.Gender.Text = "Nữ";
+                    }
                     wd.Date.Text = SelectedItem.BirthDate.ToString();
                     wd._Phone.Text = SelectedItem.PhoneNumber.ToString();
                     wd.Role.Text = SelectedItem.Role;
@@ -209,12 +217,13 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     wd._TaiKhoan.Text = SelectedItem.Username;
                     wd.MatKhau.Text = SelectedItem.Password;
 
-                    //Fullname = SelectedItem.Name;
+                    Fullname = SelectedItem.Name;
                     //Gender.Content = SelectedItem.Gender;
                     //Born = (DateTime)SelectedItem.BirthDate;
-                    //Phone = SelectedItem.PhoneNumber;
+                    Phone = SelectedItem.PhoneNumber;
                     //Role.Content = SelectedItem.Role;
                     //StartDate = (DateTime)SelectedItem.StartingDate;
+                    TaiKhoan = SelectedItem.Username;
 
                     wd.ShowDialog();
                 });
