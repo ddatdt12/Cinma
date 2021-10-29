@@ -42,7 +42,7 @@
                          Height="50"
                          FontSize="25"
                          FontFamily="arial"
-                         Command="{Binding Open_AddSuatChieuWindowCM}">
+                         Command="{Binding LoadAddSuatChieuWindowCM}">
                 </Button>
 
                 <DatePicker x:Name="Calendar"
