@@ -59,7 +59,7 @@ namespace CinemaManagement.ViewModel
             SelectedGenre = null;
             List<MovieDTO> movieDTOs;
             List<GenreDTO> genreDTOs;
-            List<StaffDTO> staffDTOs;
+            //List<StaffDTO> staffDTOs;
 
             try
             {

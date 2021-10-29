@@ -61,17 +61,17 @@
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Mật khẩu"/>
+            <TextBlock Text="Mật khẩu mới"/>
             <PasswordBox Grid.Column="1"
                          materialDesign:TextFieldAssist.HasClearButton="True"
                          Margin="5 0 10 20"
                          Padding="0 12 0 0"
                          VerticalContentAlignment="Center"
-                         x:Name="_MK">
+                         x:Name="_Password">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PasswordChanged">
-                        <i:InvokeCommandAction Command="{Binding GetChangePass, Mode=TwoWay}"
-                                               CommandParameter="{Binding ElementName=_MK}" />
+                        <i:InvokeCommandAction Command="{Binding GetPasswordCommand, Mode=TwoWay}"
+                                               CommandParameter="{Binding ElementName=_Password}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </PasswordBox>
@@ -88,11 +88,11 @@
                          Margin="5 0 10 20"
                          Padding="0 12 0 0"
                          VerticalContentAlignment="Center"
-                         x:Name="_ReMK">
+                         x:Name="_RePassword">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="PasswordChanged">
-                        <i:InvokeCommandAction Command="{Binding GetChangeRePass, Mode=TwoWay}"
-                                               CommandParameter="{Binding ElementName=_ReMK}" />
+                        <i:InvokeCommandAction Command="{Binding GetRePasswordCommand, Mode=TwoWay}"
+                                               CommandParameter="{Binding ElementName=_RePassword}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </PasswordBox>

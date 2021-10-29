@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using CinemaManagement.Models.Services;
 using CinemaManagement.ViewModel;
 
@@ -18,7 +13,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             if (successDeleteStaff)
             {
                 p.Close();
-                ReloadStaffListView();
+                LoadStaffListView(Utils.Operation.DELETE);
             }
             MessageBox.Show(messageFromDeleteStaff);
         }

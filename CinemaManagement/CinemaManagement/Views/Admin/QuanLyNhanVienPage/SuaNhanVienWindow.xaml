@@ -205,7 +205,7 @@
                          Text="{Binding TaiKhoan,Mode=TwoWay}" />
             </Grid>
 
-            <Grid Grid.Row="8">
+            <!--<Grid Grid.Row="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="120" />
                     <ColumnDefinition />
@@ -215,7 +215,7 @@
                          x:Name="MatKhau"
                          IsEnabled="False"
                          Text="{Binding MatKhau, Mode=TwoWay}" />
-            </Grid>
+            </Grid>-->
 
             <Grid Grid.Row="9">
                 <Grid.Resources>
