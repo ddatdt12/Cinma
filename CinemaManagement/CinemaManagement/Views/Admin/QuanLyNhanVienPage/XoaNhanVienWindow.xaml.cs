@@ -22,6 +22,7 @@ namespace CinemaManagement.Views.Admin.QuanLyNhanVienPage
         public XoaNhanVienWindow()
         {
             InitializeComponent();
+            this.Owner = App.Current.MainWindow;
         }
 
     }

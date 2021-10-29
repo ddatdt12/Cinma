@@ -14,7 +14,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterOwner"
         WindowStyle="None"
         Name="XoaNV"
         ResizeMode="NoResize"
@@ -26,38 +26,54 @@
                                    CommandParameter="{Binding ElementName=XoaNV}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <materialDesign:Card>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
-            <TextBlock VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Text="Bạn thực sự muốn xóa?"
-                       Margin="0 20 0 0"
-                       FontSize="20"/>
-            <Grid Grid.Row="1">
-                <Grid.Resources>
-                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
-                        <Setter Property="VerticalAlignment" Value="Bottom"/>
-                        <Setter Property="HorizontalAlignment" Value="Right"/>
-                        <Setter Property="Width" Value="85"/>
-                        <Setter Property="Height" Value="30"/>
-                        <Setter Property="FontSize" Value="12"/>
-                    </Style>
-                </Grid.Resources>
-                <Button Content="Xác nhận"
-                        Margin="0 0 110 10"
-                        Command="{Binding DeleteStaffCommand}"
-                        CommandParameter="{Binding ElementName=XoaNV}"
-                        Background="#64dd17"/>
-                <Button Content="Hủy"
-                        Margin="0 0 10 10"
-                        Command="{Binding CloseCommand}"
-                        CommandParameter="{Binding ElementName=XoaNV}"
-                        Background="#ff6f00"/>
-            </Grid>
-        </Grid>
-    </materialDesign:Card>
+    <Grid>
+        <Border BorderThickness="3"
+                BorderBrush="#18ffff">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0"
+                                  BlurRadius="5"
+                                  Color="#18ffff" />
+            </Border.Effect>
+            <materialDesign:Card>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <TextBlock VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Text="Bạn thực sự muốn xóa?"
+                               Margin="0 20 0 0"
+                               FontSize="20" />
+                    <Grid Grid.Row="1">
+                        <Grid.Resources>
+                            <Style TargetType="Button"
+                                   BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                <Setter Property="VerticalAlignment"
+                                        Value="Bottom" />
+                                <Setter Property="HorizontalAlignment"
+                                        Value="Right" />
+                                <Setter Property="Width"
+                                        Value="85" />
+                                <Setter Property="Height"
+                                        Value="30" />
+                                <Setter Property="FontSize"
+                                        Value="12" />
+                            </Style>
+                        </Grid.Resources>
+                        <Button Content="Xác nhận"
+                                Margin="0 0 110 10"
+                                Command="{Binding DeleteStaffCommand}"
+                                CommandParameter="{Binding ElementName=XoaNV}"
+                                Background="#64dd17" />
+                        <Button Content="Hủy"
+                                Margin="0 0 10 10"
+                                Command="{Binding CloseCommand}"
+                                CommandParameter="{Binding ElementName=XoaNV}"
+                                Background="#ff6f00" />
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </Border>
+    </Grid>
 </Window>
