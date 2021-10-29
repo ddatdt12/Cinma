@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 {
@@ -15,10 +16,6 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
             InitializeComponent();
         }
 
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
-        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -41,6 +38,48 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 
             e.Handled = true;
             this.Close();
+        }
+
+        private void Button_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(_movieName.Text))
+                _movieName.BorderBrush = new SolidColorBrush(Colors.Red);
+            else
+                _movieName.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFA5B9D6");
+
+            if (string.IsNullOrWhiteSpace(_movieGenre.Text))
+                _movieGenre.BorderBrush = new SolidColorBrush(Colors.Red);
+            else
+                _movieGenre.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFA5B9D6");
+
+            if (string.IsNullOrWhiteSpace(_movieDirector.Text))
+                _movieDirector.BorderBrush = new SolidColorBrush(Colors.Red);
+            else
+                _movieDirector.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFA5B9D6");
+
+            if (string.IsNullOrWhiteSpace(_movieCountry.Text))
+                _movieCountry.BorderBrush = new SolidColorBrush(Colors.Red);
+            else
+                _movieCountry.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFA5B9D6");
+
+            if (string.IsNullOrWhiteSpace(_movieDuration.Text))
+                _movieDuration.BorderBrush = new SolidColorBrush(Colors.Red);
+            else
+                _movieDuration.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFA5B9D6");
+
+            if (string.IsNullOrWhiteSpace(_movieYear.Text))
+                _movieYear.BorderBrush = new SolidColorBrush(Colors.Red);
+            else
+                _movieYear.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFA5B9D6");
+
+            if (string.IsNullOrWhiteSpace(_movieDes.Text))
+                _movieDes.BorderBrush = new SolidColorBrush(Colors.Red);
+            else
+                _movieDes.BorderBrush = (SolidColorBrush)new BrushConverter().ConvertFromString("#FFA5B9D6");
+
+            if (imgframe.Source == null)
+                MessageBox.Show("Ảnh không được trống");
+
         }
     }
 }
