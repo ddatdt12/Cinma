@@ -72,7 +72,7 @@
                                 <Label Content="Tên phim"
                                        FontSize="20"
                                        Height="36" />
-                                <TextBox x:Name="Name"
+                                <TextBox x:Name="_Name"
                                          Padding="0"
                                          Style="{StaticResource MaterialDesignFilledTextBox}"
                                          VerticalAlignment="Top"
@@ -123,7 +123,7 @@
                                        FontSize="20"
                                        Margin="0,0,35,0"
                                        Height="35" />
-                                <TextBox x:Name="Author"
+                                <TextBox x:Name="_Author"
                                          AcceptsReturn="True"
                                          TextWrapping="Wrap"
                                          FontSize="25"
@@ -144,7 +144,7 @@
                                    FontSize="20"
                                    Height="35" />
                             <StackPanel>
-                                <ComboBox x:Name="Country"
+                                <ComboBox x:Name="_Country"
                                           ItemsSource="{Binding ListCountrySource,Mode=TwoWay}"
                                           IsEditable="True"
                                           FontSize="25"
@@ -162,7 +162,7 @@
                                    FontSize="20"
                                    Height="40" />
                             <StackPanel>
-                                <TextBox x:Name="Duration"
+                                <TextBox x:Name="_Duration"
                                          materialDesign:HintAssist.Hint="Phút"
                                          FontSize="25"
                                          VerticalContentAlignment="Bottom"
@@ -201,7 +201,7 @@
                                            FontSize="20"
                                            Foreground="Black"
                                            Margin="0,10,0,0" />
-                                    <TextBox x:Name="Descripstion"
+                                    <TextBox x:Name="_Descripstion"
                                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                              VerticalAlignment="Top"
                                              AcceptsReturn="True"
@@ -305,7 +305,7 @@
                                             Click="Button_Click"
                                             materialDesign:ButtonAssist.CornerRadius="8" />
 
-                                    <Button Content="Lưu"
+                                    <!--<Button Content="Lưu"
                                             FontSize="20"
                                             Height="40"
                                             Width="100"
@@ -313,7 +313,44 @@
                                             Background="#FF5980B8"
                                             materialDesign:ButtonAssist.CornerRadius="8"
                                             Command="{Binding UpdateMovieCM}"
-                                            CommandParameter="{Binding ElementName=EditMovieWindow}" />
+                                            CommandParameter="{Binding ElementName=EditMovieWindow}" />-->
+                                    <Border CornerRadius="8"
+                                            Height="40"
+                                            Width="100"
+                                            Background="#FF5980B8"
+                                            VerticalAlignment="Top"
+                                            Margin="10,0,10,10">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="BitmapEffect">
+                                                    <Setter.Value>
+                                                        <DropShadowBitmapEffect Color="Gray"
+                                                                                Softness="0.2"
+                                                                                ShadowDepth="0"
+                                                                                Opacity="1" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Border.Style>
+                                        <Label Content="Lưu"
+                                               FontSize="20"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                               Style="{StaticResource MaterialDesignLabel}"
+                                               Cursor="Hand"
+                                               HorizontalContentAlignment="Center"
+                                               Foreground="White"
+                                               materialDesign:ButtonAssist.CornerRadius="8"
+                                               MouseLeftButtonDown="Button_MouseLeftButtonDown"
+                                               Width="100">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding UpdateMovieCM}"
+                                                                           CommandParameter="{Binding ElementName=EditMovieWindow}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Label>
+                                    </Border>
                                 </StackPanel>
                             </Grid>
                         </Grid>
