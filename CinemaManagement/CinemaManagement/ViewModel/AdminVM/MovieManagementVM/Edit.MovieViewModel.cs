@@ -111,6 +111,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     MessageBox.Show(messageFromUpdateMovie);
                 }
             }
+            else
+                MessageBox.Show("Vui lòng nhập đủ thông tin!");
         }
 
     }

@@ -55,6 +55,10 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     System.Windows.MessageBox.Show(messageFromAddMovie);
                 }
             }
+            else
+            {
+                System.Windows.MessageBox.Show("Vui lòng nhập đủ thông tin!");
+            }
         }
     }
 

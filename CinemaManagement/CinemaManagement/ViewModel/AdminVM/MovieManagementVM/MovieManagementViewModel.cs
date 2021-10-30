@@ -86,19 +86,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             set { _movieYear = value; OnPropertyChanged(); }
         }
         
-        private string _strmovieGenre; // this is just for validate Genre combobox (nothing more to do with it)
-        public string strmovieGenre
-        {
-            get { return _strmovieGenre; }
-            set { _strmovieGenre = value; OnPropertyChanged(); }
-        }
 
-        private string _strmovieCountry; // this is just for validate Country combobox (nothing more to do with it)
-        public string strmovieCountry
-        {
-            get { return _strmovieCountry; }
-            set { _strmovieCountry = value; OnPropertyChanged(); }
-        }
         #endregion
 
 
@@ -318,7 +306,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 default:
                     break;
             }
-            //MainListView.Items.Refresh();
         }
         public void RenewWindowData()
         {
@@ -330,19 +317,23 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieDes = null;
             ImageSource = null;
             movieYear = null;
-            strmovieGenre = null;
-            strmovieCountry = null;
         }
         public void InsertCountryToComboBox()
         {
-            FileStream file = new FileStream(Helper.GetAdminPath("CountrySource.txt"), FileMode.Open, FileAccess.Read);
-            using (var reader = new StreamReader(file, Encoding.UTF8))
-            {
-                while (reader.Peek() >= 0)
-                {
-                    ListCountrySource.Add(reader.ReadLine());
-                }
-            }
+            ListCountrySource.Add("Ấn Độ");
+            ListCountrySource.Add("Bồ Đào Nha");
+            ListCountrySource.Add("Brazil");
+            ListCountrySource.Add("Đài Loan");
+            ListCountrySource.Add("Đức");
+            ListCountrySource.Add("Hàn Quốc");
+            ListCountrySource.Add("Hoa Kỳ");
+            ListCountrySource.Add("Nga");
+            ListCountrySource.Add("Nhật Bản");
+            ListCountrySource.Add("Pháp");
+            ListCountrySource.Add("Thái Lan");
+            ListCountrySource.Add("Trung Quốc");
+            ListCountrySource.Add("Việt Nam");
+
         }
 
         public void MovieImageChanged()
