@@ -1,5 +1,4 @@
-﻿using CinemaManagement.DTOs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CinemaManagement.Views.Admin.QuanLyDoAnPage
+namespace CinemaManagement.Views.Admin.FoodManagementPage
 {
     /// <summary>
-    /// Interaction logic for DoAnPage.xaml
+    /// Interaction logic for FoodPage.xaml
     /// </summary>
-    public partial class DoAnPage : Page
+    public partial class FoodPage : Page
     {
-        public DoAnPage()
+        public FoodPage()
         {
             InitializeComponent();
-            
         }
     }
 }

@@ -4,7 +4,7 @@
 
              xmlns:converters="http://materialdesigninxaml.net/winfx/xaml/themes"
 	xmlns:local="clr-namespace:CinemaManagement"
-             StartupUri="Views/Admin/QuanLyDoAnPage/DoAnPage.xaml">
+             StartupUri="Views/Admin/FoodManagementPage/FoodPage.xaml">
 
 
     <Application.Resources>

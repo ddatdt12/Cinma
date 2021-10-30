@@ -303,11 +303,11 @@
     <Compile Include="ViewModel\StaffViewModel\MainStaffPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
+    <Compile Include="Views\Admin\FoodManagementPage\FoodPage.xaml.cs">
+      <DependentUpon>FoodPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\QuanLyDoAnPage\DoAnPage.xaml.cs">
-      <DependentUpon>DoAnPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\QuanLyNhanVienPage\DoiMatKhau.xaml.cs">
       <DependentUpon>DoiMatKhau.xaml</DependentUpon>
@@ -373,13 +373,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Admin\FoodManagementPage\FoodPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin\MainAdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Views\Admin\QuanLyDoAnPage\DoAnPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\QuanLyNhanVienPage\DoiMatKhau.xaml">
       <Generator>MSBuild:Compile</Generator>
