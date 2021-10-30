@@ -3,6 +3,7 @@ using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Cache;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -29,7 +30,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieYear = SelectedItem.ReleaseYear.ToString();
             w1.Year.Text = SelectedItem.ReleaseYear.ToString();
 
-            if (SelectedItem.Image != null)
+            if ( File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)))
             {
                 BitmapImage _image = new BitmapImage();
                 _image.BeginInit();

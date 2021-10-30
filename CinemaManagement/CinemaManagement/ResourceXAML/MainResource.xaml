@@ -2,10 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewmodel="clr-namespace:CinemaManagement.ViewModel"
                     xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.MovieManagementVM"
-                    xmlns:viewmodel2="clr-namespace:CinemaManagement.ViewModel.AdminVM.QuanLySuatChieuPageVM"
+                    xmlns:viewmodel21="clr-namespace:CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel"
                     xmlns:viewmodel22="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM"
+
                     xmlns:viewmodel11="clr-namespace:CinemaManagement.ViewModel.StaffViewModel"
                     xmlns:viewmodel21="clr-namespace:CinemaManagement.ViewModel.AdminVM.StaffManagementVM">
+
+
+
     <viewmodel:MainViewModel x:Key="MainVM" />
     <viewmodel:MainStaffViewModel x:Key="MainStaffVM" />
     <viewmodel:LoginViewModel x:Key="LoginVM" />
@@ -13,8 +17,7 @@
     <viewmodel:MainAdminViewModel x:Key="MainAdminVM" />
     <viewmodel1:MovieManagementViewModel x:Key="MovieManagementVM" />
     <viewmodel11:MainStaffPageViewModel x:Key="MainStaffPageVM" />
-    <viewmodel2:QuanLySuatChieuPageViewModel x:Key="QuanLySuatChieuPageVM" />
-    <viewmodel2:AddSuatChieuWindowViewModel x:Key="AddSuatChieuWindowVM" />
+    <viewmodel21:ShowtimeManagementViewModel x:Key="ShowtimeManagementVM" />
     <viewmodel22:MovieScheduleWindowViewModel x:Key="MovieScheduleWindowVM" />
 
     <viewmodel21:StaffManagementViewModel x:Key="StaffManagementVM" />

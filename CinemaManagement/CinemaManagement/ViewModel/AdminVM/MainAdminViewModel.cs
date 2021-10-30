@@ -1,5 +1,5 @@
-﻿using CinemaManagement.Views.Admin.QuanLyPhimPage;
-using CinemaManagement.Views.Admin.QuanLySuatChieuPage;
+﻿using CinemaManagement.Views.Admin.MovieManagement;
+using CinemaManagement.Views.Admin.ShowtimeManagementVM;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -33,12 +33,12 @@ namespace CinemaManagement.ViewModel
             LoadQLPPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
                 if (p != null)
-                    p.Content = new QuanLyPhimPage();
+                    p.Content = new MovieManagementWindow();
             });
             LoadSuatChieuPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
                 if (p != null)
-                    p.Content = new QuanLySuatChieuPage();
+                    p.Content = new ShowtimeManagement();
             });
             LoadQLNVPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {

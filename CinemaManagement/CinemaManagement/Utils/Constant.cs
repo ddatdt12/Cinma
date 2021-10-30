@@ -9,6 +9,7 @@ namespace CinemaManagement.Utils
         UPDATE,
         DELETE,
         UPDATE_PASSWORD,
+
     }
     public class TIME
     {

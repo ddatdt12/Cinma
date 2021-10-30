@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 {
@@ -36,6 +37,22 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
         private void Year_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private void _Genre_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void _Country_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

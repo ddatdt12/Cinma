@@ -181,7 +181,7 @@ namespace CinemaManagement.Models.Services
 
 
        
-        public (bool, string) AddMovie(MovieDTO newMovie)
+        public (bool, string, MovieDTO) AddMovie(MovieDTO newMovie)
         {
             try
             {
@@ -189,12 +189,11 @@ namespace CinemaManagement.Models.Services
 
                 Movie m = context.Movies.Where((Movie mov) => mov.DisplayName == newMovie.DisplayName).FirstOrDefault();
 
-
                 if (m != null)
                 {
                     if (m.IsDeleted == false)
                     {
-                        return (false, "Tên phim đã tồn tại");
+                        return (false, "Tên phim đã tồn tại", null);
                     }
                     //Khi phim đã bị xóa nhưng được add lại với cùng tên => update lại phim đã xóa đó với thông tin là 
                     // phim mới thêm thay vì add thêm
@@ -205,6 +204,8 @@ namespace CinemaManagement.Models.Services
                         m.Genres.Add(genre);
                     }
                     m.IsDeleted = false;
+                    context.SaveChanges();
+                    newMovie.Id = m.Id;
                 }
                 else
                 {
@@ -216,6 +217,8 @@ namespace CinemaManagement.Models.Services
                         mov.Genres.Add(genre);
                     }
                     context.Movies.Add(mov);
+                    context.SaveChanges();
+                    newMovie.Id = mov.Id;
 
                     //context.Movies.Add(new Movie
                     //{
@@ -244,35 +247,38 @@ namespace CinemaManagement.Models.Services
                             ve.PropertyName, ve.ErrorMessage);
                     }
                 }
-                return (false, "DbEntityValidationException");
+                return (false, "DbEntityValidationException", null);
 
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, $"Error Server {e}");
+                return (false, $"Error Server {e}", null);
             }
-            return (true, "Thêm phim thành công");
+            return (true, "Thêm phim thành công", newMovie);
         }
 
         public (bool, string) UpdateMovie(MovieDTO updatedMovie)
         {
+            var context = DataProvider.Ins.DB;
             try
             {
-                Movie movie = DataProvider.Ins.DB.Movies.Find(updatedMovie.Id);
+                Movie movie = context.Movies.Find(updatedMovie.Id);
 
-                if (movie == null)
+                if (movie is null)
                 {
                     return (false, "Phim không tồn tại");
                 }
 
-                if (movie.DisplayName == updatedMovie.DisplayName)
+                bool IsExistMovieName = context.Movies.Where((Movie mov) => mov.Id != movie.Id && mov.DisplayName == updatedMovie.DisplayName).FirstOrDefault() != null;
+                if (IsExistMovieName)
                 {
                     return (false, "Tên phim đã tồn tại!");
                 }
 
                 PropertyCopier<MovieDTO, Movie>.Copy(updatedMovie, movie);
-                DataProvider.Ins.DB.SaveChanges();
+                context.SaveChanges();
+                return (true, "Cập nhật thành công");
             }
             catch (DbEntityValidationException e)
             {
@@ -293,11 +299,10 @@ namespace CinemaManagement.Models.Services
             {
                 return (false, $"DbUpdateException: {e.Message}");
             }
-            catch (Exception)
+            catch (Exception )
             {
-                return (false, "Error Server");
+                return (false, "Lỗi hệ thống");
             }
-            return (true, "Cập nhật thành công");
 
         }
         public (bool, string) DeleteMovie(int Id)

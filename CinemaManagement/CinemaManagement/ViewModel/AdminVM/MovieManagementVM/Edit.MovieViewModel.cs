@@ -16,12 +16,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
     {
 
         public ICommand LoadEditMovieCM { get; set; }
-     
+
 
         public void LoadEditMovie(EditMovie w1)
         {
             List<GenreDTO> tempgenre = new List<GenreDTO>(SelectedItem.Genres);
-     
+
             imgfullname = SelectedItem.Image;
             movieID = SelectedItem.Id.ToString();
             movieName = SelectedItem.DisplayName;
@@ -33,7 +33,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieDes = SelectedItem.Description;
             w1._Genre.Text = tempgenre[0].DisplayName;
 
-            if (SelectedItem.Image != null )
+            if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)) == true)
             {
                 BitmapImage _image = new BitmapImage();
                 _image.BeginInit();
@@ -56,15 +56,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
                 _image.UriSource = new Uri(Helper.GetMovieImgPath("null.jpg"));
                 _image.EndInit();
-
                 w1.imgframe.Source = _image;
             }
         }
         public void UpdateMovieFunc(Window p)
         {
-            if (movieID != null && movieName != null && movieCountry != null && movieDirector != null && movieDes != null && movieGenre != null && movieYear != null && movieDuration != null)
+            if (movieID != null && IsValidData())
             {
-                
                 imgName = Helper.CreateImageName(movieName);
                 imgfullname = Helper.CreateImageFullName(imgName, extension);
 
@@ -93,18 +91,18 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     movie.Image = imgfullname = Helper.CreateImageFullName(movieName, SelectedItem.Image.Split('.')[1]);
                 }
 
-
                 (bool successUpdateMovie, string messageFromUpdateMovie) = MovieService.Ins.UpdateMovie(movie);
 
                 if (successUpdateMovie)
                 {
-                    System.Windows.MessageBox.Show(messageFromUpdateMovie);
+                    MessageBox.Show(messageFromUpdateMovie);
+
                     if (SelectedItem.Image != movie.Image)
                     {
                         SaveImgToApp();
                         File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
                     }
-                    else
+     else
                     {
                         filepath = Helper.GetMovieImgPath(SelectedItem.Image);
                         File.Copy(filepath, Helper.GetMovieImgPath(movie.Image));
@@ -113,12 +111,18 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     p.Close();
 
                     ReloadMovieListView();
+
+
+                    LoadMovieListView(Operation.UPDATE, movie);
+                    p.Close();
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show(messageFromUpdateMovie);
+                    MessageBox.Show(messageFromUpdateMovie);
                 }
             }
+            else
+                MessageBox.Show("Vui lòng nhập đủ thông tin!");
         }
         
     }
