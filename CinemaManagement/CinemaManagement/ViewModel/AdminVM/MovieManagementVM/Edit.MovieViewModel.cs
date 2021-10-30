@@ -109,9 +109,9 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                         filepath = Helper.GetMovieImgPath(SelectedItem.Image);
                         File.Copy(filepath, Helper.GetMovieImgPath(movie.Image));
                         File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-
                     }
                     p.Close();
+
                     ReloadMovieListView();
                 }
                 else
@@ -120,6 +120,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 }
             }
         }
-
+        
     }
 }

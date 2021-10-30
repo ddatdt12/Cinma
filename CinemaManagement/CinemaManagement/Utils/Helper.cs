@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -7,6 +9,23 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
+        public static string MD5Hash(string str)
+        {
+            StringBuilder hash = new StringBuilder();
+            System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] bytes = md5.ComputeHash(new UTF8Encoding().GetBytes(str));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("X2"));
+            }
+            return hash.ToString();
+        }
+        public static bool IsPhoneNumber(string number)
+        {
+            if (number is null) return false;
+            return Regex.Match(number, @"(([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b").Success;
+        }
         public static string GetHourMinutes(TimeSpan t)
         {
             return t.ToString(@"hh\:mm");

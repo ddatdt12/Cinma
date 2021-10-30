@@ -13,7 +13,6 @@
     <viewmodel:MainAdminViewModel x:Key="MainAdminVM" />
     <viewmodel1:MovieManagementViewModel x:Key="MovieManagementVM" />
     <viewmodel11:MainStaffPageViewModel x:Key="MainStaffPageVM" />
-    
     <viewmodel2:QuanLySuatChieuPageViewModel x:Key="QuanLySuatChieuPageVM" />
     <viewmodel2:AddSuatChieuWindowViewModel x:Key="AddSuatChieuWindowVM" />
     <viewmodel22:MovieScheduleWindowViewModel x:Key="MovieScheduleWindowVM" />

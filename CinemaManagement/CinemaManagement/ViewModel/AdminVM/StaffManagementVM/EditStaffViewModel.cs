@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 {
-    public  partial class StaffManagementViewModel: BaseViewModel
+    public partial class StaffManagementViewModel : BaseViewModel
     {
         public void EditStaff(Window p)
         {
@@ -20,7 +20,9 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             //Phone = SelectedItem.PhoneNumber;
             //TaiKhoan = SelectedItem.Username;
             MatKhau = SelectedItem.Password;
-            if (Fullname != null && Gender != null && StartDate != null && Born != null && Phone != null && Role != null && TaiKhoan != null)
+
+            (bool isValid, string error) = IsValidData(Utils.Operation.UPDATE);
+            if (isValid)
             {
                 StaffDTO staff = new StaffDTO();
                 staff.Id = SelectedItem.Id;
@@ -31,29 +33,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 staff.Role = Role.Content.ToString();
                 staff.StartingDate = StartDate;
                 staff.Username = TaiKhoan;
-                staff.Password = MatKhau;
+                (bool successUpdateStaff, string messageFromUpdateStaff) = StaffService.Ins.UpdateStaff(staff);
 
-                int value;
-                if (int.TryParse(Phone, out value))
+                if (successUpdateStaff)
                 {
-                    (bool successAddStaff, string messageFromAddStaff) = StaffService.Ins.UpdateStaff(staff);
-
-                    if (successAddStaff)
-                    {
-                        p.Close();
-                        ReloadStaffListView();
-                    }
-                    MessageBox.Show(messageFromAddStaff);
+                    p.Close();
+                    LoadStaffListView(Utils.Operation.UPDATE, staff);
                 }
-                else
-                {
-                    MessageBox.Show("Số điện thoại không hợp lệ!");
-                }
+                MessageBox.Show(messageFromUpdateStaff);
             }
             else
             {
-                MessageBox.Show("Thông tin nhân viên bị thiếu!");
+                MessageBox.Show(error);
             }
-        }
+}
     }
 }
