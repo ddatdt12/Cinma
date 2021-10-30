@@ -1,0 +1,491 @@
+﻿<Window x:Class="CinemaManagement.Views.Staff.OrderFoodWindow.FoodWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        x:Name="Food_Menu"
+        WindowStartupLocation="CenterScreen" 
+        ShowInTaskbar="False"
+        DataContext="{StaticResource OrderFoodWindowVM}"
+        Height="600"
+        Width="850"
+        ResizeMode="NoResize"
+        WindowStyle="None">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="33*"></ColumnDefinition>
+            <ColumnDefinition Width="17*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"></RowDefinition>
+            <RowDefinition Height="57*"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="418*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0"
+                   Grid.ColumnSpan="2"
+                   Background="Khaki">
+            <TextBlock Margin="5,0,0,0"
+                       FontSize="15"
+                       Foreground="Gray"
+                       VerticalAlignment="Bottom"
+                       FontFamily="Arial"
+                       TextAlignment="Center">
+                <Bold>
+                     <Italic>
+                          Thực đơn
+                     </Italic>
+                </Bold>
+            </TextBlock>
+
+            <StackPanel DockPanel.Dock="Right"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <Button Command="{Binding MinimizeWindowCM}"
+                        ToolTip="Thu nhỏ"
+                        CommandParameter="{Binding ElementName=Food_Menu}"
+                        ToolBar.OverflowMode="AsNeeded"
+                        Margin="0,0,5,0"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Foreground="Black"
+                        BorderBrush="Transparent"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Width="Auto"
+                        Height="Auto"
+                        DockPanel.Dock="Right">
+                    <materialDesign:PackIcon Kind="WindowMinimize"/>
+                </Button>
+
+                <Button Command="{Binding CloseWindowCM}"
+                        CommandParameter="{Binding ElementName=Food_Menu}"
+                        ToolTip="Đóng"
+                        ToolBar.OverflowMode="AsNeeded"
+                        Background="Transparent"
+                        Foreground="Black"
+                        BorderThickness="0"
+                        BorderBrush="Transparent"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Width="Auto"
+                        Height="Auto"
+                        DockPanel.Dock="Right">
+                    <materialDesign:PackIcon Kind="WindowClose"/>
+                </Button>
+            </StackPanel>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1"
+                   VerticalAlignment="Center">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="Danh mục đồ ăn"
+                       DockPanel.Dock="Left"
+                       FontFamily="Segoe UI Semibold"
+                       FontSize="20"
+                       Margin="20,0,0,0"
+                       FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Height="Auto"
+                        Width="Auto">
+                <TextBlock Text="Tất cả"
+                           FontSize="15"
+                           Foreground="Orange"
+                           Margin="0,0,3,0"/>
+
+                <CheckBox Height="Auto"
+                          Width="Auto"
+                          Margin="0,0,10,0"
+                          x:Name="ckbViewAll"/>
+            </StackPanel>
+        </DockPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="10,2,10,2"/>
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="Width" Value="70"/>
+                    <Setter Property="Height" Value="90"/>
+                    <Setter Property="Background" Value="Goldenrod"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="FontFamily" Value="Times New Roman"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <Button  Margin="20,2,10,2"
+                     x:Name="btnBurger">
+                <StackPanel>
+                    <Image Source="/Resources/FoodLayout/Icon/Burger.jpg"
+                           Height="40"
+                           Width="40"
+                           Stretch="Uniform"/>
+                    <TextBlock Text="Burger"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="btnHotdog">
+                <StackPanel>
+                    <Image Source="/Resources/FoodLayout/Icon/Hotdog.jpg"
+                           Height="40"
+                           Width="40"
+                           Stretch="Uniform"/>
+                    <TextBlock Text="Hotdog"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="btnPizza">
+                <StackPanel>
+                    <Image Source="/Resources/FoodLayout/Icon/Pizza.jpg"
+                           Height="40"
+                           Width="40"
+                           Stretch="Uniform"/>
+                    <TextBlock Text="Pizza"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="btnPopcorn">
+                <StackPanel>
+                    <Image Source="/Resources/FoodLayout/Icon/Popcorn.jpg"
+                           Height="40"
+                           Width="40"
+                           Stretch="Uniform"/>
+                    <TextBlock Text="Popcorn"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="btnSnack">
+                <StackPanel>
+                    <Image Source="/Resources/FoodLayout/Icon/Snack.jpg"
+                           Height="40"
+                           Width="40"
+                           Stretch="Uniform"/>
+                    <TextBlock Text="Snack"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="btnDrink">
+                <StackPanel>
+                    <Image Source="/Resources/FoodLayout/Icon/Drink.jpg"
+                           Height="40"
+                           Width="40"
+                           Stretch="Uniform"/>
+
+                    <TextBlock Text="Drink"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <Grid Grid.Column="1"
+              Grid.Row="1" 
+              Grid.RowSpan="3"
+              Background="lightgoldenrodyellow">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="56*"></RowDefinition>
+                <RowDefinition Height="400*"></RowDefinition>
+                <RowDefinition Height="60*"></RowDefinition>
+                <RowDefinition Height="59*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <DockPanel VerticalAlignment="Bottom"
+                       Height="32"
+                       Margin="0,0,0,5">
+
+                <TextBlock FontFamily="Times New Roman"
+                           FontSize="20"
+                           Foreground="dimgray"
+                           DockPanel.Dock="Left"
+                           Margin="5"
+                           VerticalAlignment="Center"
+                           Text="Thanh toán"/>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+
+                    <TextBlock  DockPanel.Dock="Right"
+                                Height="Auto"
+                                Width="Auto"
+                                FontFamily="Arial"
+                                FontSize="15"
+                                Text="Xóa"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="SkyBlue"
+                                Margin="0,0,5,0"/>
+
+                    <Button x:Name="btnDelete"
+                            DockPanel.Dock="Right"
+                            Margin="0,0,5,0">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Grid>
+                                    <Ellipse Fill="LightGray"/>
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <materialDesign:PackIcon Kind="DeleteForever"
+                                                 Foreground="Gray"
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Center"
+                                                 Width="Auto"
+                                                 Height="Auto"
+                                                 BorderThickness="0"/>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+
+            <ListBox Name="OrderMenu"
+                     Grid.Row="1">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Margin="0,5,0,5"
+                                   Background="Transparent">
+                            <CheckBox HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      BorderBrush="DarkCyan"/>
+
+                            <Grid Height="50"
+                                  Width="50"
+                                  Margin="5,0,0,0">
+                                <Image Source="{Binding Path=Image}"
+                                       Stretch="Uniform"/>
+                            </Grid>
+
+                            <Grid Margin="5,0,5,0"
+                                  Width="Auto"
+                                  Height="Auto">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="{Binding Name}"
+                                           Grid.Row="0"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"/>
+
+                                <StackPanel Orientation="Horizontal"
+                                            Grid.Row="1"
+                                            VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Center"
+                                            Width="Auto">
+                                    <Button Foreground="SkyBlue"
+                                            Background="silver"
+                                            Height="15"
+                                            Width="15"
+                                            x:Name="btnSubAmount">
+                                        <materialDesign:PackIcon Kind="Minus"
+                                                                 Height="Auto"
+                                                                 Width="Auto"/>
+                                    </Button>
+                                    <TextBox Text="{Binding Amount, Mode=TwoWay}"
+                                             Width="25"
+                                             Height="15"
+                                             FontSize="10" 
+                                             TextAlignment="Center"/>
+
+                                    <Button Foreground="SkyBlue"
+                                            Background="silver"
+                                            Height="15"
+                                            Width="15"
+                                            x:Name="btnAddAmount">
+                                        <materialDesign:PackIcon Kind="Plus"
+                                                                 Height="Auto"
+                                                                 Width="Auto"/>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Width="Auto"
+                                        HorizontalAlignment="Left"
+                                        Margin="5,0,0,0"
+                                        DockPanel.Dock="Right">
+                                <Grid Height="Auto"
+                                      Width="Auto">
+                                    <materialDesign:PackIcon Kind="Cash"
+                                                             Height="15"
+                                                             Width="15"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"/>
+                                </Grid>
+
+                                <TextBlock Text="{Binding Price}"
+                                           Width="Auto"
+                                           Height="Auto"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Margin="0,0,10,0"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <DockPanel Grid.Row="2"
+                       Margin="0,16,5,14"
+                       VerticalAlignment="Center"
+                       MinHeight="30" Height="30">
+                <TextBlock Text="VNĐ"
+                           FontSize="20"
+                           Width="Auto"
+                           DockPanel.Dock="Right"
+                           VerticalAlignment="Center"/>
+
+                <TextBlock x:Name="tblSum"
+                           Text="100000"
+                           FontSize="20"
+                           DockPanel.Dock="Right"
+                           VerticalAlignment="Center"
+                           Margin="5,0,5,0"
+                           MinWidth="50"
+                           Width="Auto"
+                           FontFamily="Arial"
+                           FontWeight="Bold"/>
+
+                <TextBlock Text="Tổng:"
+                           FontSize="25"
+                           FontFamily="Arial"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Margin="5,0,0,0"/>
+            </DockPanel>
+
+            <Grid Grid.Row="3"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center" Height="36" Margin="62,12,63,11" Width="164">
+                <Border BorderBrush="lightskyblue"
+                        BorderThickness="1.5">
+                    <Button x:Name="btnCheckout"
+                            Content="Thanh toán"
+                            FontSize="25"
+                            Background="Goldenrod"
+                            Foreground="NavajoWhite"/>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <WrapPanel x:Name="MenuCategory"
+                   Grid.Row="3">
+            <WrapPanel.Resources>
+                <Style TargetType="materialDesign:Card">
+                    <Setter Property="Width" Value="160"/>
+                    <Setter Property="Height" Value="200"/>
+                    <Setter Property="Margin" Value="10"/>
+                </Style>
+            </WrapPanel.Resources>
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl x:Name="ListMenu">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="3"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card HorizontalAlignment="Center"
+                                                 Background="LightPink"
+                                                 VerticalAlignment="Top">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="7*"></RowDefinition>
+                                        <RowDefinition Height="4*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{Binding Path=Image}"
+                                           Stretch="Fill"/>
+                                    <Grid Grid.Row="1"
+                                          Margin="5,0,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Text="{Binding Name}"
+                                                   FontFamily="Arial"
+                                                   FontSize="15"
+                                                   HorizontalAlignment="Left"
+                                                   VerticalAlignment="Center"/>
+
+                                        <DockPanel Grid.Row="1">
+                                            <StackPanel DockPanel.Dock="Left"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Left"
+                                                        Orientation="Horizontal"
+                                                        Width="Auto">
+                                                <materialDesign:PackIcon Kind="Tag" 
+                                                                         Background="Transparent"
+                                                                         Foreground="Goldenrod"
+                                                                         Height="20"
+                                                                         Width="Auto"/>
+                                                <TextBlock Text="{Binding Price}"
+                                                           FontFamily="Arial"
+                                                           VerticalAlignment="Center"
+                                                           Width="Auto"
+                                                           Margin="5,0,0,0"
+                                                           FontSize="15"/>
+                                            </StackPanel>
+
+                                            <Button DockPanel.Dock="Right"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Bottom"
+                                                    Margin="0,-10,10,10"
+                                                    x:Name ="btnAddOrder">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Grid>
+                                                            <Ellipse Fill="Gold"/>
+                                                            <ContentPresenter HorizontalAlignment="Center"
+                                                                              VerticalAlignment="Center"/>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                                <materialDesign:PackIcon Kind="Plus"
+                                                                         Foreground="WhiteSmoke"
+                                                                         HorizontalAlignment="Center"
+                                                                         VerticalAlignment="Center"
+                                                                         Width="Auto"
+                                                                         Height="Auto"/>
+                                            </Button>
+                                        </DockPanel>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </WrapPanel>
+    </Grid>
+</Window>

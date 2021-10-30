@@ -300,6 +300,7 @@
     <Compile Include="ViewModel\StaffViewModel\MainStaffPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodViewModel.cs" />
     <Compile Include="Views\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
     </Compile>
@@ -351,6 +352,9 @@
     </Compile>
     <Compile Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml.cs">
       <DependentUpon>MovieScheduleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml.cs">
+      <DependentUpon>FoodWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -432,6 +436,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -506,6 +514,44 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\FoodLayout\Food\Burger\Beef.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Cheese.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Chicken.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Coca Cola.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\CocaCola.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Espresso Coffee.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\EspressoCoffee.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Milk Tea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\MilkTea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Peach Tea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\PeachTea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Pepsi.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Boerie Rolls.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\BoerieRolls.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Choripan.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Completo.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Bulgogi.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Lamacun.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Langos.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Sfiha.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Tarte Flambee.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Butter Milk.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Caramel.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Healthy.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Salty Butter.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\French Fries.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\FrenchFries.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\O%27star.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Ostar.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Poca.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Slide.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Tonies.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Burger.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Drink.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Hotdog.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Pizza.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Popcorn.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Snack.jpg" />
     <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
     <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
     <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
