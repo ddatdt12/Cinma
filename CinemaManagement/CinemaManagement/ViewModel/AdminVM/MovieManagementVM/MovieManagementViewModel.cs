@@ -120,12 +120,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             set { _ListCountrySource = value; OnPropertyChanged(); }
         }
 
-        private List<int> _MinuteSource;
-        public List<int> MinuteSource
-        {
-            get { return _MinuteSource; }
-            set { _MinuteSource = value; OnPropertyChanged(); }
-        }
 
         private List<GenreDTO> _GenreList;
         public List<GenreDTO> GenreList
@@ -154,7 +148,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public MovieManagementViewModel()
         {
             ListCountrySource = new List<string>();
-            MinuteSource = new List<int>();
+            
             try
             {
                 GenreList = GenreService.Ins.GetAllGenre();

@@ -436,8 +436,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Resource Include="Font\junegull.ttf" />
-    <Resource Include="Resources\Admin\CountrySource.txt" />
-    <Resource Include="Resources\Admin\MinuteSource.txt" />
     <Resource Include="Resources\Admin\MovieGenreSource.txt" />
     <Resource Include="Resources\ImageStaff\add-user.png" />
     <Resource Include="Resources\ImageStaff\edit-user.png" />

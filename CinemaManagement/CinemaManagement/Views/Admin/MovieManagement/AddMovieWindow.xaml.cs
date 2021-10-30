@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace CinemaManagement.Views.Admin.MovieManagement
+namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 {
     /// <summary>
     /// Interaction logic for AddMovieWindow.xaml

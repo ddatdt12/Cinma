@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace CinemaManagement.Views.Admin.MovieManagement
+namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 {
     /// <summary>
     /// Interaction logic for EditMovie.xaml
@@ -38,4 +38,21 @@ namespace CinemaManagement.Views.Admin.MovieManagement
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
+
+        private void _Genre_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void _Country_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+            }
+        }
+    }
 }
