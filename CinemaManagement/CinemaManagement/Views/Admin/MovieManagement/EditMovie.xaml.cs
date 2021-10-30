@@ -81,5 +81,24 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
                 MessageBox.Show("Ảnh không được trống");
 
         }
+
+
+
+        private void _Genre_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void _Country_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+            }
+
+        }
     }
 }

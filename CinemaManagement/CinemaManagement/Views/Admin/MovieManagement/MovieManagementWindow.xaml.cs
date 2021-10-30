@@ -3,24 +3,22 @@ using System;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace CinemaManagement.Views.Admin.QuanLySuatChieuPage
+namespace CinemaManagement.Views.Admin.MovieManagement
 {
-    /// <summary>
-    /// Interaction logic for QuanLySuatChieuPage.xaml
-    /// </summary>
-    public partial class QuanLySuatChieuPage : Page
+
+    public partial class MovieManagementWindow : Page
     {
-        public QuanLySuatChieuPage()
+        public MovieManagementWindow()
         {
             InitializeComponent();
 
-            //CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(MovieListview.ItemsSource);
-            //view.Filter = Filter;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(MovieListView.ItemsSource);
+            view.Filter = Filter;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            CollectionViewSource.GetDefaultView(MovieListview.ItemsSource).Refresh();
+            CollectionViewSource.GetDefaultView(MovieListView.ItemsSource).Refresh();
         }
 
         private bool Filter(object item)

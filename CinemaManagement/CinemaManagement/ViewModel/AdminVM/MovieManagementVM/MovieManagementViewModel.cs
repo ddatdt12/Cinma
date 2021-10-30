@@ -318,7 +318,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 default:
                     break;
             }
-            //MainListView.Items.Refresh();
         }
         public void RenewWindowData()
         {

@@ -2,11 +2,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.QuanLySuatChieuPage"
+        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.ShowtimeManagementVM"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Emit="clr-namespace:System.Reflection.Emit;assembly=mscorlib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        x:Class="CinemaManagement.Views.Admin.QuanLySuatChieuPage.AddSuatChieuWindow"
+        x:Class="CinemaManagement.Views.Admin.ShowtimeManagementVM.AddShowtimeWindow"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -16,7 +16,7 @@
         Height="485"
         Width="795"
         x:Name="AddSuatChieu"
-        DataContext="{StaticResource QuanLySuatChieuPageVM}"
+        DataContext="{StaticResource ShowtimeManagementVM}"
         Title="AddSuatChieuWindow">
     <Grid>
         <Border Background="#FFF0F3F7"
@@ -82,7 +82,9 @@
                                             Margin="0,0,64,0"
                                             materialDesign:HintAssist.Hint="{Binding SetCurrentDate}"
                                             materialDesign:HintAssist.IsFloating="False"
-                                            SelectedDate="{Binding movieDate}"
+                                            SelectedDate="{Binding movieDate,Mode=OneWayToSource}"
+                                            materialDesign:ValidationAssist.FontSize="0.01"
+                                            Text="{Binding SetCurrentDate}"
                                             x:Name="_movieDate" />
                             </StackPanel>
                         </StackPanel>
@@ -100,12 +102,12 @@
                                    FontSize="20"
                                    Height="40" />
                             <StackPanel>
-                                <materialDesign:TimePicker materialDesign:HintAssist.Hint=""
-                                                           Is24Hours="True"
+                                <materialDesign:TimePicker Is24Hours="True"
                                                            WithSeconds="False"
                                                            FontSize="25"
                                                            VerticalContentAlignment="Bottom"
                                                            Height="35"
+                                                           materialDesign:ValidationAssist.FontSize="0.001"
                                                            SelectedTime="{Binding movieShowtime}"
                                                            x:Name="_movieTime" />
                             </StackPanel>
@@ -118,13 +120,10 @@
                             <ComboBox Width="175"
                                       Height="43"
                                       FontSize="25"
+                                      ItemsSource="{Binding ListRoom}"
                                       SelectedItem="{Binding movieRoom}"
+                                      DisplayMemberPath="Id"
                                       x:Name="_movieRoom">
-                                <ComboBoxItem Content="Phòng 1" />
-                                <ComboBoxItem Content="Phòng 2" />
-                                <ComboBoxItem Content="Phòng 3" />
-                                <ComboBoxItem Content="Phòng 4" />
-                                <ComboBoxItem Content="Phòng 5" />
                             </ComboBox>
                         </StackPanel>
                     </StackPanel>
