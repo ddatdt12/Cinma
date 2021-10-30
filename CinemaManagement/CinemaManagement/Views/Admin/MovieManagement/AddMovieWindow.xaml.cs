@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace CinemaManagement.Views.Admin.QuanLyPhimPage
+namespace CinemaManagement.Views.Admin.MovieManagement
 {
     /// <summary>
     /// Interaction logic for AddMovieWindow.xaml
@@ -38,6 +38,23 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 
             e.Handled = true;
             this.Close();
+        }
+
+
+        private void _movieCountry_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void _movieGenre_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(e.Text, "^[a-zA-Z]"))
+            {
+                e.Handled = true;
+            }
         }
 
     }

@@ -288,8 +288,9 @@
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\Edit.MovieViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\Infor.MovieWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\MovieManagementViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\AddSuatChieuWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\QuanLySuatChieuPageVM\QuanLySuatChieuPageViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\Add.ShowtimeWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\InforShowtimeWindow.cs" />
+    <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\ShowtimeManagementViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
@@ -300,23 +301,23 @@
     <Compile Include="Views\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml.cs">
+    <Compile Include="Views\Admin\MovieManagement\AddMovieWindow.xaml.cs">
       <DependentUpon>AddMovieWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyPhimPage\EditMovie.xaml.cs">
+    <Compile Include="Views\Admin\MovieManagement\EditMovie.xaml.cs">
       <DependentUpon>EditMovie.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml.cs">
+    <Compile Include="Views\Admin\MovieManagement\InforMovieWindow.xaml.cs">
       <DependentUpon>InforMovieWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyPhimPage\MovieManagementWindow.xaml.cs">
+    <Compile Include="Views\Admin\MovieManagement\MovieManagementWindow.xaml.cs">
       <DependentUpon>MovieManagementWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml.cs">
-      <DependentUpon>AddSuatChieuWindow.xaml</DependentUpon>
+    <Compile Include="Views\Admin\ShowtimeManagement\AddShowtimeWindow.xaml.cs">
+      <DependentUpon>AddShowtimeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.xaml.cs">
-      <DependentUpon>QuanLySuatChieuPage.xaml</DependentUpon>
+    <Compile Include="Views\Admin\ShowtimeManagement\ShowtimeManagement.xaml.cs">
+      <DependentUpon>ShowtimeManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExampleWindow.xaml.cs">
       <DependentUpon>ExampleWindow.xaml</DependentUpon>
@@ -353,27 +354,27 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\AddMovieWindow.xaml">
+    <Page Include="Views\Admin\MovieManagement\AddMovieWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\EditMovie.xaml">
+    <Page Include="Views\Admin\MovieManagement\EditMovie.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\InforMovieWindow.xaml">
+    <Page Include="Views\Admin\MovieManagement\InforMovieWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Admin\QuanLyPhimPage\MovieManagementWindow.xaml">
+    <Page Include="Views\Admin\MovieManagement\MovieManagementWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Admin\QuanLySuatChieuPage\AddSuatChieuWindow.xaml">
+    <Page Include="Views\Admin\ShowtimeManagement\AddShowtimeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Admin\QuanLySuatChieuPage\QuanLySuatChieuPage.xaml">
+    <Page Include="Views\Admin\ShowtimeManagement\ShowtimeManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>

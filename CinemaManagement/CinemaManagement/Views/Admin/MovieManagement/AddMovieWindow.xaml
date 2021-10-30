@@ -102,7 +102,8 @@
                                       Height="53"
                                       VerticalContentAlignment="Bottom"
                                       materialDesign:ValidationAssist.Background="White"
-                                      x:Name="_movieGenre"/>
+                                      x:Name="_movieGenre"
+                                      PreviewTextInput="_movieGenre_PreviewTextInput" />
 
 
                         </StackPanel>
@@ -157,7 +158,8 @@
                                           SelectedItem="{Binding movieCountry,Mode=TwoWay}"
                                           materialDesign:ValidationAssist.Background="White"
                                           x:Name="_movieCountry"
-                                          Text="{Binding movieCountry,Mode=TwoWay}" />
+                                          Text="{Binding movieCountry,Mode=TwoWay}"
+                                          PreviewTextInput="_movieCountry_PreviewTextInput" />
 
                             </StackPanel>
                         </StackPanel>

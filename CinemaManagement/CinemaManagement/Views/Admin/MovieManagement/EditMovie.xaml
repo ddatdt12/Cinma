@@ -101,7 +101,7 @@
                                       MaxDropDownHeight="280"
                                       Height="53"
                                       SelectedItem="{Binding movieGenre,Mode=TwoWay}"
-                                      VerticalContentAlignment="Bottom" />
+                                      PreviewTextInput="_Genre_PreviewTextInput" />
 
                         </StackPanel>
 
@@ -151,7 +151,8 @@
                                           Height="40"
                                           VerticalContentAlignment="Bottom"
                                           MaxDropDownHeight="240"
-                                          SelectedItem="{Binding movieCountry,Mode=TwoWay}" />
+                                          SelectedItem="{Binding movieCountry,Mode=TwoWay}"
+                                          PreviewTextInput="_Country_PreviewTextInput" />
                             </StackPanel>
                         </StackPanel>
 
