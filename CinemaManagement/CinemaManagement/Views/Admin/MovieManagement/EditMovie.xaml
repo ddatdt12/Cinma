@@ -145,7 +145,7 @@
                                    Height="35" />
                             <StackPanel>
                                 <ComboBox x:Name="_Country"
-                                          ItemsSource="{Binding ListCountrySource,Mode=TwoWay}"
+                                          ItemsSource="{Binding ListCountrySource}"
                                           IsEditable="True"
                                           FontSize="25"
                                           Height="40"
@@ -261,7 +261,7 @@
                                                  Padding="0"
                                                  FontSize="22"
                                                  Margin="5,0,0,0"
-                                                 Text="{Binding movieYear}"
+                                                 Text="{Binding movieYear,Mode=TwoWay}"
                                                  PreviewTextInput="Year_PreviewTextInput" />
                                     </Grid>
                                 </StackPanel>
@@ -306,7 +306,7 @@
                                             Click="Button_Click"
                                             materialDesign:ButtonAssist.CornerRadius="8" />
 
-                                    <!--<Button Content="Lưu"
+                                    <Button Content="Lưu"
                                             FontSize="20"
                                             Height="40"
                                             Width="100"
@@ -314,44 +314,7 @@
                                             Background="#FF5980B8"
                                             materialDesign:ButtonAssist.CornerRadius="8"
                                             Command="{Binding UpdateMovieCM}"
-                                            CommandParameter="{Binding ElementName=EditMovieWindow}" />-->
-                                    <Border CornerRadius="8"
-                                            Height="40"
-                                            Width="100"
-                                            Background="#FF5980B8"
-                                            VerticalAlignment="Top"
-                                            Margin="10,0,10,10">
-                                        <Border.Style>
-                                            <Style TargetType="Border">
-                                                <Setter Property="BitmapEffect">
-                                                    <Setter.Value>
-                                                        <DropShadowBitmapEffect Color="Gray"
-                                                                                Softness="0.2"
-                                                                                ShadowDepth="0"
-                                                                                Opacity="1" />
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </Border.Style>
-                                        <Label Content="Lưu"
-                                               FontSize="20"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Center"
-                                               Style="{StaticResource MaterialDesignLabel}"
-                                               Cursor="Hand"
-                                               HorizontalContentAlignment="Center"
-                                               Foreground="White"
-                                               materialDesign:ButtonAssist.CornerRadius="8"
-                                               MouseLeftButtonDown="Button_MouseLeftButtonDown"
-                                               Width="100">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction Command="{Binding UpdateMovieCM}"
-                                                                           CommandParameter="{Binding ElementName=EditMovieWindow}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Label>
-                                    </Border>
+                                            CommandParameter="{Binding ElementName=EditMovieWindow}" />
                                 </StackPanel>
                             </Grid>
                         </Grid>
