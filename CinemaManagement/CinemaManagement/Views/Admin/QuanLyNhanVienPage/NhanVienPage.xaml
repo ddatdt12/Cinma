@@ -67,7 +67,8 @@
                              Padding="8 10 10 10"
                              VerticalContentAlignment="Center"
                              Foreground="Black"
-                             x:Name="SearchBox"/>
+                             x:Name="SearchBox"
+                                     TextChanged="SearchBox_TextChanged" />
                             <TextBlock IsHitTestVisible="False"
                                Text="Tìm kiếm"
                                VerticalAlignment="Center"
@@ -162,7 +163,7 @@
                           PreviewMouseWheel="listView_PreviewMouseWheel">
                 <ListView ItemsSource="{Binding StaffList}" FontFamily="Ubuntu"
                           SelectedItem="{Binding SelectedItem}"
-                          x:Name="ListView">
+                          x:Name="_ListView">
                     
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">

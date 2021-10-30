@@ -102,16 +102,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                         SaveImgToApp();
                         File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
                     }
-     else
+                    else
                     {
                         filepath = Helper.GetMovieImgPath(SelectedItem.Image);
                         File.Copy(filepath, Helper.GetMovieImgPath(movie.Image));
                         File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
                     }
-                    p.Close();
-
-                    ReloadMovieListView();
-
 
                     LoadMovieListView(Operation.UPDATE, movie);
                     p.Close();
@@ -124,6 +120,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             else
                 MessageBox.Show("Vui lòng nhập đủ thông tin!");
         }
-        
+
     }
 }

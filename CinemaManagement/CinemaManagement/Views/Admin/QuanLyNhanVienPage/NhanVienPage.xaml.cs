@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaManagement.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,9 @@ namespace CinemaManagement.Views.Admin.QuanLyNhanVienPage
         public NhanVienPage()
         {
             InitializeComponent();
+
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(_ListView.ItemsSource);
+            view.Filter = Filter;
         }
 
         private void listView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -30,6 +34,18 @@ namespace CinemaManagement.Views.Admin.QuanLyNhanVienPage
             ScrollViewer scv = (ScrollViewer)sender;
             scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
             e.Handled = true;
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(_ListView.ItemsSource).Refresh();
+        }
+        private bool Filter(object item)
+        {
+            if (String.IsNullOrEmpty(SearchBox.Text))
+                return true;
+            else
+                return ((item as StaffDTO).Name.IndexOf(SearchBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
         }
     }
 }
