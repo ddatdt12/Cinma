@@ -10,14 +10,22 @@ namespace CinemaManagement.ViewModel
     public class MainAdminViewModel : BaseViewModel
     {
         public ICommand SignoutCM { get; set; }
-
         public ICommand LoadQLPPageCM { get; set; }
         public ICommand LoadQLNVPageCM { get; set; }
         public ICommand LoadSuatChieuPageCM { get; set; }
 
+        private string _SelectedFuncName;
+        public string SelectedFuncName
+        {
+            get { return _SelectedFuncName; }
+            set { _SelectedFuncName = value; OnPropertyChanged(); }
+        }
+
 
         public MainAdminViewModel()
         {
+            SelectedFuncName = "Quản lý suất chiếu";
+
             SignoutCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
                {
                    FrameworkElement window = GetParentWindow(p);
@@ -32,16 +40,19 @@ namespace CinemaManagement.ViewModel
                });
             LoadQLPPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
+                SelectedFuncName = "Quản lý phim";
                 if (p != null)
                     p.Content = new MovieManagementWindow();
             });
             LoadSuatChieuPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
+                SelectedFuncName = "Quản lý suất chiếu";
                 if (p != null)
                     p.Content = new ShowtimeManagement();
             });
             LoadQLNVPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
+                //SelectedFuncName = "Quản lý NV";
                 //if (p != null)
                 //    p.Content = new NhanVienPage();
             });
