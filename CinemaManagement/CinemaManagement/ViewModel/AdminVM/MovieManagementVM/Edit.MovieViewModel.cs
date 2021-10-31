@@ -63,12 +63,14 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         {
             if (movieID != null && IsValidData())
             {
+                if (!IsImageChanged)
+                    extension = SelectedItem.Image.Split('.')[1];
                 imgName = Helper.CreateImageName(movieName);
                 imgfullname = Helper.CreateImageFullName(imgName, extension);
-
+                
                 List<GenreDTO> temp = new List<GenreDTO>();
                 temp.Add(movieGenre);
-
+               
                 MovieDTO movie = new MovieDTO
                 {
                     Id = int.Parse(movieID),
@@ -81,7 +83,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     RunningTime = int.Parse(movieDuration),
                 };
 
-                if (IsImageChanged)
+                if (movie.Image != SelectedItem.Image)
                 {
                     movie.Image = imgfullname;
                 }
@@ -104,9 +106,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     }
                     else
                     {
-                        filepath = Helper.GetMovieImgPath(SelectedItem.Image);
-                        File.Copy(filepath, Helper.GetMovieImgPath(movie.Image));
-                        File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
+                        File.Copy(filepath, Helper.GetMovieImgPath(movie.Image),true);
                     }
 
                     LoadMovieListView(Operation.UPDATE, movie);

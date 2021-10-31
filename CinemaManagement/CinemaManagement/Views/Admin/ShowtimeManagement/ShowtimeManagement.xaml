@@ -162,8 +162,7 @@
                                             <ItemsControl ItemsSource="{Binding Showtimes}">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
-                                                        <!--<StackPanel Orientation="Horizontal" />-->
-                                                        <UniformGrid Columns="10" />
+                                                        <UniformGrid Columns="4" />
                                                     </ItemsPanelTemplate>
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>
