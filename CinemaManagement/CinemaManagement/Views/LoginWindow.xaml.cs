@@ -73,7 +73,7 @@ namespace CinemaManagement
 
             {
 
-                From = 1,
+                From = 0,
 
                 To = 1,
 
@@ -110,7 +110,7 @@ namespace CinemaManagement
 
                 To = 0,
 
-                Duration = TimeSpan.FromSeconds(.2),
+                Duration = TimeSpan.FromSeconds(0.5),
 
             };
 
@@ -157,7 +157,7 @@ namespace CinemaManagement
 
                 To = 1,
 
-                Duration = TimeSpan.FromSeconds(.2),
+                Duration = TimeSpan.FromSeconds(.5),
 
             };
 

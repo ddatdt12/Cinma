@@ -80,7 +80,8 @@ namespace CinemaManagement.ViewModel
                     List<MovieDTO> ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today, 1);
                     //string movieName= "Bố già";
                     //string imageName = Helper.Slugify(movieName);
-                    //(bool AddSuccess, string message) = ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 1, RoomId = 1, ShowDate = DateTime.Today, StartTime = new TimeSpan(13, 50, 0) });
+                    //(bool AddSuccess, string message) = ShowtimeService.Ins.AddShowtime(
+                    //new ShowtimeDTO { MovieId = 1, RoomId = 1, ShowDate = DateTime.Today, StartTime = new TimeSpan(13, 50, 0) });
                     //(bool AddSuccess, string message) = ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 4, RoomId = 1, ShowDate = DateTime.Today.AddDays(2), StartTime = new TimeSpan(19, 0, 0) });
 
                     //ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today, 1);

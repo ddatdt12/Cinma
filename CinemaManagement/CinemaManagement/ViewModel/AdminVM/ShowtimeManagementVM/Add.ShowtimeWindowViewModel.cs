@@ -19,15 +19,14 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         {
             if (IsValidData())
             {
+
                 ShowtimeDTO temp = new ShowtimeDTO
                 {
                     MovieId = movieSelected.Id,
-                    Movie = movieSelected,
                     RoomId = ShowtimeRoom.Id,
-                    ShowDate = Showtime,
+                    ShowDate = showtimeDate,
                     StartTime = Showtime.TimeOfDay,
                 };
-
 
                 (bool IsSuccess, string message) = ShowtimeService.Ins.AddShowtime(temp);
 

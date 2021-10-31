@@ -20,28 +20,29 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public MovieDTO movieSelected
         {
             get { return _movieSelected; }
-            set { _movieSelected = value; }
+            set { _movieSelected = value; OnPropertyChanged(); }
         }
 
         private DateTime _showtimeDate;
         public DateTime showtimeDate
         {
             get { return _showtimeDate; }
-            set { _showtimeDate = value; }
+            set { _showtimeDate = value; OnPropertyChanged(); }
         }
 
         private DateTime _Showtime;
         public DateTime Showtime
         {
             get { return _Showtime; }
-            set { _Showtime = value; }
+            set{
+                _Showtime = value; OnPropertyChanged();}
         }
 
         private RoomDTO _ShowtimeRoom;
         public RoomDTO ShowtimeRoom
         {
             get { return _ShowtimeRoom; }
-            set { _ShowtimeRoom = value; }
+            set { _ShowtimeRoom = value; OnPropertyChanged(); }
         }
         // this is for  binding data
 
@@ -114,7 +115,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         {
 
             LoadCurrentDate();
-
+            SelectedDate = GetCurrentDate;
 
 
 
