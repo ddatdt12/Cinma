@@ -265,29 +265,6 @@
                                                  PreviewTextInput="Year_PreviewTextInput" />
                                     </Grid>
                                 </StackPanel>
-                                <StackPanel Margin="0,0,25,20"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Bottom">
-                                    <Label Content="ID"
-                                           FontSize="20"
-                                           Height="31"
-                                           Margin="-5,10,0,0" />
-                                    <Grid>
-                                        <TextBox x:Name="_ID"
-                                                 AcceptsReturn="True"
-                                                 TextWrapping="Wrap"
-                                                 FontSize="25"
-                                                 Background="Transparent"
-                                                 VerticalAlignment="Top"
-                                                 Height="48"
-                                                 Margin="0,-15,0,0"
-                                                 Padding="0"
-                                                 Foreground="Black"
-                                                 VerticalContentAlignment="Bottom"
-                                                 IsEnabled="False"
-                                                 Text="{Binding movieID}" />
-                                    </Grid>
-                                </StackPanel>
                             </Grid>
 
                             <!--Button-->

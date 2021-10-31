@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.Views.Admin.MovieManagement;
+using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 using CinemaManagement.Views.Admin.ShowtimeManagementVM;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,9 +53,9 @@ namespace CinemaManagement.ViewModel
             });
             LoadQLNVPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
-                //SelectedFuncName = "Quản lý NV";
-                //if (p != null)
-                //    p.Content = new NhanVienPage();
+                SelectedFuncName = "Quản lý nhân sự";
+                if (p != null)
+                    p.Content = new NhanVienPage();
             });
         }
 

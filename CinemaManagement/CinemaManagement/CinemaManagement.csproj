@@ -291,6 +291,11 @@
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\Add.ShowtimeWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\InforShowtimeWindow.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\ShowtimeManagementViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\StaffManagementVM\AddStaffViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\StaffManagementVM\DeleteStaffViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\StaffManagementVM\DoiMatKhauWindowVM.cs" />
+    <Compile Include="ViewModel\AdminVM\StaffManagementVM\EditStaffViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\StaffManagementVM\StaffManagementViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
@@ -312,6 +317,21 @@
     </Compile>
     <Compile Include="Views\Admin\MovieManagement\MovieManagementWindow.xaml.cs">
       <DependentUpon>MovieManagementWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyNhanVienPage\DoiMatKhau.xaml.cs">
+      <DependentUpon>DoiMatKhau.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml.cs">
+      <DependentUpon>NhanVienPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyNhanVienPage\SuaNhanVienWindow.xaml.cs">
+      <DependentUpon>SuaNhanVienWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml.cs">
+      <DependentUpon>ThemNhanVienWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml.cs">
+      <DependentUpon>XoaNhanVienWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\ShowtimeManagement\AddShowtimeWindow.xaml.cs">
       <DependentUpon>AddShowtimeWindow.xaml</DependentUpon>
@@ -369,6 +389,26 @@
     <Page Include="Views\Admin\MovieManagement\MovieManagementWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Views\Admin\QuanLyNhanVienPage\DoiMatKhau.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyNhanVienPage\SuaNhanVienWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Admin\ShowtimeManagement\AddShowtimeWindow.xaml">
       <SubType>Designer</SubType>
@@ -438,9 +478,6 @@
     <Resource Include="Font\junegull.ttf" />
     <Resource Include="Resources\Admin\MovieGenreSource.txt" />
     <Resource Include="Resources\ImageStaff\add-user.png" />
-    <Resource Include="Resources\ImageStaff\edit-user.png" />
-    <Resource Include="Resources\ImageStaff\next.png" />
-    <Resource Include="Resources\ImageStaff\staff.png" />
     <Resource Include="Resources\Images\Movies\null.jpg" />
     <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
     <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
@@ -482,6 +519,8 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\ImageStaff\pencil.png" />
+    <Resource Include="Resources\ImageStaff\delete.png" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\4.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
