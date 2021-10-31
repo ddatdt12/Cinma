@@ -96,7 +96,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         string imgfullname;
         string extension;
         string oldMovieName;
-        bool IsImageChanged;
+        bool IsImageChanged = false;
         bool IsAddingMovie = false;
 
         System.Windows.Controls.ListView MainListView;
@@ -148,6 +148,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public MovieManagementViewModel()
         {
             ListCountrySource = new List<string>();
+            IsImageChanged = false;
             
             try
             {
@@ -264,7 +265,9 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             try
             {
                 appPath = Helper.GetMovieImgPath(imgfullname);
-                File.Copy(filepath, appPath);
+                if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
+                    File.Delete(Helper.GetMovieImgPath(imgfullname));
+                File.Copy(filepath, appPath,true);
             }
             catch (Exception exp)
             {

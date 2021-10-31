@@ -289,7 +289,6 @@
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\Infor.MovieWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\MovieManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\Add.ShowtimeWindowViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\InforShowtimeWindow.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\ShowtimeManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\AddStaffViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\DeleteStaffViewModel.cs" />
@@ -366,6 +365,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\Scrollbar\Scrollbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

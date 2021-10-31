@@ -20,6 +20,7 @@
       MouseLeftButtonDown="Page_MouseLeftButtonDown"
       d:DesignWidth="1440">
 
+
     <Grid Background="#f0f2f5">
 
         <Grid.RowDefinitions>
@@ -67,8 +68,7 @@
                 <ListView x:Name="MovieListView"
                           ItemsSource="{Binding MovieList}"
                           SelectedItem="{Binding SelectedItem}"
-                          Focusable="True"
-                          >
+                          Focusable="True">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding LoadInforMovieCM}" />
