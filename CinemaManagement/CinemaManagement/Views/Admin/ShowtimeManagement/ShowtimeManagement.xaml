@@ -11,7 +11,7 @@
       d:DesignHeight="720"
       d:DesignWidth="1440"
       Title="QuanLySuatChieuPage">
-
+ 
 
     <Grid Background="#f0f2f5">
         <Grid.RowDefinitions>
@@ -126,21 +126,14 @@
                           ItemsSource="{Binding ShowtimeList}"
                           SelectedItem="{Binding SelectedItem}"
                           Focusable="True">
-                    <!---header content to the left-->
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding LoadInforShowtimeCM}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <!---double click to see detail-->
 
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Tên phim">
+                            <GridViewColumn Header="Tên phim" Width="400">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock  Text="{Binding DisplayName}"
-                                                    FontSize="18" />
+                                                    FontSize="18"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -169,7 +162,8 @@
                                             <ItemsControl ItemsSource="{Binding Showtimes}">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
-                                                        <UniformGrid Columns="5" />
+                                                        <!--<StackPanel Orientation="Horizontal" />-->
+                                                        <UniformGrid Columns="10" />
                                                     </ItemsPanelTemplate>
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>
@@ -178,6 +172,7 @@
                                                                     Margin="10,0,10,0">
                                                             <Button Content="{Binding StartTime}"
                                                                     FontSize="18"
+                                                                    Width="120"
                                                                     Cursor="Arrow"
                                                                     Background="LightGoldenrodYellow"
                                                                     Foreground="Black" />

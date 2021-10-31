@@ -134,7 +134,30 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             });
             LoadDeleteShowtimeCM = new RelayCommand<ListView>((p) => { return true; }, (p) =>
             {
-                MessageBox.Show("deleted");
+                MessageBoxResult result = System.Windows.MessageBox.Show("Bạn có chắc muốn xoá suất chiếu này không? Dữ liệu không thể phục hồi sau khi xoá!", "Xác nhận xoá", MessageBoxButton.YesNo);
+                //switch (result)
+                //{
+                //    case MessageBoxResult.Yes:
+                //        {
+                //            (bool successDelMovie, string messageFromDelMovie) = ShowtimeService.Ins
+
+                //            if (successDelMovie)
+                //            {
+                //                File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
+                //                System.Windows.MessageBox.Show(messageFromDelMovie);
+                //                LoadMovieListView(Operation.DELETE);
+                //                SelectedItem = null;
+                //                break;
+                //            }
+                //            else
+                //            {
+                //                System.Windows.MessageBox.Show(messageFromDelMovie);
+                //                break;
+                //            }
+                //        }
+                //    case MessageBoxResult.No:
+                //        break;
+                //}
             });
             ChangedRoomCM = new RelayCommand<RadioButton>((p) => { return true; }, (p) =>
             {

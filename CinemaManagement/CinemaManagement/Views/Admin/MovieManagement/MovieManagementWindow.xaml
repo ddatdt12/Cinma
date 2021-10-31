@@ -22,7 +22,7 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding StoreMainListViewNameCM}"
-                                   CommandParameter="{Binding ElementName=MovieListView}"/>
+                                   CommandParameter="{Binding ElementName=MovieListView}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -73,8 +73,7 @@
                 <ListView x:Name="MovieListView"
                           ItemsSource="{Binding MovieList}"
                           SelectedItem="{Binding SelectedItem}"
-                          Focusable="True"
-                          >
+                          Focusable="True">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding LoadInforMovieCM}" />
