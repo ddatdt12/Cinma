@@ -17,7 +17,33 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
         public void SaveShowtimeFunc(Window p)
         {
+            if (IsValidData())
+            {
 
+                ShowtimeDTO temp = new ShowtimeDTO
+                {
+                    MovieId = movieSelected.Id,
+                    RoomId = ShowtimeRoom.Id,
+                    ShowDate = showtimeDate,
+                    StartTime = Showtime.TimeOfDay,
+                };
+
+                (bool IsSuccess, string message) = ShowtimeService.Ins.AddShowtime(temp);
+
+
+                if (IsSuccess)
+                {
+                    MessageBox.Show(message);
+                    ReloadShowtimeList();
+                    p.Close();
+                }
+                else
+                {
+                    MessageBox.Show(message);
+                }
+            }
+            else
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
         }
     }
 }

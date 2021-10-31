@@ -74,7 +74,7 @@ namespace CinemaManagement.Models.Services
                 context.Showtimes.Add(showtime);
                 context.SaveChanges();
 
-                return (true, "Thêm xuất chiếu thành công");
+                return (true, "Thêm suất chiếu thành công");
             }
             catch (DbEntityValidationException e)
             {

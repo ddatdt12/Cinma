@@ -29,7 +29,7 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger>
-            <i:InvokeCommandAction/>
+            <i:InvokeCommandAction />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -65,7 +65,7 @@
                                              PlacementMode="BottomAndAlignRightEdges">
                         <StackPanel Orientation="Vertical">
                             <Button x:Name="signout"
-                                    Content="Quản lý tài khoản" />
+                                    Content="Thông tin tài khoản" />
 
                             <Button Content="Đăng xuất"
                                     Command="{Binding SignoutCM}"
@@ -146,6 +146,10 @@
                         <ToggleButton x:Name="SlideButton"
                                       Margin="40,0,0,0"
                                       Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="30"
+                                   Margin="30,0,0,0"
+                                   Text="{Binding SelectedFuncName}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right">
@@ -155,7 +159,7 @@
                                                  Height="50"
                                                  Width="50" />
                         <Label x:Name="CurrentUserName"
-                            Content=""
+                               Content=""
                                Foreground="White"
                                VerticalAlignment="Center"
                                FontSize="25" />
