@@ -13,8 +13,9 @@ namespace CinemaManagement
             InitializeComponent();
         }
 
-        private void mainadminwindow_MouseDown(object sender, MouseButtonEventArgs e)
+        private void mainadminwindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            e.Handled = true;
             this.DragMove();
         }
     }

@@ -42,14 +42,7 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <!--#region Tittle-->
-                <TextBlock Text="DANH SÁCH NHÂN VIÊN"
-                       FontSize="30"
-                       Padding="20 10"
-                       Margin="20 0 0 0"
-                       FontWeight="Bold" 
-                       FontFamily="Ubuntu"/>
-                <!--#endregion-->
+
 
                 <!--#region Search bar-->
                 <Grid Grid.Row="1">
@@ -175,19 +168,59 @@
 
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}">
+                            <GridViewColumn Header="ID">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Id}" FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Họ và tên" DisplayMemberBinding="{Binding Name}">
+                            <GridViewColumn Header="Họ và tên">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding Gender}">
+                            <GridViewColumn Header="Giới tính">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Gender}"
+                                                   FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding Path=BirthDate, StringFormat=dd-MM-yyyy}">
+                            <GridViewColumn Header="Ngày sinh">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding  BirthDate,StringFormat=dd-MM-yyyy}"
+                                                   FontSize="18"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding PhoneNumber}">
+                            <GridViewColumn Header="Số điện thoại">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding PhoneNumber}"
+                                                   FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding Role}">
+                            <GridViewColumn Header="Chức vụ">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Role}"
+                                                   FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Ngày bắt đầu" DisplayMemberBinding="{Binding Path=StartingDate, StringFormat=dd-MM-yyyy}">
+                            <GridViewColumn Header="Ngày bắt đầu">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding StartingDate,StringFormat=dd-MM-yyyy}"
+                                                   FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn>
                                 <GridViewColumn.CellTemplate>

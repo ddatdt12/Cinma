@@ -107,7 +107,7 @@
                 <Label FontFamily="junegull"
                        FontSize="35"
                        FontWeight="UltraBlack"
-                       Foreground="#FFA5B9D6"
+                       Foreground="#0c70b6"
                        Content="Welcome Back"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"

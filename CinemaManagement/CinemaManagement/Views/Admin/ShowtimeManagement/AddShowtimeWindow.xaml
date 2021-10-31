@@ -188,6 +188,7 @@
                                             Height="40"
                                             Width="100"
                                             Margin="0,0,20,10"
+                                            Background="OrangeRed"
                                             BorderBrush="Transparent"
                                             Click="Button_Click"
                                             materialDesign:ButtonAssist.CornerRadius="8" />
@@ -198,6 +199,7 @@
                                             Height="40"
                                             Foreground="White"
                                             VerticalAlignment="Top"
+                                            Background="#03a9f4"
                                             materialDesign:ButtonAssist.CornerRadius="8"
                                             Width="100"
                                             Command="{Binding SaveCM}"

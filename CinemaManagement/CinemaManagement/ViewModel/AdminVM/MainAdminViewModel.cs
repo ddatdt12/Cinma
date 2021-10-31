@@ -57,6 +57,7 @@ namespace CinemaManagement.ViewModel
                 if (p != null)
                     p.Content = new NhanVienPage();
             });
+        
         }
 
 

@@ -246,6 +246,7 @@
                                             Content="Tải ảnh"
                                             Margin="10,2,0,0"
                                             Width="100"
+                                            Background="#03a9f4"
                                             VerticalAlignment="Bottom"
                                             materialDesign:ButtonAssist.CornerRadius="10"
                                             Command="{Binding UploadImageCM}" />
@@ -301,6 +302,7 @@
                                             Margin="0,0,10,10"
                                             BorderBrush="Transparent"
                                             Click="Button_Click"
+                                            Background="OrangeRed"
                                             materialDesign:ButtonAssist.CornerRadius="8" />
 
                                     <Button Content="Lưu"
@@ -308,7 +310,7 @@
                                             Height="40"
                                             Width="100"
                                             Margin="10,0,10,10"
-                                            Background="#FF5980B8"
+                                            Background="#03a9f4"
                                             materialDesign:ButtonAssist.CornerRadius="8"
                                             Command="{Binding SaveMovieCM}"
                                             CommandParameter="{Binding ElementName=addmoviewindow}" />

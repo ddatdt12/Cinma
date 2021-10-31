@@ -17,14 +17,8 @@
       FontFamily="{DynamicResource MaterialDesignFont}"
       DataContext="{StaticResource MovieManagementVM}"
       d:DesignHeight="720"
+      MouseLeftButtonDown="Page_MouseLeftButtonDown"
       d:DesignWidth="1440">
-
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding StoreMainListViewNameCM}"
-                                   CommandParameter="{Binding ElementName=MovieListView}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
 
     <Grid Background="#f0f2f5">
 
