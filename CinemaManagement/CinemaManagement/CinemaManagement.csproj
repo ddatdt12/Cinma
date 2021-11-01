@@ -62,6 +62,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.3.2, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.3\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -295,6 +301,7 @@
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\DoiMatKhauWindowVM.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\EditStaffViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\StaffManagementViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\StatisticalManagementViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
@@ -337,6 +344,9 @@
     </Compile>
     <Compile Include="Views\Admin\ShowtimeManagement\ShowtimeManagement.xaml.cs">
       <DependentUpon>ShowtimeManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\StatisticalManagement\StatisticalManagement.xaml.cs">
+      <DependentUpon>StatisticalManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ExampleWindow.xaml.cs">
       <DependentUpon>ExampleWindow.xaml</DependentUpon>
@@ -420,6 +430,10 @@
     <Page Include="Views\Admin\ShowtimeManagement\ShowtimeManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Views\Admin\StatisticalManagement\StatisticalManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExampleWindow.xaml">
       <SubType>Designer</SubType>
@@ -510,7 +524,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images\Products\" />
-    <Folder Include="Views\Admin\StatisticalManagement\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\CinemaManagementModel.Context.tt">
