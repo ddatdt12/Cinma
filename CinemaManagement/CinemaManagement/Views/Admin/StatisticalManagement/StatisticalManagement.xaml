@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:CinemaManagement.Views.Admin.StatisticalManagement"
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -25,46 +24,117 @@
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
                     Margin="30,0,0,0">
+
+            <!---PERIOD-->
             <StackPanel Margin="0,10,0,0">
                 <Label Content="Chu kỳ"
                        FontSize="20" />
                 <ComboBox Width="200"
-                          FontSize="20">
-                    <ComboBoxItem>sadsd</ComboBoxItem>
-                    <ComboBoxItem>sadsd</ComboBoxItem>
-                    <ComboBoxItem>sadsd</ComboBoxItem>
-                    <ComboBoxItem>sadsd</ComboBoxItem>
+                          FontSize="20"
+                          SelectedIndex="{Binding SelectedPeriod}">
+                    <ComboBoxItem>Theo năm</ComboBoxItem>
+                    <ComboBoxItem>Theo tháng</ComboBoxItem>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectedPeriodCM}"
+                                                   CommandParameter="{Binding ElementName=TimeCombobox}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </ComboBox>
             </StackPanel>
+            <!---TIME-->
             <StackPanel Margin="30,10,0,0">
                 <Label Content="Thời gian"
                        FontSize="20" />
                 <ComboBox Width="150"
-                          FontSize="20">
-                    <ComboBoxItem>sadsd</ComboBoxItem>
-                    <ComboBoxItem>sadsd</ComboBoxItem>
-                    <ComboBoxItem>sadsd</ComboBoxItem>
-                    <ComboBoxItem>sadsd</ComboBoxItem>
+                          FontSize="20"
+                          x:Name="TimeCombobox"
+                          ItemsSource="{Binding YearSource}"
+                          SelectedIndex="2">
                 </ComboBox>
             </StackPanel>
         </StackPanel>
 
         <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*" />
+                <ColumnDefinition Width="70*" />
+            </Grid.ColumnDefinitions>
 
-            <materialDesign:Card Background="White"
-                                 Margin="30,20,30,20">
-                <lvc:CartesianChart Series="{Binding SeriesCollection}"
-                                    LegendLocation="Bottom">
-                    <lvc:CartesianChart.AxisX>
-                        <lvc:Axis Labels="{Binding Labels}"/>
-                    </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY>
-                        <lvc:Axis Title="VND"/>
-                    </lvc:CartesianChart.AxisY>
-                </lvc:CartesianChart>
+            <!---Left-->
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*" />
+                    <RowDefinition Height="50*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <materialDesign:Card Margin="30,30,0,0">
+                        <Grid>
+                            <Label Content="Tổng doanh thu"
+                                   FontSize="15"
+                                   FontWeight="Bold" />
+                            <lvc:PieChart Height="250"
+                                          LegendLocation="Left"
+                                          Series="{Binding pie}"
+                                          Hoverable="False">
+                            </lvc:PieChart>
+                        </Grid>
 
-            </materialDesign:Card>
+                    </materialDesign:Card>
+                </StackPanel>
 
+                <StackPanel Grid.Row="1">
+                    <materialDesign:Card Margin="30,30,0,0"
+                                         Height="250">
+                        <StackPanel>
+                            <StackPanel.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontSize"
+                                                Value="20" />
+                                        <Setter Property="Margin"
+                                                Value="30,20,0,0" />
+
+                                    </Style>
+                                </ResourceDictionary>
+                            </StackPanel.Resources>
+
+
+
+                            <TextBlock Text="Chu kỳ: Tháng" />
+                            <TextBlock Text="Thời gian: Tháng 12" />
+                            <TextBlock Text="Tổng doanh thu: 37.000.000" />
+                            <TextBlock Text="So với kỳ trước: +27%" />
+                            <TextBlock Text="Dự báo biến động: ~8,7%" />
+                        </StackPanel>
+                       
+
+                    </materialDesign:Card>
+                </StackPanel>
+
+            </Grid>
+
+            <!--Right-->
+            <StackPanel Grid.Column="1"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal">
+                <materialDesign:Card Background="White"
+                                     Margin="30,30,0,30"
+                                     Width="950"
+                                     Height="566"
+                                     HorizontalAlignment="Right">
+                    <lvc:CartesianChart LegendLocation="Bottom"
+                                        Series="{Binding SeriesCollection}">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Labels="{Binding Labels}" />
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="VND" />
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+                </materialDesign:Card>
+
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.Views.Admin.MovieManagement;
 using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 using CinemaManagement.Views.Admin.ShowtimeManagementVM;
+using CinemaManagement.Views.Admin.StatisticalManagement;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -14,6 +15,7 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadQLPPageCM { get; set; }
         public ICommand LoadQLNVPageCM { get; set; }
         public ICommand LoadSuatChieuPageCM { get; set; }
+        public ICommand LoadTKPageCM { get; set; }
 
         private string _SelectedFuncName;
         public string SelectedFuncName
@@ -57,7 +59,13 @@ namespace CinemaManagement.ViewModel
                 if (p != null)
                     p.Content = new NhanVienPage();
             });
-        
+            LoadTKPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
+            {
+                SelectedFuncName = "Thống kê";
+                if (p != null)
+                    p.Content = new StatisticalManagement();
+            });
+
         }
 
 

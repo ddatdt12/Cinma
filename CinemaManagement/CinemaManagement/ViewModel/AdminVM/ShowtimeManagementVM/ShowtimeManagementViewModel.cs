@@ -34,8 +34,10 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public DateTime Showtime
         {
             get { return _Showtime; }
-            set{
-                _Showtime = value; OnPropertyChanged();}
+            set
+            {
+                _Showtime = value; OnPropertyChanged();
+            }
         }
 
         private RoomDTO _ShowtimeRoom;
@@ -95,7 +97,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public DateTime SelectedDate
         {
             get { return _SelectedDate; }
-            set { _SelectedDate = value; ReloadShowtimeList(); OnPropertyChanged(); }
+            set { _SelectedDate = value; ReloadShowtimeList(1); OnPropertyChanged(); }
         }
 
         private MovieDTO _selectedItem; //the showtime being selected
@@ -105,6 +107,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             set { _selectedItem = value; OnPropertyChanged(); }
         }
 
+        public int SelectedRoomId =1;
 
 
         public ICommand ChangedRoomCM { get; set; }
@@ -116,6 +119,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
             LoadCurrentDate();
             SelectedDate = GetCurrentDate;
+            ReloadShowtimeList(1);
 
 
 
@@ -163,35 +167,35 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 switch (p.Name)
                 {
-                    case "All":
-                        {
-                            ReloadShowtimeList();
-                            break;
-                        }
                     case "r1":
                         {
                             ReloadShowtimeList(1);
+                            SelectedRoomId = 1;
                             break;
                         }
                     case "r2":
                         {
                             ReloadShowtimeList(2);
+                            SelectedRoomId = 2;
                             break;
 
                         }
                     case "r3":
                         {
                             ReloadShowtimeList(3);
+                            SelectedRoomId = 3;
                             break;
                         }
                     case "r4":
                         {
                             ReloadShowtimeList(4);
+                            SelectedRoomId = 4;
                             break;
                         }
                     case "r5":
                         {
                             ReloadShowtimeList(5);
+                            SelectedRoomId = 5;
                             break;
                         }
                 }
@@ -245,12 +249,9 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         //}
 
 
-        public void ReloadShowtimeList(int id = -1)
+        public void ReloadShowtimeList(int id)
         {
-            if (id == -1)
-                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
-            else
-                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
+            ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
         }
         public void GenerateListRoom()
         {

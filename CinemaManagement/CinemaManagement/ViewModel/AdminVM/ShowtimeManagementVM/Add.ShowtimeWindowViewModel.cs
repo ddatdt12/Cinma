@@ -34,7 +34,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 if (IsSuccess)
                 {
                     MessageBox.Show(message);
-                    ReloadShowtimeList();
+                    ReloadShowtimeList(SelectedRoomId);
                     p.Close();
                 }
                 else

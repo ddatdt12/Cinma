@@ -74,14 +74,6 @@
                         Width="100"
                         HorizontalAlignment="Left">
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
-                             IsChecked="True"
-                             Content="Toàn bộ"
-                             x:Name="All"
-                             Padding="0,0,0,10"
-                             BorderBrush="#0c70b6"
-                             Command="{Binding ChangedRoomCM}"
-                             CommandParameter="{Binding ElementName=All}" />
-                <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
                              IsChecked="False"
                              Content="Phòng 1"
                              x:Name="r1"

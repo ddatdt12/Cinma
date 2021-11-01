@@ -24,5 +24,6 @@ namespace CinemaManagement.Views.Admin.StatisticalManagement
         {
             InitializeComponent();
         }
+
     }
 }
