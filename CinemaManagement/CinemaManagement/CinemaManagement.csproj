@@ -314,8 +314,8 @@
     <Compile Include="Views\Admin\MovieManagement\InforMovieWindow.xaml.cs">
       <DependentUpon>InforMovieWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\MovieManagement\MovieManagementWindow.xaml.cs">
-      <DependentUpon>MovieManagementWindow.xaml</DependentUpon>
+    <Compile Include="Views\Admin\MovieManagement\MovieManagement.xaml.cs">
+      <DependentUpon>MovieManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\QuanLyNhanVienPage\DoiMatKhau.xaml.cs">
       <DependentUpon>DoiMatKhau.xaml</DependentUpon>
@@ -389,7 +389,7 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Admin\MovieManagement\MovieManagementWindow.xaml">
+    <Page Include="Views\Admin\MovieManagement\MovieManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
@@ -510,6 +510,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\Images\Products\" />
+    <Folder Include="Views\Admin\StatisticalManagement\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\CinemaManagementModel.Context.tt">
