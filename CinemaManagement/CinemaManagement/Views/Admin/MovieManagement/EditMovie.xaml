@@ -281,6 +281,7 @@
                                             Margin="0,0,10,10"
                                             BorderBrush="Transparent"
                                             Click="Button_Click"
+                                            Background="OrangeRed"
                                             materialDesign:ButtonAssist.CornerRadius="8" />
 
                                     <Button Content="Lưu"
@@ -288,7 +289,6 @@
                                             Height="40"
                                             Width="100"
                                             Margin="10,0,10,10"
-                                            Background="#FF5980B8"
                                             materialDesign:ButtonAssist.CornerRadius="8"
                                             Command="{Binding UpdateMovieCM}"
                                             CommandParameter="{Binding ElementName=EditMovieWindow}" />

@@ -4,7 +4,7 @@
 
              xmlns:converters="http://materialdesigninxaml.net/winfx/xaml/themes"
 	xmlns:local="clr-namespace:CinemaManagement"
-             StartupUri="Views/Admin/MainAdminWindow.xaml">
+             StartupUri="Views/LoginWindow.xaml">
 
 
     <Application.Resources>
@@ -19,20 +19,15 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!-- primary -->
-            <SolidColorBrush x:Key="PrimaryHueLightBrush"
-                             Color="#FF6EA878" />
-            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush"
-                             Color="#FFFFFF" />
-            <SolidColorBrush x:Key="PrimaryHueMidBrush"
-                             Color="#FFA5B9D6" />
-            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush"
-                             Color="#FFFFFF" />
-            <SolidColorBrush x:Key="MyFirstColor"
-                             Color="#FFA5B9D6" />
-            <SolidColorBrush x:Key="PrimaryHueDarkBrush"
-                             Color="#FF6EA878" />
-            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush"
-                             Color="#FFFFFF" />
+
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#FF6EA878"/>
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0c70b6"/>
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="MyFirstColor" Color="#FFA5B9D6"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#FF6EA878"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
+
             <!-- accent -->
             <SolidColorBrush x:Key="SecondaryHueMidBrush"
                              Color="#5C5B5E" />
