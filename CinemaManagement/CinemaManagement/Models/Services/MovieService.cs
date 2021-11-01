@@ -77,29 +77,17 @@ namespace CinemaManagement.Models.Services
                                    orderby show.StartTime
                                    select new
                                    {
+                                        MovieId = show.MovieId,
                                        ShowTime = show,
-                                       Movie = new MovieDTO
-                                       {
-                                           Id = show.Movie.Id,
-                                           DisplayName = show.Movie.DisplayName,
-                                           RunningTime = show.Movie.RunningTime,
-                                           Country = show.Movie.Country,
-                                           Description = show.Movie.Description,
-                                           ReleaseYear = show.Movie.ReleaseYear,
-                                           MovieType = show.Movie.MovieType,
-                                           Director = show.Movie.Director,
-                                           Image = show.Movie.Image,
-                                           Genres = (from genre in show.Movie.Genres
-                                                     select new GenreDTO { DisplayName = genre.DisplayName, Id = genre.Id }
-                                                 ).ToList(),
-                                       }
-                                   }).GroupBy(m => m.Movie.Id).ToList();
+                                   }).GroupBy(m => m.MovieId).ToList();
 
+             
                 for (int i = 0; i < MovieIdList.Count(); i++)
                 {
                     int id = MovieIdList[i].Key;
 
                     List<ShowtimeDTO> showtimeDTOsList = new List<ShowtimeDTO>();
+                    MovieDTO mov = null; 
                     foreach (var m in MovieIdList[i])
                     {
                         showtimeDTOsList.Add(new ShowtimeDTO
@@ -110,8 +98,27 @@ namespace CinemaManagement.Models.Services
                             RoomId = m.ShowTime.ShowtimeSetting.RoomId,
                             ShowDate = m.ShowTime.ShowtimeSetting.ShowDate,
                         });
-                        movieList.Add(m.Movie);
+                        if (mov is null)
+                        {
+                            Movie movie = m.ShowTime.Movie;
+                            mov = new MovieDTO
+                            {
+                                Id = movie.Id,
+                                DisplayName = movie.DisplayName,
+                                RunningTime = movie.RunningTime,
+                                Country = movie.Country,
+                                Description = movie.Description,
+                                ReleaseYear = movie.ReleaseYear,
+                                MovieType = movie.MovieType,
+                                Director = movie.Director,
+                                Image = movie.Image,
+                                Genres = (from genre in movie.Genres
+                                          select new GenreDTO { DisplayName = genre.DisplayName, Id = genre.Id }
+                                                 ).ToList(),
+                            };
+                        }
                     }
+                    movieList.Add(mov);
                     movieList[i].Showtimes = showtimeDTOsList;
                 }
             }
@@ -121,6 +128,7 @@ namespace CinemaManagement.Models.Services
             }
             return movieList;
         }
+
         public List<MovieDTO> GetShowingMovieByDay(DateTime date, int roomId)
         {
             List<MovieDTO> movieList = new List<MovieDTO>();
@@ -134,29 +142,17 @@ namespace CinemaManagement.Models.Services
                                    orderby show.StartTime
                                    select new
                                    {
+                                       MovieId = show.MovieId,
                                        ShowTime = show,
-                                       Movie = new MovieDTO
-                                       {
-                                           Id = show.Movie.Id,
-                                           DisplayName = show.Movie.DisplayName,
-                                           RunningTime = show.Movie.RunningTime,
-                                           Country = show.Movie.Country,
-                                           Description = show.Movie.Description,
-                                           ReleaseYear = show.Movie.ReleaseYear,
-                                           MovieType = show.Movie.MovieType,
-                                           Director = show.Movie.Director,
-                                           Image = show.Movie.Image,
-                                           Genres = (from genre in show.Movie.Genres
-                                                     select new GenreDTO { DisplayName = genre.DisplayName, Id = genre.Id }
-                                                 ).ToList(),
-                                       }
-                                   }).GroupBy(m => m.Movie.Id).ToList();
+                                   }).GroupBy(m => m.MovieId).ToList();
 
+                
                 for (int i = 0; i < MovieIdList.Count(); i++)
                 {
                     int id = MovieIdList[i].Key;
 
                     List<ShowtimeDTO> showtimeDTOsList = new List<ShowtimeDTO>();
+                    MovieDTO mov = null;
                     foreach (var m in MovieIdList[i])
                     {
                         showtimeDTOsList.Add(new ShowtimeDTO
@@ -164,11 +160,30 @@ namespace CinemaManagement.Models.Services
                             Id = m.ShowTime.Id,
                             MovieId = m.ShowTime.MovieId,
                             StartTime = m.ShowTime.StartTime,
-                            RoomId =m.ShowTime.ShowtimeSetting.RoomId,
-                            ShowDate =m.ShowTime.ShowtimeSetting.ShowDate,
+                            RoomId = m.ShowTime.ShowtimeSetting.RoomId,
+                            ShowDate = m.ShowTime.ShowtimeSetting.ShowDate,
                         });
-                        movieList.Add(m.Movie);
+                        if (mov is null)
+                        {
+                            Movie movie = m.ShowTime.Movie;
+                            mov = new MovieDTO
+                            {
+                                Id = movie.Id,
+                                DisplayName = movie.DisplayName,
+                                RunningTime = movie.RunningTime,
+                                Country = movie.Country,
+                                Description = movie.Description,
+                                ReleaseYear = movie.ReleaseYear,
+                                MovieType = movie.MovieType,
+                                Director = movie.Director,
+                                Image = movie.Image,
+                                Genres = (from genre in movie.Genres
+                                          select new GenreDTO { DisplayName = genre.DisplayName, Id = genre.Id }
+                                                 ).ToList(),
+                            };
+                        }
                     }
+                    movieList.Add(mov);
                     movieList[i].Showtimes = showtimeDTOsList;
                 }
             }
@@ -179,8 +194,6 @@ namespace CinemaManagement.Models.Services
             return movieList;
         }
 
-
-       
         public (bool, string, MovieDTO) AddMovie(MovieDTO newMovie)
         {
             try
@@ -270,7 +283,7 @@ namespace CinemaManagement.Models.Services
                     return (false, "Phim không tồn tại");
                 }
 
-                bool IsExistMovieName = context.Movies.Where((Movie mov) => mov.Id != movie.Id && mov.DisplayName == updatedMovie.DisplayName).FirstOrDefault() != null;
+                bool IsExistMovieName = context.Movies.Where((Movie mov) => mov.Id != movie.Id && mov.DisplayName == updatedMovie.DisplayName).Any();
                 if (IsExistMovieName)
                 {
                     return (false, "Tên phim đã tồn tại!");

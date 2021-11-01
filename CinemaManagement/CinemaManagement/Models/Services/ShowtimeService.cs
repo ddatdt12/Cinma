@@ -26,16 +26,19 @@ namespace CinemaManagement.Models.Services
         }
         private ShowtimeService() { }
 
-        public (bool IsSuccess, string message) AddShowtime(ShowtimeDTO newShowtime)
+       
+        public (bool IsSuccess, string message, ShowtimeDTO) AddShowtime(ShowtimeDTO newShowtime)
         {
+
             var context = DataProvider.Ins.DB;
             try
             {
+
                 var showtimeSet = context.ShowtimeSettings
                     .Where(s => DbFunctions.TruncateTime(s.ShowDate) == newShowtime.ShowDate.Date
                     && s.RoomId == newShowtime.RoomId).FirstOrDefault();
+                
 
-                Showtime show = null;
                 if (showtimeSet == null)
                 {
                     showtimeSet = new ShowtimeSetting
@@ -48,19 +51,25 @@ namespace CinemaManagement.Models.Services
                 }
                 else
                 {
+                    Showtime show = null;
+
+                    Movie m = context.Movies.Find(newShowtime.MovieId);
+                    var newStartTime = newShowtime.StartTime;
+                    var newEndTime = newShowtime.StartTime + new TimeSpan(0,m.RunningTime,0);
                     show = showtimeSet.Showtimes.AsEnumerable().Where(s =>
                     {
                         var endTime = new TimeSpan(0, s.Movie.RunningTime, 0) + s.StartTime;
-                        var newStartTime = newShowtime.StartTime;
-                        return newStartTime >= s.StartTime && newStartTime < (endTime + TIME.BreakTime);
+                        return TimeBetwwenIn(newStartTime, newEndTime, s.StartTime, endTime + TIME.BreakTime);
                     }).FirstOrDefault();
+
+                    if (show != null)
+                    {
+                        var endTime = new TimeSpan(0, show.Movie.RunningTime, 0) + show.StartTime;
+                        return (false, $"Khoảng thời gian từ {Helper.GetHourMinutes(show.StartTime)} đến {Helper.GetHourMinutes(endTime + TIME.BreakTime)} đã có phim chiếu tại phòng {showtimeSet.RoomId}", null);
+                    }
                 }
 
-                if (show != null)
-                {
-                    var endTime = new TimeSpan(0, show.Movie.RunningTime, 0) + show.StartTime;
-                    return (false, $"Khoảng thời gian từ {Helper.GetHourMinutes(show.StartTime)} đến {Helper.GetHourMinutes(endTime + TIME.BreakTime)} đã có phim chiếu tại phòng {showtimeSet.RoomId}");
-                }
+               
 
                 Showtime showtime = new Showtime
                 {
@@ -74,7 +83,8 @@ namespace CinemaManagement.Models.Services
                 context.Showtimes.Add(showtime);
                 context.SaveChanges();
 
-                return (true, "Thêm xuất chiếu thành công");
+                newShowtime.Id = showtime.Id;
+                return (true, "Thêm xuất chiếu thành công" , newShowtime);
             }
             catch (DbEntityValidationException e)
             {
@@ -88,17 +98,50 @@ namespace CinemaManagement.Models.Services
                             ve.PropertyName, ve.ErrorMessage);
                     }
                 }
-                return (false, e.Message);
+                return (false, "Lỗi DbEntityValidationException", null);
 
             }
             catch (DbUpdateException e)
             {
-                return (false, e?.InnerException.Message);
+                return (false, "Lỗi DbUpdateException", null);
+
             }
             catch (Exception e)
             {
-                return (false, e?.InnerException.Message);
+                return (false, "Lỗi hệ thống", null);
+
             }
+        }
+        public (bool IsSuccess, string message) DeleteShowtime(int showtimeId) {
+
+            var context = DataProvider.Ins.DB;
+            try
+            {
+                Showtime show = context.Showtimes.Find(showtimeId);
+                context.Showtimes.Remove(show);
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return (false, "Lỗi hệ thống");   
+            }
+            return (true, "Xóa suất chiếu thành công!");
+        }
+
+
+
+        //Check (t1,t2) vs (a1,a2)
+        bool TimeBetwwenIn(TimeSpan t1, TimeSpan t2, TimeSpan a1, TimeSpan a2)
+        {
+
+            if ((t1 >= a1 && t1 <= a2) || (t2 >= a1 && t2 <= a2))
+                return true;
+            if (t1 <= a1 && t2 >= a2)
+            {
+                return true;
+            }
+            // t2 > t1;
+            return false;
         }
 
     }
