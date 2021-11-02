@@ -216,6 +216,7 @@
     <Compile Include="DTOs\ProductDTO.cs" />
     <Compile Include="DTOs\RoomDTO.cs" />
     <Compile Include="DTOs\SeatDTO.cs" />
+    <Compile Include="DTOs\SeatSettingDTO.cs" />
     <Compile Include="DTOs\ShowtimeDTO.cs" />
     <Compile Include="DTOs\StaffDTO.cs" />
     <Compile Include="DTOs\TicketBillInfoDTO.cs" />
@@ -268,6 +269,7 @@
     </Compile>
     <Compile Include="Models\Services\GenreService.cs" />
     <Compile Include="Models\Services\MovieService.cs" />
+    <Compile Include="Models\Services\ProductService.cs" />
     <Compile Include="Models\Services\SeatService.cs" />
     <Compile Include="Models\Services\ShowtimeService.cs" />
     <Compile Include="Models\Services\StaffService.cs" />
