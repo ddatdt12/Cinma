@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net.Cache;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
@@ -53,19 +54,18 @@ namespace CinemaManagement.Utils
         {
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Movies", $"{imageName}" /*SelectedItem.Image*/);
         }
-        public static string GetAdminPath(string filename)
+        
+        public static ImageSource GetImageSource(string imageFullName)
         {
-            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Admin", $"{filename}" /*SelectedItem.Image*/);
-        }
-
-        public static string GetProductImgPath()
-        {
-            string appPath = Path.GetDirectoryName(Directory.GetParent(Directory.GetCurrentDirectory()).FullName) + "/Resources/Images/Products/";
-            if (Directory.Exists(appPath) == false)
-            {
-                Directory.CreateDirectory(appPath);
-            }
-            return appPath;
+            BitmapImage _image = new BitmapImage();
+            _image.BeginInit();
+            _image.CacheOption = BitmapCacheOption.None;
+            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+            _image.CacheOption = BitmapCacheOption.OnLoad;
+            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            _image.UriSource = new Uri(GetMovieImgPath(imageFullName));
+            _image.EndInit();
+            return _image;
         }
 
         private static string RemoveUnicode(string text)
