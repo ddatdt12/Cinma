@@ -30,31 +30,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieYear = SelectedItem.ReleaseYear.ToString();
             w1.Year.Text = SelectedItem.ReleaseYear.ToString();
 
-            if ( File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)))
+            if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)))
             {
-                BitmapImage _image = new BitmapImage();
-                _image.BeginInit();
-                _image.CacheOption = BitmapCacheOption.None;
-                _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-                _image.CacheOption = BitmapCacheOption.OnLoad;
-                _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                _image.UriSource = new Uri(Helper.GetMovieImgPath(SelectedItem.Image));
-                _image.EndInit();
-
-                ImageSource = _image;
+                ImageSource = Helper.GetImageSource(SelectedItem.Image);
             }
             else
             {
-                BitmapImage _image = new BitmapImage();
-                _image.BeginInit();
-                _image.CacheOption = BitmapCacheOption.None;
-                _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-                _image.CacheOption = BitmapCacheOption.OnLoad;
-                _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                _image.UriSource = new Uri(Helper.GetMovieImgPath("null.jpg"));
-                _image.EndInit();
-
-                w1.imageframe.Source = _image;
+                w1.imageframe.Source = Helper.GetImageSource("null.jpg");
             }
         }
     }

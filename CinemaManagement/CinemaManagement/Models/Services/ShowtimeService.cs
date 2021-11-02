@@ -27,7 +27,7 @@ namespace CinemaManagement.Models.Services
         private ShowtimeService() { }
 
        
-        public (bool IsSuccess, string message, ShowtimeDTO) AddShowtime(ShowtimeDTO newShowtime)
+        public (bool IsSuccess, string message, ShowtimeDTO newShowtime) AddShowtime(ShowtimeDTO newShowtime)
         {
 
             var context = DataProvider.Ins.DB;
@@ -69,8 +69,6 @@ namespace CinemaManagement.Models.Services
                     }
                 }
 
-               
-
                 Showtime showtime = new Showtime
                 {
                     MovieId = newShowtime.MovieId,
@@ -86,27 +84,17 @@ namespace CinemaManagement.Models.Services
                 newShowtime.Id = showtime.Id;
                 return (true, "Thêm xuất chiếu thành công" , newShowtime);
             }
-            catch (DbEntityValidationException e)
+            catch (DbEntityValidationException)
             {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
                 return (false, "Lỗi DbEntityValidationException", null);
 
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
                 return (false, "Lỗi DbUpdateException", null);
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return (false, "Lỗi hệ thống", null);
 
@@ -118,16 +106,19 @@ namespace CinemaManagement.Models.Services
             try
             {
                 Showtime show = context.Showtimes.Find(showtimeId);
+                if(show is null)
+                {
+                    return (false, "Suất chiếu không tồn tại!");
+                }
                 context.Showtimes.Remove(show);
                 context.SaveChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return (false, "Lỗi hệ thống");   
             }
             return (true, "Xóa suất chiếu thành công!");
         }
-
 
 
         //Check (t1,t2) vs (a1,a2)

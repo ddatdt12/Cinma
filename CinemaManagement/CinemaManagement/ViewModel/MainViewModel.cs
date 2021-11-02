@@ -79,12 +79,13 @@ namespace CinemaManagement.ViewModel
 
 
 
-                List<MovieDTO> ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today.AddDays(-1), 1);
+                List<MovieDTO> ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(new DateTime(2021, 11, 1), 1);
 
 
-                List<MovieDTO> ListMovieDtosOnDay = MovieService.Ins.GetShowingMovieByDay(DateTime.Today.AddDays(2));
+                List<MovieDTO> ListMovieDtosOnDay = MovieService.Ins.GetShowingMovieByDay(new DateTime(2021, 11, 1));
 
 
+                Console.WriteLine("zxc");
 
 
 
@@ -108,7 +109,6 @@ namespace CinemaManagement.ViewModel
                 //ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today, 1);
                 #endregion
 
-                Console.WriteLine("zxc");
                 #region Staff Service
                 //StaffDTO staff = new StaffDTO
                 //{
@@ -136,7 +136,7 @@ namespace CinemaManagement.ViewModel
                 //staffDTOs = StaffService.Ins.GetAllStaff();
                 #endregion
 
-                (bool successzz,string messageLogin ,StaffDTO staffz) = StaffService.Ins.Login("admin", "123456");
+                (bool successzz, string messageLogin, StaffDTO staffz) = StaffService.Ins.Login("admin", "123456");
                 #region Movie Service
                 //Test Update movie
                 //movieDTOs[0].DisplayName = "BỐ GIÀ";
