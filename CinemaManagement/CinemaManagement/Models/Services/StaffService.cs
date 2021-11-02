@@ -50,9 +50,9 @@ namespace CinemaManagement.Models.Services
         {
             var context = DataProvider.Ins.DB;
 
-            //string hassPass = Helper.MD5Hash(password);
+            string hassPass = Helper.MD5Hash(password);
             StaffDTO staff = (from s in context.Staffs
-                              where s.Username == username && s.Password == password
+                              where s.Username == username && s.Password == hassPass
                               select new StaffDTO
                               {
                                   Id = s.Id,
