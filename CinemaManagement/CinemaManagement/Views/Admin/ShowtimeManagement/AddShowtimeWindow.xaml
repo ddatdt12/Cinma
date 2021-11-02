@@ -16,6 +16,7 @@
         Height="550"
         Width="800"
         x:Name="AddSuatChieu"
+        MouseDown="AddSuatChieu_MouseDown"
         DataContext="{StaticResource ShowtimeManagementVM}"
         Title="AddSuatChieuWindow">
     <Grid>
@@ -73,7 +74,7 @@
                                           Foreground="Black"
                                           Height="47"
                                           Width="479"
-                                          x:Name="_movieName" />
+                                          x:Name="_movieName"/>
                             </StackPanel>
                         </StackPanel>
 
@@ -155,16 +156,30 @@
                                            FontSize="20"
                                            Foreground="Black"
                                            Margin="0,10,0,0" />
-                                    <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                             VerticalAlignment="Top"
-                                             AcceptsReturn="True"
-                                             TextWrapping="Wrap"
-                                             IsEnabled="False"
-                                             VerticalScrollBarVisibility="Auto"
-                                             Height="174"
-                                             Foreground="Black"
-                                             x:Name="_movieDes" />
-
+                                    <Border BorderThickness="1"
+                                            BorderBrush="Black"
+                                            Height="200"
+                                            CornerRadius="8">
+                                        <StackPanel>
+                                            <StackPanel.Resources>
+                                                <Style TargetType="Label">
+                                                    <Setter Property="Margin"
+                                                            Value="5,10,0,0" />
+                                                    <Setter Property="FontSize"
+                                                            Value="15" />
+                                                </Style>
+                                            </StackPanel.Resources>
+                                            <Label Content="{Binding movieSelected.DisplayName}" />
+                                            <Label Content="{Binding SelectedDate.Date,UpdateSourceTrigger=PropertyChanged}" />
+                                            <Label Content="{Binding showtimeDate.TimeOfDay,UpdateSourceTrigger=PropertyChanged}" />
+                                            <Label Content="{Binding ShowtimeRoom.Id}" />
+                                            <!--<Label Content="    asdasdadas" />
+                                            <Label Content="    asdasdadas" />
+                                            <Label Content="    asdasdadas" />
+                                            <Label Content="    asdasdadas" />
+                                            <Label Content="    asdasdadas" />-->
+                                        </StackPanel>
+                                    </Border>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

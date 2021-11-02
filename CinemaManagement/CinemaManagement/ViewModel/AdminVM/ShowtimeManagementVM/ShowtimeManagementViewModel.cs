@@ -97,29 +97,33 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public DateTime SelectedDate
         {
             get { return _SelectedDate; }
-            set { _SelectedDate = value; ReloadShowtimeList(1); OnPropertyChanged(); }
+            set { _SelectedDate = value; ReloadShowtimeList(-1); OnPropertyChanged(); }
         }
 
-        private MovieDTO _selectedItem; //the showtime being selected
+        private MovieDTO _selectedItem; //the item being selected
         public MovieDTO SelectedItem
         {
             get { return _selectedItem; }
             set { _selectedItem = value; OnPropertyChanged(); }
         }
 
-        public int SelectedRoomId =1;
+
+
+        public int SelectedRoomId = -1;
 
 
         public ICommand ChangedRoomCM { get; set; }
+     
         public ICommand LoadDeleteShowtimeCM { get; set; }
 
 
         public ShowtimeManagementViewModel()
         {
 
+
             LoadCurrentDate();
             SelectedDate = GetCurrentDate;
-            ReloadShowtimeList(1);
+            ReloadShowtimeList(-1);
 
 
 
@@ -136,9 +140,9 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 SaveShowtimeFunc(p);
             });
-            LoadDeleteShowtimeCM = new RelayCommand<ListView>((p) => { return true; }, (p) =>
+            LoadDeleteShowtimeCM = new RelayCommand<ListBox>((p) => { return true; }, (p) =>
             {
-
+               
                 int showtimeId = 18;
                 string message = "Bạn có chắc muốn xoá suất chiếu này không? Dữ liệu không thể phục hồi sau khi xoá!";
                 try
@@ -154,10 +158,10 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 {
                     System.Windows.MessageBox.Show("Lỗi hệ thống");
                 }
-                
+
                 MessageBoxResult result = System.Windows.MessageBox.Show(message, "Xác nhận xoá", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                
-                if(result == MessageBoxResult.Yes)
+
+                if (result == MessageBoxResult.Yes)
                 {
                     //int showtimeId = 18
                     //(bool deleteSuccess, string messageFromDelete) = ShowtimeService.Ins.DeleteShowtime(18);
@@ -191,38 +195,47 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 switch (p.Name)
                 {
+                    case "all":
+                        {
+                            SelectedRoomId = -1;
+                            ReloadShowtimeList(SelectedRoomId);
+                            break;
+                        }
                     case "r1":
                         {
-                            ReloadShowtimeList(1);
                             SelectedRoomId = 1;
+                            ReloadShowtimeList(1);
                             break;
                         }
                     case "r2":
                         {
-                            ReloadShowtimeList(2);
                             SelectedRoomId = 2;
+                            ReloadShowtimeList(2);
                             break;
-
                         }
                     case "r3":
                         {
-                            ReloadShowtimeList(3);
                             SelectedRoomId = 3;
+                            ReloadShowtimeList(3);
                             break;
                         }
                     case "r4":
                         {
-                            ReloadShowtimeList(4);
                             SelectedRoomId = 4;
+                            ReloadShowtimeList(4);
                             break;
                         }
                     case "r5":
                         {
-                            ReloadShowtimeList(5);
                             SelectedRoomId = 5;
+                            ReloadShowtimeList(5);
                             break;
                         }
                 }
+            });
+            LoadInfor_EditShowtime = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                Infor_EditFunc();
             });
         }
 
@@ -276,8 +289,10 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
         public void ReloadShowtimeList(int id)
         {
-            ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
-
+            if (id != -1)
+                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
+            else
+                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
         }
         public void GenerateListRoom()
         {
@@ -292,7 +307,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 ListRoom.Add(temp);
             }
         }
-
         public bool IsValidData()
         {
             return movieSelected != null

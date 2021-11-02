@@ -1,0 +1,161 @@
+﻿<Window x:Class="CinemaManagement.Views.Admin.ShowtimeManagement.Infor_EditShowtimeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.ShowtimeManagement"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        MouseLeftButtonDown="Window_MouseDown"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        DataContext="{StaticResource ShowtimeManagementVM}"
+        Title="Infor_EditShowtimeWindow"
+        Height="600"
+        Width="1100">
+    <Border Background="#FFF0F3F7"
+            CornerRadius="20"
+            BorderBrush="Gray"
+            BorderThickness="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="39.9*" />
+                <ColumnDefinition Width="0.2*" />
+                <ColumnDefinition Width="59.9*" />
+            </Grid.ColumnDefinitions>
+
+
+            <ProgressBar Orientation="Vertical"
+                         Height="10"
+                         IsIndeterminate="True"
+                         Grid.Column="1"
+                         Background="#FF0DB3F1"
+                         BorderBrush="#FF00A2FF"
+                         Foreground="#FFDE2121" />
+
+
+            <StackPanel Grid.Column="0">
+                <Grid Height="600">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="75*" />
+                        <RowDefinition Height="15*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <Border BorderThickness="0,0,0,1"
+                                BorderBrush="Black">
+                            <Label Content="Chi tiết suất chiếu"
+                                   FontWeight="Bold"
+                                   FontSize="30" />
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <StackPanel.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="FontSize"
+                                        Value="15" />
+                                <Setter Property="FontWeight"
+                                        Value="Bold" />
+                                <Setter Property="Margin"
+                                        Value="10,20,0,0" />
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <StackPanel>
+                            <Label Content="Tên phim" />
+                            <TextBlock x:Name="_movieName"
+                                       FontSize="20"
+                                       Margin="10,0,0,0" />
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Content="Ngày chiếu"
+                                   Margin="10,10,0,0" />
+                            <TextBlock x:Name="_ShowtimeDate"
+                                       FontSize="20"
+                                       Margin="10,0,0,0" />
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Content="Phòng chiếu"
+                                   Margin="10,10,0,0" />
+                            <TextBlock x:Name="_ShowtimeRoom"
+                                       FontSize="20"
+                                       Margin="10,0,0,0" />
+
+                        </StackPanel>
+                        <StackPanel>
+                            <Label Content="Các suất chiếu"
+                                   Margin="10,10,0,0" />
+                            <ListBox x:Name="_Showtime"
+                                     FontSize="20"
+                                     Margin="10,0,0,0"
+                                     SelectedItem="{Binding SelectedShowtime,Mode=TwoWay,
+                                UpdateSourceTrigger=PropertyChanged}"
+                                     SelectedValue="{Binding SelectedShowtime,Mode=TwoWay}">
+
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="3" />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Margin"
+                                                Value="10,10,10,5" />
+                                        <Setter Property="Padding"
+                                                Value="0" />
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding StartTime}"
+                                                Background="Wheat"
+                                                Width="120"
+                                                IsHitTestVisible="False"
+                                                Foreground="Black">
+                                        </Button>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,10,10">
+                        <Button Width="100"
+                                Background="OrangeRed"
+                                Margin="0,0,10,0"
+                                Content="Thoát"
+                                Click="Button_Click"
+                                BorderBrush="OrangeRed"
+                                materialDesign:ButtonAssist.CornerRadius="8" />
+                        <Button Width="100"
+                                Content="Lưu"
+                                materialDesign:ButtonAssist.CornerRadius="8" />
+
+
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+
+            <StackPanel Grid.Column="2"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <TextBlock Text="SEAT HERE"
+                           FontSize="50" />
+            </StackPanel>
+
+
+
+        </Grid>
+    </Border>
+
+</Window>

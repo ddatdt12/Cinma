@@ -297,6 +297,7 @@
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\Infor.MovieWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\MovieManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\Add.ShowtimeWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\Infor_EditShowtimeViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\ShowtimeManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\AddStaffViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\DeleteStaffViewModel.cs" />
@@ -343,6 +344,9 @@
     </Compile>
     <Compile Include="Views\Admin\ShowtimeManagement\AddShowtimeWindow.xaml.cs">
       <DependentUpon>AddShowtimeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ShowtimeManagement\Infor_EditShowtimeWindow.xaml.cs">
+      <DependentUpon>Infor_EditShowtimeWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\ShowtimeManagement\ShowtimeManagement.xaml.cs">
       <DependentUpon>ShowtimeManagement.xaml</DependentUpon>
@@ -428,6 +432,10 @@
     <Page Include="Views\Admin\ShowtimeManagement\AddShowtimeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Views\Admin\ShowtimeManagement\Infor_EditShowtimeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\ShowtimeManagement\ShowtimeManagement.xaml">
       <SubType>Designer</SubType>
@@ -538,6 +546,7 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\IconPack\pencil.png" />
     <Resource Include="Resources\ImageStaff\pencil.png" />
     <Resource Include="Resources\ImageStaff\delete.png" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\4.jpg" />

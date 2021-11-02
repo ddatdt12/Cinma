@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
+
 namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 {
     public partial class ShowtimeManagementViewModel : BaseViewModel
@@ -28,7 +29,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     StartTime = Showtime.TimeOfDay,
                 };
 
-                (bool IsSuccess, string message) = ShowtimeService.Ins.AddShowtime(temp);
+                (bool IsSuccess, string message, ShowtimeDTO newShowtime) = ShowtimeService.Ins.AddShowtime(temp);
 
 
                 if (IsSuccess)
@@ -44,6 +45,11 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             }
             else
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
+        }
+
+        public void ChangeDes(int flag = 0)
+        {
+           
         }
     }
 }

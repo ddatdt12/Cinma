@@ -57,5 +57,10 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
             }
         }
 
+        private void addmoviewindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            this.DragMove();
+        }
     }
 }

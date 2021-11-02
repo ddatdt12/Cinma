@@ -22,5 +22,9 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
             this.Close();
         }
 
+        private void AddSuatChieu_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }
