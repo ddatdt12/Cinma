@@ -34,10 +34,14 @@ namespace CinemaManagement.Models.Services
             try
             {
 
+                //Uncomment when release
+                //if (newShowtime.ShowDate < DateTime.Today)
+                //{
+                //    return (false,"Thời gian này đã qua không thể thêm suất chiếu" ,null);
+                //}
                 var showtimeSet = context.ShowtimeSettings
                     .Where(s => DbFunctions.TruncateTime(s.ShowDate) == newShowtime.ShowDate.Date
                     && s.RoomId == newShowtime.RoomId).FirstOrDefault();
-                
 
                 if (showtimeSet == null)
                 {
@@ -81,6 +85,8 @@ namespace CinemaManagement.Models.Services
                 context.Showtimes.Add(showtime);
                 context.SaveChanges();
 
+                (bool IsSuccess, string messsage)=SeatService.Ins.SettingSeatForNewShowtime(showtimeSet.RoomId, showtime.Id);
+
                 newShowtime.Id = showtime.Id;
                 return (true, "Thêm xuất chiếu thành công" , newShowtime);
             }
@@ -120,7 +126,20 @@ namespace CinemaManagement.Models.Services
             return (true, "Xóa suất chiếu thành công!");
         }
 
+        public bool CheckShowtimeHaveBooking(int showtimeId)
+        {
 
+            var context = DataProvider.Ins.DB;
+            try
+            {
+                var IsExist = context.SeatSettings.Any(s => s.ShowtimeId == showtimeId && s.Status);
+                return IsExist;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
         //Check (t1,t2) vs (a1,a2)
         bool TimeBetwwenIn(TimeSpan t1, TimeSpan t2, TimeSpan a1, TimeSpan a2)
         {

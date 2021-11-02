@@ -283,7 +283,7 @@ namespace CinemaManagement.Models.Services
                     return (false, "Phim không tồn tại");
                 }
 
-                bool IsExistMovieName = context.Movies.Where((Movie mov) => mov.Id != movie.Id && mov.DisplayName == updatedMovie.DisplayName).Any();
+                bool IsExistMovieName = context.Movies.Any((Movie mov) => mov.Id != movie.Id && mov.DisplayName == updatedMovie.DisplayName);
                 if (IsExistMovieName)
                 {
                     return (false, "Tên phim đã tồn tại!");

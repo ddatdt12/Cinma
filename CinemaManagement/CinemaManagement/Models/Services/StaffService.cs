@@ -76,7 +76,7 @@ namespace CinemaManagement.Models.Services
 
             try
             {
-                bool usernameIsExist = context.Staffs.Where(s => s.Username == newStaff.Username).Any();
+                bool usernameIsExist = context.Staffs.Any(s => s.Username == newStaff.Username);
                 if (usernameIsExist)
                 {
                     return (false, "Tài khoản đã tồn tại!", null);
@@ -114,7 +114,7 @@ namespace CinemaManagement.Models.Services
             try
             {
                 var context = DataProvider.Ins.DB;
-                bool usernameIsExist = context.Staffs.Where(s => s.Username == updatedStaff.Username && s.Id != updatedStaff.Id).Any();
+                bool usernameIsExist = context.Staffs.Any(s => s.Username == updatedStaff.Username && s.Id != updatedStaff.Id);
                 if (usernameIsExist)
                 {
                     return (false, "Tài khoản đăng nhập đã tồn tại");

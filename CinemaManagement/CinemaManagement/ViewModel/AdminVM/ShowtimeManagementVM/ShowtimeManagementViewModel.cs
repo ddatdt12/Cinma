@@ -134,7 +134,31 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             });
             LoadDeleteShowtimeCM = new RelayCommand<ListView>((p) => { return true; }, (p) =>
             {
-                MessageBoxResult result = System.Windows.MessageBox.Show("Bạn có chắc muốn xoá suất chiếu này không? Dữ liệu không thể phục hồi sau khi xoá!", "Xác nhận xoá", MessageBoxButton.YesNo);
+
+                int showtimeId = 18;
+                string message = "Bạn có chắc muốn xoá suất chiếu này không? Dữ liệu không thể phục hồi sau khi xoá!";
+                try
+                {
+                    //Kiểm tra suất chiếu đã có người đặt ghế nào chưa để có thông báo phù hợp
+                    bool isShowHaveBooking = ShowtimeService.Ins.CheckShowtimeHaveBooking(showtimeId);
+                    if (true)
+                    {
+                        message = $"Suất chiếu này có ghế đã được đặt.\n{message}";
+                    }
+                }
+                catch (Exception e)
+                {
+                    System.Windows.MessageBox.Show("Lỗi hệ thống");
+                }
+                
+                MessageBoxResult result = System.Windows.MessageBox.Show(message, "Xác nhận xoá", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                
+                if(result == MessageBoxResult.Yes)
+                {
+                    //int showtimeId = 18
+                    //(bool deleteSuccess, string messageFromDelete) = ShowtimeService.Ins.DeleteShowtime(18);
+                    //MessageBox.Show(messageFromDelete);
+                }
                 //switch (result)
                 //{
                 //    case MessageBoxResult.Yes:
@@ -245,12 +269,12 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         //}
 
 
-        public void ReloadShowtimeList(int id = -1)
+        public void ReloadShowtimeList(int roomId = -1)
         {
-            if (id == -1)
+            if (roomId == -1)
                 ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
             else
-                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
+                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate, roomId));
         }
         public void GenerateListRoom()
         {

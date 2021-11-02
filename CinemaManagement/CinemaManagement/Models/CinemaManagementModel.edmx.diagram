@@ -4,21 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ba8189716cbe4714b5b274aeb2c2826b" Name="Diagram1">
+      <Diagram DiagramId="ba8189716cbe4714b5b274aeb2c2826b" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="CinemaManagementModel.Bill" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Customer" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Genre" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Movie" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.ProductBillInfo" Width="1.5" PointX="7.5" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.ProductBillInfo" Width="1.5" PointX="7.75" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Room" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Seat" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.SeatSetting" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Showtime" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Showtime" Width="1.5" PointX="6.375" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.ShowtimeSetting" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Staff" Width="1.5" PointX="3" PointY="17.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Ticket" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.TicketBillInfo" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.TicketBillInfo" Width="1.5" PointX="9.125" PointY="3.875" IsExpanded="true" />
         <AssociationConnector Association="CinemaManagementModel.FK__Bill__CustomerId__5629CD9C" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__Bill__StaffId__571DF1D5" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__ProductBi__BillI__5CD6CB2B" ManuallyRouted="false" />
