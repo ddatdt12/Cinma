@@ -25,7 +25,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             
             if (movieID == null && movieName != null && movieCountry != null && movieDirector != null && movieDes != null && filepath != null && movieGenre != null && movieYear != null && movieDuration != null)
             {
-
+                
                 imgName = Helper.CreateImageName(movieName);
                 imgfullname = Helper.CreateImageFullName(imgName, extension);
                 List<GenreDTO> temp = new List<GenreDTO>();

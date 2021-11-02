@@ -141,7 +141,7 @@
                         </materialDesign:Card>
                     </ControlTemplate>
                 </StackPanel.Resources>
-                <Label Tag="/Resources/ImageStaff/add-user.png"
+                <Label Tag="/Resources/Images/ImageStaff/add-user.png"
                        Content="Thêm nhân viên"
                        Template="{StaticResource Add-edit}">
                     <i:Interaction.Triggers>
@@ -206,7 +206,7 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <Image Source="/Resources/ImageStaff/pencil.png"
+                                                <Image Source="/Resources/Images/ImageStaff/pencil.png"
                                                        Margin="2"/>
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
@@ -228,7 +228,7 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <Image Source="/Resources/ImageStaff/delete.png"
+                                                <Image Source="/Resources/Images/ImageStaff/delete.png"
                                                        Margin="2"/>
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">

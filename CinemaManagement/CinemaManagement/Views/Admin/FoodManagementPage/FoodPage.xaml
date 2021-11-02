@@ -1,8 +1,8 @@
 ﻿<Page x:Class="CinemaManagement.Views.Admin.FoodManagementPage.FoodPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:CinemaManagement.Views.Admin.FoodManagementPage"
       mc:Ignorable="d"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -15,45 +15,237 @@
       DataContext="{StaticResource FoodManagementVM}"
       Background="{DynamicResource MaterialDesignPaper}"
       FontFamily="{DynamicResource MaterialDesignFont}"
-      d:DesignHeight="715" d:DesignWidth="1440"
+      d:DesignHeight="715"
+      d:DesignWidth="1440"
       Title="FoodPage"
       ShowsNavigationUI="False">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="100" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <TextBlock Text="DANH SÁCH ĐỒ ĂN"
-                       FontSize="30"
-                       Padding="20 10"
-                       Margin="20 0 0 0"
-                       FontWeight="Bold"
-                       FontFamily="Ubuntu" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0"
+                        Orientation="Vertical">
+                <Border Grid.Row="1"
+                        BorderBrush="Black"
+                        BorderThickness="2"
+                        Margin="40,30,0,0"
+                        HorizontalAlignment="Left">
+                    <ComboBox FontSize="20"
+                              Margin="5"
+                              Width="150"
+                              x:Name="cboxFilter"
+                              VerticalContentAlignment="Center"
+                              HorizontalAlignment="Center"
+                              HorizontalContentAlignment="Center"
+                              materialDesign:ComboBoxAssist.ClassicMode="True">
+                        <ComboBoxItem Content="Tất cả" />
+                        <ComboBoxItem Content="Đồ ăn" />
+                        <ComboBoxItem Content="Thức uống" />
+                    </ComboBox>
+                </Border>
+            </StackPanel>
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0 0 40 0">
+                <StackPanel.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="VerticalAlignment"
+                                Value="Center" />
+                        <Setter Property="Cursor"
+                                Value="Hand" />
+                    </Style>
+                    <ControlTemplate TargetType="Label"
+                                     x:Key="Add-edit">
+                        <materialDesign:Card UniformCornerRadius="5">
+                            <Border BorderBrush="Black"
+                                    BorderThickness="2"
+                                    CornerRadius="5">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="True">
+                                                <Setter Property="Background"
+                                                        Value="LightCyan" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <StackPanel>
+                                    <Image Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                           Height="40"
+                                           Width="50"
+                                           HorizontalAlignment="Center"
+                                           Margin="0 5 0 0" />
+                                    <TextBlock Text="{TemplateBinding Content}"
+                                               Margin="5"
+                                               FontFamily="Google Sans"
+                                               Width="70"
+                                               TextAlignment="Center" />
+                                </StackPanel>
+                            </Border>
+                        </materialDesign:Card>
+                    </ControlTemplate>
+                </StackPanel.Resources>
+                <Label Tag="/Resources/Images/ImageFood/popcorn.png"
+                       Content="Thêm đồ ăn"
+                       Template="{StaticResource Add-edit}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding OpenAddFoodCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+            </StackPanel>
         </Grid>
-        <Grid Grid.Row="1">
-            <WrapPanel>
-                <ScrollViewer>
-                    <ItemsControl ItemsSource="{Binding FoodList}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <UniformGrid Columns="4" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="Black"
-                                        BorderThickness="5">
-                                    <materialDesign:Card>
+        <materialDesign:Card Grid.Row="1"
+                             Margin="10,0,10,10">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+                <ListBox ItemsSource="{Binding FoodList}"
+                         x:Name="listBox"
+                         >
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Style.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius"
+                                            Value="6" />
+                                </Style>
+                            </Style.Resources>
+                            <Setter Property="Padding"
+                                    Value="0" />
+                            <Setter Property="Margin"
+                                    Value="10" />
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected"
+                                         Value="True">
+                                    
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="5" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card UniformCornerRadius="6"
+                                                 Height="140"
+                                                 x:Name="MainCard">
 
-                                    </materialDesign:Card>
+                                <Border BorderBrush="Black"
+                                        BorderThickness="2"
+                                        CornerRadius="6">
+                                    <Grid HorizontalAlignment="Center"
+                                          VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="95" />
+                                            <RowDefinition Height="20" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="135" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0">
+                                                <Image Source="/Resources/Images/ImageFood/pop-corn.png"
+                                                       VerticalAlignment="Stretch"
+                                                       HorizontalAlignment="Stretch" />
+                                            </Grid>
+                                            <StackPanel Grid.Column="1">
+                                                <Border BorderBrush="Black"
+                                                        BorderThickness="2"
+                                                        CornerRadius="4"
+                                                        Margin="3"
+                                                        Cursor="Hand">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver"
+                                                                         Value="True">
+                                                                    <Setter Property="Background"
+                                                                            Value="#18ffff" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                    <Image Source="/Resources/Images/ImageFood/edit.png"
+                                                           VerticalAlignment="Center"
+                                                           Margin="3"
+                                                           HorizontalAlignment="Center" />
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=listItem, Path=DataContext.OpenEditFoodCommand}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Border>
+                                                <Border BorderBrush="Black"
+                                                        BorderThickness="2"
+                                                        CornerRadius="4"
+                                                        Margin="3"
+                                                        Cursor="Hand">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver"
+                                                                         Value="True">
+                                                                    <Setter Property="Background"
+                                                                            Value="#ff616f" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                    <Image Source="/Resources/Images/ImageFood/delete.png"
+                                                           VerticalAlignment="Center"
+                                                           Margin="3"
+                                                           HorizontalAlignment="Center" />
+                                                </Border>
+                                            </StackPanel>
+                                        </Grid>
+                                        <TextBlock Grid.Row="1"
+                                                   Text="{Binding DisplayName}"
+                                                   FontSize="18"
+                                                   Foreground="Black"
+                                                   HorizontalAlignment="Left"
+                                                   VerticalAlignment="Center"
+                                                   Margin="10 0 0 0" />
+                                        <StackPanel Grid.Row="2"
+                                                    Orientation="Horizontal"
+                                                    HorizontalAlignment="Right">
+
+                                            <TextBlock Text="{Binding Price}"
+                                                       FontSize="17"
+                                                       VerticalAlignment="Bottom"
+                                                       HorizontalAlignment="Right"
+                                                       Margin="0 0 3 3" />
+                                            <TextBlock Text="₫"
+                                                       FontSize="17"
+                                                       VerticalAlignment="Bottom"
+                                                       HorizontalAlignment="Right"
+                                                       Margin="0 0 3 3" />
+                                            <Image Source="/Resources/Images/ImageFood/dong.png"
+                                                   Margin=" 0 0 3 3" />
+                                        </StackPanel>
+
+                                    </Grid>
                                 </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-            </WrapPanel>
-        </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </materialDesign:Card>
     </Grid>
 </Page>

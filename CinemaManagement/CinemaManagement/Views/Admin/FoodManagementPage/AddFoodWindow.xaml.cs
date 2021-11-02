@@ -10,27 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CinemaManagement.Views.Admin.FoodManagementPage
 {
     /// <summary>
-    /// Interaction logic for FoodPage.xaml
+    /// Interaction logic for AddFoodWindow.xaml
     /// </summary>
-    public partial class FoodPage : Page
+    public partial class AddFoodWindow : Window
     {
-        public FoodPage()
+        public AddFoodWindow()
         {
             InitializeComponent();
-            cboxFilter.SelectedIndex = 0;
-        }
-
-        private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            ScrollViewer scv = (ScrollViewer)sender;
-            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
-            e.Handled = true;
         }
     }
 }

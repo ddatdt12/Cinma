@@ -270,7 +270,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 appPath = Helper.GetMovieImgPath(imgfullname);
 
                 File.Copy(filepath, $"{appPath}");
-
             }
             catch (Exception exp)
             {
@@ -293,7 +292,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                         MovieList.Remove(MovieList[i]);
                 }
             }
-            if(name == "")
+            if (name == "")
                 MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
             MainListView.Items.Refresh();
         }
