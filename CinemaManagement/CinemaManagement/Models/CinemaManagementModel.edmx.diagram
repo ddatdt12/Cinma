@@ -4,35 +4,39 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ba8189716cbe4714b5b274aeb2c2826b" Name="Diagram1">
-        <EntityTypeShape EntityType="CinemaManagementModel.Bill" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
+      <Diagram DiagramId="c35125fc254a4fbf8e6b8389fe7f5f2a" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="CinemaManagementModel.Bill" Width="1.5" PointX="7.625" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Customer" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Genre" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Movie" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.ProductBillInfo" Width="1.5" PointX="7.5" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Movie" Width="1.5" PointX="4.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="16" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.ProductBillInfo" Width="1.5" PointX="13.375" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Room" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Seat" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.SeatSetting" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Showtime" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Seat" Width="1.5" PointX="6.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.SeatSetting" Width="1.5" PointX="9.125" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Showtime" Width="1.5" PointX="7.25" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.ShowtimeSetting" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Staff" Width="1.5" PointX="3" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Ticket" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.TicketBillInfo" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="CinemaManagementModel.FK__Bill__CustomerId__5629CD9C" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__Bill__StaffId__571DF1D5" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__ProductBi__BillI__5CD6CB2B" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__TicketBil__BillI__619B8048" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__Showtime__MovieI__46E78A0C" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__ProductBi__Produ__5DCAEF64" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Ticket" Width="1.5" PointX="12.125" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.TicketBillInfo" Width="1.5" PointX="9.625" PointY="11.125" IsExpanded="true" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Bill__CustomerId__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Bill__StaffId__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__ProductBi__BillI__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__TicketBil__BillI__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Showtime__MovieI__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__ProductBi__Produ__5EBF139D" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.ROOMID_SEAT_FK" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.ROOMID_SETTINGSHOWTIME_FK" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__SeatSetti__SeatI__4BAC3F29" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__Ticket__SeatId__5165187F" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__SeatSetti__Showt__4CA06362" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__Showtime__Showti__47DBAE45" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__Ticket__Showtime__52593CB8" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__TicketBil__Ticke__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__SeatSetti__SeatI__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Ticket__SeatId__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__SeatSetti__Showt__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Showtime__Showti__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Ticket__Showtime__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__TicketBil__Ticke__6383C8BA" ManuallyRouted="true" >
+          <ConnectorPoint PointX="12.125" PointY="9.2534539487183167" />
+          <ConnectorPoint PointX="10.90625" PointY="9.2534539487183167" />
+          <ConnectorPoint PointX="10.90625" PointY="11.125" />
+        </AssociationConnector>
         <AssociationConnector Association="CinemaManagementModel.GenreDetails" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

@@ -50,9 +50,9 @@ namespace CinemaManagement.Models.Services
         {
             var context = DataProvider.Ins.DB;
 
-            string hassPass = Helper.MD5Hash(password);
+            //string hassPass = Helper.MD5Hash(password);
             StaffDTO staff = (from s in context.Staffs
-                              where s.Username == username && s.Password == hassPass
+                              where s.Username == username && s.Password == password
                               select new StaffDTO
                               {
                                   Id = s.Id,
@@ -76,7 +76,7 @@ namespace CinemaManagement.Models.Services
 
             try
             {
-                bool usernameIsExist = context.Staffs.Where(s => s.Username == newStaff.Username).Any();
+                bool usernameIsExist = context.Staffs.Where(s => s.Username == newStaff.Username).FirstOrDefault() != null;
                 if (usernameIsExist)
                 {
                     return (false, "Tài khoản đã tồn tại!", null);
@@ -114,7 +114,7 @@ namespace CinemaManagement.Models.Services
             try
             {
                 var context = DataProvider.Ins.DB;
-                bool usernameIsExist = context.Staffs.Where(s => s.Username == updatedStaff.Username && s.Id != updatedStaff.Id).Any();
+                bool usernameIsExist = context.Staffs.Where(s => s.Username == updatedStaff.Username && s.Id != updatedStaff.Id).FirstOrDefault() != null;
                 if (usernameIsExist)
                 {
                     return (false, "Tài khoản đăng nhập đã tồn tại");
@@ -201,7 +201,7 @@ namespace CinemaManagement.Models.Services
                 Staff staff = (from p in DataProvider.Ins.DB.Staffs
                                where p.Id == Id && !p.IsDeleted
                                select p).SingleOrDefault();
-                if (staff is null || staff?.IsDeleted == true)
+                if (staff == null || staff?.IsDeleted == true)
                 {
                     return (false, "Nhân viên không tồn tại!");
                 }

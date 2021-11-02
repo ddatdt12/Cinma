@@ -28,7 +28,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     StartTime = Showtime.TimeOfDay,
                 };
 
-                (bool IsSuccess, string message, ShowtimeDTO newShow) = ShowtimeService.Ins.AddShowtime(temp);
+                (bool IsSuccess, string message) = ShowtimeService.Ins.AddShowtime(temp);
 
 
                 if (IsSuccess)

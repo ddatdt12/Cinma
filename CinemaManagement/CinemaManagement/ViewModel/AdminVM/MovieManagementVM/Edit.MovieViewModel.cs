@@ -58,14 +58,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 _image.EndInit();
                 w1.imgframe.Source = _image;
             }
-            if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)))
-            {
-                ImageSource = Helper.GetImageSource(SelectedItem.Image);
-            }
-            else
-            {
-                w1.imgframe.Source = Helper.GetImageSource("null.jpg");
-            }
         }
         public void UpdateMovieFunc(Window p)
         {
