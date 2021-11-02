@@ -46,7 +46,7 @@
             <StackPanel Margin="30,10,0,0">
                 <Label Content="Thời gian"
                        FontSize="20" />
-                <ComboBox Width="150"
+                <ComboBox Width="170"
                           FontSize="20"
                           x:Name="TimeCombobox"
                           ItemsSource="{Binding YearSource}"
@@ -64,16 +64,18 @@
             <!---Left-->
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50*" />
-                    <RowDefinition Height="50*" />
+                    <RowDefinition Height="45*" />
+                    <RowDefinition Height="55*" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
                     <materialDesign:Card Margin="30,30,0,0">
                         <Grid>
-                            <Label Content="Tổng doanh thu"
+                            <Label Content="Tổng doanh thu(VND)"
                                    FontSize="15"
-                                   FontWeight="Bold" />
+                                   FontWeight="Bold" 
+                                   Margin="15,10,0,0"/>
                             <lvc:PieChart Height="250"
+                                          Margin="15,0,0,0"
                                           LegendLocation="Left"
                                           Series="{Binding pie}"
                                           Hoverable="False">
@@ -85,27 +87,27 @@
 
                 <StackPanel Grid.Row="1">
                     <materialDesign:Card Margin="30,30,0,0"
-                                         Height="250">
-                        <StackPanel>
+                                         Height="285">
+                        <StackPanel Margin="0,5,0,0">
                             <StackPanel.Resources>
                                 <ResourceDictionary>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="FontSize"
                                                 Value="20" />
                                         <Setter Property="Margin"
-                                                Value="30,20,0,0" />
+                                                Value="30,10,0,0" />
 
                                     </Style>
                                 </ResourceDictionary>
                             </StackPanel.Resources>
 
-
-
                             <TextBlock Text="Chu kỳ: Tháng" />
                             <TextBlock Text="Thời gian: Tháng 12" />
-                            <TextBlock Text="Tổng doanh thu: 37.000.000" />
+                            <TextBlock Text="Số bill vé: 500" />
+                            <TextBlock Text="Số bill đồ ăn: 400" />
+                            <TextBlock Text="Tổng doanh thu: 37.000.000 VND" />
                             <TextBlock Text="So với kỳ trước: +27%" />
-                            <TextBlock Text="Dự báo biến động: ~8,7%" />
+                            <TextBlock Text="Khách hàng mới: +35" />
                         </StackPanel>
                        
 

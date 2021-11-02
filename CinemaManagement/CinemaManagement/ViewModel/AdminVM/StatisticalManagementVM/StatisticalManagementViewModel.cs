@@ -94,14 +94,14 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             {
                 new PieSeries
                 {
-                    Title = "Food",
+                    Title = "Ticket",
                     Values = new ChartValues<double>(temp2),
                     DataLabels = true,
                 },
 
                 new PieSeries
                 {
-                    Title = "ticket",
+                    Title = "Food",
                     Values = new ChartValues<double>(temp3),
                     DataLabels = true,
                 },
