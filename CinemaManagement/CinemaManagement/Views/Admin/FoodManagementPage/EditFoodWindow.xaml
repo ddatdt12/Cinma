@@ -16,7 +16,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource FoodManagementVM}"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterOwner"
         Name="EditFoodWd"
         ResizeMode="NoResize"
         Title="EditFoodWindow" Height="400" Width="280">
@@ -26,10 +26,9 @@
                                    CommandParameter="{Binding ElementName=EditFoodWd}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid>
-        <Border BorderBrush="#18ffff"
-                BorderThickness="2">
-            <materialDesign:Card>
+    <Grid Background="Transparent">
+        <Border Background="Transparent">
+            <materialDesign:Card >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
@@ -109,8 +108,7 @@
                             <ColumnDefinition Width="80" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Giá tiền"
-                                   x:Name="tboxName" />
+                        <TextBlock Text="Giá tiền"/>
                         <TextBox Grid.Column="1"
                                  x:Name="_price"
                                  Text="{Binding Price, Mode=TwoWay}" />

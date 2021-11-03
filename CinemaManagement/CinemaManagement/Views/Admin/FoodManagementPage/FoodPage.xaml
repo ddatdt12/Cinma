@@ -25,6 +25,7 @@
             <RowDefinition Height="100" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <!--#region Thêm đồ ăn-->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -106,31 +107,37 @@
                 </Label>
             </StackPanel>
         </Grid>
+        <!--#endregion-->
+        
         <materialDesign:Card Grid.Row="1"
                              Margin="10,0,10,10">
             <ScrollViewer VerticalScrollBarVisibility="Auto"
                           PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
                 <ListBox ItemsSource="{Binding FoodList}"
                          x:Name="listBox"
-                         >
+                         SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
                     <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
+                        <Style TargetType="ListBoxItem"
+                               BasedOn="{StaticResource MaterialDesignCardsListBoxItem}">
                             <Style.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius"
                                             Value="6" />
+                                </Style>
+                                <Style TargetType="materialDesign:Card">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True">
+                                            <Setter Property="Background"
+                                                    Value="#cfd8dc" />
+                                        </Trigger>
+                                    </Style.Triggers>
                                 </Style>
                             </Style.Resources>
                             <Setter Property="Padding"
                                     Value="0" />
                             <Setter Property="Margin"
                                     Value="10" />
-                            <Style.Triggers>
-                                <Trigger Property="IsSelected"
-                                         Value="True">
-                                    
-                                </Trigger>
-                            </Style.Triggers>
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemsPanel>
@@ -142,8 +149,8 @@
                         <DataTemplate>
                             <materialDesign:Card UniformCornerRadius="6"
                                                  Height="140"
-                                                 x:Name="MainCard">
-
+                                                 x:Name="MainCard"
+                                                 Background="Transparent">
                                 <Border BorderBrush="Black"
                                         BorderThickness="2"
                                         CornerRadius="6">
@@ -186,8 +193,8 @@
                                                            Margin="3"
                                                            HorizontalAlignment="Center" />
                                                     <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=listItem, Path=DataContext.OpenEditFoodCommand}" />
+                                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.OpenEditFoodCommand}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>
@@ -211,6 +218,11 @@
                                                            VerticalAlignment="Center"
                                                            Margin="3"
                                                            HorizontalAlignment="Center" />
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.OpenDeleteFoodCommand}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
                                                 </Border>
                                             </StackPanel>
                                         </Grid>

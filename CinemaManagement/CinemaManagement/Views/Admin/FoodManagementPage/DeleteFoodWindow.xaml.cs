@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace CinemaManagement.Views.Admin.FoodManagementPage
 {
     /// <summary>
-    /// Interaction logic for AddFoodWindow.xaml
+    /// Interaction logic for DeleteFoodWindow.xaml
     /// </summary>
-    public partial class AddFoodWindow : Window
+    public partial class DeleteFoodWindow : Window
     {
-        public AddFoodWindow()
+        public DeleteFoodWindow()
         {
             InitializeComponent();
             this.Owner = App.Current.MainWindow;

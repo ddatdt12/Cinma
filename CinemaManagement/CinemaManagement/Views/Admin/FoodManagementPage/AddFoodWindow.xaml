@@ -16,7 +16,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource FoodManagementVM}"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterOwner"
         Name="AddFoodWd"
         ResizeMode="NoResize"
         Title="AddFoodWindow"
