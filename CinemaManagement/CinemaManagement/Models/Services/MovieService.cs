@@ -74,79 +74,13 @@ namespace CinemaManagement.Models.Services
                                    where DbFunctions.TruncateTime(showSet.ShowDate) == date.Date
                                    select showSet into S
                                    from show in S.Showtimes
-                                   orderby show.StartTime
-                                   select new
-                                   {
-                                        MovieId = show.MovieId,
-                                       ShowTime = show,
-                                   }).GroupBy(m => m.MovieId).ToList();
-
-             
-                for (int i = 0; i < MovieIdList.Count(); i++)
-                {
-                    int id = MovieIdList[i].Key;
-
-                    List<ShowtimeDTO> showtimeDTOsList = new List<ShowtimeDTO>();
-                    MovieDTO mov = null; 
-                    foreach (var m in MovieIdList[i])
-                    {
-                        showtimeDTOsList.Add(new ShowtimeDTO
-                        {
-                            Id = m.ShowTime.Id,
-                            MovieId = m.ShowTime.MovieId,
-                            StartTime = m.ShowTime.StartTime,
-                            RoomId = m.ShowTime.ShowtimeSetting.RoomId,
-                            ShowDate = m.ShowTime.ShowtimeSetting.ShowDate,
-                        });
-                        if (mov is null)
-                        {
-                            Movie movie = m.ShowTime.Movie;
-                            mov = new MovieDTO
-                            {
-                                Id = movie.Id,
-                                DisplayName = movie.DisplayName,
-                                RunningTime = movie.RunningTime,
-                                Country = movie.Country,
-                                Description = movie.Description,
-                                ReleaseYear = movie.ReleaseYear,
-                                MovieType = movie.MovieType,
-                                Director = movie.Director,
-                                Image = movie.Image,
-                                Genres = (from genre in movie.Genres
-                                          select new GenreDTO { DisplayName = genre.DisplayName, Id = genre.Id }
-                                                 ).ToList(),
-                            };
-                        }
-                    }
-                    movieList.Add(mov);
-                    movieList[i].Showtimes = showtimeDTOsList;
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            return movieList;
-        }
-
-        public List<MovieDTO> GetShowingMovieByDay(DateTime date, int roomId)
-        {
-            List<MovieDTO> movieList = new List<MovieDTO>();
-            var context = DataProvider.Ins.DB;
-            try
-            {
-                var MovieIdList = (from showSet in context.ShowtimeSettings
-                                   where DbFunctions.TruncateTime(showSet.ShowDate) == date.Date && showSet.RoomId == roomId
-                                   select showSet into S
-                                   from show in S.Showtimes
-                                   orderby show.StartTime
                                    select new
                                    {
                                        MovieId = show.MovieId,
                                        ShowTime = show,
                                    }).GroupBy(m => m.MovieId).ToList();
 
-                
+
                 for (int i = 0; i < MovieIdList.Count(); i++)
                 {
                     int id = MovieIdList[i].Key;
@@ -184,7 +118,71 @@ namespace CinemaManagement.Models.Services
                         }
                     }
                     movieList.Add(mov);
-                    movieList[i].Showtimes = showtimeDTOsList;
+                    movieList[i].Showtimes = showtimeDTOsList.OrderBy(s => s.StartTime).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return movieList;
+        }
+
+        public List<MovieDTO> GetShowingMovieByDay(DateTime date, int roomId)
+        {
+            List<MovieDTO> movieList = new List<MovieDTO>();
+            var context = DataProvider.Ins.DB;
+            try
+            {
+                var MovieIdList = (from showSet in context.ShowtimeSettings
+                                   where DbFunctions.TruncateTime(showSet.ShowDate) == date.Date && showSet.RoomId == roomId
+                                   select showSet into S
+                                   from show in S.Showtimes
+                                   select new
+                                   {
+                                       MovieId = show.MovieId,
+                                       ShowTime = show,
+                                   }).GroupBy(m => m.MovieId).ToList();
+
+
+                for (int i = 0; i < MovieIdList.Count(); i++)
+                {
+                    int id = MovieIdList[i].Key;
+
+                    List<ShowtimeDTO> showtimeDTOsList = new List<ShowtimeDTO>();
+                    MovieDTO mov = null;
+                    foreach (var m in MovieIdList[i])
+                    {
+                        showtimeDTOsList.Add(new ShowtimeDTO
+                        {
+                            Id = m.ShowTime.Id,
+                            MovieId = m.ShowTime.MovieId,
+                            StartTime = m.ShowTime.StartTime,
+                            RoomId = m.ShowTime.ShowtimeSetting.RoomId,
+                            ShowDate = m.ShowTime.ShowtimeSetting.ShowDate,
+                        });
+                        if (mov is null)
+                        {
+                            Movie movie = m.ShowTime.Movie;
+                            mov = new MovieDTO
+                            {
+                                Id = movie.Id,
+                                DisplayName = movie.DisplayName,
+                                RunningTime = movie.RunningTime,
+                                Country = movie.Country,
+                                Description = movie.Description,
+                                ReleaseYear = movie.ReleaseYear,
+                                MovieType = movie.MovieType,
+                                Director = movie.Director,
+                                Image = movie.Image,
+                                Genres = (from genre in movie.Genres
+                                          select new GenreDTO { DisplayName = genre.DisplayName, Id = genre.Id }
+                                                 ).ToList(),
+                            };
+                        }
+                    }
+                    movieList.Add(mov);
+                    movieList[i].Showtimes = showtimeDTOsList.OrderBy(s => s.StartTime).ToList();
                 }
             }
             catch (Exception e)
@@ -210,7 +208,14 @@ namespace CinemaManagement.Models.Services
                     }
                     //Khi phim đã bị xóa nhưng được add lại với cùng tên => update lại phim đã xóa đó với thông tin là 
                     // phim mới thêm thay vì add thêm
-                    PropertyCopier<MovieDTO, Movie>.Copy(newMovie, m);
+                    m.DisplayName = newMovie.DisplayName;
+                    m.RunningTime = newMovie.RunningTime;
+                    m.Country = newMovie.Country;
+                    m.Description = newMovie.Description;
+                    m.ReleaseYear = newMovie.ReleaseYear;
+                    m.MovieType = newMovie?.MovieType;
+                    m.Director = newMovie.Director;
+                    m.Image = newMovie.Image;
                     foreach (var g in newMovie.Genres)
                     {
                         Genre genre = context.Genres.Find(g.Id);
@@ -222,8 +227,17 @@ namespace CinemaManagement.Models.Services
                 }
                 else
                 {
-                    Movie mov = new Movie();
-                    PropertyCopier<MovieDTO, Movie>.Copy(newMovie, mov);
+                    Movie mov = new Movie
+                    {
+                        DisplayName = newMovie.DisplayName,
+                        RunningTime = newMovie.RunningTime,
+                        Country = newMovie.Country,
+                        Description = newMovie.Description,
+                        ReleaseYear = newMovie.ReleaseYear,
+                        MovieType = newMovie?.MovieType,
+                        Director = newMovie.Director,
+                        Image = newMovie.Image,
+                    };
                     foreach (var g in newMovie.Genres)
                     {
                         Genre genre = context.Genres.Find(g.Id);
@@ -232,21 +246,8 @@ namespace CinemaManagement.Models.Services
                     context.Movies.Add(mov);
                     context.SaveChanges();
                     newMovie.Id = mov.Id;
-
-                    //context.Movies.Add(new Movie
-                    //{
-                    //    DisplayName = movie.DisplayName,
-                    //    RunningTime = movie.RunningTime,
-                    //    Country = movie.Country,
-                    //    Description = movie.Description,
-                    //    ReleaseDate = movie.ReleaseDate,
-                    //    MovieType = movie?.MovieType,
-                    //    Director = movie.Director
-                    //});
                 }
 
-
-                context.SaveChanges();
             }
             catch (DbEntityValidationException e)
             {
@@ -295,24 +296,13 @@ namespace CinemaManagement.Models.Services
             }
             catch (DbEntityValidationException e)
             {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
                 return (false, "DbEntityValidationException");
-
             }
             catch (DbUpdateException e)
             {
                 return (false, $"DbUpdateException: {e.Message}");
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return (false, "Lỗi hệ thống");
             }

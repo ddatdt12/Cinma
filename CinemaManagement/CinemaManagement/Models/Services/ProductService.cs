@@ -11,7 +11,6 @@ namespace CinemaManagement.Models.Services
 {
     public class ProductService
     {
-
         private ProductService() { }
 
         private static ProductService _ins;
@@ -30,24 +29,26 @@ namespace CinemaManagement.Models.Services
 
         public List<ProductDTO> GetAllProduct()
         {
-            List<ProductDTO> movies = null;
-
+            var context = DataProvider.Ins.DB;
             try
             {
-                movies = (from movie in DataProvider.Ins.DB.Movies
-                          where !movie.IsDeleted
-                          select new ProductDTO
-                          {
-                              
-                          }
+                List<ProductDTO> productDTOs = (from p in context.Products
+                                                where !p.IsDeleted
+                                                select new ProductDTO
+                                                {
+                                                    Id = p.Id,
+                                                    DisplayName = p.DisplayName,
+                                                    Price = p.Price,
+                                                    Category = p.Category,
+                                                    Image = p.Image
+                                                }
                      ).ToList();
-
+                return productDTOs;
             }
             catch (Exception e)
             {
                 throw e;
             }
-            return movies;
         }
 
 
@@ -58,55 +59,78 @@ namespace CinemaManagement.Models.Services
             {
                 var context = DataProvider.Ins.DB;
 
-                context.SaveChanges();
+                Product prod = context.Products.Where((p) => p.DisplayName == newProd.DisplayName).FirstOrDefault();
+
+                if (prod != null)
+                {
+                    if (prod.IsDeleted == false)
+                    {
+                        return (false, "Tên sản phầm đã tồn tại", null);
+                    }
+
+                    //Khi sản phẩm đã bị xóa nhưng được add lại với cùng tên 
+                    prod.DisplayName = newProd.DisplayName;
+                    prod.Price = newProd.Price;
+                    prod.Category = newProd.Category;
+                    prod.Image = newProd.Image;
+                    prod.IsDeleted = false;
+                    context.SaveChanges();
+                    newProd.Id = prod.Id;
+                }
+                else
+                {
+                    Product product = new Product
+                    {
+                        DisplayName = newProd.DisplayName,
+                        Price = newProd.Price,
+                        Category = newProd.Category,
+                        Image = newProd.Image,
+                    };
+                    context.Products.Add(product);
+                    context.SaveChanges();
+                    newProd.Id = product.Id;
+                }
+
+                return (true, "Thêm sản phẩm mới thành công", newProd);
             }
             catch (DbEntityValidationException e)
             {
-                
                 return (false, "DbEntityValidationException", null);
-
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                return (false, $"Error Server {e}", null);
+                    Console.WriteLine(e);
+                return (false, $"Lỗi hệ thống {e}", null);
             }
-            return (true, "Thêm phim thành công", newProd);
         }
 
-        public (bool, string) UpdateMovie(MovieDTO updatedMovie)
+        public (bool, string) UpdateProduct(ProductDTO updatedProd)
         {
             var context = DataProvider.Ins.DB;
             try
             {
-                Movie movie = context.Movies.Find(updatedMovie.Id);
+                Product prod = context.Products.Find(updatedProd.Id);
 
-                if (movie is null)
+                if (prod is null)
                 {
-                    return (false, "Phim không tồn tại");
+                    return (false, "Sản phẩm không tồn tại");
                 }
 
-                bool IsExistMovieName = context.Movies.Where((Movie mov) => mov.Id != movie.Id && mov.DisplayName == updatedMovie.DisplayName).Any();
-                if (IsExistMovieName)
+                bool IsExistProdName = context.Products.Any((p) => p.Id != prod.Id && p.DisplayName == updatedProd.DisplayName);
+                if (IsExistProdName)
                 {
-                    return (false, "Tên phim đã tồn tại!");
+                    return (false, "Tên sản phẩm này đã tồn tại! Vui lòng chọn tên khác");
                 }
+                prod.DisplayName = updatedProd.DisplayName;
+                prod.Price = updatedProd.Price;
+                prod.Image = updatedProd.Image;
+                prod.Category = updatedProd.Category;
 
                 context.SaveChanges();
                 return (true, "Cập nhật thành công");
             }
             catch (DbEntityValidationException e)
             {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
                 return (false, "DbEntityValidationException");
 
             }
@@ -120,27 +144,27 @@ namespace CinemaManagement.Models.Services
             }
 
         }
-        public (bool, string) DeleteMovie(int Id)
+        public (bool, string) DeleteProduct(int Id)
         {
             try
             {
-                Movie movie = (from p in DataProvider.Ins.DB.Movies
-                               where p.Id == Id && !p.IsDeleted
-                               select p).SingleOrDefault();
-                if (movie == null || movie?.IsDeleted == true)
+                Product prod = (from p in DataProvider.Ins.DB.Products
+                                where p.Id == Id && !p.IsDeleted
+                                select p).FirstOrDefault();
+                if (prod is null || prod?.IsDeleted == true)
                 {
-                    return (false, "Phim không tồn tại!");
+                    return (false, "Sản phẩm không tồn tại!");
                 }
-                movie.IsDeleted = true;
+                prod.IsDeleted = true;
 
                 DataProvider.Ins.DB.SaveChanges();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, $"Error Server {e.Message}");
+                return (false, $"Lỗi hệ thống {e.Message}");
             }
-            return (true, "Xóa phim thành công");
+            return (true, "Xóa sản phẩm thành công");
         }
     }
 }

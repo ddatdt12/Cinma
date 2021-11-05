@@ -267,6 +267,7 @@
     <Compile Include="Models\Services\SeatService.cs" />
     <Compile Include="Models\Services\ShowtimeService.cs" />
     <Compile Include="Models\Services\StaffService.cs" />
+    <Compile Include="Models\Services\StatisticsService.cs" />
     <Compile Include="Models\Showtime.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>

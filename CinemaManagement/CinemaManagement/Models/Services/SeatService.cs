@@ -24,6 +24,29 @@ namespace CinemaManagement.Models.Services
             private set => _ins = value;
         }
         private SeatService() { }
+
+        public (bool isSuccess, string message, List<SeatSettingDTO>) GetSeatsByShowtime(int showtimeId)
+        {
+
+            var context = DataProvider.Ins.DB;
+            try
+            {
+                var seatList = (from s in context.SeatSettings
+                                where s.ShowtimeId == showtimeId
+                                select new SeatSettingDTO
+                                {
+                                    SeatId=s.SeatId,
+                                    ShowtimeId=s.ShowtimeId,
+                                    Status=s.Status
+                                }
+                           ).DefaultIfEmpty().ToList();
+                return (true, null, seatList);
+            }
+            catch (Exception e)
+            {
+                return (false, "Lỗi hệ thống", null);
+            }
+        }
         public (bool IsSuccess, string message) SettingSeatForNewShowtime(int roomId, int showtimeId)
         {
 
@@ -49,9 +72,8 @@ namespace CinemaManagement.Models.Services
             }
             catch (Exception e)
             {
-                return (true, "Lỗi hệ thống");
+                return (false, "Lỗi hệ thống");
             }
-
             return (true, "");
         }
 

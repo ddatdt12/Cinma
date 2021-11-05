@@ -80,15 +80,16 @@ namespace CinemaManagement.Models.Services
                     StartTime = newShowtime.StartTime,
                 };
 
-                //Lack of setting seats in room for new showtime 
 
                 context.Showtimes.Add(showtime);
                 context.SaveChanges();
 
-                (bool IsSuccess, string messsage)=SeatService.Ins.SettingSeatForNewShowtime(showtimeSet.RoomId, showtime.Id);
-
+                //setting seats in room for new showtime 
+                (bool IsSuccess, string messsage) = SeatService.Ins.SettingSeatForNewShowtime(showtimeSet.RoomId, showtime.Id);
+                if (!IsSuccess)
+                    return (false, "Lỗi hệ thống! Vui lòng thử lại", null);
                 newShowtime.Id = showtime.Id;
-                return (true, "Thêm xuất chiếu thành công" , newShowtime);
+                return (true, "Thêm suất chiếu thành công" , newShowtime);
             }
             catch (DbEntityValidationException)
             {
