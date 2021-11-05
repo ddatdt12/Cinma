@@ -71,12 +71,14 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             FoodList = new ObservableCollection<ProductDTO>() { };
             for (int i = 0; i < 12; i++)
             {
-                FoodList.Add(new ProductDTO("Bắp ngô","Thức uống",10000));
+                FoodList.Add(new ProductDTO("Bắp ngô","Thức uống",i));
             }
 
             OpenAddFoodCommand = new RelayCommand<object>((p) => { return true; },
                 (p) => {
                     AddFoodWindow wd = new AddFoodWindow();
+                    DisplayName = null;
+                    Category = null;
                     wd.ShowDialog();
 
                 });

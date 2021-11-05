@@ -17,7 +17,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         {
             if (Fullname != null && Gender != null && StartDate != null && Born != null && Phone != null && Role != null && TaiKhoan != null)
             {
-                DateTime x = DateTime.Today;
                 StaffDTO staff = new StaffDTO();
                 staff.Name = Fullname;
                 staff.Gender = Gender.Content.ToString();
