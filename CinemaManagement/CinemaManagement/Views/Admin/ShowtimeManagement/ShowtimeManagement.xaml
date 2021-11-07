@@ -114,7 +114,7 @@
                              Command="{Binding ChangedRoomCM}"
                              CommandParameter="{Binding ElementName=r4}" />
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
-                             Margin="4"
+                             Margin="0,4,4,4"
                              Padding="0,10,0,10"
                              IsChecked="False"
                              Content="Phòng 5"

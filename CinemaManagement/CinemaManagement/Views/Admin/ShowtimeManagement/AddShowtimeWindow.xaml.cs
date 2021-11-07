@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel;
+using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -26,5 +29,23 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
         {
             this.DragMove();
         }
+
+        private void _moviePrice_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+
+        private void _moviePrice_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (tb.Text.Length == 0)
+                tb.Text = "0";
+        }
+
     }
 }

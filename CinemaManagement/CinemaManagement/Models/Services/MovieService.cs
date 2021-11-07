@@ -77,17 +77,17 @@ namespace CinemaManagement.Models.Services
                                    orderby show.StartTime
                                    select new
                                    {
-                                        MovieId = show.MovieId,
+                                       MovieId = show.MovieId,
                                        ShowTime = show,
                                    }).GroupBy(m => m.MovieId).ToList();
 
-             
+
                 for (int i = 0; i < MovieIdList.Count(); i++)
                 {
                     int id = MovieIdList[i].Key;
 
                     List<ShowtimeDTO> showtimeDTOsList = new List<ShowtimeDTO>();
-                    MovieDTO mov = null; 
+                    MovieDTO mov = null;
                     foreach (var m in MovieIdList[i])
                     {
                         showtimeDTOsList.Add(new ShowtimeDTO
@@ -146,7 +146,7 @@ namespace CinemaManagement.Models.Services
                                        ShowTime = show,
                                    }).GroupBy(m => m.MovieId).ToList();
 
-                
+
                 for (int i = 0; i < MovieIdList.Count(); i++)
                 {
                     int id = MovieIdList[i].Key;
@@ -312,7 +312,7 @@ namespace CinemaManagement.Models.Services
             {
                 return (false, $"DbUpdateException: {e.Message}");
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return (false, "Lỗi hệ thống");
             }

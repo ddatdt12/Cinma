@@ -7,6 +7,16 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 {
     public partial class ShowtimeManagementViewModel : BaseViewModel
     {
+        private string _ListSeat;
+
+        public string ListSeat
+        {
+            get { return _ListSeat; }
+            set { _ListSeat = value; OnPropertyChanged(); }
+        }
+
+
+
         public ICommand LoadInfor_EditShowtime { get; set; }
 
 
@@ -18,14 +28,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 _selectedShowtime = value;
                 OnPropertyChanged();
-                DeleteFunc();
+                SeatFunc();
             }
         }
 
 
         public void Infor_EditFunc()
         {
-
             if (SelectedItem != null)
             {
                 Infor_EditShowtimeWindow p = new Infor_EditShowtimeWindow();
@@ -48,8 +57,9 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             p._Showtime.ItemsSource = SelectedItem.Showtimes;
         }
 
-        public void DeleteFunc()
+        public void SeatFunc()
         {
+            ListSeat = SelectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
             MessageBox.Show(SelectedItem.DisplayName);
             MessageBox.Show(SelectedShowtime.StartTime.ToString());
         }

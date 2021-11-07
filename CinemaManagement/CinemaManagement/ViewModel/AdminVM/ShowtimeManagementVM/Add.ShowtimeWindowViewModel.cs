@@ -12,6 +12,15 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
     public partial class ShowtimeManagementViewModel : BaseViewModel
     {
 
+        private DateTime _EndTime;
+
+        public DateTime EndTime
+        {
+            get { return _EndTime; }
+            set { _EndTime = value; OnPropertyChanged(); }
+        }
+
+
         public ICommand LoadAddShowtimeCM { get; set; }
         public ICommand SaveCM { get; set; }
 
@@ -46,10 +55,22 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             else
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
         }
-
-        public void ChangeDes(int flag = 0)
+        public void CalculateRunningTime()
         {
-           
+            
+            if (movieSelected != null)
+            {
+                EndTime = Showtime.AddMinutes(movieSelected.RunningTime);
+            }
+        }
+        public void RenewData()
+        {
+            movieSelected = null;
+            showtimeDate = GetCurrentDate;
+            ShowtimeRoom = null;
+            Showtime = new DateTime();
+            EndTime = new DateTime();
+            moviePrice = 0;
         }
     }
 }

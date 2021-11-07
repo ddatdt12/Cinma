@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 
 namespace CinemaManagement.Views.Admin.ShowtimeManagement
 {
-    /// <summary>
-    /// Interaction logic for Infor_EditShowtimeWindow.xaml
-    /// </summary>
+
     public partial class Infor_EditShowtimeWindow : Window
     {
+        Border SelectedShowtime = null;
+        
         public Infor_EditShowtimeWindow()
         {
             InitializeComponent();
@@ -32,6 +32,16 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagement
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (SelectedShowtime != null)
+                SelectedShowtime.Background = new SolidColorBrush(Colors.Wheat);
+
+            SelectedShowtime = (Border)sender as Border;
+
+            SelectedShowtime.Background = new SolidColorBrush(Colors.LightBlue);
         }
     }
 }

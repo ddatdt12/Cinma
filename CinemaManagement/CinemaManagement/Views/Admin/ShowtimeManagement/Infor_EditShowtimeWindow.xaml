@@ -91,9 +91,7 @@
                             <ListBox x:Name="_Showtime"
                                      FontSize="20"
                                      Margin="10,0,0,0"
-                                     SelectedItem="{Binding SelectedShowtime,Mode=TwoWay,
-                                UpdateSourceTrigger=PropertyChanged}"
-                                     SelectedValue="{Binding SelectedShowtime,Mode=TwoWay}">
+                                     SelectedItem="{Binding SelectedShowtime,Mode=TwoWay}">
 
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -104,20 +102,33 @@
                                 <ListBox.ItemContainerStyle>
                                     <Style TargetType="ListBoxItem">
                                         <Setter Property="Margin"
-                                                Value="10,10,10,5" />
+                                                Value="10,10,13,5" />
                                         <Setter Property="Padding"
+                                                Value="0" />
+                                        <Setter Property="Padding"
+                                                Value="0" />
+                                        <Setter Property="BorderThickness"
                                                 Value="0" />
                                     </Style>
                                 </ListBox.ItemContainerStyle>
 
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Button Content="{Binding StartTime}"
+                                        <Border BorderBrush="Wheat"
+                                                BorderThickness="1"
+                                                CornerRadius="8"
                                                 Background="Wheat"
-                                                Width="120"
-                                                IsHitTestVisible="False"
-                                                Foreground="Black">
-                                        </Button>
+                                                MouseLeftButtonDown="Button_Click_1"
+                                                Width="120">
+                                            <Label Content="{Binding StartTime}"
+                                                   Width="120"
+                                                   Height="25"
+                                                   Background="Transparent"
+                                                   Foreground="Black"
+                                                   Margin="20,0,0,5"
+                                                   Padding="5,5,0,0" />
+                                        </Border>
+
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -125,20 +136,22 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="2"
-                                Orientation="Horizontal"
-                                VerticalAlignment="Bottom"
-                                HorizontalAlignment="Right"
-                                Margin="0,0,10,10">
+                                Orientation="Horizontal">
+
                         <Button Width="100"
+                                Content="Xoá"
+                                Margin="10,30,0,0"
+                                materialDesign:ButtonAssist.CornerRadius="8"
                                 Background="OrangeRed"
-                                Margin="0,0,10,0"
-                                Content="Thoát"
-                                Click="Button_Click"
                                 BorderBrush="OrangeRed"
-                                materialDesign:ButtonAssist.CornerRadius="8" />
+                                Command="{Binding LoadDeleteShowtimeCM}">
+                        </Button>
+
                         <Button Width="100"
-                                Content="Lưu"
-                                materialDesign:ButtonAssist.CornerRadius="8" />
+                                Content="Thoát"
+                                Margin="220,30,0,0"
+                                materialDesign:ButtonAssist.CornerRadius="8"
+                                Click="Button_Click" />
 
 
                     </StackPanel>
@@ -149,11 +162,9 @@
             <StackPanel Grid.Column="2"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center">
-                <TextBlock Text="SEAT HERE"
+                <TextBlock Text="{Binding ListSeat,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                            FontSize="50" />
             </StackPanel>
-
-
 
         </Grid>
     </Border>
