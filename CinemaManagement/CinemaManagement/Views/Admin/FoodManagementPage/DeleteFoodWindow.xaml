@@ -55,7 +55,7 @@
                 </Grid.Resources>
                 <Button Content="Xác nhận"
                         Margin="0 0 110 10"
-                        Command="{Binding DeleteStaffCommand}"
+                        Command="{Binding DeleteFoodCommand}"
                         CommandParameter="{Binding ElementName=DeleteFoodWd}"
                         Background="#0c70b6" />
                 <Button Content="Hủy"

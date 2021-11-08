@@ -53,6 +53,10 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ICommand OpenEditFoodCommand { get; set; }
         public ICommand OpenDeleteFoodCommand { get; set; }
 
+        public ICommand AddFoodCommand { get; set; }
+        public ICommand EditFoodCommand { get; set; }
+        public ICommand DeleteFoodCommand { get; set; }
+
         public ICommand MouseMoveCommand { get; set; }
         public ICommand CloseCommand { get; set; }
 
@@ -82,6 +86,11 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     wd.ShowDialog();
 
                 });
+            AddFoodCommand = new RelayCommand<Window>((p) => { return true; },
+                (p) => {
+                    AddFood(p);
+                });
+
 
             OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; },
                 (p) => {
@@ -94,11 +103,21 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 });
 
+            EditFoodCommand = new RelayCommand<Window>((p) => { return true; },
+                (p) => {
+                    EditFood(p);
+                });
+
             OpenDeleteFoodCommand = new RelayCommand<object>((p) => { return true; },
                 (p) => {
                     DeleteFoodWindow wd = new DeleteFoodWindow();
                     wd.ShowDialog();
 
+                });
+
+            DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; },
+                (p) => {
+                    DeleteFood(p);
                 });
 
             CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => {
