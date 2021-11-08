@@ -1,0 +1,231 @@
+﻿<Page x:Class="CinemaManagement.Views.Admin.ShowtimeManagementVM.ShowtimeManagement"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:CinemaManagement.Views.Admin.ShowtimeManagementVM"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      mc:Ignorable="d"
+      DataContext="{StaticResource ShowtimeManagementVM}"
+      d:DesignHeight="720"
+      d:DesignWidth="1440"
+      Title="QuanLySuatChieuPage">
+ 
+
+    <Grid Background="#f0f2f5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="90*" />
+        </Grid.RowDefinitions>
+        <!--cong cu va cac button-->
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    Margin="25,0,0,0">
+            <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
+                     x:Name="_FilterBox"
+                     FontSize="25"
+                     Foreground="#DD000000"
+                     FontFamily="Arial"
+                     AllowDrop="True"
+                     BorderThickness="0,0,0,1"
+                     Width="500"
+                     Height="30"
+                     Padding="0"
+                     VerticalAlignment="Bottom"
+                     TextChanged="FilterBox_TextChanged" />
+            <StackPanel Orientation="Horizontal"
+                        Margin="30,0,0,0"
+                        VerticalAlignment="Bottom">
+                <Button  Content="Thêm"
+                         VerticalAlignment="Bottom"
+                         HorizontalAlignment="Center"
+                         Width="150"
+                         Height="50"
+                         FontSize="25"
+                         FontFamily="arial"
+                         Command="{Binding LoadAddShowtimeCM}">
+                </Button>
+
+                <DatePicker x:Name="Calendar"
+                            materialDesign:HintAssist.Hint="{Binding SetCurrentDate}"
+                            Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                            FirstDayOfWeek="Monday"
+                            Foreground="Black"
+                            FontSize="25"
+                            Width="200"
+                            Height="55"
+                            BorderBrush="#0c70b6"
+                            Margin="500,0,0,0"
+                            Padding="10,0,20,0"
+                            materialDesign:ValidationAssist.Background="#f0f2f5"
+                            materialDesign:ValidationAssist.FontSize="0.01"
+                            SelectedDate="{Binding SelectedDate,Mode=OneWayToSource}" />
+
+            </StackPanel>
+
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+
+            <!--Changing ROOM-->
+            <StackPanel Orientation="Vertical"
+                        Margin="0,18,0,0"
+                        Width="100"
+                        HorizontalAlignment="Left">
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
+                             IsChecked="True"
+                             Content="Toàn bộ"
+                             x:Name="All"
+                             Padding="0,0,0,10"
+                             BorderBrush="#0c70b6"
+                             Command="{Binding ChangedRoomCM}"
+                             CommandParameter="{Binding ElementName=All}" />
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
+                             IsChecked="False"
+                             Content="Phòng 1"
+                             x:Name="r1"
+                             Padding="0,10,0,10"
+                             BorderBrush="#0c70b6"
+                             Command="{Binding ChangedRoomCM}"
+                             CommandParameter="{Binding ElementName=r1}" />
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
+                             IsChecked="False"
+                             Content="Phòng 2"
+                             x:Name="r2"
+                             Padding="0,10,0,10"
+                             BorderBrush="#0c70b6"
+                             Command="{Binding ChangedRoomCM}"
+                             CommandParameter="{Binding ElementName=r2}" />
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
+                             Padding="0,10,0,10"
+                             IsChecked="False"
+                             Content="Phòng 3"
+                             x:Name="r3"
+                             BorderBrush="#0c70b6"
+                             Command="{Binding ChangedRoomCM}"
+                             CommandParameter="{Binding ElementName=r3}" />
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
+                             Padding="0,10,0,10"
+                             IsChecked="False"
+                             Content="Phòng 4"
+                             x:Name="r4"
+                             BorderBrush="#0c70b6"
+                             Command="{Binding ChangedRoomCM}"
+                             CommandParameter="{Binding ElementName=r4}" />
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
+                             Margin="4"
+                             Padding="0,10,0,10"
+                             IsChecked="False"
+                             Content="Phòng 5"
+                             x:Name="r5"
+                             BorderBrush="#0c70b6"
+                             Command="{Binding ChangedRoomCM}"
+                             CommandParameter="{Binding ElementName=r5}" />
+            </StackPanel>
+
+
+            <!---Listview-->
+            <materialDesign:Card Background="White"
+                                 Margin="100,20,30,20">
+
+                <ListView x:Name="ShowtimeListview"
+                          ItemsSource="{Binding ShowtimeList}"
+                          SelectedItem="{Binding SelectedItem}"
+                          Focusable="True">
+
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Tên phim" Width="400">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Text="{Binding DisplayName}"
+                                                    FontSize="18"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Loại phim">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Text="{Binding MovieType}"
+                                                    FontSize="18"
+                                                    Margin="30,0,0,0" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Thời lượng">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Text="{Binding  RunningTime}"
+                                                    FontSize="18"
+                                                    Margin="30,0,0,0" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Giờ chiếu">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                                            <ItemsControl ItemsSource="{Binding Showtimes}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <UniformGrid Columns="4" />
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal"
+                                                                    Margin="10,0,10,0">
+                                                            <Button Content="{Binding StartTime}"
+                                                                    FontSize="18"
+                                                                    Width="120"
+                                                                    Cursor="Arrow"
+                                                                    Background="LightGoldenrodYellow"
+                                                                    Foreground="Black" />
+                                                        </StackPanel>
+
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </ScrollViewer>
+
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <materialDesign:PackIcon Kind="GarbageCanEmpty"
+                                                                 Width="30"
+                                                                 Height="30"
+                                                                 Cursor="Hand">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                    <i:InvokeCommandAction Command="{Binding ElementName=ShowtimeListview, Path=DataContext.LoadDeleteShowtimeCM}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                            <materialDesign:PackIcon.Style>
+                                                <Style TargetType="materialDesign:PackIcon">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver"
+                                                                 Value="True">
+                                                            <Setter Property="Foreground"
+                                                                    Value="OrangeRed" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </materialDesign:PackIcon.Style>
+                                        </materialDesign:PackIcon>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </materialDesign:Card>
+        </Grid>
+
+
+    </Grid>
+</Page>

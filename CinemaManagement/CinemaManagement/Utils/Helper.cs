@@ -1,5 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Net.Cache;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -7,6 +10,23 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
+        public static string MD5Hash(string str)
+        {
+            StringBuilder hash = new StringBuilder();
+            System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] bytes = md5.ComputeHash(new UTF8Encoding().GetBytes(str));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("X2"));
+            }
+            return hash.ToString();
+        }
+        public static bool IsPhoneNumber(string number)
+        {
+            if (number is null) return false;
+            return Regex.Match(number, @"(([03+[2-9]|05+[6|8|9]|07+[0|6|7|8|9]|08+[1-9]|09+[1-4|6-9]]){3})+[0-9]{7}\b").Success;
+        }
         public static string GetHourMinutes(TimeSpan t)
         {
             return t.ToString(@"hh\:mm");
@@ -34,19 +54,18 @@ namespace CinemaManagement.Utils
         {
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Movies", $"{imageName}" /*SelectedItem.Image*/);
         }
-        public static string GetAdminPath(string filename)
+        
+        public static ImageSource GetImageSource(string imageFullName)
         {
-            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Admin", $"{filename}" /*SelectedItem.Image*/);
-        }
-
-        public static string GetProductImgPath()
-        {
-            string appPath = Path.GetDirectoryName(Directory.GetParent(Directory.GetCurrentDirectory()).FullName) + "/Resources/Images/Products/";
-            if (Directory.Exists(appPath) == false)
-            {
-                Directory.CreateDirectory(appPath);
-            }
-            return appPath;
+            BitmapImage _image = new BitmapImage();
+            _image.BeginInit();
+            _image.CacheOption = BitmapCacheOption.None;
+            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+            _image.CacheOption = BitmapCacheOption.OnLoad;
+            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            _image.UriSource = new Uri(GetMovieImgPath(imageFullName));
+            _image.EndInit();
+            return _image;
         }
 
         private static string RemoveUnicode(string text)

@@ -21,17 +21,9 @@
         Width="1440"
         Name="mainadminwindow"
         ResizeMode="NoResize"
-        MouseLeftButtonDown="mainadminwindow_MouseDown"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
 
-
-
-    <i:Interaction.Triggers>
-        <i:EventTrigger>
-            <i:InvokeCommandAction/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
 
 
 
@@ -58,14 +50,16 @@
             <materialDesign:ColorZone Mode="Inverted"
                                       Padding="16"
                                       Height="85"
-                                      Margin="-280,0,0,0">
+                                      Margin="-280,0,0,0"
+                                      Background="#FF383737"
+                                      MouseLeftButtonDown="mainadminwindow_MouseLeftButtonDown">
                 <DockPanel>
 
                     <materialDesign:PopupBox DockPanel.Dock="Right"
                                              PlacementMode="BottomAndAlignRightEdges">
                         <StackPanel Orientation="Vertical">
                             <Button x:Name="signout"
-                                    Content="Quản lý tài khoản" />
+                                    Content="Thông tin tài khoản" />
 
                             <Button Content="Đăng xuất"
                                     Command="{Binding SignoutCM}"
@@ -94,7 +88,7 @@
                             <TranslateTransform />
                         </StackPanel.RenderTransform>
 
-                        <Grid Background="black"
+                        <Grid Background="#FF383737"
                               Width="260"
                               Margin="0,0,0,-731">
                             <StackPanel>
@@ -104,14 +98,29 @@
                                                              Height="60"
                                                              Width="80"
                                                              Cursor="Hand">
-                                        <i:Interaction.Triggers>
+                                        <!--<i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                 <i:InvokeCommandAction Command="{Binding LoadSuatChieuPageCM}"
                                                                        CommandParameter="{Binding ElementName=MainFrame}" />
                                             </i:EventTrigger>
-                                        </i:Interaction.Triggers>
+                                        </i:Interaction.Triggers>-->
                                     </materialDesign:PackIcon>
                                 </StackPanel>
+                                <Button Margin="0,20,0,5"
+                                        Content="Quản lý suất chiếu"
+                                        Height="50"
+                                        FontSize="25"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadSuatChieuPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <i:InvokeCommandAction Command="{Binding LoadSuatChieuPageCM}"
+                                                                   CommandParameter="{Binding ElementName=MainFrame}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Button>
                                 <Button Margin="0,0,0,5"
                                         Content="Quản lý phim"
                                         Height="50"
@@ -146,6 +155,10 @@
                         <ToggleButton x:Name="SlideButton"
                                       Margin="40,0,0,0"
                                       Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   FontSize="30"
+                                   Margin="30,0,0,0"
+                                   Text="{Binding SelectedFuncName}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right">
@@ -155,10 +168,10 @@
                                                  Height="50"
                                                  Width="50" />
                         <Label x:Name="CurrentUserName"
-                            Content=""
-                               Foreground="White"
+                               Content=""
                                VerticalAlignment="Center"
-                               FontSize="25" />
+                               FontSize="25"
+                               Foreground="White" />
                     </StackPanel>
 
                 </DockPanel>

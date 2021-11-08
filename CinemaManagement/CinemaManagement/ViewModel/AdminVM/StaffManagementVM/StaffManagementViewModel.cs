@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,6 @@ using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 {
-    
     public partial class StaffManagementViewModel : BaseViewModel
     {
         ListView listView;
@@ -83,19 +83,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             set { _RePass = value; OnPropertyChanged(); }
         }
 
-        private string _MK;
-        public string MK
-        {
-            get { return _MK; }
-            set { _MK = value; OnPropertyChanged(); }
-        }
-
-        private string _ReMK;
-        public string ReMK
-        {
-            get { return _ReMK; }
-            set { _ReMK = value; OnPropertyChanged(); }
-        }
 
         #endregion
 
@@ -113,8 +100,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         public ICommand GetListViewCommand { get; set; }
         public ICommand GetPasswordCommand { get; set; }
         public ICommand GetRePasswordCommand { get; set; }
-        public ICommand GetChangePass { get; set; }
-        public ICommand GetChangeRePass { get; set; }
 
 
 
@@ -143,11 +128,10 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         }
 
 
-
         public StaffManagementViewModel()
         {
-            
-            StaffList = new ObservableCollection<StaffDTO>(StaffService.Ins.GetAllStaff());
+
+            LoadStaffListView(Operation.READ);
             GetListViewCommand = new RelayCommand<ListView>((p) => { return true; },
                 (p) => {
                     listView = p;
@@ -159,14 +143,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             GetRePasswordCommand = new RelayCommand<PasswordBox>((p) => { return true; },
                 (p) => {
                     RePass = p.Password;
-                });
-            GetChangePass = new RelayCommand<PasswordBox>((p) => { return true; },
-                (p) => {
-                    MK = p.Password;
-                });
-            GetChangeRePass = new RelayCommand<PasswordBox>((p) => { return true; },
-                (p) => {
-                    ReMK  = p.Password;
                 });
 
             AddStaffCommand = new RelayCommand<Window>((p) => { return true; }, 
@@ -189,17 +165,14 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             OpenAddStaffCommand = new RelayCommand<object>((p) => { return true; },
                 (p) => {
                     ThemNhanVienWindow wd = new ThemNhanVienWindow();
-                    Born = null;
-                    StartDate = null;
-                    Fullname = null;
-                    Phone = null;
-                    TaiKhoan = null;
+                    ResetData();
                     wd.ShowDialog();
 
                 });
             OpenEditStaffCommand = new RelayCommand<object>((p) => { return true; }, 
                 (p) => {
                     SuaNhanVienWindow wd = new SuaNhanVienWindow();
+                    ResetData();
                     wd._FullName.Text = SelectedItem.Name;
                     string x = SelectedItem.Gender;
                     if (x=="Nam")
@@ -215,7 +188,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     wd.Role.Text = SelectedItem.Role;
                     wd.StartDate.Text = SelectedItem.StartingDate.ToString();
                     wd._TaiKhoan.Text = SelectedItem.Username;
-                    wd.MatKhau.Text = SelectedItem.Password;
 
                     Fullname = SelectedItem.Name;
                     //Gender.Content = SelectedItem.Gender;
@@ -230,7 +202,10 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
             OpenDeleteStaffCommand = new RelayCommand<object>((p) => { return true; }, (p) => { XoaNhanVienWindow wd = new XoaNhanVienWindow(); wd.ShowDialog(); });
 
-            OpenChangePassCommand = new RelayCommand<object>((p) => { return true; }, (p) => { DoiMatKhau wd = new DoiMatKhau(); wd.ShowDialog(); });
+            OpenChangePassCommand = new RelayCommand<object>((p) => { return true; }, (p) => { DoiMatKhau wd = new DoiMatKhau();
+                MatKhau = null;
+                RePass = null;
+                wd.ShowDialog(); });
 
             CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => {
                 Window window = GetWindowParent(p);
@@ -254,12 +229,59 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
            );
         }
 
-        public void ReloadStaffListView()
+        public void LoadStaffListView(Operation oper, StaffDTO staff = null)
         {
-            StaffList = new ObservableCollection<StaffDTO>(StaffService.Ins.GetAllStaff());
-            listView.Items.Refresh();
-        }
 
+            switch (oper)
+            {
+                case Operation.READ:
+                    try
+                    {
+                        StaffList = new ObservableCollection<StaffDTO>(StaffService.Ins.GetAllStaff());
+                    }
+                    catch (InvalidOperationException e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Lỗi hệ thống " + e.Message);
+                    }
+                    break;
+                case Operation.CREATE:
+                    StaffList.Add(staff);
+                    break;
+                case Operation.UPDATE:
+                    var movieFound = StaffList.FirstOrDefault(s => s.Id == staff.Id);
+                    StaffList[StaffList.IndexOf(movieFound)] = staff;
+                    break;
+                case Operation.DELETE:
+                    for (int i = 0; i < StaffList.Count; i++)
+                    {
+                        if (StaffList[i].Id == SelectedItem?.Id)
+                        {
+                            StaffList.Remove(StaffList[i]);
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+            //Ko cần này nhe
+            //listView.Items.Refresh();
+        }
+        void ResetData()
+        {
+            StartDate = null;
+            Fullname = null;
+            Gender = null;
+            Born = null;
+            Role = null;
+            Phone = null;
+            TaiKhoan = null;
+            MatKhau = null;
+        }
         Window GetWindowParent(Window p)
         {
             Window parent = p;
@@ -270,6 +292,37 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             }
 
             return parent;
+        }
+        private (bool valid, string error) IsValidData(Operation oper)
+        {
+
+            if (string.IsNullOrEmpty(Fullname) || Gender is null || StartDate is null || Born is null || Role is null || string.IsNullOrEmpty(TaiKhoan))
+            {
+                return (false, "Thông tin nhân viên thiếu! Vui lòng bổ sung");
+            }
+
+            if (oper == Operation.CREATE || oper == Operation.UPDATE_PASSWORD)
+            {
+                if(MatKhau is null) {
+                    return (false, "Vui lòng nhập mật khẩu");
+                }
+                if(MatKhau != RePass)
+                     return (false, "Mật khẩu và mật khẩu nhập lại không trùng khớp!");
+            }
+
+            (bool ageValid, string error) = ValidateAge((DateTime)Born);
+
+            if (!ageValid)
+            {
+                return (false, error);
+            }
+
+            if (!Helper.IsPhoneNumber(Phone))
+            {
+                return (false, "Số điện thoại không hợp lệ");
+            }
+
+            return (true, null);
         }
     }
 }

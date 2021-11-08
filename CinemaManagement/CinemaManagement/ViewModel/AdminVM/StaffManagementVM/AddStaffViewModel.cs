@@ -1,21 +1,19 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+using CinemaManagement.Utils;
 
 namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 {
-    public partial class StaffManagementViewModel: BaseViewModel
+    public partial class StaffManagementViewModel : BaseViewModel
     {
         public void AddStaff(Window p)
         {
-            if (Fullname != null && Gender != null && StartDate != null && Born != null && Phone != null && Role != null && TaiKhoan != null)
+
+            (bool isValid, string error) = IsValidData(Operation.CREATE);
+
+            if (isValid)
             {
                 StaffDTO staff = new StaffDTO();
                 staff.Name = Fullname;
@@ -26,36 +24,36 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 staff.StartingDate = StartDate;
                 staff.Username = TaiKhoan;
                 staff.Password = MatKhau;
-                StaffList.Add(staff);
-                int value;
-                if (int.TryParse(Phone, out value))
-                {
-                    if (staff.Password == RePass)
-                    {
-                        (bool successAddStaff, string messageFromAddStaff) = StaffService.Ins.AddStaff(staff);
 
-                        if (successAddStaff)
-                        {
-                            p.Close();
-                            StaffList.Add(staff);
-                            ReloadStaffListView();
-                        }
-                        MessageBox.Show(messageFromAddStaff);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Mật khẩu và mật khẩu nhập lại không trùng khớp!");
-                    }
-                }
-                else
+
+                (bool successAddStaff, string messageFromAddStaff, StaffDTO newStaff) = StaffService.Ins.AddStaff(staff);
+
+                if (successAddStaff)
                 {
-                    MessageBox.Show("Số điện thoại không hợp lệ!");
+                    p.Close();
+                    LoadStaffListView(Operation.CREATE, newStaff);
                 }
+                MessageBox.Show(messageFromAddStaff);
+
             }
             else
             {
-                MessageBox.Show("Chưa đủ thông tin để thêm!");
+                MessageBox.Show(error);
             }
+        }
+        private (bool, string) ValidateAge(DateTime birthDate)
+        {
+            // Save today's date.
+            var today = DateTime.Today;
+
+            // Calculate the age.
+            var age = today.Year - birthDate.Year;
+
+            // Go back to the year in which the person was born in case of a leap year
+            if (birthDate.DayOfYear > today.DayOfYear) age--;
+
+            if (age < 18) return (false, "Nhân viên chưa đủ 18 tuổi!");
+            return (true, null);
         }
     }
 }

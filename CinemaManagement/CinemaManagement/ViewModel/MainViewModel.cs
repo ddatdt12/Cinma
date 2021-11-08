@@ -59,7 +59,7 @@ namespace CinemaManagement.ViewModel
             SelectedGenre = null;
             List<MovieDTO> movieDTOs;
             List<GenreDTO> genreDTOs;
-            List<StaffDTO> staffDTOs;
+            //List<StaffDTO> staffDTOs;
 
             try
             {
@@ -69,24 +69,52 @@ namespace CinemaManagement.ViewModel
 
 
                 movieDTOs = MovieService.Ins.GetAllMovie();
-                genreDTOs = GenreService.Ins.GetAllGenre();
+                const string DRINK = "Nước uống";
+                const string FOOD = "Đồ ăn";
+                //(bool IsSuccess, string messageFromProduct, ProductDTO newProd) = ProductService.Ins.AddProduct(new ProductDTO { DisplayName="Pepsi",Price=45000,Category=DRINK, Image="pepsi.png"});
+                (bool IsSuccess, string messageFromDeleteProduct) = ProductService.Ins.DeleteProduct(1);
+                List<ProductDTO>prodDtos = ProductService.Ins.GetAllProduct();
+                //List<ProductDTO> prodDtos = ProductService.Ins.GetAllProduct();
 
+                genreDTOs = GenreService.Ins.GetAllGenre();
 
                 //staffDTOs = StaffService.Ins.GetAllStaff();
 
                 #region Showtime and Movie
-                    List<MovieDTO> ListMovieDtosOnDay = MovieService.Ins.GetShowingMovieByDay(DateTime.Today);
 
-                    List<MovieDTO> ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today, 1);
-                    //string movieName= "Bố già";
-                    //string imageName = Helper.Slugify(movieName);
-                    //(bool AddSuccess, string message) = ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 1, RoomId = 1, ShowDate = DateTime.Today, StartTime = new TimeSpan(13, 50, 0) });
-                    //(bool AddSuccess, string message) = ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 4, RoomId = 1, ShowDate = DateTime.Today.AddDays(2), StartTime = new TimeSpan(19, 0, 0) });
 
-                    //ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today, 1);
+
+
+                //List<MovieDTO> ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(new DateTime(2021, 11, 1), 1);
+
+
+                //List<MovieDTO> ListMovieDtosOnDay = MovieService.Ins.GetShowingMovieByDay(new DateTime(2021, 11, 1));
+
+
+                //Console.WriteLine("zxc");
+
+
+
+                //string movieName= "Bố già";
+                //string imageName = Helper.Slugify(movieName);
+                //(bool AddSuccess, string message) = ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 1, RoomId = 1, ShowDate = DateTime.Today.AddDays(-1), StartTime = new TimeSpan(20, 20, 0) });
+
+
+                //Add showtime
+                //(bool AddSuccess, string message, ShowtimeDTO newShowtime) = ShowtimeService.Ins.AddShowtime(
+                //    new ShowtimeDTO { MovieId = 4, RoomId = 1, ShowDate = DateTime.Today.AddDays(2), StartTime = new TimeSpan(19, 0, 0) }
+                //    );
+
+                ////Delete showtime 
+                //int ShowTimeId = 16;
+                //(bool deleteSuccess, string messageFromDeleteShowtime) = ShowtimeService.Ins.DeleteShowtime(ShowTimeId);
+
+
+                //ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today.AddDays(-2), 1);
+
+                //ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today, 1);
                 #endregion
 
-                Console.WriteLine("zxc");
                 #region Staff Service
                 //StaffDTO staff = new StaffDTO
                 //{
@@ -114,7 +142,7 @@ namespace CinemaManagement.ViewModel
                 //staffDTOs = StaffService.Ins.GetAllStaff();
                 #endregion
 
-
+                (bool successzz, string messageLogin, StaffDTO staffz) = StaffService.Ins.Login("admin", "123456");
                 #region Movie Service
                 //Test Update movie
                 //movieDTOs[0].DisplayName = "BỐ GIÀ";

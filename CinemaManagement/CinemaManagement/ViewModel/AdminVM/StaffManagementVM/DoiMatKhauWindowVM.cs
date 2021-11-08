@@ -1,4 +1,5 @@
-﻿using CinemaManagement.ViewModel;
+﻿using CinemaManagement.Models.Services;
+using CinemaManagement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,24 +14,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
     {
         public void ChangePass(Window p)
         {
-            if (MK!=null && ReMK!=null)
-            {
-                if (MK == ReMK)
+
+            (bool isValid, string error) = IsValidData(Utils.Operation.UPDATE_PASSWORD);
+                if (isValid)
                 {
-                    MatKhau = MK;
-                    SelectedItem.Password = MK;
-                    p.Close();
-                    MessageBox.Show("Sua mat khau thanh cong!");
+                    (bool updatePassSuccesss, string message) = StaffService.Ins.UpdatePassword(SelectedItem.Id, MatKhau);
+                    if (updatePassSuccesss)
+                        p.Close();
+                    MessageBox.Show(message);
                 }
                 else
                 {
-                    MessageBox.Show("Mật khẩu không trùng khớp!");
+                    MessageBox.Show(error);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Mật khẩu không được để trống!");
-            }
         }
     }
 

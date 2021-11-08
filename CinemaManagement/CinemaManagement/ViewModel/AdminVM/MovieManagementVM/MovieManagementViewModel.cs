@@ -1,18 +1,16 @@
 ﻿using CinemaManagement.DTOs;
-using CinemaManagement.Models;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net.Cache;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -87,6 +85,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             get { return _movieYear; }
             set { _movieYear = value; OnPropertyChanged(); }
         }
+        
 
         #endregion
 
@@ -97,7 +96,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         string imgfullname;
         string extension;
         string oldMovieName;
-        bool IsImageChanged;
+        bool IsImageChanged = false;
         bool IsAddingMovie = false;
 
         System.Windows.Controls.ListView MainListView;
@@ -121,12 +120,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             set { _ListCountrySource = value; OnPropertyChanged(); }
         }
 
-        private List<int> _MinuteSource;
-        public List<int> MinuteSource
-        {
-            get { return _MinuteSource; }
-            set { _MinuteSource = value; OnPropertyChanged(); }
-        }
 
         private List<GenreDTO> _GenreList;
         public List<GenreDTO> GenreList
@@ -146,23 +139,31 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             set { _selectedItem = value; OnPropertyChanged(); }
         }
 
-
-
         public ICommand UploadImageCM { get; set; }
         public ICommand SaveMovieCM { get; set; }
-
         public ICommand LoadDeleteMovieCM { get; set; }
         public ICommand StoreMainListViewNameCM { get; set; }
         public ICommand UpdateMovieCM { get; set; }
 
         public MovieManagementViewModel()
         {
-            MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
             ListCountrySource = new List<string>();
-            MinuteSource = new List<int>();
-            GenreList = GenreService.Ins.GetAllGenre();
+            IsImageChanged = false;
+            
+            try
+            {
+                GenreList = GenreService.Ins.GetAllGenre();
+                LoadMovieListView(Operation.READ);
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (Exception e)
+            {
+                System.Windows.MessageBox.Show("Lỗi hệ thống " + e.Message);
+            }
 
-            InsertMinuteToComboBox();
             InsertCountryToComboBox();
 
             StoreMainListViewNameCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
@@ -192,7 +193,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 EditMovie w1 = new EditMovie();
                 LoadEditMovie(w1);
                 w1.ShowDialog();
-
             });
             LoadDeleteMovieCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
               {
@@ -205,10 +205,9 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                               if (successDelMovie)
                               {
-
                                   File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
                                   System.Windows.MessageBox.Show(messageFromDelMovie);
-                                  ReloadMovieListView(SelectedItem.DisplayName);
+                                  LoadMovieListView(Operation.DELETE);
                                   SelectedItem = null;
                                   break;
                               }
@@ -218,7 +217,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                                   break;
                               }
                           }
-
                       case MessageBoxResult.No:
                           break;
                   }
@@ -228,7 +226,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             {
                 OpenFileDialog openfile = new OpenFileDialog();
                 openfile.Title = "Select an image";
-                openfile.Filter = "Image File (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg; *.png|" + "All |*.*";
+                openfile.Filter = "Image File (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg; *.png";
                 if (openfile.ShowDialog() == DialogResult.OK)
                 {
                     IsImageChanged = true;
@@ -243,7 +241,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             UpdateMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 UpdateMovieFunc(p);
-
             });
             SaveMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -268,33 +265,44 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             try
             {
                 appPath = Helper.GetMovieImgPath(imgfullname);
-
-                File.Copy(filepath, $"{appPath}");
+                if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
+                    File.Delete(Helper.GetMovieImgPath(imgfullname));
+                File.Copy(filepath, appPath,true);
             }
             catch (Exception exp)
             {
                 System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
             }
         }
-        public void ReloadMovieListView(string name = "")
-        {
-            if (name == "add")
-            {
-                MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
-                return;
-            }
 
-            if (name != "")
+        //Operation is enum have 4 values { READ, UPDATE, CREATE, DELETE }
+        public void LoadMovieListView(Operation oper = Operation.READ, MovieDTO m = null)
+        {
+            switch (oper)
             {
-                for (int i = 0; i < MovieList.Count; i++)
-                {
-                    if (MovieList[i].DisplayName == name)
-                        MovieList.Remove(MovieList[i]);
-                }
+                case Operation.CREATE:
+                    MovieList.Add(m);
+                    break;
+                case Operation.READ:
+                    MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
+                    break;
+                case Operation.UPDATE:
+                    var movieFound = MovieList.FirstOrDefault(x => x.Id == m.Id);
+                    MovieList[MovieList.IndexOf(movieFound)] = m;
+                    break;
+                case Operation.DELETE:
+                    for (int i = 0; i < MovieList.Count; i++)
+                    {
+                        if (MovieList[i].Id == SelectedItem?.Id)
+                        {
+                            MovieList.Remove(MovieList[i]);
+                            break;
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
-            if (name == "")
-                MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
-            MainListView.Items.Refresh();
         }
         public void RenewWindowData()
         {
@@ -309,26 +317,22 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         }
         public void InsertCountryToComboBox()
         {
-            FileStream file = new FileStream(Helper.GetAdminPath("CountrySource.txt"), FileMode.Open, FileAccess.Read);
-            using (var reader = new StreamReader(file, Encoding.UTF8))
-            {
-                while (reader.Peek() >= 0)
-                {
-                    ListCountrySource.Add(reader.ReadLine());
-                }
-            }
+            ListCountrySource.Add("Ấn Độ");
+            ListCountrySource.Add("Bồ Đào Nha");
+            ListCountrySource.Add("Brazil");
+            ListCountrySource.Add("Đài Loan");
+            ListCountrySource.Add("Đức");
+            ListCountrySource.Add("Hàn Quốc");
+            ListCountrySource.Add("Hoa Kỳ");
+            ListCountrySource.Add("Nga");
+            ListCountrySource.Add("Nhật Bản");
+            ListCountrySource.Add("Pháp");
+            ListCountrySource.Add("Thái Lan");
+            ListCountrySource.Add("Trung Quốc");
+            ListCountrySource.Add("Việt Nam");
+
         }
-        public void InsertMinuteToComboBox()
-        {
-            FileStream file = new FileStream(Helper.GetAdminPath("MinuteSource.txt"), FileMode.Open, FileAccess.Read);
-            using (var reader = new StreamReader(file, Encoding.UTF8))
-            {
-                while (reader.Peek() >= 0)
-                {
-                    MinuteSource.Add(int.Parse(reader.ReadLine()));
-                }
-            }
-        }
+
         public void MovieImageChanged()
         {
             if (!IsAddingMovie)
@@ -340,6 +344,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     imgfullname = Helper.CreateImageFullName(imgName, extension);
                 }
             }
+        }
+        public bool IsValidData()
+        {
+            return !string.IsNullOrEmpty(movieName) && movieCountry != null
+                && !string.IsNullOrEmpty(movieDirector) && !string.IsNullOrEmpty(movieDes)
+                 && movieGenre != null && !string.IsNullOrEmpty(movieYear)
+                && !string.IsNullOrEmpty(movieDuration);
         }
     }
 

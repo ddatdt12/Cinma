@@ -1,16 +1,15 @@
 ﻿using CinemaManagement.DTOs;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace CinemaManagement.Views.Admin.QuanLyPhimPage
+namespace CinemaManagement.Views.Admin.MovieManagement
 {
-    /// <summary>
-    /// Interaction logic for QuanLyPhimPage.xaml
-    /// </summary>
-    public partial class QuanLyPhimPage : Page
+
+    public partial class MovieManagementWindow : Page
     {
-        public QuanLyPhimPage()
+        public MovieManagementWindow()
         {
             InitializeComponent();
 
@@ -29,6 +28,13 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
                 return true;
             else
                 return ((item as MovieDTO).DisplayName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
+        private void Page_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            Window a = sender as Window;
+            a.DragMove();
         }
     }
 }

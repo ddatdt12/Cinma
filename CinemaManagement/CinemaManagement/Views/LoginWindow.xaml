@@ -20,6 +20,7 @@
         DataContext="{StaticResource LoginVM}"
         ResizeMode="NoResize"
         WindowStyle="None"
+        Loaded="Loginwindow_Loaded"
         WindowStartupLocation="CenterScreen">
 
 
@@ -44,25 +45,17 @@
 
         <!--Left-->
         <Grid Grid.Column="0">
-            <Image HorizontalAlignment="
-               Left"
-                   Height="446"
-                   VerticalAlignment="Top"
-                   Width="314">
-                <Image.Style>
-                    <Style TargetType="Image">
-                        <Setter Property="Source"
-                                Value="/Resources/LayoutSignin/StoryboardMovie/spiderman2.jpg">
-                        </Setter>
-                        <Style.Triggers>
-                            <EventTrigger RoutedEvent="Window.Loaded">
-                                <BeginStoryboard Storyboard="{StaticResource LoginStoryBoard}">
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Image.Style>
-            </Image>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                <Image Width="314"
+                       Height="446"
+                       x:Name="imgframe"
+                       Source="/CinemaManagement;component/Resources/LayoutSignin/StoryboardMovie/1.jpg"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top" />
+            </StackPanel>
 
         </Grid>
 
@@ -90,7 +83,7 @@
                         BorderBrush="Transparent"
                         MouseEnter="Button_MouseEnter"
                         MouseLeave="Button_MouseLeave">
-                    <materialDesign:PackIcon Kind="WindowMinimize"/>
+                    <materialDesign:PackIcon Kind="WindowMinimize" />
                 </Button>
 
                 <Button Command="{Binding CloseWindowCM}"
@@ -114,7 +107,7 @@
                 <Label FontFamily="junegull"
                        FontSize="35"
                        FontWeight="UltraBlack"
-                       Foreground="#FFA5B9D6"
+                       Foreground="#0c70b6"
                        Content="Welcome Back"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -154,11 +147,11 @@
                             Margin="0,0,85,0"
                             Width="300">
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Sai tài khoản hoặc mật khẩu" 
+                        <Label Content="Sai tài khoản hoặc mật khẩu"
                                Margin="0,5,0,0"
                                x:Name="Error"
                                Width="170"
-                               Foreground="White"/>
+                               Foreground="White" />
                         <Button Content="Quên mật khẩu?"
                                 Foreground="Blue"
                                 FontSize="12"
@@ -176,8 +169,8 @@
                                 BorderThickness="15"
                                 Width="120"
                                 HorizontalAlignment="Right"
-                                Command="{Binding LoginCM}" 
-                                CommandParameter="{Binding ElementName=Error}"/>
+                                Command="{Binding LoginCM}"
+                                CommandParameter="{Binding ElementName=Error}" />
                     </Grid>
                 </StackPanel>
 

@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Media;
 
 namespace CinemaManagement.DTOs
@@ -33,10 +34,15 @@ namespace CinemaManagement.DTOs
             set
             {
                 _image = value;
-                if (value != null)
-                    ImgSource = Helper.GetMovieSource(_image);
+                if (File.Exists(Helper.GetMovieImgPath(value)))
+                {
+                    ImgSource = Helper.GetImageSource(_image);
+                }
                 else
-                    ImgSource = null;
+                {
+                    _image = "null.jpg";
+                    ImgSource = Helper.GetImageSource("null.jpg");
+                }
             }
         }
         public ImageSource ImgSource { get; set; }

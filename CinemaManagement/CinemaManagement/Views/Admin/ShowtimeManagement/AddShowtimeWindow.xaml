@@ -2,20 +2,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.QuanLySuatChieuPage"
+        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.ShowtimeManagementVM"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Emit="clr-namespace:System.Reflection.Emit;assembly=mscorlib"
-        x:Class="CinemaManagement.Views.Admin.QuanLySuatChieuPage.AddSuatChieuWindow"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        x:Class="CinemaManagement.Views.Admin.ShowtimeManagementVM.AddShowtimeWindow"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Height="485"
-        Width="795"
-        DataContext="{StaticResource AddSuatChieuWindowVM}"
+        Height="550"
+        Width="800"
+        x:Name="AddSuatChieu"
+        DataContext="{StaticResource ShowtimeManagementVM}"
         Title="AddSuatChieuWindow">
     <Grid>
         <Border Background="#FFF0F3F7"
@@ -26,11 +27,22 @@
             <Grid>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40*" />
-                    <RowDefinition Height="60*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="35*" />
+                    <RowDefinition Height="55*" />
                 </Grid.RowDefinitions>
-
-                <Grid  Grid.Row="0"
+                <Grid Grid.Row="0">
+                    <Border BorderThickness="0,0,0,1"
+                            BorderBrush="Black"
+                            materialDesign:ShadowAssist.ShadowEdges="Bottom"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                        <TextBlock Text="Thêm  suất chiếu"
+                                   FontSize="25"
+                                   Margin="20,10,0,0"
+                                   FontWeight="Bold" />
+                    </Border>
+                </Grid>
+                <Grid  Grid.Row="1"
                        Margin="0,15,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -50,8 +62,8 @@
                             <StackPanel>
                                 <Label Content="Tên phim"
                                        FontSize="20" />
-                                <ComboBox SelectedItem="{Binding movieName}"
-                                    ItemsSource="{Binding MovieList}"
+                                <ComboBox SelectedItem="{Binding movieSelected}"
+                                          ItemsSource="{Binding MovieList}"
                                           DisplayMemberPath="DisplayName"
                                           Style="{StaticResource MaterialDesignComboBox}"
                                           VerticalAlignment="Bottom"
@@ -60,7 +72,8 @@
                                           BorderThickness="0,0,0,1"
                                           Foreground="Black"
                                           Height="47"
-                                          Width="479" />
+                                          Width="479"
+                                          x:Name="_movieName" />
                             </StackPanel>
                         </StackPanel>
 
@@ -70,16 +83,19 @@
                                    FontSize="20"
                                    Height="40" />
                             <StackPanel>
-                                <DatePicker ToolTip="mm/dd/yyyy"
-                                            Style="{StaticResource MaterialDesignDatePicker}"
+                                <DatePicker materialDesign:HintAssist.Hint="{Binding SetCurrentDate}"
                                             FirstDayOfWeek="Monday"
                                             SelectedDateFormat="Short"
                                             Foreground="Black"
                                             FontSize="25"
                                             Height="39"
                                             Padding="10,0,0,0"
-                                            Margin="0,0,64,0" 
-                                            SelectedDate="{Binding movieDate}"/>
+                                            Margin="0,0,64,0"
+                                            x:Name="_movieDate"
+                                            SelectedDate="{Binding showtimeDate, Mode=TwoWay}"
+                                            Text="{Binding SetCurrentDate}"
+                                            materialDesign:HintAssist.IsFloating="False"
+                                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -96,14 +112,14 @@
                                    FontSize="20"
                                    Height="40" />
                             <StackPanel>
-                                <materialDesign:TimePicker materialDesign:HintAssist.Hint=""
-                                                           Is24Hours="True"
-                                                           x:Name="WithSecondsTimePicker"
+                                <materialDesign:TimePicker Is24Hours="True"
                                                            WithSeconds="False"
                                                            FontSize="25"
                                                            VerticalContentAlignment="Bottom"
-                                                           Height="35" 
-                                                           SelectedTime="{Binding movieShowtime}"/>
+                                                           Height="35"
+                                                           materialDesign:ValidationAssist.FontSize="0.001"
+                                                           SelectedTime="{Binding Showtime}"
+                                                           x:Name="_movieTime" />
                             </StackPanel>
                         </StackPanel>
 
@@ -114,19 +130,17 @@
                             <ComboBox Width="175"
                                       Height="43"
                                       FontSize="25"
-                                      SelectedItem="{Binding movieRoom}">
-                                <ComboBoxItem Content="Phòng 1" />
-                                <ComboBoxItem Content="Phòng 2" />
-                                <ComboBoxItem Content="Phòng 3" />
-                                <ComboBoxItem Content="Phòng 4" />
-                                <ComboBoxItem Content="Phòng 5" />
+                                      ItemsSource="{Binding ListRoom}"
+                                      SelectedItem="{Binding ShowtimeRoom}"
+                                      DisplayMemberPath="Id"
+                                      x:Name="_movieRoom">
                             </ComboBox>
                         </StackPanel>
                     </StackPanel>
 
                 </Grid>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="2">
 
                     <Grid>
                         <Grid Grid.Column="0"
@@ -148,7 +162,8 @@
                                              IsEnabled="False"
                                              VerticalScrollBarVisibility="Auto"
                                              Height="174"
-                                             Foreground="Black" />
+                                             Foreground="Black"
+                                             x:Name="_movieDes" />
 
                                 </StackPanel>
                             </StackPanel>
@@ -173,18 +188,25 @@
                                             Height="40"
                                             Width="100"
                                             Margin="0,0,20,10"
+                                            Background="OrangeRed"
                                             BorderBrush="Transparent"
                                             Click="Button_Click"
-                                            materialDesign:ButtonAssist.CornerRadius="8"/>
+                                            materialDesign:ButtonAssist.CornerRadius="8" />
+
 
                                     <Button Content="Lưu"
                                             FontSize="20"
                                             Height="40"
-                                            Width="100"
-                                            Margin="10,0,0,10"
-                                            Background="#FF5980B8"
+                                            Foreground="White"
+                                            VerticalAlignment="Top"
+                                            Background="#03a9f4"
                                             materialDesign:ButtonAssist.CornerRadius="8"
-                                            Command="{Binding SaveCM}"/>
+                                            Width="100"
+                                            Command="{Binding SaveCM}"
+                                            CommandParameter="{Binding  ElementName=AddSuatChieu}">
+                                    </Button>
+
+
                                 </StackPanel>
                             </Grid>
                         </Grid>

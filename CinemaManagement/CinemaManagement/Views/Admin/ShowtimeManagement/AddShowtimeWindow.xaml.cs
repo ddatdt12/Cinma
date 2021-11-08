@@ -1,14 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
-namespace CinemaManagement.Views.Admin.QuanLySuatChieuPage
+namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
 {
-    /// <summary>
-    /// Interaction logic for AddSuatChieuWindow.xaml
-    /// </summary>
-    public partial class AddSuatChieuWindow : Window
+
+    public partial class AddShowtimeWindow : Window
     {
-        public AddSuatChieuWindow()
+        public AddShowtimeWindow()
         {
             InitializeComponent();
         }
@@ -22,5 +21,6 @@ namespace CinemaManagement.Views.Admin.QuanLySuatChieuPage
         {
             this.Close();
         }
+
     }
 }
