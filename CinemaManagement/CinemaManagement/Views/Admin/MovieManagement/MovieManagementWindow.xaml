@@ -17,7 +17,6 @@
       FontFamily="{DynamicResource MaterialDesignFont}"
       DataContext="{StaticResource MovieManagementVM}"
       d:DesignHeight="720"
-      MouseLeftButtonDown="Page_MouseLeftButtonDown"
       d:DesignWidth="1440">
 
 

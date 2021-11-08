@@ -1,4 +1,5 @@
-﻿using CinemaManagement.Views.Admin.MovieManagement;
+﻿using CinemaManagement.Views.Admin.Import_ExportManagement;
+using CinemaManagement.Views.Admin.MovieManagement;
 using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 using CinemaManagement.Views.Admin.ShowtimeManagementVM;
 using System.Windows;
@@ -14,6 +15,7 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadQLPPageCM { get; set; }
         public ICommand LoadQLNVPageCM { get; set; }
         public ICommand LoadSuatChieuPageCM { get; set; }
+        public ICommand LoadLSPage { get; set; }
 
         private string _SelectedFuncName;
         public string SelectedFuncName
@@ -57,7 +59,13 @@ namespace CinemaManagement.ViewModel
                 if (p != null)
                     p.Content = new NhanVienPage();
             });
-        
+            LoadLSPage = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
+            {
+                SelectedFuncName = "Lịch sử";
+                if (p != null)
+                    p.Content = new Import_Export();
+            });
+
         }
 
 
