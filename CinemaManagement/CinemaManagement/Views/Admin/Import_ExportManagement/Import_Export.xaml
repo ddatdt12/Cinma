@@ -20,69 +20,21 @@
       d:DesignWidth="1440">
 
     <Grid Background="#f0f2f5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
-            <RowDefinition Height="90*" />
-        </Grid.RowDefinitions>
+
         <!--cong cu va cac button-->
-        <StackPanel Grid.Row="0"
-                    Orientation="Horizontal">
-            <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
-                     x:Name="_FilterBox"
-                     FontSize="25"
-                     Foreground="#DD000000"
-                     FontFamily="Arial"
-                     AllowDrop="True"
-                     BorderThickness="0,0,0,1"
-                     Width="500"
-                     Height="30"
-                     Padding="0"
-                     Margin="20,0,0,0"
-                     VerticalAlignment="Bottom" />
-            <StackPanel Orientation="Horizontal"
-                        Margin="30,0,0,0"
-                        VerticalAlignment="Bottom">
-                
-                <Button  Content="Xuất file Excel"
-                         Margin="0,0,50,0"
-                         Height="40"
-                         FontFamily="arial"
-                         FontWeight="Bold"
-                         materialDesign:ButtonAssist.CornerRadius="5"
-                         VerticalAlignment="Bottom"
-                         Command="{Binding ExportFileCM}"/>
 
 
-                <DatePicker x:Name="Calendar"
-                            materialDesign:HintAssist.Hint="{Binding SetCurrentDate}"
-                            Style="{StaticResource MaterialDesignOutlinedDatePicker}"
-                            FirstDayOfWeek="Monday"
-                            Foreground="Black"
-                            FontSize="25"
-                            Width="200"
-                            Height="55"
-                            BorderBrush="#0c70b6"
-                            Padding="10,0,20,0"
-                            materialDesign:ValidationAssist.Background="#f0f2f5"
-                            materialDesign:ValidationAssist.FontSize="0.01"
-                            SelectedDate="{Binding SelectedDate,Mode=OneWayToSource}" />
-
-            </StackPanel>
-
-        </StackPanel>
-
-        <Grid Grid.Row="1">
+        <Grid>
 
             <!--Changing View-->
-            <StackPanel Orientation="Horizontal"
-                        Margin="0,10,0,0">
+            <StackPanel Orientation="Horizontal">
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonTop}"
                              BorderBrush="{DynamicResource PrimaryHueMidBrush}"
                              VerticalAlignment="Top"
                              Height="50"
                              IsChecked="True"
                              Content="Nhập kho"
-                             Margin="20,0,0,0"
+                             Margin="20,30,0,0"
                              Command="{Binding LoadImportPageCM}"
                              CommandParameter="{Binding ElementName=MainListViewFrame}" />
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonTop}"
@@ -90,7 +42,7 @@
                              VerticalAlignment="Top"
                              Height="50"
                              IsChecked="False"
-                             Margin="10,0,0,0"
+                             Margin="10,30,0,0"
                              Content="Xuất bill"
                              Command="{Binding LoadExportPageCM}"
                              CommandParameter="{Binding ElementName=MainListViewFrame}" />
@@ -98,7 +50,7 @@
 
             <!---Listview-->
             <materialDesign:Card Background="White"
-                                 Margin="20,60,20,20">
+                                 Margin="20,80,20,20">
                 <Frame x:Name="MainListViewFrame">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
