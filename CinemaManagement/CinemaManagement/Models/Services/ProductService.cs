@@ -40,6 +40,7 @@ namespace CinemaManagement.Models.Services
                                                     DisplayName = p.DisplayName,
                                                     Price = p.Price,
                                                     Category = p.Category,
+                                                    Quantity = p.Quantity,
                                                     Image = p.Image
                                                 }
                      ).ToList();
@@ -53,7 +54,7 @@ namespace CinemaManagement.Models.Services
 
 
 
-        public (bool, string, ProductDTO) AddProduct(ProductDTO newProd)
+        public (bool, string, ProductDTO) AddNewProduct(ProductDTO newProd)
         {
             try
             {
@@ -166,5 +167,7 @@ namespace CinemaManagement.Models.Services
             }
             return (true, "Xóa sản phẩm thành công");
         }
+       
+
     }
 }

@@ -26,6 +26,7 @@ namespace CinemaManagement.Models
         public int StaffId { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
         public decimal TotalPrice { get; set; }
+        public decimal DiscountPrice { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Staff Staff { get; set; }

@@ -208,6 +208,7 @@
     <Compile Include="DTOs\MovieDTO.cs" />
     <Compile Include="DTOs\ProductBillInfoDTO.cs" />
     <Compile Include="DTOs\ProductDTO.cs" />
+    <Compile Include="DTOs\ProductReceiptDTO.cs" />
     <Compile Include="DTOs\RoomDTO.cs" />
     <Compile Include="DTOs\SeatDTO.cs" />
     <Compile Include="DTOs\SeatSettingDTO.cs" />
@@ -252,6 +253,9 @@
     <Compile Include="Models\ProductBillInfo.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductReceipt.cs">
+      <DependentUpon>CinemaManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Room.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
@@ -261,8 +265,10 @@
     <Compile Include="Models\SeatSetting.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Services\BookingService.cs" />
     <Compile Include="Models\Services\GenreService.cs" />
     <Compile Include="Models\Services\MovieService.cs" />
+    <Compile Include="Models\Services\ProductReceiptService.cs" />
     <Compile Include="Models\Services\ProductService.cs" />
     <Compile Include="Models\Services\SeatService.cs" />
     <Compile Include="Models\Services\ShowtimeService.cs" />

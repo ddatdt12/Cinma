@@ -15,5 +15,12 @@ namespace CinemaManagement.DTOs
         public int ShowtimeId { get; set; }
         public bool Status { get; set; }
         public  SeatDTO Seat { get; set; }
+        public string SeatPosition
+        {
+            get
+            {
+                return $"{Seat.SeatNumber}{Seat.Row}";
+            }
+        }
     }
 }

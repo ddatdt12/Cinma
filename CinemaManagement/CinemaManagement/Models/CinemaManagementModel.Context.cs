@@ -31,6 +31,7 @@ namespace CinemaManagement.Models
         public virtual DbSet<Movie> Movies { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductBillInfo> ProductBillInfoes { get; set; }
+        public virtual DbSet<ProductReceipt> ProductReceipts { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<Seat> Seats { get; set; }
         public virtual DbSet<SeatSetting> SeatSettings { get; set; }

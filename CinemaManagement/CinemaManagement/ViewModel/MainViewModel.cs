@@ -69,12 +69,20 @@ namespace CinemaManagement.ViewModel
 
 
                 movieDTOs = MovieService.Ins.GetAllMovie();
+
+                #region PRODUCTS
                 const string DRINK = "Nước uống";
                 const string FOOD = "Đồ ăn";
-                //(bool IsSuccess, string messageFromProduct, ProductDTO newProd) = ProductService.Ins.AddProduct(new ProductDTO { DisplayName="Pepsi",Price=45000,Category=DRINK, Image="pepsi.png"});
-                (bool IsSuccess, string messageFromDeleteProduct) = ProductService.Ins.DeleteProduct(1);
-                List<ProductDTO>prodDtos = ProductService.Ins.GetAllProduct();
+                //ProductService.Ins.AddProduct(new ProductDTO { DisplayName = "Pepsi", Price = 45000, Category = DRINK, Image = "pepsi.png" });
+                //ProductService.Ins.AddProduct(new ProductDTO { DisplayName = "Bánh Chorros", Price = 30000, Category = FOOD, Image = "banh_chorros.png" });
+                //ProductService.Ins.AddProduct(new ProductDTO { DisplayName = "Bánh quy xoắn Pretzels", Price = 30000, Category = FOOD, Image = "banh_quy_xoan_pretzels.png" });
+                //ProductService.Ins.AddProduct(new ProductDTO { DisplayName = "Cá viên chiên", Price = 20000, Category = FOOD, Image = "ca_vien_chien.png" });
+                //ProductService.Ins.AddProduct(new ProductDTO { DisplayName = "Hot dog", Price = 30000, Category = FOOD, Image = "hot_dog.png" });
+                //ProductService.Ins.AddProduct(new ProductDTO { DisplayName = "Mực trộn bơ", Price = 30000, Category = FOOD, Image = "muc_tron_bo.png" });
+                ////(bool IsSuccess, string messageFromDeleteProduct) = ProductService.Ins.DeleteProduct(1);
+                List<ProductDTO> prodDtos = ProductService.Ins.GetAllProduct();
                 //List<ProductDTO> prodDtos = ProductService.Ins.GetAllProduct();
+                #endregion
 
                 genreDTOs = GenreService.Ins.GetAllGenre();
 
@@ -82,24 +90,22 @@ namespace CinemaManagement.ViewModel
 
                 #region Showtime and Movie
 
-
-
-
                 //List<MovieDTO> ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(new DateTime(2021, 11, 1), 1);
 
 
                 //List<MovieDTO> ListMovieDtosOnDay = MovieService.Ins.GetShowingMovieByDay(new DateTime(2021, 11, 1));
 
 
-                //Console.WriteLine("zxc");
 
-
-
-                //string movieName= "Bố già";
-                //string imageName = Helper.Slugify(movieName);
-                //(bool AddSuccess, string message) = ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 1, RoomId = 1, ShowDate = DateTime.Today.AddDays(-1), StartTime = new TimeSpan(20, 20, 0) });
-
-
+                // ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 1, RoomId = 1, ShowDate = DateTime.Today, StartTime = new TimeSpan(20, 20, 0) });
+                // ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 2, RoomId = 1, ShowDate = DateTime.Today, StartTime = new TimeSpan(6, 20, 0) });
+                // ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 3, RoomId = 1, ShowDate = DateTime.Today, StartTime = new TimeSpan(10, 20, 0) });
+                // ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 4, RoomId = 1, ShowDate = DateTime.Today, StartTime = new TimeSpan(13, 20, 0) });
+                // ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 1, RoomId = 1, ShowDate = DateTime.Today,StartTime = new TimeSpan(16, 20, 0) });
+                
+                //List<MovieDTO> movieDTOsByDay = MovieService.Ins.GetShowingMovieByDay(DateTime.Today);
+                List<SeatSettingDTO> seatList = SeatService.Ins.GetSeatsByShowtime(13);
+                Console.WriteLine(" ");
                 //Add showtime
                 //(bool AddSuccess, string message, ShowtimeDTO newShowtime) = ShowtimeService.Ins.AddShowtime(
                 //    new ShowtimeDTO { MovieId = 4, RoomId = 1, ShowDate = DateTime.Today.AddDays(2), StartTime = new TimeSpan(19, 0, 0) }
@@ -141,8 +147,7 @@ namespace CinemaManagement.ViewModel
 
                 //staffDTOs = StaffService.Ins.GetAllStaff();
                 #endregion
-
-                (bool successzz, string messageLogin, StaffDTO staffz) = StaffService.Ins.Login("admin", "123456");
+                //(bool successzz, string messageLogin, StaffDTO staffz) = StaffService.Ins.Login("admin", "123456");
                 #region Movie Service
                 //Test Update movie
                 //movieDTOs[0].DisplayName = "BỐ GIÀ";
@@ -174,6 +179,25 @@ namespace CinemaManagement.ViewModel
                 #endregion
 
 
+                #region ProductReceipt (Nhập hàng và hóa đơn nhập sản phẩm)
+
+                //List<ProductDTO> productDTOs = ProductService.Ins.GetAllProduct();
+                //(bool createSuccess, string messageFromCreate, ProductReceiptDTO newReceipt) = ProductReceiptService.Ins.CreateProductReceipt(new ProductReceiptDTO
+                //{
+                //    ProductId = productDTOs[5].Id,
+                //    ImportPrice = 700000,
+                //    Quantity = 20
+                //});
+                //ProductReceiptService.Ins.CreateProductReceipt(new ProductReceiptDTO
+                //{
+                //    ProductId = productDTOs[6].Id,
+                //    ImportPrice = 950000,
+                //    Quantity = 40
+                //});
+                //List<ProductReceiptDTO> productReceipts = ProductReceiptService.Ins.GetProductReceipt();
+                //productDTOs = ProductService.Ins.GetAllProduct();
+
+                #endregion
                 //(bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login("dothanhdat123","123456");
                 MovieList = new List<MovieDTO>(movieDTOs);
                 GenreList = new ObservableCollection<GenreDTO>(genreDTOs);
@@ -181,14 +205,14 @@ namespace CinemaManagement.ViewModel
             catch (InvalidOperationException e)
             {
                 Console.WriteLine(e);
-                //MessageBox.Show($"InvalidOperationException : {e.Message}");
+                MessageBox.Show($"InvalidOperationException : {e.Message}");
 
             }
             catch (EntityException e)
             {
                 Console.WriteLine(e);
-                MessageBox.Show($"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại");
-
+                MessageBox.Show($"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
+                App.Current.Shutdown();
             }
             catch (Exception e)
             {

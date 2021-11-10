@@ -6,7 +6,5 @@
         public int TicketId { get; set; }
         public decimal Price { get; set; }
 
-        public BillDTO Bill { get; set; }
-        public TicketDTO Ticket { get; set; }
     }
 }

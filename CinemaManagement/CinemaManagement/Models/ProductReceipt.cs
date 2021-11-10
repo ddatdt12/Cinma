@@ -12,20 +12,14 @@ namespace CinemaManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class ProductReceipt
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
-        {
-            this.Bills = new HashSet<Bill>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
+        public int ProductId { get; set; }
+        public decimal ImportPrice { get; set; }
+        public int Quantity { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bill> Bills { get; set; }
+        public virtual Product Product { get; set; }
     }
 }
