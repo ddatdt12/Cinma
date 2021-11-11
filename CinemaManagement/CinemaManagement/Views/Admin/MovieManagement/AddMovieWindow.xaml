@@ -20,6 +20,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="650"
         Width="1000"
+        MouseLeftButtonDown="addmoviewindow_MouseLeftButtonDown"
         DataContext="{StaticResource MovieManagementVM}"
         PreviewKeyUp="addmoviewindow_PreviewKeyUp">
     <Grid>

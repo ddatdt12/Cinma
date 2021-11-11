@@ -89,6 +89,7 @@ namespace CinemaManagement.ViewModel
                 //staffDTOs = StaffService.Ins.GetAllStaff();
 
                 #region Showtime and Movie
+                    List<MovieDTO> ListMovieDtosOnDay = MovieService.Ins.GetShowingMovieByDay(DateTime.Today);
 
                 //List<MovieDTO> ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(new DateTime(2021, 11, 1), 1);
 
@@ -119,8 +120,19 @@ namespace CinemaManagement.ViewModel
                 //ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today.AddDays(-2), 1);
 
                 //ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today, 1);
+
+                    List<MovieDTO> ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today, 1);
+                    //string movieName= "Bố già";
+                    //string imageName = Helper.Slugify(movieName);
+                    //(bool AddSuccess, string message) = ShowtimeService.Ins.AddShowtime(
+                    //new ShowtimeDTO { MovieId = 1, RoomId = 1, ShowDate = DateTime.Today, StartTime = new TimeSpan(13, 50, 0) });
+                    //(bool AddSuccess, string message) = ShowtimeService.Ins.AddShowtime(new ShowtimeDTO { MovieId = 4, RoomId = 1, ShowDate = DateTime.Today.AddDays(2), StartTime = new TimeSpan(19, 0, 0) });
+
+                    //ListMovieDtos = MovieService.Ins.GetShowingMovieByDay(DateTime.Today, 1);
+
                 #endregion
 
+                Console.WriteLine("zxc");
                 #region Staff Service
                 //StaffDTO staff = new StaffDTO
                 //{
@@ -147,7 +159,9 @@ namespace CinemaManagement.ViewModel
 
                 //staffDTOs = StaffService.Ins.GetAllStaff();
                 #endregion
+
                 //(bool successzz, string messageLogin, StaffDTO staffz) = StaffService.Ins.Login("admin", "123456");
+
                 #region Movie Service
                 //Test Update movie
                 //movieDTOs[0].DisplayName = "BỐ GIÀ";

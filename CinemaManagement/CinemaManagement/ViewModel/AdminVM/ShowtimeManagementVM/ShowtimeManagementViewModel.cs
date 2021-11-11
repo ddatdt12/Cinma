@@ -20,7 +20,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public MovieDTO movieSelected
         {
             get { return _movieSelected; }
-            set { _movieSelected = value; OnPropertyChanged(); }
+            set { _movieSelected = value; OnPropertyChanged(); CalculateRunningTime(); }
         }
 
         private DateTime _showtimeDate;
@@ -34,8 +34,10 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public DateTime Showtime
         {
             get { return _Showtime; }
-            set{
-                _Showtime = value; OnPropertyChanged();}
+            set
+            {
+                _Showtime = value; OnPropertyChanged(); CalculateRunningTime();
+            }
         }
 
         private RoomDTO _ShowtimeRoom;
@@ -44,6 +46,14 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             get { return _ShowtimeRoom; }
             set { _ShowtimeRoom = value; OnPropertyChanged(); }
         }
+        private double _moviePrice;
+
+        public double moviePrice
+        {
+            get { return _moviePrice; }
+            set { _moviePrice = value; OnPropertyChanged(); CalculateRunningTime(); }
+        }
+
         // this is for  binding data
 
 
@@ -95,10 +105,10 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public DateTime SelectedDate
         {
             get { return _SelectedDate; }
-            set { _SelectedDate = value; ReloadShowtimeList(); OnPropertyChanged(); }
+            set { _SelectedDate = value; ReloadShowtimeList(-1); OnPropertyChanged(); }
         }
 
-        private MovieDTO _selectedItem; //the showtime being selected
+        private MovieDTO _selectedItem; //the item being selected
         public MovieDTO SelectedItem
         {
             get { return _selectedItem; }
@@ -107,15 +117,21 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
 
 
+        public int SelectedRoomId = -1;
+
+
         public ICommand ChangedRoomCM { get; set; }
+
         public ICommand LoadDeleteShowtimeCM { get; set; }
 
 
         public ShowtimeManagementViewModel()
         {
 
+
             LoadCurrentDate();
             SelectedDate = GetCurrentDate;
+            ReloadShowtimeList(-1);
 
 
 
@@ -123,7 +139,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             LoadAddShowtimeCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 GenerateListRoom();
-
+                RenewData();
                 AddShowtimeWindow temp = new AddShowtimeWindow();
                 MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
                 temp.ShowDialog();
@@ -132,9 +148,8 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 SaveShowtimeFunc(p);
             });
-            LoadDeleteShowtimeCM = new RelayCommand<ListView>((p) => { return true; }, (p) =>
+            LoadDeleteShowtimeCM = new RelayCommand<ListBox>((p) => { if (SelectedShowtime is null) return false; return true; }, (p) =>
             {
-
                 int showtimeId = 18;
                 string message = "Bạn có chắc muốn xoá suất chiếu này không? Dữ liệu không thể phục hồi sau khi xoá!";
                 try
@@ -150,10 +165,10 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 {
                     System.Windows.MessageBox.Show("Lỗi hệ thống");
                 }
-                
+
                 MessageBoxResult result = System.Windows.MessageBox.Show(message, "Xác nhận xoá", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                
-                if(result == MessageBoxResult.Yes)
+
+                if (result == MessageBoxResult.Yes)
                 {
                     //int showtimeId = 18
                     //(bool deleteSuccess, string messageFromDelete) = ShowtimeService.Ins.DeleteShowtime(18);
@@ -187,38 +202,47 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 switch (p.Name)
                 {
-                    case "All":
+                    case "all":
                         {
-                            ReloadShowtimeList();
+                            SelectedRoomId = -1;
+                            ReloadShowtimeList(SelectedRoomId);
                             break;
                         }
                     case "r1":
                         {
+                            SelectedRoomId = 1;
                             ReloadShowtimeList(1);
                             break;
                         }
                     case "r2":
                         {
+                            SelectedRoomId = 2;
                             ReloadShowtimeList(2);
                             break;
-
                         }
                     case "r3":
                         {
+                            SelectedRoomId = 3;
                             ReloadShowtimeList(3);
                             break;
                         }
                     case "r4":
                         {
+                            SelectedRoomId = 4;
                             ReloadShowtimeList(4);
                             break;
                         }
                     case "r5":
                         {
+                            SelectedRoomId = 5;
                             ReloadShowtimeList(5);
                             break;
                         }
                 }
+            });
+            LoadInfor_EditShowtime = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                Infor_EditFunc();
             });
         }
 
@@ -230,13 +254,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             GetCurrentDate = DateTime.Now.Date;
             SetCurrentDate = GetCurrentDate.ToShortDateString();
         }
-        public void RenewData()
-        {
-            movieSelected = null;
-            showtimeDate = GetCurrentDate;
-            ShowtimeRoom = null;
-            Showtime = new DateTime();
-        }
+
 
         ////Operation is enum have 4 values { READ, UPDATE, CREATE, DELETE }
         //public void LoadShowtimeListView(Operation oper = Operation.READ, MovieDTO m = null)
@@ -269,12 +287,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         //}
 
 
-        public void ReloadShowtimeList(int roomId = -1)
+
+        public void ReloadShowtimeList(int id)
         {
-            if (roomId == -1)
-                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
+            if (id != -1)
+                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
             else
-                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate, roomId));
+                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
         }
         public void GenerateListRoom()
         {
@@ -289,13 +308,12 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 ListRoom.Add(temp);
             }
         }
-
         public bool IsValidData()
         {
             return movieSelected != null
                 && !string.IsNullOrEmpty(showtimeDate.ToString())
                 && !string.IsNullOrEmpty(Showtime.ToString())
-                && ShowtimeRoom != null;
+                && ShowtimeRoom != null && !(moviePrice == 0);
         }
     }
 }

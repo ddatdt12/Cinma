@@ -11,7 +11,7 @@
       d:DesignHeight="720"
       d:DesignWidth="1440"
       Title="QuanLySuatChieuPage">
- 
+
 
     <Grid Background="#f0f2f5">
         <Grid.RowDefinitions>
@@ -76,11 +76,11 @@
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
                              IsChecked="True"
                              Content="Toàn bộ"
-                             x:Name="All"
-                             Padding="0,0,0,10"
+                             x:Name="all"
+                             Padding="0,10,0,10"
                              BorderBrush="#0c70b6"
                              Command="{Binding ChangedRoomCM}"
-                             CommandParameter="{Binding ElementName=All}" />
+                             CommandParameter="{Binding ElementName=all}" />
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
                              IsChecked="False"
                              Content="Phòng 1"
@@ -114,7 +114,7 @@
                              Command="{Binding ChangedRoomCM}"
                              CommandParameter="{Binding ElementName=r4}" />
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
-                             Margin="4"
+                             Margin="0,4,4,4"
                              Padding="0,10,0,10"
                              IsChecked="False"
                              Content="Phòng 5"
@@ -136,11 +136,12 @@
 
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Tên phim" Width="400">
+                            <GridViewColumn Header="Tên phim"
+                                            Width="390">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock  Text="{Binding DisplayName}"
-                                                    FontSize="18"/>
+                                                    FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -165,57 +166,59 @@
                             <GridViewColumn Header="Giờ chiếu">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                                            <ItemsControl ItemsSource="{Binding Showtimes}">
-                                                <ItemsControl.ItemsPanel>
-                                                    <ItemsPanelTemplate>
-                                                        <UniformGrid Columns="4" />
-                                                    </ItemsPanelTemplate>
-                                                </ItemsControl.ItemsPanel>
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <StackPanel Orientation="Horizontal"
-                                                                    Margin="10,0,10,0">
-                                                            <Button Content="{Binding StartTime}"
-                                                                    FontSize="18"
-                                                                    Width="120"
-                                                                    Cursor="Arrow"
-                                                                    Background="LightGoldenrodYellow"
-                                                                    Foreground="Black" />
-                                                        </StackPanel>
+                                        <ListBox ItemsSource="{Binding Showtimes}">
 
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                        </ScrollViewer>
+                                            <ListBox.ItemContainerStyle>
+                                                <Style TargetType="ListBoxItem">
+                                                    <Setter Property="Margin"
+                                                            Value="10,2,10,0" />
+                                                    <Setter Property="Padding"
+                                                            Value="0" />
+                                                </Style>
+                                            </ListBox.ItemContainerStyle>
 
+                                            <ListBox.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <UniformGrid Columns="4" />
+                                                </ItemsPanelTemplate>
+                                            </ListBox.ItemsPanel>
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button Content="{Binding           StartTime}"
+                                                                FontSize="18"
+                                                                Width="120"
+                                                                Background="LightGoldenrodYellow"
+                                                                Foreground="Black">
+                                                        </Button>
+                                                    </StackPanel>
+
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <materialDesign:PackIcon Kind="GarbageCanEmpty"
-                                                                 Width="30"
-                                                                 Height="30"
-                                                                 Cursor="Hand">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                    <i:InvokeCommandAction Command="{Binding ElementName=ShowtimeListview, Path=DataContext.LoadDeleteShowtimeCM}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <materialDesign:PackIcon.Style>
-                                                <Style TargetType="materialDesign:PackIcon">
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver"
-                                                                 Value="True">
-                                                            <Setter Property="Foreground"
-                                                                    Value="OrangeRed" />
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </materialDesign:PackIcon.Style>
-                                        </materialDesign:PackIcon>
+                                        <Border BorderThickness="0.5"
+                                                BorderBrush="Black"
+                                                Margin="0,5,0,0"
+                                                CornerRadius="5">
+                                            <StackPanel Cursor="Hand">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=ShowtimeListview, Path=DataContext.LoadInfor_EditShowtime}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <Image Height="30" Width="30"
+                                                    Source="/Resources/IconPack/pencil.png" />
+                                            </StackPanel>
+
+
+                                        </Border>
+
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

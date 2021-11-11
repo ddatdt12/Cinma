@@ -156,6 +156,8 @@
                                         Background="Transparent"
                                         BorderBrush="Transparent"
                                         Command="{Binding LoadLSPage}"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadTKPageCM}"
                                         CommandParameter="{Binding ElementName=MainFrame}" />
 
                             </StackPanel>
@@ -192,9 +194,9 @@
         <Frame x:Name="MainFrame"
                Height="720"
                Width="1440"
-               Margin="0,79,-4,10"
                NavigationUIVisibility="Hidden"
-               Panel.ZIndex="0">
+               Panel.ZIndex="0"
+               Margin="0,80,0,0">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">
