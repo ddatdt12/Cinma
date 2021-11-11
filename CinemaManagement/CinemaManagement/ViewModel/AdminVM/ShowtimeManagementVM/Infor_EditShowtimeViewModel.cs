@@ -1,6 +1,5 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Views.Admin.ShowtimeManagement;
-using System.Windows;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
@@ -18,6 +17,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
 
         public ICommand LoadInfor_EditShowtime { get; set; }
+        public ICommand CloseEditCM { get; set; }
 
 
         private ShowtimeDTO _selectedShowtime; //the showtime being selected
@@ -59,9 +59,8 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
         public void SeatFunc()
         {
-            ListSeat = SelectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
-            MessageBox.Show(SelectedItem.DisplayName);
-            MessageBox.Show(SelectedShowtime.StartTime.ToString());
+            if (SelectedShowtime != null)
+                ListSeat = SelectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
         }
     }
 }

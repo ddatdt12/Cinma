@@ -1,6 +1,5 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Views.Admin.Import_ExportManagement;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Forms;

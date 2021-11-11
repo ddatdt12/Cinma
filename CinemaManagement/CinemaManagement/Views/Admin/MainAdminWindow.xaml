@@ -138,17 +138,13 @@
                                         Command="{Binding LoadQLNVPageCM}"
                                         CommandParameter="{Binding ElementName=MainFrame}" />
                                 <Button Margin="0,0,0,5"
-                                        Content="Quản lý vé"
-                                        Height="50"
-                                        FontSize="25"
-                                        Background="Transparent"
-                                        BorderBrush="Transparent" />
-                                <Button Margin="0,0,0,5"
                                         Content="Thống kê"
                                         Height="50"
                                         FontSize="25"
                                         Background="Transparent"
-                                        BorderBrush="Transparent" />
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadTKPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
                                 <Button Margin="0,0,0,5"
                                         Content="Lịch sử"
                                         Height="50"
@@ -156,10 +152,7 @@
                                         Background="Transparent"
                                         BorderBrush="Transparent"
                                         Command="{Binding LoadLSPage}"
-                                        BorderBrush="Transparent"
-                                        Command="{Binding LoadTKPageCM}"
                                         CommandParameter="{Binding ElementName=MainFrame}" />
-
                             </StackPanel>
                         </Grid>
                         <ToggleButton x:Name="SlideButton"

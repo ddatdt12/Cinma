@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:CinemaManagement.Views.Admin.Import_ExportManagement"
       mc:Ignorable="d"
       d:DesignHeight="568"
       d:DesignWidth="1400"
@@ -15,7 +14,7 @@
         <ListView  x:Name="_ListView"
                    Focusable="True"
                    ItemsSource="{Binding ListSource}"
-                   Margin="0,35,0,0">
+                   Margin="0,75,0,0">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Mã đơn"
@@ -99,12 +98,12 @@
                  Width="500"
                  Height="30"
                  Padding="0"
-                 Margin="5,5,0,0"
+                 Margin="20,25,0,0"
                  TextChanged="TextBox_TextChanged"
                  VerticalAlignment="Top"
                  HorizontalAlignment="Left" />
         <Button  Content="Xuất file Excel"
-                 Margin="0,5,5,0"
+                 Margin="0,15,700,0"
                  Height="40"
                  Width="130"
                  FontFamily="arial"
@@ -112,6 +111,7 @@
                  materialDesign:ButtonAssist.CornerRadius="5"
                  VerticalAlignment="Top"
                  HorizontalAlignment="Right"
-                 Command="{Binding ExportFileCM}" />
+                 Command="{Binding ExportFileCM}"
+                 RenderTransformOrigin="0.385,0.475" />
     </Grid>
 </Page>

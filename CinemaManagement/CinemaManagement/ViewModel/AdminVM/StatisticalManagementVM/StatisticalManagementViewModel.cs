@@ -1,11 +1,7 @@
 ﻿using LiveCharts;
 using LiveCharts.Wpf;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -21,18 +17,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             get { return _SelectedPeriod; }
             set { _SelectedPeriod = value; OnPropertyChanged(); }
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -62,8 +46,8 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         {
             YearSource = new List<string>();
             YearSource = GetYearCombobox();
-            
-            
+
+
             List<double> temp = new List<double>();
             List<double> temp1 = new List<double>();
             List<double> temp2 = new List<double>();

@@ -1,11 +1,9 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
-using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.ShowtimeManagementVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -243,6 +241,11 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             LoadInfor_EditShowtime = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 Infor_EditFunc();
+            });
+            CloseEditCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Close();
+                SelectedShowtime = null;
             });
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net.Cache;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Media;
@@ -40,6 +41,19 @@ namespace CinemaManagement.Utils
             return $"{imageName}.{ext}";
         }
 
+        public static ImageSource GetImageSource(string imageName)
+        {
+            BitmapImage _image = new BitmapImage();
+            _image.BeginInit();
+            _image.CacheOption = BitmapCacheOption.None;
+            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+            _image.CacheOption = BitmapCacheOption.OnLoad;
+            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            _image.UriSource = new Uri(GetMovieImgPath(imageName));
+            _image.EndInit();
+
+            return _image;
+        }
         public static ImageSource GetProductSource(string fileName)
         {
             return new BitmapImage(new Uri($@"{SOURCE.ProductsSource}/{fileName}", UriKind.Relative));

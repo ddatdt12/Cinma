@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.ShowtimeManagement"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         WindowStyle="None"
         MouseLeftButtonDown="Window_MouseDown"
@@ -13,9 +11,9 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         DataContext="{StaticResource ShowtimeManagementVM}"
-        Title="Infor_EditShowtimeWindow"
         Height="600"
-        Width="1100">
+        Width="1100"
+        x:Name="EditWindow">
     <Border Background="#FFF0F3F7"
             CornerRadius="20"
             BorderBrush="Gray"
@@ -151,7 +149,8 @@
                                 Content="Thoát"
                                 Margin="220,30,0,0"
                                 materialDesign:ButtonAssist.CornerRadius="8"
-                                Click="Button_Click" />
+                                Command="{Binding CloseEditCM}"
+                                CommandParameter="{Binding ElementName=EditWindow}"/>
 
 
                     </StackPanel>

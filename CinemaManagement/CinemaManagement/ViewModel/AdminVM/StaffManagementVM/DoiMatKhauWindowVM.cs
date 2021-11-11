@@ -1,12 +1,5 @@
 ﻿using CinemaManagement.Models.Services;
-using CinemaManagement.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 {
@@ -16,17 +9,17 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         {
 
             (bool isValid, string error) = IsValidData(Utils.Operation.UPDATE_PASSWORD);
-                if (isValid)
-                {
-                    (bool updatePassSuccesss, string message) = StaffService.Ins.UpdatePassword(SelectedItem.Id, MatKhau);
-                    if (updatePassSuccesss)
-                        p.Close();
-                    MessageBox.Show(message);
-                }
-                else
-                {
-                    MessageBox.Show(error);
-                }
+            if (isValid)
+            {
+                (bool updatePassSuccesss, string message) = StaffService.Ins.UpdatePassword(SelectedItem.Id, MatKhau);
+                if (updatePassSuccesss)
+                    p.Close();
+                MessageBox.Show(message);
+            }
+            else
+            {
+                MessageBox.Show(error);
+            }
         }
     }
 

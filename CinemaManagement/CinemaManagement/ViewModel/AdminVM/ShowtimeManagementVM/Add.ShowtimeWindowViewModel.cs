@@ -1,8 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
-using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 

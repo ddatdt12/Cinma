@@ -13,7 +13,7 @@
     <Grid>
         <ListView  x:Name="_ListView"
                    Focusable="True"
-                   Margin="0,35,0,0"
+                   Margin="0,75,0,0"
                    ItemsSource="{Binding ListSource}"
                    HorizontalContentAlignment="Stretch">
             <ListView.View>
@@ -76,13 +76,13 @@
                  Width="500"
                  Height="30"
                  Padding="0"
-                 Margin="5,5,0,0"
+                 Margin="20,25,0,0"
                  TextChanged="TextBox_TextChanged"
                  VerticalAlignment="Top"
                  HorizontalAlignment="Left" />
 
         <Button  Content="Xuất file Excel"
-                 Margin="0,5,5,0"
+                 Margin="0,15,700,0"
                  Height="40"
                  Width="130"
                  FontFamily="arial"

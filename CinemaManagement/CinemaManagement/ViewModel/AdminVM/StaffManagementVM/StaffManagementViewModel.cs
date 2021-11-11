@@ -3,11 +3,8 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -115,7 +112,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
         public ICommand MouseMoveCommand { get; set; }
         public ICommand CloseCommand { get; set; }
-        
+
 
 
 
@@ -133,49 +130,58 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
             LoadStaffListView(Operation.READ);
             GetListViewCommand = new RelayCommand<ListView>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     listView = p;
                 });
             GetPasswordCommand = new RelayCommand<PasswordBox>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     MatKhau = p.Password;
                 });
             GetRePasswordCommand = new RelayCommand<PasswordBox>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     RePass = p.Password;
                 });
 
-            AddStaffCommand = new RelayCommand<Window>((p) => { return true; }, 
-                (p) => {
+            AddStaffCommand = new RelayCommand<Window>((p) => { return true; },
+                (p) =>
+                {
                     AddStaff(p);
                 });
             EditStaffCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     EditStaff(p);
                 });
             ChangePassCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     ChangePass(p);
                 });
             DeleteStaffCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     DeleteStaff(p);
                 });
 
             OpenAddStaffCommand = new RelayCommand<object>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     ThemNhanVienWindow wd = new ThemNhanVienWindow();
                     ResetData();
                     wd.ShowDialog();
 
                 });
-            OpenEditStaffCommand = new RelayCommand<object>((p) => { return true; }, 
-                (p) => {
+            OpenEditStaffCommand = new RelayCommand<object>((p) => { return true; },
+                (p) =>
+                {
                     SuaNhanVienWindow wd = new SuaNhanVienWindow();
                     ResetData();
                     wd._FullName.Text = SelectedItem.Name;
                     string x = SelectedItem.Gender;
-                    if (x=="Nam")
+                    if (x == "Nam")
                     {
                         wd.Gender.Text = SelectedItem.Gender;
                     }
@@ -202,12 +208,16 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
             OpenDeleteStaffCommand = new RelayCommand<object>((p) => { return true; }, (p) => { XoaNhanVienWindow wd = new XoaNhanVienWindow(); wd.ShowDialog(); });
 
-            OpenChangePassCommand = new RelayCommand<object>((p) => { return true; }, (p) => { DoiMatKhau wd = new DoiMatKhau();
+            OpenChangePassCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                DoiMatKhau wd = new DoiMatKhau();
                 MatKhau = null;
                 RePass = null;
-                wd.ShowDialog(); });
+                wd.ShowDialog();
+            });
 
-            CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => {
+            CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
+            {
                 Window window = GetWindowParent(p);
                 var w = window as Window;
                 if (w != null)
@@ -303,11 +313,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
             if (oper == Operation.CREATE || oper == Operation.UPDATE_PASSWORD)
             {
-                if(MatKhau is null) {
+                if (MatKhau is null)
+                {
                     return (false, "Vui lòng nhập mật khẩu");
                 }
-                if(MatKhau != RePass)
-                     return (false, "Mật khẩu và mật khẩu nhập lại không trùng khớp!");
+                if (MatKhau != RePass)
+                    return (false, "Mật khẩu và mật khẩu nhập lại không trùng khớp!");
             }
 
             (bool ageValid, string error) = ValidateAge((DateTime)Born);

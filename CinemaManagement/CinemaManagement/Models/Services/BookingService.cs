@@ -22,7 +22,8 @@ namespace CinemaManagement.Models.Services
             }
             private set => _ins = value;
         }
-        private BookingService() { 
+        private BookingService()
+        {
         }
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace CinemaManagement.Models.Services
         //    }
         //    catch (DbEntityValidationException e)
         //    {
-                
+
         //        return (false, "DbEntityValidationException", null);
 
         //    }
@@ -51,4 +52,5 @@ namespace CinemaManagement.Models.Services
         //    }
         //    return (true, "Thêm phim thành công", newMovie);
         //}
+    }
 }

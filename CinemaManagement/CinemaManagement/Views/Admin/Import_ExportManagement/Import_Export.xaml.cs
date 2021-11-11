@@ -1,11 +1,6 @@
 ﻿using CinemaManagement.DTOs;
-using CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM;
-using System;
 using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
 
 namespace CinemaManagement.Views.Admin.Import_ExportManagement
 {
