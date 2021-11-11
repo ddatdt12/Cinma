@@ -140,7 +140,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
@@ -184,6 +186,7 @@
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Presentation" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -194,7 +197,9 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationCore">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationCore.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
@@ -514,6 +519,9 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\FoodLayout\Icon\Money.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Drink.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Food.jpg" />
     <Resource Include="Resources\FoodLayout\Food\Burger\Beef.jpg" />
     <Resource Include="Resources\FoodLayout\Food\Burger\Cheese.jpg" />
     <Resource Include="Resources\FoodLayout\Food\Burger\Chicken.jpg" />
@@ -526,32 +534,10 @@
     <Resource Include="Resources\FoodLayout\Food\Drink\Peach Tea.jpg" />
     <Resource Include="Resources\FoodLayout\Food\Drink\PeachTea.jpg" />
     <Resource Include="Resources\FoodLayout\Food\Drink\Pepsi.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Hotdog\Boerie Rolls.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Hotdog\BoerieRolls.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Hotdog\Choripan.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Hotdog\Completo.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Pizza\Bulgogi.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Pizza\Lamacun.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Pizza\Langos.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Pizza\Sfiha.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Pizza\Tarte Flambee.jpg" />
     <Resource Include="Resources\FoodLayout\Food\Popcorn\Butter Milk.jpg" />
     <Resource Include="Resources\FoodLayout\Food\Popcorn\Caramel.jpg" />
     <Resource Include="Resources\FoodLayout\Food\Popcorn\Healthy.jpg" />
     <Resource Include="Resources\FoodLayout\Food\Popcorn\Salty Butter.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Snack\French Fries.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Snack\FrenchFries.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Snack\O%27star.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Snack\Ostar.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Snack\Poca.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Snack\Slide.jpg" />
-    <Resource Include="Resources\FoodLayout\Food\Snack\Tonies.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Burger.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Drink.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Hotdog.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Pizza.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Popcorn.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Snack.jpg" />
     <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
     <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
     <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
