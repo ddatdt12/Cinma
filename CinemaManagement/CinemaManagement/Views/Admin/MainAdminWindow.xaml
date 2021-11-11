@@ -149,6 +149,14 @@
                                         FontSize="25"
                                         Background="Transparent"
                                         BorderBrush="Transparent" />
+                                <Button Margin="0,0,0,5"
+                                        Content="Lịch sử"
+                                        Height="50"
+                                        FontSize="25"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadLSPage}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
 
                             </StackPanel>
                         </Grid>

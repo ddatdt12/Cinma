@@ -1,0 +1,67 @@
+﻿<Page x:Class="CinemaManagement.Views.Admin.Import_ExportManagement.Import_Export"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:CinemaManagement"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:si="http://schemas.microsoft.com/expression/2010/interactions"
+      mc:Ignorable="d"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto"
+      FontFamily="{DynamicResource MaterialDesignFont}"
+      DataContext="{StaticResource Import_ExportManagementVM}"
+      d:DesignHeight="720"
+      d:DesignWidth="1440">
+
+    <Grid Background="#f0f2f5">
+
+        <!--cong cu va cac button-->
+
+
+        <Grid>
+
+            <!--Changing View-->
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonTop}"
+                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                             VerticalAlignment="Top"
+                             Height="50"
+                             IsChecked="True"
+                             Content="Nhập kho"
+                             Margin="20,30,0,0"
+                             Command="{Binding LoadImportPageCM}"
+                             CommandParameter="{Binding ElementName=MainListViewFrame}" />
+                <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonTop}"
+                             BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                             VerticalAlignment="Top"
+                             Height="50"
+                             IsChecked="False"
+                             Margin="10,30,0,0"
+                             Content="Xuất bill"
+                             Command="{Binding LoadExportPageCM}"
+                             CommandParameter="{Binding ElementName=MainListViewFrame}" />
+            </StackPanel>
+
+            <!---Listview-->
+            <materialDesign:Card Background="White"
+                                 Margin="20,80,20,20">
+                <Frame x:Name="MainListViewFrame">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding LoadImportPageCM}"
+                                                   CommandParameter="{Binding ElementName=MainListViewFrame}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Frame>
+            </materialDesign:Card>
+        </Grid>
+
+
+    </Grid>
+</Page>
