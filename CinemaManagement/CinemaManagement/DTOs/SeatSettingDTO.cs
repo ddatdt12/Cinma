@@ -19,7 +19,7 @@ namespace CinemaManagement.DTOs
         {
             get
             {
-                return $"{Seat.SeatNumber}{Seat.Row}";
+                return $"{Seat.Row}{Seat.SeatNumber}";
             }
         }
     }
