@@ -40,7 +40,7 @@
                              Height="50"
                              IsChecked="False"
                              Margin="10,30,0,0"
-                             Content="Xuất bill"
+                             Content="Hóa đơn"
                              Command="{Binding LoadExportPageCM}"
                              CommandParameter="{Binding ElementName=MainListViewFrame}" />
             </StackPanel>

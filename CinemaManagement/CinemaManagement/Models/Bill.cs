@@ -18,7 +18,7 @@ namespace CinemaManagement.Models
         public Bill()
         {
             this.ProductBillInfoes = new HashSet<ProductBillInfo>();
-            this.TicketBillInfoes = new HashSet<TicketBillInfo>();
+            this.Tickets = new HashSet<Ticket>();
         }
     
         public int Id { get; set; }
@@ -33,6 +33,6 @@ namespace CinemaManagement.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductBillInfo> ProductBillInfoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TicketBillInfo> TicketBillInfoes { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

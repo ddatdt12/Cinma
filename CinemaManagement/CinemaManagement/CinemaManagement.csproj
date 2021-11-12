@@ -296,9 +296,6 @@
     <Compile Include="Models\Ticket.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TicketBillInfo.cs">
-      <DependentUpon>CinemaManagementModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Utils\Constant.cs" />
     <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />

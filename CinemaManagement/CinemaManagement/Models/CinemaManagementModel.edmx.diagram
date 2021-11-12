@@ -4,26 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6dddbc048563440a9f2e91565c37a827" Name="Diagram1" ZoomLevel="74">
-        <EntityTypeShape EntityType="CinemaManagementModel.Bill" Width="1.5" PointX="5.875" PointY="11.5" IsExpanded="true" />
+      <Diagram DiagramId="6dddbc048563440a9f2e91565c37a827" Name="Diagram1" ZoomLevel="101">
+        <EntityTypeShape EntityType="CinemaManagementModel.Bill" Width="1.5" PointX="6.125" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Customer" Width="1.5" PointX="2.875" PointY="14.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Genre" Width="1.5" PointX="0.5" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Movie" Width="1.5" PointX="2.375" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="9.875" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="9.5" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.ProductBillInfo" Width="1.5" PointX="8.75" PointY="12.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.ProductReceipt" Width="1.5" PointX="9.125" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Room" Width="1.5" PointX="0.5" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Seat" Width="1.5" PointX="2.375" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.SeatSetting" Width="1.5" PointX="6.5" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Showtime" Width="1.5" PointX="5.625" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.SeatSetting" Width="1.5" PointX="5.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Showtime" Width="1.5" PointX="4.875" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.ShowtimeSetting" Width="1.5" PointX="2.5" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Staff" Width="1.5" PointX="6.5" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Ticket" Width="1.5" PointX="4.5" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.TicketBillInfo" Width="1.5" PointX="7.875" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Ticket" Width="1.5" PointX="7.25" PointY="5.125" IsExpanded="true" />
         <AssociationConnector Association="CinemaManagementModel.FK__Bill__CustomerId__5DCAEF64" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__Bill__StaffId__5EBF139D" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__ProductBi__BillI__6477ECF3" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__TicketBil__BillI__693CA210" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__Showtime__MovieI__4E88ABD4" ManuallyRouted="false" ></AssociationConnector>
         <AssociationConnector Association="CinemaManagementModel.FK__ProductBi__Produ__656C112C" ManuallyRouted="false" ></AssociationConnector>
         <AssociationConnector Association="CinemaManagementModel.PRODUCT_RECEIPT_PRODUCTID_FK" ManuallyRouted="false" />
@@ -35,8 +33,8 @@
         </AssociationConnector>
         <AssociationConnector Association="CinemaManagementModel.FK__Showtime__Showti__4F7CD00D" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__Ticket__Showtime__59FA5E80" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__TicketBil__Ticke__6A30C649" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.GenreDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Ticket__BillId__6D0D32F4" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

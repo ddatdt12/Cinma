@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models.Services;
 using CinemaManagement.Views.Admin.Import_ExportManagement;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
@@ -155,7 +156,6 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             ListSource = new ObservableCollection<MovieDTO>();
             for (int i = 0; i < 9; i++)
             {
-
                 MovieDTO temp = new MovieDTO
                 {
                     Country = "088578",
@@ -164,6 +164,8 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                     DisplayName = "Trần Khôi",
                     MovieType = "25/3/2021",
                 };
+                ProductReceiptService.Ins.GetProductReceipt();
+
                 ListSource.Add(temp);
             }
 
@@ -173,7 +175,6 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             ListSource = new ObservableCollection<MovieDTO>();
             for (int i = 0; i < 9; i++)
             {
-
                 MovieDTO temp = new MovieDTO
                 {
                     Country = "088578",
@@ -183,6 +184,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                     DisplayName = "Trần Khôi",
                     MovieType = "25/3/2021",
                 };
+
                 ListSource.Add(temp);
             }
         }

@@ -31,26 +31,31 @@ namespace CinemaManagement.Models.Services
         /// </summary>
         /// <param name="bookedSeatList"></param>
         /// <returns></returns>
-        //public (bool IsSuccess, string message, ShowtimeDTO newShowtime) CreateTicketBooking(List<SeatSettingDTO> bookedSeatList)
-        //{
-        //        var context = DataProvider.Ins.DB;
-        //    try
-        //    {
-        //            context.Movies.Add(mov);
-        //            context.SaveChanges();
-        //    }
-        //    catch (DbEntityValidationException e)
-        //    {
+        public (bool IsSuccess, string message) CreateTicketBooking(List<SeatSettingDTO> bookedSeatList)
+        {
+            if (bookedSeatList.Count() == 0)
+            {
+                return (false, "Vui lòng chọn ghế!");
+            }
+            var context = DataProvider.Ins.DB;
+            try
+            {
+                var idSeatList = new List<int>();
+                bookedSeatList.ForEach(s => idSeatList.Add(s.SeatId));
+                var seatSets = context.SeatSettings.Where(s => s.ShowtimeId == bookedSeatList[0].ShowtimeId && idSeatList.Contains(s.SeatId));
+                foreach (var s in seatSets)
+                {
+                    s.Status = true;
+                }
 
-        //        return (false, "DbEntityValidationException", null);
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e);
-        //        return (false, $"Error Server {e}", null);
-        //    }
-        //    return (true, "Thêm phim thành công", newMovie);
-        //}
+                context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return (false, $"Error Server {e}");
+            }
+            return (true, "Thêm phim thành công");
+        }
     }
 }
