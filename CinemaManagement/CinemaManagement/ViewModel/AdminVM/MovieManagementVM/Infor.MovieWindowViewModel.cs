@@ -1,12 +1,9 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Cache;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 {

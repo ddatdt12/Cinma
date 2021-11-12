@@ -1,8 +1,6 @@
-﻿using CinemaManagement.ViewModel.AdminVM.MovieManagementVM;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 {
@@ -57,5 +55,10 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
             }
         }
 
+        private void addmoviewindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            this.DragMove();
+        }
     }
 }

@@ -8,9 +8,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net.Cache;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -179,22 +177,22 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 w1.ShowDialog();
 
             });
-            LoadInforMovieCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
-            {
+            LoadInforMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>{
                 if (SelectedItem == null) return;
                 RenewWindowData();
                 InforMovieWindow w1 = new InforMovieWindow();
                 LoadInforMovie(w1);
                 w1.ShowDialog();
             });
-            LoadEditMovieCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
+            LoadEditMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+
                 oldMovieName = movieName;
                 EditMovie w1 = new EditMovie();
                 LoadEditMovie(w1);
                 w1.ShowDialog();
             });
-            LoadDeleteMovieCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
+            LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
               {
                   MessageBoxResult result = System.Windows.MessageBox.Show("Bạn có chắc muốn xoá phim này không ? Dữ liệu không thể phục hồi sau khi xoá!", "Xác nhận xoá", MessageBoxButton.YesNo);
                   switch (result)

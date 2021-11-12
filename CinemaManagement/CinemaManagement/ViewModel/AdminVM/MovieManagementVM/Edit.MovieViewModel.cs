@@ -2,13 +2,10 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Cache;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 {
@@ -34,31 +31,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             w1._Genre.Text = tempgenre[0].DisplayName;
 
             if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)) == true)
-            {
-                BitmapImage _image = new BitmapImage();
-                _image.BeginInit();
-                _image.CacheOption = BitmapCacheOption.None;
-                _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-                _image.CacheOption = BitmapCacheOption.OnLoad;
-                _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                _image.UriSource = new Uri(Helper.GetMovieImgPath(SelectedItem.Image));
-                _image.EndInit();
-
-                ImageSource = _image;
-            }
-            else
-            {
-                BitmapImage _image = new BitmapImage();
-                _image.BeginInit();
-                _image.CacheOption = BitmapCacheOption.None;
-                _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-                _image.CacheOption = BitmapCacheOption.OnLoad;
-                _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                _image.UriSource = new Uri(Helper.GetMovieImgPath("null.jpg"));
-                _image.EndInit();
-                w1.imgframe.Source = _image;
-            }
-            if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)))
             {
                 ImageSource = Helper.GetImageSource(SelectedItem.Image);
             }

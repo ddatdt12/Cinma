@@ -14,20 +14,14 @@ namespace CinemaManagement.Models
     
     public partial class Ticket
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ticket()
-        {
-            this.TicketBillInfoes = new HashSet<TicketBillInfo>();
-        }
-    
         public int Id { get; set; }
         public int ShowtimeId { get; set; }
         public int SeatId { get; set; }
         public decimal Price { get; set; }
+        public int BillId { get; set; }
     
         public virtual Seat Seat { get; set; }
         public virtual Showtime Showtime { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TicketBillInfo> TicketBillInfoes { get; set; }
+        public virtual Bill Bill { get; set; }
     }
 }

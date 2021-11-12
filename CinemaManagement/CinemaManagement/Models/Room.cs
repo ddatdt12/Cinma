@@ -22,7 +22,7 @@ namespace CinemaManagement.Models
         }
     
         public int Id { get; set; }
-        public int SeatAmount { get; set; }
+        public int SeatQuantity { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Seat> Seats { get; set; }

@@ -2,10 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.ShowtimeManagementVM"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:Emit="clr-namespace:System.Reflection.Emit;assembly=mscorlib"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         x:Class="CinemaManagement.Views.Admin.ShowtimeManagementVM.AddShowtimeWindow"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -16,6 +13,7 @@
         Height="550"
         Width="800"
         x:Name="AddSuatChieu"
+        MouseDown="AddSuatChieu_MouseDown"
         DataContext="{StaticResource ShowtimeManagementVM}"
         Title="AddSuatChieuWindow">
     <Grid>
@@ -95,7 +93,9 @@
                                             SelectedDate="{Binding showtimeDate, Mode=TwoWay}"
                                             Text="{Binding SetCurrentDate}"
                                             materialDesign:HintAssist.IsFloating="False"
-                                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                            Focusable="False"/>
+
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -119,7 +119,9 @@
                                                            Height="35"
                                                            materialDesign:ValidationAssist.FontSize="0.001"
                                                            SelectedTime="{Binding Showtime}"
-                                                           x:Name="_movieTime" />
+                                                           x:Name="_movieTime"
+                                                           Focusable="False">
+                                </materialDesign:TimePicker>
                             </StackPanel>
                         </StackPanel>
 
@@ -135,6 +137,21 @@
                                       DisplayMemberPath="Id"
                                       x:Name="_movieRoom">
                             </ComboBox>
+                        </StackPanel>
+
+                        <!--Price-->
+                        <StackPanel VerticalAlignment="Bottom"
+                                    Margin="130,0,0,0">
+                            <Label Content="Giá vé"
+                                   FontSize="20" />
+                            <TextBox Width="175"
+                                     Height="43"
+                                     FontSize="25"
+                                     Text="{Binding moviePrice}"
+                                     PreviewTextInput="_moviePrice_PreviewTextInput"
+                                     x:Name="_moviePrice"
+                                     TextChanged="_moviePrice_TextChanged">
+                            </TextBox>
                         </StackPanel>
                     </StackPanel>
 
@@ -155,16 +172,45 @@
                                            FontSize="20"
                                            Foreground="Black"
                                            Margin="0,10,0,0" />
-                                    <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                             VerticalAlignment="Top"
-                                             AcceptsReturn="True"
-                                             TextWrapping="Wrap"
-                                             IsEnabled="False"
-                                             VerticalScrollBarVisibility="Auto"
-                                             Height="174"
-                                             Foreground="Black"
-                                             x:Name="_movieDes" />
-
+                                    <Border BorderThickness="1"
+                                            BorderBrush="Black"
+                                            Height="200"
+                                            CornerRadius="8">
+                                        <StackPanel>
+                                            <StackPanel.Resources>
+                                                <Style TargetType="Label">
+                                                    <Setter Property="Margin"
+                                                            Value="5,10,0,0" />
+                                                    <Setter Property="FontSize"
+                                                            Value="15" />
+                                                </Style>
+                                            </StackPanel.Resources>
+                                            <StackPanel>
+                                                <Label Content="{Binding movieSelected.DisplayName}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="Ngày chiếu:" />
+                                                <Label Content="{Binding showtimeDate.Date}"
+                                                       ContentStringFormat="dd/MM/yyyy" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="Giờ chiếu:" />
+                                                <Label Content="{Binding Showtime.TimeOfDay}" />
+                                                <Label Content="->" />
+                                                <Label Content="{Binding EndTime.TimeOfDay}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="Phòng chiếu:" />
+                                                <Label Content="{Binding ShowtimeRoom.Id}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="Giá vé:" />
+                                                <Label  x:Name="_desPrice"
+                                                        Content="{Binding Path=Text, ElementName=_moviePrice}"/>
+                                                <Label  Content="VND" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

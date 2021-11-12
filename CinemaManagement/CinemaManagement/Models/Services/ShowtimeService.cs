@@ -78,6 +78,7 @@ namespace CinemaManagement.Models.Services
                     MovieId = newShowtime.MovieId,
                     ShowtimeSettingId = showtimeSet.Id,
                     StartTime = newShowtime.StartTime,
+                    TicketPrice = newShowtime.TicketPrice
                 };
 
 

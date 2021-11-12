@@ -10,16 +10,11 @@ namespace CinemaManagement.DTOs
         public ProductDTO()
         {
         }
-
-        public ProductDTO(string x, string y, decimal z)
-        {
-            DisplayName = x; Category = y; Price = z;
-        }
-
         public int Id { get; set; }
         public string DisplayName { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }
+        public int Quantity { get; set; }
 
         private string _image;
         public string Image

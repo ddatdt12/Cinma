@@ -1,15 +1,23 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
-using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
+
 
 namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 {
     public partial class ShowtimeManagementViewModel : BaseViewModel
     {
+
+        private DateTime _EndTime;
+
+        public DateTime EndTime
+        {
+            get { return _EndTime; }
+            set { _EndTime = value; OnPropertyChanged(); }
+        }
+
 
         public ICommand LoadAddShowtimeCM { get; set; }
         public ICommand SaveCM { get; set; }
@@ -28,13 +36,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     StartTime = Showtime.TimeOfDay,
                 };
 
-                (bool IsSuccess, string message, ShowtimeDTO newShow) = ShowtimeService.Ins.AddShowtime(temp);
+                (bool IsSuccess, string message, ShowtimeDTO newShowtime) = ShowtimeService.Ins.AddShowtime(temp);
 
 
                 if (IsSuccess)
                 {
                     MessageBox.Show(message);
-                    ReloadShowtimeList();
+                    ReloadShowtimeList(SelectedRoomId);
                     p.Close();
                 }
                 else
@@ -44,6 +52,23 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             }
             else
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
+        }
+        public void CalculateRunningTime()
+        {
+            
+            if (movieSelected != null)
+            {
+                EndTime = Showtime.AddMinutes(movieSelected.RunningTime);
+            }
+        }
+        public void RenewData()
+        {
+            movieSelected = null;
+            showtimeDate = GetCurrentDate;
+            ShowtimeRoom = null;
+            Showtime = new DateTime();
+            EndTime = new DateTime();
+            moviePrice = 0;
         }
     }
 }

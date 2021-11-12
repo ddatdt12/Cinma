@@ -138,18 +138,21 @@
                                         Command="{Binding LoadQLNVPageCM}"
                                         CommandParameter="{Binding ElementName=MainFrame}" />
                                 <Button Margin="0,0,0,5"
-                                        Content="Quản lý vé"
-                                        Height="50"
-                                        FontSize="25"
-                                        Background="Transparent"
-                                        BorderBrush="Transparent" />
-                                <Button Margin="0,0,0,5"
                                         Content="Thống kê"
                                         Height="50"
                                         FontSize="25"
                                         Background="Transparent"
-                                        BorderBrush="Transparent" />
-
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadTKPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
+                                <Button Margin="0,0,0,5"
+                                        Content="Lịch sử"
+                                        Height="50"
+                                        FontSize="25"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadLSPage}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
                             </StackPanel>
                         </Grid>
                         <ToggleButton x:Name="SlideButton"
@@ -184,9 +187,9 @@
         <Frame x:Name="MainFrame"
                Height="720"
                Width="1440"
-               Margin="0,79,-4,10"
                NavigationUIVisibility="Hidden"
-               Panel.ZIndex="0">
+               Panel.ZIndex="0"
+               Margin="0,80,0,0">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">

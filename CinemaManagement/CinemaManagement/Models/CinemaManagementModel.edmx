@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CinemaManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CinemaManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bill">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,7 +12,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="StaffId" Type="int" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="DiscountPrice" Type="money" Nullable="false" />
           <Property Name="TotalPrice" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="Customer">
@@ -22,6 +23,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -61,8 +63,9 @@
           <Property Name="DisplayName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Category" Type="nvarchar" MaxLength="20" />
           <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Image" Type="varchar" MaxLength="70" />
+          <Property Name="Image" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ProductBillInfo">
           <Key>
@@ -71,15 +74,26 @@
           </Key>
           <Property Name="BillId" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
-          <Property Name="Amount" Type="int" />
+          <Property Name="Quantity" Type="int" />
           <Property Name="PricePerItem" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductReceipt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="ImportPrice" Type="money" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="StaffId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SeatAmount" Type="int" Nullable="false" />
+          <Property Name="SeatQuantity" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Seat">
           <Key>
@@ -106,6 +120,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ShowtimeSettingId" Type="int" Nullable="false" />
           <Property Name="MovieId" Type="int" Nullable="false" />
+          <Property Name="TicketPrice" Type="money" />
           <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="ShowtimeSetting">
@@ -136,20 +151,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillId" Type="int" Nullable="false" />
           <Property Name="ShowtimeId" Type="int" Nullable="false" />
           <Property Name="SeatId" Type="int" Nullable="false" />
           <Property Name="Price" Type="money" Nullable="false" />
         </EntityType>
-        <EntityType Name="TicketBillInfo">
-          <Key>
-            <PropertyRef Name="BillId" />
-            <PropertyRef Name="TicketId" />
-          </Key>
-          <Property Name="BillId" Type="int" Nullable="false" />
-          <Property Name="TicketId" Type="int" Nullable="false" />
-          <Property Name="Price" Type="money" Nullable="false" />
-        </EntityType>
-        <Association Name="FK__Bill__CustomerId__5629CD9C">
+        <Association Name="FK__Bill__CustomerId__59063A47">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
           <ReferentialConstraint>
@@ -161,7 +168,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bill__StaffId__571DF1D5">
+        <Association Name="FK__Bill__StaffId__59FA5E80">
           <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
           <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
           <ReferentialConstraint>
@@ -173,7 +180,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductBi__BillI__5CD6CB2B">
+        <Association Name="FK__ProductBi__BillI__66603565">
           <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
           <End Role="ProductBillInfo" Type="Self.ProductBillInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -185,7 +192,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductBi__Produ__5DCAEF64">
+        <Association Name="FK__ProductBi__Produ__6754599E">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="ProductBillInfo" Type="Self.ProductBillInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -197,7 +204,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SeatSetti__SeatI__4BAC3F29">
+        <Association Name="FK__SeatSetti__SeatI__534D60F1">
           <End Role="Seat" Type="Self.Seat" Multiplicity="1" />
           <End Role="SeatSetting" Type="Self.SeatSetting" Multiplicity="*" />
           <ReferentialConstraint>
@@ -209,7 +216,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SeatSetti__Showt__4CA06362">
+        <Association Name="FK__SeatSetti__Showt__5441852A">
           <End Role="Showtime" Type="Self.Showtime" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -223,7 +230,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Showtime__MovieI__46E78A0C">
+        <Association Name="FK__Showtime__MovieI__4E88ABD4">
           <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
           <End Role="Showtime" Type="Self.Showtime" Multiplicity="*" />
           <ReferentialConstraint>
@@ -235,7 +242,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Showtime__Showti__47DBAE45">
+        <Association Name="FK__Showtime__Showti__4F7CD00D">
           <End Role="ShowtimeSetting" Type="Self.ShowtimeSetting" Multiplicity="1" />
           <End Role="Showtime" Type="Self.Showtime" Multiplicity="*" />
           <ReferentialConstraint>
@@ -247,7 +254,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ticket__SeatId__5165187F">
+        <Association Name="FK__Ticket__BillId__5EBF139D">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="BillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ticket__SeatId__5FB337D6">
           <End Role="Seat" Type="Self.Seat" Multiplicity="1" />
           <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
           <ReferentialConstraint>
@@ -259,7 +278,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ticket__Showtime__52593CB8">
+        <Association Name="FK__Ticket__Showtime__60A75C0F">
           <End Role="Showtime" Type="Self.Showtime" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -270,30 +289,6 @@
             </Principal>
             <Dependent Role="Ticket">
               <PropertyRef Name="ShowtimeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__TicketBil__BillI__619B8048">
-          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
-          <End Role="TicketBillInfo" Type="Self.TicketBillInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bill">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TicketBillInfo">
-              <PropertyRef Name="BillId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__TicketBil__Ticke__628FA481">
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
-          <End Role="TicketBillInfo" Type="Self.TicketBillInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ticket">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TicketBillInfo">
-              <PropertyRef Name="TicketId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -318,6 +313,30 @@
             </Principal>
             <Dependent Role="GenreDetails">
               <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PRODUCT_RECEIPT_PRODUCTID_FK">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductReceipt" Type="Self.ProductReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductReceipt">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PRODUCT_RECEIPT_StaffId_FK">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="ProductReceipt" Type="Self.ProductReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductReceipt">
+              <PropertyRef Name="StaffId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -353,6 +372,7 @@
           <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductBillInfo" EntityType="Self.ProductBillInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductReceipt" EntityType="Self.ProductReceipt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Seat" EntityType="Self.Seat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SeatSetting" EntityType="Self.SeatSetting" Schema="dbo" store:Type="Tables" />
@@ -360,54 +380,49 @@
           <EntitySet Name="ShowtimeSetting" EntityType="Self.ShowtimeSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TicketBillInfo" EntityType="Self.TicketBillInfo" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Bill__CustomerId__5629CD9C" Association="Self.FK__Bill__CustomerId__5629CD9C">
+          <AssociationSet Name="FK__Bill__CustomerId__59063A47" Association="Self.FK__Bill__CustomerId__59063A47">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Bill" EntitySet="Bill" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bill__StaffId__571DF1D5" Association="Self.FK__Bill__StaffId__571DF1D5">
+          <AssociationSet Name="FK__Bill__StaffId__59FA5E80" Association="Self.FK__Bill__StaffId__59FA5E80">
             <End Role="Staff" EntitySet="Staff" />
             <End Role="Bill" EntitySet="Bill" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProductBi__BillI__5CD6CB2B" Association="Self.FK__ProductBi__BillI__5CD6CB2B">
+          <AssociationSet Name="FK__ProductBi__BillI__66603565" Association="Self.FK__ProductBi__BillI__66603565">
             <End Role="Bill" EntitySet="Bill" />
             <End Role="ProductBillInfo" EntitySet="ProductBillInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProductBi__Produ__5DCAEF64" Association="Self.FK__ProductBi__Produ__5DCAEF64">
+          <AssociationSet Name="FK__ProductBi__Produ__6754599E" Association="Self.FK__ProductBi__Produ__6754599E">
             <End Role="Product" EntitySet="Product" />
             <End Role="ProductBillInfo" EntitySet="ProductBillInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__SeatSetti__SeatI__4BAC3F29" Association="Self.FK__SeatSetti__SeatI__4BAC3F29">
+          <AssociationSet Name="FK__SeatSetti__SeatI__534D60F1" Association="Self.FK__SeatSetti__SeatI__534D60F1">
             <End Role="Seat" EntitySet="Seat" />
             <End Role="SeatSetting" EntitySet="SeatSetting" />
           </AssociationSet>
-          <AssociationSet Name="FK__SeatSetti__Showt__4CA06362" Association="Self.FK__SeatSetti__Showt__4CA06362">
+          <AssociationSet Name="FK__SeatSetti__Showt__5441852A" Association="Self.FK__SeatSetti__Showt__5441852A">
             <End Role="Showtime" EntitySet="Showtime" />
             <End Role="SeatSetting" EntitySet="SeatSetting" />
           </AssociationSet>
-          <AssociationSet Name="FK__Showtime__MovieI__46E78A0C" Association="Self.FK__Showtime__MovieI__46E78A0C">
+          <AssociationSet Name="FK__Showtime__MovieI__4E88ABD4" Association="Self.FK__Showtime__MovieI__4E88ABD4">
             <End Role="Movie" EntitySet="Movie" />
             <End Role="Showtime" EntitySet="Showtime" />
           </AssociationSet>
-          <AssociationSet Name="FK__Showtime__Showti__47DBAE45" Association="Self.FK__Showtime__Showti__47DBAE45">
+          <AssociationSet Name="FK__Showtime__Showti__4F7CD00D" Association="Self.FK__Showtime__Showti__4F7CD00D">
             <End Role="ShowtimeSetting" EntitySet="ShowtimeSetting" />
             <End Role="Showtime" EntitySet="Showtime" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ticket__SeatId__5165187F" Association="Self.FK__Ticket__SeatId__5165187F">
+          <AssociationSet Name="FK__Ticket__BillId__5EBF139D" Association="Self.FK__Ticket__BillId__5EBF139D">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ticket__SeatId__5FB337D6" Association="Self.FK__Ticket__SeatId__5FB337D6">
             <End Role="Seat" EntitySet="Seat" />
             <End Role="Ticket" EntitySet="Ticket" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ticket__Showtime__52593CB8" Association="Self.FK__Ticket__Showtime__52593CB8">
+          <AssociationSet Name="FK__Ticket__Showtime__60A75C0F" Association="Self.FK__Ticket__Showtime__60A75C0F">
             <End Role="Showtime" EntitySet="Showtime" />
             <End Role="Ticket" EntitySet="Ticket" />
-          </AssociationSet>
-          <AssociationSet Name="FK__TicketBil__BillI__619B8048" Association="Self.FK__TicketBil__BillI__619B8048">
-            <End Role="Bill" EntitySet="Bill" />
-            <End Role="TicketBillInfo" EntitySet="TicketBillInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK__TicketBil__Ticke__628FA481" Association="Self.FK__TicketBil__Ticke__628FA481">
-            <End Role="Ticket" EntitySet="Ticket" />
-            <End Role="TicketBillInfo" EntitySet="TicketBillInfo" />
           </AssociationSet>
           <AssociationSet Name="GENREID_FK" Association="Self.GENREID_FK">
             <End Role="Genre" EntitySet="Genre" />
@@ -416,6 +431,14 @@
           <AssociationSet Name="MOVIEID_FK" Association="Self.MOVIEID_FK">
             <End Role="Movie" EntitySet="Movie" />
             <End Role="GenreDetails" EntitySet="GenreDetails" />
+          </AssociationSet>
+          <AssociationSet Name="PRODUCT_RECEIPT_PRODUCTID_FK" Association="Self.PRODUCT_RECEIPT_PRODUCTID_FK">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductReceipt" EntitySet="ProductReceipt" />
+          </AssociationSet>
+          <AssociationSet Name="PRODUCT_RECEIPT_StaffId_FK" Association="Self.PRODUCT_RECEIPT_StaffId_FK">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="ProductReceipt" EntitySet="ProductReceipt" />
           </AssociationSet>
           <AssociationSet Name="ROOMID_SEAT_FK" Association="Self.ROOMID_SEAT_FK">
             <End Role="Room" EntitySet="Room" />
@@ -426,8 +449,7 @@
             <End Role="ShowtimeSetting" EntitySet="ShowtimeSetting" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CinemaManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -438,12 +460,13 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerId" Type="Int32" Nullable="false" />
           <Property Name="StaffId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="TotalPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK__Bill__CustomerId__5629CD9C" FromRole="Bill" ToRole="Customer" />
-          <NavigationProperty Name="Staff" Relationship="Self.FK__Bill__StaffId__571DF1D5" FromRole="Bill" ToRole="Staff" />
-          <NavigationProperty Name="ProductBillInfoes" Relationship="Self.FK__ProductBi__BillI__5CD6CB2B" FromRole="Bill" ToRole="ProductBillInfo" />
-          <NavigationProperty Name="TicketBillInfoes" Relationship="Self.FK__TicketBil__BillI__619B8048" FromRole="Bill" ToRole="TicketBillInfo" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Bill__CustomerId__5DCAEF64" FromRole="Bill" ToRole="Customer" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK__Bill__StaffId__5EBF139D" FromRole="Bill" ToRole="Staff" />
+          <NavigationProperty Name="ProductBillInfoes" Relationship="Self.FK__ProductBi__BillI__6477ECF3" FromRole="Bill" ToRole="ProductBillInfo" />
+          <Property Name="DiscountPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Tickets" Relationship="CinemaManagementModel.FK__Ticket__BillId__6D0D32F4" FromRole="Bill" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -452,7 +475,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__CustomerId__5629CD9C" FromRole="Customer" ToRole="Bill" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__CustomerId__5DCAEF64" FromRole="Customer" ToRole="Bill" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -476,7 +500,7 @@
           <Property Name="Director" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="Image" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Showtimes" Relationship="Self.FK__Showtime__MovieI__46E78A0C" FromRole="Movie" ToRole="Showtime" />
+          <NavigationProperty Name="Showtimes" Relationship="Self.FK__Showtime__MovieI__4E88ABD4" FromRole="Movie" ToRole="Showtime" />
           <NavigationProperty Name="Genres" Relationship="Self.GenreDetails" FromRole="Movie" ToRole="Genre" />
         </EntityType>
         <EntityType Name="Product">
@@ -487,9 +511,11 @@
           <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Category" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ProductBillInfoes" Relationship="Self.FK__ProductBi__Produ__5DCAEF64" FromRole="Product" ToRole="ProductBillInfo" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProductBillInfoes" Relationship="Self.FK__ProductBi__Produ__656C112C" FromRole="Product" ToRole="ProductBillInfo" />
+          <NavigationProperty Name="ProductReceipts" Relationship="Self.PRODUCT_RECEIPT_PRODUCTID_FK" FromRole="Product" ToRole="ProductReceipt" />
         </EntityType>
         <EntityType Name="ProductBillInfo">
           <Key>
@@ -498,17 +524,30 @@
           </Key>
           <Property Name="BillId" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
           <Property Name="PricePerItem" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Bill" Relationship="Self.FK__ProductBi__BillI__5CD6CB2B" FromRole="ProductBillInfo" ToRole="Bill" />
-          <NavigationProperty Name="Product" Relationship="Self.FK__ProductBi__Produ__5DCAEF64" FromRole="ProductBillInfo" ToRole="Product" />
+          <NavigationProperty Name="Bill" Relationship="Self.FK__ProductBi__BillI__6477ECF3" FromRole="ProductBillInfo" ToRole="Bill" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__ProductBi__Produ__656C112C" FromRole="ProductBillInfo" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductReceipt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="ImportPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.PRODUCT_RECEIPT_PRODUCTID_FK" FromRole="ProductReceipt" ToRole="Product" />
+          <Property Name="StaffId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Staff" Relationship="CinemaManagementModel.PRODUCT_RECEIPT_StaffId_FK" FromRole="ProductReceipt" ToRole="Staff" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SeatAmount" Type="Int32" Nullable="false" />
+          <Property Name="SeatQuantity" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Seats" Relationship="Self.ROOMID_SEAT_FK" FromRole="Room" ToRole="Seat" />
           <NavigationProperty Name="ShowtimeSettings" Relationship="Self.ROOMID_SETTINGSHOWTIME_FK" FromRole="Room" ToRole="ShowtimeSetting" />
         </EntityType>
@@ -521,8 +560,8 @@
           <Property Name="Row" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="RoomId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Room" Relationship="Self.ROOMID_SEAT_FK" FromRole="Seat" ToRole="Room" />
-          <NavigationProperty Name="SeatSettings" Relationship="Self.FK__SeatSetti__SeatI__4BAC3F29" FromRole="Seat" ToRole="SeatSetting" />
-          <NavigationProperty Name="Tickets" Relationship="Self.FK__Ticket__SeatId__5165187F" FromRole="Seat" ToRole="Ticket" />
+          <NavigationProperty Name="SeatSettings" Relationship="Self.FK__SeatSetti__SeatI__534D60F1" FromRole="Seat" ToRole="SeatSetting" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK__Ticket__SeatId__59063A47" FromRole="Seat" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="SeatSetting">
           <Key>
@@ -532,8 +571,8 @@
           <Property Name="SeatId" Type="Int32" Nullable="false" />
           <Property Name="ShowtimeId" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Seat" Relationship="Self.FK__SeatSetti__SeatI__4BAC3F29" FromRole="SeatSetting" ToRole="Seat" />
-          <NavigationProperty Name="Showtime" Relationship="Self.FK__SeatSetti__Showt__4CA06362" FromRole="SeatSetting" ToRole="Showtime" />
+          <NavigationProperty Name="Seat" Relationship="Self.FK__SeatSetti__SeatI__534D60F1" FromRole="SeatSetting" ToRole="Seat" />
+          <NavigationProperty Name="Showtime" Relationship="Self.FK__SeatSetti__Showt__5441852A" FromRole="SeatSetting" ToRole="Showtime" />
         </EntityType>
         <EntityType Name="Showtime">
           <Key>
@@ -542,11 +581,12 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ShowtimeSettingId" Type="Int32" Nullable="false" />
           <Property Name="MovieId" Type="Int32" Nullable="false" />
+          <Property Name="TicketPrice" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
-          <NavigationProperty Name="Movie" Relationship="Self.FK__Showtime__MovieI__46E78A0C" FromRole="Showtime" ToRole="Movie" />
-          <NavigationProperty Name="SeatSettings" Relationship="Self.FK__SeatSetti__Showt__4CA06362" FromRole="Showtime" ToRole="SeatSetting" />
-          <NavigationProperty Name="ShowtimeSetting" Relationship="Self.FK__Showtime__Showti__47DBAE45" FromRole="Showtime" ToRole="ShowtimeSetting" />
-          <NavigationProperty Name="Tickets" Relationship="Self.FK__Ticket__Showtime__52593CB8" FromRole="Showtime" ToRole="Ticket" />
+          <NavigationProperty Name="Movie" Relationship="Self.FK__Showtime__MovieI__4E88ABD4" FromRole="Showtime" ToRole="Movie" />
+          <NavigationProperty Name="SeatSettings" Relationship="Self.FK__SeatSetti__Showt__5441852A" FromRole="Showtime" ToRole="SeatSetting" />
+          <NavigationProperty Name="ShowtimeSetting" Relationship="Self.FK__Showtime__Showti__4F7CD00D" FromRole="Showtime" ToRole="ShowtimeSetting" />
+          <NavigationProperty Name="Tickets" Relationship="Self.FK__Ticket__Showtime__59FA5E80" FromRole="Showtime" ToRole="Ticket" />
         </EntityType>
         <EntityType Name="ShowtimeSetting">
           <Key>
@@ -556,7 +596,7 @@
           <Property Name="ShowDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RoomId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Room" Relationship="Self.ROOMID_SETTINGSHOWTIME_FK" FromRole="ShowtimeSetting" ToRole="Room" />
-          <NavigationProperty Name="Showtimes" Relationship="Self.FK__Showtime__Showti__47DBAE45" FromRole="ShowtimeSetting" ToRole="Showtime" />
+          <NavigationProperty Name="Showtimes" Relationship="Self.FK__Showtime__Showti__4F7CD00D" FromRole="ShowtimeSetting" ToRole="Showtime" />
         </EntityType>
         <EntityType Name="Staff">
           <Key>
@@ -572,7 +612,8 @@
           <Property Name="StartingDate" Type="DateTime" Precision="0" />
           <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__StaffId__571DF1D5" FromRole="Staff" ToRole="Bill" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__StaffId__5EBF139D" FromRole="Staff" ToRole="Bill" />
+          <NavigationProperty Name="ProductReceipts" Relationship="CinemaManagementModel.PRODUCT_RECEIPT_StaffId_FK" FromRole="Staff" ToRole="ProductReceipt" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
@@ -582,22 +623,12 @@
           <Property Name="ShowtimeId" Type="Int32" Nullable="false" />
           <Property Name="SeatId" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Seat" Relationship="Self.FK__Ticket__SeatId__5165187F" FromRole="Ticket" ToRole="Seat" />
-          <NavigationProperty Name="Showtime" Relationship="Self.FK__Ticket__Showtime__52593CB8" FromRole="Ticket" ToRole="Showtime" />
-          <NavigationProperty Name="TicketBillInfoes" Relationship="Self.FK__TicketBil__Ticke__628FA481" FromRole="Ticket" ToRole="TicketBillInfo" />
-        </EntityType>
-        <EntityType Name="TicketBillInfo">
-          <Key>
-            <PropertyRef Name="BillId" />
-            <PropertyRef Name="TicketId" />
-          </Key>
+          <NavigationProperty Name="Seat" Relationship="Self.FK__Ticket__SeatId__59063A47" FromRole="Ticket" ToRole="Seat" />
+          <NavigationProperty Name="Showtime" Relationship="Self.FK__Ticket__Showtime__59FA5E80" FromRole="Ticket" ToRole="Showtime" />
           <Property Name="BillId" Type="Int32" Nullable="false" />
-          <Property Name="TicketId" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Bill" Relationship="Self.FK__TicketBil__BillI__619B8048" FromRole="TicketBillInfo" ToRole="Bill" />
-          <NavigationProperty Name="Ticket" Relationship="Self.FK__TicketBil__Ticke__628FA481" FromRole="TicketBillInfo" ToRole="Ticket" />
+          <NavigationProperty Name="Bill" Relationship="CinemaManagementModel.FK__Ticket__BillId__6D0D32F4" FromRole="Ticket" ToRole="Bill" />
         </EntityType>
-        <Association Name="FK__Bill__CustomerId__5629CD9C">
+        <Association Name="FK__Bill__CustomerId__5DCAEF64">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
           <ReferentialConstraint>
@@ -609,7 +640,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Bill__StaffId__571DF1D5">
+        <Association Name="FK__Bill__StaffId__5EBF139D">
           <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
           <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
           <ReferentialConstraint>
@@ -621,7 +652,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductBi__BillI__5CD6CB2B">
+        <Association Name="FK__ProductBi__BillI__6477ECF3">
           <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
           <End Role="ProductBillInfo" Type="Self.ProductBillInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -633,19 +664,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__TicketBil__BillI__619B8048">
-          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
-          <End Role="TicketBillInfo" Type="Self.TicketBillInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bill">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TicketBillInfo">
-              <PropertyRef Name="BillId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Showtime__MovieI__46E78A0C">
+        <Association Name="FK__Showtime__MovieI__4E88ABD4">
           <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
           <End Role="Showtime" Type="Self.Showtime" Multiplicity="*" />
           <ReferentialConstraint>
@@ -657,7 +676,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductBi__Produ__5DCAEF64">
+        <Association Name="FK__ProductBi__Produ__656C112C">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="ProductBillInfo" Type="Self.ProductBillInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -665,6 +684,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProductBillInfo">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PRODUCT_RECEIPT_PRODUCTID_FK">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductReceipt" Type="Self.ProductReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductReceipt">
               <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
@@ -693,7 +724,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SeatSetti__SeatI__4BAC3F29">
+        <Association Name="FK__SeatSetti__SeatI__534D60F1">
           <End Role="Seat" Type="Self.Seat" Multiplicity="1" />
           <End Role="SeatSetting" Type="Self.SeatSetting" Multiplicity="*" />
           <ReferentialConstraint>
@@ -705,7 +736,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ticket__SeatId__5165187F">
+        <Association Name="FK__Ticket__SeatId__59063A47">
           <End Role="Seat" Type="Self.Seat" Multiplicity="1" />
           <End Role="Ticket" Type="Self.Ticket" Multiplicity="*" />
           <ReferentialConstraint>
@@ -717,7 +748,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SeatSetti__Showt__4CA06362">
+        <Association Name="FK__SeatSetti__Showt__5441852A">
           <End Role="Showtime" Type="Self.Showtime" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -731,7 +762,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Showtime__Showti__47DBAE45">
+        <Association Name="FK__Showtime__Showti__4F7CD00D">
           <End Role="ShowtimeSetting" Type="Self.ShowtimeSetting" Multiplicity="1" />
           <End Role="Showtime" Type="Self.Showtime" Multiplicity="*" />
           <ReferentialConstraint>
@@ -743,7 +774,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ticket__Showtime__52593CB8">
+        <Association Name="FK__Ticket__Showtime__59FA5E80">
           <End Role="Showtime" Type="Self.Showtime" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -754,18 +785,6 @@
             </Principal>
             <Dependent Role="Ticket">
               <PropertyRef Name="ShowtimeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__TicketBil__Ticke__628FA481">
-          <End Role="Ticket" Type="Self.Ticket" Multiplicity="1" />
-          <End Role="TicketBillInfo" Type="Self.TicketBillInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ticket">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="TicketBillInfo">
-              <PropertyRef Name="TicketId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -780,6 +799,7 @@
           <EntitySet Name="Movies" EntityType="Self.Movie" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductBillInfoes" EntityType="Self.ProductBillInfo" />
+          <EntitySet Name="ProductReceipts" EntityType="Self.ProductReceipt" />
           <EntitySet Name="Rooms" EntityType="Self.Room" />
           <EntitySet Name="Seats" EntityType="Self.Seat" />
           <EntitySet Name="SeatSettings" EntityType="Self.SeatSetting" />
@@ -787,30 +807,29 @@
           <EntitySet Name="ShowtimeSettings" EntityType="Self.ShowtimeSetting" />
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
           <EntitySet Name="Tickets" EntityType="Self.Ticket" />
-          <EntitySet Name="TicketBillInfoes" EntityType="Self.TicketBillInfo" />
-          <AssociationSet Name="FK__Bill__CustomerId__5629CD9C" Association="Self.FK__Bill__CustomerId__5629CD9C">
+          <AssociationSet Name="FK__Bill__CustomerId__5DCAEF64" Association="Self.FK__Bill__CustomerId__5DCAEF64">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Bill" EntitySet="Bills" />
           </AssociationSet>
-          <AssociationSet Name="FK__Bill__StaffId__571DF1D5" Association="Self.FK__Bill__StaffId__571DF1D5">
+          <AssociationSet Name="FK__Bill__StaffId__5EBF139D" Association="Self.FK__Bill__StaffId__5EBF139D">
             <End Role="Staff" EntitySet="Staffs" />
             <End Role="Bill" EntitySet="Bills" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProductBi__BillI__5CD6CB2B" Association="Self.FK__ProductBi__BillI__5CD6CB2B">
+          <AssociationSet Name="FK__ProductBi__BillI__6477ECF3" Association="Self.FK__ProductBi__BillI__6477ECF3">
             <End Role="Bill" EntitySet="Bills" />
             <End Role="ProductBillInfo" EntitySet="ProductBillInfoes" />
           </AssociationSet>
-          <AssociationSet Name="FK__TicketBil__BillI__619B8048" Association="Self.FK__TicketBil__BillI__619B8048">
-            <End Role="Bill" EntitySet="Bills" />
-            <End Role="TicketBillInfo" EntitySet="TicketBillInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Showtime__MovieI__46E78A0C" Association="Self.FK__Showtime__MovieI__46E78A0C">
+          <AssociationSet Name="FK__Showtime__MovieI__4E88ABD4" Association="Self.FK__Showtime__MovieI__4E88ABD4">
             <End Role="Movie" EntitySet="Movies" />
             <End Role="Showtime" EntitySet="Showtimes" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProductBi__Produ__5DCAEF64" Association="Self.FK__ProductBi__Produ__5DCAEF64">
+          <AssociationSet Name="FK__ProductBi__Produ__656C112C" Association="Self.FK__ProductBi__Produ__656C112C">
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductBillInfo" EntitySet="ProductBillInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="PRODUCT_RECEIPT_PRODUCTID_FK" Association="Self.PRODUCT_RECEIPT_PRODUCTID_FK">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductReceipt" EntitySet="ProductReceipts" />
           </AssociationSet>
           <AssociationSet Name="ROOMID_SEAT_FK" Association="Self.ROOMID_SEAT_FK">
             <End Role="Room" EntitySet="Rooms" />
@@ -820,35 +839,63 @@
             <End Role="Room" EntitySet="Rooms" />
             <End Role="ShowtimeSetting" EntitySet="ShowtimeSettings" />
           </AssociationSet>
-          <AssociationSet Name="FK__SeatSetti__SeatI__4BAC3F29" Association="Self.FK__SeatSetti__SeatI__4BAC3F29">
+          <AssociationSet Name="FK__SeatSetti__SeatI__534D60F1" Association="Self.FK__SeatSetti__SeatI__534D60F1">
             <End Role="Seat" EntitySet="Seats" />
             <End Role="SeatSetting" EntitySet="SeatSettings" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ticket__SeatId__5165187F" Association="Self.FK__Ticket__SeatId__5165187F">
+          <AssociationSet Name="FK__Ticket__SeatId__59063A47" Association="Self.FK__Ticket__SeatId__59063A47">
             <End Role="Seat" EntitySet="Seats" />
             <End Role="Ticket" EntitySet="Tickets" />
           </AssociationSet>
-          <AssociationSet Name="FK__SeatSetti__Showt__4CA06362" Association="Self.FK__SeatSetti__Showt__4CA06362">
+          <AssociationSet Name="FK__SeatSetti__Showt__5441852A" Association="Self.FK__SeatSetti__Showt__5441852A">
             <End Role="Showtime" EntitySet="Showtimes" />
             <End Role="SeatSetting" EntitySet="SeatSettings" />
           </AssociationSet>
-          <AssociationSet Name="FK__Showtime__Showti__47DBAE45" Association="Self.FK__Showtime__Showti__47DBAE45">
+          <AssociationSet Name="FK__Showtime__Showti__4F7CD00D" Association="Self.FK__Showtime__Showti__4F7CD00D">
             <End Role="ShowtimeSetting" EntitySet="ShowtimeSettings" />
             <End Role="Showtime" EntitySet="Showtimes" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ticket__Showtime__52593CB8" Association="Self.FK__Ticket__Showtime__52593CB8">
+          <AssociationSet Name="FK__Ticket__Showtime__59FA5E80" Association="Self.FK__Ticket__Showtime__59FA5E80">
             <End Role="Showtime" EntitySet="Showtimes" />
             <End Role="Ticket" EntitySet="Tickets" />
-          </AssociationSet>
-          <AssociationSet Name="FK__TicketBil__Ticke__628FA481" Association="Self.FK__TicketBil__Ticke__628FA481">
-            <End Role="Ticket" EntitySet="Tickets" />
-            <End Role="TicketBillInfo" EntitySet="TicketBillInfoes" />
           </AssociationSet>
           <AssociationSet Name="GenreDetails" Association="Self.GenreDetails">
             <End Role="Genre" EntitySet="Genres" />
             <End Role="Movie" EntitySet="Movies" />
           </AssociationSet>
+          <AssociationSet Name="FK__Ticket__BillId__6D0D32F4" Association="CinemaManagementModel.FK__Ticket__BillId__6D0D32F4">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="Ticket" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="PRODUCT_RECEIPT_StaffId_FK" Association="CinemaManagementModel.PRODUCT_RECEIPT_StaffId_FK">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="ProductReceipt" EntitySet="ProductReceipts" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK__Ticket__BillId__6D0D32F4">
+          <End Type="CinemaManagementModel.Bill" Role="Bill" Multiplicity="1" />
+          <End Type="CinemaManagementModel.Ticket" Role="Ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ticket">
+              <PropertyRef Name="BillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PRODUCT_RECEIPT_StaffId_FK">
+          <End Type="CinemaManagementModel.Staff" Role="Staff" Multiplicity="1" />
+          <End Type="CinemaManagementModel.ProductReceipt" Role="ProductReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductReceipt">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -858,6 +905,7 @@
           <EntitySetMapping Name="Bills">
             <EntityTypeMapping TypeName="CinemaManagementModel.Bill">
               <MappingFragment StoreEntitySet="Bill">
+                <ScalarProperty Name="DiscountPrice" ColumnName="DiscountPrice" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
@@ -872,6 +920,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -906,6 +955,7 @@
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
@@ -916,8 +966,20 @@
               <MappingFragment StoreEntitySet="ProductBillInfo">
                 <ScalarProperty Name="BillId" ColumnName="BillId" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="PricePerItem" ColumnName="PricePerItem" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductReceipts">
+            <EntityTypeMapping TypeName="CinemaManagementModel.ProductReceipt">
+              <MappingFragment StoreEntitySet="ProductReceipt">
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ImportPrice" ColumnName="ImportPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -925,7 +987,7 @@
             <EntityTypeMapping TypeName="CinemaManagementModel.Room">
               <MappingFragment StoreEntitySet="Room">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="SeatAmount" ColumnName="SeatAmount" />
+                <ScalarProperty Name="SeatQuantity" ColumnName="SeatQuantity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -954,6 +1016,7 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ShowtimeSettingId" ColumnName="ShowtimeSettingId" />
                 <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+                <ScalarProperty Name="TicketPrice" ColumnName="TicketPrice" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -986,18 +1049,10 @@
           <EntitySetMapping Name="Tickets">
             <EntityTypeMapping TypeName="CinemaManagementModel.Ticket">
               <MappingFragment StoreEntitySet="Ticket">
+                <ScalarProperty Name="BillId" ColumnName="BillId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ShowtimeId" ColumnName="ShowtimeId" />
                 <ScalarProperty Name="SeatId" ColumnName="SeatId" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TicketBillInfoes">
-            <EntityTypeMapping TypeName="CinemaManagementModel.TicketBillInfo">
-              <MappingFragment StoreEntitySet="TicketBillInfo">
-                <ScalarProperty Name="BillId" ColumnName="BillId" />
-                <ScalarProperty Name="TicketId" ColumnName="TicketId" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>

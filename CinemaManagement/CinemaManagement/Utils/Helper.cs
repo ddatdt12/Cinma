@@ -41,6 +41,19 @@ namespace CinemaManagement.Utils
             return $"{imageName}.{ext}";
         }
 
+        public static ImageSource GetImageSource(string imageName)
+        {
+            BitmapImage _image = new BitmapImage();
+            _image.BeginInit();
+            _image.CacheOption = BitmapCacheOption.None;
+            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+            _image.CacheOption = BitmapCacheOption.OnLoad;
+            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            _image.UriSource = new Uri(GetMovieImgPath(imageName));
+            _image.EndInit();
+
+            return _image;
+        }
         public static ImageSource GetProductSource(string fileName)
         {
             return new BitmapImage(new Uri($@"{SOURCE.ProductsSource}/{fileName}", UriKind.Relative));
@@ -54,18 +67,19 @@ namespace CinemaManagement.Utils
         {
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Movies", $"{imageName}" /*SelectedItem.Image*/);
         }
-        
-        public static ImageSource GetImageSource(string imageFullName)
+        public static string GetAdminPath(string filename)
         {
-            BitmapImage _image = new BitmapImage();
-            _image.BeginInit();
-            _image.CacheOption = BitmapCacheOption.None;
-            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-            _image.CacheOption = BitmapCacheOption.OnLoad;
-            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            _image.UriSource = new Uri(GetMovieImgPath(imageFullName));
-            _image.EndInit();
-            return _image;
+            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Admin", $"{filename}" /*SelectedItem.Image*/);
+        }
+
+        public static string GetProductImgPath()
+        {
+            string appPath = Path.GetDirectoryName(Directory.GetParent(Directory.GetCurrentDirectory()).FullName) + "/Resources/Images/Products/";
+            if (Directory.Exists(appPath) == false)
+            {
+                Directory.CreateDirectory(appPath);
+            }
+            return appPath;
         }
 
         private static string RemoveUnicode(string text)

@@ -1,6 +1,5 @@
 ﻿using CinemaManagement.DTOs;
 using System;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -30,11 +29,5 @@ namespace CinemaManagement.Views.Admin.MovieManagement
                 return ((item as MovieDTO).DisplayName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
-        private void Page_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            e.Handled = true;
-            Window a = sender as Window;
-            a.DragMove();
-        }
     }
 }

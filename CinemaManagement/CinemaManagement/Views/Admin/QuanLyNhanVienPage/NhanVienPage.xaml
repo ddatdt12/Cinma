@@ -45,105 +45,43 @@
 
 
                 <!--#region Search bar-->
-                <Grid Grid.Row="1">
-                    <Border 
-                    Width="400"
-                    CornerRadius="8"
-                    HorizontalAlignment="Left"
-                    Margin="35 0 0 10"
-                    BorderThickness="2"
-                    BorderBrush="Black">
+               
                         <Grid>
-                            <Rectangle StrokeThickness="1"/>
-                            <TextBox Background="Transparent"
-                             
-                             Padding="8 10 10 10"
-                             VerticalContentAlignment="Center"
-                             Foreground="Black"
-                             x:Name="SearchBox"
-                                     TextChanged="SearchBox_TextChanged" />
-                            <TextBlock IsHitTestVisible="False"
-                               Text="Tìm kiếm"
-                               VerticalAlignment="Center"
-                               Margin="10 0 0 0"
-                               HorizontalAlignment="Left"
-                               Foreground="Black">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                        <Setter Property="Visibility" Value="Hidden"/>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                            <materialDesign:PackIcon Kind="Magnify"
-                                                 HorizontalAlignment="Right"
-                                                 VerticalAlignment="Center"
-                                                 Height="30"
-                                                 Width="30"/>
+                            <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
+                                     FontSize="25"
+                                     Foreground="#DD000000"
+                                     FontFamily="Arial"
+                                     AllowDrop="True"
+                                     BorderThickness="0,0,0,1"
+                                     Width="500"
+                                     Height="30"
+                                     Padding="0"
+                                     x:Name="SearchBox"
+                                     TextChanged="TextBox_TextChanged"
+                                     VerticalAlignment="Bottom"
+                             Margin="6,0,-55,-35">
+                            </TextBox>
                         </Grid>
-                    </Border>
-                </Grid>
-
+    
                 <!--#endregion-->
 
 
             </Grid>
 
             <!--#region Thêm nhân viên-->
-
-            <StackPanel Grid.Column="1"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        Margin="200 0 0 0">
-                <StackPanel.Resources>
-                    <Style TargetType="Label">
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="Margin" Value="40 0 0 0"/>
-                        <Setter Property="Cursor" Value="Hand"/>
-                    </Style>
-                    <ControlTemplate TargetType="Label" x:Key="Add-edit">
-                        <materialDesign:Card UniformCornerRadius="5">
-                            <Border BorderBrush="Black"
-                                    BorderThickness="2"
-                                    CornerRadius="5">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="LightCyan"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <StackPanel>
-                                    <Image Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                                           Height="40"
-                                           Width="50"
-                                           HorizontalAlignment="Center"
-                                           Margin="5 5 0 0"/>
-                                    <TextBlock Text="{TemplateBinding Content}"
-                                               Margin="5"
-                                               FontFamily="Google Sans"
-                                               Width="95"
-                                               TextAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </materialDesign:Card>
-                    </ControlTemplate>
-                </StackPanel.Resources>
-                <Label Tag="/Resources/Images/ImageStaff/add-user.png"
-                       Content="Thêm nhân viên"
-                       Template="{StaticResource Add-edit}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                            <i:InvokeCommandAction Command="{Binding OpenAddStaffCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Label>
+            <StackPanel Orientation="Horizontal"
+                        Margin="100,0,0,15"
+                        VerticalAlignment="Bottom"
+                        Grid.Column="1">
+                <Button  Content="Thêm"
+                         VerticalAlignment="Top"
+                         HorizontalAlignment="Center"
+                         Width="150"
+                         Height="50"
+                         FontSize="25"
+                         FontFamily="arial"
+                         Command="{Binding OpenAddStaffCommand}">
+                </Button>
             </StackPanel>
             <!--#endregion-->
         </Grid>
@@ -157,12 +95,16 @@
                 <ListView ItemsSource="{Binding StaffList}" FontFamily="Ubuntu"
                           SelectedItem="{Binding SelectedItem}"
                           x:Name="_ListView">
-                    
+
                     <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            <Setter Property="Height" Value="50"/>
-                            <Setter Property="VerticalContentAlignment" Value="Center"/>
+                        <Style TargetType="ListViewItem"
+                               BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                            <Setter Property="HorizontalContentAlignment"
+                                    Value="Center" />
+                            <Setter Property="Height"
+                                    Value="50" />
+                            <Setter Property="VerticalContentAlignment"
+                                    Value="Center" />
                         </Style>
                     </ListView.ItemContainerStyle>
 
@@ -222,11 +164,12 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn>
+                            <GridViewColumn >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel VerticalAlignment="Center"
-                                                    Orientation="Horizontal">
+                                                    Orientation="Horizontal"
+                                                    Margin="60,0,0,0">
                                             <Border BorderBrush="Black"
                                                     BorderThickness="2"
                                                     CornerRadius="6"
@@ -240,7 +183,7 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <Image Source="/Resources/Images/ImageStaff/pencil.png"
+                                                <Image Source="/Resources/ImageStaff/pencil.png"
                                                        Margin="2"/>
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
@@ -262,7 +205,7 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <Image Source="/Resources/Images/ImageStaff/delete.png"
+                                                <Image Source="/Resources/ImageStaff/delete.png"
                                                        Margin="2"/>
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">

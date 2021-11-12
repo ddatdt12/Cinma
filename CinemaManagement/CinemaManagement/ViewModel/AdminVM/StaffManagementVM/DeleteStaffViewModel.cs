@@ -1,7 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using CinemaManagement.Models.Services;
-using CinemaManagement.ViewModel;
 
 namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 {

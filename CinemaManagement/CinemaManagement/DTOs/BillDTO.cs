@@ -15,7 +15,9 @@ namespace CinemaManagement.DTOs
         public int CustomerId { get; set; }
         public Nullable<int> StaffId { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
+        public decimal OriginalTotalPrice { get => TotalPrice - DiscountPrice; }
         public decimal TotalPrice { get; set; }
+        public decimal DiscountPrice { get; set; }
 
         public CustomerDTO Customer { get; set; }
         public StaffDTO Staff { get; set; }

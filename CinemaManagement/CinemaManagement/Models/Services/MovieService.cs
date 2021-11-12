@@ -64,6 +64,12 @@ namespace CinemaManagement.Models.Services
             return movies;
         }
 
+
+        /// <summary>
+        /// Trả về phim và suất chiếu của phim đó trong ngày được truyền vào
+        /// </summary>
+        /// <param  name="date"></param>
+        /// <returns>List<MovieDTO></returns>
         public List<MovieDTO> GetShowingMovieByDay(DateTime date)
         {
             List<MovieDTO> movieList = new List<MovieDTO>();
@@ -128,6 +134,12 @@ namespace CinemaManagement.Models.Services
             return movieList;
         }
 
+        /// <summary>
+        /// Trả về phim và suất chiếu của phim đó trong ngày được truyền vào và số phòng
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="roomId"></param>
+        /// <returns></returns>
         public List<MovieDTO> GetShowingMovieByDay(DateTime date, int roomId)
         {
             List<MovieDTO> movieList = new List<MovieDTO>();

@@ -12,13 +12,16 @@ namespace CinemaManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TicketBillInfo
+    public partial class ProductReceipt
     {
-        public int BillId { get; set; }
-        public int TicketId { get; set; }
-        public decimal Price { get; set; }
+        public int Id { get; set; }
+        public int ProductId { get; set; }
+        public decimal ImportPrice { get; set; }
+        public int Quantity { get; set; }
+        public System.DateTime CreatedAt { get; set; }
+        public int StaffId { get; set; }
     
-        public virtual Bill Bill { get; set; }
-        public virtual Ticket Ticket { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Staff Staff { get; set; }
     }
 }
