@@ -535,7 +535,6 @@
     <Resource Include="Font\junegull.ttf" />
     <Resource Include="Resources\Admin\MovieGenreSource.txt" />
     <Resource Include="Resources\ImageStaff\add-user.png" />
-    <Resource Include="Resources\Images\Movies\null.jpg" />
     <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
     <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
     <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
@@ -576,6 +575,7 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\Movies\null.jpg" />
     <Resource Include="Resources\IconPack\pencil.png" />
     <Resource Include="Resources\ImageStaff\pencil.png" />
     <Resource Include="Resources\ImageStaff\delete.png" />

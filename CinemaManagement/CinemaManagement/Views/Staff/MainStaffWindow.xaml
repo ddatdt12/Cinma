@@ -20,7 +20,14 @@
         Width="1440"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadMainStaffCM}"
+                                 />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
+       
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="140" />
             <ColumnDefinition Width="1300" />
@@ -201,7 +208,7 @@
                                            TextWrapping="Wrap"
                                            Foreground="White"
                                            Margin="300 25 0 0"
-                                           Padding="0"/>
+                                           Padding="0" />
                                 <Button Background="Transparent"
                                         BorderBrush="Transparent"
                                         Foreground="White"
@@ -210,6 +217,18 @@
                                                              Width="60"
                                                              Height="60" />
                                 </Button>
+                                <materialDesign:PopupBox DockPanel.Dock="Right"
+                                                         PlacementMode="BottomAndAlignRightEdges"
+                                                         Foreground="White">
+                                    <StackPanel Orientation="Vertical">
+                                        <Button x:Name="signout"
+                                                Content="Thông tin tài khoản" />
+
+                                        <Button Content="Đăng xuất"
+                                                Command="{Binding SignoutCM}"
+                                                CommandParameter="{Binding ElementName=Main_Staff}" />
+                                    </StackPanel>
+                                </materialDesign:PopupBox>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -264,7 +283,8 @@
                                            Width="210"
                                            TextAlignment="Left"
                                            HorizontalAlignment="Left"
-                                           TextWrapping="Wrap" />
+                                           TextWrapping="Wrap"
+                                           Margin="0,10,0,0" />
                                 <TextBlock Text="{Binding ReleaseYear}"
                                            FontSize="15"
                                            Foreground="#FFD6C6C3"

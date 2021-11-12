@@ -68,7 +68,7 @@
                                 <Label Content="Tên phim"
                                        FontSize="20"
                                        Height="36" />
-                                <TextBox Padding="0"
+                                <TextBox Padding="0 17 0 0"
                                          VerticalAlignment="Top"
                                          AcceptsReturn="True"
                                          TextWrapping="Wrap"

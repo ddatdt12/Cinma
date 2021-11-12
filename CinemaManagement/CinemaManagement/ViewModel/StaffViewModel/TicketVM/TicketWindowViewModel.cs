@@ -133,11 +133,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                         {
                             p.Background = new SolidColorBrush(Colors.Transparent);
                             WaitingSeatList(p.Content.ToString());
+                            p.Foreground = new SolidColorBrush(Colors.Black);
                             return;
                         }
 
                     }
                     p.Background = new SolidColorBrush(Colors.Green);
+                    p.Foreground = new SolidColorBrush(Colors.White);
                     WaitingSeatList(p.Content.ToString());
                 }
               

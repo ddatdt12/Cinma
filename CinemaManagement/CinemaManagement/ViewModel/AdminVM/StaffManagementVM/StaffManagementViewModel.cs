@@ -313,7 +313,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
             if (oper == Operation.CREATE || oper == Operation.UPDATE_PASSWORD)
             {
-                if (MatKhau is null)
+                if (string.IsNullOrEmpty(MatKhau))
                 {
                     return (false, "Vui lòng nhập mật khẩu");
                 }

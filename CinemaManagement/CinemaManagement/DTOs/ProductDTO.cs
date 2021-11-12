@@ -26,7 +26,7 @@ namespace CinemaManagement.DTOs
             set
             {
                 _image = value;
-                if (File.Exists(Helper.GetMovieImgPath(value)))
+                if (File.Exists(Helper.GetProductImgPath()))
                 {
                     ImgSource = Helper.GetImageSource(_image);
                 }

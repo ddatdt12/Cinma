@@ -10,7 +10,7 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
@@ -19,20 +19,21 @@
         Name="XoaNV"
         ResizeMode="NoResize"
         DataContext="{StaticResource StaffManagementVM}"
-        Title="XoaNhanVienWindow" Height="200" Width="350">
+        Title="XoaNhanVienWindow"
+        Height="200"
+        Width="350">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
-                                   CommandParameter="{Binding ElementName=XoaNV}"/>
+                                   CommandParameter="{Binding ElementName=XoaNV}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
         <Border BorderThickness="3"
-                BorderBrush="#18ffff">
+                BorderBrush="#0c70b6">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="0"
-                                  BlurRadius="5"
-                                  Color="#18ffff" />
+                                  BlurRadius="5" />
             </Border.Effect>
             <materialDesign:Card>
                 <Grid>
@@ -62,15 +63,15 @@
                             </Style>
                         </Grid.Resources>
                         <Button Content="Xác nhận"
-                                Margin="0 0 110 10"
+                                Margin="0 0 10 10"
                                 Command="{Binding DeleteStaffCommand}"
                                 CommandParameter="{Binding ElementName=XoaNV}"
-                                Background="#64dd17" />
+                                Background="#0c70b6" />
                         <Button Content="Hủy"
-                                Margin="0 0 10 10"
+                                Margin="0 0 110 10"
                                 Command="{Binding CloseCommand}"
                                 CommandParameter="{Binding ElementName=XoaNV}"
-                                Background="#ff6f00" />
+                                Background="OrangeRed" />
                     </Grid>
                 </Grid>
             </materialDesign:Card>

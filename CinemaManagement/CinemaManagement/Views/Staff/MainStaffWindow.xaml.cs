@@ -14,6 +14,7 @@ namespace CinemaManagement.Views.Staff
         public MainStaffWindow()
         {
             InitializeComponent();
+            CreateTextBoxFilter();
         }
         private bool Filter(object item)
         {

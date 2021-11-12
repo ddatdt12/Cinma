@@ -88,6 +88,7 @@ namespace CinemaManagement.ViewModel
         public ICommand CategoryFilmLabel { get; set; }
         public ICommand LoadMainStaffCM { get; set; }
         public ICommand LoadMovieScheduleWindow { get; set; }
+        public ICommand SignoutCM { get; set; }
 
         private string _UserName;
 
@@ -161,10 +162,17 @@ namespace CinemaManagement.ViewModel
                     w.ShowDialog();
                 }
             });
-            LoadMainStaffCM = new RelayCommand<ListBox>((p) => { return true; }, (p) =>
+            LoadMainStaffCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 LoadMainListBox(0);
                 SetCurrentDate = GetCurrentDate.ToString();
+            });
+            SignoutCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Hide();
+                LoginWindow w1 = new LoginWindow();
+                w1.ShowDialog();
+                p.Close();
             });
         }
         public void LoadCurrentDate()

@@ -13,7 +13,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public ICommand LoadAddMovieCM { get; set; }
         public void SaveMovieFunc(Window p)
         {
-            if (movieID == null && filepath != null && IsValidData())
+            if (filepath != null && IsValidData())
             {
                 imgName = Helper.CreateImageName(movieName);
                 imgfullname = Helper.CreateImageFullName(imgName, extension);

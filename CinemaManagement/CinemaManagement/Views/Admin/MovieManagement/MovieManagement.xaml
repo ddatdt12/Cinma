@@ -72,14 +72,14 @@
                     </i:Interaction.Triggers>
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="ID">
+                            <!--<GridViewColumn Header="ID">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock  Text="{Binding Id}"
                                                     FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+                            </GridViewColumn>-->
                             <GridViewColumn Header="Tên phim">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -92,7 +92,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding MovieType}"
-                                                   Margin="10,0,0,0"
+                                                   Margin="30,0,0,0"
                                                    FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -102,7 +102,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding RunningTime}"
-                                                   Margin="10,0,0,0"
+                                                   Margin="40,0,0,0"
                                                    FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>

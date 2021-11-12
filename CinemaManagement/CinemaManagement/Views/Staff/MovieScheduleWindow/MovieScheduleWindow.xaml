@@ -75,12 +75,13 @@
                     CornerRadius="8"
                     Width="150"
                     Height="35"
-                    Margin="200,0,0,0">
+                    Margin="360,0,0,0">
                 <TextBlock x:Name="_ShowDate"
                            Width="150"
                            Height="40"
                            FontSize="20"
-                           TextAlignment="Center" />
+                           TextAlignment="Center" 
+                           Margin="0,5,0,0"/>
             </Border>
         </StackPanel>
         <StackPanel DockPanel.Dock="Left"
