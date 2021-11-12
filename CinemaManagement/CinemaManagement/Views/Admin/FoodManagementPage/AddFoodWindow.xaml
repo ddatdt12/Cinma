@@ -22,12 +22,12 @@
         Title="AddFoodWindow"
         Height="400"
         Width="280">
-    <i:Interaction.Triggers>
+    <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
                                    CommandParameter="{Binding ElementName=AddFoodWd}" />
         </i:EventTrigger>
-    </i:Interaction.Triggers>
+    </i:Interaction.Triggers>-->
     <Grid>
         <Border BorderBrush="#18ffff"
                 BorderThickness="2">
@@ -68,7 +68,7 @@
                     </Grid.Resources>
                     <materialDesign:ColorZone Mode="SecondaryMid"
                                               Padding="10"
-                                              Background="#ffff00"
+                                              Background="#0c70b6"
                                               Grid.Row="0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center"
@@ -86,7 +86,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Tên"/>
                         <TextBox Grid.Column="1"
-                                 Text="{Binding Fullname, Mode=TwoWay}" />
+                                 Text="{Binding DisplayName, Mode=TwoWay}" />
                     </Grid>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
@@ -100,7 +100,7 @@
                                   Grid.Column="1"
                                   Height="40"
                                   x:Name="_Gender"
-                                  SelectedItem="{Binding Gender, Mode=TwoWay}">
+                                  SelectedItem="{Binding Category, Mode=TwoWay}">
                             <ComboBoxItem Content="Đồ ăn" />
                             <ComboBoxItem Content="Thức uống" />
                         </ComboBox>
@@ -114,7 +114,7 @@
                                    x:Name="tboxName" />
                         <TextBox Grid.Column="1"
                                  x:Name="_FullName"
-                                 Text="{Binding Fullname, Mode=TwoWay}" />
+                                 Text="{Binding Price, Mode=TwoWay}" />
                     </Grid>
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
@@ -125,7 +125,7 @@
                             <Border BorderBrush="Black"
                                     BorderThickness="1"
                                     Margin="20 5 0 0">
-                                <Image Source="/Resources/Images/ImageFood/pop-corn.png"
+                                <Image Source="{Binding ImageSource}"
                                        VerticalAlignment="Stretch"
                                        HorizontalAlignment="Stretch"
                                        Margin="10" />
@@ -138,6 +138,11 @@
                                    VerticalAlignment="Bottom"
                                    Height="30"
                                    Cursor="Hand"/>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding UpLoadImageCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </Grid>
                     </Grid>
                     <Grid Grid.Row="5">
@@ -156,16 +161,18 @@
                                         Value="12" />
                             </Style>
                         </Grid.Resources>
-                        <Button Content="Thêm"
-                                Margin="0 0 100 10"
-                                Command="{Binding AddFoodCommand}"
-                                CommandParameter="{Binding ElementName=AddFoodWd}"
-                                Background="#0c70b6" />
                         <Button Content="Hủy"
                                 Margin="0 0 10 10"
                                 Command="{Binding CloseCommand}"
                                 CommandParameter="{Binding ElementName=AddFoodWd}"
                                 Background="OrangeRed" />
+                        
+                        <Button Content="Thêm"
+                                Margin="0 0 100 10"
+                                Command="{Binding AddFoodCommand}"
+                                CommandParameter="{Binding ElementName=AddFoodWd}"
+                                Background="#0c70b6" />
+                        
                     </Grid>
                 </Grid>
             </materialDesign:Card>

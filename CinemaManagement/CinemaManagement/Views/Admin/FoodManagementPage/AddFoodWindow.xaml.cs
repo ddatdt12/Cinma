@@ -23,6 +23,8 @@ namespace CinemaManagement.Views.Admin.FoodManagementPage
         {
             InitializeComponent();
             this.Owner = App.Current.MainWindow;
+            
         }
+
     }
 }

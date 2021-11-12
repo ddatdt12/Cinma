@@ -130,6 +130,10 @@
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius"
                                             Value="6" />
+                                    <Setter Property="HorizontalAlignment"
+                                            Value="Stretch" />
+                                    <Setter Property="VerticalAlignment"
+                                            Value="Stretch" />
                                 </Style>
                                 <Style TargetType="materialDesign:Card">
                                     <Style.Triggers>
@@ -139,6 +143,8 @@
                                                     Value="#cfd8dc" />
                                         </Trigger>
                                     </Style.Triggers>
+                                    <Setter Property="Padding"
+                                            Value="0" />
                                 </Style>
                             </Style.Resources>
                             <Setter Property="Padding"
@@ -156,11 +162,12 @@
                         <DataTemplate>
                             <materialDesign:Card UniformCornerRadius="6"
                                                  Height="140"
-                                                 x:Name="MainCard"
-                                                 Background="Transparent">
+                                                 Background="Transparent"
+                                                 Margin="0">
                                 <Border BorderBrush="Black"
                                         BorderThickness="2"
-                                        CornerRadius="6">
+                                        CornerRadius="6"
+                                        Height="140">
                                     <Grid HorizontalAlignment="Center"
                                           VerticalAlignment="Center">
                                         <Grid.RowDefinitions>
@@ -173,8 +180,9 @@
                                                 <ColumnDefinition Width="135" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
-                                            <Grid Grid.Column="0">
-                                                <Image Source="/Resources/Images/ImageFood/pop-corn.png"
+                                            <Grid Grid.Column="0"
+                                                  Margin="7">
+                                                <Image Source="{Binding ImgSource}"
                                                        VerticalAlignment="Stretch"
                                                        HorizontalAlignment="Stretch" />
                                             </Grid>
@@ -257,7 +265,6 @@
                                             <Image Source="/Resources/Images/ImageFood/dong.png"
                                                    Margin=" 0 0 3 3" />
                                         </StackPanel>
-
                                     </Grid>
                                 </Border>
                             </materialDesign:Card>

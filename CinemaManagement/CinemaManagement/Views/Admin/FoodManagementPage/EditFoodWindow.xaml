@@ -20,12 +20,12 @@
         Name="EditFoodWd"
         ResizeMode="NoResize"
         Title="EditFoodWindow" Height="400" Width="280">
-    <i:Interaction.Triggers>
+    <!--<i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
                                    CommandParameter="{Binding ElementName=EditFoodWd}" />
         </i:EventTrigger>
-    </i:Interaction.Triggers>
+    </i:Interaction.Triggers>-->
     <Grid Background="Transparent">
         <Border Background="Transparent">
             <materialDesign:Card >
@@ -65,7 +65,7 @@
                     </Grid.Resources>
                     <materialDesign:ColorZone Mode="SecondaryMid"
                                               Padding="10"
-                                              Background="#ffff00"
+                                              Background="#0c70b6"
                                               Grid.Row="0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center"
