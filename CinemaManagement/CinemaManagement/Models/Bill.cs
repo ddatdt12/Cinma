@@ -24,7 +24,7 @@ namespace CinemaManagement.Models
         public int Id { get; set; }
         public int CustomerId { get; set; }
         public int StaffId { get; set; }
-        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public System.DateTime CreatedAt { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal DiscountPrice { get; set; }
     

@@ -35,6 +35,7 @@
         <AssociationConnector Association="CinemaManagementModel.FK__Ticket__Showtime__59FA5E80" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.GenreDetails" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__Ticket__BillId__6D0D32F4" />
+        <AssociationConnector Association="CinemaManagementModel.PRODUCT_RECEIPT_StaffId_FK" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

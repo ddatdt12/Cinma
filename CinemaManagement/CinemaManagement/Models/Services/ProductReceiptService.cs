@@ -42,6 +42,8 @@ namespace CinemaManagement.Models.Services
                                            Category = pr.Product.Category,
                                            Image = pr.Product.Image
                                        },
+                                       StaffId = pr.Staff.Id,
+                                       StaffName = pr.Staff.Name,
                                        Quantity = pr.Quantity,
                                        ImportPrice = pr.ImportPrice,
                                        CreatedAt = pr.CreatedAt,
