@@ -318,9 +318,9 @@
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\MainStaffPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
     <Compile Include="Views\Admin\Import_ExportManagement\ExportPage.xaml.cs">
       <DependentUpon>ExportPage.xaml</DependentUpon>
     </Compile>
@@ -382,14 +382,14 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\Staff\MainStaffPage.xaml.cs">
-      <DependentUpon>MainStaffPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml.cs">
       <DependentUpon>MovieScheduleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\TicketWindow\TicketWindow.xaml.cs">
+      <DependentUpon>TicketWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -487,15 +487,15 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Staff\MainStaffPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
     <Page Include="Views\Staff\MainStaffWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\TicketWindow\TicketWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

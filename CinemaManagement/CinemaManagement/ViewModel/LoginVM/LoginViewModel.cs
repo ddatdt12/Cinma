@@ -122,6 +122,7 @@ namespace CinemaManagement.ViewModel
                 {
                     MainStaffWindow w1 = new MainStaffWindow();
                     p.Hide();
+                    w1._StaffName.Text = staff.Name;
                     w1.ShowDialog();
                     p.Close();
                     return;

@@ -34,7 +34,7 @@ namespace CinemaManagement.DTOs
             {
                 _image = value;
                 if (value != null)
-                    ImgSource = Helper.GetMovieSource(_image);
+                    ImgSource = Helper.GetImageSource(_image);
                 else
                     ImgSource = null;
             }
