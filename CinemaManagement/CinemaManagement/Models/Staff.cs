@@ -18,6 +18,7 @@ namespace CinemaManagement.Models
         public Staff()
         {
             this.Bills = new HashSet<Bill>();
+            this.ProductReceipts = new HashSet<ProductReceipt>();
         }
     
         public int Id { get; set; }
@@ -33,5 +34,7 @@ namespace CinemaManagement.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bill> Bills { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductReceipt> ProductReceipts { get; set; }
     }
 }
