@@ -34,6 +34,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     RoomId = ShowtimeRoom.Id,
                     ShowDate = showtimeDate,
                     StartTime = Showtime.TimeOfDay,
+                    TicketPrice = moviePrice,
                 };
 
                 (bool IsSuccess, string message, ShowtimeDTO newShowtime) = ShowtimeService.Ins.AddShowtime(temp);
@@ -68,7 +69,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             ShowtimeRoom = null;
             Showtime = new DateTime();
             EndTime = new DateTime();
-            moviePrice = 0;
+            moviePrice = 45000;
         }
     }
 }

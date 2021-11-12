@@ -213,20 +213,10 @@ namespace CinemaManagement.ViewModel
             }
             catch (InvalidOperationException e)
             {
-                Console.WriteLine(e);
-                MessageBox.Show($"InvalidOperationException : {e.Message}");
-
-            }
-            catch (EntityException e)
-            {
-                Console.WriteLine(e);
-                MessageBox.Show($"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
-                App.Current.Shutdown();
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                MessageBox.Show($"Lỗi hệ thống!");
+                MessageBox.Show($"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             EditGenre = new RelayCommand<object>(

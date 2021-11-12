@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         WindowStyle="None"
         MouseLeftButtonDown="Window_MouseDown"
@@ -84,13 +85,43 @@
 
                         </StackPanel>
                         <StackPanel>
+                            <Label Content="Giá vé"
+                                   Margin="10,10,0,0" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox x:Name="_showtimePrice"
+                                         FontSize="20"
+                                         Margin="10,0,0,0"
+                                         Text="{Binding moviePrice,Mode=TwoWay}"
+                                         IsEnabled="False"
+                                       PreviewTextInput="_showtimePrice_PreviewTextInput">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Setter Property="BorderThickness"
+                                                    Value="0" />
+                                            <Setter Property="Background"
+                                                    Value="#FFF0F3F7" />
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+                                <Label x:Name="_lblEdit"
+                                    Content="Thay đổi"
+                                       FontWeight="Light"
+                                       Foreground="Blue"
+                                       Margin="0,0,0,10"
+                                       Cursor="Hand"
+                                       MouseLeftButtonDown="Label_MouseLeftButtonDown" />
+                            </StackPanel>
+
+
+                        </StackPanel>
+                        <StackPanel>
                             <Label Content="Các suất chiếu"
                                    Margin="10,10,0,0" />
                             <ListBox x:Name="_Showtime"
                                      FontSize="20"
                                      Margin="10,0,0,0"
                                      ItemsSource="{Binding ListShowtimeofMovie,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                     SelectedItem="{Binding SelectedShowtime,Mode=TwoWay}">
+                                     SelectedItem="{Binding SelectedShowtime}">
 
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
@@ -117,15 +148,21 @@
                                                 BorderThickness="1"
                                                 CornerRadius="8"
                                                 Background="Wheat"
-                                                MouseLeftButtonDown="Button_Click_1"
-                                                Width="120">
+                                                Width="120"
+                                                MouseLeftButtonUp="Border_MouseLeftButtonUp">
                                             <Label Content="{Binding StartTime}"
                                                    Width="120"
                                                    Height="25"
                                                    Background="Transparent"
                                                    Foreground="Black"
                                                    Margin="20,0,0,5"
-                                                   Padding="5,5,0,0" />
+                                                   Padding="5,5,0,0">
+                                            </Label>
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                    <i:InvokeCommandAction Command="{Binding ElementName=_Showtime, Path=DataContext.LoadSeatCM}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
                                         </Border>
 
                                     </DataTemplate>
@@ -151,7 +188,7 @@
                                 Margin="220,30,0,0"
                                 materialDesign:ButtonAssist.CornerRadius="8"
                                 Command="{Binding CloseEditCM}"
-                                CommandParameter="{Binding ElementName=EditWindow}"/>
+                                CommandParameter="{Binding ElementName=EditWindow}" />
 
 
                     </StackPanel>

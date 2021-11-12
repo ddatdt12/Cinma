@@ -1,6 +1,8 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Views.Staff;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -34,7 +36,17 @@ namespace CinemaManagement.ViewModel
 
         public LoginViewModel()
         {
-
+            try
+            {
+                var ctx = DataProvider.Ins.DB;
+            }
+            catch (InvalidOperationException e)
+            {
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             CloseWindowCM = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {
 
@@ -118,7 +130,7 @@ namespace CinemaManagement.ViewModel
             }
             else
             {
-                lbl.Content = "Sai tài khoản hoặc mật khẩu";
+                lbl.Content = message;
                 return;
             }
         }

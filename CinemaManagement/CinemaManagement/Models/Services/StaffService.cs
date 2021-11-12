@@ -51,24 +51,34 @@ namespace CinemaManagement.Models.Services
             var context = DataProvider.Ins.DB;
 
             string hassPass = Helper.MD5Hash(password);
-            StaffDTO staff = (from s in context.Staffs
-                              where s.Username == username && s.Password == hassPass
-                              select new StaffDTO
-                              {
-                                  Id = s.Id,
-                                  BirthDate = s.BirthDate,
-                                  Gender = s.Gender,
-                                  Name = s.Name,
-                                  Role = s.Role,
-                                  PhoneNumber = s.PhoneNumber,
-                                  StartingDate = s.StartingDate
-                              }).FirstOrDefault();
-            if (staff == null)
+            try
             {
-                return (false, "Tài khoản hoặc mật khẩu sai!", null);
-            }
+                StaffDTO staff = (from s in context.Staffs
+                                  where s.Username == username && s.Password == hassPass
+                                  select new StaffDTO
+                                  {
+                                      Id = s.Id,
+                                      BirthDate = s.BirthDate,
+                                      Gender = s.Gender,
+                                      Name = s.Name,
+                                      Role = s.Role,
+                                      PhoneNumber = s.PhoneNumber,
+                                      StartingDate = s.StartingDate
+                                  }).FirstOrDefault();
 
-            return (true, "", staff);
+                if (staff == null)
+                {
+                    return (false, "Sai tài khoản hoặc mật khẩu", null);
+                }
+
+                return (true, "", staff);
+            }
+            catch (Exception e)
+            {
+                return (false, "Lỗi hệ thống", null);
+            }
+           
+
         }
         public (bool, string, StaffDTO) AddStaff(StaffDTO newStaff)
         {

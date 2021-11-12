@@ -21,7 +21,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             get { return _EditShowtimeWindow; }
             set { _EditShowtimeWindow = value; }
         }
-       
+
         private ObservableCollection<ShowtimeDTO> _ListShowtimeofMovie;
         public ObservableCollection<ShowtimeDTO> ListShowtimeofMovie
         {
@@ -34,6 +34,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
         public ICommand LoadInfor_EditShowtime { get; set; }
         public ICommand CloseEditCM { get; set; }
+        public ICommand LoadSeatCM { get; set; }
 
 
         private ShowtimeDTO _selectedShowtime; //the showtime being selected
@@ -44,7 +45,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 _selectedShowtime = value;
                 OnPropertyChanged();
-                SeatFunc();
             }
         }
 
@@ -66,6 +66,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         {
             p._movieName.Text = SelectedItem.DisplayName;
             p._ShowtimeDate.Text = SelectedDate.ToString("dd-MM-yyyy");
+            p._showtimePrice.Text = "";
 
             if (SelectedRoomId == -1)
                 p._ShowtimeRoom.Text = "Phòng: Toàn bộ ";
@@ -74,12 +75,9 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
             ListShowtimeofMovie = new ObservableCollection<ShowtimeDTO>(SelectedItem.Showtimes);
             ListSeat = "";
+
+            moviePrice = 0;
         }
 
-        public void SeatFunc()
-        {
-            if (SelectedShowtime != null)
-                ListSeat = _oldselectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
-        }
     }
 }
