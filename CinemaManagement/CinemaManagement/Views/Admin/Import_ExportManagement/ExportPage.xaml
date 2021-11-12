@@ -13,7 +13,7 @@
     <Grid>
         <ListView  x:Name="_ListView"
                    Focusable="True"
-                   ItemsSource="{Binding ListSource}"
+                   ItemsSource="{Binding ListBill}"
                    Margin="0,75,0,0">
             <ListView.View>
                 <GridView>

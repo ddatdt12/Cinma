@@ -14,7 +14,7 @@
         <ListView  x:Name="_ListView"
                    Focusable="True"
                    Margin="0,75,0,0"
-                   ItemsSource="{Binding ListSource}"
+                   ItemsSource="{Binding ListProduct}"
                    HorizontalContentAlignment="Stretch">
             <ListView.View>
                 <GridView>
@@ -22,7 +22,7 @@
                                     Width="130">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding Country}"
+                                <TextBlock  Text="{Binding Id}"
                                             FontSize="18"
                                             Margin="10,0,0,0"/>
                             </DataTemplate>
@@ -32,7 +32,7 @@
                                     Width="300">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding Description}"
+                                <TextBlock  Text="{Binding Product.DisplayName}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -42,7 +42,7 @@
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding Director}"
+                                <TextBlock  Text="{Binding Quantity}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -52,7 +52,7 @@
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding  Director}"
+                                <TextBlock  Text="{Binding  ImportPrice}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -62,7 +62,7 @@
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding  DisplayName}"
+                                <TextBlock  Text="tran dinh khoi"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -72,7 +72,7 @@
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding  MovieType}"
+                                <TextBlock  Text="{Binding CreatedAt, StringFormat=dd-MM-yyyy}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>

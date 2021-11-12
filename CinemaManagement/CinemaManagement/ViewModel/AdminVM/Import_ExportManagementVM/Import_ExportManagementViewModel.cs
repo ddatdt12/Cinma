@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Views.Admin.Import_ExportManagement;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -17,13 +18,20 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 
 
 
-        private ObservableCollection<MovieDTO> _ListSource;
-
-        public ObservableCollection<MovieDTO> ListSource
+        private List<ProductReceiptDTO> _ListProduct;
+        public List<ProductReceiptDTO> ListProduct
         {
-            get { return _ListSource; }
-            set { _ListSource = value;OnPropertyChanged(); }
+            get { return _ListProduct; }
+            set { _ListProduct = value; OnPropertyChanged(); }
         }
+
+        private List<MovieDTO> _ListBill;
+        public List<MovieDTO> ListBill
+        {
+            get { return _ListBill; }
+            set { _ListBill = value; OnPropertyChanged(); }
+        }
+
 
 
         public int SelectedView = 0;
@@ -76,15 +84,15 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                                 ws.Cells[1, 6] = "Ngày nhập";
 
                                 int i2 = 2;
-                                foreach (var item in ListSource)
+                                foreach (var item in ListProduct)
                                 {
 
-                                    ws.Cells[i2, 1] = item.Country;
-                                    ws.Cells[i2, 2] = item.Description;
-                                    ws.Cells[i2, 3] = item.Director;
-                                    ws.Cells[i2, 4] = item.Director;
-                                    ws.Cells[i2, 5] = item.DisplayName;
-                                    ws.Cells[i2, 6] = item.MovieType;
+                                    ws.Cells[i2, 1] = item.Id;
+                                    ws.Cells[i2, 2] = item.Product.DisplayName;
+                                    ws.Cells[i2, 3] = item.Quantity;
+                                    ws.Cells[i2, 4] = item.ImportPrice;
+                                    ws.Cells[i2, 5] = "Tran dinh khoi";
+                                    ws.Cells[i2, 6] = item.CreatedAt;
 
                                     i2++;
                                 }
@@ -123,7 +131,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                                 ws.Cells[1, 8] = "Sau giảm giá";
 
                                 int i2 = 2;
-                                foreach (var item in ListSource)
+                                foreach (var item in ListBill)
                                 {
 
                                     ws.Cells[i2, 1] = item.Country;
@@ -134,7 +142,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                                     ws.Cells[i2, 6] = item.Director;
                                     ws.Cells[i2, 7] = item.Director;
                                     ws.Cells[i2, 8] = item.Director;
-                                   
+
 
                                     i2++;
                                 }
@@ -153,26 +161,11 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         }
         public void GetImportListSource()
         {
-            ListSource = new ObservableCollection<MovieDTO>();
-            for (int i = 0; i < 9; i++)
-            {
-                MovieDTO temp = new MovieDTO
-                {
-                    Country = "088578",
-                    Description = "Nhập cocacola, 7up",
-                    Director = "70000000",
-                    DisplayName = "Trần Khôi",
-                    MovieType = "25/3/2021",
-                };
-                ProductReceiptService.Ins.GetProductReceipt();
-
-                ListSource.Add(temp);
-            }
-
+            ListProduct = new List<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt());
         }
         public void GetExportListSource()
         {
-            ListSource = new ObservableCollection<MovieDTO>();
+            ListBill = new List<MovieDTO>();
             for (int i = 0; i < 9; i++)
             {
                 MovieDTO temp = new MovieDTO
@@ -185,7 +178,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                     MovieType = "25/3/2021",
                 };
 
-                ListSource.Add(temp);
+                ListBill.Add(temp);
             }
         }
     }

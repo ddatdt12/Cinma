@@ -10,7 +10,7 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
@@ -19,21 +19,19 @@
         WindowStyle="None"
         Name="DoiMK"
         ResizeMode="NoResize"
-        Title="DoiMatKhau" Height="250" Width="450">
+        Title="DoiMatKhau"
+        Height="250"
+        Width="450">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
-                                   CommandParameter="{Binding ElementName=DoiMK}"/>
+                                   CommandParameter="{Binding ElementName=DoiMK}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <Border BorderBrush="#18ffff"
+        <Border BorderBrush="#0c70b6"
                 BorderThickness="3">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="0"
-                                  BlurRadius="5"
-                                  Color="#18ffff" />
-            </Border.Effect>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -56,7 +54,7 @@
                 <Grid Grid.Row="0">
                     <materialDesign:ColorZone Mode="SecondaryMid"
                                               Padding="10"
-                                              Background="#76ff03">
+                                              Background="#0c70b6">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center"
                                        Margin="30 0 0 0"
@@ -126,15 +124,15 @@
                         </Style>
                     </Grid.Resources>
                     <Button Content="Xác nhận"
-                            Margin="0 0 110 10"
+                            Margin="0 0 10 10"
                             Command="{Binding ChangePassCommand}"
                             CommandParameter="{Binding ElementName=DoiMK}"
-                            Background="#64dd17" />
+                            Background="#0c70b6" />
                     <Button Content="Hủy"
-                            Margin="0 0 10 10"
+                            Margin="0 0 110 10"
                             Command="{Binding CloseCommand}"
                             CommandParameter="{Binding ElementName=DoiMK}"
-                            Background="#ff6f00" />
+                            Background="OrangeRed" />
 
                 </Grid>
             </Grid>

@@ -29,12 +29,12 @@
         </i:EventTrigger>               
     </i:Interaction.Triggers>
     <Grid>
-        <Border BorderBrush="#18ffff"
+        <Border BorderBrush="#0c70b6"
                 BorderThickness="3">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="0"
                                   BlurRadius="5"
-                                  Color="#18ffff" />
+                                  Color="#0c70b6" />
             </Border.Effect>
             <materialDesign:Card>
                 <Grid>
@@ -72,7 +72,7 @@
                     <Grid Grid.Row="0">
                         <materialDesign:ColorZone Mode="SecondaryMid"
                                                   Padding="10"
-                                                  Background="#76ff03">
+                                                  Background="#0c70b6">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock VerticalAlignment="Center"
                                            Margin="30 0 0 0"
@@ -248,16 +248,17 @@
 
                         </Label>
 
-                        <Button Content="Lưu"
-                                Margin="0 0 110 10"
-                                Command="{Binding EditStaffCommand}"
-                                CommandParameter="{Binding ElementName=SuaNV}"
-                                Background="#64dd17" />
                         <Button Content="Hủy"
-                                Margin="0 0 10 10"
+                                Margin="0 0 110 10"
                                 Command="{Binding CloseCommand}"
                                 CommandParameter="{Binding ElementName=SuaNV}"
-                                Background="#ff6f00" />
+                                Background="OrangeRed" />
+
+                        <Button Content="Lưu"
+                                Margin="0 0 10 10"
+                                Command="{Binding EditStaffCommand}"
+                                CommandParameter="{Binding ElementName=SuaNV}"
+                                Background="#0c70b6" />
                     </Grid>
                 </Grid>
             </materialDesign:Card>
