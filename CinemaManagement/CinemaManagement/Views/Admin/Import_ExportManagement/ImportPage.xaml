@@ -19,15 +19,17 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Mã đơn"
-                                    Width="auto">
+                                    Width="130">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock  Text="{Binding Country}"
-                                            FontSize="18" />
+                                            FontSize="18"
+                                            Margin="10,0,0,0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Tên đơn">
+                    <GridViewColumn Header="Tên đơn"
+                                    Width="300">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock  Text="{Binding Description}"
@@ -36,7 +38,18 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Tổng giá">
+                    <GridViewColumn Header="Số lượng"
+                                    Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock  Text="{Binding Director}"
+                                            FontSize="18"
+                                            Margin="10,0,0,0" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Tổng giá"
+                                    Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock  Text="{Binding  Director}"
@@ -45,7 +58,8 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Nhân viên">
+                    <GridViewColumn Header="Nhân viên"
+                                    Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock  Text="{Binding  DisplayName}"
@@ -54,7 +68,8 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Ngày nhập">
+                    <GridViewColumn Header="Ngày nhập"
+                                    Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock  Text="{Binding  MovieType}"

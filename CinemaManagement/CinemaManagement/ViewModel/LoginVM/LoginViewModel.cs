@@ -85,6 +85,14 @@ namespace CinemaManagement.ViewModel
 
         public void CheckValidateAccount(string usn, string pwr, Window p, Label lbl)
         {
+
+            if (string.IsNullOrEmpty(usn) || string.IsNullOrEmpty(pwr))
+            {
+                lbl.Content = "Vui lòng nhập đủ thông tin";
+                return;
+            }
+
+
             (bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login(usn, pwr);
 
             if (loginSuccess)
@@ -110,7 +118,7 @@ namespace CinemaManagement.ViewModel
             }
             else
             {
-                lbl.Foreground = new SolidColorBrush(Colors.Red);
+                lbl.Content = "Sai tài khoản hoặc mật khẩu";
                 return;
             }
         }

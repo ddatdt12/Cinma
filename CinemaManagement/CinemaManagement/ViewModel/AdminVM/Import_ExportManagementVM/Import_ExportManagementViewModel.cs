@@ -69,9 +69,10 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 
                                 ws.Cells[1, 1] = "Mã đơn";
                                 ws.Cells[1, 2] = "Tên đơn";
-                                ws.Cells[1, 3] = "Tổng giá";
-                                ws.Cells[1, 4] = "Nhân viên";
-                                ws.Cells[1, 5] = "Ngày nhập";
+                                ws.Cells[1, 3] = "Số lượng";
+                                ws.Cells[1, 4] = "Tổng giá";
+                                ws.Cells[1, 5] = "Nhân viên";
+                                ws.Cells[1, 6] = "Ngày nhập";
 
                                 int i2 = 2;
                                 foreach (var item in ListSource)
@@ -80,8 +81,9 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                                     ws.Cells[i2, 1] = item.Country;
                                     ws.Cells[i2, 2] = item.Description;
                                     ws.Cells[i2, 3] = item.Director;
-                                    ws.Cells[i2, 4] = item.DisplayName;
-                                    ws.Cells[i2, 5] = item.MovieType;
+                                    ws.Cells[i2, 4] = item.Director;
+                                    ws.Cells[i2, 5] = item.DisplayName;
+                                    ws.Cells[i2, 6] = item.MovieType;
 
                                     i2++;
                                 }
@@ -113,10 +115,11 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                                 ws.Cells[1, 1] = "Mã đơn";
                                 ws.Cells[1, 2] = "Ngày xuất";
                                 ws.Cells[1, 3] = "Khách hàng";
-                                ws.Cells[1, 4] = "Số lượng vé";
-                                ws.Cells[1, 5] = "Tổng giá";
-                                ws.Cells[1, 6] = "Giảm giá";
-                                ws.Cells[1, 7] = "Sau giảm giá";
+                                ws.Cells[1, 4] = "Số điện thoại";
+                                ws.Cells[1, 5] = "Số lượng vé";
+                                ws.Cells[1, 6] = "Tổng giá";
+                                ws.Cells[1, 7] = "Giảm giá";
+                                ws.Cells[1, 8] = "Sau giảm giá";
 
                                 int i2 = 2;
                                 foreach (var item in ListSource)
@@ -126,9 +129,10 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                                     ws.Cells[i2, 2] = item.MovieType;
                                     ws.Cells[i2, 3] = item.DisplayName;
                                     ws.Cells[i2, 4] = item.Image;
-                                    ws.Cells[i2, 5] = item.Director;
+                                    ws.Cells[i2, 5] = item.Image;
                                     ws.Cells[i2, 6] = item.Director;
                                     ws.Cells[i2, 7] = item.Director;
+                                    ws.Cells[i2, 8] = item.Director;
                                    
 
                                     i2++;

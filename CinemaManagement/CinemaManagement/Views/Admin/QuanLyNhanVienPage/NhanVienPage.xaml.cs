@@ -36,16 +36,17 @@ namespace CinemaManagement.Views.Admin.QuanLyNhanVienPage
             e.Handled = true;
         }
 
-        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            CollectionViewSource.GetDefaultView(_ListView.ItemsSource).Refresh();
-        }
         private bool Filter(object item)
         {
             if (String.IsNullOrEmpty(SearchBox.Text))
                 return true;
             else
                 return ((item as StaffDTO).Name.IndexOf(SearchBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CollectionViewSource.GetDefaultView(_ListView.ItemsSource).Refresh();
         }
     }
 }

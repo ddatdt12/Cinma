@@ -147,11 +147,10 @@
                             Margin="0,0,85,0"
                             Width="300">
                     <StackPanel Orientation="Horizontal">
-                        <Label Content="Sai tài khoản hoặc mật khẩu"
-                               Margin="0,5,0,0"
+                        <Label Margin="0,5,0,0"
                                x:Name="Error"
                                Width="170"
-                               Foreground="White" />
+                               Foreground="Red" />
                         <Button Content="Quên mật khẩu?"
                                 Foreground="Blue"
                                 FontSize="12"

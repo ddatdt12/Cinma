@@ -1,5 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Views.Admin.ShowtimeManagement;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
@@ -7,12 +9,26 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
     public partial class ShowtimeManagementViewModel : BaseViewModel
     {
         private string _ListSeat;
-
         public string ListSeat
         {
             get { return _ListSeat; }
             set { _ListSeat = value; OnPropertyChanged(); }
         }
+
+        private Infor_EditShowtimeWindow _EditShowtimeWindow;
+        public Infor_EditShowtimeWindow EditShowtimeWindow
+        {
+            get { return _EditShowtimeWindow; }
+            set { _EditShowtimeWindow = value; }
+        }
+       
+        private ObservableCollection<ShowtimeDTO> _ListShowtimeofMovie;
+        public ObservableCollection<ShowtimeDTO> ListShowtimeofMovie
+        {
+            get { return _ListShowtimeofMovie; }
+            set { _ListShowtimeofMovie = value; OnPropertyChanged(); }
+        }
+
 
 
 
@@ -39,6 +55,8 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 Infor_EditShowtimeWindow p = new Infor_EditShowtimeWindow();
                 LoadDataEditWindow(p);
+                EditShowtimeWindow = p;
+                oldSelectedItem = SelectedItem;
                 p.ShowDialog();
             }
         }
@@ -54,13 +72,14 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             else
                 p._ShowtimeRoom.Text = "Phòng: " + SelectedRoomId.ToString();
 
-            p._Showtime.ItemsSource = SelectedItem.Showtimes;
+            ListShowtimeofMovie = new ObservableCollection<ShowtimeDTO>(SelectedItem.Showtimes);
+            ListSeat = "";
         }
 
         public void SeatFunc()
         {
             if (SelectedShowtime != null)
-                ListSeat = SelectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
+                ListSeat = _oldselectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
         }
     }
 }

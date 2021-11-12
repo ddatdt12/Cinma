@@ -44,8 +44,8 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             get { return _ShowtimeRoom; }
             set { _ShowtimeRoom = value; OnPropertyChanged(); }
         }
-        private double _moviePrice;
 
+        private double _moviePrice;
         public double moviePrice
         {
             get { return _moviePrice; }
@@ -113,6 +113,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             set { _selectedItem = value; OnPropertyChanged(); }
         }
 
+        private MovieDTO _oldselectedItem; //the item being selected
+        public MovieDTO oldSelectedItem
+        {
+            get { return _oldselectedItem; }
+            set { _oldselectedItem = value; OnPropertyChanged(); }
+        }
+
 
 
         public int SelectedRoomId = -1;
@@ -148,12 +155,11 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             });
             LoadDeleteShowtimeCM = new RelayCommand<ListBox>((p) => { if (SelectedShowtime is null) return false; return true; }, (p) =>
             {
-                int showtimeId = 18;
                 string message = "Bạn có chắc muốn xoá suất chiếu này không? Dữ liệu không thể phục hồi sau khi xoá!";
                 try
                 {
                     //Kiểm tra suất chiếu đã có người đặt ghế nào chưa để có thông báo phù hợp
-                    bool isShowHaveBooking = ShowtimeService.Ins.CheckShowtimeHaveBooking(showtimeId);
+                    bool isShowHaveBooking = ShowtimeService.Ins.CheckShowtimeHaveBooking(SelectedShowtime.Id);
                     if (true)
                     {
                         message = $"Suất chiếu này có ghế đã được đặt.\n{message}";
@@ -168,33 +174,24 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    //int showtimeId = 18
-                    //(bool deleteSuccess, string messageFromDelete) = ShowtimeService.Ins.DeleteShowtime(18);
-                    //MessageBox.Show(messageFromDelete);
-                }
-                //switch (result)
-                //{
-                //    case MessageBoxResult.Yes:
-                //        {
-                //            (bool successDelMovie, string messageFromDelMovie) = ShowtimeService.Ins
+                    (bool deleteSuccess, string messageFromDelete) = ShowtimeService.Ins.DeleteShowtime(SelectedShowtime.Id);
+                    MessageBox.Show(messageFromDelete);
 
-                //            if (successDelMovie)
-                //            {
-                //                File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-                //                System.Windows.MessageBox.Show(messageFromDelMovie);
-                //                LoadMovieListView(Operation.DELETE);
-                //                SelectedItem = null;
-                //                break;
-                //            }
-                //            else
-                //            {
-                //                System.Windows.MessageBox.Show(messageFromDelMovie);
-                //                break;
-                //            }
-                //        }
-                //    case MessageBoxResult.No:
-                //        break;
-                //}
+                   
+                    if (deleteSuccess)
+                    {
+                        for (int i = 0; i < ListShowtimeofMovie.Count; i++)
+                        {
+                            if (ListShowtimeofMovie[i].Id == SelectedShowtime.Id)
+                                ListShowtimeofMovie.RemoveAt(i);
+                        }
+                        oldSelectedItem = SelectedItem;
+                        ReloadShowtimeList(SelectedRoomId);
+                        SelectedShowtime = null;
+                    }
+                    
+                  
+                }
             });
             ChangedRoomCM = new RelayCommand<RadioButton>((p) => { return true; }, (p) =>
             {
@@ -257,38 +254,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             GetCurrentDate = DateTime.Now.Date;
             SetCurrentDate = GetCurrentDate.ToShortDateString();
         }
-
-
-        ////Operation is enum have 4 values { READ, UPDATE, CREATE, DELETE }
-        //public void LoadShowtimeListView(Operation oper = Operation.READ, MovieDTO m = null)
-        //{
-        //    switch (oper)
-        //    {
-        //        case Operation.CREATE:
-        //            ShowtimeList.Add(m);
-        //            break;
-        //        //case Operation.READ:
-        //        //    ShowtimeList= new ObservableCollection<ShowtimeDTO>(ShowtimeService.Ins.GetAllShowtime());
-        //        //    break;
-        //        case Operation.UPDATE:
-        //            var showtimeFound = ShowtimeList.FirstOrDefault(x => x.Id == m.Id);
-        //            ShowtimeList[ShowtimeList.IndexOf(showtimeFound)] = m;
-        //            break;
-        //        case Operation.DELETE:
-        //            for (int i = 0; i < ShowtimeList.Count; i++)
-        //            {
-        //                if (ShowtimeList[i].Id == SelectedItem?.Id)
-        //                {
-        //                    ShowtimeList.Remove(ShowtimeList[i]);
-        //                    break;
-        //                }
-        //            }
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
-
 
 
         public void ReloadShowtimeList(int id)

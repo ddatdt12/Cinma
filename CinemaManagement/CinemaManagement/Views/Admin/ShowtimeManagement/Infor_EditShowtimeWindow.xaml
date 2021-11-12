@@ -89,6 +89,7 @@
                             <ListBox x:Name="_Showtime"
                                      FontSize="20"
                                      Margin="10,0,0,0"
+                                     ItemsSource="{Binding ListShowtimeofMovie,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                      SelectedItem="{Binding SelectedShowtime,Mode=TwoWay}">
 
                                 <ListBox.ItemsPanel>

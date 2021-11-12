@@ -129,7 +129,7 @@
                                  Margin="100,20,30,20">
 
                 <ListView x:Name="ShowtimeListview"
-                          ItemsSource="{Binding ShowtimeList}"
+                          ItemsSource="{Binding ShowtimeList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding SelectedItem}"
                           Focusable="True">
 

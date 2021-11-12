@@ -22,7 +22,8 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock  Text="{Binding Country}"
-                                            FontSize="18" />
+                                            FontSize="18"
+                                            Margin="10,0,0,0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -37,10 +38,19 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Khách hàng"
-                                    Width="230">
+                                    Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock  Text="{Binding  DisplayName}"
+                                            FontSize="18"
+                                            Margin="10,0,0,0" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Số điện thoại">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock  Text="{Binding  Image}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -51,7 +61,7 @@
                             <DataTemplate>
                                 <TextBlock  Text="{Binding  Image}"
                                             FontSize="18"
-                                            Margin="10,0,0,0" />
+                                            Margin="50,0,0,0" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
