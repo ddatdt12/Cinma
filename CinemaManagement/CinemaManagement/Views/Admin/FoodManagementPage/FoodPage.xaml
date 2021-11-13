@@ -108,7 +108,7 @@
             </StackPanel>
         </Grid>
         <!--#endregion-->
-        
+
         <materialDesign:Card Grid.Row="1"
                              Margin="10,0,10,10">
             <ScrollViewer VerticalScrollBarVisibility="Auto"

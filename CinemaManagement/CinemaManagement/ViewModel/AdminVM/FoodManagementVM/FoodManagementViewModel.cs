@@ -34,7 +34,10 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ComboBoxItem Category
         {
             get { return _Category; }
-            set { _Category = value; OnPropertyChanged(); }
+            set
+            {
+                _Category = value; OnPropertyChanged();
+            }
         }
 
         private decimal _Price;
@@ -111,30 +114,27 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
         public FoodManagementViewModel()
         {
-            
+
             LoadProductListView(Operation.READ);
             //IsImageChanged = false;
             OpenAddFoodCommand = new RelayCommand<object>((p) => { return true; },
-                (p) => {
-
+                (p) =>
+                {
+                    RenewWindowData();
                     AddFoodWindow wd = new AddFoodWindow();
-                    DisplayName = null;
-                    Category = null;
-                    ImageSource = null;
-                    Price = 0;
                     IsAddingProduct = true;
                     wd.ShowDialog();
-
                 });
             AddFoodCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     AddFood(p);
-                    p.Close();
                 });
 
 
             OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     EditFoodWindow wd = new EditFoodWindow();
                     LoadEditFood(wd);
                     Image = SelectedItem.Image;
@@ -144,24 +144,28 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 });
 
             EditFoodCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) => {
-                    
+                (p) =>
+                {
+
                     EditFood(p);
                 });
 
             OpenDeleteFoodCommand = new RelayCommand<object>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     DeleteFoodWindow wd = new DeleteFoodWindow();
                     wd.ShowDialog();
 
                 });
 
             DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     DeleteFood(p);
                 });
 
-            CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => {
+            CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
+            {
                 Window window = GetWindowParent(p);
                 var w = window as Window;
                 if (w != null)
@@ -172,7 +176,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             );
 
             UpLoadImageCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) => {
+                (p) =>
+                {
                     OpenFileDialog openfile = new OpenFileDialog();
                     openfile.Title = "Select an image";
                     openfile.Filter = "Image File (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg; *.png";
@@ -193,7 +198,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 var w = window as Window;
                 if (w != null)
                 {
-                    
+
                     w.DragMove();
                 }
             }
@@ -218,14 +223,14 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             try
             {
-                appPath = Helper.GetProductImgPath();
-                if (File.Exists(Helper.GetProductImgPath()))
-                    File.Delete(Helper.GetProductImgPath());
+                appPath = Helper.GetProductImgPath(imgfullname);
+                if (File.Exists(Helper.GetProductImgPath(imgfullname)))
+                    File.Delete(Helper.GetProductImgPath(imgfullname));
                 File.Copy(filepath, appPath, true);
             }
             catch (Exception exp)
             {
-                System.Windows.MessageBox.Show(exp.Message);
+                System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
             }
         }
 
@@ -269,17 +274,15 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     break;
             }
         }
-
-        private (bool valid, string error) IsValidData(Operation oper)
+        private bool IsValidData()
         {
-
-            if (string.IsNullOrEmpty(DisplayName) || Category is null || ImageSource is null)
-            {
-                return (false, "Thông tin đồ ăn thiếu! Vui lòng bổ sung");
-            }
-            return (true, null);
+            return !string.IsNullOrEmpty(DisplayName) && !string.IsNullOrEmpty(Category.Content.ToString());
         }
-
+        public void RenewWindowData()
+        {
+            DisplayName = "";
+            ImageSource = null;
+        }
         Window GetWindowParent(Window p)
         {
             Window parent = p;
@@ -293,5 +296,5 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         }
 
     }
-    
+
 }

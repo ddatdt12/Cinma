@@ -32,11 +32,11 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
             if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)) == true)
             {
-                ImageSource = Helper.GetImageSource(SelectedItem.Image);
+                ImageSource = Helper.GetMovieImageSource(SelectedItem.Image);
             }
             else
             {
-                w1.imgframe.Source = Helper.GetImageSource("null.jpg");
+                w1.imgframe.Source = Helper.GetMovieImageSource("null.jpg");
             }
         }
         public void UpdateMovieFunc(Window p)

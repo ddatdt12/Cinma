@@ -1,4 +1,5 @@
-﻿using CinemaManagement.Views.Admin.Import_ExportManagement;
+﻿using CinemaManagement.Views.Admin.FoodManagementPage;
+using CinemaManagement.Views.Admin.Import_ExportManagement;
 using CinemaManagement.Views.Admin.MovieManagement;
 using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 using CinemaManagement.Views.Admin.ShowtimeManagementVM;
@@ -18,6 +19,7 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadSuatChieuPageCM { get; set; }
         public ICommand LoadLSPage { get; set; }
         public ICommand LoadTKPageCM { get; set; }
+        public ICommand LoadFoodPageCM { get; set; }
 
         private string _SelectedFuncName;
         public string SelectedFuncName
@@ -73,19 +75,25 @@ namespace CinemaManagement.ViewModel
                 if (p != null)
                     p.Content = new StatisticalManagement();
             });
+            LoadFoodPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
+              {
+                  SelectedFuncName = "Quản lý sản phẩm";
+                  if (p != null)
+                      p.Content = new FoodPage();
 
-        }
+              });
 
 
-        FrameworkElement GetParentWindow(FrameworkElement p)
-        {
-            FrameworkElement parent = p;
-
-            while (parent.Parent != null)
+            FrameworkElement GetParentWindow(FrameworkElement p)
             {
-                parent = parent.Parent as FrameworkElement;
+                FrameworkElement parent = p;
+
+                while (parent.Parent != null)
+                {
+                    parent = parent.Parent as FrameworkElement;
+                }
+                return parent;
             }
-            return parent;
         }
     }
 }

@@ -6,9 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Cache;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 {
@@ -23,20 +25,30 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             oldFoodName = DisplayName;
             imgfullname = SelectedItem.Image;
 
-            if (File.Exists(Helper.GetProductImgPath()) == true)
+            if (File.Exists(Helper.GetProductImgPath(SelectedItem.Image)) == true)
             {
-                ImageSource = Helper.GetImageSource(SelectedItem.Image);
+
+                BitmapImage _image = new BitmapImage();
+                _image.BeginInit();
+                _image.CacheOption = BitmapCacheOption.None;
+                _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+                _image.CacheOption = BitmapCacheOption.OnLoad;
+                _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                _image.UriSource = new Uri(Helper.GetProductImgPath(SelectedItem.Image));
+                _image.EndInit();
+
+                ImageSource = _image;
             }
             else
             {
-                wd.EditImage.Source = Helper.GetImageSource("null.jpg");
+                wd.EditImage.Source = Helper.GetProductImageSource("null.jpg");
             }
-            
+
         }
+
         public void EditFood(Window p)
         {
-            (bool isValid, string error) = IsValidData(Operation.CREATE);
-            if (isValid)
+            if (Id != -1 && IsValidData())
             {
                 if (!IsImageChanged)
                     extension = Image.Split('.')[1];
@@ -57,7 +69,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 }
                 else
                 {
-                    filepath = Helper.GetProductImgPath();
+                    filepath = Helper.GetProductImgPath(Image);
                     product.Image = imgfullname = Helper.CreateImageFullName(DisplayName, Image.Split('.')[1]);
                 }
 
@@ -70,11 +82,11 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     if (Image != product.Image)
                     {
                         SaveImgToApp();
-                        File.Delete(Helper.GetProductImgPath());
+                        File.Delete(Helper.GetProductImgPath(Image));
                     }
                     else
                     {
-                        File.Copy(filepath, Helper.GetProductImgPath(), true);
+                        File.Copy(filepath, Helper.GetProductImgPath(product.Image), true);
                     }
 
                     LoadProductListView(Operation.UPDATE, product);
@@ -86,7 +98,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 }
             }
             else
-                MessageBox.Show(error);
+                MessageBox.Show("Vui lòng nhập đủ thông tin!");
         }
     }
 }
