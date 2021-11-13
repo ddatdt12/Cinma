@@ -11,10 +11,71 @@
       DataContext="{StaticResource Import_ExportManagementVM}">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="493*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
+                     x:Name="FilterBox"
+                     FontSize="25"
+                     Foreground="#DD000000"
+                     FontFamily="Arial"
+                     AllowDrop="True"
+                     Width="300"
+                     Height="30"
+                     Padding="0"
+                     TextChanged="TextBox_TextChanged"
+                     HorizontalAlignment="Left" />
+            <ComboBox Height="30"
+                      Width="100"
+                      Margin="10 0 0 0"
+                      Padding="0,10,10,0"
+                      FontSize="13"
+                      SelectedIndex="0"
+                      x:Name="cbbFilter"
+                      SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem Content="Mã đơn" />
+                <ComboBoxItem Content="Khách hàng"/>
+                <ComboBoxItem Content="Điện thoại"/>
+            </ComboBox>
+            <ComboBox Height="30"
+                      Width="100"
+                      Margin="10 0 0 0"
+                      Padding="0,10,10,0"
+                      FontSize="13"
+                      SelectedIndex="-1"
+                      materialDesign:HintAssist.Hint="Theo tháng">
+                <ComboBoxItem Content="Toàn bộ" />
+                <ComboBoxItem Content="Tháng 1" />
+                <ComboBoxItem Content="Tháng 2" />
+                <ComboBoxItem Content="Tháng 3" />
+                <ComboBoxItem Content="Tháng 4" />
+                <ComboBoxItem Content="Tháng 5" />
+                <ComboBoxItem Content="Tháng 6" />
+                <ComboBoxItem Content="Tháng 7" />
+                <ComboBoxItem Content="Tháng 8" />
+                <ComboBoxItem Content="Tháng 9" />
+                <ComboBoxItem Content="Tháng 10" />
+                <ComboBoxItem Content="Tháng 11" />
+                <ComboBoxItem Content="Tháng 12" />
+                <ComboBoxItem />
+            </ComboBox>
+            <Button  Content="Xuất file Excel"
+                     Height="40"
+                     Width="130"
+                     Margin="700,0,0,0"
+                     FontFamily="arial"
+                     FontWeight="Bold"
+                     materialDesign:ButtonAssist.CornerRadius="5"
+                     Command="{Binding ExportFileCM}"/>
+        </StackPanel>
+        
         <ListView  x:Name="_ListView"
                    Focusable="True"
                    ItemsSource="{Binding ListBill}"
-                   Margin="0,75,0,0">
+                   Grid.Row="1">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Mã đơn"
@@ -98,30 +159,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
-                 x:Name="FilterBox"
-                 FontSize="25"
-                 Foreground="#DD000000"
-                 FontFamily="Arial"
-                 AllowDrop="True"
-                 BorderThickness="0,0,0,1"
-                 Width="500"
-                 Height="30"
-                 Padding="0"
-                 Margin="20,25,0,0"
-                 TextChanged="TextBox_TextChanged"
-                 VerticalAlignment="Top"
-                 HorizontalAlignment="Left" />
-        <Button  Content="Xuất file Excel"
-                 Margin="0,15,700,0"
-                 Height="40"
-                 Width="130"
-                 FontFamily="arial"
-                 FontWeight="Bold"
-                 materialDesign:ButtonAssist.CornerRadius="5"
-                 VerticalAlignment="Top"
-                 HorizontalAlignment="Right"
-                 Command="{Binding ExportFileCM}"
-                 RenderTransformOrigin="0.385,0.475" />
+        
     </Grid>
 </Page>

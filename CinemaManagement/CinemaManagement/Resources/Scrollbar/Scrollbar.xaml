@@ -51,7 +51,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ScrollBar}">
                         <Grid x:Name="GridRoot"
-                              Width="12"
+                              Width="5"
                               Background="{x:Null}">
                             <Track x:Name="PART_Track"
                                    Grid.Row="0"

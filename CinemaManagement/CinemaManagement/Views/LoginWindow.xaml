@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CinemaManagement"
         mc:Ignorable="d"
         Name="Loginwindow"
-        Height="444"
+        Height="443"
         Width="780"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -15,11 +15,12 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="Transparent"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource LoginVM}"
         ResizeMode="NoResize"
         WindowStyle="None"
+        AllowsTransparency="True"
         Loaded="Loginwindow_Loaded"
         WindowStartupLocation="CenterScreen">
 
@@ -31,152 +32,171 @@
                                    CommandParameter="{Binding ElementName=Loginwindow}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="314*" />
-            <ColumnDefinition Width="466*" />
-        </Grid.ColumnDefinitions>
-
-        <!--Left-->
-        <Grid Grid.Column="0">
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-
-                <Image Width="314"
-                       Height="446"
-                       x:Name="imgframe"
-                       Source="/CinemaManagement;component/Resources/LayoutSignin/StoryboardMovie/1.jpg"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top" />
-            </StackPanel>
-
-        </Grid>
-
-        <!--Right-->
-        <Grid Grid.Column="1">
+    <Border BorderThickness="0.5"
+            BorderBrush="White"
+            CornerRadius="10"
+            Background="white">
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="32*" />
-                <RowDefinition Height="412*" />
+                <RowDefinition />
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="314*" />
+                <ColumnDefinition Width="466*" />
+            </Grid.ColumnDefinitions>
 
-            <!--Close_Minimize bar-->
-            <StackPanel Orientation="Horizontal"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Right"
-                        Grid.Row="0">
+            <!--Left-->
 
-                <Button Command="{Binding MinimizeWindowCM}"
-                        CommandParameter="{Binding ElementName=Loginwindow}"
-                        ToolTip="Đóng"
-                        ToolBar.OverflowMode="AsNeeded"
-                        Margin="0,0,5,0"
-                        BorderThickness="0"
-                        Background="Transparent"
-                        Foreground="Black"
-                        BorderBrush="Transparent"
-                        MouseEnter="Button_MouseEnter"
-                        MouseLeave="Button_MouseLeave">
-                    <materialDesign:PackIcon Kind="WindowMinimize" />
-                </Button>
+            <Image x:Name="imgframe"
+                   Grid.Row="0"
+                   Source="/CinemaManagement;component/Resources/LayoutSignin/StoryboardMovie/1.jpg"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch">
+                <Image.Clip>
+                    <RectangleGeometry RadiusX="10"
+                                       RadiusY="10"
+                                       Rect="0,0,350,443" />
+                </Image.Clip>
+            </Image>
 
-                <Button Command="{Binding CloseWindowCM}"
-                        CommandParameter="{Binding ElementName=Loginwindow}"
-                        ToolBar.OverflowMode="AsNeeded"
-                        Background="Transparent"
-                        Foreground="Black"
-                        BorderThickness="0"
-                        BorderBrush="Transparent"
-                        MouseEnter="Button_MouseEnter_1"
-                        MouseLeave="Button_MouseLeave_1">
-                    <materialDesign:PackIcon Kind="WindowClose" />
-                </Button>
+            <!--Right-->
+            <Grid Grid.Column="1"
+                  Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32*" />
+                    <RowDefinition Height="412*" />
+                </Grid.RowDefinitions>
 
-            </StackPanel>
+                <!--Close_Minimize bar-->
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Grid.Row="0">
 
-            <!--Login Form-->
-            <materialDesign:Card Margin="20,50,20,20"
-                                 Grid.RowSpan="2"
-                                 UniformCornerRadius="8">
-                <StackPanel Grid.Row="1"
-                            Orientation="Vertical">
-                    <!--Welcome-->
-                    <Label FontFamily="junegull"
-                           FontSize="35"
-                           FontWeight="UltraBlack"
-                           Foreground="#0c70b6"
-                           Content="Welcome Back"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Height="50"
-                           Margin="0,30,0,0">
-                    </Label>
+                    <Button Command="{Binding MinimizeWindowCM}"
+                            CommandParameter="{Binding ElementName=Loginwindow}"
+                            ToolBar.OverflowMode="AsNeeded"
+                            Margin="0,0,5,0"
+                            BorderThickness="0"
+                            Background="Transparent"
+                            Foreground="Black"
+                            BorderBrush="Transparent"
+                            MouseEnter="Button_MouseEnter"
+                            MouseLeave="Button_MouseLeave">
+                        <materialDesign:PackIcon Kind="WindowMinimize" />
+                    </Button>
 
-                    <!--Login Area-->
-                    <StackPanel Margin="0,50,0,0"
-                                HorizontalAlignment="Center"
-                                Width="300">
-                        <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
-                                 Foreground="Black"
-                                 FontSize="15"
-                                 BorderBrush="LightGray"
-                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                 Text="{Binding Username}" />
-                        <PasswordBox x:Name="FloatingPasswordBox"
-                                     materialDesign:HintAssist.Hint="Mật khẩu"
-                                     Foreground="Black"
-                                     FontSize="15"
-                                     Margin="0,10,0,0"
-                                     BorderBrush="LightGray"
-                                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="PasswordChanged">
-                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCM}"
-                                                           CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </PasswordBox>
-                    </StackPanel>
-
-                    <!--Login Button-->
-                    <StackPanel HorizontalAlignment="Right"
-                                Orientation="Vertical"
-                                Margin="0,0,85,0"
-                                Width="300">
-                        <StackPanel Orientation="Horizontal">
-                            <Label Margin="0,5,0,0"
-                                   x:Name="Error"
-                                   Width="170"
-                                   Foreground="Red" />
-                            <Button Content="Quên mật khẩu?"
-                                    Foreground="Blue"
-                                    FontSize="12"
-                                    Margin="0,0,-15,0"
-                                    Background="Transparent"
-                                    BorderBrush="Transparent"
-                                    HorizontalContentAlignment="Right"
-                                    Command="{Binding ForgotPassCM}"
-                                    CommandParameter="{Binding ElementName=Loginwindow}">
-                            </Button>
-                        </StackPanel>
-                        <Grid>
-                            <Button Margin="0,20,0,0"
-                                    Content="Đăng nhập"
-                                    Width="120"
-                                    materialDesign:ButtonAssist.CornerRadius="5"
-                                    HorizontalAlignment="Right"
-                                    Command="{Binding LoginCM}"
-                                    CommandParameter="{Binding ElementName=Error}" />
-                        </Grid>
-                    </StackPanel>
-
+                    <Button Command="{Binding CloseWindowCM}"
+                            CommandParameter="{Binding ElementName=Loginwindow}"
+                            ToolBar.OverflowMode="AsNeeded"
+                            Background="Transparent"
+                            Foreground="Black"
+                            BorderBrush="Transparent"
+                            MouseEnter="Button_MouseEnter_1"
+                            MouseLeave="Button_MouseLeave_1"
+                            materialDesign:ButtonAssist.CornerRadius="0,10,0,0">
+                        <materialDesign:PackIcon Kind="WindowClose"
+                                                 Padding="0" />
+                    </Button>
                 </StackPanel>
 
-            </materialDesign:Card>
+                <!--Login Form-->
+                <materialDesign:Card Margin="20,50,20,20"
+                                     Grid.RowSpan="2"
+                                     UniformCornerRadius="8">
+                    <StackPanel Grid.Row="1"
+                                Orientation="Vertical">
+                        <!--Welcome-->
+                        <Label FontFamily="junegull"
+                               FontSize="35"
+                               FontWeight="UltraBlack"
+                               Foreground="#0c70b6"
+                               Content="Welcome Back"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Height="50"
+                               Margin="0,30,0,0">
+                        </Label>
+
+                        <!--Login Area-->
+                        <StackPanel Margin="0,50,0,0"
+                                    HorizontalAlignment="Center"
+                                    Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Account"
+                                                     Height="20"
+                                                     Width="20"
+                                                     VerticalAlignment="Bottom" />
+                            <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
+                                     Foreground="Black"
+                                     FontSize="15"
+                                     Width="200"
+                                     Margin="5,0,0,0"
+                                     BorderBrush="LightGray"
+                                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                     Text="{Binding Username}" />
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center"
+                                    Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Lock"
+                                                     Height="20"
+                                                     Width="20"
+                                                     VerticalAlignment="Bottom" />
+                            <PasswordBox x:Name="FloatingPasswordBox"
+                                         materialDesign:HintAssist.Hint="Mật khẩu"
+                                         Foreground="Black"
+                                         FontSize="15"
+                                         Width="200"
+                                         Margin="5,0,0,0"
+                                         BorderBrush="LightGray"
+                                         Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PasswordChanged">
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCM}"
+                                                               CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </PasswordBox>
+                        </StackPanel>
+                        <!--Login Button-->
+                        <StackPanel HorizontalAlignment="Right"
+                                    Orientation="Vertical"
+                                    Margin="0,0,85,0"
+                                    Width="300">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Margin="0,5,0,0"
+                                       x:Name="Error"
+                                       Width="170"
+                                       Foreground="Red" />
+                                <Button Content="Quên mật khẩu?"
+                                        Foreground="Blue"
+                                        FontSize="12"
+                                        Margin="0,0,-15,0"
+                                        FontWeight="Normal"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        HorizontalContentAlignment="Right"
+                                        Command="{Binding ForgotPassCM}"
+                                        CommandParameter="{Binding ElementName=Loginwindow}">
+                                </Button>
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <Button Content="Đăng nhập"
+                                        Width="120"
+                                        materialDesign:ButtonAssist.CornerRadius="5"
+                                        Margin="0,30,20,0"
+                                        Command="{Binding LoginCM}"
+                                        CommandParameter="{Binding ElementName=Error}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </materialDesign:Card>
+
+            </Grid>
+
 
         </Grid>
+    </Border>
 
-
-    </Grid>
 </Window>

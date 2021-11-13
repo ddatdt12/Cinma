@@ -7,6 +7,7 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
 {
     public partial class ImportPage : Page
     {
+        int indexFilter = 0;
         public ImportPage()
         {
             InitializeComponent();
@@ -22,9 +23,24 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
         {
             if (String.IsNullOrEmpty(FilterBox.Text))
                 return true;
-            else
-                return ((item as MovieDTO).DisplayName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+
+            switch (indexFilter)
+            {
+                case 0:
+                    return ((item as ProductReceiptDTO).Id.ToString().IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                case 1:
+                    return ((item as ProductReceiptDTO).Product.DisplayName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                case 2:
+                    return ((item as ProductReceiptDTO).StaffName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                default:
+                    return ((item as ProductReceiptDTO).Id.ToString().IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+
         }
 
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            indexFilter = cbbFilter.SelectedIndex;
+        }
     }
 }
