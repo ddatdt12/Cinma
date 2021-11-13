@@ -17,8 +17,8 @@
         WindowStartupLocation="CenterScreen" 
         ShowInTaskbar="False"
         DataContext="{StaticResource OrderFoodWindowVM}"
-        Height="600"
-        Width="850"
+        Height="800"
+        Width="1440"
         ResizeMode="NoResize"
         WindowStyle="None">
     <i:Interaction.Triggers>
@@ -29,24 +29,24 @@
     </i:Interaction.Triggers>
     <Border BorderThickness="1"
             BorderBrush="#FF2F74D9">
-        <Grid Background="#FFE8EEF7">
+        <Grid Background="#FFFFFFFF">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="33*"></ColumnDefinition>
-                <ColumnDefinition Width="17*"></ColumnDefinition>
+                <ColumnDefinition Width="35*"></ColumnDefinition>
+                <ColumnDefinition Width="15*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25*"></RowDefinition>
-                <RowDefinition Height="57*"></RowDefinition>
+                <RowDefinition Height="40*"></RowDefinition>
                 <RowDefinition Height="60*"></RowDefinition>
-                <RowDefinition Height="457*"></RowDefinition>
+                <RowDefinition Height="460*"></RowDefinition>
             </Grid.RowDefinitions>
 
             <DockPanel Grid.Row="0"
                        Grid.ColumnSpan="2"
-                       Background="#FFC8D7DC" Margin="0,0,0,56.6" Grid.RowSpan="2">
-                <TextBlock Margin="5,0,0,0"
-                           FontSize="15"
-                           Foreground="Gray"
+                       Background="#FFD8DDE8">
+                <TextBlock Margin="10,0,0,0"
+                           FontSize="25"
+                           Foreground="#FF19191A"
                            VerticalAlignment="Bottom"
                            FontFamily="Arial"
                            TextAlignment="Center">
@@ -58,13 +58,13 @@
                 </TextBlock>
 
                 <Label ToolTip="Đóng"
-                       Foreground="Black"
-                       VerticalAlignment="Center"
+                       Foreground="#FF888FA0"
                        HorizontalAlignment="Right"
                        Width="40"
                        Height="Auto"
                        BorderBrush="{x:Null}"
-                       DockPanel.Dock="Right">
+                       DockPanel.Dock="Right"
+                       Padding="12">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
                             <i:InvokeCommandAction Command="{Binding CloseWindowCM}"
@@ -82,18 +82,16 @@
                         </Style>
                     </Label.Style>
                     <materialDesign:PackIcon Kind="WindowClose"
-                                             VerticalAlignment="Center"
-                                             Margin="8,0,0,0"/>
+                                             VerticalAlignment="Center"/>
                 </Label>
                 <Label ToolTip="Thu nhỏ"
-                       Foreground="Black"
-                       VerticalAlignment="Center"
+                       Foreground="#FF888FA0"
                        HorizontalAlignment="Right"
                        Width="40"
-                       Height="Auto"
+                       Height="35"
                        DockPanel.Dock="Right"
                        BorderBrush="{x:Null}"
-                       Margin="0,0,1,0">
+                       Padding="12" VerticalAlignment="Top">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
                             <i:InvokeCommandAction Command="{Binding MinimizeWindowCM}"
@@ -111,29 +109,29 @@
                         </Style>
                     </Label.Style>
                     <materialDesign:PackIcon Kind="WindowMinimize"
-                                             VerticalAlignment="Center"
-                                             Margin="8,0,0,0"/>
+                                             VerticalAlignment="Center"/>
                 </Label>
             </DockPanel>
 
             <DockPanel Grid.Row="1"
-                       VerticalAlignment="Center" Height="26" Margin="0,15.2,0,15.6">
-                <TextBlock HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Text="Danh mục đồ ăn"
+                       VerticalAlignment="Center">
+                <TextBlock Text="Danh mục đồ ăn"
                            DockPanel.Dock="Left"
                            FontFamily="Segoe UI Semibold"
-                           FontSize="20"
-                           Margin="20,0,0,0"
-                           FontWeight="Bold"/>
+                           FontSize="30"
+                           Margin="30,0,0,0"
+                           FontWeight="Bold"
+                           TextAlignment="Center"
+                           Foreground="#FF2155D0"/>
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Height="Auto"
                             Width="Auto">
                     <TextBlock Text="Tất cả"
-                               FontSize="15"
-                               Margin="0,0,3,0" Foreground="#FF503CFA"/>
+                               FontSize="20"
+                               Margin="0,0,3,0"
+                               Foreground="#FF503CFA"/>
 
                     <CheckBox Height="Auto"
                               Width="Auto"
@@ -161,8 +159,6 @@
                     </Grid.ColumnDefinitions>
                     <Grid.Resources>
                         <Style TargetType="Button">
-                            <Setter Property="Width" Value="Auto"/>
-                            <Setter Property="Height" Value="Auto"/>
                             <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="BorderBrush" Value="Transparent"/>
                         </Style>
@@ -171,37 +167,23 @@
                             <Setter Property="BorderBrush" Value="LightGray"/>
                             <Setter Property="BorderThickness" Value="1"/>
                             <Setter Property="Background" Value="#FF6692D1"/>
-                            <Setter Property="Margin" Value="5,3,30,3"/>
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="Margin" Value="10"/>
+                            <Setter Property="Width" Value="300"/>
                         </Style>
                     </Grid.Resources>
                     <Border>
-                        <Button Command="{Binding FilterFoodCommand}">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="/Resources/FoodLayout/Icon/Food.jpg"
-                                       Height="35"
-                                       Width="35"
-                                       Stretch="Fill"/>
-                                <TextBlock Text="Đồ ăn"
-                                           VerticalAlignment="Center"
-                                           FontSize="20"
-                                           Margin="10,0,0,0"/>
-                            </StackPanel>
-                        </Button>
+                        <Button Command="{Binding FilterFoodCommand}"
+                                Content="Đồ ăn"
+                                FontFamily="Arial"
+                                FontSize="30"/>
                     </Border>
 
                     <Border Grid.Column="1">
-                        <Button Command="{Binding FilterDrinkCommand}">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="/Resources/FoodLayout/Icon/Drink.jpg"
-                                       Height="35"
-                                       Width="35"
-                                       Stretch="Fill"/>
-                                <TextBlock Text="Thức uống"
-                                           VerticalAlignment="Center"
-                                           FontSize="20"
-                                           Margin="10,0,0,0"/>
-                            </StackPanel>
-                        </Button>
+                        <Button Command="{Binding FilterDrinkCommand}"
+                                Content="Thức uống"
+                                FontFamily="Arial"
+                                FontSize="30"/>
                     </Border>
                 </Grid>
             </Border>
@@ -213,32 +195,43 @@
                     Grid.RowSpan="3" Margin="0,0.2,0,0.4">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="57*"></RowDefinition>
+                        <RowDefinition Height="40*"></RowDefinition>
                         <RowDefinition Height="400*"></RowDefinition>
-                        <RowDefinition Height="58*"></RowDefinition>
-                        <RowDefinition Height="58*"></RowDefinition>
+                        <RowDefinition Height="60*"></RowDefinition>
+                        <RowDefinition Height="50*"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <DockPanel VerticalAlignment="Bottom"
                                Height="30">
                         <TextBlock FontFamily="Arial"
-                                   FontSize="20"
+                                   FontSize="25"
                                    Foreground="dimgray"
                                    DockPanel.Dock="Left"
-                                   Margin="5"
+                                   Margin="10,0,0,0"
                                    VerticalAlignment="Center"
                                    Text="Thanh toán"/>
 
                         <TextBlock HorizontalAlignment="Right"
-                                   Height="Auto"
-                                   Width="Auto"
                                    FontFamily="Arial"
                                    FontSize="15"
                                    Text="Xóa"
                                    FontWeight="Bold"
                                    VerticalAlignment="Center"
-                                   Foreground="SkyBlue"
-                                   Margin="0,0,30,0"/>
+                                   Margin="0,0,20,0"
+                                   ToolTip="Xóa tất cả">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Blue"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Foreground" Value="LightBlue"/>
+                                            <Setter Property="TextDecorations" Value="Underline"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        
                     </DockPanel>
 
                     <Border BorderThickness="0 1 0 0"
@@ -499,7 +492,7 @@
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <UniformGrid Columns="3"/>
+                        <UniformGrid Columns="4"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
 
