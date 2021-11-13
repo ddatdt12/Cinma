@@ -154,6 +154,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 (p) =>
                 {
                     DeleteFoodWindow wd = new DeleteFoodWindow();
+                    Image = SelectedItem.Image;
+                    Id = SelectedItem.Id;
                     wd.ShowDialog();
 
                 });
@@ -263,7 +265,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 case Operation.DELETE:
                     for (int i = 0; i < FoodList.Count; i++)
                     {
-                        if (FoodList[i].Id == SelectedItem?.Id)
+                        if (FoodList[i].Id == Id)
                         {
                             FoodList.Remove(FoodList[i]);
                             break;
