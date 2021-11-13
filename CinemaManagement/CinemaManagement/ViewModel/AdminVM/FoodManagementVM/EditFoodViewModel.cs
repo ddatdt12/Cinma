@@ -31,18 +31,15 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             {
                 wd.EditImage.Source = Helper.GetImageSource("null.jpg");
             }
-            ProductDTO x = new ProductDTO();
-            x = SelectedItem;
+            
         }
         public void EditFood(Window p)
         {
-            
             (bool isValid, string error) = IsValidData(Operation.CREATE);
             if (isValid)
             {
-                
                 if (!IsImageChanged)
-                    extension = SelectedItem.Image.Split('.')[1];
+                    extension = Image.Split('.')[1];
                 imgName = Helper.CreateImageName(DisplayName);
                 imgfullname = Helper.CreateImageFullName(imgName, extension);
 
@@ -52,15 +49,16 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.DisplayName = DisplayName;
                 product.Category = Category.Content.ToString();
                 product.Price = Price;
+                product.Id = Id;
 
-                if (product.Image != SelectedItem.Image)
+                if (product.Image != Image)
                 {
                     product.Image = imgfullname;
                 }
                 else
                 {
                     filepath = Helper.GetProductImgPath();
-                    product.Image = imgfullname = Helper.CreateImageFullName(DisplayName, SelectedItem.Image.Split('.')[1]);
+                    product.Image = imgfullname = Helper.CreateImageFullName(DisplayName, Image.Split('.')[1]);
                 }
 
                 (bool successUpdateProduct, string messageFromUpdateProduct) = ProductService.Ins.UpdateProduct(product);
@@ -69,7 +67,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 {
                     MessageBox.Show(messageFromUpdateProduct);
 
-                    if (SelectedItem.Image != product.Image)
+                    if (Image != product.Image)
                     {
                         SaveImgToApp();
                         File.Delete(Helper.GetProductImgPath());

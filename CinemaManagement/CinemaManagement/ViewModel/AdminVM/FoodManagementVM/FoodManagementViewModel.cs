@@ -51,6 +51,20 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             set { _ImageSource = value; OnPropertyChanged(); }
         }
 
+        private int _Id;
+        public int Id
+        {
+            get { return _Id; }
+            set { _Id = value; OnPropertyChanged(); }
+        }
+
+        private string _Image;
+        public string Image
+        {
+            get { return _Image; }
+            set { _Image = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         string filepath;
@@ -102,6 +116,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             //IsImageChanged = false;
             OpenAddFoodCommand = new RelayCommand<object>((p) => { return true; },
                 (p) => {
+
                     AddFoodWindow wd = new AddFoodWindow();
                     DisplayName = null;
                     Category = null;
@@ -122,14 +137,14 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 (p) => {
                     EditFoodWindow wd = new EditFoodWindow();
                     LoadEditFood(wd);
-                    
+                    Image = SelectedItem.Image;
+                    Id = SelectedItem.Id;
                     wd.ShowDialog();
 
                 });
 
             EditFoodCommand = new RelayCommand<Window>((p) => { return true; },
                 (p) => {
-                    ProductDTO x = new ProductDTO();
                     
                     EditFood(p);
                 });

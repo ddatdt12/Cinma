@@ -32,6 +32,7 @@
                              Color="#5C5B5E" />
             <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush"
                              Color="#FFFFFF" />
+            
 
         </ResourceDictionary>
     </Application.Resources>
