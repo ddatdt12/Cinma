@@ -15,7 +15,7 @@
       DataContext="{StaticResource FoodManagementVM}"
       Background="{DynamicResource MaterialDesignPaper}"
       FontFamily="{DynamicResource MaterialDesignFont}"
-      d:DesignHeight="715"
+      d:DesignHeight="720"
       d:DesignWidth="1440"
       Title="FoodPage"
       ShowsNavigationUI="False">
@@ -198,18 +198,18 @@
                                                                 <Trigger Property="IsMouseOver"
                                                                          Value="True">
                                                                     <Setter Property="Background"
-                                                                            Value="#ff616f" />
+                                                                            Value="#18ffff" />
                                                                 </Trigger>
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Border.Style>
-                                                    <Image Source="/Resources/Images/ImageFood/delete.png"
+                                                    <Image Source="/Resources/Images/ImageFood/edit.png"
                                                            VerticalAlignment="Center"
                                                            Margin="3"
                                                            HorizontalAlignment="Center" />
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.OpenDeleteFoodCommand}" />
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.OpenEditFoodCommand}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>
@@ -224,18 +224,18 @@
                                                                 <Trigger Property="IsMouseOver"
                                                                          Value="True">
                                                                     <Setter Property="Background"
-                                                                            Value="#18ffff" />
+                                                                            Value="#ff616f" />
                                                                 </Trigger>
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Border.Style>
-                                                    <Image Source="/Resources/Images/ImageFood/edit.png"
+                                                    <Image Source="/Resources/Images/ImageFood/delete.png"
                                                            VerticalAlignment="Center"
                                                            Margin="3"
                                                            HorizontalAlignment="Center" />
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.OpenEditFoodCommand}" />
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.OpenDeleteFoodCommand}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>

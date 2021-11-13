@@ -114,8 +114,17 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
         public FoodManagementViewModel()
         {
-
-            LoadProductListView(Operation.READ);
+            FoodList = new ObservableCollection<ProductDTO>();
+            ProductDTO khoi = new ProductDTO();
+            khoi.DisplayName = "a";
+            khoi.Category = "Do an";
+            khoi.Price = 0;
+            khoi.Image = "null.jpg";
+            for (int i=0; i<30; i++)
+            {
+                FoodList.Add(khoi);   
+            }
+            //LoadProductListView(Operation.READ);
             //IsImageChanged = false;
             OpenAddFoodCommand = new RelayCommand<object>((p) => { return true; },
                 (p) =>
