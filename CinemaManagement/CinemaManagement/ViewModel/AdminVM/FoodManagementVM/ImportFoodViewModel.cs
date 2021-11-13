@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 {
-    class ImportFood
+    public partial class FoodManagementViewModel : BaseViewModel
     {
     }
 }

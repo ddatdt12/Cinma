@@ -5,10 +5,170 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CinemaManagement.Views.Admin.FoodManagementPage"
         mc:Ignorable="d"
-        Title="ImportFoodWindow"
-        Height="603.243"
-        Width="561.622">
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource FoodManagementVM}"
+        WindowStyle="None"
+        WindowStartupLocation="CenterOwner"
+        Name="ImportFoodWd"
+        ResizeMode="NoResize"
+        Title="ImportFoodWindow" Height="250" Width="400">
     <Grid>
-        
+        <Border BorderBrush="#18ffff"
+                BorderThickness="2">
+            <materialDesign:Card>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment"
+                                    Value="Center" />
+                            <Setter Property="HorizontalAlignment"
+                                    Value="Right" />
+                            <Setter Property="Margin"
+                                    Value="0 10 10 0" />
+                            <Setter Property="FontSize"
+                                    Value="15" />
+                        </Style>
+                        <Style TargetType="TextBox"
+                               BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                            <Setter Property="Margin"
+                                    Value="5 0 10 0" />
+                            <Setter Property="VerticalAlignment"
+                                    Value="Center" />
+                            <Setter Property="Padding"
+                                    Value="0 0 20 0" />
+                            <Setter Property="VerticalContentAlignment"
+                                    Value="Center" />
+                            <Setter Property="Height"
+                                    Value="40" />
+                        </Style>
+                    </Grid.Resources>
+                    <materialDesign:ColorZone Mode="SecondaryMid"
+                                              Padding="10"
+                                              Background="#0c70b6"
+                                              Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock VerticalAlignment="Center"
+                                       Margin="30 0 0 0"
+                                       Text="THÊM ĐỒ ĂN"
+                                       Foreground="Black"
+                                       FontWeight="DemiBold"
+                                       FontSize="20" />
+                        </StackPanel>
+                    </materialDesign:ColorZone>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Tên" />
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding DisplayName, Mode=TwoWay}" />
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Loại" />
+                        <ComboBox VerticalContentAlignment="Center"
+                                  Padding="0 12 0 0"
+                                  Margin="5 0 10 0"
+                                  Grid.Column="1"
+                                  Height="40"
+                                  x:Name="_Gender"
+                                  SelectedItem="{Binding Category, Mode=TwoWay}">
+                            <ComboBoxItem Content="Đồ ăn" />
+                            <ComboBoxItem Content="Thức uống" />
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Giá tiền"
+                                   x:Name="tboxName" />
+                        <TextBox Grid.Column="1"
+                                 x:Name="_FullName"
+                                 Text="{Binding Price, Mode=TwoWay}" />
+                    </Grid>
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="220" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Border BorderBrush="Black"
+                                    BorderThickness="1"
+                                    Margin="20 5 0 0">
+                                <Image Source="{Binding ImageSource}"
+                                       VerticalAlignment="Stretch"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="10" />
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Image Source="/Resources/Images/ImageFood/add-image.png"
+                                   Margin="5 50 0 0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Bottom"
+                                   Height="30"
+                                   Cursor="Hand" />
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding UpLoadImageCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="5">
+                        <Grid.Resources>
+                            <Style TargetType="Button"
+                                   BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                                <Setter Property="VerticalAlignment"
+                                        Value="Bottom" />
+                                <Setter Property="HorizontalAlignment"
+                                        Value="Right" />
+                                <Setter Property="Width"
+                                        Value="70" />
+                                <Setter Property="Height"
+                                        Value="30" />
+                                <Setter Property="FontSize"
+                                        Value="12" />
+                            </Style>
+                        </Grid.Resources>
+                        <Button Content="Hủy"
+                                Margin="0 0 10 10"
+                                Command="{Binding CloseCommand}"
+                                CommandParameter="{Binding ElementName=ImportFoodWd}"
+                                Background="OrangeRed" />
+
+                        <Button Content="Thêm"
+                                Margin="0 0 100 10"
+                                Command="{Binding ImportFoodCommand}"
+                                CommandParameter="{Binding ElementName=ImportFoodWd}"
+                                Background="#0c70b6" />
+
+                    </Grid>
+                </Grid>
+            </materialDesign:Card>
+        </Border>
+
     </Grid>
 </Window>
