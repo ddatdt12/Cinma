@@ -47,7 +47,8 @@
 
             <!---Listview-->
             <materialDesign:Card Background="White"
-                                 Margin="20,80,20,20">
+                                 Margin="20,80,20,20"
+                                 UniformCornerRadius="5">
                 <Frame x:Name="MainListViewFrame">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">

@@ -43,6 +43,7 @@
                          Height="50"
                          FontSize="25"
                          FontFamily="arial"
+                         materialDesign:ButtonAssist.CornerRadius="5"
                          Command="{Binding LoadAddShowtimeCM}">
                 </Button>
 
@@ -126,7 +127,8 @@
 
             <!---Listview-->
             <materialDesign:Card Background="White"
-                                 Margin="100,20,30,20">
+                                 Margin="100,20,30,20"
+                                 UniformCornerRadius="5">
 
                 <ListView x:Name="ShowtimeListview"
                           ItemsSource="{Binding ShowtimeList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"

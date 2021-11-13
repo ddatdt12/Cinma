@@ -15,24 +15,23 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource StaffManagementVM}"
         WindowStartupLocation="CenterOwner"
+        AllowsTransparency="True"
+        Background="Transparent"
         WindowStyle="None"
         ResizeMode="NoResize"
         MouseLeftButtonDown="ThemNV_MouseLeftButtonDown"
         Name="ThemNV">
 
     <Grid>
-        <Border BorderBrush="#0c70b6"
-                BorderThickness="3">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="0"
-                                  BlurRadius="5"
-                                  Color="#18ffff" />
-            </Border.Effect>
-            <materialDesign:Card>
+        <Border BorderThickness="1"
+                CornerRadius="8"
+                BorderBrush="Gray"
+                Background="White">
+            <materialDesign:Card
+                Background="Transparent">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="45*" />
@@ -77,14 +76,17 @@
                     <Grid Grid.Row="0">
                         <materialDesign:ColorZone Mode="SecondaryMid"
                                                   Padding="10"
-                                                  Background="#0c70b6">
-                            <StackPanel Orientation="Horizontal">
+                                                  Background="Transparent">
+                            <Border BorderThickness="0,0,0,1"
+                                    BorderBrush="Black">
                                 <TextBlock VerticalAlignment="Center"
                                            Margin="30 0 0 0"
                                            Text="THÊM NHÂN VIÊN"
                                            FontWeight="DemiBold"
-                                           FontSize="20" />
-                            </StackPanel>
+                                           FontSize="20"
+                                           HorizontalAlignment="Left"
+                                           Foreground="Black" />
+                            </Border>
                         </materialDesign:ColorZone>
                     </Grid>
                     <Grid Grid.Row="1">
@@ -269,12 +271,14 @@
                                 Margin="0 0 150 15"
                                 Command="{Binding CloseCommand}"
                                 CommandParameter="{Binding ElementName=ThemNV}"
-                                Background="OrangeRed" />
+                                Background="OrangeRed"
+                                materialDesign:ButtonAssist.CornerRadius="5" />
                         <Button Content="Hoàn tất"
                                 Margin="0 0 40 15"
                                 Command="{Binding AddStaffCommand}"
                                 CommandParameter="{Binding ElementName=ThemNV}"
-                                Background="#0c70b6" />
+                                Background="#0c70b6"
+                                materialDesign:ButtonAssist.CornerRadius="5" />
 
                     </Grid>
                 </Grid>

@@ -52,6 +52,7 @@
                          Height="50"
                          FontSize="25"
                          FontFamily="arial"
+                         materialDesign:ButtonAssist.CornerRadius="5"
                          Command="{Binding LoadAddMovieCM}">
                 </Button>
             </StackPanel>
@@ -60,7 +61,8 @@
         <Grid Grid.Row="1">
 
             <materialDesign:Card Background="White"
-                                 Margin="30,20,30,20">
+                                 Margin="30,20,30,20"
+                                 UniformCornerRadius="5">
                 <ListView x:Name="MovieListView"
                           ItemsSource="{Binding MovieList}"
                           SelectedItem="{Binding SelectedItem}"

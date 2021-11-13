@@ -109,6 +109,8 @@ namespace CinemaManagement.ViewModel
 
             if (loginSuccess)
             {
+                Password = "";
+
                 if (staff.Role == "Quản lý")
                 {
                     MainAdminWindow w1 = new MainAdminWindow();

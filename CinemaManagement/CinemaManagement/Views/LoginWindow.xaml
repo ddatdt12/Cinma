@@ -32,11 +32,6 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-
-
-
-
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="314*" />
@@ -101,79 +96,84 @@
             </StackPanel>
 
             <!--Login Form-->
-            <StackPanel Grid.Row="1"
-                        Orientation="Vertical">
-                <!--Welcome-->
-                <Label FontFamily="junegull"
-                       FontSize="35"
-                       FontWeight="UltraBlack"
-                       Foreground="#0c70b6"
-                       Content="Welcome Back"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Height="50"
-                       Margin="0,30,0,0">
-                </Label>
+            <materialDesign:Card Margin="20,50,20,20"
+                                 Grid.RowSpan="2"
+                                 UniformCornerRadius="8">
+                <StackPanel Grid.Row="1"
+                            Orientation="Vertical">
+                    <!--Welcome-->
+                    <Label FontFamily="junegull"
+                           FontSize="35"
+                           FontWeight="UltraBlack"
+                           Foreground="#0c70b6"
+                           Content="Welcome Back"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Height="50"
+                           Margin="0,30,0,0">
+                    </Label>
 
-                <!--Login Area-->
-                <StackPanel Margin="0,50,0,0"
-                            HorizontalAlignment="Center"
-                            Width="300">
-                    <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
-                             Foreground="Black"
-                             FontSize="15"
-                             BorderBrush="LightGray"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding Username}" />
-                    <PasswordBox x:Name="FloatingPasswordBox"
-                                 materialDesign:HintAssist.Hint="Mật khẩu"
+                    <!--Login Area-->
+                    <StackPanel Margin="0,50,0,0"
+                                HorizontalAlignment="Center"
+                                Width="300">
+                        <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
                                  Foreground="Black"
                                  FontSize="15"
-                                 Margin="0,10,0,0"
                                  BorderBrush="LightGray"
-                                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PasswordChanged">
-                                <i:InvokeCommandAction Command="{Binding PasswordChangedCM}"
-                                                       CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </PasswordBox>
-                </StackPanel>
-
-                <!--Login Button-->
-                <StackPanel HorizontalAlignment="Right"
-                            Orientation="Vertical"
-                            Margin="0,0,85,0"
-                            Width="300">
-                    <StackPanel Orientation="Horizontal">
-                        <Label Margin="0,5,0,0"
-                               x:Name="Error"
-                               Width="170"
-                               Foreground="Red" />
-                        <Button Content="Quên mật khẩu?"
-                                Foreground="Blue"
-                                FontSize="12"
-                                Margin="0,0,-15,0"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                HorizontalContentAlignment="Right"
-                                Command="{Binding ForgotPassCM}"
-                                CommandParameter="{Binding ElementName=Loginwindow}">
-                        </Button>
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="{Binding Username}" />
+                        <PasswordBox x:Name="FloatingPasswordBox"
+                                     materialDesign:HintAssist.Hint="Mật khẩu"
+                                     Foreground="Black"
+                                     FontSize="15"
+                                     Margin="0,10,0,0"
+                                     BorderBrush="LightGray"
+                                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PasswordChanged">
+                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCM}"
+                                                           CommandParameter="{Binding ElementName=FloatingPasswordBox}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </PasswordBox>
                     </StackPanel>
-                    <Grid>
-                        <Button Margin="0,20,0,0"
-                                Content="Đăng nhập"
-                                BorderThickness="15"
-                                Width="120"
-                                HorizontalAlignment="Right"
-                                Command="{Binding LoginCM}"
-                                CommandParameter="{Binding ElementName=Error}" />
-                    </Grid>
+
+                    <!--Login Button-->
+                    <StackPanel HorizontalAlignment="Right"
+                                Orientation="Vertical"
+                                Margin="0,0,85,0"
+                                Width="300">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Margin="0,5,0,0"
+                                   x:Name="Error"
+                                   Width="170"
+                                   Foreground="Red" />
+                            <Button Content="Quên mật khẩu?"
+                                    Foreground="Blue"
+                                    FontSize="12"
+                                    Margin="0,0,-15,0"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    HorizontalContentAlignment="Right"
+                                    Command="{Binding ForgotPassCM}"
+                                    CommandParameter="{Binding ElementName=Loginwindow}">
+                            </Button>
+                        </StackPanel>
+                        <Grid>
+                            <Button Margin="0,20,0,0"
+                                    Content="Đăng nhập"
+                                    Width="120"
+                                    materialDesign:ButtonAssist.CornerRadius="5"
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding LoginCM}"
+                                    CommandParameter="{Binding ElementName=Error}" />
+                        </Grid>
+                    </StackPanel>
+
                 </StackPanel>
 
-            </StackPanel>
+            </materialDesign:Card>
 
         </Grid>
 
