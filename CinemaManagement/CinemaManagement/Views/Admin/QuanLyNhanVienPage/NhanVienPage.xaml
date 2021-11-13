@@ -59,7 +59,7 @@
                                      x:Name="SearchBox"
                                      TextChanged="TextBox_TextChanged"
                                      VerticalAlignment="Bottom"
-                             Margin="6,0,-55,-35">
+                             Margin="44,0,-94,-35">
                             </TextBox>
                         </Grid>
     
@@ -70,7 +70,7 @@
 
             <!--#region Thêm nhân viên-->
             <StackPanel Orientation="Horizontal"
-                        Margin="100,0,0,15"
+                        Margin="180,0,0,15"
                         VerticalAlignment="Bottom"
                         Grid.Column="1">
                 <Button  Content="Thêm"
@@ -80,16 +80,15 @@
                          Height="50"
                          FontSize="25"
                          FontFamily="arial"
-                         Command="{Binding OpenAddStaffCommand}">
-                </Button>
+                         Command="{Binding OpenAddStaffCommand}" />
             </StackPanel>
             <!--#endregion-->
         </Grid>
 
         <!--#region Danh sách nhân viên-->
         <materialDesign:Card Grid.Row="1"
-                             Margin="5"
-                             UniformCornerRadius="5">
+                             UniformCornerRadius="5"
+                             Margin="30 20 80 30">
             <ScrollViewer VerticalScrollBarVisibility="Auto" x:Name="listView"
                           PreviewMouseWheel="listView_PreviewMouseWheel">
                 <ListView ItemsSource="{Binding StaffList}" FontFamily="Ubuntu"
@@ -183,8 +182,10 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <Image Source="/Resources/ImageStaff/pencil.png"
-                                                       Margin="2"/>
+                                                <Image Source="/Resources/IconPack/pencil.png"
+                                                       Width="30"
+                                                       Height="30"
+                                                       Cursor="Hand" />
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
                                                         <i:InvokeCommandAction Command="{Binding ElementName=listView, Path=DataContext.OpenEditStaffCommand}"/>
@@ -205,8 +206,10 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <Image Source="/Resources/ImageStaff/delete.png"
-                                                       Margin="2"/>
+                                                <materialDesign:PackIcon Kind="GarbageCanEmpty"
+                                                                         Width="30"
+                                                                         Height="30"
+                                                                         Cursor="Hand" />
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
                                                         <i:InvokeCommandAction Command="{Binding ElementName=listView, Path=DataContext.OpenDeleteStaffCommand}"/>
