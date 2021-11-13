@@ -30,7 +30,6 @@
                         <RowDefinition Height="50" />
                         <RowDefinition Height="50" />
                         <RowDefinition Height="50" />
-                        <RowDefinition />
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
                     <Grid.Resources>
@@ -65,7 +64,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center"
                                        Margin="30 0 0 0"
-                                       Text="THÊM ĐỒ ĂN"
+                                       Text="NHẬP SẢN PHẨM"
                                        Foreground="Black"
                                        FontWeight="DemiBold"
                                        FontSize="20" />
@@ -73,19 +72,10 @@
                     </materialDesign:ColorZone>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="120" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Tên" />
-                        <TextBox Grid.Column="1"
-                                 Text="{Binding DisplayName, Mode=TwoWay}" />
-                    </Grid>
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Loại" />
+                        <TextBlock Text="Tên sản phẩm" />
                         <ComboBox VerticalContentAlignment="Center"
                                   Padding="0 12 0 0"
                                   Margin="5 0 10 0"
@@ -93,51 +83,30 @@
                                   Height="40"
                                   x:Name="_Gender"
                                   SelectedItem="{Binding Category, Mode=TwoWay}">
-                            <ComboBoxItem Content="Đồ ăn" />
-                            <ComboBoxItem Content="Thức uống" />
+                            <ComboBoxItem Content="Nguyễn Hữu Minh Sang" />
                         </ComboBox>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Số lượng" />
+                        <TextBox Grid.Column="1"
+                                 Text="{Binding DisplayName, Mode=TwoWay}" />
                     </Grid>
                     <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="120" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Giá tiền"
+                        <TextBlock Text="Giá nhập"
                                    x:Name="tboxName" />
                         <TextBox Grid.Column="1"
                                  x:Name="_FullName"
                                  Text="{Binding Price, Mode=TwoWay}" />
                     </Grid>
                     <Grid Grid.Row="4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="220" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Border BorderBrush="Black"
-                                    BorderThickness="1"
-                                    Margin="20 5 0 0">
-                                <Image Source="{Binding ImageSource}"
-                                       VerticalAlignment="Stretch"
-                                       HorizontalAlignment="Stretch"
-                                       Margin="10" />
-                            </Border>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <Image Source="/Resources/Images/ImageFood/add-image.png"
-                                   Margin="5 50 0 0"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Bottom"
-                                   Height="30"
-                                   Cursor="Hand" />
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                    <i:InvokeCommandAction Command="{Binding UpLoadImageCommand}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Grid>
-                    </Grid>
-                    <Grid Grid.Row="5">
                         <Grid.Resources>
                             <Style TargetType="Button"
                                    BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
