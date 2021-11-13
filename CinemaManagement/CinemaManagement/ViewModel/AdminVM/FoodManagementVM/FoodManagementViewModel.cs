@@ -116,11 +116,12 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             FoodList = new ObservableCollection<ProductDTO>();
             ProductDTO khoi = new ProductDTO();
-            khoi.DisplayName = "a";
+            khoi.DisplayName = "khoi idol";
             khoi.Category = "Do an";
-            khoi.Price = 0;
+            khoi.Price = 99999999;
+            khoi.Quantity = 100;
             khoi.Image = "null.jpg";
-            for (int i=0; i<30; i++)
+            for (int i=0; i<20; i++)
             {
                 FoodList.Add(khoi);   
             }
