@@ -122,10 +122,11 @@
                             <Border BorderBrush="Black"
                                     BorderThickness="1"
                                     Margin="20 5 0 0">
-                                <Image Source="/Resources/Images/ImageFood/pop-corn.png"
+                                <Image Source="{Binding ImageSource, Mode=TwoWay}"
                                        VerticalAlignment="Stretch"
                                        HorizontalAlignment="Stretch"
-                                       Margin="10" />
+                                       Margin="10" 
+                                       x:Name="EditImage"/>
                             </Border>
                         </Grid>
                         <Grid Grid.Column="1">
@@ -135,6 +136,11 @@
                                    VerticalAlignment="Bottom"
                                    Height="30"
                                    Cursor="Hand" />
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding UpLoadImageCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </Grid>
                     </Grid>
                     <Grid Grid.Row="5">

@@ -58,9 +58,9 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         string imgName;
         string imgfullname;
         string extension;
-        string oldMovieName;
+        string oldFoodName;
         bool IsImageChanged = false;
-        bool IsAddingMovie = false;
+        bool IsAddingProduct = false;
 
         private ObservableCollection<ProductDTO> _foodList;
         public ObservableCollection<ProductDTO> FoodList
@@ -106,7 +106,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     DisplayName = null;
                     Category = null;
                     ImageSource = null;
-                    IsAddingMovie = true;
+                    Price = 0;
+                    IsAddingProduct = true;
                     wd.ShowDialog();
 
                 });
@@ -120,16 +121,16 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; },
                 (p) => {
                     EditFoodWindow wd = new EditFoodWindow();
-                    ProductDTO a = new ProductDTO();
-                    wd._displayName.Text = SelectedItem.DisplayName;
-                    wd._category.Text = SelectedItem.Category;
-                    wd._price.Text = SelectedItem.Price.ToString();
+                    LoadEditFood(wd);
+                    
                     wd.ShowDialog();
 
                 });
 
             EditFoodCommand = new RelayCommand<Window>((p) => { return true; },
                 (p) => {
+                    ProductDTO x = new ProductDTO();
+                    
                     EditFood(p);
                 });
 
@@ -202,14 +203,14 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             try
             {
-                appPath = Helper.GetMovieImgPath(imgfullname);
-                if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
-                    File.Delete(Helper.GetMovieImgPath(imgfullname));
+                appPath = Helper.GetProductImgPath();
+                if (File.Exists(Helper.GetProductImgPath()))
+                    File.Delete(Helper.GetProductImgPath());
                 File.Copy(filepath, appPath, true);
             }
             catch (Exception exp)
             {
-                System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
+                System.Windows.MessageBox.Show(exp.Message);
             }
         }
 

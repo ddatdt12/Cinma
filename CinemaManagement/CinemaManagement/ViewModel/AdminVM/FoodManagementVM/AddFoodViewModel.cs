@@ -24,14 +24,13 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.DisplayName = DisplayName;
                 product.Category = Category.Content.ToString();
                 product.Price = Price;
-                product.Image = "x";
-                string x = product.Image;
+                product.Image = imgfullname;
 
-                (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = ProductService.Ins.AddProduct(product);
+                (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = ProductService.Ins.AddNewProduct(product);
 
                 if (successAddProduct)
                 {
-                    IsAddingMovie = false;
+                    IsAddingProduct = false;
                     SaveImgToApp();
                     LoadProductListView(Operation.CREATE, newProduct);
                     p.Close();
