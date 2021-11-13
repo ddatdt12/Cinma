@@ -14,8 +14,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
     {
         public void AddFood(Window p)
         {
-            (bool isValid, string error) = IsValidData(Operation.CREATE);
-            if (isValid)
+
+            if (filepath != null && IsValidData())
             {
                 imgName = Helper.CreateImageName(DisplayName);
                 imgfullname = Helper.CreateImageFullName(imgName, extension);
@@ -23,7 +23,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 product.DisplayName = DisplayName;
                 product.Category = Category.Content.ToString();
-                product.Price = Price;
+                product.Price = 45000;
                 product.Image = imgfullname;
 
                 (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = ProductService.Ins.AddNewProduct(product);
@@ -31,14 +31,18 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 if (successAddProduct)
                 {
                     IsAddingProduct = false;
+                    MessageBox.Show(messageFromAddProduct);
                     SaveImgToApp();
                     LoadProductListView(Operation.CREATE, newProduct);
                     p.Close();
                 }
-                MessageBox.Show(messageFromAddProduct);
+                else
+                {
+                    MessageBox.Show(messageFromAddProduct);
+                }
             }
             else
-                MessageBox.Show(error);
+                MessageBox.Show("Vui lòng nhập đủ thông tin");
         }
     }
 }

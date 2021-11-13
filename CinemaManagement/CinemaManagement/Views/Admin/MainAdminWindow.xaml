@@ -153,6 +153,14 @@
                                         BorderBrush="Transparent"
                                         Command="{Binding LoadLSPage}"
                                         CommandParameter="{Binding ElementName=MainFrame}" />
+                                <Button Margin="0,0,0,5"
+                                        Content="FOOD"
+                                        Height="50"
+                                        FontSize="25"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadFoodPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
                             </StackPanel>
                         </Grid>
                         <ToggleButton x:Name="SlideButton"
@@ -193,7 +201,7 @@
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">
-                    <i:InvokeCommandAction Command="{Binding LoadSuatChieuPageCM}"
+                    <i:InvokeCommandAction Command="{Binding LoadQLPPageCM}"
                                            CommandParameter="{Binding ElementName=MainFrame}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>

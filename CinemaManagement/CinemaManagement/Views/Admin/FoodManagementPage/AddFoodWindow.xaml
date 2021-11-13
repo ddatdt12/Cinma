@@ -102,7 +102,7 @@
                                   x:Name="_Gender"
                                   SelectedItem="{Binding Category, Mode=TwoWay}">
                             <ComboBoxItem Content="Đồ ăn" />
-                            <ComboBoxItem Content="Thức uống" />
+                            <ComboBoxItem Content="Nước uống" />
                         </ComboBox>
                     </Grid>
                     <Grid Grid.Row="3">
@@ -113,8 +113,9 @@
                         <TextBlock Text="Giá tiền"
                                    x:Name="tboxName" />
                         <TextBox Grid.Column="1"
-                                 x:Name="_FullName"
-                                 Text="{Binding Price, Mode=TwoWay}" />
+                                 Text="{Binding Price, Mode=TwoWay}" 
+                                 PreviewTextInput="TextBox_PreviewTextInput"
+                                 TextChanged="TextBox_TextChanged"/>
                     </Grid>
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
