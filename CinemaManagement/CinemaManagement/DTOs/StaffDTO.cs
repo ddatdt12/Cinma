@@ -10,7 +10,7 @@ namespace CinemaManagement.DTOs
         {
             Role = ROLE.Staff;
         }
-        public StaffDTO(int id, string name, string gender, DateTime birthday, string phonenumber, string role, DateTime startingdate)
+        public StaffDTO(string id, string name, string gender, DateTime birthday, string phonenumber, string role, DateTime startingdate)
         {
             Id = id; Name = name; Gender = gender; BirthDate = birthday; PhoneNumber = phonenumber; Role = role; StartingDate = startingdate;
         }
@@ -30,7 +30,7 @@ namespace CinemaManagement.DTOs
         }
 
 
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

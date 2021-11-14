@@ -27,7 +27,7 @@ namespace CinemaManagement.Models.Services
         private ShowtimeService() { }
 
        
-        public (bool IsSuccess, string message, ShowtimeDTO newShowtime) AddShowtime(ShowtimeDTO newShowtime)
+        public (bool IsSuccess, string message) AddShowtime(ShowtimeDTO newShowtime)
         {
 
             var context = DataProvider.Ins.DB;
@@ -69,7 +69,7 @@ namespace CinemaManagement.Models.Services
                     if (show != null)
                     {
                         var endTime = new TimeSpan(0, show.Movie.RunningTime, 0) + show.StartTime;
-                        return (false, $"Khoảng thời gian từ {Helper.GetHourMinutes(show.StartTime)} đến {Helper.GetHourMinutes(endTime + TIME.BreakTime)} đã có phim chiếu tại phòng {showtimeSet.RoomId}", null);
+                        return (false, $"Khoảng thời gian từ {Helper.GetHourMinutes(show.StartTime)} đến {Helper.GetHourMinutes(endTime + TIME.BreakTime)} đã có phim chiếu tại phòng {showtimeSet.RoomId}");
                     }
                 }
 
@@ -88,23 +88,23 @@ namespace CinemaManagement.Models.Services
                 //setting seats in room for new showtime 
                 (bool IsSuccess, string messsage) = SeatService.Ins.SettingSeatForNewShowtime(showtimeSet.RoomId, showtime.Id);
                 if (!IsSuccess)
-                    return (false, "Lỗi hệ thống! Vui lòng thử lại", null);
+                    return (false, "Lỗi hệ thống! Vui lòng thử lại");
                 newShowtime.Id = showtime.Id;
-                return (true, "Thêm suất chiếu thành công" , newShowtime);
+                return (true, "Thêm suất chiếu thành công" );
             }
-            catch (DbEntityValidationException)
+            catch (DbEntityValidationException e)
             {
-                return (false, "Lỗi DbEntityValidationException", null);
+                return (false, "Lỗi DbEntityValidationException" + e.Message);
 
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException e)
             {
-                return (false, "Lỗi DbUpdateException", null);
+                return (false, "Lỗi DbUpdateException" + e.Message);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return (false, "Lỗi hệ thống", null);
+                return (false, "Lỗi hệ thống" + e.Message);
 
             }
         }

@@ -45,7 +45,6 @@ namespace CinemaManagement.Models.Services
                       }).ToList();
             return staffs;
         }
-        
         public (bool, string, StaffDTO) Login(string username, string password)
         {
             var context = DataProvider.Ins.DB;
@@ -80,6 +79,11 @@ namespace CinemaManagement.Models.Services
            
 
         }
+        private string CreateNextStaffId(string maxId) {
+            //NVxxx
+            string newIdString = $"000{int.Parse(maxId.Substring(2)) + 1}";
+            return "NV" + newIdString.Substring(newIdString.Length - 3 , 3);
+        }
         public (bool, string, StaffDTO) AddStaff(StaffDTO newStaff)
         {
             var context = DataProvider.Ins.DB;
@@ -87,18 +91,24 @@ namespace CinemaManagement.Models.Services
             try
             {
                 bool usernameIsExist = context.Staffs.Any(s => s.Username == newStaff.Username);
+
                 if (usernameIsExist)
                 {
                     return (false, "Tài khoản đã tồn tại!", null);
                 }
+                var maxId = context.Staffs.Max(s => s.Id);
+
                 Staff st = Copy(newStaff);
+                st.Id = CreateNextStaffId(maxId);
                 st.Password = Helper.MD5Hash(newStaff.Password);
                 context.Staffs.Add(st);
-
                 context.SaveChanges();
-                newStaff.Id = st.Id;
             }
-            catch (Exception)
+            catch  (DbEntityValidationException e)
+            {
+                return (false, "Lỗi hệ thống", null);
+            }
+            catch (Exception e)
             {
                 return (false, "Lỗi hệ thống", null);
             }
@@ -175,7 +185,7 @@ namespace CinemaManagement.Models.Services
 
         }
 
-        public (bool, string) UpdatePassword(int StaffId, string newPassword)
+        public (bool, string) UpdatePassword(string StaffId, string newPassword)
         {
             try
             {
@@ -204,7 +214,7 @@ namespace CinemaManagement.Models.Services
             return (true, "Cập nhật mật khẩu thành công");
 
         }
-        public (bool, string) DeleteStaff(int Id)
+        public (bool, string) DeleteStaff(string Id)
         {
             try
             {

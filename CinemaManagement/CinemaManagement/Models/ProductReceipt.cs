@@ -14,12 +14,12 @@ namespace CinemaManagement.Models
     
     public partial class ProductReceipt
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public int ProductId { get; set; }
         public decimal ImportPrice { get; set; }
         public int Quantity { get; set; }
         public System.DateTime CreatedAt { get; set; }
-        public int StaffId { get; set; }
+        public string StaffId { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual Staff Staff { get; set; }
