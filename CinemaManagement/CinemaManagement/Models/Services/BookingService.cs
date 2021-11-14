@@ -82,7 +82,7 @@ namespace CinemaManagement.Models.Services
         }
 
          /// <summary>
-         /// 
+         /// (Dành cho cả mua vé và đặt hàng) Tạo hóa đơn khi biết Bill (chứa CustomerId, StaffId , totalPrice) , danh sách vé, danh sách các sản phẩm đc đặt
          /// </summary>
          /// <param name="bill"></param>
          /// <param name="newTicketList"></param>
@@ -131,6 +131,12 @@ namespace CinemaManagement.Models.Services
             return (true, "Thực hiện giao dịch thành công");
         }
 
+        /// <summary>
+        /// (Dành cho chỉ đặt hàng) Tạo hóa đơn đặt hàng
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <param name="orderedProductList"></param>
+        /// <returns></returns>
         public (bool IsSuccess, string message) CreateProductOrder(BillDTO bill, List<ProductBillInfoDTO> orderedProductList)
         {
             try

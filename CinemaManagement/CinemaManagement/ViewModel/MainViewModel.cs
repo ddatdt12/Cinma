@@ -214,8 +214,8 @@ namespace CinemaManagement.ViewModel
                 List<MovieDTO> ListMovieDtosOnDay = MovieService.Ins.GetShowingMovieByDay(DateTime.Today);
 
                 var showtime = ListMovieDtosOnDay[0].Showtimes[0];
+                #region Chỉ dành cho đặt vé
 
-                //Chỉ dành cho đặt vé
                 //Khách hàng thành viên
                 //BillDTO bill = new BillDTO { CustomerId = "KH0005", StaffId = "NV002", TotalPrice = 2 * showtime.TicketPrice };
                 ////Khách vãng lai
@@ -226,6 +226,7 @@ namespace CinemaManagement.ViewModel
                 //ticketList.Add(new TicketDTO { SeatId=43, Price = showtime.TicketPrice , ShowtimeId = showtime.Id });
                 //ticketList.Add(new TicketDTO { SeatId=44, Price = showtime.TicketPrice , ShowtimeId = showtime.Id });
                 //(bool isSuccess, string message) = BookingService.Ins.CreateTicketBooking(bill, ticketList);
+                #endregion
 
                 #region Dành cho đặt cả vé và đồ ăn
 
@@ -256,11 +257,14 @@ namespace CinemaManagement.ViewModel
                 ////ticketList.Add(new TicketDTO { SeatId=43, Price = showtime.TicketPrice , ShowtimeId = showtime.Id });
                 ////ticketList.Add(new TicketDTO { SeatId=44, Price = showtime.TicketPrice , ShowtimeId = showtime.Id });
                 //(bool isSuccess, string message) = BookingService.Ins.CreateProductOrder(bill, orderedProds);
-                //#endregion
+                #endregion
 
-                //var todayBill = BillService.Ins.GetBillByDate(DateTime.Today);
-                //var billDetails = BillService.Ins.GetBillDetails("HD0010");
-                
+
+                var billDetails = BillService.Ins.GetBillDetails("HD0010");
+                var todayBill = BillService.Ins.GetBillByDate(DateTime.Today);
+                var mothnBill = BillService.Ins.GetBillByMonth(11);
+                var allBill = BillService.Ins.GetAllBill();
+                BillService.Ins.
                 //(bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login("dothanhdat123","123456");
                 MovieList = new List<MovieDTO>(movieDTOs);
                 GenreList = new ObservableCollection<GenreDTO>(genreDTOs);

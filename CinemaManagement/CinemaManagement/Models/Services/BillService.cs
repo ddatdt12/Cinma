@@ -26,6 +26,37 @@ namespace CinemaManagement.Models.Services
         private BillService()
         {
         }
+        public List<BillDTO> GetAllBill()
+        {
+            try
+            {
+                var context = DataProvider.Ins.DB;
+
+
+                var billList = (from b in context.Bills
+                                select new BillDTO
+                                {
+                                    Id = b.Id,
+                                    StaffId = b.StaffId,
+                                    StaffName = b.Staff.Name,
+                                    TotalPrice = b.TotalPrice,
+                                    DiscountPrice = b.DiscountPrice,
+                                    CustomerId = b.CustomerId,
+                                    CustomerName = b.Customer.Name,
+                                }).ToList();
+                return billList;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Get Bill by particular date
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         public List<BillDTO> GetBillByDate(DateTime date) {
             try
             {
@@ -51,6 +82,44 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Lấy hóa đơn trong tháng nào đó
+        /// </summary>
+        /// <param name="month"></param>
+        /// <returns></returns>
+        public List<BillDTO> GetBillByMonth(int month)
+        {
+            try
+            {
+                var context = DataProvider.Ins.DB;
+
+
+                var billList = (from b in context.Bills
+                                where b.CreatedAt.Month == month
+                                select new BillDTO
+                                {
+                                    Id = b.Id,
+                                    StaffId = b.StaffId,
+                                    StaffName = b.Staff.Name,
+                                    TotalPrice = b.TotalPrice,
+                                    DiscountPrice = b.DiscountPrice,
+                                    CustomerId = b.CustomerId,
+                                    CustomerName = b.Customer.Name,
+                                }).ToList();
+                return billList;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Lấy thông tin chi tiết của hóa đơn 
+        /// </summary>
+        /// <param name="billId"></param>
+        /// <returns></returns>
         public BillDTO GetBillDetails(string billId)
         {
             try
