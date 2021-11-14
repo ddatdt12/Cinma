@@ -20,7 +20,7 @@
         <!--cong cu va cac button-->
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
-                    Margin="25,0,0,0">
+                    Margin="30,0,0,0">
             <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
                      x:Name="_FilterBox"
                      FontSize="25"
@@ -39,8 +39,8 @@
                 <Button  Content="Thêm"
                          VerticalAlignment="Bottom"
                          HorizontalAlignment="Center"
-                         Width="150"
-                         Height="50"
+                         Width="120"
+                         Height="40"
                          FontSize="25"
                          FontFamily="arial"
                          materialDesign:ButtonAssist.CornerRadius="5"

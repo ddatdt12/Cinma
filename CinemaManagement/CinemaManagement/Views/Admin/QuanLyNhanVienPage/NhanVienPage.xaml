@@ -27,66 +27,38 @@
     </i:Interaction.Triggers>
 
 
-    <Grid>
+    <Grid  Background="#f0f2f5">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" />
             <RowDefinition  Height="90*" />
         </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="450" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
-
-
-                <!--#region Search bar-->
-
-                <Grid>
-                    <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
-                             FontSize="25"
-                             Foreground="#DD000000"
-                             FontFamily="Arial"
-                             AllowDrop="True"
-                             BorderThickness="0,0,0,1"
-                             Width="500"
-                             Height="30"
-                             Padding="0"
-                             x:Name="SearchBox"
-                             TextChanged="TextBox_TextChanged"
-                             VerticalAlignment="Bottom"
-                             Margin="30,0,0,-20">
-                    </TextBox>
-                </Grid>
-
-                <!--#endregion-->
-
-
-            </Grid>
-
-            <!--#region Thêm nhân viên-->
-            <StackPanel Orientation="Horizontal"
-                        Margin="30,0,810,0"
-                        VerticalAlignment="Bottom"
-                        Grid.Column="1"
-                        Height="55">
-                <Button  Content="Thêm"
-                         VerticalAlignment="Bottom"
-                         HorizontalAlignment="Center"
-                         Width="150"
-                         Height="50"
-                         FontSize="25"
-                         FontFamily="arial"
-                         materialDesign:ButtonAssist.CornerRadius="5"
-                         Command="{Binding OpenAddStaffCommand}" />
-            </StackPanel>
-            <!--#endregion-->
-        </Grid>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0">
+            <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
+                     FontSize="25"
+                     Foreground="#DD000000"
+                     FontFamily="Arial"
+                     AllowDrop="True"
+                     BorderThickness="0,0,0,1"
+                     Width="500"
+                     Height="30"
+                     Padding="0"
+                     Margin="30,0,0,0"
+                     x:Name="SearchBox"
+                     TextChanged="TextBox_TextChanged"
+                     VerticalAlignment="Bottom">
+            </TextBox>
+            <Button  Content="Thêm"
+                     Width="120"
+                     Height="40"
+                     FontSize="25"
+                     FontFamily="arial"
+                     Margin="30,0,0,0"
+                     VerticalAlignment="Bottom"
+                     materialDesign:ButtonAssist.CornerRadius="5"
+                     Command="{Binding OpenAddStaffCommand}" />
+        </StackPanel> 
 
         <!--#region Danh sách nhân viên-->
         <materialDesign:Card Grid.Row="1"

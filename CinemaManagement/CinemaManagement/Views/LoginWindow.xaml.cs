@@ -52,7 +52,6 @@ namespace CinemaManagement
         private void Loginwindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() =>
-
             {
                 imagerotator();
             }));
@@ -83,7 +82,7 @@ namespace CinemaManagement
 
             Storyboard.SetTarget(fadein, imgframe);
 
-            Storyboard.SetTargetProperty(fadein, new PropertyPath(Image.OpacityProperty));
+            Storyboard.SetTargetProperty(fadein, new PropertyPath(ImageBrush.OpacityProperty));
 
             var sb = new Storyboard();
 
@@ -116,7 +115,7 @@ namespace CinemaManagement
 
             Storyboard.SetTarget(fadein, imgframe);
 
-            Storyboard.SetTargetProperty(fadein, new PropertyPath(Image.OpacityProperty));
+            Storyboard.SetTargetProperty(fadein, new PropertyPath(ImageBrush.OpacityProperty));
 
             var sb = new Storyboard();
 
@@ -163,7 +162,7 @@ namespace CinemaManagement
 
             Storyboard.SetTarget(fadein, imgframe);
 
-            Storyboard.SetTargetProperty(fadein, new PropertyPath(Image.OpacityProperty));
+            Storyboard.SetTargetProperty(fadein, new PropertyPath(ImageBrush.OpacityProperty));
 
             var sb = new Storyboard();
 
