@@ -37,7 +37,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     TicketPrice = moviePrice,
                 };
 
-                (bool IsSuccess, string message, ShowtimeDTO newShowtime) = ShowtimeService.Ins.AddShowtime(temp);
+                (bool IsSuccess, string message) = ShowtimeService.Ins.AddShowtime(temp);
 
 
                 if (IsSuccess)

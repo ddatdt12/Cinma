@@ -21,12 +21,12 @@ namespace CinemaManagement.Models
             this.Tickets = new HashSet<Ticket>();
         }
     
-        public int Id { get; set; }
-        public int CustomerId { get; set; }
-        public int StaffId { get; set; }
+        public string Id { get; set; }
+        public string CustomerId { get; set; }
+        public string StaffId { get; set; }
         public System.DateTime CreatedAt { get; set; }
-        public decimal TotalPrice { get; set; }
         public decimal DiscountPrice { get; set; }
+        public decimal TotalPrice { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Staff Staff { get; set; }

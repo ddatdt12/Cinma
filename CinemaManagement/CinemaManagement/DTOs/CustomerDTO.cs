@@ -8,10 +8,10 @@ namespace CinemaManagement.DTOs
         {
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
 
-        public virtual IList<BillDTO> Bills { get; set; }
+        //public virtual IList<BillDTO> Bills { get; set; }
     }
 }
