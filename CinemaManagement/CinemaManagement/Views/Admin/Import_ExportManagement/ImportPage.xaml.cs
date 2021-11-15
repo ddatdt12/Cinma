@@ -18,7 +18,6 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
         {
             CollectionViewSource.GetDefaultView(_ListView.ItemsSource).Refresh();
         }
-
         private bool Filter(object item)
         {
             if (String.IsNullOrEmpty(FilterBox.Text))
@@ -37,10 +36,39 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
             }
 
         }
-
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             indexFilter = cbbFilter.SelectedIndex;
+        }
+        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cbb = sender as ComboBox;
+
+            if (cbbmonth != null && timepicker != null)
+            {
+                switch (cbb.SelectedIndex)
+                {
+                    case 0:
+                        {
+                            cbbmonth.Visibility = System.Windows.Visibility.Collapsed;
+                            timepicker.Visibility = System.Windows.Visibility.Collapsed;
+                            break;
+                        }
+                    case 1:
+                        {
+                            cbbmonth.Visibility = System.Windows.Visibility.Collapsed;
+                            timepicker.Visibility = System.Windows.Visibility.Visible;
+                            break;
+                        }
+                    case 2:
+                        {
+                            cbbmonth.Visibility = System.Windows.Visibility.Visible;
+                            timepicker.Visibility = System.Windows.Visibility.Collapsed;
+                            break;
+                        }
+                }
+            }
+
         }
     }
 }

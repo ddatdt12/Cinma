@@ -14,7 +14,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public ICommand LoadImportPageCM { get; set; }
         public ICommand LoadExportPageCM { get; set; }
         public ICommand ExportFileCM { get; set; }
-
+        public ICommand LoadInforBillCM { get; set; }
 
 
 
@@ -33,6 +33,13 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         }
 
 
+        private MovieDTO _selectedTicketBill;
+
+        public MovieDTO SelectedTicketBill
+        {
+            get { return _selectedTicketBill; }
+            set { _selectedTicketBill = value; OnPropertyChanged(); }
+        }
 
         public int SelectedView = 0;
 
@@ -56,6 +63,14 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             ExportFileCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 ExportToFileFunc();
+            });
+            LoadInforBillCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                if (SelectedTicketBill != null)
+                {
+                    ExportDetail w = new ExportDetail();
+                    w.ShowDialog();
+                }
             });
         }
 
