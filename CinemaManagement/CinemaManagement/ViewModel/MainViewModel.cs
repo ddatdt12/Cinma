@@ -215,6 +215,7 @@ namespace CinemaManagement.ViewModel
                 #endregion
                 List<MovieDTO> ListMovieDtosOnDay = MovieService.Ins.GetShowingMovieByDay(DateTime.Today);
 
+
                 //var showtime = ListMovieDtosOnDay[0].Showtimes[0];
 
                 #region Chỉ dành cho đặt vé
@@ -263,7 +264,7 @@ namespace CinemaManagement.ViewModel
                 #endregion
 
                 var billDetails = BillService.Ins.GetBillDetails("HD0010");
-                var todayBill = BillService.Ins.GetBillByDate(DateTime.Today);
+                var todayBill = BillService.Ins.GetBillByDate(new DateTime(2021,11,14));
                 var mothnBill = BillService.Ins.GetBillByMonth(11);
                 var allBill = BillService.Ins.GetAllBill();
                 //(bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login("dothanhdat123","123456");

@@ -55,17 +55,6 @@
                                       MouseLeftButtonDown="mainadminwindow_MouseLeftButtonDown">
                 <DockPanel>
 
-                    <materialDesign:PopupBox DockPanel.Dock="Right"
-                                             PlacementMode="BottomAndAlignRightEdges">
-                        <StackPanel Orientation="Vertical">
-                            <Button x:Name="signout"
-                                    Content="Thông tin tài khoản" />
-
-                            <Button Content="Đăng xuất"
-                                    Command="{Binding SignoutCM}"
-                                    CommandParameter="{Binding ElementName=mainadminwindow}" />
-                        </StackPanel>
-                    </materialDesign:PopupBox>
 
                     <StackPanel Orientation="Horizontal">
                         <StackPanel.Style>
@@ -198,6 +187,7 @@
                                    Margin="30,0,0,0"
                                    Text="{Binding SelectedFuncName}" />
                     </StackPanel>
+
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right">
                         <materialDesign:PackIcon Kind="AccountCircle"
@@ -210,6 +200,17 @@
                                VerticalAlignment="Center"
                                FontSize="25"
                                Foreground="White" />
+                        <materialDesign:PopupBox DockPanel.Dock="Right"
+                                                 PlacementMode="BottomAndAlignRightEdges">
+                            <StackPanel Orientation="Vertical">
+                                <Button x:Name="signout"
+                                        Content="Thông tin tài khoản" />
+
+                                <Button Content="Đăng xuất"
+                                        Command="{Binding SignoutCM}"
+                                        CommandParameter="{Binding ElementName=mainadminwindow}" />
+                            </StackPanel>
+                        </materialDesign:PopupBox>
                     </StackPanel>
 
                 </DockPanel>

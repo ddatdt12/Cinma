@@ -43,6 +43,8 @@ namespace CinemaManagement.Models.Services
                                     DiscountPrice = b.DiscountPrice,
                                     CustomerId = b.CustomerId,
                                     CustomerName = b.Customer.Name,
+                                    PhoneNumber = b.Customer.PhoneNumber,
+                                    CreatedAt =b.CreatedAt
                                 }).ToList();
                 return billList;
             }
@@ -74,6 +76,8 @@ namespace CinemaManagement.Models.Services
                             DiscountPrice = b.DiscountPrice,
                             CustomerId =b.CustomerId,
                             CustomerName =b.Customer.Name,
+                            PhoneNumber = b.Customer.PhoneNumber,
+                            CreatedAt = b.CreatedAt
                         }).ToList();
                 return billList;
             }
@@ -106,6 +110,8 @@ namespace CinemaManagement.Models.Services
                                     DiscountPrice = b.DiscountPrice,
                                     CustomerId = b.CustomerId,
                                     CustomerName = b.Customer.Name,
+                                    PhoneNumber = b.Customer.PhoneNumber,
+                                    CreatedAt = b.CreatedAt
                                 }).ToList();
                 return billList;
             }
@@ -134,6 +140,7 @@ namespace CinemaManagement.Models.Services
                     StaffName = bill.Staff.Name,
                     DiscountPrice = bill.DiscountPrice,
                     TotalPrice = bill.TotalPrice,
+                    CreatedAt = bill.CreatedAt,
                     ProductBillInfoes = (from pi in bill.ProductBillInfoes
                                          select new ProductBillInfoDTO
                                          {
