@@ -37,12 +37,19 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             get { return _SelectedIndexFilter; }
             set { _SelectedIndexFilter = value; OnPropertyChanged(); CheckIndexFilter(); }
         }
-        private MovieDTO _selectedTicketBill;
-        public MovieDTO SelectedTicketBill
+        private BillDTO _selectedTicketBill;
+        public BillDTO SelectedTicketBill
         {
             get { return _selectedTicketBill; }
             set { _selectedTicketBill = value; OnPropertyChanged(); }
         }
+        private BillDTO _billDetail;
+        public BillDTO BillDetail
+        {
+            get { return _billDetail; }
+            set { _billDetail = value; OnPropertyChanged(); }
+        }
+
         private int _SelectedMonth;
         public int SelectedMonth
         {
@@ -97,9 +104,10 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             LoadExportPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 SelectedView = 1;
+                GetExportListSource("date");
                 ExportPage page = new ExportPage();
                 p.Content = page;
-                GetExportListSource("date");
+               
             });
             ExportFileCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -109,8 +117,10 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             {
                 if (SelectedTicketBill != null)
                 {
-                    //ExportDetail w = new ExportDetail();
-                    //w.ShowDialog();
+                    ExportDetail w = new ExportDetail();
+                    BillDetail = BillService.Ins.GetBillDetails(SelectedTicketBill.Id);
+                    LoadBillDetailData(w);
+                    w.ShowDialog();
                 }
             });
         }

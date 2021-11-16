@@ -5,53 +5,43 @@ using System.Windows.Data;
 
 namespace CinemaManagement.Views.Admin.Import_ExportManagement
 {
-    /// <summary>
-    /// Interaction logic for ExportPage.xaml
-    /// </summary>
     public partial class ExportPage : Page
     {
-        int indexFilter = 0;
         public ExportPage()
         {
             InitializeComponent();
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(_ListView.ItemsSource);
-            view.Filter = Filter;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(_ListView.ItemsSource).Refresh();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(_ListView.ItemsSource);
+            view.Filter = Filter;
         }
-
         private bool Filter(object item)
         {
             if (String.IsNullOrEmpty(FilterBox.Text))
                 return true;
 
-            switch (indexFilter)
+            switch (cbbFilter.SelectedValue)
             {
-                case 0:
-                    return ((item as MovieDTO).Country.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                case 1:
-                    return ((item as MovieDTO).DisplayName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                case 2:
-                    return ((item as MovieDTO).Image.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                case "Mã đơn":
+                    return ((item as BillDTO).Id.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                case "Khách hàng":
+                    return ((item as BillDTO).CustomerName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                case "Điện thoại":
+                    return ((item as BillDTO).PhoneNumber.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
                 default:
-                    return ((item as MovieDTO).Country.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                    return ((item as BillDTO).Id.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            indexFilter = cbbFilter.SelectedIndex;
         }
 
         private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             ComboBox cbb = sender as ComboBox;
 
-            if (cbbmonth != null &&  timepicker != null)
+            if (cbbmonth != null && timepicker != null)
             {
                 switch (cbb.SelectedIndex)
                 {
@@ -75,7 +65,7 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
                         }
                 }
             }
-        
+
         }
     }
 }

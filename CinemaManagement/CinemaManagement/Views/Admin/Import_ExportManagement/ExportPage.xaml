@@ -45,7 +45,7 @@
                               FontSize="14.2"
                               SelectedIndex="0"
                               x:Name="cbbFilter"
-                              SelectionChanged="ComboBox_SelectionChanged">
+                              SelectedValuePath="Content">
                         <ComboBoxItem Content="Mã đơn" />
                         <ComboBoxItem Content="Khách hàng" />
                         <ComboBoxItem Content="Điện thoại" />

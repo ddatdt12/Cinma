@@ -7,41 +7,36 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
 {
     public partial class ImportPage : Page
     {
-        int indexFilter = 0;
         public ImportPage()
         {
             InitializeComponent();
-
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(_ListView.ItemsSource);
-            view.Filter = Filter;
-
         }
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(_ListView.ItemsSource).Refresh();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(_ListView.ItemsSource);
+            view.Filter = Filter;
         }
         private bool Filter(object item)
         {
             if (String.IsNullOrEmpty(FilterBox.Text))
                 return true;
 
-            switch (indexFilter)
+            switch (cbbFilter.SelectedValue)
             {
-                case 0:
+                case "Mã đơn":
                     return ((item as ProductReceiptDTO).Id.ToString().IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                case 1:
-                    return ((item as ProductReceiptDTO).ProductName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-                case 2:
+                case "Nhân viên":
                     return ((item as ProductReceiptDTO).StaffName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                case "Sản phẩm":
+                    return ((item as ProductReceiptDTO).ProductName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
                 default:
                     return ((item as ProductReceiptDTO).Id.ToString().IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
         }
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            indexFilter = cbbFilter.SelectedIndex;
-        }
+
         private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             ComboBox cbb = sender as ComboBox;

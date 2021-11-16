@@ -14,7 +14,8 @@
         Title="ExportDetail"
         Height="720"
         Width="900"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        DataContext="{StaticResource Import_ExportManagementVM}">
 
     <Border Background="White"
             BorderThickness="1"
@@ -22,9 +23,9 @@
             BorderBrush="Gray">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="55*" />
-                <RowDefinition Height="610*" />
-                <RowDefinition Height="55*" />
+                <RowDefinition Height="61*" />
+                <RowDefinition Height="501*" />
+                <RowDefinition Height="156*" />
             </Grid.RowDefinitions>
 
             <!---HEADER-->
@@ -34,7 +35,7 @@
                        FontWeight="Bold"
                        BorderThickness="0,0,0,0.5"
                        BorderBrush="Black"
-                       Padding="10,10,0,0"/>
+                       Padding="10,10,0,0" />
                 <StackPanel Orientation="Horizontal"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
@@ -66,7 +67,9 @@
             </Grid>
 
             <!---BILL DETAIL-->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1"
+                  Height="490"
+                  VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -74,14 +77,21 @@
 
                 <!---LEFT-->
                 <Border BorderBrush="Gray"
-                        BorderThickness="0,0,1,0">
+                        BorderThickness="0,0,1,0"
+                        Height="486"
+                        VerticalAlignment="Top">
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="25*" />
+                            <RowDefinition Height="54*" />
+                            <RowDefinition Height="258*" />
                             <RowDefinition Height="135*" />
-                            <RowDefinition Height="70*" />
-                            <RowDefinition Height="50*" />
+                            <RowDefinition Height="39*" />
                         </Grid.RowDefinitions>
+                        <Button Background="Red"
+                                Width="50"
+                                Height="Auto"
+                                Margin="970,91,-572,128"
+                                Grid.Row="1" />
 
                         <!--image-->
                         <Border Grid.Row="0"
@@ -105,10 +115,10 @@
                                         <Label Content="Phim"
                                                Grid.Column="0"
                                                FontSize="18" />
-                                        <Label Content="Godzilla King Kong"
-                                               Grid.Column="1"
+                                        <Label Grid.Column="1"
                                                HorizontalAlignment="Right"
-                                               FontSize="20" />
+                                               FontSize="20"
+                                               x:Name="_moviename" />
                                     </Grid>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
@@ -122,7 +132,7 @@
                                         <Label Content="Suất chiếu"
                                                Grid.Column="0"
                                                FontSize="18" />
-                                        <Label Content="25/9/2121 - 11:30"
+                                        <Label Content="{Binding BillDetail.TicketInfo.ShowtimeInfo}"
                                                Grid.Column="1"
                                                HorizontalAlignment="Right"
                                                FontSize="20" />
@@ -156,7 +166,7 @@
                                         <Label Content="Phòng chiếu"
                                                Grid.Column="0"
                                                FontSize="18" />
-                                        <Label Content="Phòng 1"
+                                        <Label Content="{Binding BillDetail.TicketInfo.RoomName}"
                                                Grid.Column="1"
                                                HorizontalAlignment="Right"
                                                FontSize="20" />
@@ -173,7 +183,7 @@
                                         <Label Content="Ghế"
                                                Grid.Column="0"
                                                FontSize="18" />
-                                        <Label Content="A0,B2,C2"
+                                        <Label Content="{Binding BillDetail.TicketInfo.SeatInfo}"
                                                Grid.Column="1"
                                                HorizontalAlignment="Right"
                                                FontSize="20" />
@@ -190,10 +200,10 @@
                                         <Label Content="Giá vé"
                                                Grid.Column="0"
                                                FontSize="18" />
-                                        <Label Content="85.000d"
-                                               Grid.Column="1"
+                                        <Label Grid.Column="1"
                                                HorizontalAlignment="Right"
-                                               FontSize="20" />
+                                               FontSize="20"
+                                               x:Name="_price" />
                                     </Grid>
                                 </StackPanel>
                             </StackPanel>
@@ -214,7 +224,7 @@
                                         <Label Content="Người đặt"
                                                Grid.Column="0"
                                                FontSize="18" />
-                                        <Label Content="Tran dinh khoi"
+                                        <Label Content="{Binding BillDetail.CustomerName}"
                                                Grid.Column="1"
                                                HorizontalAlignment="Right"
                                                FontSize="20" />
@@ -231,7 +241,7 @@
                                         <Label Content="Số điện thoại"
                                                Grid.Column="0"
                                                FontSize="18" />
-                                        <Label Content="0364972184"
+                                        <Label Content="{Binding BillDetail.PhoneNumber}"
                                                Grid.Column="1"
                                                HorizontalAlignment="Right"
                                                FontSize="20" />
@@ -245,13 +255,13 @@
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
 
-                                        <Label Content="Email"
+                                        <Label Content="Thời gian"
                                                Grid.Column="0"
                                                FontSize="18" />
-                                        <Label Content="emailemail@gmai.com"
-                                               Grid.Column="1"
+                                        <Label Grid.Column="1"
                                                HorizontalAlignment="Right"
-                                               FontSize="20" />
+                                               FontSize="20"
+                                               x:Name="_time" />
                                     </Grid>
                                 </StackPanel>
                             </StackPanel>
@@ -264,39 +274,6 @@
                                 <StackPanel Orientation="Horizontal">
                                     <Grid Width="428">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="30*" />
-                                            <ColumnDefinition Width="70*" />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Label Content="Phí giao dịch"
-                                               Grid.Column="0"
-                                               FontSize="18" />
-                                        <Label Content="VAT  5%"
-                                               Grid.Column="1"
-                                               HorizontalAlignment="Right"
-                                               FontSize="20" />
-                                    </Grid>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid Width="428"
-                                          Margin="0,5,0,0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Label Content="Khuyến mãi"
-                                               Grid.Column="0"
-                                               FontSize="18" />
-                                        <Label Content="-10%"
-                                               Grid.Column="1"
-                                               HorizontalAlignment="Right"
-                                               FontSize="20" />
-                                    </Grid>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <Grid Width="428">
-                                        <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
@@ -304,7 +281,7 @@
                                         <Label Content="Tổng"
                                                Grid.Column="0"
                                                FontSize="18" />
-                                        <Label Content="200.000"
+                                        <Label x:Name="_totalticket"
                                                Grid.Column="1"
                                                HorizontalAlignment="Right"
                                                FontSize="20" />
@@ -317,12 +294,13 @@
 
 
                 <!---RIGHT-->
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="1"
+                      Height="486"
+                      VerticalAlignment="Top">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25*" />
-                        <RowDefinition Height="135*" />
-                        <RowDefinition Height="70*" />
-                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="18*" />
+                        <RowDefinition Height="131*" />
+                        <RowDefinition Height="13*" />
                     </Grid.RowDefinitions>
 
                     <!--image-->
@@ -334,212 +312,68 @@
                             <Image Source="/Resources/IconPack/foodstrip.png"
                                    Stretch="Fill" />
                         </Border>
-                       
+
                     </Border>
                     <Border Grid.Row="1"
                             BorderThickness="0,0,0,1"
                             BorderBrush="Gray"
-                            Margin="10,0,10,0">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="428">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="15*" />
-                                        <ColumnDefinition Width="85*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Content="Phim"
-                                           Grid.Column="0"
-                                           FontSize="18" />
-                                    <Label Content="Godzilla King Kong"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           FontSize="20" />
-                                </Grid>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="428"
-                                      Margin="0,10,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Content="Suất chiếu"
-                                           Grid.Column="0"
-                                           FontSize="18" />
-                                    <Label Content="25/9/2121 - 11:30"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           FontSize="20" />
-                                </Grid>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="428"
-                                      Margin="0,10,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Content="Rạp"
-                                           Grid.Column="0"
-                                           FontSize="18" />
-                                    <Label Content="Squadin Cinema"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           FontSize="20" />
-                                </Grid>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="428"
-                                      Margin="0,10,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Content="Phòng chiếu"
-                                           Grid.Column="0"
-                                           FontSize="18" />
-                                    <Label Content="Phòng 1"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           FontSize="20" />
-                                </Grid>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="428"
-                                      Margin="0,10,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Content="Ghế"
-                                           Grid.Column="0"
-                                           FontSize="18" />
-                                    <Label Content="A0,B2,C2"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           FontSize="20" />
-                                </Grid>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="428"
-                                      Margin="0,10,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Content="Giá vé"
-                                           Grid.Column="0"
-                                           FontSize="18" />
-                                    <Label Content="85.000d"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           FontSize="20" />
-                                </Grid>
-                            </StackPanel>
-                        </StackPanel>
+                            Margin="10,10,10,0">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      x:Name="scrollview">
+                            <ItemsControl ItemsSource="{Binding BillDetail.ProductBillInfoes}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border  Height="100"
+                                                 Margin="0,5,0,5"
+                                                 BorderBrush="LightGray"
+                                                 BorderThickness="0,0,0,1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="70*"/>
+                                                    <ColumnDefinition Width="30*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Orientation="Horizontal"
+                                                            Grid.Column="0">
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding ProductName}"
+                                                                   FontSize="35" />
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Quantity}"
+                                                                       FontSize="25" />
+                                                            <TextBlock Text="x"
+                                                                       FontSize="20"
+                                                                       VerticalAlignment="Bottom"
+                                                                       Margin="3,0,0,1" />
+                                                            <TextBlock Text="{Binding PricePerItem}"
+                                                                       VerticalAlignment="Bottom"
+                                                                       FontSize="20"
+                                                                       Margin="5,0,0,1" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Grid.Column="1"
+                                                            Orientation="Horizontal"
+                                                            HorizontalAlignment="Right">
+                                                    <TextBlock 
+                                                               Text="75000"
+                                                               FontSize="35" />
+                                                    <TextBlock Text="d" 
+                                                               FontSize="15"/>
+                                                </StackPanel>
+                                              
+                                            </Grid>
+                                        </Border>
+                                        
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
                     </Border>
                     <Border Grid.Row="2"
                             BorderThickness="0,0,0,1"
                             BorderBrush="Gray"
                             Margin="10,0,10,0">
                         <StackPanel>
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="0,10,0,0">
-                                <Grid Width="428">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="25*" />
-                                        <ColumnDefinition Width="75*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Content="Người đặt"
-                                           Grid.Column="0"
-                                           FontSize="18" />
-                                    <Label Content="Tran dinh khoi"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           FontSize="20" />
-                                </Grid>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="428"
-                                      Margin="0,10,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Content="Số điện thoại"
-                                           Grid.Column="0"
-                                           FontSize="18" />
-                                    <Label Content="0364972184"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           FontSize="20" />
-                                </Grid>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="428"
-                                      Margin="0,10,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Content="Email"
-                                           Grid.Column="0"
-                                           FontSize="18" />
-                                    <Label Content="emailemail@gmai.com"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           FontSize="20" />
-                                </Grid>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                    <Border Grid.Row="3"
-                            BorderThickness="0,0,0,1"
-                            BorderBrush="Gray"
-                            Margin="10,0,10,0">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="428">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30*" />
-                                        <ColumnDefinition Width="70*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Content="Phí giao dịch"
-                                           Grid.Column="0"
-                                           FontSize="18" />
-                                    <Label Content="VAT  5%"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           FontSize="20" />
-                                </Grid>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Grid Width="428"
-                                      Margin="0,5,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Content="Khuyến mãi"
-                                           Grid.Column="0"
-                                           FontSize="18" />
-                                    <Label Content="-10%"
-                                           Grid.Column="1"
-                                           HorizontalAlignment="Right"
-                                           FontSize="20" />
-                                </Grid>
-                            </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <Grid Width="428">
                                     <Grid.ColumnDefinitions>
@@ -550,7 +384,7 @@
                                     <Label Content="Tổng"
                                            Grid.Column="0"
                                            FontSize="18" />
-                                    <Label Content="200.000"
+                                    <Label x:Name="_totalproduct"
                                            Grid.Column="1"
                                            HorizontalAlignment="Right"
                                            FontSize="20" />
@@ -561,21 +395,69 @@
                 </Grid>
 
             </Grid>
-        
+
             <!---Bill total-->
-            <StackPanel  Orientation="Horizontal"
-                         Grid.Row="3"
-                         Margin="10,0,0,0"
-                         HorizontalAlignment="Right">
-                <Label Content="Tổng tiền:"
-                       FontSize="25"
-                       Margin="0,0,50,0"/>
-                <Label Content="500.000d" 
-                       FontSize="25"
-                       FontWeight="Bold"
-                       Margin="0,0,10,0"/>
+            <StackPanel Grid.Row="2"
+                        Margin="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*" />
+                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="50*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Tổng tiền"
+                           FontSize="20"
+                           Grid.Column="0" />
+                    <Label Content="{Binding BillDetail.OriginalTotalPrice}"
+                           FontSize="20"
+                           Grid.Column="1"
+                           HorizontalAlignment="Right" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*" />
+                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="50*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Phí giao dịch"
+                           FontSize="20"
+                           Grid.Column="0" />
+                    <Label Content="Miễn phí"
+                           FontSize="20"
+                           Grid.Column="1"
+                           HorizontalAlignment="Right" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*" />
+                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="50*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Khuyến mãi"
+                           FontSize="20"
+                           Grid.Column="0" />
+                    <Label Content="{Binding BillDetail.DiscountPrice}"
+                           FontSize="20"
+                           Grid.Column="1"
+                           HorizontalAlignment="Right" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*" />
+                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="50*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Sau khuyến mãi"
+                           FontSize="20"
+                           Grid.Column="0" />
+                    <Label Content="{Binding BillDetail.TotalPrice}"
+                           FontSize="20"
+                           Grid.Column="1"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Right" />
+                </Grid>
             </StackPanel>
-            
+
 
         </Grid>
     </Border>

@@ -12,8 +12,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75*"/>
-            <RowDefinition Height="493*"/>
+            <RowDefinition Height="75*" />
+            <RowDefinition Height="493*" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0"
@@ -44,10 +44,10 @@
                               FontSize="13"
                               SelectedIndex="0"
                               x:Name="cbbFilter"
-                              SelectionChanged="ComboBox_SelectionChanged">
+                              SelectedValuePath="Content">
                         <ComboBoxItem Content="Mã đơn" />
-                        <ComboBoxItem Content="Khách hàng" />
-                        <ComboBoxItem Content="Điện thoại" />
+                        <ComboBoxItem Content="Nhân viên" />
+                        <ComboBoxItem Content="Sản phẩm" />
                     </ComboBox>
                     <ComboBox Height="30"
                               Width="100"
@@ -119,7 +119,7 @@
                             <DataTemplate>
                                 <TextBlock  Text="{Binding Id}"
                                             FontSize="18"
-                                            Margin="10,0,0,0"/>
+                                            Margin="10,0,0,0" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -127,7 +127,7 @@
                                     Width="300">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding Product.DisplayName}"
+                                <TextBlock  Text="{Binding ProductName}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -176,6 +176,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-     
+
     </Grid>
 </Page>
