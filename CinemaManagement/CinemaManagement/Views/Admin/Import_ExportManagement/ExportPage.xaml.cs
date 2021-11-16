@@ -46,5 +46,36 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
         {
             indexFilter = cbbFilter.SelectedIndex;
         }
+
+        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cbb = sender as ComboBox;
+
+            if (cbbmonth != null &&  timepicker != null)
+            {
+                switch (cbb.SelectedIndex)
+                {
+                    case 0:
+                        {
+                            cbbmonth.Visibility = System.Windows.Visibility.Collapsed;
+                            timepicker.Visibility = System.Windows.Visibility.Collapsed;
+                            break;
+                        }
+                    case 1:
+                        {
+                            cbbmonth.Visibility = System.Windows.Visibility.Collapsed;
+                            timepicker.Visibility = System.Windows.Visibility.Visible;
+                            break;
+                        }
+                    case 2:
+                        {
+                            cbbmonth.Visibility = System.Windows.Visibility.Visible;
+                            timepicker.Visibility = System.Windows.Visibility.Collapsed;
+                            break;
+                        }
+                }
+            }
+        
+        }
     }
 }
