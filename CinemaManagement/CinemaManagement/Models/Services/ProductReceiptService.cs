@@ -35,13 +35,8 @@ namespace CinemaManagement.Models.Services
                                    select new ProductReceiptDTO
                                    {
                                        Id = pr.Id,
-                                       Product = new ProductDTO
-                                       {
-                                           Id = pr.Product.Id,
-                                           DisplayName = pr.Product.DisplayName,
-                                           Category = pr.Product.Category,
-                                           Image = pr.Product.Image
-                                       },
+                                       ProductId =pr.ProductId,
+                                       ProductName = pr.Product.DisplayName,
                                        StaffId = pr.Staff.Id,
                                        StaffName = pr.Staff.Name,
                                        Quantity = pr.Quantity,
@@ -68,13 +63,10 @@ namespace CinemaManagement.Models.Services
                                    select new ProductReceiptDTO
                                    {
                                        Id = pr.Id,
-                                       Product = new ProductDTO
-                                       {
-                                           Id = pr.Product.Id,
-                                           DisplayName = pr.Product.DisplayName,
-                                           Category = pr.Product.Category,
-                                           Image = pr.Product.Image
-                                       },
+                                       ProductId = pr.ProductId,
+                                       ProductName = pr.Product.DisplayName,
+                                       StaffId = pr.Staff.Id,
+                                       StaffName = pr.Staff.Name,
                                        Quantity = pr.Quantity,
                                        ImportPrice = pr.ImportPrice,
                                        CreatedAt = pr.CreatedAt,
@@ -88,8 +80,17 @@ namespace CinemaManagement.Models.Services
             }
             return productReceipts;
         }
-
-        public (bool ,string) CreateProductReceipt(ProductReceiptDTO newPReceipt)
+        private string CreateNextProdReceiptId(string maxId)
+        {
+            //NVxxx
+            if (maxId is null)
+            {
+                return "PRC001";
+            }
+            string newIdString = $"000{int.Parse(maxId.Substring(3)) + 1}";
+            return "PRC" + newIdString.Substring(newIdString.Length - 3, 3);
+        }
+        public (bool ,string, ProductReceiptDTO) CreateProductReceipt(ProductReceiptDTO newPReceipt)
         {
 
             var context = DataProvider.Ins.DB;
@@ -98,22 +99,28 @@ namespace CinemaManagement.Models.Services
                 Product prod = context.Products.Find(newPReceipt.ProductId);
                 prod.Quantity += newPReceipt.Quantity;
 
+                string maxId = context.ProductReceipts.Max(pr => pr.Id);
+
                 ProductReceipt pR = new ProductReceipt
                 {
+                    Id = CreateNextProdReceiptId(maxId),
                     ImportPrice = newPReceipt.ImportPrice,
                     ProductId = newPReceipt.ProductId,
                     CreatedAt = DateTime.Today,
-                    Quantity = newPReceipt.Quantity
+                    Quantity = newPReceipt.Quantity,
+                    StaffId = newPReceipt.StaffId,
                 };
-
                 context.ProductReceipts.Add(pR);
+
                 context.SaveChanges();
+
+                newPReceipt.Id = pR.Id;
             }
             catch (Exception e)
             {
-                return (false, "Lỗi hệ thống");
+                return (false, "Lỗi hệ thống", null);
             }
-            return (true, "Lưu thông tin nhập hàng thành công");
+            return (true, "Lưu thông tin nhập hàng thành công", newPReceipt);
         }
     }
 }

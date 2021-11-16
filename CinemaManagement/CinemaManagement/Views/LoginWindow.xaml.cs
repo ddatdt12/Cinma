@@ -10,9 +10,6 @@ using System.Windows.Threading;
 namespace CinemaManagement
 {
 
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class LoginWindow : Window
     {
         public LoginWindow()

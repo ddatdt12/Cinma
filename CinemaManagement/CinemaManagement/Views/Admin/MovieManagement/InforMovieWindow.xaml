@@ -19,7 +19,7 @@
         Width="1000">
     <Grid>
         <Border Background="#FFF0F3F7"
-                CornerRadius="20"
+                CornerRadius="10"
                 BorderBrush="Gray"
                 BorderThickness="1">
             <Grid>
@@ -31,13 +31,42 @@
                 <!---HEADER-->
                 <Grid Grid.Row="0">
                     <Border BorderThickness="0,0,0,1"
-                            BorderBrush="Black"
-                            materialDesign:ShadowAssist.ShadowEdges="Bottom"
-                            materialDesign:ShadowAssist.ShadowDepth="Depth1">
-                        <TextBlock Text="Chi tiết phim"
-                                   FontSize="25"
-                                   Margin="20,10,0,0"
-                                   FontWeight="Bold" />
+                            BorderBrush="Black">
+                        <Grid>
+                            <TextBlock Text="Chi tiết phim"
+                                       FontSize="25"
+                                       Margin="20,10,0,0"
+                                       FontWeight="Bold" />
+                            <StackPanel Orientation="Horizontal"
+                                        VerticalAlignment="Top"
+                                        HorizontalAlignment="Right"
+                                        Grid.Row="0">
+                                <Button Click="Button_Click"
+                                        ToolBar.OverflowMode="AsNeeded"
+                                        Margin="0,0,5,0"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        Foreground="Black"
+                                        BorderBrush="Transparent"
+                                        MouseEnter="Button_MouseEnter"
+                                        MouseLeave="Button_MouseLeave">
+                                    <materialDesign:PackIcon Kind="WindowMinimize" />
+                                </Button>
+
+                                <Button Click="Button_Click_1"
+                                        ToolBar.OverflowMode="AsNeeded"
+                                        Background="Transparent"
+                                        Foreground="Black"
+                                        BorderBrush="Transparent"
+                                        MouseEnter="Button_MouseEnter_1"
+                                        MouseLeave="Button_MouseLeave_1"
+                                        materialDesign:ButtonAssist.CornerRadius="0,10,0,0">
+                                    <materialDesign:PackIcon Kind="WindowClose"
+                                                             Padding="0" />
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+                        
                     </Border>
 
                 </Grid>
@@ -233,25 +262,6 @@
                                                     Text="{Binding movieYear}"
                                                     VerticalContentAlignment="Bottom"/>
                                     </Grid>
-                                </StackPanel>
-                            </Grid>
-
-                            <!--Button-->
-                            <Grid Grid.Row="1">
-                                <StackPanel VerticalAlignment="Bottom"
-                                            HorizontalAlignment="Right"
-                                            Orientation="Horizontal"
-                                            Margin="0,0,0,10">
-
-                                    <Button Content="Thoát"
-                                            FontSize="20"
-                                            Height="40"
-                                            Width="100"
-                                            Margin="0,0,10,10"
-                                            Background="OrangeRed"
-                                            BorderBrush="Transparent"
-                                            Click="Button_Click"
-                                            materialDesign:ButtonAssist.CornerRadius="8" />
                                 </StackPanel>
                             </Grid>
                         </Grid>

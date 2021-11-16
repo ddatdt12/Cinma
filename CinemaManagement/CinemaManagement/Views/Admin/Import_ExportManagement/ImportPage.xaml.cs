@@ -28,7 +28,7 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
                 case 0:
                     return ((item as ProductReceiptDTO).Id.ToString().IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
                 case 1:
-                    return ((item as ProductReceiptDTO).Product.DisplayName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                    return ((item as ProductReceiptDTO).ProductName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
                 case 2:
                     return ((item as ProductReceiptDTO).StaffName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
                 default:
