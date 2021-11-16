@@ -10,17 +10,21 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="ExportDetail"
-        Height="750"
+        Height="720"
         Width="900"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
+
     <Border Background="White"
             BorderThickness="1"
-            CornerRadius="10">
+            CornerRadius="10"
+            BorderBrush="Gray">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="8*" />
-                <RowDefinition Height="92*" />
+                <RowDefinition Height="55*" />
+                <RowDefinition Height="610*" />
+                <RowDefinition Height="55*" />
             </Grid.RowDefinitions>
 
             <!---HEADER-->
@@ -28,9 +32,37 @@
                 <Label Content="  Chi tiết hoá đơn"
                        FontSize="25"
                        FontWeight="Bold"
-                       Margin="0,10,0,0"
                        BorderThickness="0,0,0,0.5"
-                       BorderBrush="Black" />
+                       BorderBrush="Black"
+                       Padding="10,10,0,0"/>
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Grid.Row="0">
+                    <Button Click="Button_Click"
+                            ToolBar.OverflowMode="AsNeeded"
+                            Margin="0,0,5,0"
+                            BorderThickness="0"
+                            Background="Transparent"
+                            Foreground="Black"
+                            BorderBrush="Transparent"
+                            MouseEnter="Button_MouseEnter"
+                            MouseLeave="Button_MouseLeave">
+                        <materialDesign:PackIcon Kind="WindowMinimize" />
+                    </Button>
+
+                    <Button Click="Button_Click_1"
+                            ToolBar.OverflowMode="AsNeeded"
+                            Background="Transparent"
+                            Foreground="Black"
+                            BorderBrush="Transparent"
+                            MouseEnter="Button_MouseEnter_1"
+                            MouseLeave="Button_MouseLeave_1"
+                            materialDesign:ButtonAssist.CornerRadius="0,10,0,0">
+                        <materialDesign:PackIcon Kind="WindowClose"
+                                                 Padding="0" />
+                    </Button>
+                </StackPanel>
             </Grid>
 
             <!---BILL DETAIL-->
@@ -45,12 +77,12 @@
                         BorderThickness="0,0,1,0">
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="8*" />
-                            <RowDefinition Height="40*" />
-                            <RowDefinition Height="40*" />
-                            <RowDefinition Height="12*" />
+                            <RowDefinition Height="25*" />
+                            <RowDefinition Height="135*" />
+                            <RowDefinition Height="70*" />
+                            <RowDefinition Height="50*" />
                         </Grid.RowDefinitions>
-                        
+
                         <!--image-->
                         <Border Grid.Row="0"
                                 BorderThickness="0,0,0,0.5"
@@ -58,35 +90,228 @@
                             <Image Source="/Resources/IconPack/filmstrip.png"
                                    Stretch="Fill" />
                         </Border>
-                        <Border Grid.Row="1">
+                        <Border Grid.Row="1"
+                                BorderThickness="0,0,0,1"
+                                BorderBrush="Gray"
+                                Margin="10,0,10,0">
                             <StackPanel>
-                                <StackPanel>
-                                    <Label Content="Phim"/>
-                                    <TextBlock Text="asdasd" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="428">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="15*" />
+                                            <ColumnDefinition Width="85*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Phim"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="Godzilla King Kong"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
                                 </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Suất chiếu"/>
-                                    <TextBlock Text="asdasd" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="428"
+                                          Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Suất chiếu"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="25/9/2121 - 11:30"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
                                 </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Rạp"/>
-                                    <TextBlock Text="asdasd" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="428"
+                                          Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Rạp"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="Squadin Cinema"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
                                 </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Phòng chiếu"/>
-                                    <TextBlock Text="asdasd" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="428"
+                                          Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Phòng chiếu"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="Phòng 1"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
                                 </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Ghế"/>
-                                    <TextBlock Text="asdasd" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="428"
+                                          Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Ghế"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="A0,B2,C2"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
                                 </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Giá vé"/>
-                                    <Label />
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="428"
+                                          Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Giá vé"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="85.000d"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
+                        <Border Grid.Row="2"
+                                BorderThickness="0,0,0,1"
+                                BorderBrush="Gray"
+                                Margin="10,0,10,0">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,10,0,0">
+                                    <Grid Width="428">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="25*" />
+                                            <ColumnDefinition Width="75*" />
+                                        </Grid.ColumnDefinitions>
 
+                                        <Label Content="Người đặt"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="Tran dinh khoi"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="428"
+                                          Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Số điện thoại"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="0364972184"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="428"
+                                          Margin="0,10,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Email"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="emailemail@gmai.com"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Row="3"
+                                BorderThickness="0,0,0,1"
+                                BorderBrush="Gray"
+                                Margin="10,0,10,0">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="428">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30*" />
+                                            <ColumnDefinition Width="70*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Phí giao dịch"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="VAT  5%"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="428"
+                                          Margin="0,5,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Khuyến mãi"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="-10%"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="428">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Content="Tổng"
+                                               Grid.Column="0"
+                                               FontSize="18" />
+                                        <Label Content="200.000"
+                                               Grid.Column="1"
+                                               HorizontalAlignment="Right"
+                                               FontSize="20" />
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
                     </Grid>
                 </Border>
 
@@ -94,14 +319,263 @@
                 <!---RIGHT-->
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="25*" />
+                        <RowDefinition Height="135*" />
+                        <RowDefinition Height="70*" />
+                        <RowDefinition Height="50*" />
                     </Grid.RowDefinitions>
+
+                    <!--image-->
+                    <Border Grid.Row="0"
+                            BorderThickness="0,0,0,0.5"
+                            BorderBrush="Gray">
+                        <Border BorderBrush="Gray"
+                                BorderThickness="0,0,0,0.5">
+                            <Image Source="/Resources/IconPack/foodstrip.png"
+                                   Stretch="Fill" />
+                        </Border>
+                       
+                    </Border>
+                    <Border Grid.Row="1"
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="Gray"
+                            Margin="10,0,10,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="428">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="15*" />
+                                        <ColumnDefinition Width="85*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Phim"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="Godzilla King Kong"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="428"
+                                      Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Suất chiếu"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="25/9/2121 - 11:30"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="428"
+                                      Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Rạp"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="Squadin Cinema"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="428"
+                                      Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Phòng chiếu"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="Phòng 1"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="428"
+                                      Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Ghế"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="A0,B2,C2"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="428"
+                                      Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Giá vé"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="85.000d"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="2"
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="Gray"
+                            Margin="10,0,10,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0,10,0,0">
+                                <Grid Width="428">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="25*" />
+                                        <ColumnDefinition Width="75*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Người đặt"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="Tran dinh khoi"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="428"
+                                      Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Số điện thoại"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="0364972184"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="428"
+                                      Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Email"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="emailemail@gmai.com"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Row="3"
+                            BorderThickness="0,0,0,1"
+                            BorderBrush="Gray"
+                            Margin="10,0,10,0">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="428">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30*" />
+                                        <ColumnDefinition Width="70*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Phí giao dịch"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="VAT  5%"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="428"
+                                      Margin="0,5,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Khuyến mãi"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="-10%"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Grid Width="428">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Content="Tổng"
+                                           Grid.Column="0"
+                                           FontSize="18" />
+                                    <Label Content="200.000"
+                                           Grid.Column="1"
+                                           HorizontalAlignment="Right"
+                                           FontSize="20" />
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
                 </Grid>
 
             </Grid>
+        
+            <!---Bill total-->
+            <StackPanel  Orientation="Horizontal"
+                         Grid.Row="3"
+                         Margin="10,0,0,0"
+                         HorizontalAlignment="Right">
+                <Label Content="Tổng tiền:"
+                       FontSize="25"
+                       Margin="0,0,50,0"/>
+                <Label Content="500.000d" 
+                       FontSize="25"
+                       FontWeight="Bold"
+                       Margin="0,0,10,0"/>
+            </StackPanel>
+            
 
         </Grid>
     </Border>
