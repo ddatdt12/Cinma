@@ -259,12 +259,10 @@ namespace CinemaManagement.ViewModel
                 //(bool isSuccess, string message) = BookingService.Ins.CreateProductOrder(bill, orderedProds);
                 #endregion
 
-
                 var billDetails = BillService.Ins.GetBillDetails("HD0010");
                 var todayBill = BillService.Ins.GetBillByDate(DateTime.Today);
                 var mothnBill = BillService.Ins.GetBillByMonth(11);
                 var allBill = BillService.Ins.GetAllBill();
-                BillService.Ins.
                 //(bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login("dothanhdat123","123456");
                 MovieList = new List<MovieDTO>(movieDTOs);
                 GenreList = new ObservableCollection<GenreDTO>(genreDTOs);

@@ -33,7 +33,11 @@ namespace CinemaManagement.Utils
         }
         public static string CreateImageName(string imageName)
         {
-            imageName = RemoveUnicode(imageName);
+            imageName = RemoveUnicode(imageName).Replace(@"\", string.Empty);
+
+            Regex reg = new Regex("[*'\",_&#^@:|<>?/]");
+            imageName = reg.Replace(imageName, string.Empty);
+
             return String.Join("_", imageName.Split(' ')).ToLower();
         }
         public static string CreateImageFullName(string imageName, string ext)
