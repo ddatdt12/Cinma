@@ -45,11 +45,11 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             set { _ShowtimeRoom = value; OnPropertyChanged(); }
         }
 
-        private double _moviePrice;
-        public double moviePrice
+        private decimal _moviePrice;
+        public decimal moviePrice
         {
             get { return _moviePrice; }
-            set { _moviePrice = value; OnPropertyChanged(); CalculateRunningTime(); }
+            set { _moviePrice = value; OnPropertyChanged();}
         }
 
         // this is for  binding data
@@ -177,7 +177,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     (bool deleteSuccess, string messageFromDelete) = ShowtimeService.Ins.DeleteShowtime(SelectedShowtime.Id);
                     MessageBox.Show(messageFromDelete);
 
-                   
+
                     if (deleteSuccess)
                     {
                         for (int i = 0; i < ListShowtimeofMovie.Count; i++)
@@ -189,8 +189,8 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                         ReloadShowtimeList(SelectedRoomId);
                         SelectedShowtime = null;
                     }
-                    
-                  
+
+
                 }
             });
             ChangedRoomCM = new RelayCommand<RadioButton>((p) => { return true; }, (p) =>
@@ -244,6 +244,15 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 p.Close();
                 SelectedShowtime = null;
             });
+            LoadSeatCM = new RelayCommand<ListBox>((p) => { return true; }, (p) =>
+            {
+                if (SelectedShowtime != null)
+                {
+                    ListSeat = _oldselectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
+                    moviePrice = (decimal)SelectedShowtime.TicketPrice;
+                }
+                  
+            });
         }
 
 
@@ -254,8 +263,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             GetCurrentDate = DateTime.Now.Date;
             SetCurrentDate = GetCurrentDate.ToShortDateString();
         }
-
-
         public void ReloadShowtimeList(int id)
         {
             if (id != -1)

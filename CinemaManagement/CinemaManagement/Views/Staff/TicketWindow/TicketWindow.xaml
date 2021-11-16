@@ -1,0 +1,447 @@
+﻿<Window x:Class="CinemaManagement.Views.Staff.TicketWindow.TicketWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource TicketWindowVM}"
+        ResizeMode="NoResize"
+        Name="Ticket_Window"
+        Height="800"
+        Width="1440"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="#FFFBF5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="450" />
+            <RowDefinition Height="230" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <StackPanel DockPanel.Dock="Top"
+                        Height="40"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal"
+                        Background="#FF342B2B">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding MouseMoveWindowCM}"
+                                               CommandParameter="{Binding ElementName=Ticket_Window}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Label Cursor="Hand"
+                       Margin="1370 0 0 0"
+                       Width="30"
+                       HorizontalAlignment="Center"
+                       Foreground="White">
+                    <materialDesign:PackIcon Kind="WindowMinimize"></materialDesign:PackIcon>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MinimizeTicketWindowCM}"
+                                                   CommandParameter="{Binding ElementName=Ticket_Window}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Height"
+                                    Value="25"></Setter>
+                            <Setter Property="Background"
+                                    Value="Transparent"></Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="Height"
+                                            Value="30"></Setter>
+                                    <Setter Property="Background"
+                                            Value="Blue"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <Label Cursor="Hand"
+                       Width="30"
+                       HorizontalAlignment="Center"
+                       Foreground="White">
+                    <materialDesign:PackIcon Kind="WindowClose" />
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding CloseTicketWindowCM}"
+                                                   CommandParameter="{Binding ElementName=Ticket_Window}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Height"
+                                    Value="30"></Setter>
+                            <Setter Property="Background"
+                                    Value="Transparent"></Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="Height"
+                                            Value="35"></Setter>
+                                    <Setter Property="Background"
+                                            Value="Red"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Top"
+                        Height="45"
+                        Background="#FFEACDB1">
+                <StackPanel Orientation="Horizontal"
+                            Height="25">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin"
+                                    Value="10 0 0 0"></Setter>
+                            <Setter Property="FontSize"
+                                    Value="15"></Setter>
+                            <Setter Property="VerticalAlignment"
+                                    Value="Center" />
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock>
+                    <Bold><Italic>Rạp chiếu phim Hoa Sen</Italic></Bold>
+                    </TextBlock>
+                    <TextBlock Text="|"></TextBlock>
+                    <TextBlock>
+                    <Bold><Italic>Phòng 01</Italic></Bold>
+                    </TextBlock>
+                    <TextBlock Text="|"></TextBlock>
+                    <TextBlock>
+                    <Bold><Italic>Số ghế (79/100)</Italic></Bold>
+                    </TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Height="25">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin"
+                                    Value="10 0 0 0"></Setter>
+                            <Setter Property="FontSize"
+                                    Value="15"></Setter>
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock>
+                    <Bold><Italic>24/10/2021</Italic></Bold>
+                    </TextBlock>
+                    <TextBlock>
+                    <Bold><Italic>15:00</Italic></Bold>
+                    </TextBlock>
+                    <TextBlock>
+                    <Bold><Italic>~</Italic></Bold>
+                    </TextBlock>
+                    <TextBlock>
+                    <Bold><Italic>24/10/2021</Italic></Bold>
+                    </TextBlock>
+                    <TextBlock>
+                    <Bold><Italic>17:00</Italic></Bold>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Top"
+                        Height="40"
+                        Background="#FFD1D1D1"
+                        Margin="0 10 0 10">
+                <TextBlock TextWrapping="Wrap"
+                           Height="37"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="Red"
+                           FontSize="35"
+                           Padding="0 2 0 2"
+                           Text="Màn hình"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="380" />
+            </Grid.ColumnDefinitions>
+
+            <ListBox ItemsSource="{Binding ListSeat1}"
+                     x:Name="SeatListBox1"
+                     HorizontalAlignment="Right"
+                     Grid.Column="0"
+                     SelectedItem="{Binding SelectedSeat}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem"
+                           BasedOn="{StaticResource styleListBoxItems}" />
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="14"
+                                     FlowDirection="RightToLeft" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border   BorderBrush="Green"
+                                  BorderThickness="2"
+                                  CornerRadius="3"
+                                  Margin="0.5"
+                                  Width="38"
+                                  Height="38">
+                            <Label Content="{Binding SeatPosition}"
+                                   Background="Transparent"
+                                   Foreground="black"
+                                   FontSize="11"
+                                   FontWeight="Bold"
+                                   x:Name="lbl1"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=SeatListBox1, Path=DataContext.SelectedSeatCM}"
+                                                               CommandParameter="{Binding ElementName=lbl1}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Label>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <ListBox ItemsSource="{Binding ListSeat2}"
+                     x:Name="SeatListBox2"
+                     HorizontalAlignment="Left"
+                     Grid.Column="2"
+                     SelectedItem="{Binding SelectedSeat}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem"
+                           BasedOn="{StaticResource styleListBoxItems}" />
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2"
+                                     FlowDirection="RightToLeft" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border   BorderBrush="Green"
+                                  BorderThickness="2"
+                                  CornerRadius="3"
+                                  Width="38"
+                                  Height="38">
+                            <Label Content="{Binding SeatPosition}"
+                                   x:Name="lbl2"
+                                   Background="Transparent"
+                                   Foreground="black"
+                                   FontWeight="Bold"
+                                   FontSize="11"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Center">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                                        <i:InvokeCommandAction Command="{Binding ElementName=SeatListBox2, Path=DataContext.SelectedSeatCM}"
+                                                               CommandParameter="{Binding ElementName=lbl2}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Label>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <StackPanel Grid.Row="2">
+            <WrapPanel Height="50"
+                       Margin="450,20,400,0"
+                       DockPanel.Dock="Top"
+                       VerticalAlignment="Top">
+                <WrapPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize"
+                                Value="20" />
+                        <Setter Property="Margin"
+                                Value="5 0 0 20" />
+                    </Style>
+                    <Style TargetType="Rectangle">
+                        <Setter Property="Width"
+                                Value="30" />
+                        <Setter Property="Height"
+                                Value="30" />
+                        <Setter Property="StrokeThickness"
+                                Value="2" />
+                    </Style>
+                </WrapPanel.Resources>
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Fill="Green" />
+                    <TextBlock Text="Đang chọn"
+                               Margin="10,10,0,0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="30,0,0,0">
+                    <Rectangle Stroke="Green" />
+                    <TextBlock Text="Ghế trống"
+                               Margin="10,10,0,0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="30,0,0,0">
+                    <Rectangle Stroke="Gray"
+                               Fill="#FF4F3C3C" />
+                    <TextBlock Text="Đã mua"
+                               Margin="10,10,0,0" />
+                </StackPanel>
+
+            </WrapPanel>
+            <StackPanel DockPanel.Dock="Bottom">
+                <Border Width="1440"
+                        Height="125"
+                        Background="Black"
+                        Margin="0 10 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Border Background="#FFC12729"
+                                Height="100"
+                                Width="200"
+                                HorizontalAlignment="Left"
+                                Margin="10">
+                            <Border.Clip>
+                                <RectangleGeometry RadiusX="20"
+                                                   RadiusY="20"
+                                                   Rect="0 0 200 100" />
+                            </Border.Clip>
+                            <Button FontSize="20"
+                                    Height="100"
+                                    Width="200"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <materialDesign:PackIcon Kind="ArrowLeftBold"
+                                                             Width="100"
+                                                             Height="70" />
+                                    <TextBlock Text="Previous"
+                                               TextAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </Border>
+                        <Image Source="{Binding imgSourceFilmName}"
+                               Margin="50 10 10 10"></Image>
+                        <StackPanel Width="230"
+                                    Margin="10">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping"
+                                            Value="Wrap" />
+                                    <Setter Property="Foreground"
+                                            Value="White" />
+                                    <Setter Property="FontSize"
+                                            Value="15" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock Text="{Binding txtFilm}"
+                                       x:Name="filmName" />
+                            <TextBlock Text="2D"
+                                       Margin="0 10 0 0" />
+                            <TextBlock Text="C18"
+                                       Margin="0 10 0 0" />
+                        </StackPanel>
+                        <StackPanel Width="100"
+                                    Margin="50 10 10 10">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping"
+                                            Value="Wrap" />
+                                    <Setter Property="Foreground"
+                                            Value="White" />
+                                    <Setter Property="FontSize"
+                                            Value="15" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock Text="Rạp" />
+                            <TextBlock Text="Suất chiếu"
+                                       Margin="0 10 0 0" />
+                            <TextBlock Text="Phòng chiếu"
+                                       Margin="0 10 0 0" />
+                        </StackPanel>
+                        <StackPanel Width="170"
+                                    Margin="30 10 10 10">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping"
+                                            Value="Wrap" />
+                                    <Setter Property="Foreground"
+                                            Value="White" />
+                                    <Setter Property="FontSize"
+                                            Value="15" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock Text="Rạp chiếu phim Hoa Sen" />
+                            <TextBlock x:Name="_ShowTimeTicket"
+                                       Margin="0 10 0 0" />
+                            <TextBlock Margin="0 10 0 0"
+                                       x:Name="_ShowRomTicket" />
+                        </StackPanel>
+                        <StackPanel Width="170"
+                                    Margin="50 10 10 10"
+                                    Orientation="Vertical">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextWrapping"
+                                            Value="Wrap" />
+                                    <Setter Property="Foreground"
+                                            Value="White" />
+                                    <Setter Property="FontSize"
+                                            Value="15" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Số Ghế" />
+                                <TextBlock Text="{Binding TotalSeat,UpdateSourceTrigger=PropertyChanged}"
+                                           TextWrapping="Wrap"
+                                           Margin="30 0 0 0" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0 20 0 0">
+                                <TextBlock Text="Tổng" />
+                                <TextBlock Text="{Binding TotalPrice,UpdateSourceTrigger=PropertyChanged}"
+                                           TextWrapping="Wrap"
+                                           Margin="30 0 0 0" />
+                            </StackPanel>
+                        </StackPanel>
+                        <Border Background="#FFC12729"
+                                Height="100"
+                                Width="200"
+                                HorizontalAlignment="Left"
+                                Margin="30 10 10 10">
+                            <Border.Clip>
+                                <RectangleGeometry RadiusX="20"
+                                                   RadiusY="20"
+                                                   Rect="0 0 200 100" />
+                            </Border.Clip>
+                            <Button FontSize="20"
+                                    Height="100"
+                                    Width="200"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent">
+                                <StackPanel>
+                                    <materialDesign:PackIcon Kind="ArrowRightBold"
+                                                             Width="100"
+                                                             Height="70" />
+                                    <TextBlock Text="Next"
+                                               TextAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -14,9 +14,9 @@ namespace CinemaManagement.Models
     
     public partial class ProductBillInfo
     {
-        public int BillId { get; set; }
+        public string BillId { get; set; }
         public int ProductId { get; set; }
-        public Nullable<int> Quantity { get; set; }
+        public int Quantity { get; set; }
         public decimal PricePerItem { get; set; }
     
         public virtual Bill Bill { get; set; }

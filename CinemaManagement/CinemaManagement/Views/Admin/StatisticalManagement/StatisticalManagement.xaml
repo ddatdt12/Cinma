@@ -68,12 +68,13 @@
                     <RowDefinition Height="55*" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <materialDesign:Card Margin="30,30,0,0">
+                    <materialDesign:Card Margin="30,30,0,0"
+                                         UniformCornerRadius="5">
                         <Grid>
                             <Label Content="Tổng doanh thu(VND)"
                                    FontSize="15"
-                                   FontWeight="Bold" 
-                                   Margin="15,10,0,0"/>
+                                   FontWeight="Bold"
+                                   Margin="15,10,0,0" />
                             <lvc:PieChart Height="250"
                                           Margin="15,0,0,0"
                                           LegendLocation="Left"
@@ -87,7 +88,8 @@
 
                 <StackPanel Grid.Row="1">
                     <materialDesign:Card Margin="30,30,0,0"
-                                         Height="285">
+                                         Height="285"
+                                         UniformCornerRadius="5">
                         <StackPanel Margin="0,5,0,0">
                             <StackPanel.Resources>
                                 <ResourceDictionary>
@@ -109,7 +111,7 @@
                             <TextBlock Text="So với kỳ trước: +27%" />
                             <TextBlock Text="Khách hàng mới: +35" />
                         </StackPanel>
-                       
+
 
                     </materialDesign:Card>
                 </StackPanel>
@@ -124,7 +126,8 @@
                                      Margin="30,30,0,30"
                                      Width="950"
                                      Height="566"
-                                     HorizontalAlignment="Right">
+                                     HorizontalAlignment="Right"
+                                     UniformCornerRadius="5">
                     <lvc:CartesianChart LegendLocation="Bottom"
                                         Series="{Binding SeriesCollection}">
                         <lvc:CartesianChart.AxisX>

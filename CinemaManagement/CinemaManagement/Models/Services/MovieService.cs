@@ -102,6 +102,7 @@ namespace CinemaManagement.Models.Services
                             StartTime = m.ShowTime.StartTime,
                             RoomId = m.ShowTime.ShowtimeSetting.RoomId,
                             ShowDate = m.ShowTime.ShowtimeSetting.ShowDate,
+                            TicketPrice = m.ShowTime.TicketPrice
                         });
                         if (mov is null)
                         {

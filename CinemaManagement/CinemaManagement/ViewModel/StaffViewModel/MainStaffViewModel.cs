@@ -1,41 +1,84 @@
-﻿using CinemaManagement.Views.Staff;
+﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models.Services;
+using CinemaManagement.Utils;
+using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
+using CinemaManagement.Views.Staff;
+using CinemaManagement.Views.Staff.MovieScheduleWindow;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CinemaManagement.ViewModel
 {
-    public class MainStaffViewModel : BaseViewModel
+    public partial class MainStaffViewModel : BaseViewModel
     {
+        private ObservableCollection<MovieDTO> _ListMovie;
+        public ObservableCollection<MovieDTO> ListMovie
+        {
+            get { return _ListMovie; }
+            set { _ListMovie = value; OnPropertyChanged(); }
+        }
 
-        private bool _IsClickLabel;
-        public bool IsClickLabel
+        private ObservableCollection<MovieDTO> _ListMovie1;
+        public ObservableCollection<MovieDTO> ListMovie1
         {
-            get => _IsClickLabel;
-            set
-            {
-                _IsClickLabel = value;
-                OnPropertyChanged();
-            }
+            get { return _ListMovie1; }
+            set { _ListMovie1 = value; }
         }
-        private bool _IsClickLabel1;
-        public bool IsClickLabel1
+
+        private ImageSource _ImgSource;
+        public ImageSource ImgSource
         {
-            get => _IsClickLabel1;
-            set
-            {
-                _IsClickLabel1 = value;
-                OnPropertyChanged();
-            }
+            get { return _ImgSource; }
+            set { _ImgSource = value; }
         }
-        private bool _IsClickLabel2;
-        public bool IsClickLabel2
+
+        private MovieDTO _SelectedItem;
+        public MovieDTO SelectedItem
         {
-            get => _IsClickLabel2;
+            get { return _SelectedItem; }
+            set { _SelectedItem = value; OnPropertyChanged(); }
+        }
+
+        private DateTime _SelectedDate;
+        public DateTime SelectedDate
+        {
+            get { return _SelectedDate; }
+            set { _SelectedDate = value; OnPropertyChanged(); LoadMainListBox(0); }
+        }
+
+        private GenreDTO _SelectedGenre;
+        public GenreDTO SelectedGenre
+        {
+            get { return _SelectedGenre; }
+            set { _SelectedGenre = value; OnPropertyChanged(); LoadMainListBox(1); }
+        }
+
+        private DateTime _getCurrentDate;
+        public DateTime GetCurrentDate
+        {
+            get { return _getCurrentDate; }
+            set { _getCurrentDate = value; }
+        }
+
+        private string _setCurrentDate;
+        public string SetCurrentDate
+        {
+            get { return _setCurrentDate; }
+            set { _setCurrentDate = value; OnPropertyChanged(); }
+        }
+
+        private List<GenreDTO> _GenreList;
+        public List<GenreDTO> GenreList
+        {
+            get => _GenreList;
             set
             {
-                _IsClickLabel2 = value;
-                OnPropertyChanged();
+                _GenreList = value;
             }
         }
         #region commands
@@ -43,13 +86,25 @@ namespace CinemaManagement.ViewModel
         public ICommand MinimizeMainStaffWindowCM { get; set; }
         public ICommand MouseMoveWindowCM { get; set; }
         public ICommand CategoryFilmLabel { get; set; }
-        public ICommand LoadMainStaffPageCM { get; set; }
-        public ICommand TheFirstHomePageCM { get; set; }
-        public ICommand ChangeBackgroundAndFontSizeLabel1 { get; set; }
-        public ICommand ChangeBackgroundAndFontSizeLabel2 { get; set; }
+        public ICommand LoadMainStaffCM { get; set; }
+        public ICommand LoadMovieScheduleWindow { get; set; }
+        public ICommand SignoutCM { get; set; }
+
+        private string _UserName;
+
+        public string UserName
+        {
+            get { return _UserName; }
+            set { _UserName = value; OnPropertyChanged(); }
+        }
+
+
         #endregion
         public MainStaffViewModel()
         {
+            LoadCurrentDate();
+            ListMovie1 = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
+            GenreList = GenreService.Ins.GetAllGenre();
             CloseMainStaffWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
                 {
                     FrameworkElement window = Window.GetWindow(p);
@@ -91,27 +146,70 @@ namespace CinemaManagement.ViewModel
                         }
                     }
                 });
-            LoadMainStaffPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
-             {
-                 MainStaffPage w1 = new MainStaffPage();
-                 p.Content = w1;
-             });
-            ChangeBackgroundAndFontSizeLabel1 = new RelayCommand<Label>((p) => { return true; }, (p) =>
+
+
+            LoadMovieScheduleWindow = new RelayCommand<Page>((p) => { return true; }, (p) =>
             {
-                if (IsClickLabel2 == true)
+                MovieScheduleWindow w;
+                if (SelectedItem != null)
                 {
-                    IsClickLabel2 = false;
+                    w = new MovieScheduleWindow();
+                    w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
+                    w.imgframe.Source = Helper.GetImageSource(SelectedItem.Image);
+                    w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
+                    w.txtframe.Text = SelectedItem.DisplayName;
+                    MovieScheduleWindowViewModel.tempFilebinding = SelectedItem;
+                    w.ShowDialog();
                 }
-                IsClickLabel1 = !IsClickLabel1;
             });
-            ChangeBackgroundAndFontSizeLabel2 = new RelayCommand<Label>((p) => { return true; }, (p) =>
+            LoadMainStaffCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                if (IsClickLabel1 == true)
-                {
-                    IsClickLabel1 = false;
-                }
-                IsClickLabel2 = !IsClickLabel2;
+                LoadMainListBox(0);
+                SetCurrentDate = GetCurrentDate.ToString();
             });
+            SignoutCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Hide();
+                LoginWindow w1 = new LoginWindow();
+                w1.ShowDialog();
+                p.Close();
+            });
+        }
+        public void LoadCurrentDate()
+        {
+            GetCurrentDate = DateTime.Now.Date;
+            SetCurrentDate = GetCurrentDate.ToShortDateString();
+        }
+        public void LoadMainListBox(int func)
+        {
+            switch (func)
+            {
+                case 0:
+                    {
+                        ListMovie = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
+                        break;
+                    }
+                case 1:
+                    {
+                        FilterMovieByGenre(SelectedGenre.Id);
+                        break;
+                    }
+            }
+
+        }
+
+        public void FilterMovieByGenre(int _Id)
+        {
+            ObservableCollection<MovieDTO> byGenre = new ObservableCollection<MovieDTO>();
+
+            foreach (var item in ListMovie1)
+            {
+                if (item.Genres[0].Id == _Id)
+                {
+                    byGenre.Add(item);
+                }
+            }
+            ListMovie = new ObservableCollection<MovieDTO>(byGenre);
         }
     }
 }

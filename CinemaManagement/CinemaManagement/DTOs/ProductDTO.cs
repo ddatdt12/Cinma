@@ -26,32 +26,18 @@ namespace CinemaManagement.DTOs
             set
             {
                 _image = value;
-            }
-        }
-
-        public ImageSource _imgSource;
-        public ImageSource ImgSource
-        {
-            get
-            {
-                if (_imgSource is null)
+                if (File.Exists(Helper.GetProductImgPath()))
                 {
-                    if (File.Exists(Helper.GetProductImgPath(_image)))
-                    {
-                        _imgSource = Helper.GetProductImageSource(_image);
-                    }
-                    else
-                    {
-                        _imgSource = Helper.GetProductImageSource("null.jpg");
-                    }
+                    ImgSource = Helper.GetImageSource(_image);
                 }
-                return _imgSource;
-            }
-            set
-            {
-                _imgSource = value;
+                else
+                {
+                    _image = "null.jpg";
+                    ImgSource = Helper.GetImageSource("null.jpg");
+                }
             }
         }
+        public ImageSource ImgSource { get; set; }
 
     }
 }

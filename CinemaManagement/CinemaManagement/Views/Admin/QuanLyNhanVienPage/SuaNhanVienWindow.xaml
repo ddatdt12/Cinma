@@ -29,12 +29,12 @@
         </i:EventTrigger>               
     </i:Interaction.Triggers>
     <Grid>
-        <Border BorderBrush="#18ffff"
+        <Border BorderBrush="#0c70b6"
                 BorderThickness="3">
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="0"
                                   BlurRadius="5"
-                                  Color="#18ffff" />
+                                  Color="#0c70b6" />
             </Border.Effect>
             <materialDesign:Card>
                 <Grid>
@@ -252,13 +252,11 @@
                                 Command="{Binding CloseCommand}"
                                 CommandParameter="{Binding ElementName=SuaNV}"
                                 Background="OrangeRed" />
-                        
                         <Button Content="Lưu"
                                 Margin="0 0 10 10"
                                 Command="{Binding EditStaffCommand}"
                                 CommandParameter="{Binding ElementName=SuaNV}"
                                 Background="#0c70b6" />
-                        
                     </Grid>
                 </Grid>
             </materialDesign:Card>

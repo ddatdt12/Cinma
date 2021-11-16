@@ -24,7 +24,7 @@ namespace CinemaManagement.Models
         public int Id { get; set; }
         public int ShowtimeSettingId { get; set; }
         public int MovieId { get; set; }
-        public Nullable<decimal> TicketPrice { get; set; }
+        public decimal TicketPrice { get; set; }
         public System.TimeSpan StartTime { get; set; }
     
         public virtual Movie Movie { get; set; }

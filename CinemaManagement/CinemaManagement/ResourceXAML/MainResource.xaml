@@ -4,11 +4,11 @@
                     xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.MovieManagementVM"
                     xmlns:viewmodel21="clr-namespace:CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel"
                     xmlns:viewmodel22="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM"
-                    xmlns:viewmodel11="clr-namespace:CinemaManagement.ViewModel.StaffViewModel"
                     xmlns:viewmodel23="clr-namespace:CinemaManagement.ViewModel.AdminVM.StaffManagementVM"
                     xmlns:viewmodel2="clr-namespace:CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM"
                     xmlns:viewmodel24="clr-namespace:CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM"
-                    xmlns:viewmodelFood="clr-namespace:CinemaManagement.ViewModel.AdminVM.FoodManagementVM">
+                    xmlns:viewmodelFood="clr-namespace:CinemaManagement.ViewModel.AdminVM.FoodManagementVM"
+                    xmlns:viewmodel3="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.TicketVM">
                 
 
 
@@ -19,12 +19,12 @@
     <viewmodel:ForgotPassViewModel x:Key="ForgotPassVM" />
     <viewmodel:MainAdminViewModel x:Key="MainAdminVM" />
     <viewmodel1:MovieManagementViewModel x:Key="MovieManagementVM" />
-    <viewmodel11:MainStaffPageViewModel x:Key="MainStaffPageVM" />
     <viewmodel21:ShowtimeManagementViewModel x:Key="ShowtimeManagementVM" />
     <viewmodel22:MovieScheduleWindowViewModel x:Key="MovieScheduleWindowVM" />
     <viewmodel2:Import_ExportManagementViewModel x:Key="Import_ExportManagementVM" />
     <viewmodel23:StaffManagementViewModel x:Key="StaffManagementVM" />
     <viewmodel24:StatisticalManagementViewModel x:Key="StatisticalManagementVM" />
+    <viewmodel3:TicketWindowViewModel x:Key="TicketWindowVM" />
 
     <viewmodelFood:FoodManagementViewModel x:Key="FoodManagementVM" />
 

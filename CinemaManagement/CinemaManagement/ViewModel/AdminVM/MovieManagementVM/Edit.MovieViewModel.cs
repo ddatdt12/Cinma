@@ -47,10 +47,10 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     extension = SelectedItem.Image.Split('.')[1];
                 imgName = Helper.CreateImageName(movieName);
                 imgfullname = Helper.CreateImageFullName(imgName, extension);
-                
+
                 List<GenreDTO> temp = new List<GenreDTO>();
                 temp.Add(movieGenre);
-               
+
                 MovieDTO movie = new MovieDTO
                 {
                     Id = int.Parse(movieID),
@@ -77,8 +77,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (successUpdateMovie)
                 {
-                    MessageBox.Show(messageFromUpdateMovie);
-
                     if (SelectedItem.Image != movie.Image)
                     {
                         SaveImgToApp();
@@ -86,10 +84,14 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     }
                     else
                     {
-                        File.Copy(filepath, Helper.GetMovieImgPath(movie.Image),true);
+                        if (!string.IsNullOrEmpty(filepath))
+                        {
+                            File.Copy(filepath, Helper.GetMovieImgPath(movie.Image), true);
+                        }
                     }
-
+                    MessageBox.Show(messageFromUpdateMovie);
                     LoadMovieListView(Operation.UPDATE, movie);
+
                     p.Close();
                 }
                 else

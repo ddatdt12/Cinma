@@ -224,8 +224,8 @@
     <Compile Include="DTOs\SeatSettingDTO.cs" />
     <Compile Include="DTOs\ShowtimeDTO.cs" />
     <Compile Include="DTOs\StaffDTO.cs" />
-    <Compile Include="DTOs\TicketBillInfoDTO.cs" />
     <Compile Include="DTOs\TicketDTO.cs" />
+    <Compile Include="DTOs\TicketBillInfoDTO.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -233,19 +233,19 @@
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CinemaManagementModel.Context.cs">
-      <DependentUpon>CinemaManagementModel.Context.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CinemaManagementModel.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CinemaManagementModel.cs">
-      <DependentUpon>CinemaManagementModel.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CinemaManagementModel.Designer.cs">
-      <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
@@ -275,7 +275,9 @@
     <Compile Include="Models\SeatSetting.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Services\BillService.cs" />
     <Compile Include="Models\Services\BookingService.cs" />
+    <Compile Include="Models\Services\CustomerService.cs" />
     <Compile Include="Models\Services\GenreService.cs" />
     <Compile Include="Models\Services\MovieService.cs" />
     <Compile Include="Models\Services\ProductReceiptService.cs" />
@@ -299,11 +301,6 @@
     <Compile Include="Utils\Constant.cs" />
     <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />
-    <Compile Include="ViewModel\AdminVM\FoodManagementVM\AddFoodViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\FoodManagementVM\DeleteFoodViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\FoodManagementVM\EditFoodViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\FoodManagementVM\FoodManagementViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\FoodManagementVM\ImportFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Import_ExportManagementVM\Import_ExportManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\Add.MovieViewModel.cs" />
@@ -323,24 +320,9 @@
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\MainStaffPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
-    <Compile Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml.cs">
-      <DependentUpon>AddFoodWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml.cs">
-      <DependentUpon>DeleteFoodWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\FoodManagementPage\EditFoodWindow.xaml.cs">
-      <DependentUpon>EditFoodWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\FoodManagementPage\FoodPage.xaml.cs">
-      <DependentUpon>FoodPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\FoodManagementPage\ImportFoodWindow.xaml.cs">
-      <DependentUpon>ImportFoodWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
     <Compile Include="Views\Admin\Import_ExportManagement\ExportPage.xaml.cs">
       <DependentUpon>ExportPage.xaml</DependentUpon>
     </Compile>
@@ -402,14 +384,14 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\Staff\MainStaffPage.xaml.cs">
-      <DependentUpon>MainStaffPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml.cs">
       <DependentUpon>MovieScheduleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\TicketWindow\TicketWindow.xaml.cs">
+      <DependentUpon>TicketWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -424,26 +406,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ResourceXAML\MainResource.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\FoodManagementPage\EditFoodWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\FoodManagementPage\FoodPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\FoodManagementPage\ImportFoodWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -527,15 +489,15 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Staff\MainStaffPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
     <Page Include="Views\Staff\MainStaffWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\TicketWindow\TicketWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -560,6 +522,10 @@
     </EmbeddedResource>
     <Resource Include="Font\GoogleSans-Regular.otf" />
     <Resource Include="Font\Ubuntu-Bold.ttf" />
+    <EntityDeploy Include="Models\CinemaManagementModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CinemaManagementModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="Models\CinemaManagementModel.edmx.diagram">
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
     </None>
@@ -570,7 +536,7 @@
     </None>
     <Resource Include="Font\junegull.ttf" />
     <Resource Include="Resources\Admin\MovieGenreSource.txt" />
-    <Resource Include="Resources\Images\Movies\null.jpg" />
+    <Resource Include="Resources\ImageStaff\add-user.png" />
     <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
     <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
     <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
@@ -597,39 +563,27 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Resources\Images\ImageFood\add-image.png" />
-    <Resource Include="Resources\Images\ImageFood\delete.png" />
-    <Resource Include="Resources\Images\ImageFood\dong.png" />
-    <Resource Include="Resources\Images\ImageFood\edit.png" />
-    <Resource Include="Resources\Images\ImageFood\pop-corn.png" />
-    <Resource Include="Resources\Images\ImageFood\popcorn.png" />
-    <Resource Include="Resources\Images\ImageStaff\add-user.png" />
-    <Resource Include="Resources\Images\ImageStaff\delete.png" />
-    <Resource Include="Resources\Images\ImageStaff\pencil.png" />
+    <Folder Include="Resources\Images\Products\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Movies\null.jpg" />
     <Resource Include="Resources\IconPack\pencil.png" />
+    <Resource Include="Resources\ImageStaff\pencil.png" />
+    <Resource Include="Resources\ImageStaff\delete.png" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\4.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\CinemaManagementModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CinemaManagementModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Models\CinemaManagementModel.Context.tt">
-      <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\CinemaManagementModel.tt">
-      <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\Images\ImageFood\adding.png" />
-    <Resource Include="Resources\Images\Products\null.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets')" />

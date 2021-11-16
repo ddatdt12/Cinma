@@ -7,6 +7,7 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
 {
     public partial class ImportPage : Page
     {
+        int indexFilter = 0;
         public ImportPage()
         {
             InitializeComponent();
@@ -17,14 +18,57 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
         {
             CollectionViewSource.GetDefaultView(_ListView.ItemsSource).Refresh();
         }
-
         private bool Filter(object item)
         {
             if (String.IsNullOrEmpty(FilterBox.Text))
                 return true;
-            else
-                return ((item as MovieDTO).DisplayName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-        }
 
+            switch (indexFilter)
+            {
+                case 0:
+                    return ((item as ProductReceiptDTO).Id.ToString().IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                case 1:
+                    return ((item as ProductReceiptDTO).Product.DisplayName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                case 2:
+                    return ((item as ProductReceiptDTO).StaffName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                default:
+                    return ((item as ProductReceiptDTO).Id.ToString().IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
+
+        }
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            indexFilter = cbbFilter.SelectedIndex;
+        }
+        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox cbb = sender as ComboBox;
+
+            if (cbbmonth != null && timepicker != null)
+            {
+                switch (cbb.SelectedIndex)
+                {
+                    case 0:
+                        {
+                            cbbmonth.Visibility = System.Windows.Visibility.Collapsed;
+                            timepicker.Visibility = System.Windows.Visibility.Collapsed;
+                            break;
+                        }
+                    case 1:
+                        {
+                            cbbmonth.Visibility = System.Windows.Visibility.Collapsed;
+                            timepicker.Visibility = System.Windows.Visibility.Visible;
+                            break;
+                        }
+                    case 2:
+                        {
+                            cbbmonth.Visibility = System.Windows.Visibility.Visible;
+                            timepicker.Visibility = System.Windows.Visibility.Collapsed;
+                            break;
+                        }
+                }
+            }
+
+        }
     }
 }
