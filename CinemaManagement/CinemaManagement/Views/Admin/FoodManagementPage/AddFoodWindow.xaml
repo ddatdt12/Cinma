@@ -12,26 +12,23 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="Transparent"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource FoodManagementVM}"
         WindowStyle="None"
+        AllowsTransparency="True"
         WindowStartupLocation="CenterOwner"
         Name="AddFoodWd"
         ResizeMode="NoResize"
         Title="AddFoodWindow"
         Height="400"
         Width="280">
-    <!--<i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseLeftButtonDown">
-            <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
-                                   CommandParameter="{Binding ElementName=AddFoodWd}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>-->
+    
     <Grid>
         <Border BorderBrush="#18ffff"
-                BorderThickness="2">
-            <materialDesign:Card>
+                BorderThickness="2"
+                CornerRadius="10">
+            <materialDesign:Card UniformCornerRadius="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
@@ -73,11 +70,17 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center"
                                        Margin="30 0 0 0"
-                                       Text="THÊM ĐỒ ĂN"
+                                       Text="THÊM SẢN PHẨM"
                                        Foreground="Black"
                                        FontWeight="DemiBold"
                                        FontSize="20" />
                         </StackPanel>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
+                                                       CommandParameter="{Binding ElementName=AddFoodWd}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </materialDesign:ColorZone>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -102,7 +105,7 @@
                                   x:Name="_Gender"
                                   SelectedItem="{Binding Category, Mode=TwoWay}">
                             <ComboBoxItem Content="Đồ ăn" />
-                            <ComboBoxItem Content="Nước uống" />
+                            <ComboBoxItem Content="Thức uống" />
                         </ComboBox>
                     </Grid>
                     <Grid Grid.Row="3">
@@ -115,7 +118,8 @@
                         <TextBox Grid.Column="1"
                                  Text="{Binding Price, Mode=TwoWay}" 
                                  PreviewTextInput="TextBox_PreviewTextInput"
-                                 TextChanged="TextBox_TextChanged"/>
+                                 TextChanged="TextBox_TextChanged"
+                                 x:Name="tboxPrice"/>
                     </Grid>
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>

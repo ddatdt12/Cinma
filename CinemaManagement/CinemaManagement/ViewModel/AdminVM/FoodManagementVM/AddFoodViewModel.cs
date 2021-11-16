@@ -14,7 +14,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
     {
         public void AddFood(Window p)
         {
-
             if (filepath != null && IsValidData())
             {
                 imgName = Helper.CreateImageName(DisplayName);
@@ -23,7 +22,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 product.DisplayName = DisplayName;
                 product.Category = Category.Content.ToString();
-                product.Price = 45000;
+                product.Price = Price;
                 product.Image = imgfullname;
 
                 (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = ProductService.Ins.AddNewProduct(product);

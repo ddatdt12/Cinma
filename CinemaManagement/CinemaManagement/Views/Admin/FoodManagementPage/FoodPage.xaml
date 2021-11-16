@@ -65,7 +65,8 @@
                     </Style>
                     <ControlTemplate TargetType="Label"
                                      x:Key="Add-edit">
-                        <materialDesign:Card UniformCornerRadius="5">
+                        <materialDesign:Card UniformCornerRadius="5"
+                                             Width="110">
                             <Border BorderBrush="Black"
                                     BorderThickness="2"
                                     CornerRadius="5">
@@ -89,19 +90,30 @@
                                     <TextBlock Text="{TemplateBinding Content}"
                                                Margin="5"
                                                FontFamily="Google Sans"
-                                               Width="70"
-                                               TextAlignment="Center" />
+                                               Width="100"
+                                               TextAlignment="Center" 
+                                               HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
                         </materialDesign:Card>
                     </ControlTemplate>
                 </StackPanel.Resources>
                 <Label Tag="/Resources/Images/ImageFood/popcorn.png"
-                       Content="Thêm đồ ăn"
+                       Content="Thêm sản phẩm"
                        Template="{StaticResource Add-edit}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
                             <i:InvokeCommandAction Command="{Binding OpenAddFoodCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+                <Label Tag="/Resources/Images/ImageFood/adding.png"
+                       Content="Nhập sản phẩm"
+                       Template="{StaticResource Add-edit}"
+                       Margin="100 0 0 0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding OpenImportFoodCommand}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Label>
@@ -171,20 +183,20 @@
                                     <Grid HorizontalAlignment="Center"
                                           VerticalAlignment="Center">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="125" />
+                                            <RowDefinition Height="115" />
                                             <RowDefinition Height="30" />
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
                                         <Grid Grid.Row="0">
                                             <StackPanel Grid.Row="0"
                                                         Orientation="Horizontal">
-                                                <StackPanel Width="200">
+                                                <StackPanel Width="205">
                                                     <Image Source="{Binding ImgSource}"
                                                            VerticalAlignment="Center"
                                                            HorizontalAlignment="Center"
-                                                           Margin="5,10,5,10" />
+                                                           Margin="8,7,5,10" />
                                                 </StackPanel>
-                                                <StackPanel Margin="0,8,0,0">
+                                                <StackPanel Margin="5,8,0,0">
                                                     <Border BorderBrush="Black"
                                                             BorderThickness="2"
                                                             CornerRadius="4"
@@ -246,15 +258,15 @@
                                         </Grid>
                                         <TextBlock Grid.Row="1"
                                                    Text="{Binding DisplayName}"
-                                                   FontSize="18"
+                                                   FontSize="20"
                                                    Foreground="Black"
                                                    HorizontalAlignment="Left"
                                                    VerticalAlignment="Center"
-                                                   Margin="10 0 0 0" />
+                                                   Margin="14 0 0 0" />
                                         <StackPanel Grid.Row="2"
                                                     Orientation="Horizontal">
 
-                                            <TextBlock Text="  SL: "
+                                            <TextBlock Text="  SL "
                                                        FontSize="18"
                                                        Margin="0 0 0 3"
                                                        VerticalAlignment="Bottom"
@@ -276,7 +288,9 @@
                                                        HorizontalAlignment="Right"
                                                        Margin="0 0 3 3" />
                                             <Image Source="/Resources/Images/ImageFood/dong.png"
-                                                   Margin=" 0 0 3 3" />
+                                                   Margin=" 0 0 3 3"
+                                                   Height="22"
+                                                   Width="22"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>

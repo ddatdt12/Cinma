@@ -628,6 +628,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\ImageFood\adding.png" />
     <Resource Include="Resources\Images\Products\null.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

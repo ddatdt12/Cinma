@@ -89,7 +89,7 @@ namespace CinemaManagement.Models.Services
             return productReceipts;
         }
 
-        public (bool ,string, ProductReceiptDTO) CreateProductReceipt(ProductReceiptDTO newPReceipt)
+        public (bool ,string) CreateProductReceipt(ProductReceiptDTO newPReceipt)
         {
 
             var context = DataProvider.Ins.DB;
@@ -105,17 +105,15 @@ namespace CinemaManagement.Models.Services
                     CreatedAt = DateTime.Today,
                     Quantity = newPReceipt.Quantity
                 };
+
                 context.ProductReceipts.Add(pR);
-
                 context.SaveChanges();
-
-                newPReceipt.Id = pR.Id;
             }
             catch (Exception e)
             {
-                return (false, "Lỗi hệ thống", null);
+                return (false, "Lỗi hệ thống");
             }
-            return (true, "Lưu thông tin nhập hàng thành công", newPReceipt);
+            return (true, "Lưu thông tin nhập hàng thành công");
         }
     }
 }

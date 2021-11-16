@@ -68,6 +68,12 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             set { _Image = value; OnPropertyChanged(); }
         }
 
+        private int _Quantity;
+        public int Quantity
+        {
+            get { return _Quantity; }
+            set { _Quantity = value; OnPropertyChanged(); }
+        }
         #endregion
 
         string filepath;
@@ -90,10 +96,14 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             }
         }
 
+        public ICommand ImportFoodChangeCommand { get; set; }
+
+        public ICommand OpenImportFoodCommand { get; set; }
         public ICommand OpenAddFoodCommand { get; set; }
         public ICommand OpenEditFoodCommand { get; set; }
         public ICommand OpenDeleteFoodCommand { get; set; }
 
+        public ICommand ImportFoodCommand { get; set; }
         public ICommand AddFoodCommand { get; set; }
         public ICommand EditFoodCommand { get; set; }
         public ICommand DeleteFoodCommand { get; set; }
@@ -103,6 +113,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ICommand MouseMoveCommand { get; set; }
         public ICommand CloseCommand { get; set; }
 
+
+        //
         private ProductDTO _SelectedItem;
         public ProductDTO SelectedItem
         {
@@ -112,21 +124,62 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
 
 
+        //SelectedProduct Dùng khi nhập hàng thêm số lượng sản phẩm
+        private ProductDTO _SelectedProduct;
+        public ProductDTO SelectedProduct
+        {
+            get { return _SelectedProduct; }
+            set { _SelectedProduct = value;
+                OnPropertyChanged();
+            }
+        }
+
         public FoodManagementViewModel()
         {
-            FoodList = new ObservableCollection<ProductDTO>();
-            ProductDTO khoi = new ProductDTO();
-            khoi.DisplayName = "khoi idol";
-            khoi.Category = "Do an";
-            khoi.Price = 99999999;
-            khoi.Quantity = 100;
-            khoi.Image = "null.jpg";
-            for (int i=0; i<20; i++)
-            {
-                FoodList.Add(khoi);   
-            }
-            //LoadProductListView(Operation.READ);
-            //IsImageChanged = false;
+
+            LoadProductListView(Operation.READ);
+            IsImageChanged = false;
+            ImportFoodChangeCommand = new RelayCommand<object>((p) => { return true; },
+                (p) =>
+                {
+                    if (SelectedProduct != null)
+                    {
+                        if (File.Exists(Helper.GetProductImgPath(SelectedProduct.Image)) == true)
+                        {
+
+                            BitmapImage _image = new BitmapImage();
+                            _image.BeginInit();
+                            _image.CacheOption = BitmapCacheOption.None;
+                            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+                            _image.CacheOption = BitmapCacheOption.OnLoad;
+                            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                            _image.UriSource = new Uri(Helper.GetProductImgPath(SelectedProduct.Image));
+                            _image.EndInit();
+
+                            ImageSource = _image;
+                        }
+                        //else
+                        //{
+                        //    wd.ImportImage.Source = Helper.GetProductImageSource("null.jpg");
+                        //}
+                    }
+                });
+
+            OpenImportFoodCommand = new RelayCommand<object>((p) => { return true; },
+                (p) =>
+                {
+                    ImportFoodWindow wd = new ImportFoodWindow();
+                    LoadImportFoodWindow(wd);
+                    wd.ShowDialog();
+                });
+            ImportFoodCommand = new RelayCommand<Window>((p) => { return true; },
+                (p) =>
+                {
+                    ProductDTO a = new ProductDTO();
+                    a = SelectedProduct;
+                    ImportFood(p);
+                });
+
             OpenAddFoodCommand = new RelayCommand<object>((p) => { return true; },
                 (p) =>
                 {
@@ -149,6 +202,15 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     LoadEditFood(wd);
                     Image = SelectedItem.Image;
                     Id = SelectedItem.Id;
+                    string x = SelectedItem.Category;
+                    if (x == "Đồ ăn")
+                    {
+                        wd._category.Text = SelectedItem.Category;
+                    }
+                    else
+                    {
+                        wd._category.Text = "Thức uống";
+                    }
                     wd.ShowDialog();
 
                 });
@@ -228,6 +290,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
             _image.UriSource = new Uri(filepath, UriKind.RelativeOrAbsolute);
             _image.EndInit();
+
             ImageSource = _image;
         }
 
@@ -272,6 +335,19 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     var productFound = FoodList.FirstOrDefault(s => s.Id == product.Id);
                     FoodList[FoodList.IndexOf(productFound)] = product;
                     break;
+                case Operation.UPDATE_PROD_QUANTITY:
+                    var productFounded = FoodList.FirstOrDefault(s => s.Id == SelectedProduct.Id);
+                    ProductDTO updatedProd = new ProductDTO()
+                    {
+                        Id = productFounded.Id,
+                        DisplayName = productFounded.DisplayName,
+                        Category = productFounded.Category,
+                        Quantity = productFounded.Quantity + Quantity,
+                        Image = productFounded.Image,
+                        Price = productFounded.Price,
+                    };
+                    FoodList[FoodList.IndexOf(productFounded)].Quantity += Quantity;
+                    break;
                 case Operation.DELETE:
                     for (int i = 0; i < FoodList.Count; i++)
                     {
@@ -294,6 +370,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             DisplayName = "";
             ImageSource = null;
+            Price = 0;
         }
         Window GetWindowParent(Window p)
         {

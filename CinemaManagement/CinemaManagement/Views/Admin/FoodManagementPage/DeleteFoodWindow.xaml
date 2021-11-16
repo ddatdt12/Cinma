@@ -12,58 +12,65 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="Transparent"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource FoodManagementVM}"
         WindowStyle="None"
         WindowStartupLocation="CenterOwner"
+        AllowsTransparency="True"
         Name="DeleteFoodWd"
         ResizeMode="NoResize"
-        Title="DeleteFoodWindow" Height="200" Width="350">
+        Title="DeleteFoodWindow"
+        Height="200"
+        Width="350">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
                                    CommandParameter="{Binding ElementName=DeleteFoodWd}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <materialDesign:Card>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition Height="40" />
-            </Grid.RowDefinitions>
-            <TextBlock VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Text="Bạn thực sự muốn xóa?"
-                       Margin="0 20 0 0"
-                       FontSize="20" />
-            <Grid Grid.Row="1">
-                <Grid.Resources>
-                    <Style TargetType="Button"
-                           BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
-                        <Setter Property="VerticalAlignment"
-                                Value="Bottom" />
-                        <Setter Property="HorizontalAlignment"
-                                Value="Right" />
-                        <Setter Property="Width"
-                                Value="85" />
-                        <Setter Property="Height"
-                                Value="30" />
-                        <Setter Property="FontSize"
-                                Value="12" />
-                    </Style>
-                </Grid.Resources>
-                <Button Content="Xác nhận"
-                        Margin="0 0 110 10"
-                        Command="{Binding DeleteFoodCommand}"
-                        CommandParameter="{Binding ElementName=DeleteFoodWd}"
-                        Background="#0c70b6" />
-                <Button Content="Hủy"
-                        Margin="0 0 10 10"
-                        Command="{Binding CloseCommand}"
-                        CommandParameter="{Binding ElementName=DeleteFoodWd}"
-                        Background="OrangeRed" />
+    <Border BorderBrush="#18ffff"
+            BorderThickness="2"
+            CornerRadius="10">
+        <materialDesign:Card UniformCornerRadius="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <TextBlock VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Text="Bạn thực sự muốn xóa?"
+                           Margin="0 20 0 0"
+                           FontSize="20" />
+                <Grid Grid.Row="1">
+                    <Grid.Resources>
+                        <Style TargetType="Button"
+                               BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+                            <Setter Property="VerticalAlignment"
+                                    Value="Bottom" />
+                            <Setter Property="HorizontalAlignment"
+                                    Value="Right" />
+                            <Setter Property="Width"
+                                    Value="85" />
+                            <Setter Property="Height"
+                                    Value="30" />
+                            <Setter Property="FontSize"
+                                    Value="12" />
+                        </Style>
+                    </Grid.Resources>
+                    <Button Content="Xác nhận"
+                            Margin="0 0 110 10"
+                            Command="{Binding DeleteFoodCommand}"
+                            CommandParameter="{Binding ElementName=DeleteFoodWd}"
+                            Background="#0c70b6" />
+                    <Button Content="Hủy"
+                            Margin="0 0 10 10"
+                            Command="{Binding CloseCommand}"
+                            CommandParameter="{Binding ElementName=DeleteFoodWd}"
+                            Background="OrangeRed" />
+                </Grid>
             </Grid>
-        </Grid>
-    </materialDesign:Card>
+        </materialDesign:Card>
+    </Border>
 </Window>
