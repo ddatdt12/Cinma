@@ -13,12 +13,11 @@ namespace CinemaManagement.DTOs
         }
         public string Id { get; set; }
         public int ProductId { get; set; }
+        public string ProductName { get; set; }
         public decimal ImportPrice { get; set; }
         public int Quantity { get; set; }
         public string StaffId { get; set; }
         public string StaffName{ get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
-
-        public ProductDTO Product { get; set; }
     }
 }
