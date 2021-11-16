@@ -69,7 +69,7 @@ namespace CinemaManagement.DTOs
         public decimal OriginalTotalPrice { get => TotalPrice - DiscountPrice; }
         public decimal TotalPrice { get; set; }
         public decimal DiscountPrice { get; set; }
-        public DateTime CreatedAt { get; set; }
+
         //Use 2 list when show details Bill
         public List<ProductBillInfoDTO> ProductBillInfoes { get; set; }
         public TicketBillInfoDTO TicketInfo { get; set; }

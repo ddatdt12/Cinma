@@ -38,12 +38,6 @@ namespace CinemaManagement.DTOs
                 return _SeatInfo;
             }
         }
-
-        public string RoomName
-        {
-            get { return $"0{roomId}"; }
-        }
-
         public int roomId;
 
         public decimal TotalPriceTicket;
