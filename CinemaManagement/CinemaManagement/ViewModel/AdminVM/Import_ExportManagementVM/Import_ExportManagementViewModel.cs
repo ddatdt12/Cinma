@@ -109,8 +109,8 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             {
                 if (SelectedTicketBill != null)
                 {
-                    ExportDetail w = new ExportDetail();
-                    w.ShowDialog();
+                    //ExportDetail w = new ExportDetail();
+                    //w.ShowDialog();
                 }
             });
         }
@@ -144,7 +144,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                                 {
 
                                     ws.Cells[i2, 1] = item.Id;
-                                    ws.Cells[i2, 2] = item.Product.DisplayName;
+                                    ws.Cells[i2, 2] = item.ProductName;
                                     ws.Cells[i2, 3] = item.Quantity;
                                     ws.Cells[i2, 4] = item.ImportPrice;
                                     ws.Cells[i2, 5] = item.StaffName;

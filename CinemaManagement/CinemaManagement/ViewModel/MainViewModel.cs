@@ -194,26 +194,30 @@ namespace CinemaManagement.ViewModel
 
                 #region ProductReceipt (Nhập hàng và hóa đơn nhập sản phẩm)
 
-                //List<ProductDTO> productDTOs = ProductService.Ins.GetAllProduct();
+                List<ProductDTO> productDTOs = ProductService.Ins.GetAllProduct();
                 //(bool createSuccess, string messageFromCreate, ProductReceiptDTO newReceipt) = ProductReceiptService.Ins.CreateProductReceipt(new ProductReceiptDTO
                 //{
-                //    ProductId = productDTOs[5].Id,
-                //    ImportPrice = 700000,
-                //    Quantity = 20
+                //    ProductId = productDTOs[3].Id,
+                //    ImportPrice = 300000,
+                //    Quantity = 20,
+                //    StaffId ="NV002",
                 //});
                 //ProductReceiptService.Ins.CreateProductReceipt(new ProductReceiptDTO
                 //{
-                //    ProductId = productDTOs[6].Id,
-                //    ImportPrice = 950000,
-                //    Quantity = 40
+                //    ProductId = productDTOs[5].Id,
+                //    ImportPrice = 250000,
+                //    Quantity = 10,
+                //    StaffId = "NV002",
                 //});
-                //List<ProductReceiptDTO> productReceipts = ProductReceiptService.Ins.GetProductReceipt();
-                //productDTOs = ProductService.Ins.GetAllProduct();
+                List<ProductReceiptDTO> productReceipts = ProductReceiptService.Ins.GetProductReceipt();
+                productDTOs = ProductService.Ins.GetAllProduct();
 
                 #endregion
                 List<MovieDTO> ListMovieDtosOnDay = MovieService.Ins.GetShowingMovieByDay(DateTime.Today);
 
-                //var showtime = ListMovieDtosOnDay[0].Shokwtimes[0];
+
+                //var showtime = ListMovieDtosOnDay[0].Showtimes[0];
+
                 #region Chỉ dành cho đặt vé
 
                 //Khách hàng thành viên
