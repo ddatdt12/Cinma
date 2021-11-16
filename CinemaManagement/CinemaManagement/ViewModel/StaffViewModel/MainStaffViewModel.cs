@@ -155,7 +155,7 @@ namespace CinemaManagement.ViewModel
                 {
                     w = new MovieScheduleWindow();
                     w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
-                    w.imgframe.Source = Helper.GetImageSource(SelectedItem.Image);
+                    w.imgframe.Source = Helper.GetMovieImageSource(SelectedItem.Image);
                     w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
                     w.txtframe.Text = SelectedItem.DisplayName;
                     MovieScheduleWindowViewModel.tempFilebinding = SelectedItem;

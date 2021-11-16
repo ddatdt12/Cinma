@@ -33,7 +33,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     productReceipt.ProductId = SelectedProduct.Id;
                     productReceipt.ImportPrice = Price;
                     productReceipt.Quantity = Quantity;
-                    productReceipt.StaffId = 1;
+                    productReceipt.StaffId = "1";
 
                     (bool successAddProductReceipt, string messageFromAddProductReceipt) = ProductReceiptService.Ins.CreateProductReceipt(productReceipt);
 
