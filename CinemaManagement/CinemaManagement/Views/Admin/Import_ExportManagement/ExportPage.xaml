@@ -42,7 +42,7 @@
                               Width="100"
                               Margin="10 0 0 0"
                               Padding="0,10,10,0"
-                              FontSize="13"
+                              FontSize="14.2"
                               SelectedIndex="0"
                               x:Name="cbbFilter"
                               SelectionChanged="ComboBox_SelectionChanged">
@@ -54,8 +54,8 @@
                               Width="100"
                               Margin="10 0 0 0"
                               Padding="0,10,10,0"
-                              FontSize="13"
-                              SelectedIndex="0"
+                              FontSize="14"
+                              SelectedIndex="{Binding SelectedIndexFilter,Mode=TwoWay}"
                               SelectionChanged="ComboBox_SelectionChanged_1">
                         <ComboBoxItem Content="Toàn bộ" />
                         <ComboBoxItem Content="Theo ngày" />
@@ -63,11 +63,12 @@
                     </ComboBox>
                     <ComboBox Height="30"
                               Width="100"
+                              FontSize="15"
                               Margin="10 0 0 0"
                               Padding="0,10,10,0"
                               Visibility="Collapsed"
                               x:Name="cbbmonth"
-                              SelectedIndex="0">
+                              SelectedIndex="{Binding SelectedMonth,Mode=TwoWay}">
                         <ComboBoxItem Content="Tháng 1" />
                         <ComboBoxItem Content="Tháng 2" />
                         <ComboBoxItem Content="Tháng 3" />
@@ -83,11 +84,12 @@
                     </ComboBox>
                     <DatePicker Height="30"
                                 Width="130"
-                                FontSize="13"
+                                FontSize="15"
                                 Margin="10 0 0 0"
                                 Padding="0,10,10,0"
-                                Visibility="Collapsed"
-                                x:Name="timepicker">
+                                Visibility="Visible"
+                                x:Name="timepicker"
+                                SelectedDate="{Binding SelectedDate,Mode=TwoWay}">
                     </DatePicker>
                 </StackPanel>
                 <StackPanel Grid.Column="1"
@@ -110,30 +112,31 @@
                    ItemsSource="{Binding ListBill}"
                    Grid.Row="1"
                    SelectedItem="{Binding SelectedTicketBill}">
-            
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding LoadInforBillCM}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            
+
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Mã đơn"
                                     Width="130">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding Country}"
+                                <TextBlock  Text="{Binding Id}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Ngày xuất"
-                                    Width="160">
+                                    Width="220">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding  MovieType}"
+                                <TextBlock  Text="{Binding CreatedAt,
+StringFormat=dd/MM/yyyy HH:mm:ss}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -143,7 +146,7 @@
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding  DisplayName}"
+                                <TextBlock  Text="{Binding CustomerName}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -152,26 +155,18 @@
                     <GridViewColumn Header="Số điện thoại">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding  Image}"
+                                <TextBlock  Text="{Binding PhoneNumber}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Số lượng vé">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding  Image}"
-                                            FontSize="18"
-                                            Margin="50,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+
                     <GridViewColumn Header="Tổng giá"
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding  Director}"
+                                <TextBlock  Text="{Binding OriginalTotalPrice}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -181,7 +176,7 @@
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding  Director}"
+                                <TextBlock  Text="{Binding DiscountPrice}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -191,7 +186,7 @@
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding  Director}"
+                                <TextBlock  Text="{Binding TotalPrice}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>

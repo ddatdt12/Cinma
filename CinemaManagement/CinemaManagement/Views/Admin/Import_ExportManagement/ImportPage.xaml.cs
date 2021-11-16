@@ -11,8 +11,10 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
         public ImportPage()
         {
             InitializeComponent();
+
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(_ListView.ItemsSource);
             view.Filter = Filter;
+
         }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
