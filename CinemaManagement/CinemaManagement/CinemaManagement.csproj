@@ -608,14 +608,7 @@
     <Resource Include="Resources\FoodLayout\Food\Snack\Poca.jpg" />
     <Resource Include="Resources\FoodLayout\Food\Snack\Slide.jpg" />
     <Resource Include="Resources\FoodLayout\Food\Snack\Tonies.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Burger.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Drink.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Food.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Hotdog.jpg" />
     <Resource Include="Resources\FoodLayout\Icon\Money.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Pizza.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Popcorn.jpg" />
-    <Resource Include="Resources\FoodLayout\Icon\Snack.jpg" />
     <Resource Include="Resources\Images\Movies\null.jpg" />
     <Resource Include="Resources\IconPack\pencil.png" />
     <Resource Include="Resources\ImageStaff\pencil.png" />
