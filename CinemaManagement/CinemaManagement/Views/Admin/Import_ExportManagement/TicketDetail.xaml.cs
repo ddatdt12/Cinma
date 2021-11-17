@@ -6,15 +6,14 @@ using System.Windows.Media;
 namespace CinemaManagement.Views.Admin.Import_ExportManagement
 {
     /// <summary>
-    /// Interaction logic for ExportDetail.xaml
+    /// Interaction logic for TicketDetail.xaml
     /// </summary>
-    public partial class ExportDetail : Window
+    public partial class TicketDetail : Window
     {
-        public ExportDetail()
+        public TicketDetail()
         {
             InitializeComponent();
         }
-
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();

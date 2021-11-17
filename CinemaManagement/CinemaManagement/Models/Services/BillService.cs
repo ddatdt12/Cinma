@@ -160,26 +160,30 @@ namespace CinemaManagement.Models.Services
                 
 
                 var tickets = bill.Tickets;
-                var showtime = tickets.FirstOrDefault().Showtime;
-                int roomId = 0;
-                List<string> seatList = new List<string>();
-                foreach (var t in tickets)
+                if (tickets.Count != 0)
                 {
-                    if (roomId == 0)
+                    var showtime = tickets.FirstOrDefault().Showtime;
+                    int roomId = 0;
+                    List<string> seatList = new List<string>();
+                    foreach (var t in tickets)
                     {
-                        roomId = t.Seat.RoomId;
+                        if (roomId == 0)
+                        {
+                            roomId = t.Seat.RoomId;
+                        }
+                        seatList.Add($"{t.Seat.Row}{t.Seat.SeatNumber}");
                     }
-                    seatList.Add($"{t.Seat.Row}{t.Seat.SeatNumber}");
+                    billInfo.TicketInfo = new TicketBillInfoDTO()
+                    {
+                        roomId = roomId,
+                        movieName = showtime.Movie.DisplayName,
+                        ShowDate = showtime.ShowtimeSetting.ShowDate,
+                        StartShowTime = showtime.StartTime,
+                        TotalPriceTicket = tickets.Count() * showtime.TicketPrice,
+                        seats = seatList,
+                    };
                 }
-
-                billInfo.TicketInfo = new TicketBillInfoDTO() {
-                    roomId = roomId,
-                    movieName = showtime.Movie.DisplayName,
-                    ShowDate = showtime.ShowtimeSetting.ShowDate,
-                    StartShowTime = showtime.StartTime,
-                    TotalPriceTicket = tickets.Count() * showtime.TicketPrice,
-                    seats = seatList,
-                };
+              
                 return billInfo;
             }
             catch (Exception e)

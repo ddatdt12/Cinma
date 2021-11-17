@@ -35,20 +35,7 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
             if (tb.Text.Length == 0)
                 tb.Text = "0";
         }
-        private void Button_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Button btn = sender as Button;
-
-            btn.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFA5B9D6");
-        }
-
-        private void Button_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Button btn = sender as Button;
-
-            btn.Background = new SolidColorBrush(Colors.Transparent);
-        }
-
+       
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
@@ -62,10 +49,6 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
             btn.Background = new SolidColorBrush(Colors.Transparent);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();

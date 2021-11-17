@@ -48,7 +48,6 @@
                 </Button>
 
                 <DatePicker x:Name="Calendar"
-                            materialDesign:HintAssist.Hint="{Binding SetCurrentDate}"
                             Style="{StaticResource MaterialDesignOutlinedDatePicker}"
                             FirstDayOfWeek="Monday"
                             Foreground="Black"
@@ -60,7 +59,7 @@
                             Padding="10,0,20,0"
                             materialDesign:ValidationAssist.Background="#f0f2f5"
                             materialDesign:ValidationAssist.FontSize="0.01"
-                            SelectedDate="{Binding SelectedDate,Mode=OneWayToSource}" />
+                            SelectedDate="{Binding SelectedDate,Mode=TwoWay}" />
 
             </StackPanel>
 
@@ -213,8 +212,9 @@
                                                         <i:InvokeCommandAction Command="{Binding ElementName=ShowtimeListview, Path=DataContext.LoadInfor_EditShowtime}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
-                                                <Image Height="30" Width="30"
-                                                    Source="/Resources/IconPack/pencil.png" />
+                                                <Image Height="30"
+                                                       Width="30"
+                                                       Source="/Resources/IconPack/pencil.png" />
                                             </StackPanel>
 
 

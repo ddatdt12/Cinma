@@ -49,18 +49,7 @@
                                         VerticalAlignment="Top"
                                         HorizontalAlignment="Right"
                                         Grid.Row="0">
-                                <Button Click="Button_Click"
-                                        ToolBar.OverflowMode="AsNeeded"
-                                        Margin="0,0,5,0"
-                                        BorderThickness="0"
-                                        Background="Transparent"
-                                        Foreground="Black"
-                                        BorderBrush="Transparent"
-                                        MouseEnter="Button_MouseEnter"
-                                        MouseLeave="Button_MouseLeave">
-                                    <materialDesign:PackIcon Kind="WindowMinimize" />
-                                </Button>
-
+                              
                                 <Button Click="Button_Click_1"
                                         ToolBar.OverflowMode="AsNeeded"
                                         Background="Transparent"

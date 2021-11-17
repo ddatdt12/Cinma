@@ -336,6 +336,12 @@
     <Compile Include="Views\Admin\Import_ExportManagement\Import_Export.xaml.cs">
       <DependentUpon>Import_Export.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\Import_ExportManagement\ProductDetail.xaml.cs">
+      <DependentUpon>ProductDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\Import_ExportManagement\TicketDetail.xaml.cs">
+      <DependentUpon>TicketDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\MainAdminWindow.xaml.cs">
       <DependentUpon>MainAdminWindow.xaml</DependentUpon>
     </Compile>
@@ -426,6 +432,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\Import_ExportManagement\Import_Export.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Import_ExportManagement\ProductDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\Import_ExportManagement\TicketDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

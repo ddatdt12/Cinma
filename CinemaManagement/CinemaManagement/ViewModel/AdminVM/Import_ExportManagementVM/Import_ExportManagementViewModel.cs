@@ -3,7 +3,6 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Views.Admin.Import_ExportManagement;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -93,7 +92,6 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             SelectedDate = GetCurrentDate;
             SelectedIndexFilter = 1;
             SelectedMonth = 0;
-
             LoadImportPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 SelectedView = 0;
@@ -117,10 +115,46 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             {
                 if (SelectedTicketBill != null)
                 {
-                    ExportDetail w = new ExportDetail();
-                    BillDetail = BillService.Ins.GetBillDetails(SelectedTicketBill.Id);
-                    LoadBillDetailData(w);
-                    w.ShowDialog();
+                    try
+                    {
+                        BillDetail = BillService.Ins.GetBillDetails(SelectedTicketBill.Id);
+                    }
+                    catch (Exception e)
+                    {
+
+                        throw e;
+                    }
+
+                    if (BillDetail.TicketInfo is null)
+                    {
+                        ProductDetail w = new ProductDetail();
+                        decimal sum = 0;
+                        foreach (var item in BillDetail.ProductBillInfoes)
+                        {
+                            sum += item.Quantity * item.PricePerItem;
+                        }
+                        w._totalproduct.Content = sum;
+                        w.ShowDialog();
+                    }
+                    else if (BillDetail.ProductBillInfoes.Count == 0)
+                    {
+                        TicketDetail w = new TicketDetail();
+                        w._moviename.Content = BillDetail.TicketInfo.movieName;
+                        w._price.Content = (BillDetail.TicketInfo.TotalPriceTicket / BillDetail.TicketInfo.seats.Count).ToString();
+                        w._time.Content = BillDetail.CreatedAt.ToString("dd/MM/yyyy HH:mm");
+                        w._totalticket.Content = BillDetail.TicketInfo.TotalPriceTicket;
+                        w.ShowDialog();
+
+                    }
+                    else if (BillDetail.TicketInfo != null && BillDetail.ProductBillInfoes.Count != 0)
+                    {
+                        ExportDetail w = new ExportDetail();
+                        w._moviename.Content = BillDetail.TicketInfo.movieName;
+                        w._price.Content = (BillDetail.TicketInfo.TotalPriceTicket / BillDetail.TicketInfo.seats.Count).ToString();
+                        w._time.Content = BillDetail.CreatedAt.ToString("dd/MM/yyyy HH:mm");
+                        w._totalticket.Content = BillDetail.TicketInfo.TotalPriceTicket;
+                        w.ShowDialog();
+                    }
                 }
             });
         }
