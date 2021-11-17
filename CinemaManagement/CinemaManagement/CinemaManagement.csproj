@@ -320,6 +320,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
     <Compile Include="Views\Admin\Import_ExportManagement\ExportPage.xaml.cs">
       <DependentUpon>ExportPage.xaml</DependentUpon>
@@ -387,6 +388,9 @@
     </Compile>
     <Compile Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml.cs">
       <DependentUpon>MovieScheduleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml.cs">
+      <DependentUpon>FoodWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\TicketWindow\TicketWindow.xaml.cs">
       <DependentUpon>TicketWindow.xaml</DependentUpon>
@@ -495,6 +499,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Staff\TicketWindow\TicketWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -575,6 +583,39 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\FoodLayout\Food\Burger\Beef.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Cheese.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Chicken.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Coca Cola.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Espresso Coffee.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Milk Tea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Peach Tea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Pepsi.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Boerie Rolls.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Choripan.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Completo.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Bulgogi.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Lamacun.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Langos.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Sfiha.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Tarte Flambee.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Butter Milk.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Caramel.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Healthy.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Salty Butter.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\French Fries.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Ostar.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Poca.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Slide.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Tonies.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Burger.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Drink.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Food.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Hotdog.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Money.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Pizza.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Popcorn.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Snack.jpg" />
     <Resource Include="Resources\Images\Movies\null.jpg" />
     <Resource Include="Resources\IconPack\pencil.png" />
     <Resource Include="Resources\ImageStaff\pencil.png" />
