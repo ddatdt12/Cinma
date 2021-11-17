@@ -105,7 +105,7 @@
                                       x:Name="_category"
                                       SelectedItem="{Binding Category, Mode=TwoWay}">
                                 <ComboBoxItem Content="Đồ ăn" />
-                                <ComboBoxItem Content="Thức uống" />
+                                <ComboBoxItem Content="Nước uống" />
                             </ComboBox>
                         </Grid>
                         <Grid Grid.Row="3">

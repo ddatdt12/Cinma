@@ -137,6 +137,24 @@
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="MovieRoll"
+                                                             Height="30"
+                                                             Width="30"
+                                                             Margin="10,0,0,0"
+                                                             VerticalAlignment="Center" />
+                                    <Button Margin="0,0,0,5"
+                                            Content="Quản lý sản phẩm"
+                                            Height="50"
+                                            FontSize="25"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Width="240"
+                                            Command="{Binding LoadFoodPageCM}"
+                                            CommandParameter="{Binding ElementName=MainFrame}" />
+                                </StackPanel>
+                                
+                                <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="AccountGroupOutline"
                                                              Width="30"
                                                              Height="30"

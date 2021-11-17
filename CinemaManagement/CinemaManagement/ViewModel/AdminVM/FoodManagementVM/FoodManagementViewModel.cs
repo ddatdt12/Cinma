@@ -74,6 +74,14 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             get { return _Quantity; }
             set { _Quantity = value; OnPropertyChanged(); }
         }
+
+        private string _FilterName;
+        public string FilterName
+        {
+            get { return _FilterName; }
+            set { _FilterName = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         string filepath;
@@ -96,6 +104,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             }
         }
 
+        public ICommand FilterTboxFoodCommand { get; set; }
+        public ICommand FilterCboxFoodCommand { get; set; }
         public ICommand ImportFoodChangeCommand { get; set; }
 
         public ICommand OpenImportFoodCommand { get; set; }
@@ -113,7 +123,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ICommand MouseMoveCommand { get; set; }
         public ICommand CloseCommand { get; set; }
 
-
         //
         private ProductDTO _SelectedItem;
         public ProductDTO SelectedItem
@@ -129,7 +138,9 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ProductDTO SelectedProduct
         {
             get { return _SelectedProduct; }
-            set { _SelectedProduct = value;
+            set
+            {
+                _SelectedProduct = value;
                 OnPropertyChanged();
             }
         }
@@ -138,7 +149,86 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
 
             LoadProductListView(Operation.READ);
+            FilterName = "";
             IsImageChanged = false;
+            FilterTboxFoodCommand = new RelayCommand<System.Windows.Controls.TextBox>((p) => { return true; },
+                (p) =>
+                {
+                    ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
+                    tempList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
+                    FoodList.Clear();
+                    string temp = p.Text.ToLower();
+                    if (Category.Content.ToString() == "Tất cả")
+                    {
+                        for (int i = 0; i < tempList.Count; i++)
+                        {
+                            if (tempList[i].DisplayName.ToLower().Contains(temp))
+                            {
+                                FoodList.Add(tempList[i]);
+                            }
+                        }
+                    }
+                    else if (Category.Content.ToString() == "Đồ ăn")
+                    {
+                        for (int i = 0; i < tempList.Count; i++)
+                        {
+                            if (tempList[i].Category == "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
+                            {
+                                FoodList.Add(tempList[i]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < tempList.Count; i++)
+                        {
+                            if (tempList[i].Category != "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
+                            {
+                                FoodList.Add(tempList[i]);
+                            }
+                        }
+                    }
+                });
+
+            FilterCboxFoodCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; },
+                (p) =>
+                {
+                    ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
+                    tempList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
+                    FoodList.Clear();
+                    string temp = FilterName.ToLower();
+                    if (Category.Content.ToString() == "Tất cả")
+                    {
+                        for (int i = 0; i < tempList.Count; i++)
+                        {
+                            if (tempList[i].DisplayName.ToLower().Contains(temp))
+                            {
+                                FoodList.Add(tempList[i]);
+                            }
+                        }
+                    }
+                    else if (Category.Content.ToString() == "Đồ ăn")
+                    {
+                        for (int i = 0; i < tempList.Count; i++)
+                        {
+                            if (tempList[i].Category == "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
+                            {
+                                FoodList.Add(tempList[i]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < tempList.Count; i++)
+                        {
+                            if (tempList[i].Category != "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
+                            {
+                                FoodList.Add(tempList[i]);
+                            }
+                        }
+                    }
+                });
+
             ImportFoodChangeCommand = new RelayCommand<object>((p) => { return true; },
                 (p) =>
                 {
@@ -198,19 +288,25 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; },
                 (p) =>
                 {
+
+                    oldFoodName = DisplayName;
                     EditFoodWindow wd = new EditFoodWindow();
                     LoadEditFood(wd);
-                    Image = SelectedItem.Image;
-                    Id = SelectedItem.Id;
-                    string x = SelectedItem.Category;
-                    if (x == "Đồ ăn")
+
+                    if (SelectedItem != null)
                     {
-                        wd._category.Text = SelectedItem.Category;
+                        string tempCategory = SelectedItem.Category;
+                        if (tempCategory == "Đồ ăn")
+                        {
+                            wd._category.Text = SelectedItem.Category;
+                        }
+                        else
+                        {
+                            wd._category.Text = "Nước uống";
+                        }
+
                     }
-                    else
-                    {
-                        wd._category.Text = "Thức uống";
-                    }
+
                     wd.ShowDialog();
 
                 });
@@ -218,7 +314,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             EditFoodCommand = new RelayCommand<Window>((p) => { return true; },
                 (p) =>
                 {
-
                     EditFood(p);
                 });
 
@@ -298,10 +393,19 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             try
             {
-                appPath = Helper.GetProductImgPath(imgfullname);
+                string temp_name = imgfullname.Split('.')[0] + "temp";
+                string temp_ex = imgfullname.Split('.')[1];
+                string temp_fullname = Helper.CreateImageFullName(temp_name, temp_ex);
+
+                appPath = Helper.GetProductImgPath(temp_fullname);
+                File.Copy(filepath, appPath, true);
                 if (File.Exists(Helper.GetProductImgPath(imgfullname)))
                     File.Delete(Helper.GetProductImgPath(imgfullname));
+                appPath = Helper.GetProductImgPath(imgfullname);
+                filepath = Helper.GetProductImgPath(temp_fullname);
                 File.Copy(filepath, appPath, true);
+                if (File.Exists(Helper.GetProductImgPath(temp_fullname)))
+                    File.Delete(Helper.GetProductImgPath(temp_fullname));
             }
             catch (Exception exp)
             {
@@ -346,7 +450,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                         Image = productFounded.Image,
                         Price = productFounded.Price,
                     };
-                    FoodList[FoodList.IndexOf(productFounded)].Quantity += Quantity;
+                    FoodList[FoodList.IndexOf(productFounded)] = updatedProd;
                     break;
                 case Operation.DELETE:
                     for (int i = 0; i < FoodList.Count; i++)

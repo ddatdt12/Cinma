@@ -33,14 +33,13 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     productReceipt.ProductId = SelectedProduct.Id;
                     productReceipt.ImportPrice = Price;
                     productReceipt.Quantity = Quantity;
-                    productReceipt.StaffId = "1";
+                    productReceipt.StaffId = "NV002";
 
-                    (bool successAddProductReceipt, string messageFromAddProductReceipt) = ProductReceiptService.Ins.CreateProductReceipt(productReceipt);
+                    (bool successAddProductReceipt, string messageFromAddProductReceipt, ProductReceiptDTO newProductReceipt) = ProductReceiptService.Ins.CreateProductReceipt(productReceipt);
 
                     if (successAddProductReceipt)
                     {
-                        ProductDTO productDTO = new ProductDTO();
-                        LoadProductListView(Operation.UPDATE_PROD_QUANTITY, productDTO);
+                        LoadProductListView(Operation.UPDATE_PROD_QUANTITY);
                         p.Close();
                     }
                     MessageBox.Show(messageFromAddProductReceipt);

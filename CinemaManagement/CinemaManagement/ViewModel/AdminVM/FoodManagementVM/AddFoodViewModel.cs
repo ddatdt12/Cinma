@@ -24,21 +24,19 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.Category = Category.Content.ToString();
                 product.Price = Price;
                 product.Image = imgfullname;
+                product.Quantity = 0;
+                
 
                 (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = ProductService.Ins.AddNewProduct(product);
 
                 if (successAddProduct)
                 {
                     IsAddingProduct = false;
-                    MessageBox.Show(messageFromAddProduct);
                     SaveImgToApp();
                     LoadProductListView(Operation.CREATE, newProduct);
                     p.Close();
                 }
-                else
-                {
-                    MessageBox.Show(messageFromAddProduct);
-                }
+                MessageBox.Show(messageFromAddProduct);
             }
             else
                 MessageBox.Show("Vui lòng nhập đủ thông tin");

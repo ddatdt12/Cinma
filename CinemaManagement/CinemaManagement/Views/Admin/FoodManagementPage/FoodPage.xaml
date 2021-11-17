@@ -28,16 +28,37 @@
         <!--#region Thêm đồ ăn-->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width="900"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0"
-                        Orientation="Vertical">
-                <Border Grid.Row="1"
-                        BorderBrush="Black"
+                        Orientation="Horizontal"
+                        Margin="0 0 40 0">
+                <TextBox materialDesign:HintAssist.Hint="Tìm kiếm"
+                         FontSize="25"
+                         Foreground="#DD000000"
+                         FontFamily="Arial"
+                         AllowDrop="True"
+                         BorderThickness="0,0,0,1"
+                         Width="500"
+                         Height="30"
+                         Padding="0"
+                         Margin="30,0,0,0"
+                         x:Name="SearchBox"
+                         VerticalAlignment="Center"
+                         Text="{Binding FilterName, Mode=TwoWay}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding FilterTboxFoodCommand}"
+                                                   CommandParameter="{Binding ElementName=SearchBox}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Border BorderBrush="Black"
                         BorderThickness="2"
-                        Margin="40,30,0,0"
-                        HorizontalAlignment="Left">
+                        Margin="150,10,0,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
                     <ComboBox FontSize="20"
                               Margin="5"
                               Width="150"
@@ -45,10 +66,17 @@
                               VerticalContentAlignment="Center"
                               HorizontalAlignment="Center"
                               HorizontalContentAlignment="Center"
-                              materialDesign:ComboBoxAssist.ClassicMode="True">
+                              materialDesign:ComboBoxAssist.ClassicMode="True"
+                              SelectedItem="{Binding Category}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding FilterCboxFoodCommand}"
+                                                       CommandParameter="{Binding ElementName=cboxFilter}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem Content="Tất cả" />
                         <ComboBoxItem Content="Đồ ăn" />
-                        <ComboBoxItem Content="Thức uống" />
+                        <ComboBoxItem Content="Nước uống" />
                     </ComboBox>
                 </Border>
             </StackPanel>
@@ -110,7 +138,7 @@
                 <Label Tag="/Resources/Images/ImageFood/adding.png"
                        Content="Nhập sản phẩm"
                        Template="{StaticResource Add-edit}"
-                       Margin="100 0 0 0">
+                       Margin="80 0 0 0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
                             <i:InvokeCommandAction Command="{Binding OpenImportFoodCommand}" />
