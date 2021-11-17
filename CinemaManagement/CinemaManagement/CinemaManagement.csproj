@@ -568,8 +568,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Resources\Images\Products\banh_choros.svg-removebg-preview" />
-    <None Include="Resources\Images\Products\com_nguoi.o" />
     <Resource Include="Font\GoogleSans-Regular.otf" />
     <Resource Include="Font\Ubuntu-Bold.ttf" />
     <EntityDeploy Include="Models\CinemaManagementModel.edmx">
@@ -629,10 +627,7 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\Images\Products\muc_tron_bo.png" />
-    <Resource Include="Resources\Images\Products\com_nguoi.png" />
     <Resource Include="Resources\Images\Products\null.jpg" />
-    <Resource Include="Resources\Images\Products\qwereqw.png" />
     <Resource Include="Resources\Images\ImageStaff\add-user.png" />
     <Resource Include="Resources\Images\ImageStaff\delete.png" />
     <Resource Include="Resources\Images\ImageStaff\pencil.png" />
