@@ -137,7 +137,7 @@
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="MovieRoll"
+                                    <materialDesign:PackIcon Kind="Food"
                                                              Height="30"
                                                              Width="30"
                                                              Margin="10,0,0,0"

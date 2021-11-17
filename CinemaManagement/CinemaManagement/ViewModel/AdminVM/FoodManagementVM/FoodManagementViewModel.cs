@@ -393,19 +393,30 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             try
             {
-                string temp_name = imgfullname.Split('.')[0] + "temp";
-                string temp_ex = imgfullname.Split('.')[1];
-                string temp_fullname = Helper.CreateImageFullName(temp_name, temp_ex);
+                if (imgfullname != Image)
+                {
+                    appPath = Helper.GetProductImgPath(imgfullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetProductImgPath(Image)))
+                        File.Delete(Helper.GetProductImgPath(Image));
+                }
+                else
+                {
+                    string temp_name = imgfullname.Split('.')[0] + "temp";
+                    string temp_ex = imgfullname.Split('.')[1];
+                    string temp_fullname = Helper.CreateImageFullName(temp_name, temp_ex);
 
-                appPath = Helper.GetProductImgPath(temp_fullname);
-                File.Copy(filepath, appPath, true);
-                if (File.Exists(Helper.GetProductImgPath(imgfullname)))
-                    File.Delete(Helper.GetProductImgPath(imgfullname));
-                appPath = Helper.GetProductImgPath(imgfullname);
-                filepath = Helper.GetProductImgPath(temp_fullname);
-                File.Copy(filepath, appPath, true);
-                if (File.Exists(Helper.GetProductImgPath(temp_fullname)))
-                    File.Delete(Helper.GetProductImgPath(temp_fullname));
+                    appPath = Helper.GetProductImgPath(temp_fullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetProductImgPath(imgfullname)))
+                        File.Delete(Helper.GetProductImgPath(imgfullname));
+                    appPath = Helper.GetProductImgPath(imgfullname);
+                    filepath = Helper.GetProductImgPath(temp_fullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetProductImgPath(temp_fullname)))
+                        File.Delete(Helper.GetProductImgPath(temp_fullname));
+                }
+
             }
             catch (Exception exp)
             {
