@@ -381,6 +381,12 @@
     <Compile Include="Views\Admin\ShowtimeManagement\ShowtimeManagement.xaml.cs">
       <DependentUpon>ShowtimeManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\StatisticalManagement\IncomeStatistical.xaml.cs">
+      <DependentUpon>IncomeStatistical.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\StatisticalManagement\RankingStatistical.xaml.cs">
+      <DependentUpon>RankingStatistical.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\StatisticalManagement\StatisticalManagement.xaml.cs">
       <DependentUpon>StatisticalManagement.xaml</DependentUpon>
     </Compile>
@@ -494,6 +500,14 @@
     <Page Include="Views\Admin\ShowtimeManagement\ShowtimeManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Views\Admin\StatisticalManagement\IncomeStatistical.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\StatisticalManagement\RankingStatistical.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\StatisticalManagement\StatisticalManagement.xaml">
       <SubType>Designer</SubType>

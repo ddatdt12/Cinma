@@ -109,7 +109,6 @@
                                             Margin="0,0,64,0"
                                             x:Name="_movieDate"
                                             SelectedDate="{Binding showtimeDate, Mode=TwoWay}"
-                                            Text="{Binding SetCurrentDate}"
                                             materialDesign:HintAssist.IsFloating="False"
                                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
                                             Focusable="False"/>

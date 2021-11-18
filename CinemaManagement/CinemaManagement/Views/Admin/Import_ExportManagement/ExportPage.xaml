@@ -55,7 +55,9 @@
                               Margin="10 0 0 0"
                               Padding="0,10,10,0"
                               FontSize="14"
-                              SelectedIndex="{Binding SelectedIndexFilter,Mode=TwoWay}"
+                              SelectedIndex="1"
+                              x:Name="Filterbox"
+                              SelectedItem="{Binding SelectedItemFilter}"
                               SelectionChanged="ComboBox_SelectionChanged_1">
                         <ComboBoxItem Content="Toàn bộ" />
                         <ComboBoxItem Content="Theo ngày" />
