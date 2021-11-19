@@ -157,6 +157,12 @@
                          x:Name="listBox"
                          SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                          VerticalAlignment="Top">
+                    <ListBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius"
+                                    Value="50" />
+                        </Style>
+                    </ListBox.Resources>
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem"
                                BasedOn="{StaticResource MaterialDesignCardsListBoxItem}">
@@ -169,8 +175,15 @@
                             </Style.Triggers>
                             <Style.Resources>
                                 <Style TargetType="Border">
+                                    <!--<Style.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True">
+                                            <Setter Property="Background"
+                                                    Value="#cfd8dc" />
+                                        </Trigger>
+                                    </Style.Triggers>-->
                                     <Setter Property="CornerRadius"
-                                            Value="6" />
+                                            Value="50" />
                                     <Setter Property="HorizontalAlignment"
                                             Value="Stretch" />
                                     <Setter Property="VerticalAlignment"
@@ -218,11 +231,12 @@
                                         <Grid Grid.Row="0">
                                             <StackPanel Grid.Row="0"
                                                         Orientation="Horizontal">
-                                                <StackPanel Width="205">
+                                                <StackPanel Width="205"
+                                                            Margin="8,7,5,10">
                                                     <Image Source="{Binding ImgSource}"
-                                                           VerticalAlignment="Center"
-                                                           HorizontalAlignment="Center"
-                                                           Margin="8,7,5,10" />
+                                                           Width="205"
+                                                           Height="100"
+                                                           Stretch="Fill" />
                                                 </StackPanel>
                                                 <StackPanel Margin="5,8,0,0">
                                                     <Border BorderBrush="Black"

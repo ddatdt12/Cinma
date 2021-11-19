@@ -71,7 +71,7 @@
                             <TextBlock VerticalAlignment="Center"
                                        Margin="30 0 0 0"
                                        Text="THÊM SẢN PHẨM"
-                                       Foreground="Black"
+                                       Foreground="White"
                                        FontWeight="DemiBold"
                                        FontSize="20" />
                         </StackPanel>
