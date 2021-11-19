@@ -29,11 +29,11 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
             if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)))
             {
-                ImageSource = Helper.GetImageSource(SelectedItem.Image);
+                ImageSource = Helper.GetMovieImageSource(SelectedItem.Image);
             }
             else
             {
-                w1.imageframe.Source = Helper.GetImageSource("null.jpg");
+                w1.imageframe.Source = Helper.GetMovieImageSource("null.jpg");
             }
         }
     }

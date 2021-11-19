@@ -45,7 +45,7 @@ namespace CinemaManagement.Utils
             return $"{imageName}.{ext}";
         }
 
-        public static ImageSource GetImageSource(string imageName)
+        public static ImageSource GetMovieImageSource(string imageName)
         {
             BitmapImage _image = new BitmapImage();
             _image.BeginInit();
@@ -54,6 +54,19 @@ namespace CinemaManagement.Utils
             _image.CacheOption = BitmapCacheOption.OnLoad;
             _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
             _image.UriSource = new Uri(GetMovieImgPath(imageName));
+            _image.EndInit();
+
+            return _image;
+        }
+        public static ImageSource GetProductImageSource(string imageName)
+        {
+            BitmapImage _image = new BitmapImage();
+            _image.BeginInit();
+            _image.CacheOption = BitmapCacheOption.None;
+            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+            _image.CacheOption = BitmapCacheOption.OnLoad;
+            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            _image.UriSource = new Uri(GetProductImgPath(imageName));
             _image.EndInit();
 
             return _image;
@@ -76,14 +89,9 @@ namespace CinemaManagement.Utils
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Admin", $"{filename}" /*SelectedItem.Image*/);
         }
 
-        public static string GetProductImgPath()
+        public static string GetProductImgPath(string imageName)
         {
-            string appPath = Path.GetDirectoryName(Directory.GetParent(Directory.GetCurrentDirectory()).FullName) + "/Resources/Images/Products/";
-            if (Directory.Exists(appPath) == false)
-            {
-                Directory.CreateDirectory(appPath);
-            }
-            return appPath;
+            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Products", $"{imageName}" /*SelectedItem.Image*/);
         }
 
         private static string RemoveUnicode(string text)
