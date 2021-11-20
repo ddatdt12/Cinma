@@ -9,7 +9,25 @@
       mc:Ignorable="d"
       d:DesignHeight="662"
       d:DesignWidth="1440"
+      x:Name="mainPage"
       DataContext="{StaticResource StatisticalManagementVM}">
+
+    <!---FADED-->
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.5" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
 
     <Grid>
         <Grid>
@@ -18,6 +36,7 @@
                 <RowDefinition Height="90*" />
             </Grid.RowDefinitions>
 
+            <!---HEADER-->
             <StackPanel Orientation="Horizontal"
                         Margin="30,0,0,0"
                         Grid.Row="0">
@@ -29,7 +48,8 @@
                               SelectedIndex="0"
                               x:Name="periodbox"
                               SelectionChanged="periodbox_SelectionChanged"
-                              Loaded="periodbox_Loaded">
+                              Loaded="periodbox_Loaded"
+                              SelectedItem="{Binding SelectedIncomePeriod}">
                         <ComboBoxItem>Theo năm</ComboBoxItem>
                         <ComboBoxItem>Theo tháng</ComboBoxItem>
                     </ComboBox>
@@ -39,11 +59,13 @@
                             x:Name="_time">
                     <ComboBox Width="170"
                               FontSize="20"
-                              x:Name="Timebox">
+                              x:Name="Timebox"
+                              SelectedItem="{Binding SelectedIncomeTime,Mode=OneWayToSource}">
                     </ComboBox>
                 </StackPanel>
             </StackPanel>
 
+            <!---MAIN-->
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*" />
@@ -52,54 +74,271 @@
                 <!---Left-->
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="45*" />
-                        <RowDefinition Height="55*" />
+                        <RowDefinition Height="30*" />
+                        <RowDefinition Height="30*" />
+                        <RowDefinition Height="40*" />
                     </Grid.RowDefinitions>
-                    
+
                     <StackPanel Grid.Row="0"
-                                VerticalAlignment="Bottom">
+                                Orientation="Horizontal">
+                        <materialDesign:Card Width="195"
+                                             Margin="30,30,0,10">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Thu:"
+                                           FontWeight="Bold"
+                                           FontSize="15" />
+                                    <Label Content="Tăng 🠕"
+                                           Foreground="Green"
+                                           FontStyle="Italic"
+                                           FontSize="15" />
+
+                                </StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0"
+                                                Margin="5,0,0,0">
+                                        <Label Content="Vé"
+                                               FontSize="20" />
+                                        <Label Content="87%"
+                                               FontSize="25"
+                                               FontWeight="Bold" />
+                                        <Label Content="20Tr" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1"
+                                                HorizontalAlignment="Center">
+                                        <Label Content="Sản phẩm"
+                                               FontSize="20" />
+                                        <Label Content="13%"
+                                               FontWeight="Bold"
+                                               FontSize="25" />
+                                        <Label Content="20Tr" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </materialDesign:Card>
+
+                        <materialDesign:Card Width="196"
+                                             Margin="10,30,0,10">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Chi:"
+                                           FontWeight="Bold" />
+                                    <Label Content="Tăng 🠕"
+                                           Foreground="Red"
+                                           FontStyle="Italic" />
+                                </StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0">
+                                        <Label Content="Sản phẩm"
+                                               FontSize="20" />
+                                        <Label Content="87%"
+                                               FontSize="25"
+                                               FontWeight="Bold" />
+                                        <Label Content="20Tr" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1"
+                                                HorizontalAlignment="Center">
+                                        <Label Content="Sửa chữa"
+                                               FontSize="20" />
+                                        <Label Content="13%"
+                                               FontWeight="Bold"
+                                               FontSize="25" />
+                                        <Label Content="20Tr" />
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1">
                         <materialDesign:Card Margin="30,0,0,0"
-                                             UniformCornerRadius="5">
+                                             UniformCornerRadius="5"
+                                             Height="172">
                             <Grid>
-                                <Label Content="Tổng doanh thu(VND)"
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25*" />
+                                    <RowDefinition Height="75*" />
+                                </Grid.RowDefinitions>
+
+                                <Label Content="Tổng thu chi (VND)"
                                        FontSize="15"
                                        FontWeight="Bold"
-                                       Margin="15,10,0,0" />
-                                <lvc:PieChart Height="240"
-                                              LegendLocation="Left"
-                                              Series="{Binding pie}"
-                                              Hoverable="False">
-                                </lvc:PieChart>
+                                       Margin="10,10,0,0"
+                                       Grid.Row="0" />
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70*" />
+                                        <ColumnDefinition Width="30*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0">
+
+                                        <!---BAR 1-->
+                                        <StackPanel Margin="10,0,0,0">
+                                            <Label Content="Thu"
+                                                   FontWeight="Bold" />
+                                            <StackPanel Width="250"
+                                                        HorizontalAlignment="Left">
+                                                <ProgressBar BorderBrush="Transparent"
+                                                             Height="15"
+                                                             x:Name="pb1"
+                                                             Value="{Binding TotalInPc}">
+                                                    <ProgressBar.Style>
+                                                        <Style TargetType="{x:Type ProgressBar}">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                                                                        <Grid MinHeight="14"
+                                                                              MinWidth="200">
+                                                                            <Border Name="PART_Track"
+                                                                                    CornerRadius="8" />
+                                                                            <Border Name="PART_Indicator"
+                                                                                    CornerRadius="8"
+                                                                                    BorderThickness="1"
+                                                                                    Background="#0c70b6"
+                                                                                    HorizontalAlignment="Left" />
+                                                                        </Grid>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </ProgressBar.Style>
+                                                    <ProgressBar.Triggers>
+                                                        <EventTrigger RoutedEvent="ProgressBar.ValueChanged">
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ThicknessAnimation Storyboard.TargetName="pb1"
+                                                                                        Storyboard.TargetProperty="Margin"
+                                                                                        From="0 0 250 0"
+                                                                                        To="0 0 0 0"
+                                                                                        Duration="0:0:0.5" />
+
+
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger>
+                                                    </ProgressBar.Triggers>
+
+                                                </ProgressBar>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <!---BAR 2-->
+                                        <StackPanel Margin="10,20,0,0">
+                                            <Label Content="Chi"
+                                                   FontWeight="Bold" />
+                                            <StackPanel Width="250"
+                                                        HorizontalAlignment="Left">
+                                                <ProgressBar Minimum="0"
+                                                             Maximum="100"
+                                                             BorderBrush="Transparent"
+                                                             Height="15"
+                                                             x:Name="pb2"
+                                                             Value="{Binding TotalOutPc}">
+                                                    <ProgressBar.Style>
+                                                        <Style TargetType="{x:Type ProgressBar}">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="{x:Type ProgressBar}">
+                                                                        <Grid MinHeight="14"
+                                                                              MinWidth="200">
+                                                                            <Border Name="PART_Track"
+                                                                                    CornerRadius="8" />
+                                                                            <Border Name="PART_Indicator"
+                                                                                    CornerRadius="8"
+                                                                                    BorderThickness="1"
+                                                                                    Background="OrangeRed"
+                                                                                    HorizontalAlignment="Left" />
+                                                                        </Grid>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </Style>
+                                                    </ProgressBar.Style>
+                                                    <ProgressBar.Triggers>
+                                                        <EventTrigger RoutedEvent="ProgressBar.ValueChanged">
+                                                            <BeginStoryboard>
+                                                                <Storyboard>
+                                                                    <ThicknessAnimation Storyboard.TargetName="pb2"
+                                                                                        Storyboard.TargetProperty="Margin"
+                                                                                        From="0 0 250 0"
+                                                                                        To="0 0 0 0"
+                                                                                        Duration="0:0:0.5" />
+
+
+                                                                </Storyboard>
+                                                            </BeginStoryboard>
+                                                        </EventTrigger>
+
+                                                    </ProgressBar.Triggers>
+                                                </ProgressBar>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="{Binding TotalIn}"
+                                                   Margin="0,15,0,0"
+                                                   FontSize="20" />
+                                        <TextBlock Text="{Binding TotalOut}"
+                                                   Margin="0,30,0,0"
+                                                   FontSize="20" />
+                                    </StackPanel>
+
+                                </Grid>
+
+
                             </Grid>
 
                         </materialDesign:Card>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="1"
-                                VerticalAlignment="Top">
-                        <materialDesign:Card Margin="30,30,0,0"
-                                             Height="285"
+                    <StackPanel Grid.Row="2">
+                        <materialDesign:Card Height="225"
+                                             Margin="30,0,0,0"
                                              UniformCornerRadius="5">
-                            <StackPanel Margin="0,5,0,0">
+                            <StackPanel>
                                 <StackPanel.Resources>
                                     <ResourceDictionary>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="FontSize"
                                                     Value="20" />
                                             <Setter Property="Margin"
-                                                    Value="30,10,0,0" />
-
+                                                    Value="30,20,0,0" />
                                         </Style>
                                     </ResourceDictionary>
                                 </StackPanel.Resources>
 
-                                <TextBlock Text="Chu kỳ: Tháng" />
-                                <TextBlock Text="Thời gian: Tháng 12" />
-                                <TextBlock Text="Số bill vé: 500" />
-                                <TextBlock Text="Số bill đồ ăn: 400" />
-                                <TextBlock Text="Tổng doanh thu: 37.000.000 VND" />
-                                <TextBlock Text="So với kỳ trước: +27%" />
-                                <TextBlock Text="Khách hàng mới: +35" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Chu kỳ:"
+                                               Width="100" />
+                                    <TextBlock Text="{Binding Path=Text,ElementName=periodbox}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Thời gian:"
+                                               Width="100" />
+                                    <TextBlock Text="{Binding Path=Text,ElementName=Timebox}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Số hoá đơn:"
+                                               Width="100" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Lợi nhuận:"
+                                               Width="100" />
+                                    <TextBlock Text="{Binding TrueIncome}" />
+                                </StackPanel>
                             </StackPanel>
 
 
@@ -110,7 +349,8 @@
 
                 <!--Right-->
                 <StackPanel Grid.Column="1"
-                            Orientation="Horizontal">
+                            Orientation="Horizontal"
+                            x:Name="cardRight">
                     <materialDesign:Card Background="White"
                                          Margin="30,30,0,12"
                                          Width="950"
@@ -119,20 +359,41 @@
                                          UniformCornerRadius="5"
                                          VerticalAlignment="Top">
                         <lvc:CartesianChart LegendLocation="Bottom"
-                                            Series="{Binding SeriesCollection}"
+                                            Series="{Binding InComeData,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                             Margin="0,0,0,49">
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Labels="{Binding Labels}" />
+                                <lvc:AxesCollection>
+                                    <lvc:Axis MinValue="1"
+                                              MaxValue="{Binding LabelMaxValue}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1" />
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:AxesCollection>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
                                 <lvc:Axis Title="VND" />
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </materialDesign:Card>
+
+                    <StackPanel.Triggers>
+                        <EventTrigger RoutedEvent="StackPanel.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="cardRight"
+                                                     Storyboard.TargetProperty="Height"
+                                                     From="0"
+                                                     To="596"
+                                                     Duration="0:0:0.5" />
+
+
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </StackPanel.Triggers>
                 </StackPanel>
             </Grid>
         </Grid>
-
-
     </Grid>
 </Page>

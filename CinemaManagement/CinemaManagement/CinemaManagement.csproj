@@ -316,6 +316,8 @@
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\DoiMatKhauWindowVM.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\EditStaffViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\StaffManagementViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\BestSelling.cs" />
+    <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\Income.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\StatisticalManagementViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
@@ -380,6 +382,9 @@
     </Compile>
     <Compile Include="Views\Admin\ShowtimeManagement\ShowtimeManagement.xaml.cs">
       <DependentUpon>ShowtimeManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\StatisticalManagement\BestSellingStatistical.xaml.cs">
+      <DependentUpon>BestSellingStatistical.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\StatisticalManagement\IncomeStatistical.xaml.cs">
       <DependentUpon>IncomeStatistical.xaml</DependentUpon>
@@ -501,6 +506,10 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
+    <Page Include="Views\Admin\StatisticalManagement\BestSellingStatistical.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin\StatisticalManagement\IncomeStatistical.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -620,6 +629,8 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\IconPack\award1.png" />
+    <Resource Include="Resources\IconPack\award.png" />
     <Resource Include="Resources\IconPack\foodstrip.png" />
     <Resource Include="Resources\IconPack\filmstrip.png" />
   </ItemGroup>

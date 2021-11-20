@@ -10,14 +10,14 @@
       d:DesignWidth="1440"
       Title="StatisticalManagement"
       DataContext="{StaticResource StatisticalManagementVM}">
-    
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding StoreButtonNameCM}"
                                    CommandParameter="{Binding ElementName=card1}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -46,7 +46,7 @@
                             BorderThickness="0"
                             materialDesign:ButtonAssist.CornerRadius="0"
                             Command="{Binding LoadAllStatisticalCM}"
-                            CommandParameter="{Binding ElementName=card1}"/>
+                            CommandParameter="{Binding ElementName=card1}" />
                 </materialDesign:Card>
                 <materialDesign:Card Height="57"
                                      Background="#f0f2f5"
@@ -68,14 +68,17 @@
                                      Background="#f0f2f5"
                                      materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                      materialDesign:ShadowAssist.ShadowEdges="Bottom"
-                                     BorderThickness="0">
+                                     BorderThickness="0"
+                                     x:Name="card3">
                     <Button Height="57"
                             Content="Xu hướng"
                             Background="Transparent"
                             Foreground="Black"
                             BorderBrush="Transparent"
                             BorderThickness="0"
-                            materialDesign:ButtonAssist.CornerRadius="0" />
+                            materialDesign:ButtonAssist.CornerRadius="0"
+                            Command="{Binding LoadBestSellingCM}"
+                            CommandParameter="{Binding ElementName=card3}" />
                 </materialDesign:Card>
 
             </StackPanel>
@@ -85,7 +88,7 @@
                                  materialDesign:ShadowAssist.ShadowEdges="Bottom"
                                  BorderThickness="0"
                                  BorderBrush="Transparent"
-                                 UniformCornerRadius="0"/>
+                                 UniformCornerRadius="0" />
 
             <!--<StackPanel Grid.Column="1">
                 <ComboBox Width="220"

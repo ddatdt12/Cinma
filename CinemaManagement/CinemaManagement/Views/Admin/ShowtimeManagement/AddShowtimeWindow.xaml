@@ -16,7 +16,7 @@
         MouseDown="AddSuatChieu_MouseDown"
         DataContext="{StaticResource ShowtimeManagementVM}"
         Title="AddSuatChieuWindow">
-    <Grid>
+
         <Border Background="#FFF0F3F7"
                 CornerRadius="10"
                 BorderBrush="Gray"
@@ -265,5 +265,5 @@
                 </Grid>
             </Grid>
         </Border>
-    </Grid>
+
 </Window>

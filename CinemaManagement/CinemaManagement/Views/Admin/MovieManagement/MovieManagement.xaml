@@ -14,8 +14,23 @@
       FontFamily="{DynamicResource MaterialDesignFont}"
       DataContext="{StaticResource MovieManagementVM}"
       d:DesignHeight="720"
-      d:DesignWidth="1440">
+      d:DesignWidth="1440"
+      x:Name="mainPage">
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0"
+                                        To="1"
+                                        Duration="0:0:0.5" />
 
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
 
     <Grid Background="#f0f2f5">
 

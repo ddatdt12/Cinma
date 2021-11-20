@@ -18,7 +18,24 @@
       d:DesignWidth="1440"
       Title="NhanVienPage"
       DataContext="{StaticResource StaffManagementVM}"
-      ShowsNavigationUI="False">
+      ShowsNavigationUI="False"
+      x:Name="mainPage">
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.5" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding GetListViewCommand}"

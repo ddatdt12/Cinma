@@ -15,17 +15,9 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
     {
         public Frame mainFrame { get; set; }
         public Card ButtonView { get; set; }
-        private int _SelectedPeriod;
-        public int SelectedPeriod
-        {
-            get { return _SelectedPeriod; }
-            set { _SelectedPeriod = value; OnPropertyChanged(); }
-        }
 
-
-        public SeriesCollection SeriesCollection { get; set; }
         public SeriesCollection pie { get; set; }
-        public string[] Labels { get; set; }
+        public SeriesCollection pie2 { get; set; }
 
 
 
@@ -37,6 +29,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public ICommand StoreButtonNameCM { get; set; }
         public ICommand LoadAllStatisticalCM { get; set; }
         public ICommand LoadRankStatisticalCM { get; set; }
+        public ICommand LoadBestSellingCM { get; set; }
 
 
 
@@ -46,63 +39,67 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
 
         public StatisticalManagementViewModel()
         {
+          
+            //List<double> temp = new List<double>();
+            //List<double> temp1 = new List<double>();
+            //List<double> temp2 = new List<double>();
+            //List<double> temp3 = new List<double>();
+            //temp2.Add(2772);
+            //temp3.Add(1541);
 
-            List<double> temp = new List<double>();
-            List<double> temp1 = new List<double>();
-            List<double> temp2 = new List<double>();
-            List<double> temp3 = new List<double>();
-            temp2.Add(2772);
-            temp3.Add(1541);
+            //Food = new ChartValues<double>(temp2);
+            //Ticket = new ChartValues<double>(temp3);
 
-            Food = new ChartValues<double>(temp2);
-            Ticket = new ChartValues<double>(temp3);
+            //pie = new SeriesCollection
+            //{
+            //    new PieSeries
+            //    {
+            //        Title = "Ticket",
+            //        Values = new ChartValues<double>(temp2),
+            //        DataLabels = true,
+            //    },
 
-            for (int i = 0; i < 10; i++)
-            {
-                temp.Add(i);
-            }
+            //    new PieSeries
+            //    {
+            //        Title = "Food",
+            //        Values = new ChartValues<double>(temp3),
+            //        DataLabels = true,
+            //    },
+            //};
+            //pie = new SeriesCollection
+            //{
+            //    new LineSeries
+            //    {
+            //        Values = new ChartValues<double>(temp1),
+            //        Fill = Brushes.Transparent,
+            //        StrokeThickness = 0.5,
+            //    },
+            //};
+            //pie2 = new SeriesCollection
+            //{
+            //    new LineSeries
+            //    {
+            //        Values = new ChartValues<double>(temp1),
+            //        Stroke = Brushes.OrangeRed,
+            //        Fill = Brushes.Transparent,
+            //        StrokeThickness = 0.5,
+            //    },
+            //};
 
-            temp1.Add(2);
-            temp1.Add(6);
-            temp1.Add(8);
-            temp1.Add(1);
-            temp1.Add(8);
-            temp1.Add(5);
-            temp1.Add(6);
-            temp1.Add(9);
-            temp1.Add(5);
-            temp1.Add(3);
+            //InComeByMonth = new SeriesCollection
+            //{
+            //    new LineSeries
+            //    {
+            //        Title = "Thu",
 
-            pie = new SeriesCollection
-            {
-                new PieSeries
-                {
-                    Title = "Ticket",
-                    Values = new ChartValues<double>(temp2),
-                    DataLabels = true,
-                },
-
-                new PieSeries
-                {
-                    Title = "Food",
-                    Values = new ChartValues<double>(temp3),
-                    DataLabels = true,
-                },
-            };
-            SeriesCollection = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Title = "Vé",
-
-                    Values = new ChartValues<double>(temp),
-                },
-                new LineSeries
-                {
-                    Title = "Đồ ăn",
-                    Values = new ChartValues<double>(temp1),
-                }
-            };
+            //        Values = new ChartValues<double>(temp),
+            //    },
+            //    new LineSeries
+            //    {
+            //        Title = "Chi",
+            //        Values = new ChartValues<double>(temp1),
+            //    }
+            //};
 
             LoadViewCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
@@ -127,6 +124,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 ChangeView(p);
                 mainFrame.Content = new RankingStatistical();
             });
+            LoadBestSellingCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
+            {
+                ChangeView(p);
+                mainFrame.Content = new BestSellingStatistical();
+                LoadBestSellingData();
+            });
         }
 
         public void ChangeView(Card p)
@@ -137,5 +140,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             p.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#fafafa");
             p.SetValue(ShadowAssist.ShadowDepthProperty, ShadowDepth.Depth0);
         }
+
     }
 }

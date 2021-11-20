@@ -9,7 +9,6 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -17,36 +16,57 @@ using System.Windows.Shapes;
 namespace CinemaManagement.Views.Admin.StatisticalManagement
 {
     /// <summary>
-    /// Interaction logic for IncomeStatistical.xaml
+    /// Interaction logic for BestSellingStatistical.xaml
     /// </summary>
-    public partial class IncomeStatistical : Page
+    public partial class BestSellingStatistical : Page
     {
-        public IncomeStatistical()
+        public BestSellingStatistical()
         {
             InitializeComponent();
-
         }
-
-        private void periodbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void periodbox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBoxItem s = (ComboBoxItem)periodbox.SelectedItem;
+            ComboBoxItem s = (ComboBoxItem)periodbox1.SelectedItem;
             switch (s.Content.ToString())
             {
                 case "Theo năm":
                     {
-                        GetYearSource(Timebox);
+                        GetYearSource(Time1);
                         return;
                     }
                 case "Theo tháng":
                     {
-                        GetMonthSource(Timebox);
+                        GetMonthSource(Time1);
                         return;
                     }
             }
         }
-        private void periodbox_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void periodbox1_Loaded(object sender, RoutedEventArgs e)
         {
-            GetYearSource(Timebox);
+            GetYearSource(Time1);
+            return;
+        }
+        private void periodbox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBoxItem s = (ComboBoxItem)periodbox2.SelectedItem;
+            switch (s.Content.ToString())
+            {
+                case "Theo năm":
+                    {
+                        GetYearSource(Time2);
+                        return;
+                    }
+                case "Theo tháng":
+                    {
+                        GetMonthSource(Time2);
+                        return;
+                    }
+            }
+        }
+        private void periodbox2_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetYearSource(Time2);
+            return;
         }
         public void GetYearSource(ComboBox cbb)
         {
@@ -83,6 +103,5 @@ namespace CinemaManagement.Views.Admin.StatisticalManagement
             cbb.ItemsSource = l;
             cbb.SelectedIndex = 0;
         }
-
     }
 }

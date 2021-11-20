@@ -18,5 +18,20 @@ namespace CinemaManagement
             e.Handled = true;
             this.DragMove();
         }
+
+        private void Label_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Label_MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void MainFrame_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SlideButton.IsChecked = false;
+        }
     }
 }
