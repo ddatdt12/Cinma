@@ -46,20 +46,26 @@ namespace CinemaManagement.DTOs
                 {
                     if (File.Exists(Helper.GetMovieImgPath(_image)))
                     {
-                        _imgSource = Helper.GetImageSource(_image);
+                        _imgSource = Helper.GetMovieImageSource(_image);
                     }
                     else
                     {
-                        _imgSource = Helper.GetImageSource("null.jpg");
+                        _imgSource = Helper.GetMovieImageSource("null.jpg");
                     }
                 }
                 return _imgSource;
             }
-            set
+        }
+        public decimal Revenue { get; set; }
+        public string RevenueStr
+        {
+            get
             {
-                _imgSource = value;
+                return Helper.FormatVNMoney(Revenue);
             }
         }
+
+        public int TicketCount { get; set; }
 
     }
 }

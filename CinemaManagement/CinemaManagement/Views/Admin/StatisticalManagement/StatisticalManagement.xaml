@@ -105,7 +105,6 @@
             </StackPanel>-->
         </StackPanel>
 
-
         <!---FRAME-->
         <Grid Grid.Row="1">
             <Frame x:Name="mainFrame"
@@ -117,6 +116,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Frame>
+
         </Grid>
     </Grid>
 </Page>

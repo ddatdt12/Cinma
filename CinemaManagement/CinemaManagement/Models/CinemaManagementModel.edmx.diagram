@@ -9,8 +9,8 @@
         <EntityTypeShape EntityType="CinemaManagementModel.Customer" Width="1.5" PointX="3.75" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Genre" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Movie" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="8.75" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.ProductBillInfo" Width="1.5" PointX="10" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="9" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.ProductBillInfo" Width="1.5" PointX="5.75" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.ProductReceipt" Width="1.5" PointX="10" PointY="16.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Room" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Seat" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />

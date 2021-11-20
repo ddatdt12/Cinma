@@ -24,7 +24,6 @@ namespace CinemaManagement.Views.Admin.QuanLyNhanVienPage
         public NhanVienPage()
         {
             InitializeComponent();
-
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(_ListView.ItemsSource);
             view.Filter = Filter;
         }

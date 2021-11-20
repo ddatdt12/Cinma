@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Net.Cache;
 using System.Text;
@@ -10,6 +11,10 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
+        public static string ConvertDoubleToPercentageStr(double value)
+        {
+            return Math.Round(value, 2, MidpointRounding.AwayFromZero).ToString("P", CultureInfo.InvariantCulture);
+        }
         public static string MD5Hash(string str)
         {
             StringBuilder hash = new StringBuilder();
@@ -45,7 +50,7 @@ namespace CinemaManagement.Utils
             return $"{imageName}.{ext}";
         }
 
-        public static ImageSource GetImageSource(string imageName)
+        public static ImageSource GetMovieImageSource(string imageName)
         {
             BitmapImage _image = new BitmapImage();
             _image.BeginInit();
@@ -54,6 +59,19 @@ namespace CinemaManagement.Utils
             _image.CacheOption = BitmapCacheOption.OnLoad;
             _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
             _image.UriSource = new Uri(GetMovieImgPath(imageName));
+            _image.EndInit();
+
+            return _image;
+        }
+        public static ImageSource GetProductImageSource(string imageName)
+        {
+            BitmapImage _image = new BitmapImage();
+            _image.BeginInit();
+            _image.CacheOption = BitmapCacheOption.None;
+            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+            _image.CacheOption = BitmapCacheOption.OnLoad;
+            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            _image.UriSource = new Uri(GetProductImgPath(imageName));
             _image.EndInit();
 
             return _image;
@@ -76,14 +94,9 @@ namespace CinemaManagement.Utils
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Admin", $"{filename}" /*SelectedItem.Image*/);
         }
 
-        public static string GetProductImgPath()
+        public static string GetProductImgPath(string imageName)
         {
-            string appPath = Path.GetDirectoryName(Directory.GetParent(Directory.GetCurrentDirectory()).FullName) + "/Resources/Images/Products/";
-            if (Directory.Exists(appPath) == false)
-            {
-                Directory.CreateDirectory(appPath);
-            }
-            return appPath;
+            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Products", $"{imageName}" /*SelectedItem.Image*/);
         }
 
         private static string RemoveUnicode(string text)
@@ -109,7 +122,23 @@ namespace CinemaManagement.Utils
             }
             return text;
         }
-
-
+        public static string FormatVNMoney(decimal money)
+        {
+            if (money == 0 )
+            {
+                return "0 ₫";
+            }
+            return String.Format(CultureInfo.InvariantCulture,
+                                "{0:#,#} ₫", money);
+        }
+        public static string FormatDecimal(decimal n)
+        {
+            if (n == 0)
+            {
+                return "0";
+            }
+            return String.Format(CultureInfo.InvariantCulture,
+                                "{0:#,#}", n);
+        }
     }
 }

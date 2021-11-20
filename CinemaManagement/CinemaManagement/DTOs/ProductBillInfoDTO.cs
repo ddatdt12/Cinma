@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaManagement.Utils;
+using System;
 
 namespace CinemaManagement.DTOs
 {
@@ -13,11 +14,14 @@ namespace CinemaManagement.DTOs
         public int Quantity { get; set; }
         public string ProductName { get; set; }
         public decimal PricePerItem { get; set; }
-        public decimal TotalPrice
+        public string PricePerItemStr { get {
+                return Helper.FormatDecimal(PricePerItem);
+            } }
+        public string TotalPriceStr
         {
             get
             {
-                return Decimal.Truncate(Quantity * PricePerItem);
+                return Helper.FormatVNMoney(Quantity * PricePerItem);
             }
         }
     }

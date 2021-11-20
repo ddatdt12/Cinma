@@ -128,7 +128,6 @@
                    ItemsSource="{Binding ListBill}"
                    Grid.Row="1"
                    SelectedItem="{Binding SelectedTicketBill}">
-
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding LoadInforBillCM}" />
@@ -182,7 +181,7 @@ StringFormat=dd/MM/yyyy HH:mm:ss}"
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding OriginalTotalPrice}"
+                                <TextBlock  Text="{Binding OriginalTotalPriceStr}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -192,7 +191,7 @@ StringFormat=dd/MM/yyyy HH:mm:ss}"
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding DiscountPrice}"
+                                <TextBlock  Text="{Binding DiscountPriceStr}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -202,7 +201,7 @@ StringFormat=dd/MM/yyyy HH:mm:ss}"
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding TotalPrice}"
+                                <TextBlock  Text="{Binding TotalPriceStr}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>

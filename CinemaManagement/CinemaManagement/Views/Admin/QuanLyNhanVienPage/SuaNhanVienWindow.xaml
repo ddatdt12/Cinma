@@ -247,13 +247,11 @@
                             </TextBlock>
 
                         </Label>
-
                         <Button Content="Hủy"
                                 Margin="0 0 110 10"
                                 Command="{Binding CloseCommand}"
                                 CommandParameter="{Binding ElementName=SuaNV}"
                                 Background="OrangeRed" />
-
                         <Button Content="Lưu"
                                 Margin="0 0 10 10"
                                 Command="{Binding EditStaffCommand}"
