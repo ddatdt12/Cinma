@@ -46,11 +46,11 @@ namespace CinemaManagement.DTOs
                 {
                     if (File.Exists(Helper.GetMovieImgPath(_image)))
                     {
-                        _imgSource = Helper.GetImageSource(_image);
+                        _imgSource = Helper.GetMovieImageSource(_image);
                     }
                     else
                     {
-                        _imgSource = Helper.GetImageSource("null.jpg");
+                        _imgSource = Helper.GetMovieImageSource("null.jpg");
                     }
                 }
                 return _imgSource;

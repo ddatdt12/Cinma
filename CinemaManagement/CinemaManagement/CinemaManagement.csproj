@@ -302,6 +302,11 @@
     <Compile Include="Utils\Constant.cs" />
     <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\AddFoodViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\DeleteFoodViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\EditFoodViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\FoodManagementViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\ImportFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Import_ExportManagementVM\ExportDetailViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Import_ExportManagementVM\Import_ExportManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
@@ -325,6 +330,21 @@
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
+    <Compile Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml.cs">
+      <DependentUpon>AddFoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml.cs">
+      <DependentUpon>DeleteFoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\EditFoodWindow.xaml.cs">
+      <DependentUpon>EditFoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\FoodPage.xaml.cs">
+      <DependentUpon>FoodPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\ImportFoodWindow.xaml.cs">
+      <DependentUpon>ImportFoodWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\Import_ExportManagement\ExportDetail.xaml.cs">
       <DependentUpon>ExportDetail.xaml</DependentUpon>
     </Compile>
@@ -419,6 +439,26 @@
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\EditFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\FoodPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\ImportFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Admin\Import_ExportManagement\ExportDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -559,7 +599,6 @@
     </None>
     <Resource Include="Font\junegull.ttf" />
     <Resource Include="Resources\Admin\MovieGenreSource.txt" />
-    <Resource Include="Resources\ImageStaff\add-user.png" />
     <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
     <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
     <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
@@ -586,14 +625,10 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Images\Products\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Images\Movies\null.jpg" />
     <Resource Include="Resources\IconPack\pencil.png" />
-    <Resource Include="Resources\ImageStaff\pencil.png" />
-    <Resource Include="Resources\ImageStaff\delete.png" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\4.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -607,6 +642,17 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\Products\null.jpg" />
+    <Resource Include="Resources\Images\ImageStaff\add-user.png" />
+    <Resource Include="Resources\Images\ImageStaff\delete.png" />
+    <Resource Include="Resources\Images\ImageStaff\pencil.png" />
+    <Resource Include="Resources\Images\ImageFood\add-image.png" />
+    <Resource Include="Resources\Images\ImageFood\adding.png" />
+    <Resource Include="Resources\Images\ImageFood\delete.png" />
+    <Resource Include="Resources\Images\ImageFood\dong.png" />
+    <Resource Include="Resources\Images\ImageFood\edit.png" />
+    <Resource Include="Resources\Images\ImageFood\pop-corn.png" />
+    <Resource Include="Resources\Images\ImageFood\popcorn.png" />
     <Resource Include="Resources\IconPack\foodstrip.png" />
     <Resource Include="Resources\IconPack\filmstrip.png" />
   </ItemGroup>
