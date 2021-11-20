@@ -55,11 +55,17 @@ namespace CinemaManagement.DTOs
                 }
                 return _imgSource;
             }
-            set
+        }
+        public decimal Revenue { get; set; }
+        public string RevenueStr
+        {
+            get
             {
-                _imgSource = value;
+                return Helper.FormatVNMoney(Revenue);
             }
         }
+
+        public int TicketCount { get; set; }
 
     }
 }

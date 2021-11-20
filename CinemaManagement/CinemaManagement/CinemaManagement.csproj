@@ -280,6 +280,7 @@
     <Compile Include="Models\Services\CustomerService.cs" />
     <Compile Include="Models\Services\GenreService.cs" />
     <Compile Include="Models\Services\MovieService.cs" />
+    <Compile Include="Models\Services\Overview.StatisticService.cs" />
     <Compile Include="Models\Services\ProductReceiptService.cs" />
     <Compile Include="Models\Services\ProductService.cs" />
     <Compile Include="Models\Services\SeatService.cs" />

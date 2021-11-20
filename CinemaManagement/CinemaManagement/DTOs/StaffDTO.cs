@@ -44,5 +44,16 @@ namespace CinemaManagement.DTOs
         public string Role { get; set; }
 
         public virtual IList<BillDTO> Bills { get; set; }
+
+
+        //Statistic
+        public decimal BenefitContribution { get; set; }
+        public string BenefitContributionStr
+        {
+            get
+            {
+                return Helper.FormatVNMoney(BenefitContribution);
+            }
+        }
     }
 }

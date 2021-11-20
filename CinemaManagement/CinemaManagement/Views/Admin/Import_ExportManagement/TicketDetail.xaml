@@ -283,7 +283,7 @@
                     <Label Content="Tổng tiền"
                            FontSize="20"
                            Grid.Column="0" />
-                    <Label Content="{Binding BillDetail.OriginalTotalPrice}"
+                    <Label Content="{Binding BillDetail.OriginalTotalPriceStr}"
                            FontSize="20"
                            Grid.Column="1"
                            HorizontalAlignment="Right" />
@@ -309,7 +309,7 @@
                     <Label Content="Khuyến mãi"
                            FontSize="20"
                            Grid.Column="0" />
-                    <Label Content="{Binding BillDetail.DiscountPrice}"
+                    <Label Content="{Binding BillDetail.DiscountPriceStr}"
                            FontSize="20"
                            Grid.Column="1"
                            HorizontalAlignment="Right" />
@@ -322,7 +322,7 @@
                     <Label Content="Sau khuyến mãi"
                            FontSize="20"
                            Grid.Column="0" />
-                    <Label Content="{Binding BillDetail.TotalPrice}"
+                    <Label Content="{Binding BillDetail.TotalPriceStr}"
                            FontSize="20"
                            Grid.Column="1"
                            FontWeight="Bold"

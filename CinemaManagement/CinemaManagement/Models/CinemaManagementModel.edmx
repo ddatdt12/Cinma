@@ -23,7 +23,8 @@
           <Property Name="Id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="CreatedAt" Type="datetime" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="80" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -475,8 +476,9 @@
           <Property Name="Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__CustomerId__59FA5E80" FromRole="Customer" ToRole="Bill" />
+          <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -917,6 +919,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="CinemaManagementModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />

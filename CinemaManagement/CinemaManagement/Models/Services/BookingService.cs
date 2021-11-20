@@ -119,8 +119,11 @@ namespace CinemaManagement.Models.Services
                 AddNewTickets(billId, newTicketList);
 
                 //Product
-                AddNewProductBills(billId, orderedProductList);
-
+                bool addSuccess = AddNewProductBills(billId, orderedProductList);
+                if (!addSuccess)
+                {
+                    return (false, "Số lượng sản phẩm không đủ để đáp ứng!");
+                }
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -146,7 +149,11 @@ namespace CinemaManagement.Models.Services
                 string billId = CreateNewBill(ref context, bill);
 
                 //Product
-                AddNewProductBills(billId, orderedProductList);
+               bool addSuccess = AddNewProductBills(billId, orderedProductList);
+                if (!addSuccess)
+                {
+                    return (false, "Số lượng sản phẩm không đủ để đáp ứng!");
+                }
 
                 context.SaveChanges();
             }
@@ -191,7 +198,7 @@ namespace CinemaManagement.Models.Services
             DataProvider.Ins.DB.Tickets.AddRange(ticketList);
         }
 
-        private void AddNewProductBills(string billId, List<ProductBillInfoDTO> orderedProductList)
+        private bool AddNewProductBills(string billId, List<ProductBillInfoDTO> orderedProductList)
         {
             var context = DataProvider.Ins.DB;
             List<ProductBillInfo> prodBillList = new List<ProductBillInfo>();
@@ -207,11 +214,18 @@ namespace CinemaManagement.Models.Services
                     PricePerItem = orderedProductList[i].PricePerItem,
                     Quantity = orderedProductList[i].Quantity
                 });
+                var Product = context.Products.Find(orderedProductList[i].ProductId);
+                Product.Quantity -= orderedProductList[i].Quantity;
 
-                context.Products.Find(orderedProductList[i].ProductId).Quantity -= orderedProductList[i].Quantity;
+                if(Product.Quantity < 0)
+                {
+                    return false;
+                }
             }
 
             context.ProductBillInfoes.AddRange(prodBillList);
+            return true;
+
         }
 
     }

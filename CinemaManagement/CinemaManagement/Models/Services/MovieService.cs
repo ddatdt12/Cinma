@@ -107,6 +107,11 @@ namespace CinemaManagement.Models.Services
                         if (mov is null)
                         {
                             Movie movie = m.ShowTime.Movie;
+
+                            if (movie is null)
+                            {
+                                movie = context.Movies.Find(m.ShowTime.MovieId);
+                            }
                             mov = new MovieDTO
                             {
                                 Id = movie.Id,

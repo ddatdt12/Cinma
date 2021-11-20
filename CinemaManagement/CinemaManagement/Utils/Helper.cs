@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Net.Cache;
 using System.Text;
@@ -10,6 +11,10 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
+        public static string ConvertDoubleToPercentageStr(double value)
+        {
+            return Math.Round(value, 2, MidpointRounding.AwayFromZero).ToString("P", CultureInfo.InvariantCulture);
+        }
         public static string MD5Hash(string str)
         {
             StringBuilder hash = new StringBuilder();
@@ -109,7 +114,23 @@ namespace CinemaManagement.Utils
             }
             return text;
         }
-
-
+        public static string FormatVNMoney(decimal money)
+        {
+            if (money == 0 )
+            {
+                return "0 ₫";
+            }
+            return String.Format(CultureInfo.InvariantCulture,
+                                "{0:#,#} ₫", money);
+        }
+        public static string FormatDecimal(decimal n)
+        {
+            if (n == 0)
+            {
+                return "0";
+            }
+            return String.Format(CultureInfo.InvariantCulture,
+                                "{0:#,#}", n);
+        }
     }
 }
