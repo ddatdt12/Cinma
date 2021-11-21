@@ -39,7 +39,7 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding GetListViewCommand}"
-                                   CommandParameter="{Binding ElementName=ListView}" />
+                                   CommandParameter="{Binding ElementName=_ListView}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -82,7 +82,7 @@
                              UniformCornerRadius="5"
                              Margin="30,20,30,20">
             <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          x:Name="listView"
+                          x:Name="_listView"
                           PreviewMouseWheel="listView_PreviewMouseWheel">
                 <ListView ItemsSource="{Binding StaffList}"
                           FontFamily="Ubuntu"
@@ -186,7 +186,7 @@
                                                        Cursor="Hand" />
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=listView, Path=DataContext.OpenEditStaffCommand}" />
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.OpenEditStaffCommand}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </Border>
@@ -212,7 +212,7 @@
                                                                          Cursor="Hand" />
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=listView, Path=DataContext.OpenDeleteStaffCommand}" />
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.OpenDeleteStaffCommand}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </Border>

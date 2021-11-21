@@ -280,6 +280,7 @@
     <Compile Include="Models\Services\CustomerService.cs" />
     <Compile Include="Models\Services\GenreService.cs" />
     <Compile Include="Models\Services\MovieService.cs" />
+    <Compile Include="Models\Services\Overview.StatisticService.cs" />
     <Compile Include="Models\Services\ProductReceiptService.cs" />
     <Compile Include="Models\Services\ProductService.cs" />
     <Compile Include="Models\Services\SeatService.cs" />
@@ -301,6 +302,11 @@
     <Compile Include="Utils\Constant.cs" />
     <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\AddFoodViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\DeleteFoodViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\EditFoodViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\FoodManagementViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\ImportFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Import_ExportManagementVM\ExportDetailViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Import_ExportManagementVM\Import_ExportManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
@@ -318,6 +324,7 @@
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\StaffManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\BestSelling.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\Income.cs" />
+    <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\Ranking.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\StatisticalManagementViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
@@ -326,6 +333,21 @@
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
+    <Compile Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml.cs">
+      <DependentUpon>AddFoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml.cs">
+      <DependentUpon>DeleteFoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\EditFoodWindow.xaml.cs">
+      <DependentUpon>EditFoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\FoodPage.xaml.cs">
+      <DependentUpon>FoodPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\ImportFoodWindow.xaml.cs">
+      <DependentUpon>ImportFoodWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\Import_ExportManagement\ExportDetail.xaml.cs">
       <DependentUpon>ExportDetail.xaml</DependentUpon>
     </Compile>
@@ -423,12 +445,32 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\Scrollbar\Scrollbar.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\EditFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\FoodPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\ImportFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Admin\Import_ExportManagement\ExportDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -581,14 +623,20 @@
     </None>
     <Resource Include="Font\junegull.ttf" />
     <Resource Include="Resources\Admin\MovieGenreSource.txt" />
-    <Resource Include="Resources\ImageStaff\add-user.png" />
+    <Resource Include="Resources\IconPack\award.png" />
+    <Resource Include="Resources\IconPack\award1.png" />
+    <Resource Include="Resources\IconPack\filmstrip.png" />
+    <Resource Include="Resources\IconPack\foodstrip.png" />
+    <Resource Include="Resources\IconPack\pencil.png" />
+    <Resource Include="Resources\Images\Movies\null.jpg" />
     <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
     <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
     <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
     <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
-    <Resource Include="Resources\LayoutSignin\StoryboardMovie\2.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\1.jpg" />
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\2.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\3.jpg" />
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\4.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -609,14 +657,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Images\Products\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\Movies\null.jpg" />
-    <Resource Include="Resources\IconPack\pencil.png" />
-    <Resource Include="Resources\ImageStaff\pencil.png" />
-    <Resource Include="Resources\ImageStaff\delete.png" />
-    <Resource Include="Resources\LayoutSignin\StoryboardMovie\4.jpg" />
+    <Folder Include="Resources\ImageStaff\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\CinemaManagementModel.Context.tt">
@@ -629,10 +670,33 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\IconPack\award1.png" />
-    <Resource Include="Resources\IconPack\award.png" />
-    <Resource Include="Resources\IconPack\foodstrip.png" />
-    <Resource Include="Resources\IconPack\filmstrip.png" />
+    <Resource Include="Resources\Images\ImageFood\add-image.png" />
+    <Resource Include="Resources\Images\ImageFood\adding.png" />
+    <Resource Include="Resources\Images\ImageFood\delete.png" />
+    <Resource Include="Resources\Images\ImageFood\dong.png" />
+    <Resource Include="Resources\Images\ImageFood\edit.png" />
+    <Resource Include="Resources\Images\ImageFood\pop-corn.png" />
+    <Resource Include="Resources\Images\ImageFood\popcorn.png" />
+    <Resource Include="Resources\Images\ImageStaff\add-user.png" />
+    <Resource Include="Resources\Images\ImageStaff\delete.png" />
+    <Resource Include="Resources\Images\ImageStaff\pencil.png" />
+    <Resource Include="Resources\Images\Movies\ban_tay_quy_diet.jpg" />
+    <Resource Include="Resources\Images\Movies\bo_gia.jpg" />
+    <Resource Include="Resources\Images\Movies\conan_movie_24.jpg" />
+    <Resource Include="Resources\Images\Movies\Con_lac_ta_thuat.jpg" />
+    <Resource Include="Resources\Images\Movies\duong_son_dai_dia_chan.jpg" />
+    <Resource Include="Resources\Images\Movies\godzilla_vs_Kong.jpg" />
+    <Resource Include="Resources\Images\Movies\hoi_dap_1988.jpg" />
+    <Resource Include="Resources\Images\Movies\john_wick_chapter_4.jpg" />
+    <Resource Include="Resources\Images\Movies\lat_mat_48h.jpg" />
+    <Resource Include="Resources\Images\Movies\mat_biec.jpg" />
+    <Resource Include="Resources\Images\Movies\nobita_va_dao_giau_vang.jpg" />
+    <Resource Include="Resources\Images\Movies\Palm_springs.jpg" />
+    <Resource Include="Resources\Images\Movies\the_walking_dead.jpg" />
+    <Resource Include="Resources\Images\Movies\thor_love_and_thunder.jpg" />
+    <Resource Include="Resources\Images\Movies\tro_choi_con_muc.jpg" />
+    <Resource Include="Resources\Images\Movies\z_nation_1.jpg" />
+    <Resource Include="Resources\Images\Products\null.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets')" />

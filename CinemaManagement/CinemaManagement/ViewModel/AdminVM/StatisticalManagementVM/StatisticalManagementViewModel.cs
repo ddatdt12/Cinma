@@ -20,11 +20,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public SeriesCollection pie2 { get; set; }
 
 
-
-
-        public ChartValues<double> Food { get; set; }
-        public ChartValues<double> Ticket { get; set; }
-
         public ICommand LoadViewCM { get; set; }
         public ICommand StoreButtonNameCM { get; set; }
         public ICommand LoadAllStatisticalCM { get; set; }
@@ -128,7 +123,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             {
                 ChangeView(p);
                 mainFrame.Content = new BestSellingStatistical();
-                LoadBestSellingData();
             });
         }
 

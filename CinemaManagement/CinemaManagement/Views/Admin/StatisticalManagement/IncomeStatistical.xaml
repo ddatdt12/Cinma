@@ -88,11 +88,13 @@
                                     <Label Content="Thu:"
                                            FontWeight="Bold"
                                            FontSize="15" />
-                                    <Label Content="Tăng 🠕"
-                                           Foreground="Green"
-                                           FontStyle="Italic"
-                                           FontSize="15" />
-
+                                    <TextBox Text="{Binding ReveRate}"
+                                             BorderThickness="0"
+                                             IsHitTestVisible="False"
+                                             FontStyle="Italic"
+                                             FontSize="15"
+                                             TextChanged="TextBox_TextChanged" />
+                                    <!--Tăng 🠕-->
                                 </StackPanel>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -104,19 +106,19 @@
                                                 Margin="5,0,0,0">
                                         <Label Content="Vé"
                                                FontSize="20" />
-                                        <Label Content="87%"
+                                        <Label Content="{Binding TicketPc}"
                                                FontSize="25"
                                                FontWeight="Bold" />
-                                        <Label Content="20Tr" />
+                                        <Label Content="{Binding TicketReve}" />
                                     </StackPanel>
                                     <StackPanel Grid.Column="1"
                                                 HorizontalAlignment="Center">
                                         <Label Content="Sản phẩm"
                                                FontSize="20" />
-                                        <Label Content="13%"
+                                        <Label Content="{Binding ProductPc}"
                                                FontWeight="Bold"
                                                FontSize="25" />
-                                        <Label Content="20Tr" />
+                                        <Label Content="{Binding ProductReve}" />
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -127,10 +129,14 @@
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Chi:"
-                                           FontWeight="Bold" />
-                                    <Label Content="Tăng 🠕"
-                                           Foreground="Red"
-                                           FontStyle="Italic" />
+                                           FontWeight="Bold"
+                                           FontSize="15" />
+                                    <TextBox Text="{Binding ExpeRate}"
+                                             FontStyle="Italic"
+                                             FontSize="15"
+                                             IsHitTestVisible="False"
+                                             BorderThickness="0"
+                                             TextChanged="TextBox_TextChanged_1" />
                                 </StackPanel>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -141,19 +147,19 @@
                                     <StackPanel Grid.Column="0">
                                         <Label Content="Sản phẩm"
                                                FontSize="20" />
-                                        <Label Content="87%"
+                                        <Label Content="{Binding ProductExPc}"
                                                FontSize="25"
                                                FontWeight="Bold" />
-                                        <Label Content="20Tr" />
+                                        <Label Content="{Binding ProductExpe}" />
                                     </StackPanel>
                                     <StackPanel Grid.Column="1"
                                                 HorizontalAlignment="Center">
                                         <Label Content="Sửa chữa"
                                                FontSize="20" />
-                                        <Label Content="13%"
+                                        <Label Content="{Binding RepairPc}"
                                                FontWeight="Bold"
                                                FontSize="25" />
-                                        <Label Content="20Tr" />
+                                        <Label Content="{Binding RepairExpe}" />
                                     </StackPanel>
                                 </Grid>
                             </StackPanel>
@@ -322,21 +328,22 @@
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Chu kỳ:"
-                                               Width="100" />
+                                               Width="105" />
                                     <TextBlock Text="{Binding Path=Text,ElementName=periodbox}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Thời gian:"
-                                               Width="100" />
+                                               Width="105" />
                                     <TextBlock Text="{Binding Path=Text,ElementName=Timebox}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Số hoá đơn:"
-                                               Width="100" />
+                                               Width="105" />
+                                    <TextBlock Text="{Binding TotalBill}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Lợi nhuận:"
-                                               Width="100" />
+                                               Width="105" />
                                     <TextBlock Text="{Binding TrueIncome}" />
                                 </StackPanel>
                             </StackPanel>
@@ -359,8 +366,7 @@
                                          UniformCornerRadius="5"
                                          VerticalAlignment="Top">
                         <lvc:CartesianChart LegendLocation="Bottom"
-                                            Series="{Binding InComeData,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                            Margin="0,0,0,49">
+                                            Series="{Binding InComeData,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                             <lvc:CartesianChart.AxisX>
                                 <lvc:AxesCollection>
                                     <lvc:Axis MinValue="1"
@@ -372,7 +378,8 @@
                                 </lvc:AxesCollection>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="VND" />
+                                <lvc:Axis Title="Triệu đồng" FontFamily="arial"
+                                          MinValue="0" />
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </materialDesign:Card>

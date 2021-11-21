@@ -52,16 +52,11 @@
                               FontSize="20"
                               x:Name="periodbox1"
                               SelectedIndex="0"
+                              SelectedItem="{Binding SelectedBestSellPeriod}"
                               SelectionChanged="periodbox1_SelectionChanged"
                               Loaded="periodbox1_Loaded">
                         <ComboBoxItem>Theo năm</ComboBoxItem>
                         <ComboBoxItem>Theo tháng</ComboBoxItem>
-                        <!--<i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding SelectedPeriodCM}"
-                                                       CommandParameter="{Binding ElementName=TimeCombobox}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
                     </ComboBox>
                 </StackPanel>
                 <!---TIME-->
@@ -69,7 +64,8 @@
                     <ComboBox Width="170"
                               FontSize="20"
                               x:Name="Time1"
-                              SelectedIndex="2">
+                              SelectedIndex="2"
+                              SelectedItem="{Binding SelectedBestSellTime,Mode=OneWayToSource}">
                     </ComboBox>
                 </StackPanel>
             </StackPanel>
@@ -92,6 +88,11 @@
                                     </lvc:Axis>
                                 </lvc:AxesCollection>
                             </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Triệu đồng"
+                                          FontFamily="arial"
+                                          MinValue="0" />
+                            </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </Grid>
 
@@ -105,15 +106,16 @@
                                  Height="340"
                                  VerticalAlignment="Bottom"
                                  Grid.Row="2">
-                <ListView>
+                <ListView ItemsSource="{Binding Top5Movie}">
                     <ListView.View>
 
                         <GridView>
                             <GridViewColumn Header="Tên phim"
-                                            Width="400">
+                                            Width="380">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-
+                                        <TextBlock Text="{Binding DisplayName}"
+                                                   FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -121,14 +123,17 @@
                                             Width="200">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-
+                                        <TextBlock Text="{Binding RevenueStr}"
+                                                   FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Số vé">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-
+                                        <TextBlock Text="{Binding TicketCount}"
+                                                   FontSize="18"
+                                                   Margin="20,0,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -157,22 +162,18 @@
                               FontSize="20"
                               x:Name="periodbox2"
                               SelectedIndex="0"
+                              SelectedItem="{Binding SelectedBestSellPeriod2}"
                               SelectionChanged="periodbox2_SelectionChanged"
                               Loaded="periodbox2_Loaded">
                         <ComboBoxItem>Theo năm</ComboBoxItem>
                         <ComboBoxItem>Theo tháng</ComboBoxItem>
-                        <!--<i:Interaction.Triggers>
-                            <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding SelectedPeriodCM}"
-                                                       CommandParameter="{Binding ElementName=TimeCombobox}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
                     </ComboBox>
                 </StackPanel>
                 <!---TIME-->
                 <StackPanel Margin="30,10,0,0">
                     <ComboBox Width="170"
                               FontSize="20"
+                              SelectedItem="{Binding SelectedBestSellTime2,Mode=OneWayToSource}"
                               x:Name="Time2">
                     </ComboBox>
                 </StackPanel>
@@ -185,17 +186,6 @@
                 <materialDesign:Card Width="700"
                                      UniformCornerRadius="5">
 
-                    <!--<lvc:PieChart LegendLocation="None"
-                                      InnerRadius="70"
-                                      Margin="0,0,436,0"
-                                      Background="Transparent">
-                            <lvc:PieChart.Series>
-                                <lvc:PieSeries  Values="40"
-                                                Title="Tiền vé" />
-                                <lvc:PieSeries  Values="60"
-                                                Title="Sản phẩm" />
-                            </lvc:PieChart.Series>
-                        </lvc:PieChart>-->
                     <lvc:CartesianChart Series="{Binding Top5FoodData,UpdateSourceTrigger=PropertyChanged}">
                         <lvc:CartesianChart.AxisX>
                             <lvc:AxesCollection>
@@ -206,6 +196,11 @@
                                 </lvc:Axis>
                             </lvc:AxesCollection>
                         </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Triệu đồng"
+                                      FontFamily="arial"
+                                      MinValue="0" />
+                        </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
 
 
@@ -218,30 +213,34 @@
                                  Height="340"
                                  VerticalAlignment="Bottom"
                                  Grid.Row="2">
-                <ListView>
+                <ListView ItemsSource="{Binding Top5Product}">
                     <ListView.View>
 
                         <GridView>
                             <GridViewColumn Header="Tên sản phẩm"
-                                            Width="400">
+                                            Width="380">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-
+                                        <TextBlock Text="{Binding DisplayName}"
+                                                   FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Doanh thu"
-                                            Width="200">
+                                            Width="180">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-
+                                        <TextBlock Text="{Binding RevenueStr}"
+                                                   FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Số lượng">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-
+                                        <TextBlock Text="{Binding SalesQuantity}"
+                                                   FontSize="18"
+                                                   Margin="20,0,0,0"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
