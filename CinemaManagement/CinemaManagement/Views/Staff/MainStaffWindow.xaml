@@ -20,28 +20,88 @@
         Width="1440"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadMainStaffCM}"
-                                 />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Grid>
-       
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="140" />
             <ColumnDefinition Width="1300" />
         </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0"
+              Background="#FF1F2F55">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition Height="720" />
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Background"
+                            Value="Transparent" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=Tag.IsChecked, RelativeSource={RelativeSource Self}}"
+                                     Value="True">
+                            <Setter Property="Background"
+                                    Value="#FFDC7777" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Resources>
+            <StackPanel Grid.Row="1">
+                <Border BorderBrush="#FF16274D"
+                        BorderThickness="0 3 0 3"
+                        CornerRadius="5">
+                    <StackPanel x:Name="grdShowing"
+                                Tag="{Binding ElementName=btnShowing}"
+                                Orientation="Horizontal"
+                                Height="60"
+                                Width="140">
+                        <materialDesign:PackIcon Kind="Movie"
+                                                 Width="30"
+                                                 Height="32"
+                                                 VerticalAlignment="Center"
+                                                 Cursor="Hand"
+                                                 Foreground="White" />
+                        <RadioButton Style="{StaticResource MenuButtonMainStaff}"
+                                     GroupName="mainOptions"
+                                     Content="Phim Đang chiếu"
+                                     x:Name="btnShowing"
+                                     Width="auto"
+                                     Command="{Binding LoadShowtimePageCM}"
+                                     CommandParameter="{Binding ElementName=mainFrame}" />
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="#FF16274D"
+                        BorderThickness="0 3 0 3"
+                        CornerRadius="5">
+                    <StackPanel x:Name="grdFood"
+                                Tag="{Binding ElementName=btnFood}"
+                                Orientation="Horizontal"
+                                Height="60"
+                                Width="140">
+                        <materialDesign:PackIcon Kind="Food"
+                                                 Width="30"
+                                                 Height="32"
+                                                 VerticalAlignment="Center"
+                                                 Cursor="Hand"
+                                                 Foreground="White" />
+                        <RadioButton Style="{StaticResource MenuButtonMainStaff}"
+                                     Content="Đồ Ăn"
+                                     GroupName="mainOptions"
+                                     x:Name="btnFood"
+                                     Width="110" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-                <RowDefinition Height="760" />
+                <RowDefinition Height="80*" />
+                <RowDefinition Height="720*" />
             </Grid.RowDefinitions>
             <!--thanh task bar de keo-->
             <StackPanel DockPanel.Dock="Top"
-                        Height="40"
+                        Height="80"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal"
+                        Orientation="Vertical"
                         Background="#FF263456"
                         Grid.Row="0">
                 <i:Interaction.Triggers>
@@ -51,7 +111,9 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <StackPanel Orientation="Horizontal"
-                            Margin="1210,0,0,0">
+                            Margin="1230,0,0,0"
+                            Height="30"
+                            VerticalAlignment="Top">
                     <Label Cursor="Hand"
                            Width="30"
                            HorizontalAlignment="Center"
@@ -112,254 +174,47 @@
                         </Label.Style>
                     </Label>
                 </StackPanel>
-            </StackPanel>
-            <!---MAIN FRAME-->
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="700" />
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0"
-                            Height="60"
-                            VerticalAlignment="Top"
-                            Orientation="Horizontal"
-                            Background="#FF16274D">
-                    <Grid>
-                        <!--<StackPanel Grid.Row="0"
-                                    Orientation="Horizontal">
-                            <Button Content="Phim đang chiếu"
-                                    Margin="10"
-                                    BorderThickness="2"
-                                    BorderBrush="Black"
-                                    materialDesign:ButtonAssist.CornerRadius="5"
-                                    Command="{Binding LoadMainStaffCM}"
-                                    CommandParameter="{Binding ElementName=MainListBox}" />
-                            <Button Content="Đồ ăn"
-                                    Margin="10"
-                                    Width="150"
-                                    BorderThickness="2"
-                                    BorderBrush="Black"
-                                    materialDesign:ButtonAssist.CornerRadius="5" />
-                        </StackPanel>-->
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="Magnify"
-                                                         Width="25"
-                                                         Height="35"
-                                                         Foreground="White"
-                                                         VerticalAlignment="Bottom" />
-                                <TextBox x:Name="FilterBox"
-                                         Width="300"
-                                         VerticalAlignment="Bottom"
-                                         Height="40"
-                                         FontSize="20"
-                                         Foreground="White"
-                                         materialDesign:HintAssist.Hint="Tìm kiếm phim"
-                                         TextChanged="FilterBox_TextChanged" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="Filter"
-                                                         Width="25"
-                                                         Height="35"
-                                                         Foreground="White"
-                                                         VerticalAlignment="Bottom" />
-                                <ComboBox materialDesign:HintAssist.Hint="Thể loại"
-                                          VerticalContentAlignment="Bottom"
-                                          Width="175"
-                                          Height="40"
-                                          HorizontalAlignment="Left"
-                                          FontSize="15"
-                                          ItemsSource="{Binding GenreList}"
-                                          DisplayMemberPath="DisplayName"
-                                          materialDesign:HintAssist.HintOpacity="0.5"
-                                          BorderBrush="White"
-                                          SelectedItem="{Binding SelectedGenre,UpdateSourceTrigger=PropertyChanged}"
-                                          Foreground="White"
-                                          VerticalAlignment="Bottom">
-                                    <ComboBox.ItemContainerStyle>
-                                        <Style TargetType="ComboBoxItem">
-                                            <Setter Property="Foreground"
-                                                    Value="Black" />
-                                            <Setter Property="Margin"
-                                                    Value="5" />
-                                        </Style>
-                                    </ComboBox.ItemContainerStyle>
-                                </ComboBox>
-                            </StackPanel>
-                            <DatePicker materialDesign:HintAssist.Hint="Ngày chiếu"
-                                        SelectedDate="{Binding SelectedDate,UpdateSourceTrigger=PropertyChanged}"
-                                        Text="{Binding SetCurrentDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                        Width="175"
-                                        Height="40"
-                                        FontSize="15"
-                                        materialDesign:HintAssist.HintOpacity="3"
-                                        BorderBrush="White"
-                                        Margin="30,0,0,2"
-                                        HorizontalContentAlignment="Left"
-                                        VerticalAlignment="Bottom"
-                                        FontWeight="DemiBold"
-                                        Foreground="#DDEE3550">
-                            </DatePicker>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock VerticalAlignment="Center"
-                                           x:Name="_StaffName"
-                                           Height="35"
-                                           FontSize="22"
-                                           TextWrapping="Wrap"
-                                           Foreground="White"
-                                           Margin="300 25 0 0"
-                                           Padding="0" />
-                                <Button Background="Transparent"
-                                        BorderBrush="Transparent"
-                                        Foreground="White"
-                                        Height="63">
-                                    <materialDesign:PackIcon Kind="AccountCircle"
-                                                             Width="60"
-                                                             Height="60" />
-                                </Button>
-                                <materialDesign:PopupBox DockPanel.Dock="Right"
-                                                         PlacementMode="BottomAndAlignRightEdges"
-                                                         Foreground="White">
-                                    <StackPanel Orientation="Vertical">
-                                        <Button x:Name="signout"
-                                                Content="Thông tin tài khoản" />
+                <StackPanel Orientation="Horizontal"
+                            Margin="1080,0,0,0"
+                            Height="50">
+                    <TextBlock VerticalAlignment="Center"
+                               x:Name="_StaffName"
+                               Height="35"
+                               FontSize="22"
+                               TextWrapping="Wrap"
+                               Foreground="White"
+                               Margin="0 25 0 0"
+                               Padding="0" />
+                    <materialDesign:PackIcon Kind="AccountCircle"
+                                             Width="50"
+                                             Height="50"
+                                             Background="Transparent"
+                                             Foreground="White" />
+                    <materialDesign:PopupBox DockPanel.Dock="Right"
+                                             PlacementMode="BottomAndAlignRightEdges"
+                                             Foreground="White">
+                        <StackPanel Orientation="Vertical">
+                            <Button x:Name="signout"
+                                    Content="Thông tin tài khoản" />
 
-                                        <Button Content="Đăng xuất"
-                                                Command="{Binding SignoutCM}"
-                                                CommandParameter="{Binding ElementName=Main_Staff}" />
-                                    </StackPanel>
-                                </materialDesign:PopupBox>
-                            </StackPanel>
+                            <Button Content="Đăng xuất"
+                                    Command="{Binding SignoutCM}"
+                                    CommandParameter="{Binding ElementName=Main_Staff}" />
                         </StackPanel>
-                    </Grid>
+                    </materialDesign:PopupBox>
                 </StackPanel>
-                <ListBox ItemsSource="{Binding ListMovie,UpdateSourceTrigger=PropertyChanged}"
-                         Grid.Row="1"
-                         Background="#FF2B3D66"
-                         x:Name="MainListBox"
-                         SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem"
-                               BasedOn="{StaticResource styleListBoxItems}" />
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="4" />
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Background="Transparent"
-                                        Cursor="Hand"
-                                        Height="350"
-                                        Width="215"
-                                        Margin="20 20 0 0"
-                                        VerticalAlignment="Top">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseUp">
-                                        <i:InvokeCommandAction Command="{Binding ElementName=MainListBox, Path=DataContext.LoadMovieScheduleWindow}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                                <Image Source="{Binding ImgSource}"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Top">
-                                    <Image.Style>
-                                        <Style TargetType="Image">
-                                            <Setter Property="Height"
-                                                    Value="270" />
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver"
-                                                         Value="True">
-                                                    <Setter Property="Height"
-                                                            Value="275" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Image.Style>
-                                </Image>
-                                <TextBlock Text="{Binding DisplayName}"
-                                           FontSize="16"
-                                           Foreground="White"
-                                           Width="210"
-                                           TextAlignment="Left"
-                                           HorizontalAlignment="Left"
-                                           TextWrapping="Wrap"
-                                           Margin="0,10,0,0" />
-                                <TextBlock Text="{Binding ReleaseYear}"
-                                           FontSize="15"
-                                           Foreground="#FFD6C6C3"
-                                           TextAlignment="Left" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </Grid>
-        </Grid>
-        <Grid Grid.Column="0"
-              Background="#FF1F2F55">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100" />
-                <RowDefinition Height="700" />
-            </Grid.RowDefinitions>
-            <Grid.Resources>
-                <Style TargetType="StackPanel">
-                    <Setter Property="Background"
-                            Value="Transparent" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=Tag.IsChecked, RelativeSource={RelativeSource Self}}"
-                                     Value="True">
-                            <Setter Property="Background"
-                                    Value="#FFDC7777" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Resources>
-            <StackPanel Grid.Row="1">
-                <Border BorderBrush="#FF16274D"
-                        BorderThickness="0 3 0 3"
-                        CornerRadius="5">
-                    <StackPanel x:Name="grdShowing"
-                                Tag="{Binding ElementName=btnShowing}"
-                                Orientation="Horizontal"
-                                Height="60"
-                                Width="140">
-                        <materialDesign:PackIcon Kind="Movie"
-                                                 Width="30"
-                                                 Height="32"
-                                                 VerticalAlignment="Center"
-                                                 Cursor="Hand"
-                                                 Foreground="White" />
-                        <RadioButton Style="{StaticResource MenuButtonMainStaff}"
-                                     GroupName="mainOptions"
-                                     Content="Phim Đang chiếu"
-                                     x:Name="btnShowing"
-                                     Width="auto"
-                                     Command="{Binding LoadMainStaffCM}"
-                                     CommandParameter="{Binding ElementName=MainListBox}" />
-                    </StackPanel>
-                </Border>
-                <Border BorderBrush="#FF16274D"
-                        BorderThickness="0 3 0 3"
-                        CornerRadius="5">
-                    <StackPanel x:Name="grdFood"
-                                Tag="{Binding ElementName=btnFood}"
-                                Orientation="Horizontal"
-                                Height="60"
-                                Width="140">
-                        <materialDesign:PackIcon Kind="Food"
-                                                 Width="30"
-                                                 Height="32"
-                                                 VerticalAlignment="Center"
-                                                 Cursor="Hand"
-                                                 Foreground="White" />
-                        <RadioButton Style="{StaticResource MenuButtonMainStaff}"
-                                     Content="Đồ Ăn"
-                                     GroupName="mainOptions"
-                                     x:Name="btnFood"
-                                     Width="110" />
-                    </StackPanel>
-                </Border>
             </StackPanel>
+            <Frame x:Name="mainFrame"
+                   Height="720"
+                   Grid.Row="1"
+                   NavigationUIVisibility="Hidden">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction Command="{Binding LoadShowtimePageCM}"
+                                               CommandParameter="{Binding ElementName=mainFrame}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Frame>
         </Grid>
     </Grid>
 </Window>
