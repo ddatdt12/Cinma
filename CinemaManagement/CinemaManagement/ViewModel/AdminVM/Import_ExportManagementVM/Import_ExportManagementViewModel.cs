@@ -140,9 +140,9 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                     {
                         TicketDetail w = new TicketDetail();
                         w._moviename.Content = BillDetail.TicketInfo.movieName;
-                        w._price.Content = (BillDetail.TicketInfo.TotalPriceTicket / BillDetail.TicketInfo.seats.Count).ToString();
+                        w._price.Content = BillDetail.TicketInfo.PricePerTicketStr;
                         w._time.Content = BillDetail.CreatedAt.ToString("dd/MM/yyyy HH:mm");
-                        w._totalticket.Content = BillDetail.TicketInfo.TotalPriceTicket;
+                        w._totalticket.Content = BillDetail.TicketInfo.TotalPriceTicketStr;
                         w.ShowDialog();
 
                     }
@@ -150,9 +150,9 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                     {
                         ExportDetail w = new ExportDetail();
                         w._moviename.Content = BillDetail.TicketInfo.movieName;
-                        w._price.Content = (BillDetail.TicketInfo.TotalPriceTicket / BillDetail.TicketInfo.seats.Count).ToString();
+                        w._price.Content = BillDetail.TicketInfo.PricePerTicketStr;
                         w._time.Content = BillDetail.CreatedAt.ToString("dd/MM/yyyy HH:mm");
-                        w._totalticket.Content = BillDetail.TicketInfo.TotalPriceTicket;
+                        w._totalticket.Content = BillDetail.TicketInfo.TotalPriceTicketStr;
                         w.ShowDialog();
                     }
                 }
@@ -237,9 +237,9 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                                     ws.Cells[i2, 2] = item.CreatedAt;
                                     ws.Cells[i2, 3] = item.CustomerName;
                                     ws.Cells[i2, 4] = item.PhoneNumber;
-                                    ws.Cells[i2, 5] = item.OriginalTotalPrice;
-                                    ws.Cells[i2, 6] = item.DiscountPrice;
-                                    ws.Cells[i2, 7] = item.TotalPrice;
+                                    ws.Cells[i2, 5] = item.OriginalTotalPriceStr;
+                                    ws.Cells[i2, 6] = item.DiscountPriceStr;
+                                    ws.Cells[i2, 7] = item.TotalPriceStr;
 
                                     i2++;
                                 }

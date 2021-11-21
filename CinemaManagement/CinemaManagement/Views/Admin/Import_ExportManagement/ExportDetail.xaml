@@ -328,7 +328,7 @@
                                                                        FontSize="20"
                                                                        VerticalAlignment="Bottom"
                                                                        Margin="3,0,0,1" />
-                                                            <TextBlock Text="{Binding PricePerItem}"
+                                                            <TextBlock Text="{Binding PricePerItemStr}"
                                                                        VerticalAlignment="Bottom"
                                                                        FontSize="20"
                                                                        Margin="5,0,0,1" />
@@ -338,7 +338,7 @@
                                                 <StackPanel Grid.Column="1"
                                                             Orientation="Horizontal"
                                                             HorizontalAlignment="Right">
-                                                    <TextBlock Text="{Binding TotalPrice}"
+                                                    <TextBlock Text="{Binding TotalPriceStr}"
                                                                FontSize="22" />
                                                     <TextBlock Text="d" 
                                                                FontSize="15"/>
@@ -391,7 +391,7 @@
                     <Label Content="Tổng tiền"
                            FontSize="20"
                            Grid.Column="1" />
-                    <Label Content="{Binding BillDetail.OriginalTotalPrice}"
+                    <Label Content="{Binding BillDetail.OriginalTotalPriceStr}"
                            FontSize="20"
                            Grid.Column="2"
                            HorizontalAlignment="Right" />
@@ -419,7 +419,7 @@
                     <Label Content="Khuyến mãi"
                            FontSize="20"
                            Grid.Column="1" />
-                    <Label Content="{Binding BillDetail.DiscountPrice}"
+                    <Label Content="{Binding BillDetail.DiscountPriceStr}"
                            FontSize="20"
                            Grid.Column="2"
                            HorizontalAlignment="Right" />
@@ -433,7 +433,7 @@
                     <Label Content="Sau khuyến mãi"
                            FontSize="20"
                            Grid.Column="1" />
-                    <Label Content="{Binding BillDetail.TotalPrice}"
+                    <Label Content="{Binding BillDetail.TotalPriceStr}"
                            FontSize="20"
                            Grid.Column="2"
                            FontWeight="Bold"

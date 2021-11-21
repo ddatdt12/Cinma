@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CinemaManagement.Utils;
+using System.Collections.Generic;
 
 namespace CinemaManagement.DTOs
 {
@@ -11,6 +12,17 @@ namespace CinemaManagement.DTOs
         public string Id { get; set; }
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+
+        //Expense
+        public decimal Expense { get; set; }
+        public string ExpenseStr
+        {
+            get
+            {
+                return Helper.FormatVNMoney(Expense);
+            }
+        }
 
         //public virtual IList<BillDTO> Bills { get; set; }
     }

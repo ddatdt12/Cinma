@@ -57,12 +57,16 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30*" />
-                <ColumnDefinition Width="70*" />
+                <ColumnDefinition Width="345*" />
+                <ColumnDefinition Width="87*" />
+                <ColumnDefinition Width="148*" />
+                <ColumnDefinition Width="860*" />
             </Grid.ColumnDefinitions>
 
             <!---Left-->
-            <Grid Grid.Column="0">
+            <Grid Grid.Column="0"
+                  Margin="0,0,0,0.4"
+                  Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45*" />
                     <RowDefinition Height="55*" />
@@ -119,9 +123,10 @@
             </Grid>
 
             <!--Right-->
-            <StackPanel Grid.Column="1"
+            <StackPanel Grid.Column="2"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        Grid.ColumnSpan="2">
                 <materialDesign:Card Background="White"
                                      Margin="30,30,0,30"
                                      Width="950"

@@ -147,7 +147,7 @@
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding  ImportPrice}"
+                                <TextBlock  Text="{Binding  ImportPriceStr}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
