@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -279,6 +280,8 @@ namespace CinemaManagement.ViewModel
                 //var allBill = BillService.Ins.GetAllBill();
 
                 #region Statistic
+
+                var code = Helper.GetUniqueRandomString("CODE", 100);
 
                 //Details
                 var topCustomer = StatisticsService.Ins.GetTop5CustomerExpense();

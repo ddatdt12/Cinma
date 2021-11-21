@@ -157,6 +157,21 @@
           <Property Name="SeatId" Type="int" Nullable="false" />
           <Property Name="Price" Type="money" Nullable="false" />
         </EntityType>
+        <EntityType Name="Trouble">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SubmittedAt" Type="datetime" Nullable="false" />
+          <Property Name="RepairCost" Type="money" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="FinishDate" Type="datetime" />
+          <Property Name="StaffId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Image" Type="varchar" MaxLength="30" />
+        </EntityType>
         <Association Name="FK__Bill__CustomerId__59FA5E80">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
           <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
@@ -293,6 +308,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Trouble__StaffId__76969D2E">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Trouble" Type="Self.Trouble" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trouble">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="GENREID_FK">
           <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
           <End Role="GenreDetails" Type="Self.GenreDetails" Multiplicity="*" />
@@ -381,6 +408,7 @@
           <EntitySet Name="ShowtimeSetting" EntityType="Self.ShowtimeSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ticket" EntityType="Self.Ticket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trouble" EntityType="Self.Trouble" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Bill__CustomerId__59FA5E80" Association="Self.FK__Bill__CustomerId__59FA5E80">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Bill" EntitySet="Bill" />
@@ -424,6 +452,10 @@
           <AssociationSet Name="FK__Ticket__Showtime__619B8048" Association="Self.FK__Ticket__Showtime__619B8048">
             <End Role="Showtime" EntitySet="Showtime" />
             <End Role="Ticket" EntitySet="Ticket" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Trouble__StaffId__76969D2E" Association="Self.FK__Trouble__StaffId__76969D2E">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Trouble" EntitySet="Trouble" />
           </AssociationSet>
           <AssociationSet Name="GENREID_FK" Association="Self.GENREID_FK">
             <End Role="Genre" EntitySet="Genre" />
@@ -616,6 +648,7 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__StaffId__5AEE82B9" FromRole="Staff" ToRole="Bill" />
           <NavigationProperty Name="ProductReceipts" Relationship="Self.PRODUCT_RECEIPT_StaffId_FK" FromRole="Staff" ToRole="ProductReceipt" />
+          <NavigationProperty Name="Troubles" Relationship="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" FromRole="Staff" ToRole="Trouble" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
@@ -897,7 +930,40 @@
             <End Role="Genre" EntitySet="Genres" />
             <End Role="Movie" EntitySet="Movies" />
           </AssociationSet>
+          <EntitySet Name="Troubles" EntityType="CinemaManagementModel.Trouble" />
+          <AssociationSet Name="FK__Trouble__StaffId__76969D2E" Association="CinemaManagementModel.FK__Trouble__StaffId__76969D2E">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Trouble" EntitySet="Troubles" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Trouble">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SubmittedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RepairCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="FinishDate" Type="DateTime" Precision="3" />
+          <Property Name="Image" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="StaffId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Staff" Relationship="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" FromRole="Trouble" ToRole="Staff" />
+        </EntityType>
+        <Association Name="FK__Trouble__StaffId__76969D2E">
+          <End Type="CinemaManagementModel.Staff" Role="Staff" Multiplicity="1" />
+          <End Type="CinemaManagementModel.Trouble" Role="Trouble" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trouble">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1068,6 +1134,22 @@
               <ScalarProperty Name="Id" ColumnName="MovieId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Troubles">
+            <EntityTypeMapping TypeName="CinemaManagementModel.Trouble">
+              <MappingFragment StoreEntitySet="Trouble">
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="RepairCost" ColumnName="RepairCost" />
+                <ScalarProperty Name="SubmittedAt" ColumnName="SubmittedAt" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
