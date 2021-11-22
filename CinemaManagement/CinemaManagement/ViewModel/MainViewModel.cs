@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -280,27 +281,54 @@ namespace CinemaManagement.ViewModel
 
                 #region Statistic
 
-                //Details
-                var topCustomer = StatisticsService.Ins.GetTop5CustomerExpense();
-                var topStaff = StatisticsService.Ins.GetTop5ContributionStaff();
-                var topMovie = StatisticsService.Ins.GetTop5BestMovie();
-                var topProduct = StatisticsService.Ins.GetTop5BestProduct();
 
-                var topMovieByMonth = StatisticsService.Ins.GetTop5BestMovieByMonth(11);
-                var topProdByMonth = StatisticsService.Ins.GetTop5BestProductByMonth(11);
-                var topStaffByMonth = StatisticsService.Ins.GetTop5ContributionStaffByMonth(11);
-                var topCusByMonth = StatisticsService.Ins.GetTop5CustomerExpenseByMonth(11);
+                ////Details
+                //var topCustomer = StatisticsService.Ins.GetTop5CustomerExpense();
+                //var topStaff = StatisticsService.Ins.GetTop5ContributionStaff();
+                //var topMovie = StatisticsService.Ins.GetTop5BestMovie();
+                //var topProduct = StatisticsService.Ins.GetTop5BestProduct();
 
-                //Overview
-                //(decimal Income, string rateStr) monthReveue = OverviewStatisticService.Ins.StatisticizeMonthIncome(2021, 11);
-                //(decimal Income, string rateStr) yearRevenue = OverviewStatisticService.Ins.StatisticizeYearIncome(2021);
-                (List<decimal> monthlyRevenue, decimal ProductReve, decimal TicketReve, string YearRevenueRateStr) = OverviewStatisticService.Ins.GetRevenueByYear(2021);
-                (List<decimal> dailyRevenue, decimal MonthProductReve, decimal MonthTicketReve, string MonthRateStr) = OverviewStatisticService.Ins.GetRevenueByMonth(DateTime.Now.Year, 11);
-                (List<decimal> monthlyExpense, decimal ProductExpense, decimal RepairCost, string YearExpenseRateStr) = OverviewStatisticService.Ins.GetExpenseByYear(2021);
-                (List<decimal> dailyExpense, decimal MonthProductExpense,decimal MonthRepairCost, string MonthExpenseRateStr)  = OverviewStatisticService.Ins.GetExpenseByMonth(2021, 11);
-                 int BillQuantity = OverviewStatisticService.Ins.GetBillQuantity(2021, 11);
+                //var topMovieByMonth = StatisticsService.Ins.GetTop5BestMovieByMonth(11);
+                //var topProdByMonth = StatisticsService.Ins.GetTop5BestProductByMonth(11);
+                //var topStaffByMonth = StatisticsService.Ins.GetTop5ContributionStaffByMonth(11);
+                //var topCusByMonth = StatisticsService.Ins.GetTop5CustomerExpenseByMonth(11);
+
+                ////Overview
+                ////(decimal Income, string rateStr) monthReveue = OverviewStatisticService.Ins.StatisticizeMonthIncome(2021, 11);
+                ////(decimal Income, string rateStr) yearRevenue = OverviewStatisticService.Ins.StatisticizeYearIncome(2021);
+                //(List<decimal> monthlyRevenue, decimal ProductReve, decimal TicketReve, string YearRevenueRateStr) = OverviewStatisticService.Ins.GetRevenueByYear(2021);
+                //(List<decimal> dailyRevenue, decimal MonthProductReve, decimal MonthTicketReve, string MonthRateStr) = OverviewStatisticService.Ins.GetRevenueByMonth(DateTime.Now.Year, 11);
+                //(List<decimal> monthlyExpense, decimal ProductExpense, decimal RepairCost, string YearExpenseRateStr) = OverviewStatisticService.Ins.GetExpenseByYear(2021);
+                //(List<decimal> dailyExpense, decimal MonthProductExpense,decimal MonthRepairCost, string MonthExpenseRateStr)  = OverviewStatisticService.Ins.GetExpenseByMonth(2021, 11);
+                // int BillQuantity = OverviewStatisticService.Ins.GetBillQuantity(2021, 11);
 
 
+                #endregion
+
+                var code = Helper.GetListCode("CODE", 100);
+
+
+
+                #region Trouble
+
+                //TroubleDTO newTr = new TroubleDTO
+                //{
+                //    Title = "Vỡ kính",
+                //    Description = "Kính bị vỡ ở sảnh chờ,",
+                //    Image = "broken_mirror.jfif",
+                //    StaffId = "NV004",
+                //};
+                //TroubleDTO updatedTr = new TroubleDTO
+                //{
+                //    Id = "TR0001",
+                //    Status = "Đã giải quyết",
+                //    RepairCost = 1000000
+                //};
+                //(bool isSuccess, string message, TroubleDTO newTrou) = TroubleService.Ins.CreateNewTrouble(newTr);
+                //(bool isS, string messageFromUpdate) = TroubleService.Ins.UpdateStatusTrouble(updatedTr);
+
+                var troubleList = TroubleService.Ins.GetAllTrouble();
+                int troubleCount = TroubleService.Ins.GetWaitingTroubleCount();
                 #endregion
 
                 //(bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login("dothanhdat123","123456");

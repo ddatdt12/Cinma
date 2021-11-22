@@ -25,7 +25,6 @@ namespace CinemaManagement.DTOs
         }
         public DateTime ShowDate;
         public TimeSpan StartShowTime;
-
         //Seat
         public List<string> seats;
         private string _SeatInfo;
@@ -40,7 +39,6 @@ namespace CinemaManagement.DTOs
                 return _SeatInfo;
             }
         }
-
         public string RoomName
         {
             get { return $"0{roomId}"; }
@@ -53,7 +51,7 @@ namespace CinemaManagement.DTOs
         {
             get
             {
-                int seatN = seats.Count();
+                int seatN = seats.Count;
                 if (seatN == 0)
                 {
                     return "0";
@@ -71,7 +69,6 @@ namespace CinemaManagement.DTOs
                 return Helper.FormatVNMoney(TotalPriceTicket);
             }
         }
-
 
     }
 }
