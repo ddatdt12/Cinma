@@ -53,18 +53,14 @@ namespace CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM
                 }
             });
 
-            VisibleSeat = new RelayCommand<object>((p) =>
-            {
-                return true;
-            }, (p) =>
+            VisibleSeat = new RelayCommand<object>((p) =>{ return true; }, (p) =>
             {
               if (ShowTimeRoom != null)
                 {
                     TicketWindowViewModel.CurrentShowtime = SelectedShowtime;
                     TicketWindowViewModel.tempFilmName = tempFilebinding;
+                    TicketWindowViewModel.showTimeRoom = ShowTimeRoom;
                     TicketWindow w = new TicketWindow();
-                    w._ShowTimeTicket.Text = SelectedShowtime.StartTime.ToString();
-                    w._ShowRomTicket.Text = ShowTimeRoom;
                     w.ShowDialog();
                 }
             });
@@ -72,7 +68,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM
         }
         public void GetShowtimeRoom()
         {
-            ShowTimeRoom = "Phòng " + SelectedShowtime.RoomId.ToString();
+            ShowTimeRoom = "Phòng 0" + SelectedShowtime.RoomId.ToString();
         }
     }
 }

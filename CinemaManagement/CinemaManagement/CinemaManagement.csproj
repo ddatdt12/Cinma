@@ -323,7 +323,8 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\TicketBillVM\TicketBillViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\ShowtimePageVM\ShowtimePageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketBookingPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
     <Compile Include="Views\Admin\Import_ExportManagement\ExportDetail.xaml.cs">
       <DependentUpon>ExportDetail.xaml</DependentUpon>
@@ -401,8 +402,11 @@
     <Compile Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml.cs">
       <DependentUpon>MovieScheduleWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Staff\TicketBill\TicketBillPage.xaml.cs">
-      <DependentUpon>TicketBillPage.xaml</DependentUpon>
+    <Compile Include="Views\Staff\ShowtimePage\ShowtimePage.xaml.cs">
+      <DependentUpon>ShowtimePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\TicketWindow\TicketBookingPage.xaml.cs">
+      <DependentUpon>TicketBookingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\TicketWindow\TicketWindow.xaml.cs">
       <DependentUpon>TicketWindow.xaml</DependentUpon>
@@ -523,7 +527,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Staff\TicketBill\TicketBillPage.xaml">
+    <Page Include="Views\Staff\ShowtimePage\ShowtimePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Staff\TicketWindow\TicketBookingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -614,22 +622,6 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\Images\Movies\ban_tay_quy_diet.jpg" />
-    <Resource Include="Resources\Images\Movies\bo_gia.jpg" />
-    <Resource Include="Resources\Images\Movies\conan_movie_24.jpg" />
-    <Resource Include="Resources\Images\Movies\Con_lac_ta_thuat.jpg" />
-    <Resource Include="Resources\Images\Movies\duong_son_dai_dia_chan.jpg" />
-    <Resource Include="Resources\Images\Movies\godzilla_vs_Kong.jpg" />
-    <Resource Include="Resources\Images\Movies\hoi_dap_1988.jpg" />
-    <Resource Include="Resources\Images\Movies\john_wick_chapter_4.jpg" />
-    <Resource Include="Resources\Images\Movies\lat_mat_48h.jpg" />
-    <Resource Include="Resources\Images\Movies\mat_biec.jpg" />
-    <Resource Include="Resources\Images\Movies\nobita_va_dao_giau_vang.jpg" />
-    <Resource Include="Resources\Images\Movies\Palm_springs.jpg" />
-    <Resource Include="Resources\Images\Movies\the_walking_dead.jpg" />
-    <Resource Include="Resources\Images\Movies\thor_love_and_thunder.jpg" />
-    <Resource Include="Resources\Images\Movies\tro_choi_con_muc.jpg" />
-    <Resource Include="Resources\Images\Movies\z_nation_1.jpg" />
     <Resource Include="Resources\IconPack\foodstrip.png" />
     <Resource Include="Resources\IconPack\filmstrip.png" />
   </ItemGroup>
