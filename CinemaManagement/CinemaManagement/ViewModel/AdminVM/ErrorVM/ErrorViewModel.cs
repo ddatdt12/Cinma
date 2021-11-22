@@ -1,95 +1,235 @@
-﻿using System;
+﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models.Services;
+using CinemaManagement.Views.Admin.ErrorManagement;
+using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Windows.Data;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
-namespace CinemaManagement.ViewModel.AdminVM.ErrorViewModel
+namespace CinemaManagement.ViewModel
 {
-    public class ErrorViewModel : BaseViewModel
+    public partial class MainAdminViewModel : BaseViewModel
     {
-        private List<Error> listError;
-        public List<Error> ListError
+        private ComboBoxItem _SelectedFilterList;
+        public ComboBoxItem SelectedFilterList
+        {
+            get { return _SelectedFilterList; }
+            set { _SelectedFilterList = value; OnPropertyChanged(); ReloadErrorList(); }
+        }
+
+        private List<TroubleDTO> listError;
+        public List<TroubleDTO> ListError
         {
             get { return listError; }
             set { listError = value; OnPropertyChanged(); }
         }
 
-        public ErrorViewModel()
+        private TroubleDTO _SelectedItem;
+        public TroubleDTO SelectedItem
         {
-            ListError = new List<Error>();
+            get { return _SelectedItem; }
+            set { _SelectedItem = value; OnPropertyChanged(); }
+        }
 
-            Error t = new Error
+        private ComboBoxItem selectedStatus;
+        public ComboBoxItem SelectedStatus
+        {
+            get { return selectedStatus; }
+            set { selectedStatus = value; OnPropertyChanged(); }
+        }
+
+        private DateTime _SelectedDate;
+        public DateTime SelectedDate
+        {
+            get { return _SelectedDate; }
+            set { _SelectedDate = value; OnPropertyChanged(); }
+        }
+
+        private DateTime _SelectedFinishDate;
+        public DateTime SelectedFinishDate
+        {
+            get { return _SelectedFinishDate; }
+            set { _SelectedFinishDate = value; OnPropertyChanged(); }
+        }
+
+        private decimal _RepairCost;
+        public decimal RepairCost
+        {
+            get { return _RepairCost; }
+            set { _RepairCost = value; OnPropertyChanged(); }
+        }
+
+
+        public ICommand LoadDetailErrorCM { get; set; }
+        public ICommand UpdateErrorCM { get; set; }
+
+        public void ChoseWindow()
+        {
+            if (SelectedItem.Status == Utils.STATUS.DONE)
             {
-                Detail = "sdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdsssssssssssssssssssdssssssssssssssssss",
-                Name = "Sua micro di~~~",
-                Status = "Đang sửa chữa",
-                Fix = false
-            };
-
-            ListError.Add(t);
-            ListError.Add(t);
-            ListError.Add(t);
-            ListError.Add(t);
-            ListError.Add(t);
-            ListError.Add(t);
-            ListError.Add(t);
-            ListError.Add(t);
-
-        }
-
-
-    }
-
-    public class Error
-    {
-        //public string name;
-        //public string detail;
-        //public ImageSource img;
-        //public string status;
-        private string name;
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-        private string detail;
-        public string Detail
-        {
-            get { return detail; }
-            set { detail = value; }
-        }
-        private string status;
-        public string Status
-        {
-            get { return status; }
-            set { status = value; }
-        }
-
-        private bool fix;
-        public bool Fix
-        {
-            get { return fix; }
-            set { fix = value; }
-        }
-
-    }
-
-    public class BrushColorConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if ((bool)value)
+                DoneError w = new DoneError();
+                w.ShowDialog();
+            }
+            else if (SelectedItem.Status == Utils.STATUS.WAITING)
             {
+                WaitingError w = new WaitingError();
+                w.ShowDialog();
+            }
+            else if (SelectedItem.Status == Utils.STATUS.IN_PROGRESS)
+            {
+                InprogressError w = new InprogressError();
+                w.ShowDialog();
+            }
+        }
+        public void ReloadErrorList()
+        {
+            try
+            {
+                if (SelectedFilterList is null) return;
+
+                List<TroubleDTO> temp = new List<TroubleDTO>(TroubleService.Ins.GetAllTrouble());
+                ListError = new List<TroubleDTO>();
+
+                //reduce the number notifi of main page
+                int counttemp = 0;              
+                foreach (var item in temp)
                 {
-                    return System.Windows.Media.Colors.Black;
+                    if (item.Status == Utils.STATUS.WAITING)
+                        counttemp++;
+                }
+                ErrorCount = counttemp.ToString();
+                ///================
+
+                if (SelectedFilterList.Content.ToString() == Utils.STATUS.WAITING)
+                {
+                    foreach (var item in temp)
+                    {
+                        if (item.Status == SelectedFilterList.Content.ToString())
+                            ListError.Add(item);
+                    }
+                    return;
+                }
+                if (SelectedFilterList.Content.ToString() == Utils.STATUS.IN_PROGRESS)
+                {
+                    foreach (var item in temp)
+                    {
+                        if (item.Status == SelectedFilterList.Content.ToString())
+                            ListError.Add(item);
+                    }
+                    return;
+                }
+                if (SelectedFilterList.Content.ToString() == Utils.STATUS.DONE)
+                {
+                    foreach (var item in temp)
+                    {
+                        if (item.Status == SelectedFilterList.Content.ToString())
+                            ListError.Add(item);
+                    }
+                    return;
+                }
+                if (SelectedFilterList.Content.ToString() == Utils.STATUS.CANCLE)
+                {
+                    foreach (var item in temp)
+                    {
+                        if (item.Status == SelectedFilterList.Content.ToString())
+                            ListError.Add(item);
+                    }
+                    return;
+                }
+
+                ListError = temp;
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public void UpdateErrorFunc(Window p)
+        {
+            if (SelectedStatus.Content.ToString() == Utils.STATUS.IN_PROGRESS)
+            {
+                if (DateTime.Compare(SelectedItem.SubmittedAt.Date, SelectedDate.Date) > 0)
+                {
+                    MessageBox.Show("Ngày không hợp lệ!");
+                    return;
+                }
+
+                TroubleDTO trouble = new TroubleDTO
+                {
+                    Id = SelectedItem.Id,
+                    StartDate = SelectedDate,
+                    Status = SelectedStatus.Content.ToString(),
+                };
+                (bool isS, string messageFromUpdate) = TroubleService.Ins.UpdateStatusTrouble(trouble);
+
+                if (isS)
+                {
+                    MessageBox.Show(messageFromUpdate);
+                    ReloadErrorList();
+                    p.Close();
+                }
+                else
+                {
+                    MessageBox.Show(messageFromUpdate);
+                }
+
+            }
+            else if (SelectedStatus.Content.ToString() == Utils.STATUS.CANCLE)
+            {
+                TroubleDTO trouble = new TroubleDTO
+                {
+                    Id = SelectedItem.Id,
+                    Status = SelectedStatus.Content.ToString(),
+                };
+                (bool isS, string messageFromUpdate) = TroubleService.Ins.UpdateStatusTrouble(trouble);
+
+                if (isS)
+                {
+                    MessageBox.Show(messageFromUpdate);
+                    ReloadErrorList();
+                    p.Close();
+                }
+                else
+                {
+                    MessageBox.Show(messageFromUpdate);
                 }
             }
-            return System.Windows.Media.Colors.LightGreen;
-        }
+            else if (SelectedStatus.Content.ToString() == Utils.STATUS.DONE)
+            {
+                if (SelectedItem.StartDate.HasValue)
+                {
+                    DateTime t = SelectedItem.StartDate.Value;
+                    if (DateTime.Compare(t.Date, SelectedFinishDate.Date) > 0)
+                    {
+                        MessageBox.Show("Ngày không hợp lệ!");
+                        return;
+                    }
+                }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
+
+                TroubleDTO trouble = new TroubleDTO
+                {
+                    Id = SelectedItem.Id,
+                    FinishDate = SelectedFinishDate,
+                    Status = SelectedStatus.Content.ToString(),
+                    RepairCost = RepairCost,
+                };
+                (bool isS, string messageFromUpdate) = TroubleService.Ins.UpdateStatusTrouble(trouble);
+
+                if (isS)
+                {
+                    MessageBox.Show(messageFromUpdate);
+                    ReloadErrorList();
+                    p.Close();
+                }
+                else
+                {
+                    MessageBox.Show(messageFromUpdate);
+                }
+
+            }
         }
     }
 

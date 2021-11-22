@@ -18,5 +18,15 @@ namespace CinemaManagement
             e.Handled = true;
             this.DragMove();
         }
+
+        private void SlideButton_Checked(object sender, RoutedEventArgs e)
+        {
+            topnotifi.Visibility = Visibility.Collapsed;
+        }
+
+        private void SlideButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            topnotifi.Visibility = Visibility.Visible;
+        }
     }
 }

@@ -308,6 +308,7 @@
     <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="ViewModel\AdminVM\ErrorVM\ErrorViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\ErrorVM\HintLevelConverter.cs" />
     <Compile Include="ViewModel\AdminVM\ErrorVM\StatusBrushConverter.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\AddFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\DeleteFoodViewModel.cs" />
@@ -337,8 +338,17 @@
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
+    <Compile Include="Views\Admin\ErrorManagement\DoneError.xaml.cs">
+      <DependentUpon>DoneError.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\ErrorManagement\ErrorManagement.xaml.cs">
       <DependentUpon>ErrorManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ErrorManagement\InprogressError.xaml.cs">
+      <DependentUpon>InprogressError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ErrorManagement\WaitingError.xaml.cs">
+      <DependentUpon>WaitingError.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml.cs">
       <DependentUpon>AddFoodWindow.xaml</DependentUpon>
@@ -450,7 +460,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Admin\ErrorManagement\DoneError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin\ErrorManagement\ErrorManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\InprogressError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\WaitingError.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -639,9 +661,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Images\Troubles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Images\Movies\null.jpg" />
     <Resource Include="Resources\IconPack\pencil.png" />
@@ -658,6 +678,10 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Resources\Images\Troubles\broken_chair.jfif" />
+    <Content Include="Resources\Images\Troubles\broken_computer.jfif" />
+    <Content Include="Resources\Images\Troubles\broken_mirror.jfif" />
+    <Resource Include="Resources\Images\Troubles\null.jpg" />
     <Resource Include="Resources\Images\Products\null.jpg" />
     <Resource Include="Resources\Images\ImageStaff\add-user.png" />
     <Resource Include="Resources\Images\ImageStaff\delete.png" />

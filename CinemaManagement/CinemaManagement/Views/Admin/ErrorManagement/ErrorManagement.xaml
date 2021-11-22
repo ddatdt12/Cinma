@@ -6,50 +6,80 @@
       xmlns:local="clr-namespace:CinemaManagement.ViewModel.AdminVM.ErrorVM"
       mc:Ignorable="d"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
       TextElement.FontSize="13"
       TextOptions.TextFormattingMode="Ideal"
       TextOptions.TextRenderingMode="Auto"
-      DataContext="{StaticResource ErrorVM}"
+      DataContext="{StaticResource MainAdminVM}"
       Background="{DynamicResource MaterialDesignPaper}"
       FontFamily="{DynamicResource MaterialDesignFont}"
       d:DesignHeight="720"
       d:DesignWidth="1440">
     <Page.Resources>
         <local:StatusBrushConverter x:Key="StatusBrushConverter" />
+        <local:HintLevelConverter x:Key="HintLevelConverter" />
+        <local:StatusEditConverter x:Key="StatusEditConverter" />
     </Page.Resources>
 
     <Grid>
+        <ComboBox Width="150"
+                  Height="20"
+                  VerticalAlignment="Bottom"
+                  HorizontalAlignment="Left"
+                  Margin="120,0,0,660"
+                  FontSize="15"
+                  Padding="0"
+                  SelectedIndex="1"
+                  SelectedItem="{Binding SelectedFilterList,Mode=OneWayToSource}">
+            <ComboBoxItem>Toàn bộ</ComboBoxItem>
+            <ComboBoxItem>Chờ tiếp nhận</ComboBoxItem>
+            <ComboBoxItem>Đang giải quyết</ComboBoxItem>
+            <ComboBoxItem>Đã giải quyết</ComboBoxItem>
+            <ComboBoxItem>Đã hủy</ComboBoxItem>
+        </ComboBox>
         <materialDesign:Card Width="1200"
-                             Height="680">
-            <ListView ItemsSource="{Binding ListError}">
+                             Height="630"
+                             Margin="0,50,0,0">
+            <ListView ItemsSource="{Binding ListError}"
+                      SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
+                      x:Name="Listview">
                 <ListView.View>
                     <GridView>
 
                         <GridViewColumn Header="Sự cố"
-                                        Width="600">
+                                        Width="590">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-
+                                        <materialDesign:PackIcon Kind="AlertCircleOutline"
+                                                                 Width="40"
+                                                                 Height="40"
+                                                                 Foreground="Red"
+                                                                 Margin="0,30,20,0"
+                                                                 Visibility="{Binding Level,Converter={StaticResource HintLevelConverter}}" />
                                         <Border CornerRadius="8,8,8,8"
                                                 Width="100"
-                                                Height="100"
-                                                Cursor="Hand">
+                                                Height="100">
                                             <Border.Background>
                                                 <ImageBrush x:Name="smallimg"
                                                             Stretch="Fill"
-                                                            ImageSource="/CinemaManagement;component/Resources/LayoutSignin/StoryboardMovie/1.jpg" />
+                                                            ImageSource="{Binding ImgSource}" />
                                             </Border.Background>
                                         </Border>
                                         <StackPanel Margin="20,0,0,0">
-                                            <Label Content="{Binding Name}"
+                                            <Label Content="{Binding Title}"
                                                    FontSize="25"
                                                    FontWeight="Bold"
                                                    Width="350" />
-                                            <Label Content="Chi phí:"
-                                                   FontSize="20" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <Label Content="Chi phí:"
+                                                       FontSize="20" />
+                                                <Label Content="{Binding RepairCostStr}"
+                                                       FontSize="20" />
+                                            </StackPanel>
+
                                         </StackPanel>
                                     </StackPanel>
                                 </DataTemplate>
@@ -59,31 +89,49 @@
                                         Width="350">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="21/10/2021"
+                                    <TextBlock Text="{Binding SubmittedAt}"
                                                FontSize="25"
                                                Margin="0,30,0,0" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-
-                        <GridViewColumn Header="Trạng thái" Width="210">
+                        <GridViewColumn Header="Trạng thái"
+                                        Width="170">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border BorderThickness="1"
                                             Margin="0,25,0,0"
-                                            
                                             BorderBrush="{Binding Status, Converter={StaticResource StatusBrushConverter}}"
-                                            CornerRadius="20"
-                                            >
+                                            CornerRadius="20">
                                         <TextBlock Text="{Binding Status}"
                                                    FontSize="20"
                                                    FontStyle="Italic"
-                                                   x:Name="_status"
-                                                   Margin="10"
+                                                   Margin="7"
                                                    FontWeight="Medium"
-                                                   Foreground="{Binding Status, Converter={StaticResource StatusBrushConverter}}"/>
+                                                   Foreground="{Binding Status, Converter={StaticResource StatusBrushConverter}}" />
                                     </Border>
-
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Cursor="Hand"
+                                            BorderBrush="Black"
+                                            BorderThickness="1"
+                                            Margin="20,30,0,0"
+                                            CornerRadius="5"
+                                            Background="Transparent"
+                                            Visibility="{Binding Status,Converter={StaticResource StatusEditConverter}}">
+                                        <materialDesign:PackIcon Kind="Pencil"
+                                                                 Width="30"
+                                                                 Height="30" />
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                <i:InvokeCommandAction Command="{Binding ElementName=Listview, Path=DataContext.LoadDetailErrorCM}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Border>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
