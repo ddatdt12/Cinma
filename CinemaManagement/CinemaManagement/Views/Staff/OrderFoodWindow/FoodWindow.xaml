@@ -8,19 +8,27 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="Transparent"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
         x:Name="Food_Menu"
         WindowStartupLocation="CenterScreen" 
         ShowInTaskbar="False"
         DataContext="{StaticResource OrderFoodWindowVM}"
-        Height="800"
-        Width="1440"
+        Height="720"
+        Width="1300"
         ResizeMode="NoResize"
         WindowStyle="None">
+    <Window.Resources>
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
@@ -28,28 +36,29 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-    <Border BorderThickness="1"
-            BorderBrush="#FF2F74D9"
-            CornerRadius="10"
-            Background="White"
-            x:Name="BorderMain">
+    <materialDesign:Card BorderThickness="1"
+                         UniformCornerRadius="10"
+                         Background="#FFFBF5F5"
+                         x:Name="BorderMain"
+                         BorderBrush="Blue">
         <Grid Background="Transparent">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="35*"></ColumnDefinition>
-                <ColumnDefinition Width="13*"></ColumnDefinition>
+                <ColumnDefinition Width="237*"></ColumnDefinition>
+                <ColumnDefinition Width="88*"></ColumnDefinition>
+                <ColumnDefinition Width="0*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25*"></RowDefinition>
-                <RowDefinition Height="40*"></RowDefinition>
-                <RowDefinition Height="70*"></RowDefinition>
+                <RowDefinition Height="60*"></RowDefinition>
+                <RowDefinition Height="60*"></RowDefinition>
                 <RowDefinition Height="460*"></RowDefinition>
             </Grid.RowDefinitions>
             <Border BorderThickness="1"
                     BorderBrush="#FF2F74D9"
                     CornerRadius="10,10,0,0"
                     Grid.Row="0"
-                    Grid.ColumnSpan="2"
-                    Background="#FFD8DDE8">
+                    Grid.ColumnSpan="3"
+                    Background="LightCoral" Margin="0,0,0,0.4">
                 <DockPanel>
                     <TextBlock Margin="10,0,0,0"
                                FontSize="25"
@@ -65,14 +74,13 @@
                     </TextBlock>
 
                     <Label ToolTip="Đóng"
-                           Foreground="#FF888FA0"
+                           Foreground="Black"
                            HorizontalAlignment="Right"
                            Width="40"
                            Height="Auto"
                            BorderBrush="{x:Null}"
                            DockPanel.Dock="Right"
-                           Padding="10"
-                           Margin="0,0,8,0">
+                           Padding="10">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                 <i:InvokeCommandAction Command="{Binding CloseWindowCM}"
@@ -93,7 +101,7 @@
                                                  VerticalAlignment="Center"/>
                     </Label>
                     <Label ToolTip="Thu nhỏ"
-                           Foreground="#FF888FA0"
+                           Foreground="Black"
                            HorizontalAlignment="Right"
                            Width="40"
                            Height="Auto"
@@ -122,86 +130,81 @@
                 </DockPanel>
             </Border>
 
+            <Border BorderBrush="LightGray"
+                    BorderThickness="0,0,0,0.5"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"/>
+
             <DockPanel Grid.Row="1"
                        VerticalAlignment="Center">
                 <TextBlock Text="Danh mục đồ ăn"
-                           DockPanel.Dock="Left"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
                            FontFamily="Segoe UI Semibold"
-                           FontSize="30"
-                           Margin="30,0,0,0"
+                           FontSize="35"
+                           Margin="40,0,0,0"
                            FontWeight="Bold"
                            TextAlignment="Center"
                            Foreground="#FF2155D0"/>
-                <CheckBox HorizontalAlignment="Right"
-                          VerticalAlignment="Bottom"
-                          Margin="0,0,10,4"
-                          FlowDirection="RightToLeft"
-                          Content="Tất cả"
-                          FontSize="20"
-                          Foreground="Blue"
-                          IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Checked">
-                            <i:InvokeCommandAction Command="{Binding CheckedCommand}"/>
-                        </i:EventTrigger>
-
-                        <i:EventTrigger EventName="Unchecked">
-                            <i:InvokeCommandAction Command="{Binding UncheckedCommand}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </CheckBox>
             </DockPanel>
+            
+            <Grid Grid.Row="2"
+                  Grid.Column="0"
+                  Grid.RowSpan="2"
+                  Background="Transparent">
+                
+                <TabControl Background="Transparent"
+                            SelectedItem="{Binding TabProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Height" Value="60"/>
+                            <Setter Property="Width" Value="314.66"/>
+                            <Setter Property="FontSize" Value="30"/>
+                            <Setter Property="BorderThickness" Value="0.5"/>
+                            <Setter Property="BorderBrush" Value="Blue"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsEnabled" Value="True">
+                                    <Setter Property="Background" Value="Pink"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TabControl.Resources>
+                    <TabItem Header="Tất cả">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding Path=FilterAllProductsCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TabItem>
+                    <TabItem Header="Đồ ăn">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding Path=FilterFoodCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TabItem>
+                    <TabItem Header="Thức uống">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding Path=FilterDrinkCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TabItem>
+                </TabControl>
+            </Grid>
 
-            <Border BorderBrush="DarkGray"
-                    BorderThickness="1,1,0,1"
-                    Grid.Row="2">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Button Command="{Binding FilterFoodCommand}"
-                            CommandParameter="{Binding ElementName=btnFood}"
-                            Content="Đồ ăn"
-                            FontFamily="Arial"
-                            FontSize="30"
-                            Foreground="Black"
-                            x:Name="btnFood"
-                            Width="200"
-                            Height="60"
-                            Background="{Binding Background_btnFood}"
-                            materialDesign:ButtonAssist.CornerRadius="8"
-                            BorderBrush="Blue"/>
-                    <Button Command="{Binding FilterDrinkCommand}"
-                            CommandParameter="{Binding ElementName=btnDrink}"
-                            Grid.Column="1"
-                            Content="Thức uống"
-                            FontFamily="Arial"
-                            FontSize="30"
-                            Foreground="Black"
-                            x:Name="btnDrink"
-                            Width="200"
-                            Height="60"
-                            Background="{Binding Background_btnDrink}"
-                            materialDesign:ButtonAssist.CornerRadius="8"
-                            BorderBrush="Blue"/>
-                </Grid>
-            </Border>
-
-            <Border BorderBrush="Gray"
-                    BorderThickness="1,0,0,0"
-                    Grid.Row="1"
+            <Border BorderBrush="LightGray"
+                    BorderThickness="0.5,0,0,0"
+                    Grid.Row="2"
                     Grid.Column="1"
-                    Grid.RowSpan="3"/>
+                    Grid.RowSpan="2"/>
 
-            <Grid Grid.Row="1"
-                  Grid.Column="1">
-                <Border BorderBrush="Gray"
-                        BorderThickness="0,0,0,1"/>
-                <DockPanel VerticalAlignment="Bottom"
+            <Grid Grid.Column="1"
+                  Grid.Row="1">
+                <DockPanel VerticalAlignment="Center"
                            Height="30">
                     <TextBlock FontFamily="Arial"
-                               FontSize="25"
+                               FontSize="30"
                                Foreground="dimgray"
                                DockPanel.Dock="Left"
                                Margin="10,0,0,0"
@@ -211,8 +214,9 @@
                                FontFamily="Arial"
                                FontSize="15"
                                Text="Xóa"
+                               Padding="5"
                                FontWeight="Bold"
-                               VerticalAlignment="Center"
+                               VerticalAlignment="Bottom"
                                Margin="0,0,20,0"
                                ToolTip="Xóa tất cả"
                                Cursor="Hand">
@@ -237,7 +241,7 @@
 
             <Grid Grid.Row="2"
                   Grid.Column="1"
-                  Grid.RowSpan="2">
+                  Grid.RowSpan="2" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="400*"></RowDefinition>
                     <RowDefinition Height="40*"></RowDefinition>
@@ -248,211 +252,194 @@
                         <Setter Property="BorderBrush" Value="Transparent"/>
                     </Style>
                 </Grid.Resources>
-                <ListView ItemsSource="{Binding OrderList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedProductToBill, Mode=TwoWay}"
+                <materialDesign:Card UniformCornerRadius="5"
+                                     Margin="5,5,2,5">
+                    <ListView ItemsSource="{Binding OrderList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedProductToBill, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                           x:Name="lvOrderList">
-                    <ListView.Resources>
-                        <Style TargetType="ListViewItem">
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver"
-                                     Value="True">
-                                    <Setter Property="IsSelected"
-                                        Value="True" />
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.Resources>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="Foreground" Value="Transparent" />
-                            <Setter Property="Background" Value="{Binding Background, ElementName=BorderMain}"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                        <Border x:Name="Bd">
-                                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Foreground" Value="Transparent" />
+                                <Setter Property="Background" Value="{Binding Background, ElementName=BorderMain}"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                            <Border x:Name="Bd">
+                                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <MultiTrigger>
-                                                <Setter Property="Foreground"
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <Setter Property="Foreground"
                                                         Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
-                                            </MultiTrigger>
-                                            <Trigger Property="IsMouseOver" 
+                                                </MultiTrigger>
+                                                <Trigger Property="IsMouseOver" 
                                                      Value="True">
-                                                <Setter Property="Background" 
-                                                        Value="Transparent"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Height="100"
-                                  Width="350"
-                                  Margin="20,10,20,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="12*"></ColumnDefinition>
-                                    <ColumnDefinition Width="25*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-
-                                <Border BorderBrush="GreenYellow"
-                                        BorderThickness="0.5"/>
-
-                                <Grid Margin="3">
-                                    <Image Source="{Binding Image}"
-                                                   Stretch="Fill"/>
-                                </Grid>
-                                <Grid Grid.Column="1"
+                                                    <Setter Property="IsSelected"
+                                                        Value="True"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <materialDesign:Card UniformCornerRadius="1"
+                                                     Margin="5,5,0,5"
+                                                     Height="100"
+                                                     MinWidth="315">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="12*"></ColumnDefinition>
+                                            <ColumnDefinition Width="25*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding Image}"
+                                               Stretch="Fill"/>
+                                        <Grid Grid.Column="1"
                                               Margin="10,0,0,0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="3*"></RowDefinition>
-                                        <RowDefinition Height="2*"></RowDefinition>
-                                    </Grid.RowDefinitions>
-                                    <DockPanel Grid.Row="0">
-                                        <Border BorderBrush="{x:Null}" 
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="3*"></RowDefinition>
+                                                <RowDefinition Height="2*"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <DockPanel Grid.Row="0">
+                                                <Border BorderBrush="{x:Null}" 
                                                 Height="Auto"
                                                 Width="80"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center">
-                                            <TextBlock TextWrapping="Wrap"
+                                                    <TextBlock TextWrapping="Wrap"
                                                        Text="{Binding DisplayName}"
                                                        FontWeight="Bold"
                                                        FontSize="15"
                                                        VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Label DockPanel.Dock="Right"
+                                                </Border>
+                                                <Label DockPanel.Dock="Right"
                                                Height="35"
                                                Width="35"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Right"
                                                ToolTip="Xóa"
-                                               Margin="0,0,20,0"
+                                               Margin="0,0,10,0"
                                                Cursor="Hand">
 
-                                            <Label.Template>
-                                                <ControlTemplate TargetType="Label">
-                                                    <Grid>
-                                                        <Ellipse Fill="LightGray"/>
-                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                    <Label.Template>
+                                                        <ControlTemplate TargetType="Label">
+                                                            <Grid>
+                                                                <Ellipse Fill="LightGray"/>
+                                                                <ContentPresenter HorizontalAlignment="Center"
                                                                           VerticalAlignment="Center"/>
-                                                    </Grid>
-                                                </ControlTemplate>
-                                            </Label.Template>
-                                            <materialDesign:PackIcon Kind="DeleteForever"
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </Label.Template>
+                                                    <materialDesign:PackIcon Kind="DeleteForever"
                                                                      Foreground="Gray"
                                                                      HorizontalAlignment="Center"
                                                                      VerticalAlignment="Center"
                                                                      Width="Auto"
                                                                      Height="Auto"
                                                                      BorderThickness="0"/>
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction Command="{Binding ElementName=lvOrderList, Path=DataContext.DeleteProductCommand}"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </Label>
-                                    </DockPanel>
-                                    <DockPanel Grid.Row="1"
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=lvOrderList, Path=DataContext.DeleteProductCommand}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Label>
+                                            </DockPanel>
+                                            <DockPanel Grid.Row="1"
                                                VerticalAlignment="Top"
                                                Margin="0">
-                                        <StackPanel DockPanel.Dock="Left"
+                                                <StackPanel DockPanel.Dock="Left"
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Top"
                                                     Orientation="Horizontal">
 
-                                            <Label Foreground="Red"
+                                                    <Label Foreground="Red"
                                                    Background="#FF53CE5D"
                                                    Width="20"
                                                    Height="20"
                                                    x:Name="lblMinus"
                                                    Cursor="Hand">
-                                                <Grid>
-                                                    <materialDesign:PackIcon Kind="Minus"
+                                                        <Grid>
+                                                            <materialDesign:PackIcon Kind="Minus"
                                                                              VerticalAlignment="Center"
                                                                              HorizontalAlignment="Center"/>
-                                                </Grid>
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=lvOrderList, Path=DataContext.MinusCommand}"/>
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Label>
+                                                        </Grid>
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                <i:InvokeCommandAction Command="{Binding ElementName=lvOrderList, Path=DataContext.MinusCommand}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </Label>
 
-                                            <TextBlock Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    <TextBlock Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                        TextAlignment="Center"
                                                        Padding="1"
                                                        FontSize="15"
                                                        Background="White"
                                                        Width="25"
                                                        Height="Auto"/>
-                                            <Label Foreground="Red"
+                                                    <Label Foreground="Red"
                                                    Background="#FF53CE5D"
                                                    Width="20"
                                                    Height="20"
                                                    x:Name="lblPlus"
                                                    Cursor="Hand">
-                                                <Grid>
-                                                    <materialDesign:PackIcon Kind="Plus"
+                                                        <Grid>
+                                                            <materialDesign:PackIcon Kind="Plus"
                                                                              VerticalAlignment="Center"
                                                                              HorizontalAlignment="Center"/>
-                                                </Grid>
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=lvOrderList, Path=DataContext.PlusCommand}"/>
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Label>
-                                        </StackPanel>
-                                        <TextBlock DockPanel.Dock="Right"
+                                                        </Grid>
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                <i:InvokeCommandAction Command="{Binding ElementName=lvOrderList, Path=DataContext.PlusCommand}"/>
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </Label>
+                                                </StackPanel>
+                                                <TextBlock DockPanel.Dock="Right"
                                                            HorizontalAlignment="Right"
                                                            VerticalAlignment="Center"
                                                            Text="{Binding Price}"
                                                            Width="Auto"
                                                            FontSize="15"
-                                                           Margin="2,0,20,0"/>
-                                        <Grid HorizontalAlignment="Right"
+                                                           Margin="0,0,10,0"/>
+                                                <Grid HorizontalAlignment="Right"
                                                       VerticalAlignment="Top"
+                                                      Margin="5"
                                                       Height="15"
                                                       Width="15">
-                                            <Image Source="/Resources/FoodLayout/Icon/Money.jpg"/>
+                                                    <Image Source="/Resources/FoodLayout/Icon/Money.jpg"/>
+                                                </Grid>
+                                            </DockPanel>
                                         </Grid>
-                                    </DockPanel>
-                                </Grid>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </materialDesign:Card>
 
-                <Border BorderThickness="0,1,0,1"
-                        BorderBrush="DarkGray"
+                <Border BorderThickness="0,0.5,0,0.5"
+                        BorderBrush="LightGray"
                         Grid.Row="1">
                     <DockPanel>
-                        <TextBlock Text="VNĐ"
-                                       FontSize="25"
-                                       Width="Auto"
-                                       DockPanel.Dock="Right"
-                                       VerticalAlignment="Center"/>
-
                         <TextBlock x:Name="tblSum"
                                    Text="{Binding TotalPrice}"
                                    FontSize="25"
                                    DockPanel.Dock="Right"
                                    VerticalAlignment="Center"
-                                   Margin="5,0,5,0"
-                                   MinWidth="50"
+                                   Margin="10"
                                    Width="Auto"
                                    FontFamily="Arial"
                                    FontWeight="Bold"/>
 
                         <TextBlock Text="Tổng:"
-                                   FontSize="25"
+                                   FontSize="30"
                                    FontFamily="Arial"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"
@@ -460,24 +447,18 @@
                     </DockPanel>
                 </Border>
 
-                <Grid Grid.Row="2"
-                      HorizontalAlignment="Center"
-                      VerticalAlignment="Center" 
-                      Height="50" 
-                      Width="164">
-                    <Border BorderThickness="1.5"
-                            CornerRadius="5"
-                            BorderBrush="Gray">
-                        <Button Command="{Binding BuyCommand}"
-                                Content="Mua"
-                                FontSize="25"
-                                Background="#FF5980B8"
-                                Foreground="#FFF0F3F7"
-                                Width="Auto"
-                                Height="Auto">
-                        </Button>
-                    </Border>
-                </Grid>
+                <Button Command="{Binding BuyCommand}"
+                        Content="Chọn"
+                        FontSize="25"
+                        Background="#FF5980B8"
+                        Foreground="#FFF0F3F7"
+                        Grid.Row="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" 
+                        Height="50"
+                        Width="150"
+                        materialDesign:ButtonAssist.CornerRadius="5">
+                </Button>
             </Grid>
 
             <ListBox Grid.Row="3"
@@ -485,28 +466,13 @@
                      Background="Transparent"
                      ItemsSource="{Binding MenuList}"
                      SelectedItem="{Binding SelectedProductToOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     x:Name="lbxMenuProduct">
-                <ListBox.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="0,0,0,10"/>
-                        <Setter Property="BorderBrush" Value="#FF2F74D9"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                    </Style>
-                </ListBox.Resources>
+                     x:Name="lbxMenuProduct" Margin="0,0.4,0,0">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver"
-                                         Value="True">
-                                <Setter Property="IsSelected"
-                                            Value="True" />
-                            </Trigger>
-                        </Style.Triggers>
                         <Setter Property="Background" Value="Transparent" />
                         <Setter Property="Foreground" Value="Transparent" />
                         <Setter Property="VerticalAlignment" Value="Top"/>
-                        <Setter Property="Margin" Value="0,20,0,15"/>
+                        <Setter Property="Margin" Value="0,20,0,10"/>
                         <Setter Property="Background" Value="{Binding Background, ElementName=BorderMain}"/>
                         <Setter Property="Template">
                             <Setter.Value>
@@ -521,6 +487,11 @@
                                             <Setter Property="Foreground"
                                                     Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
                                         </MultiTrigger>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True">
+                                            <Setter Property="IsSelected"
+                                                    Value="True"/>
+                                        </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
@@ -535,17 +506,16 @@
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="Transparent"
-                                BorderBrush="LightPink"
-                                BorderThickness="1"
-                                CornerRadius="5"
-                                Margin="30,0,0,0">
-                            <Grid Width="200"
-                                  Height="250"
-                                  Background="Transparent">
+                        <materialDesign:Card BorderBrush="LightPink"
+                                             BorderThickness="1"
+                                             UniformCornerRadius="5"
+                                             Margin="20,0,0,0" 
+                                             Width="200"
+                                             Height="270">
+                            <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="7*"></RowDefinition>
-                                    <RowDefinition Height="4*"></RowDefinition>
+                                    <RowDefinition Height="8*"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Image Source="{Binding Image}"
                                        Stretch="Fill"/>
@@ -623,10 +593,10 @@
                                     </DockPanel>
                                 </Grid>
                             </Grid>
-                        </Border>
+                        </materialDesign:Card>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
         </Grid>
-    </Border>
+    </materialDesign:Card>
 </Window>

@@ -1,13 +1,5 @@
 ﻿using CinemaManagement.DTOs;
-using CinemaManagement.Models;
-using CinemaManagement.Models.Services;
-using CinemaManagement.Views.Staff;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,9 +11,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
     {
         public ICommand CloseWindowCM { get; set; }
         public ICommand MinimizeWindowCM { get; set; }
+        public ICommand GoBackCommand { get; set; }
         public ICommand MouseMoveCommand { get; set; }
-        public ICommand CheckedCommand { get; set; }
-        public ICommand UncheckedCommand { get; set; }
+        public ICommand FilterAllProductsCommand { get; set;}
         public ICommand FilterFoodCommand { get; set; }
         public ICommand FilterDrinkCommand { get; set; }
         public ICommand SelectedProductCommand { get; set; }
@@ -43,35 +35,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             }
         }
 
-        private bool _IsChecked;
-        public bool IsChecked
+        private TabItem _TabProduct;
+        public TabItem TabProduct
         {
-            get => _IsChecked;
+            get => _TabProduct;
             set
             {
-                _IsChecked = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private SolidColorBrush _Background_btnFood;
-        public SolidColorBrush Background_btnFood
-        {
-            get => _Background_btnFood;
-            set
-            {
-                _Background_btnFood = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private SolidColorBrush _Background_btnDrink;
-        public SolidColorBrush Background_btnDrink
-        {
-            get => _Background_btnDrink;
-            set
-            {
-                _Background_btnDrink = value;
+                _TabProduct = value;
                 OnPropertyChanged();
             }
         }
@@ -137,14 +107,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             OrderList = new ObservableCollection<ProductDTO>();
             MenuList = new ObservableCollection<ProductDTO>();
 
-            //Khởi tạo giá trị Background ban đầu cho 2 button
-            Background_btnFood = Background_btnDrink = new SolidColorBrush(Colors.LightBlue);
-
             //Khởi tạo giá trị ban đầu cho tổng giá tiền
             TotalPrice = 0;
-
-            //Giá trị khởi đầu cho checkbox
-            IsChecked = true;
 
             //Gán giá trị demo mẫu đồ ăn và thức uống
             Demo();
@@ -152,52 +116,21 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             //Khởi tạo giá trị ban đầu các item cho MenuList
             MenuList = AllProduct;
 
-            //Tạo resource lưu trạng thái trước khi Checked
-            ObservableCollection<ProductDTO> tempResource = new ObservableCollection<ProductDTO>();
-            tempResource = AllProduct;
-
-            //CheckedCommand
-            UncheckedCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                MenuList = tempResource;
-                if (tempResource != AllProduct)
-                {
-                    if (MenuList[0].Category == "Đồ ăn")
-                    {
-                        Background_btnFood = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4500"));
-                        Background_btnDrink = new SolidColorBrush(Colors.LightBlue);
-                    }
-                    else
-                    {
-                        Background_btnDrink = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4500"));
-                        Background_btnFood = new SolidColorBrush(Colors.LightBlue);
-                    }
-                }
-            });
-
-            //CheckedCommand
-            CheckedCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                Background_btnFood = Background_btnDrink = new SolidColorBrush(Colors.LightBlue);
-                tempResource = MenuList;
-                MenuList = AllProduct;
-            });
+            //Filter All Products
+            FilterAllProductsCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+           {
+               MenuList = new ObservableCollection<ProductDTO>(AllProduct);
+           });
 
             //Filter đồ ăn
-            FilterFoodCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            FilterFoodCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                if (IsChecked == true) IsChecked = false;
-                Background_btnFood = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4500"));
-                Background_btnDrink = new SolidColorBrush(Colors.LightBlue);
                 FilterFood();
             });
 
             //Filter thức uống
-            FilterDrinkCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            FilterDrinkCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                if (IsChecked == true) IsChecked = false;
-                Background_btnDrink = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF4500"));
-                Background_btnFood = new SolidColorBrush(Colors.LightBlue);
                 FilterDrink();
             });
 
@@ -376,7 +309,15 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                 }
             });
 
-            MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
+            GoBackCommand = new RelayCommand<Page>((p) => { return true; }, (p) =>
+            {
+                if (p!=null)
+                {
+                    
+                }
+            });
+
+                MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {
                 Window window = GetWindowParent(p);
                 Window w = window as Window;
@@ -428,13 +369,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
         }
         public void FilterMenuList()
         {
-            if (Background_btnFood == Background_btnDrink)
+            if (TabProduct.Header.ToString() == "Tất cả")
             {
                 MenuList = new ObservableCollection<ProductDTO>(AllProduct);
             }
             else
             {
-                if (Background_btnFood.Color != Colors.LightBlue)
+                if (TabProduct.Header.ToString() != "Thức uống")
                 {
                     FilterFood();
                 }
