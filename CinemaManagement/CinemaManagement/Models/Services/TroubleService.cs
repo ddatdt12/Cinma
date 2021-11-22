@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,6 @@ namespace CinemaManagement.Models.Services
 {
     public class TroubleService
     {
-        //LEVEL
-        const string NORMAL = "Bình thường";
-        const string CRITICAL = "Nghiêm trọng";
-
-        // STATUS
-        const string WAITING = "Chờ tiếp nhận";
-        const string IN_PROGRESS = "Đang giải quyết";
-        const string DONE = "Đã giải quyết";
-        const string CANCLE = "Đã hủy";
         private static TroubleService _ins;
         public static TroubleService Ins
         {
@@ -88,8 +80,8 @@ namespace CinemaManagement.Models.Services
                     Title = newTrouble.Title,
                     Description = newTrouble.Description,
                     Image = newTrouble.Image,
-                    Status = WAITING,
-                    Level = newTrouble.Level ?? NORMAL,
+                    Status = STATUS.WAITING,
+                    Level = newTrouble.Level ?? LEVEL.NORMAL,
                     SubmittedAt = DateTime.Now,
                     StaffId = newTrouble.StaffId,
                 };
@@ -139,26 +131,27 @@ namespace CinemaManagement.Models.Services
 
                 var trouble = context.Troubles.Find(updatedTrouble.Id);
 
-                switch (updatedTrouble.Status)
+
+                if (updatedTrouble.Status == STATUS.IN_PROGRESS)
                 {
-                    case IN_PROGRESS:
-                        trouble.StartDate = DateTime.Now;
-                        break;
-                    case DONE:
-                        if (trouble.Status == WAITING)
-                        {
-                            trouble.StartDate = DateTime.Now;
-                        }
-                        trouble.FinishDate = DateTime.Now;
-                        trouble.RepairCost = updatedTrouble.RepairCost;
-                        break;
-                    case CANCLE:
-                        trouble.FinishDate = DateTime.Now;
-                        trouble.RepairCost = 0;
-                        break;
-                    default:
-                        break;
+                    trouble.StartDate = DateTime.Now;
                 }
+                else if (updatedTrouble.Status == STATUS.DONE)
+                {
+                    if (trouble.Status == STATUS.WAITING)
+                    {
+                        trouble.StartDate = DateTime.Now;
+                    }
+                    trouble.FinishDate = DateTime.Now;
+                    trouble.RepairCost = updatedTrouble.RepairCost;
+                }
+                else if (updatedTrouble.Status == STATUS.CANCLE)
+                {
+                    trouble.FinishDate = DateTime.Now;
+                    trouble.RepairCost = 0;
+                }
+
+
                 trouble.Status = updatedTrouble.Status;
 
                 context.SaveChanges();
