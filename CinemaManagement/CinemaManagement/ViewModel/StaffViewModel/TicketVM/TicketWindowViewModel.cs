@@ -15,22 +15,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
         public ICommand MinimizeTicketWindowCM { get; set; }
         public ICommand MouseMoveWindowCM { get; set; }
         public ICommand LoadTicketBookingPageCM { get; set; }
-
-        private List<Label> _listlabel;
-        public List<Label> listlabel
-        {
-            get { return _listlabel; }
-            set { _listlabel = value; }
-        }
-
-
         public TicketWindowViewModel()
         {
             CaculateTime();
             Output_ToString();
             GenerateSeat();
             WaitingList = new List<SeatSettingDTO>();
-            listlabel = new List<Label>();
 
             sumCurrentSeat = "Số ghế   (" + (ListSeat.Count - ListStatusSeat.Count).ToString() + "/128)";
             CloseTicketWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
@@ -39,6 +29,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                 var w = window as Window;
                 if (w != null)
                 {
+                    w.DataContext = new TicketWindowViewModel();
                     w.Close();
                 }
             });

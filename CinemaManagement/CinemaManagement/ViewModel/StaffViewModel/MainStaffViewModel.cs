@@ -162,8 +162,6 @@ namespace CinemaManagement.ViewModel
                 w1.ShowDialog();
                 p.Close();
             });
-        }
-
-       
+        } 
     }
 }

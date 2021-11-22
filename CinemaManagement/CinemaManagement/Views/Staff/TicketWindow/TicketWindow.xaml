@@ -134,8 +134,6 @@
                                 <materialDesign:PackIcon Kind="ArrowLeftBold"
                                                          Width="50"
                                                          Height="35" />
-                                <TextBlock Text="Next"
-                                           TextAlignment="Center" />
                             </StackPanel>
                         </Button>
                     </Border>
@@ -156,8 +154,6 @@
                                 <materialDesign:PackIcon Kind="ArrowRightBold"
                                                          Width="50"
                                                          Height="35" />
-                                <TextBlock Text="Next"
-                                           TextAlignment="Center" />
                             </StackPanel>
                         </Button>
                     </Border>

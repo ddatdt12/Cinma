@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
@@ -14,12 +15,18 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
         public static ShowtimeDTO CurrentShowtime;
         public static MovieDTO tempFilmName;
         public static string showTimeRoom;
-
+        public static List<Label> listlabel = new List<Label>();
 
         public ICommand SelectedSeatCM { get; set; }
         public ICommand LoadStatusSeatCM { get; set; }
         public ICommand SetStatusSeatCM { get; set; }
-        
+
+        private string _price;
+        public string price
+        {
+            get { return _price; }
+            set { _price = value; OnPropertyChanged(); }
+        }
 
         private SeatSettingDTO _SelectedSeat;
         public SeatSettingDTO SelectedSeat
@@ -125,8 +132,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             set { _WaitingList = value; }
         }
 
-        private int _totalPrice;
-        public int TotalPrice
+        private string _totalPrice;
+        public string TotalPrice
         {
             get { return _totalPrice; }
             set { _totalPrice = value; OnPropertyChanged(); }
@@ -138,8 +145,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             get { return _totalSeat; }
             set { _totalSeat = value; OnPropertyChanged(); }
         }
-
-
 
         public void GenerateSeat()
         {
@@ -184,12 +189,23 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
 
         public void ReCalculate(SeatSettingDTO seat = null)
         {
-            TotalPrice = 0;
+            decimal totalprice = 0;
             foreach (var item in WaitingList)
             {
-                TotalPrice += 45000;
+                totalprice += CurrentShowtime.TicketPrice;
             }
-            TotalSeat = WaitingList.Count.ToString();
+
+            TotalPrice = Helper.FormatVNMoney(totalprice);
+
+
+            TotalSeat = "";
+            for(int i = 0; i < WaitingList.Count;i++)
+            {
+                if(i == 0)
+                    TotalSeat += WaitingList[i].SeatPosition;
+                else
+                    TotalSeat += ", " + WaitingList[i].SeatPosition;
+            }
         }
 
         public bool IsExist(string id)
@@ -220,6 +236,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             showTime = startTime + " - " + endTime; 
             showDateAfter = CurrentShowtime.ShowDate.ToString("dd-MM-yyyy");
             showDateBefore = CurrentShowtime.ShowDate.ToString("dd-MM-yyyy");
+            price = Helper.FormatVNMoney(CurrentShowtime.TicketPrice);
         }
     }
 }

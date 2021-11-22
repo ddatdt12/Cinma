@@ -47,7 +47,7 @@
             </Grid.Resources>
             <StackPanel Grid.Row="1">
                 <Border BorderBrush="#FF16274D"
-                        BorderThickness="0 3 0 3"
+                        BorderThickness="0 2 0 2"
                         CornerRadius="5">
                     <StackPanel x:Name="grdShowing"
                                 Tag="{Binding ElementName=btnShowing}"
@@ -70,7 +70,7 @@
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="#FF16274D"
-                        BorderThickness="0 3 0 3"
+                        BorderThickness="0 2 0 2"
                         CornerRadius="5">
                     <StackPanel x:Name="grdFood"
                                 Tag="{Binding ElementName=btnFood}"

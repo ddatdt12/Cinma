@@ -383,7 +383,7 @@
                                                 <Label Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="16"
-                                                       x:Name="_price" />
+                                                       Content="{Binding price}" />
                                             </Grid>
                                         </StackPanel>
                                     </StackPanel>
