@@ -1,0 +1,96 @@
+﻿<Page x:Class="CinemaManagement.Views.Admin.ErrorManagement.ErrorManagement"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:CinemaManagement.ViewModel.AdminVM.ErrorVM"
+      mc:Ignorable="d"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto"
+      DataContext="{StaticResource ErrorVM}"
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="{DynamicResource MaterialDesignFont}"
+      d:DesignHeight="720"
+      d:DesignWidth="1440">
+    <Page.Resources>
+        <local:StatusBrushConverter x:Key="StatusBrushConverter" />
+    </Page.Resources>
+
+    <Grid>
+        <materialDesign:Card Width="1200"
+                             Height="680">
+            <ListView ItemsSource="{Binding ListError}">
+                <ListView.View>
+                    <GridView>
+
+                        <GridViewColumn Header="Sự cố"
+                                        Width="600">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <Border CornerRadius="8,8,8,8"
+                                                Width="100"
+                                                Height="100"
+                                                Cursor="Hand">
+                                            <Border.Background>
+                                                <ImageBrush x:Name="smallimg"
+                                                            Stretch="Fill"
+                                                            ImageSource="/CinemaManagement;component/Resources/LayoutSignin/StoryboardMovie/1.jpg" />
+                                            </Border.Background>
+                                        </Border>
+                                        <StackPanel Margin="20,0,0,0">
+                                            <Label Content="{Binding Name}"
+                                                   FontSize="25"
+                                                   FontWeight="Bold"
+                                                   Width="350" />
+                                            <Label Content="Chi phí:"
+                                                   FontSize="20" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Ngày nhận"
+                                        Width="350">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="21/10/2021"
+                                               FontSize="25"
+                                               Margin="0,30,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Trạng thái" Width="210">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="1"
+                                            Margin="0,25,0,0"
+                                            
+                                            BorderBrush="{Binding Status, Converter={StaticResource StatusBrushConverter}}"
+                                            CornerRadius="20"
+                                            >
+                                        <TextBlock Text="{Binding Status}"
+                                                   FontSize="20"
+                                                   FontStyle="Italic"
+                                                   x:Name="_status"
+                                                   Margin="10"
+                                                   FontWeight="Medium"
+                                                   Foreground="{Binding Status, Converter={StaticResource StatusBrushConverter}}"/>
+                                    </Border>
+
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </materialDesign:Card>
+    </Grid>
+
+</Page>

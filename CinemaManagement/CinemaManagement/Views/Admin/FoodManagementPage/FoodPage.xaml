@@ -17,7 +17,6 @@
       FontFamily="{DynamicResource MaterialDesignFont}"
       d:DesignHeight="720"
       d:DesignWidth="1440"
-      Title="FoodPage"
       ShowsNavigationUI="False">
 
     <Grid>

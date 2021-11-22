@@ -194,7 +194,23 @@
                                             Command="{Binding LoadLSPage}"
                                             CommandParameter="{Binding ElementName=MainFrame}" />
                                 </StackPanel>
-
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="10,0,0,0">
+                                    <materialDesign:PackIcon Kind="AlertCircle"
+                                                             Height="30"
+                                                             Width="30"
+                                                             VerticalAlignment="Center" />
+                                    <Button Margin="0,0,0,5"
+                                            Content="Sự cố"
+                                            Height="50"
+                                            FontSize="25"
+                                            Width="240"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Command="{Binding LoadErrorPage}"
+                                            CommandParameter="{Binding ElementName=MainFrame}" />
+                                </StackPanel>
                             </StackPanel>
                         </Grid>
                         <ToggleButton x:Name="SlideButton"
