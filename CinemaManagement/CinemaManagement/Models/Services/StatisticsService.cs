@@ -50,7 +50,7 @@ namespace CinemaManagement.Models.Services
             }
         }
 
-        public List<CustomerDTO> GetTop5CustomerExpenseByMonth(int month)
+        public (List<CustomerDTO>, decimal TicketExpenseOfTop1 , decimal ProductExpenseOfTop1) GetTop5CustomerExpenseByMonth(int month)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace CinemaManagement.Models.Services
                     .Select(grC => new
                     {
                         CustomerId = grC.Key,
-                        Expense = grC.Sum(c=> (Decimal?)c.TotalPrice) ?? 0
+                        Expense = grC.Sum(c=> (Decimal?)(c.TotalPrice + c.DiscountPrice)) ?? 0
                     })
                     .OrderByDescending(b => b.Expense).Take(5)
                     .Join(
@@ -75,7 +75,13 @@ namespace CinemaManagement.Models.Services
                         Expense =  statis.Expense
                     }).ToList();
 
-                return cusStatistic;
+                decimal TicketExpense = 0, ProductExpense = 0;
+                if (cusStatistic.Count >= 1)
+                {
+                     TicketExpense = context.Tickets.Where(b => b.Bill.CustomerId == cusStatistic.First().Id).Sum(t => (decimal?)t.Price) ?? 0;
+                     ProductExpense = context.ProductBillInfoes.Where(b => b.Bill.CustomerId == cusStatistic.First().Id).Sum(t => (decimal?)(t.PricePerItem * t.Quantity)) ?? 0;
+                }
+                return (cusStatistic, TicketExpense, ProductExpense);
             }
             catch (Exception e)
             {

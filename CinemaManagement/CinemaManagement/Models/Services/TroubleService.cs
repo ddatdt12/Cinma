@@ -9,6 +9,11 @@ namespace CinemaManagement.Models.Services
 {
     public class TroubleService
     {
+        //LEVEL
+        const string NORMAL = "Bình thường";
+        const string CRITICAL = "Nghiêm trọng";
+
+        // STATUS
         const string WAITING = "Chờ tiếp nhận";
         const string IN_PROGRESS = "Đang giải quyết";
         const string DONE = "Đã giải quyết";
@@ -29,6 +34,17 @@ namespace CinemaManagement.Models.Services
         private TroubleService()
         {
         }
+
+        private string CreateNextTroubleId(string maxId)
+        {
+            //TRxxxx
+            if (maxId is null)
+            {
+                return "TR0001";
+            }
+            string newIdString = $"000{int.Parse(maxId.Substring(2)) + 1}";
+            return "TR" + newIdString.Substring(newIdString.Length - 4, 4);
+        }
         public List<TroubleDTO> GetAllTrouble()
         {
             try
@@ -40,6 +56,7 @@ namespace CinemaManagement.Models.Services
                                                     Title = trou.Title,
                                                     Description = trou.Description,
                                                     Image = trou.Image,
+                                                    Level = trou.Level,
                                                     Status = trou.Status,
                                                     RepairCost = trou.RepairCost,
                                                     SubmittedAt = trou.SubmittedAt,
@@ -49,7 +66,6 @@ namespace CinemaManagement.Models.Services
                                                     StaffName = trou.Staff.Name,
                                                 }).ToList();
 
-                DataProvider.Ins.DB.SaveChanges();
                 return troubleList;
 
             }
@@ -64,16 +80,23 @@ namespace CinemaManagement.Models.Services
             {
                 var context = DataProvider.Ins.DB;
 
+                var maxId = context.Troubles.Max(t => t.Id);
+
                 Trouble tr = new Trouble()
                 {
+                    Id = CreateNextTroubleId(maxId),
                     Title = newTrouble.Title,
                     Description = newTrouble.Description,
                     Image = newTrouble.Image,
                     Status = WAITING,
+                    Level = newTrouble.Level ?? NORMAL,
                     SubmittedAt = DateTime.Now,
                     StaffId = newTrouble.StaffId,
                 };
                 context.Troubles.Add(tr);
+
+                context.SaveChanges();
+
                 newTrouble.Id = tr.Id;
                 return (true, null, newTrouble);
             }
@@ -97,6 +120,9 @@ namespace CinemaManagement.Models.Services
                 trouble.Image = updatedTrouble.Image;
                 trouble.SubmittedAt = DateTime.Now;
                 trouble.StaffId = updatedTrouble.StaffId;
+                trouble.Level = updatedTrouble.Level ?? trouble.Level;
+
+                context.SaveChanges();
 
                 return (true, null);
             }
@@ -127,11 +153,16 @@ namespace CinemaManagement.Models.Services
                         trouble.RepairCost = updatedTrouble.RepairCost;
                         break;
                     case CANCLE:
+                        trouble.FinishDate = DateTime.Now;
+                        trouble.RepairCost = 0;
                         break;
                     default:
                         break;
                 }
                 trouble.Status = updatedTrouble.Status;
+
+                context.SaveChanges();
+
                 return (true, null);
             }
             catch (Exception e)
@@ -139,7 +170,7 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
-        public int GetWaitingTroubleCouny()
+        public int GetWaitingTroubleCount()
         {
             try
             {

@@ -24,6 +24,7 @@ namespace CinemaManagement.Models
         public Nullable<System.DateTime> FinishDate { get; set; }
         public string Image { get; set; }
         public string StaffId { get; set; }
+        public string Level { get; set; }
     
         public virtual Staff Staff { get; set; }
     }

@@ -164,13 +164,14 @@
           <Property Name="Id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="30" />
           <Property Name="SubmittedAt" Type="datetime" Nullable="false" />
           <Property Name="RepairCost" Type="money" Nullable="false" />
           <Property Name="StartDate" Type="datetime" />
           <Property Name="FinishDate" Type="datetime" />
           <Property Name="StaffId" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Image" Type="varchar" MaxLength="30" />
+          <Property Name="Level" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <Association Name="FK__Bill__CustomerId__59FA5E80">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
@@ -943,7 +944,7 @@
           <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="SubmittedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RepairCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="StartDate" Type="DateTime" Precision="3" />
@@ -951,6 +952,7 @@
           <Property Name="Image" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="StaffId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Staff" Relationship="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" FromRole="Trouble" ToRole="Staff" />
+          <Property Name="Level" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__Trouble__StaffId__76969D2E">
           <End Type="CinemaManagementModel.Staff" Role="Staff" Multiplicity="1" />
@@ -1137,6 +1139,7 @@
           <EntitySetMapping Name="Troubles">
             <EntityTypeMapping TypeName="CinemaManagementModel.Trouble">
               <MappingFragment StoreEntitySet="Trouble">
+                <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />

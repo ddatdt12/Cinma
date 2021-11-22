@@ -13,7 +13,7 @@ namespace CinemaManagement.Utils
     public class Helper
     {
         Random random = new Random();
-        public static List<string> GetUniqueRandomString(string keyword, int quantity)
+        public static List<string> GetListCode(string keyword, int quantity)
         {
             List<string> ListCode = new List<string>();
             for (int i = 0; i < quantity; i++)

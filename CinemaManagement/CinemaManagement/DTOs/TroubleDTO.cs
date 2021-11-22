@@ -14,8 +14,16 @@ namespace CinemaManagement.DTOs
         public string Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public string Level { get; set; }
         public string Status { get; set; }
         public DateTime SubmittedAt { get; set; }
+        public string RepairCostStr
+        {
+            get
+            {
+                return Helper.FormatVNMoney(RepairCost);
+            }
+        }
         public decimal RepairCost { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? FinishDate { get; set; }
@@ -32,11 +40,11 @@ namespace CinemaManagement.DTOs
                 {
                     if (File.Exists(Helper.GetMovieImgPath(Image)))
                     {
-                        _imgSource = Helper.GetMovieImageSource(Image);
+                        _imgSource = Helper.GetTroubleImageSource(Image);
                     }
                     else
                     {
-                        _imgSource = Helper.GetMovieImageSource("null.jpg");
+                        _imgSource = Helper.GetTroubleImageSource("null.jpg");
                     }
                 }
                 return _imgSource;
