@@ -19,6 +19,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         {
             List<GenreDTO> tempgenre = new List<GenreDTO>(SelectedItem.Genres);
 
+            IsImageChanged = false;
             imgfullname = SelectedItem.Image;
             movieID = SelectedItem.Id.ToString();
             movieName = SelectedItem.DisplayName;
@@ -32,21 +33,18 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
             if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)) == true)
             {
-                ImageSource = Helper.GetImageSource(SelectedItem.Image);
+                ImageSource = Helper.GetMovieImageSource(SelectedItem.Image);
             }
             else
             {
-                w1.imgframe.Source = Helper.GetImageSource("null.jpg");
+                w1.imgframe.Source = Helper.GetMovieImageSource("null.jpg");
             }
         }
         public void UpdateMovieFunc(Window p)
         {
             if (movieID != null && IsValidData())
             {
-                if (!IsImageChanged)
-                    extension = SelectedItem.Image.Split('.')[1];
-                imgName = Helper.CreateImageName(movieName);
-                imgfullname = Helper.CreateImageFullName(imgName, extension);
+
 
                 List<GenreDTO> temp = new List<GenreDTO>();
                 temp.Add(movieGenre);
@@ -63,33 +61,37 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     RunningTime = int.Parse(movieDuration),
                 };
 
-                if (movie.Image != SelectedItem.Image)
+                if (IsImageChanged)
                 {
+                    imgName = Helper.CreateImageName(movieName);
+                    imgfullname = Helper.CreateImageFullName(imgName, extension);
                     movie.Image = imgfullname;
                 }
                 else
                 {
                     filepath = Helper.GetMovieImgPath(SelectedItem.Image);
-                    movie.Image = imgfullname = Helper.CreateImageFullName(movieName, SelectedItem.Image.Split('.')[1]);
+                    movie.Image = imgfullname = Helper.CreateImageFullName(Helper.CreateImageName(movieName), SelectedItem.Image.Split('.')[1]);
                 }
 
                 (bool successUpdateMovie, string messageFromUpdateMovie) = MovieService.Ins.UpdateMovie(movie);
 
                 if (successUpdateMovie)
                 {
+                    //if (SelectedItem.Image != movie.Image)
+                    //{
+                    //    File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
+                    //}
+                    //else
+                    //{
+                    //    if (!string.IsNullOrEmpty(filepath))
+                    //    {
+                    //        File.Copy(filepath, Helper.GetMovieImgPath(movie.Image), true);
+                    //    }
+                    //}
+                    SaveImgToApp();
                     MessageBox.Show(messageFromUpdateMovie);
-
-                    if (SelectedItem.Image != movie.Image)
-                    {
-                        SaveImgToApp();
-                        File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-                    }
-                    else
-                    {
-                        File.Copy(filepath, Helper.GetMovieImgPath(movie.Image), true);
-                    }
-
                     LoadMovieListView(Operation.UPDATE, movie);
+
                     p.Close();
                 }
                 else

@@ -1,8 +1,8 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Views.Admin.Import_ExportManagement;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -11,10 +11,62 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 {
     public partial class Import_ExportManagementViewModel : BaseViewModel
     {
+        private DateTime _getCurrentDate;
+        public DateTime GetCurrentDate
+        {
+            get { return _getCurrentDate; }
+            set { _getCurrentDate = value; }
+        }
+        private string _setCurrentDate;
+        public string SetCurrentDate
+        {
+            get { return _setCurrentDate; }
+            set { _setCurrentDate = value; }
+        }
+
+        private DateTime selectedDate;
+        public DateTime SelectedDate
+        {
+            get { return selectedDate; }
+            set { selectedDate = value; OnPropertyChanged(); GetExportListSource("date"); }
+        }
+        private int _SelectedIndexFilter;
+        public int SelectedIndexFilter
+        {
+            get { return _SelectedIndexFilter; }
+            set { _SelectedIndexFilter = value; OnPropertyChanged(); CheckIndexFilter(); }
+        }
+        private BillDTO _selectedTicketBill;
+        public BillDTO SelectedTicketBill
+        {
+            get { return _selectedTicketBill; }
+            set { _selectedTicketBill = value; OnPropertyChanged(); }
+        }
+        private BillDTO _billDetail;
+        public BillDTO BillDetail
+        {
+            get { return _billDetail; }
+            set { _billDetail = value; OnPropertyChanged(); }
+        }
+
+        private int _SelectedMonth;
+        public int SelectedMonth
+        {
+            get { return _SelectedMonth; }
+            set { _SelectedMonth = value; OnPropertyChanged(); CheckMonthFilter(); }
+        }
+
+
+        public int SelectedView = 0;
+
+
+
+
+
         public ICommand LoadImportPageCM { get; set; }
         public ICommand LoadExportPageCM { get; set; }
         public ICommand ExportFileCM { get; set; }
-
+        public ICommand LoadInforBillCM { get; set; }
 
 
 
@@ -25,8 +77,8 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             set { _ListProduct = value; OnPropertyChanged(); }
         }
 
-        private List<MovieDTO> _ListBill;
-        public List<MovieDTO> ListBill
+        private List<BillDTO> _ListBill;
+        public List<BillDTO> ListBill
         {
             get { return _ListBill; }
             set { _ListBill = value; OnPropertyChanged(); }
@@ -34,11 +86,12 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 
 
 
-        public int SelectedView = 0;
-
         public Import_ExportManagementViewModel()
         {
-
+            GetCurrentDate = DateTime.Today;
+            SelectedDate = GetCurrentDate;
+            SelectedIndexFilter = 1;
+            SelectedMonth = 0;
             LoadImportPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 SelectedView = 0;
@@ -49,13 +102,60 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             LoadExportPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 SelectedView = 1;
-                GetExportListSource();
+                GetExportListSource("date");
                 ExportPage page = new ExportPage();
                 p.Content = page;
+               
             });
             ExportFileCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 ExportToFileFunc();
+            });
+            LoadInforBillCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                if (SelectedTicketBill != null)
+                {
+                    try
+                    {
+                        BillDetail = BillService.Ins.GetBillDetails(SelectedTicketBill.Id);
+                    }
+                    catch (Exception e)
+                    {
+
+                        throw e;
+                    }
+
+                    if (BillDetail.TicketInfo is null)
+                    {
+                        ProductDetail w = new ProductDetail();
+                        decimal sum = 0;
+                        foreach (var item in BillDetail.ProductBillInfoes)
+                        {
+                            sum += item.Quantity * item.PricePerItem;
+                        }
+                        w._totalproduct.Content = sum;
+                        w.ShowDialog();
+                    }
+                    else if (BillDetail.ProductBillInfoes.Count == 0)
+                    {
+                        TicketDetail w = new TicketDetail();
+                        w._moviename.Content = BillDetail.TicketInfo.movieName;
+                        w._price.Content = BillDetail.TicketInfo.PricePerTicketStr;
+                        w._time.Content = BillDetail.CreatedAt.ToString("dd/MM/yyyy HH:mm");
+                        w._totalticket.Content = BillDetail.TicketInfo.TotalPriceTicketStr;
+                        w.ShowDialog();
+
+                    }
+                    else if (BillDetail.TicketInfo != null && BillDetail.ProductBillInfoes.Count != 0)
+                    {
+                        ExportDetail w = new ExportDetail();
+                        w._moviename.Content = BillDetail.TicketInfo.movieName;
+                        w._price.Content = BillDetail.TicketInfo.PricePerTicketStr;
+                        w._time.Content = BillDetail.CreatedAt.ToString("dd/MM/yyyy HH:mm");
+                        w._totalticket.Content = BillDetail.TicketInfo.TotalPriceTicketStr;
+                        w.ShowDialog();
+                    }
+                }
             });
         }
 
@@ -88,10 +188,10 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                                 {
 
                                     ws.Cells[i2, 1] = item.Id;
-                                    ws.Cells[i2, 2] = item.Product.DisplayName;
+                                    ws.Cells[i2, 2] = item.ProductName;
                                     ws.Cells[i2, 3] = item.Quantity;
                                     ws.Cells[i2, 4] = item.ImportPrice;
-                                    ws.Cells[i2, 5] = "Tran dinh khoi";
+                                    ws.Cells[i2, 5] = item.StaffName;
                                     ws.Cells[i2, 6] = item.CreatedAt;
 
                                     i2++;
@@ -125,24 +225,21 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                                 ws.Cells[1, 2] = "Ngày xuất";
                                 ws.Cells[1, 3] = "Khách hàng";
                                 ws.Cells[1, 4] = "Số điện thoại";
-                                ws.Cells[1, 5] = "Số lượng vé";
-                                ws.Cells[1, 6] = "Tổng giá";
-                                ws.Cells[1, 7] = "Giảm giá";
-                                ws.Cells[1, 8] = "Sau giảm giá";
+                                ws.Cells[1, 5] = "Tổng giá";
+                                ws.Cells[1, 6] = "Giảm giá";
+                                ws.Cells[1, 7] = "Sau giảm giá";
 
                                 int i2 = 2;
                                 foreach (var item in ListBill)
                                 {
 
-                                    ws.Cells[i2, 1] = item.Country;
-                                    ws.Cells[i2, 2] = item.MovieType;
-                                    ws.Cells[i2, 3] = item.DisplayName;
-                                    ws.Cells[i2, 4] = item.Image;
-                                    ws.Cells[i2, 5] = item.Image;
-                                    ws.Cells[i2, 6] = item.Director;
-                                    ws.Cells[i2, 7] = item.Director;
-                                    ws.Cells[i2, 8] = item.Director;
-
+                                    ws.Cells[i2, 1] = item.Id;
+                                    ws.Cells[i2, 2] = item.CreatedAt;
+                                    ws.Cells[i2, 3] = item.CustomerName;
+                                    ws.Cells[i2, 4] = item.PhoneNumber;
+                                    ws.Cells[i2, 5] = item.OriginalTotalPriceStr;
+                                    ws.Cells[i2, 6] = item.DiscountPriceStr;
+                                    ws.Cells[i2, 7] = item.TotalPriceStr;
 
                                     i2++;
                                 }
@@ -163,23 +260,53 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         {
             ListProduct = new List<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt());
         }
-        public void GetExportListSource()
+        public void GetExportListSource(string s = "")
         {
-            ListBill = new List<MovieDTO>();
-            for (int i = 0; i < 9; i++)
+            ListBill = new List<BillDTO>();
+            switch (s)
             {
-                MovieDTO temp = new MovieDTO
-                {
-                    Country = "088578",
-                    Description = "Mở mắt thấy đen thui",
-                    Image = "5",
-                    Director = "70000000",
-                    DisplayName = "Trần Khôi",
-                    MovieType = "25/3/2021",
-                };
+                case "date":
+                    {
+                        ListBill = new  List<BillDTO>(BillService.Ins.GetBillByDate(SelectedDate));
+                        return;
+                    }
+                case "":
+                    {
+                        ListBill = new List<BillDTO>(BillService.Ins.GetAllBill());
+                        return;
+                    }
+                case "month":
+                    {
+                        CheckMonthFilter();
+                        return;
+                    }
 
-                ListBill.Add(temp);
             }
+        }
+        public void CheckIndexFilter()
+        {
+            switch (SelectedIndexFilter)
+            {
+                case 0:
+                    {
+                        GetExportListSource("");
+                        return;
+                    }
+                case 1:
+                    {
+                        GetExportListSource("date");
+                        return;
+                    }
+                case 2:
+                    {
+                        GetExportListSource("month");
+                        return;
+                    }
+            }
+        }
+        public void CheckMonthFilter()
+        {
+            ListBill = new List<BillDTO>(BillService.Ins.GetBillByMonth(SelectedMonth + 1));
         }
     }
 }

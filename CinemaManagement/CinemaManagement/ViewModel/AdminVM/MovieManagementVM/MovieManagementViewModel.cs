@@ -83,7 +83,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             get { return _movieYear; }
             set { _movieYear = value; OnPropertyChanged(); }
         }
-        
+
 
         #endregion
 
@@ -147,7 +147,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         {
             ListCountrySource = new List<string>();
             IsImageChanged = false;
-            
+
             try
             {
                 GenreList = GenreService.Ins.GetAllGenre();
@@ -177,7 +177,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 w1.ShowDialog();
 
             });
-            LoadInforMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>{
+            LoadInforMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
                 if (SelectedItem == null) return;
                 RenewWindowData();
                 InforMovieWindow w1 = new InforMovieWindow();
@@ -262,10 +263,38 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         {
             try
             {
-                appPath = Helper.GetMovieImgPath(imgfullname);
-                if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
-                    File.Delete(Helper.GetMovieImgPath(imgfullname));
-                File.Copy(filepath, appPath,true);
+                if (imgfullname != SelectedItem.Image)
+                {
+                    appPath = Helper.GetMovieImgPath(imgfullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)))
+                        File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
+                }
+                else
+                {
+                    string temp_name = imgfullname.Split('.')[0] + "temp";
+                    string temp_ex = imgfullname.Split('.')[1];
+                    string temp_fullname = Helper.CreateImageFullName(temp_name, temp_ex);
+
+                    appPath = Helper.GetMovieImgPath(temp_fullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
+                        File.Delete(Helper.GetMovieImgPath(imgfullname));
+                    appPath = Helper.GetMovieImgPath(imgfullname);
+                    filepath = Helper.GetMovieImgPath(temp_fullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetMovieImgPath(temp_fullname)))
+                        File.Delete(Helper.GetMovieImgPath(temp_fullname));
+
+                }
+
+
+
+                //appPath = Helper.GetMovieImgPath(imgfullname);
+                //if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
+                //    File.Delete(Helper.GetMovieImgPath(imgfullname));
+                //File.Copy(filepath, appPath, true);
+
             }
             catch (Exception exp)
             {

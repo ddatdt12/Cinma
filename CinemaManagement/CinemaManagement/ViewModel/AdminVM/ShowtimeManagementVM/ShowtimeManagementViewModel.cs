@@ -49,7 +49,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public decimal moviePrice
         {
             get { return _moviePrice; }
-            set { _moviePrice = value; OnPropertyChanged();}
+            set { _moviePrice = value; OnPropertyChanged(); }
         }
 
         // this is for  binding data
@@ -133,8 +133,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public ShowtimeManagementViewModel()
         {
 
-
-            LoadCurrentDate();
+            GetCurrentDate = DateTime.Today;
             SelectedDate = GetCurrentDate;
             ReloadShowtimeList(-1);
 
@@ -251,18 +250,11 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     ListSeat = _oldselectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
                     moviePrice = (decimal)SelectedShowtime.TicketPrice;
                 }
-                  
+
             });
         }
 
 
-
-
-        public void LoadCurrentDate()
-        {
-            GetCurrentDate = DateTime.Now.Date;
-            SetCurrentDate = GetCurrentDate.ToShortDateString();
-        }
         public void ReloadShowtimeList(int id)
         {
             if (id != -1)

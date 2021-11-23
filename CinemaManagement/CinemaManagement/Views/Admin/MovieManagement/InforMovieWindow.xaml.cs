@@ -1,11 +1,11 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 {
-    /// <summary>
-    /// Interaction logic for InforMovieWindow.xaml
-    /// </summary>
+
     public partial class InforMovieWindow : Window
     {
         public InforMovieWindow()
@@ -17,8 +17,20 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
         {
             this.DragMove();
         }
+ 
+        private void Button_MouseEnter_1(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+            btn.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFA5B9D6");
+            btn.Background = new SolidColorBrush(Colors.OrangeRed);
+        }
+        private void Button_MouseLeave_1(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            btn.Background = new SolidColorBrush(Colors.Transparent);
+        }
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CinemaManagement.DTOs
 {
@@ -12,6 +13,7 @@ namespace CinemaManagement.DTOs
         public int SeatId { get; set; }
         public decimal Price { get; set; }
 
-        public SeatDTO Seat { get; set; }
+        //Use when show bill details 
+        public int SeatPosition { get; set; }
     }
 }

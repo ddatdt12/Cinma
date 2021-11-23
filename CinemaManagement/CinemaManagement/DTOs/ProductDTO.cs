@@ -1,6 +1,5 @@
 ﻿using CinemaManagement.Utils;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Windows.Media;
 
@@ -11,38 +10,22 @@ namespace CinemaManagement.DTOs
         public ProductDTO()
         {
         }
-
-        public ProductDTO(int id = 0,
-                          string displayname = "Không xác định",
-                          string category = "Không xác định",
-                          decimal price = 0,
-                          string imagesource = "",
-                          int quantity = 1)
-        {
-            this.Id = id;
-            this.DisplayName = displayname;
-            this.Category = category;
-            this.Price = price;
-            this.Quantity = quantity;
-            this.Image = imagesource;
-        }
-        public ProductDTO(ProductDTO product)
-        {
-            this.Id = product.Id;
-            this.DisplayName = product.DisplayName;
-            this.Category = product.Category;
-            this.Price = product.Price;
-            this.Quantity = product.Quantity;
-            this.Image = product.Image;
-            this.ImgSource = product.ImgSource;
-        }
         public int Id { get; set; }
         public string DisplayName { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }
+        public string PriceStr
+        {
+            get
+            {
+                return Helper.FormatVNMoney(Price);
+            }
+        }
         public int Quantity { get; set; }
-        public string Image { get; set; }
-
+        public string Image
+        {
+            get;set;
+        }
         public ImageSource _imgSource;
         public ImageSource ImgSource
         {
@@ -52,19 +35,24 @@ namespace CinemaManagement.DTOs
                 {
                     if (File.Exists(Helper.GetMovieImgPath(Image)))
                     {
-                        _imgSource = Helper.GetImageSource(Image);
+                        _imgSource = Helper.GetProductImageSource(Image);
                     }
                     else
                     {
-                        _imgSource = Helper.GetImageSource("null.jpg");
+                        _imgSource = Helper.GetProductImageSource("null.jpg");
                     }
                 }
                 return _imgSource;
             }
-            set
+        }
+        public decimal Revenue { get; set; }
+        public string RevenueStr
+        {
+            get
             {
-                _imgSource = value;
+                return Helper.FormatVNMoney(Revenue);
             }
         }
+        public int SalesQuantity;
     }
 }
