@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net.Cache;
@@ -11,6 +12,19 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
+        Random random = new Random();
+        public static List<string> GetListCode(string keyword, int quantity)
+        {
+            List<string> ListCode = new List<string>();
+            for (int i = 0; i < quantity; i++)
+            {
+                Regex reg = new Regex("[*'\",_&#^@:|<>?/]");
+
+                string guidStr = Guid.NewGuid().ToString("D");
+                ListCode.Add(keyword.ToUpper() + guidStr.Substring(0, 4).ToUpper() + i.ToString("000"));
+            }
+            return ListCode;
+        }
         public static string ConvertDoubleToPercentageStr(double value)
         {
             return Math.Round(value, 2, MidpointRounding.AwayFromZero).ToString("P", CultureInfo.InvariantCulture);
@@ -60,7 +74,6 @@ namespace CinemaManagement.Utils
             _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
             _image.UriSource = new Uri(GetMovieImgPath(imageName));
             _image.EndInit();
-
             return _image;
         }
         public static ImageSource GetProductImageSource(string imageName)
@@ -73,26 +86,35 @@ namespace CinemaManagement.Utils
             _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
             _image.UriSource = new Uri(GetProductImgPath(imageName));
             _image.EndInit();
-
             return _image;
         }
-        public static ImageSource GetProductSource(string fileName)
+
+        public static ImageSource GetTroubleImageSource(string imageName)
         {
-            return new BitmapImage(new Uri($@"{SOURCE.ProductsSource}/{fileName}", UriKind.Relative));
-        }
-        public static ImageSource GetMovieSource(string fileName)
-        {
-            return new BitmapImage(new Uri($@"{SOURCE.MoviesSource}/{fileName}", UriKind.Relative));
+            BitmapImage _image = new BitmapImage();
+            _image.BeginInit();
+            _image.CacheOption = BitmapCacheOption.None;
+            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+            _image.CacheOption = BitmapCacheOption.OnLoad;
+            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            _image.UriSource = new Uri(GetTroubleImgPath(imageName));
+            _image.EndInit();
+            return _image;
         }
 
         public static string GetMovieImgPath(string imageName)
         {
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Movies", $"{imageName}" /*SelectedItem.Image*/);
         }
+        public static string GetTroubleImgPath(string imageName)
+        {
+            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Troubles", $"{imageName}" /*SelectedItem.Image*/);
+        }
         public static string GetAdminPath(string filename)
         {
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Admin", $"{filename}" /*SelectedItem.Image*/);
         }
+  
 
         public static string GetProductImgPath(string imageName)
         {

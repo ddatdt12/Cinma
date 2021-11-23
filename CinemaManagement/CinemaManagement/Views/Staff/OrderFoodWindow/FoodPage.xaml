@@ -1,0 +1,534 @@
+﻿<Page x:Class="CinemaManagement.Views.Staff.OrderFoodWindow.FoodPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+      TextElement.FontSize="13"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto"
+      Background="#FFFBF5F5"
+      FontFamily="{DynamicResource MaterialDesignFont}"
+      DataContext="{StaticResource OrderFoodWindowVM}"
+      d:DesignHeight="720" 
+      d:DesignWidth="1300"
+      x:Name="Food_Page"
+      ShowsNavigationUI="False">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
+                                   CommandParameter="{Binding ElementName=Food_Page}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid Background="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35*"></ColumnDefinition>
+            <ColumnDefinition Width="13*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="40*"></RowDefinition>
+            <RowDefinition Height="60*"></RowDefinition>
+            <RowDefinition Height="460*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Name="lblBack"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Cursor="Hand">
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Setter Property="Background" Value="#EEEEEE"/>
+                    <Style.Triggers >
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#CCCCCC"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+            <materialDesign:PackIcon Kind="KeyboardBackspace"
+                                     Height="Auto"
+                                     Width="Auto"/>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding ElementName=Food_Page, Path=DataContext.GoBackCommand}"
+                                           CommandParameter="{Binding Food_Page}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Label>
+
+        <Border BorderBrush="LightGray"
+                BorderThickness="0,0,0,0.5"
+                Grid.Row="1"
+                Grid.ColumnSpan="2"/>
+
+        <DockPanel Grid.Row="1"
+                   VerticalAlignment="Top">
+            <TextBlock Text="Danh mục đồ ăn"
+                       FontFamily="Segoe UI Semibold"
+                       FontSize="30"
+                       Margin="50,0,0,0"
+                       FontWeight="Bold"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Foreground="#FF2155D0"/>
+        </DockPanel>
+
+        <Grid Grid.Row="2"
+              Grid.Column="0"
+              Grid.RowSpan="2"
+              Background="Transparent">
+            <TabControl Background="Transparent"
+                        SelectedItem="{Binding TabProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Height" Value="60"/>
+                        <Setter Property="Width" Value="314.66"/>
+                        <Setter Property="FontSize" Value="30"/>
+                        <Setter Property="BorderThickness" Value="0.5"/>
+                        <Setter Property="BorderBrush" Value="Blue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Setter Property="Background" Value="Pink"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="Tất cả">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding Path=FilterAllProductsCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TabItem>
+                <TabItem Header="Đồ ăn">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding Path=FilterFoodCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TabItem>
+                <TabItem Header="Thức uống">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewMouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding Path=FilterDrinkCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+        <Border BorderBrush="LightGray"
+                BorderThickness="0.5,0,0,0"
+                Grid.Row="2"
+                Grid.Column="1"
+                Grid.RowSpan="3"/>
+
+        <Grid Grid.Row="1"
+              Grid.Column="1">
+            <DockPanel VerticalAlignment="Center"
+                       Height="30">
+                <TextBlock FontFamily="Arial"
+                           FontSize="25"
+                           Foreground="dimgray"
+                           DockPanel.Dock="Left"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           Text="Thanh toán"/>
+                <TextBlock HorizontalAlignment="Right"
+                           FontFamily="Arial"
+                           FontSize="15"
+                           Text="Xóa"
+                           FontWeight="Bold"
+                           VerticalAlignment="Bottom"
+                           Margin="0,0,20,0"
+                           ToolTip="Xóa tất cả"
+                           Cursor="Hand">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="Blue"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="LightBlue"/>
+                                    <Setter Property="TextDecorations" Value="Underline"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                    <TextBlock.InputBindings>
+                        <MouseBinding Command="{Binding DeleteAllOrderCommand}" 
+                                      MouseAction="LeftClick" />
+                    </TextBlock.InputBindings>
+                </TextBlock>
+            </DockPanel>
+        </Grid>
+
+        <Grid Grid.Row="2"
+              Grid.Column="1"
+              Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="400*"></RowDefinition>
+                <RowDefinition Height="40*"></RowDefinition>
+                <RowDefinition Height="60*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+            </Grid.Resources>
+            <materialDesign:Card UniformCornerRadius="5"
+                                 Margin="5,5,2,5">
+                <ListView ItemsSource="{Binding OrderList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedProductToBill, Mode=TwoWay}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      x:Name="lvOrderList">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Foreground" Value="Transparent" />
+                        <Setter Property="Background" Value="{Binding Background, ElementName=BorderMain}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <Border x:Name="Bd">
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <MultiTrigger>
+                                            <Setter Property="Foreground"
+                                                    Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
+                                        </MultiTrigger>
+                                        <Trigger Property="IsMouseOver" 
+                                                 Value="True">
+                                            <Setter Property="IsSelected" 
+                                                    Value="True"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card UniformCornerRadius="5"
+                                             Margin="5"
+                                             Height="100"
+                                             MinWidth="320">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="12*"></ColumnDefinition>
+                                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Image Source="{Binding Image}"
+                                           Stretch="Fill"/>
+                                </Grid>
+                                <Grid Grid.Column="1"
+                                              Margin="10,0,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="3*"></RowDefinition>
+                                        <RowDefinition Height="2*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <DockPanel Grid.Row="0">
+                                        <Border BorderBrush="{x:Null}" 
+                                                Height="Auto"
+                                                Width="80"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center">
+                                            <TextBlock TextWrapping="Wrap"
+                                                       Text="{Binding DisplayName}"
+                                                       FontWeight="Bold"
+                                                       FontSize="15"
+                                                       VerticalAlignment="Center"/>
+                                        </Border>
+                                        <Label DockPanel.Dock="Right"
+                                               Height="35"
+                                               Width="35"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Right"
+                                               ToolTip="Xóa"
+                                               Margin="0,0,10,0"
+                                               Cursor="Hand">
+
+                                            <Label.Template>
+                                                <ControlTemplate TargetType="Label">
+                                                    <Grid>
+                                                        <Ellipse Fill="LightGray"/>
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"/>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Label.Template>
+                                            <materialDesign:PackIcon Kind="DeleteForever"
+                                                                     Foreground="Gray"
+                                                                     HorizontalAlignment="Center"
+                                                                     VerticalAlignment="Center"
+                                                                     Width="Auto"
+                                                                     Height="Auto"
+                                                                     BorderThickness="0"/>
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding ElementName=lvOrderList, Path=DataContext.DeleteProductCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </Label>
+                                    </DockPanel>
+                                    <DockPanel Grid.Row="1"
+                                               VerticalAlignment="Top"
+                                               Margin="0">
+                                        <StackPanel DockPanel.Dock="Left"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Orientation="Horizontal">
+
+                                            <Label Foreground="Red"
+                                                   Background="#FF53CE5D"
+                                                   Width="20"
+                                                   Height="20"
+                                                   x:Name="lblMinus"
+                                                   Cursor="Hand">
+                                                <Grid>
+                                                    <materialDesign:PackIcon Kind="Minus"
+                                                                             VerticalAlignment="Center"
+                                                                             HorizontalAlignment="Center"/>
+                                                </Grid>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=lvOrderList, Path=DataContext.MinusCommand}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Label>
+
+                                            <TextBlock Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                       TextAlignment="Center"
+                                                       Padding="1"
+                                                       FontSize="15"
+                                                       Background="White"
+                                                       Width="25"
+                                                       Height="Auto"/>
+                                            <Label Foreground="Red"
+                                                   Background="#FF53CE5D"
+                                                   Width="20"
+                                                   Height="20"
+                                                   x:Name="lblPlus"
+                                                   Cursor="Hand">
+                                                <Grid>
+                                                    <materialDesign:PackIcon Kind="Plus"
+                                                                             VerticalAlignment="Center"
+                                                                             HorizontalAlignment="Center"/>
+                                                </Grid>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=lvOrderList, Path=DataContext.PlusCommand}"/>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Label>
+                                        </StackPanel>
+                                        <TextBlock DockPanel.Dock="Right"
+                                                   HorizontalAlignment="Right"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding Price}"
+                                                   Width="Auto"
+                                                   FontSize="15"
+                                                   Margin="0,0,10,0"/>
+                                        <Grid HorizontalAlignment="Right"
+                                              VerticalAlignment="Top"
+                                              Margin="5"
+                                              Height="15"
+                                              Width="15">
+                                            <Image Source="/Resources/FoodLayout/Icon/Money.jpg"/>
+                                        </Grid>
+                                    </DockPanel>
+                                </Grid>
+                            </Grid>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            </materialDesign:Card>
+
+            <Border BorderThickness="0,1,0,1"
+                    BorderBrush="DarkGray"
+                    Grid.Row="1">
+                <DockPanel>
+                    <TextBlock x:Name="tblSum"
+                               Text="{Binding TotalPrice}"
+                               FontSize="25"
+                               DockPanel.Dock="Right"
+                               VerticalAlignment="Center"
+                               Margin="10"
+                               Width="Auto"
+                               FontFamily="Arial"
+                               FontWeight="Bold"
+                               TextAlignment="Right"/>
+
+                    <TextBlock Text="Tổng:"
+                               FontSize="30"
+                               FontFamily="Arial"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               Margin="15,0,0,0"/>
+                </DockPanel>
+            </Border>
+
+            <Grid Grid.Row="2"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center" 
+                  Height="50" 
+                  Width="164">
+                <Border BorderThickness="1.5"
+                        CornerRadius="5"
+                        BorderBrush="Gray">
+                    <Button Command="{Binding BuyCommand}"
+                            Content="Chọn"
+                            FontSize="25"
+                            Background="#FF5980B8"
+                            Foreground="#FFF0F3F7"
+                            Width="Auto"
+                            Height="Auto">
+                    </Button>
+                </Border>
+            </Grid>
+        </Grid>
+        <ListBox Grid.Row="3"
+                 Background="Transparent"
+                 ItemsSource="{Binding MenuList}"
+                 SelectedItem="{Binding SelectedProductToOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 x:Name="lbxMenuProduct">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground" Value="Transparent" />
+                    <Setter Property="VerticalAlignment" Value="Top"/>
+                    <Setter Property="Margin" Value="0,20,0,10"/>
+                    <Setter Property="Background" Value="{Binding Background, ElementName=BorderMain}"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border x:Name="Bd">
+                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <MultiTrigger>
+                                        <Setter Property="Foreground"
+                                                Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
+                                    </MultiTrigger>
+                                    <Trigger Property="IsMouseOver" 
+                                             Value="True">
+                                        <Setter Property="IsSelected"
+                                                Value="True"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="4"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <materialDesign:Card BorderBrush="LightPink"
+                                         BorderThickness="1"
+                                         UniformCornerRadius="5"
+                                         Margin="20,0,0,0" 
+                                         Width="200"
+                                         Height="270">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8*"></RowDefinition>
+                                <RowDefinition Height="5*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image Source="{Binding Image}"
+                                   Stretch="Fill"/>
+                            <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="7*"></RowDefinition>
+                                    <RowDefinition Height="5*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Border BorderBrush="{x:Null}" 
+                                        Height="Auto"
+                                        Width="150"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Margin="5">
+                                    <TextBlock TextWrapping="Wrap"
+                                               Text="{Binding DisplayName}"
+                                               FontFamily="Arial"
+                                               FontSize="20"/>
+                                </Border>
+                                <Label DockPanel.Dock="Right"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       Height="35"
+                                       Width="35"
+                                       Margin="0,0,5,0"
+                                       x:Name="lblAddOrder"
+                                       Cursor="Hand">
+                                    <Label.Template>
+                                        <ControlTemplate TargetType="Label">
+                                            <Grid>
+                                                <Ellipse Fill="Gold"/>
+                                                <ContentPresenter HorizontalAlignment="Center"
+                                                                  VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Label.Template>
+                                    <materialDesign:PackIcon Kind="Plus"
+                                                             Foreground="WhiteSmoke"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Width="Auto"
+                                                             Height="Auto"/>
+                                    <Label.InputBindings>
+                                        <MouseBinding Command="{Binding ElementName=lbxMenuProduct, Path=DataContext.SelectedProductCommand}"
+                                                      CommandParameter="{Binding ElementName=lblAddOrder}"
+                                                      MouseAction="LeftClick"/>
+                                    </Label.InputBindings>
+                                </Label>
+
+                                <DockPanel Grid.Row="1">
+                                    <StackPanel DockPanel.Dock="Right"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Right"
+                                                Orientation="Horizontal"
+                                                Width="Auto"
+                                                Margin="5">
+                                        <materialDesign:PackIcon Kind="Tag" 
+                                                                 Background="Transparent"
+                                                                 Foreground="Goldenrod"
+                                                                 Height="15"
+                                                                 Width="Auto"/>
+                                        <TextBlock Text="{Binding Price}"
+                                                   FontFamily="Arial"
+                                                   VerticalAlignment="Center"
+                                                   Width="Auto"
+                                                   Margin="2,0,0,0"
+                                                   FontSize="20"/>
+                                    </StackPanel>
+                                    <TextBlock DockPanel.Dock="Left"
+                                               Margin="5,0,5,0"
+                                               Text="{Binding Quantity, StringFormat='SL: {0}',UpdateSourceTrigger=PropertyChanged}"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               FontSize="20"/>
+                                </DockPanel>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>

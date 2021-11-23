@@ -35,6 +35,8 @@
         <AssociationConnector Association="CinemaManagementModel.FK__Showtime__Showti__5070F446" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__Ticket__Showtime__619B8048" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.GenreDetails" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Trouble" Width="1.5" PointX="0.875" PointY="14.375" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
