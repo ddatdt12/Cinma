@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7049e52014da4e9ca31376de415a5d4c" Name="Diagram1">
+      <Diagram DiagramId="7049e52014da4e9ca31376de415a5d4c" Name="Diagram1" ZoomLevel="77">
         <EntityTypeShape EntityType="CinemaManagementModel.Bill" Width="1.5" PointX="6" PointY="15.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Customer" Width="1.5" PointX="3.75" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Genre" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
@@ -37,6 +37,11 @@
         <AssociationConnector Association="CinemaManagementModel.GenreDetails" ManuallyRouted="false" />
         <EntityTypeShape EntityType="CinemaManagementModel.Trouble" Width="1.5" PointX="0.875" PointY="14.375" />
         <AssociationConnector Association="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Voucher" Width="1.5" PointX="8" PointY="20.125" />
+        <EntityTypeShape EntityType="CinemaManagementModel.VoucherRelease" Width="1.5" PointX="3.75" PointY="21.75" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Voucher__Custome__08B54D69" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Voucher__Voucher__07C12930" />
+        <AssociationConnector Association="CinemaManagementModel.FK__VoucherRe__Staff__09A971A2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
