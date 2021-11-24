@@ -17,39 +17,106 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource MainAdminVM}"
         Title="Administrator"
-        Height="800"
+        Height="820"
         Width="1440"
         Name="mainadminwindow"
         ResizeMode="NoResize"
         WindowStyle="None"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        MouseDown="MainFrame_MouseDown"
+        Panel.ZIndex="999">
 
 
 
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="800" />
+        </Grid.RowDefinitions>
 
-        <!--thanh cong cu-->
-        <Grid Panel.ZIndex="999">
-            <Grid.Resources>
-                <system:Double x:Key="SlideOffSet">280</system:Double>
-                <Storyboard x:Key="SlideRight">
-                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                     From="0"
-                                     To="{StaticResource SlideOffSet}"
-                                     Duration="0:0:0.2" />
-                </Storyboard>
-                <Storyboard x:Key="SlideLeft">
-                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                     From="{StaticResource SlideOffSet}"
-                                     To="0"
-                                     Duration="0:0:0.2" />
-                </Storyboard>
-            </Grid.Resources>
+        <StackPanel   Background="#FF383737"
+                      Grid.Row="0">
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right">
 
+                <Label ToolBar.OverflowMode="AsNeeded"
+                       Height="20"
+                       BorderThickness="0"
+                       Foreground="Black"
+                       BorderBrush="Transparent"
+                       MouseLeftButtonUp="Label_MouseLeftButtonUp_1">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Background"
+                                    Value="Transparent" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="Background"
+                                            Value="Gray" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                    <materialDesign:PackIcon Kind="WindowMinimize"
+                                             Height="15"
+                                             Width="20"
+                                             Foreground="White" />
+                </Label>
+
+                <Label ToolBar.OverflowMode="AsNeeded"
+                       Height="20"
+                       Foreground="Black"
+                       BorderBrush="Transparent"
+                       materialDesign:ButtonAssist.CornerRadius="0,10,0,0"
+                       MouseLeftButtonUp="Label_MouseLeftButtonUp">
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Setter Property="Background"
+                                    Value="Transparent" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver"
+                                         Value="True">
+                                    <Setter Property="Background"
+                                            Value="Red" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                    <materialDesign:PackIcon Kind="WindowClose"
+                                             Padding="0"
+                                             Foreground="White"
+                                             Width="20"
+                                             Height="15"
+                                             Margin="0,-3,0,0" />
+                </Label>
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+
+            <!--Frame-->
+            <Frame x:Name="MainFrame"
+                   Height="720"
+                   Width="1440"
+                   NavigationUIVisibility="Hidden"
+                   Panel.ZIndex="0"
+                   Margin="0,80,0,0">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction Command="{Binding LoadSuatChieuPageCM}"
+                                               CommandParameter="{Binding ElementName=MainFrame}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Frame>
+
+            <!--thanh cong cu-->
             <materialDesign:ColorZone Mode="Inverted"
                                       Padding="16"
-                                      Height="85"
+                                      Height="80"
                                       Margin="-280,0,0,0"
                                       Background="#FF383737"
                                       MouseLeftButtonDown="mainadminwindow_MouseLeftButtonDown">
@@ -63,10 +130,25 @@
                                     <DataTrigger Binding="{Binding IsChecked, ElementName=SlideButton}"
                                                  Value="True">
                                         <DataTrigger.EnterActions>
-                                            <BeginStoryboard Storyboard="{StaticResource SlideRight}" />
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                                     From="0"
+                                                                     To="280"
+                                                                     Duration="0:0:0.2" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
                                         </DataTrigger.EnterActions>
                                         <DataTrigger.ExitActions>
-                                            <BeginStoryboard Storyboard="{StaticResource SlideLeft}" />
+                                            <BeginStoryboard>
+                                                <Storyboard>
+
+                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                                     From="280"
+                                                                     To="0"
+                                                                     Duration="0:0:0.2" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
                                         </DataTrigger.ExitActions>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -79,7 +161,7 @@
 
                         <Grid Background="#FF383737"
                               Width="280"
-                              Margin="-20,0,0,-731">
+                              Margin="-20,0,0,-736">
                             <StackPanel>
                                 <StackPanel HorizontalAlignment="Center">
                                     <materialDesign:PackIcon Kind="HomeCircle"
@@ -233,24 +315,9 @@
 
                 </DockPanel>
             </materialDesign:ColorZone>
-
         </Grid>
 
 
-        <!--Frame-->
-        <Frame x:Name="MainFrame"
-               Height="720"
-               Width="1440"
-               NavigationUIVisibility="Hidden"
-               Panel.ZIndex="0"
-               Margin="0,80,0,0">
 
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Loaded">
-                    <i:InvokeCommandAction Command="{Binding LoadSuatChieuPageCM}"
-                                           CommandParameter="{Binding ElementName=MainFrame}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Frame>
     </Grid>
 </Window>

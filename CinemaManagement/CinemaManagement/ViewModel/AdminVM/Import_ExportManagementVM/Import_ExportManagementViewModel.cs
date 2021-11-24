@@ -30,11 +30,11 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             get { return selectedDate; }
             set { selectedDate = value; OnPropertyChanged(); GetExportListSource("date"); }
         }
-        private int _SelectedIndexFilter;
-        public int SelectedIndexFilter
+        private ComboBoxItem _SelectedItemFilter;
+        public ComboBoxItem SelectedItemFilter
         {
-            get { return _SelectedIndexFilter; }
-            set { _SelectedIndexFilter = value; OnPropertyChanged(); CheckIndexFilter(); }
+            get { return _SelectedItemFilter; }
+            set { _SelectedItemFilter = value; OnPropertyChanged(); CheckItemFilter(); }
         }
         private BillDTO _selectedTicketBill;
         public BillDTO SelectedTicketBill
@@ -84,13 +84,10 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             set { _ListBill = value; OnPropertyChanged(); }
         }
 
-
-
         public Import_ExportManagementViewModel()
         {
             GetCurrentDate = DateTime.Today;
             SelectedDate = GetCurrentDate;
-            SelectedIndexFilter = 1;
             SelectedMonth = 0;
             LoadImportPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
@@ -283,21 +280,21 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 
             }
         }
-        public void CheckIndexFilter()
+        public void CheckItemFilter()
         {
-            switch (SelectedIndexFilter)
+            switch (SelectedItemFilter.Content.ToString())
             {
-                case 0:
+                case "Toàn bộ":
                     {
                         GetExportListSource("");
                         return;
                     }
-                case 1:
+                case "Theo ngày":
                     {
                         GetExportListSource("date");
                         return;
                     }
-                case 2:
+                case "Theo tháng":
                     {
                         GetExportListSource("month");
                         return;

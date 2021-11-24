@@ -9,7 +9,24 @@
       DataContext="{StaticResource ShowtimeManagementVM}"
       d:DesignHeight="720"
       d:DesignWidth="1440"
-      Title="QuanLySuatChieuPage">
+      x:Name="mainPage">
+    
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.5" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+
 
 
     <Grid Background="#f0f2f5">

@@ -10,7 +10,21 @@
       d:DesignWidth="1400"
       Title="ExportPage"
       DataContext="{StaticResource Import_ExportManagementVM}">
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <ThicknessAnimation Storyboard.TargetName="_ListView"
+                                        Storyboard.TargetProperty="Margin"
+                                        From="1400,0,-1400,0"
+                                        To="0"
+                                        Duration="0:0:0.5" />
 
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75*" />
@@ -55,7 +69,9 @@
                               Margin="10 0 0 0"
                               Padding="0,10,10,0"
                               FontSize="14"
-                              SelectedIndex="{Binding SelectedIndexFilter,Mode=TwoWay}"
+                              SelectedIndex="1"
+                              x:Name="Filterbox"
+                              SelectedItem="{Binding SelectedItemFilter}"
                               SelectionChanged="ComboBox_SelectionChanged_1">
                         <ComboBoxItem Content="Toàn bộ" />
                         <ComboBoxItem Content="Theo ngày" />

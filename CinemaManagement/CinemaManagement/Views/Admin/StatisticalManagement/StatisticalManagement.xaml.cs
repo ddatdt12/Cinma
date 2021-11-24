@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace CinemaManagement.Views.Admin.StatisticalManagement
 {
@@ -11,6 +12,5 @@ namespace CinemaManagement.Views.Admin.StatisticalManagement
         {
             InitializeComponent();
         }
-
     }
 }

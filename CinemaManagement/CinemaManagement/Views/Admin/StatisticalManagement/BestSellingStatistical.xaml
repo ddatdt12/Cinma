@@ -1,0 +1,254 @@
+﻿<Page x:Class="CinemaManagement.Views.Admin.StatisticalManagement.BestSellingStatistical"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:CinemaManagement.Views.Admin.StatisticalManagement"
+      mc:Ignorable="d"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      d:DesignHeight="662"
+      d:DesignWidth="1440"
+      x:Name="mainPage"
+      DataContext="{StaticResource StatisticalManagementVM}">
+
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.5" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <!---LEFT-->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="35*" />
+                <RowDefinition Height="55*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="30,0,0,0"
+                        Grid.Row="0">
+                <!---PERIOD-->
+                <StackPanel Margin="0,10,0,0">
+                    <ComboBox Width="200"
+                              FontSize="20"
+                              x:Name="periodbox1"
+                              SelectedIndex="0"
+                              SelectedItem="{Binding SelectedBestSellPeriod}"
+                              SelectionChanged="periodbox1_SelectionChanged"
+                              Loaded="periodbox1_Loaded">
+                        <ComboBoxItem>Theo năm</ComboBoxItem>
+                        <ComboBoxItem>Theo tháng</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <!---TIME-->
+                <StackPanel Margin="30,10,0,0">
+                    <ComboBox Width="170"
+                              FontSize="20"
+                              x:Name="Time1"
+                              SelectedIndex="2"
+                              SelectedItem="{Binding SelectedBestSellTime,Mode=OneWayToSource}">
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
+
+
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        Margin="10,10,10,10">
+
+                <materialDesign:Card Width="700"
+                                     UniformCornerRadius="5">
+                    <Grid>
+                        <lvc:CartesianChart Series="{Binding Top5MovieData,UpdateSourceTrigger=PropertyChanged}">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:AxesCollection>
+                                    <lvc:Axis MinValue="1">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1" />
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:AxesCollection>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Triệu đồng"
+                                          FontFamily="arial"
+                                          MinValue="0" />
+                            </lvc:CartesianChart.AxisY>
+                        </lvc:CartesianChart>
+                    </Grid>
+
+                </materialDesign:Card>
+
+            </StackPanel>
+
+
+            <materialDesign:Card Margin="10,0,10,10"
+                                 UniformCornerRadius="5"
+                                 Height="340"
+                                 VerticalAlignment="Bottom"
+                                 Grid.Row="2">
+                <ListView ItemsSource="{Binding Top5Movie}">
+                    <ListView.View>
+
+                        <GridView>
+                            <GridViewColumn Header="Tên phim"
+                                            Width="380">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding DisplayName}"
+                                                   FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Doanh thu"
+                                            Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RevenueStr}"
+                                                   FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Số vé">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding TicketCount}"
+                                                   FontSize="18"
+                                                   Margin="20,0,0,0" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </materialDesign:Card>
+
+        </Grid>
+
+
+        <!---RIGHT-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="35*" />
+                <RowDefinition Height="55*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="30,0,0,0"
+                        Grid.Row="0">
+                <!---PERIOD-->
+                <StackPanel Margin="0,10,0,0">
+                    <ComboBox Width="200"
+                              FontSize="20"
+                              x:Name="periodbox2"
+                              SelectedIndex="0"
+                              SelectedItem="{Binding SelectedBestSellPeriod2}"
+                              SelectionChanged="periodbox2_SelectionChanged"
+                              Loaded="periodbox2_Loaded">
+                        <ComboBoxItem>Theo năm</ComboBoxItem>
+                        <ComboBoxItem>Theo tháng</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <!---TIME-->
+                <StackPanel Margin="30,10,0,0">
+                    <ComboBox Width="170"
+                              FontSize="20"
+                              SelectedItem="{Binding SelectedBestSellTime2,Mode=OneWayToSource}"
+                              x:Name="Time2">
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+                        Margin="10,10,10,10">
+
+                <materialDesign:Card Width="700"
+                                     UniformCornerRadius="5">
+
+                    <lvc:CartesianChart Series="{Binding Top5FoodData,UpdateSourceTrigger=PropertyChanged}">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:AxesCollection>
+                                <lvc:Axis MinValue="1">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1" />
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:AxesCollection>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Triệu đồng"
+                                      FontFamily="arial"
+                                      MinValue="0" />
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
+
+
+                </materialDesign:Card>
+
+            </StackPanel>
+
+            <materialDesign:Card Margin="10,0,10,10"
+                                 UniformCornerRadius="5"
+                                 Height="340"
+                                 VerticalAlignment="Bottom"
+                                 Grid.Row="2">
+                <ListView ItemsSource="{Binding Top5Product}">
+                    <ListView.View>
+
+                        <GridView>
+                            <GridViewColumn Header="Tên sản phẩm"
+                                            Width="380">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding DisplayName}"
+                                                   FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Doanh thu"
+                                            Width="180">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding RevenueStr}"
+                                                   FontSize="18" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Số lượng">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding SalesQuantity}"
+                                                   FontSize="18"
+                                                   Margin="20,0,0,0"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </materialDesign:Card>
+        </Grid>
+
+    </Grid>
+</Page>
