@@ -12,24 +12,29 @@ namespace CinemaManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class VoucherRelease
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
+        public VoucherRelease()
         {
-            this.Bills = new HashSet<Bill>();
             this.Vouchers = new HashSet<Voucher>();
         }
     
         public string Id { get; set; }
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public System.DateTime CreatedAt { get; set; }
-        public string Email { get; set; }
+        public string ReleaseName { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> FinishDate { get; set; }
+        public string Status { get; set; }
+        public string DiscountType { get; set; }
+        public int ParValue { get; set; }
+        public decimal MinimumOrderValue { get; set; }
+        public string ObjectType { get; set; }
+        public int MaximumDiscount { get; set; }
+        public bool EnableMerge { get; set; }
+        public string StaffId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bill> Bills { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Voucher> Vouchers { get; set; }
+        public virtual Staff Staff { get; set; }
     }
 }

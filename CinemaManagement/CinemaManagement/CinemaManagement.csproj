@@ -226,6 +226,9 @@
     <Compile Include="DTOs\StaffDTO.cs" />
     <Compile Include="DTOs\TicketDTO.cs" />
     <Compile Include="DTOs\TicketBillInfoDTO.cs" />
+    <Compile Include="DTOs\TroubleDTO.cs" />
+    <Compile Include="DTOs\VoucherDTO.cs" />
+    <Compile Include="DTOs\VoucherReleaseDTO.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -287,6 +290,8 @@
     <Compile Include="Models\Services\ShowtimeService.cs" />
     <Compile Include="Models\Services\StaffService.cs" />
     <Compile Include="Models\Services\StatisticsService.cs" />
+    <Compile Include="Models\Services\TroubleService.cs" />
+    <Compile Include="Models\Services\VoucherService.cs" />
     <Compile Include="Models\Showtime.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
@@ -297,6 +302,15 @@
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Ticket.cs">
+      <DependentUpon>CinemaManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Trouble.cs">
+      <DependentUpon>CinemaManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Voucher.cs">
+      <DependentUpon>CinemaManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VoucherRelease.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils\Constant.cs" />
@@ -655,6 +669,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Images\Troubles\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\ImageStaff\" />

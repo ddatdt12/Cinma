@@ -22,18 +22,9 @@ namespace CinemaManagement.DTOs
             }
         }
         public int Quantity { get; set; }
-
-        private string _image;
         public string Image
         {
-            get
-            {
-                return _image;
-            }
-            set
-            {
-                _image = value;
-            }
+            get;set;
         }
         public ImageSource _imgSource;
         public ImageSource ImgSource
@@ -42,9 +33,9 @@ namespace CinemaManagement.DTOs
             {
                 if (_imgSource is null)
                 {
-                    if (File.Exists(Helper.GetMovieImgPath(_image)))
+                    if (File.Exists(Helper.GetMovieImgPath(Image)))
                     {
-                        _imgSource = Helper.GetProductImageSource(_image);
+                        _imgSource = Helper.GetProductImageSource(Image);
                     }
                     else
                     {
