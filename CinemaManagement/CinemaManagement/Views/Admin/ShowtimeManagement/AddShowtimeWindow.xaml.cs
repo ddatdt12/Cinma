@@ -29,7 +29,7 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
             return !_regex.IsMatch(text);
         }
 
-        private void _moviePrice_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void _moviePrice_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox tb = sender as TextBox;
             if (tb.Text.Length == 0)

@@ -11,21 +11,40 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CinemaManagement.Views.Admin.VoucherManagement.AddVoucher
+namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
 {
     /// <summary>
-    /// Interaction logic for AddInfor.xaml
+    /// Interaction logic for AddListMiniVoucher.xaml
     /// </summary>
-    public partial class AddInfor : Page
+    public partial class AddListMiniVoucher : Window
     {
-        public AddInfor()
+        public AddListMiniVoucher()
         {
             InitializeComponent();
         }
 
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+        private void Button_MouseEnter_1(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+
+            btn.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFA5B9D6");
+            btn.Background = new SolidColorBrush(Colors.OrangeRed);
+        }
+        private void Button_MouseLeave_1(object sender, MouseEventArgs e)
+        {
+            Button btn = sender as Button;
+            btn.Background = new SolidColorBrush(Colors.Transparent);
+        }
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
@@ -39,7 +58,7 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddVoucher
         {
             TextBox tb = sender as TextBox;
             if (tb.Text.Length == 0)
-                tb.Text = "0";
+                tb.Text = "1";
         }
     }
 }

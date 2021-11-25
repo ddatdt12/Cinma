@@ -71,7 +71,10 @@
                                Width="auto"
                                Grid.Column="0" />
                     <TextBox Margin="10,0,0,5"
-                             Grid.Column="1" />
+                             Grid.Column="1"
+                             Text="0"
+                             PreviewTextInput="TextBox_PreviewTextInput"
+                             TextChanged="TextBox_TextChanged"/>
                 </Grid>
                 <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
@@ -85,7 +88,8 @@
                     <StackPanel Orientation="Horizontal"
                                 Grid.Column="1"
                                 Margin="10,0,0,0">
-                        <RadioButton Content="Kích hoạt" />
+                        <RadioButton Content="Kích hoạt"
+                                     IsChecked="True"/>
                         <RadioButton Content="Chưa áp dụng"
                                      Margin="40,0,0,0" />
                     </StackPanel>
@@ -162,7 +166,10 @@
                                              ToolTip="Số tiền tối thiểu của đơn hàng để có thể áp dụng voucher" />
 
                     <TextBox Grid.Column="1"
-                             Margin="50,0,0,5" />
+                             Margin="50,0,0,5" 
+                             Text="0"
+                             TextChanged="TextBox_TextChanged"
+                             PreviewTextInput="TextBox_PreviewTextInput"/>
                 </Grid>
                 <Grid Margin="0,20,0,0">
                     <TextBox Grid.Column="1"
@@ -174,10 +181,11 @@
             <Button Content="Lưu"
                     Width="100"
                     FontSize="20"
+                    Height="40"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Right"
                     Margin="0,0,0,20"
-                    Padding="0,0,0,10"
+                    Padding="0,0,0,5"
                     materialDesign:ButtonAssist.CornerRadius="5" />
 
         </Grid>

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d"
       Title="AddInfor"
       FontSize="15"
@@ -15,11 +16,11 @@
         <EventTrigger RoutedEvent="Page.Loaded">
             <BeginStoryboard>
                 <Storyboard>
-                    <ThicknessAnimation Storyboard.TargetName="mainPage"
-                                        Storyboard.TargetProperty="Margin"
-                                        From="998,0,0,0"
-                                        To="0"
-                                        Duration="0:0:0.5" />
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.5" />
 
 
                 </Storyboard>
@@ -47,29 +48,53 @@
                     <Label Content="Đợt phát hành:"
                            FontSize="20"
                            VerticalAlignment="Bottom" />
-                    <ComboBox Height="35"
-                              Width="200"
-                              Margin="0,0,0,5"
-                              Padding="0,15,0,0"
-                              SelectedIndex="0"
-                              VerticalAlignment="Bottom">
-                        <ComboBoxItem>sasadsadsads</ComboBoxItem>
-                    </ComboBox>
+                    <Label Content="Đợt phát hành 20-11 ngay nha giao"
+                           FontSize="20"
+                           VerticalAlignment="Bottom" />
+
+
                 </StackPanel>
 
                 <StackPanel Grid.Column="1"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Right"
-                            Margin="0,0,10,5">
-                    <Button Content="Thêm voucher"
-                            Width="125" />
+                            Margin="0,0,10,5"
+                            Orientation="Horizontal">
+                    <Border  Background="{StaticResource PrimaryHueMidBrush}"
+                             CornerRadius="5"
+                             Height="32"
+                             Margin="0,0,20,0">
+                        <Menu Background="Transparent"
+                              Cursor="Hand">
+                            <MenuItem Height="32"
+                                      Header="Chức năng"
+                                      Padding="25,0,-60,0"
+                                      FontWeight="Medium"
+                                      Foreground="White"
+                                      Width="120">
+                                <MenuItem Header="Phát hành voucher"
+                                          Foreground="Black"
+                                          Background="LightGray" />
+                                <MenuItem Header="Xoá voucher"
+                                          Foreground="Black"
+                                          Background="LightGray" />
+                                <MenuItem Header="Thêm voucher"
+                                          Foreground="Black"
+                                          Background="LightGray"
+                                          Command="{Binding LoadAddMiniVoucherCM}" />
+                                <MenuItem Header="Thêm danh sách voucher"
+                                          Foreground="Black"
+                                          Background="LightGray"
+                                          Command="{Binding LoadAddListMiniVoucherCM}" />
+                            </MenuItem>
+                        </Menu>
+                    </Border>
                 </StackPanel>
-
             </Grid>
         </materialDesign:Card>
 
         <materialDesign:Card Grid.Row="1"
-                             Margin="10">
+                             Background="Transparent">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="12*" />
@@ -80,8 +105,9 @@
                             Orientation="Horizontal">
                     <TextBox materialDesign:HintAssist.Hint="Tìm kiếm mã voucher"
                              Padding="0,20,0,0"
-                             Width="300" />
-                    <Label Margin="50,0,0,0"
+                             Width="300"
+                             Margin="10,0,0,0" />
+                    <Label Margin="360,0,0,0"
                            Content="Trạng thái:"
                            FontSize="18"
                            VerticalContentAlignment="Bottom" />
@@ -95,7 +121,82 @@
                 </StackPanel>
 
 
-                <ListView Grid.Row="1">
+                <ListView x:Name="ListView"
+                          ItemsSource="{Binding Listtemp}"
+                          Focusable="True"
+                          Grid.Row="1">
+                    <!--<i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction Command="{Binding LoadInforMovieCM}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>-->
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Mã voucher">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox Content="{Binding Name}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Người mua">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--<TextBlock Text="{Binding MovieType}"
+                                                   Margin="30,0,0,0"
+                                                   FontSize="18" />-->
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Ngày phát hành">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--<TextBlock Text="{Binding RunningTime}"
+                                                   Margin="40,0,0,0"
+                                                   FontSize="18" />-->
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Ngày hết hạn">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--<TextBlock Text="{Binding RunningTime}"
+                                                   Margin="40,0,0,0"
+                                                   FontSize="18" />-->
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Ngày sử dụng">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--<TextBlock Text="{Binding RunningTime}"
+                                                   Margin="40,0,0,0"
+                                                   FontSize="18" />-->
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Mệnh giá">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--<TextBlock Text="{Binding RunningTime}"
+                                                   Margin="40,0,0,0"
+                                                   FontSize="18" />-->
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Trạng thái">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--<TextBlock Text="{Binding RunningTime}"
+                                                   Margin="40,0,0,0"
+                                                   FontSize="18" />-->
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
 
                 </ListView>
             </Grid>

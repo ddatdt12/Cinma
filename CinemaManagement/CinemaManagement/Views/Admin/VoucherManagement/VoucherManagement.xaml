@@ -49,7 +49,7 @@
                          FontSize="25"
                          FontFamily="arial"
                          materialDesign:ButtonAssist.CornerRadius="5"
-                         Command="{Binding LoadAddVoucherCM}">
+                         Command="{Binding LoadAddWindowCM}">
                 </Button>
             </StackPanel>
         </StackPanel>

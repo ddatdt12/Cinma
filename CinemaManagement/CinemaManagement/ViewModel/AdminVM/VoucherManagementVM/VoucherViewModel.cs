@@ -1,7 +1,11 @@
-﻿using CinemaManagement.Views.Admin.VoucherManagement;
+﻿using CinemaManagement.DTOs;
+using CinemaManagement.Views.Admin.VoucherManagement;
 using CinemaManagement.Views.Admin.VoucherManagement.AddVoucher;
 using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
 using MaterialDesignThemes.Wpf;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -14,6 +18,13 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public Card ButtonView { get; set; }
 
 
+        private List<StaffDTO> listtemp;
+
+        public List<StaffDTO> Listtemp
+        {
+            get { return listtemp; }
+            set { listtemp = value; OnPropertyChanged(); }
+        }
 
         public ICommand SavemainFrameNameCM { get; set; }
         public ICommand StoreButtonNameCM { get; set; }
@@ -23,26 +34,62 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         {
 
 
-
-
+            Listtemp = new List<StaffDTO>();
+            Listtemp.Add(new StaffDTO
+            {
+                Name = "tran khoi",
+            });
+            Listtemp.Add(new StaffDTO
+            {
+                Name = "tran khoi",
+            }); Listtemp.Add(new StaffDTO
+            {
+                Name = "tran khoi",
+            }); Listtemp.Add(new StaffDTO
+            {
+                Name = "tran khoi",
+            }); Listtemp.Add(new StaffDTO
+            {
+                Name = "tran khoi",
+            });
 
             LoadAddWindowCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 AddVoucherWindow w = new AddVoucherWindow();
                 w.ShowDialog();
             });
-
             LoadAddInforCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
             {
+                if (p is null) return;
                 ChangeView(p);
                 mainFrame.Content = new AddInfor();
             });
             LoadAddVoucherCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
             {
+                if (p is null) return;
                 ChangeView(p);
                 mainFrame.Content = new AddVoucher();
             });
-
+            LoadAddMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                AddMiniVoucher w = new AddMiniVoucher();
+                ListMiniVoucher = new ObservableCollection<int>();
+                ListMiniVoucher.Add(ListMiniVoucher.Count+1);
+                w.ShowDialog();
+            });
+            LoadAddListMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                AddListMiniVoucher w = new AddListMiniVoucher();
+                w.ShowDialog();
+            });
+            MoreVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                ListMiniVoucher.Add(ListMiniVoucher.Count+1);
+            });
+            LessVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                LessVoucherFunc();
+            });
 
 
 
@@ -67,6 +114,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         }
         public void ChangeView(Card p)
         {
+            if (p is null) return;
             ButtonView.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#f0f2f5");
             ButtonView.SetValue(ShadowAssist.ShadowDepthProperty, ShadowDepth.Depth2);
             ButtonView = p;

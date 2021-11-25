@@ -415,6 +415,12 @@
     <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddInfor.xaml.cs">
       <DependentUpon>AddInfor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddListMiniVoucher.xaml.cs">
+      <DependentUpon>AddListMiniVoucher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddMiniVoucher.xaml.cs">
+      <DependentUpon>AddMiniVoucher.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddVoucher.xaml.cs">
       <DependentUpon>AddVoucher.xaml</DependentUpon>
     </Compile>
@@ -560,6 +566,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\VoucherManagement\AddWindow\AddInfor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddListMiniVoucher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddMiniVoucher.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
