@@ -35,67 +35,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public StatisticalManagementViewModel()
         {
           
-            //List<double> temp = new List<double>();
-            //List<double> temp1 = new List<double>();
-            //List<double> temp2 = new List<double>();
-            //List<double> temp3 = new List<double>();
-            //temp2.Add(2772);
-            //temp3.Add(1541);
-
-            //Food = new ChartValues<double>(temp2);
-            //Ticket = new ChartValues<double>(temp3);
-
-            //pie = new SeriesCollection
-            //{
-            //    new PieSeries
-            //    {
-            //        Title = "Ticket",
-            //        Values = new ChartValues<double>(temp2),
-            //        DataLabels = true,
-            //    },
-
-            //    new PieSeries
-            //    {
-            //        Title = "Food",
-            //        Values = new ChartValues<double>(temp3),
-            //        DataLabels = true,
-            //    },
-            //};
-            //pie = new SeriesCollection
-            //{
-            //    new LineSeries
-            //    {
-            //        Values = new ChartValues<double>(temp1),
-            //        Fill = Brushes.Transparent,
-            //        StrokeThickness = 0.5,
-            //    },
-            //};
-            //pie2 = new SeriesCollection
-            //{
-            //    new LineSeries
-            //    {
-            //        Values = new ChartValues<double>(temp1),
-            //        Stroke = Brushes.OrangeRed,
-            //        Fill = Brushes.Transparent,
-            //        StrokeThickness = 0.5,
-            //    },
-            //};
-
-            //InComeByMonth = new SeriesCollection
-            //{
-            //    new LineSeries
-            //    {
-            //        Title = "Thu",
-
-            //        Values = new ChartValues<double>(temp),
-            //    },
-            //    new LineSeries
-            //    {
-            //        Title = "Chi",
-            //        Values = new ChartValues<double>(temp1),
-            //    }
-            //};
-
             LoadViewCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 mainFrame = p;

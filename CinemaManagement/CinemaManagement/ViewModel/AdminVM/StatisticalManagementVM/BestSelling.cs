@@ -98,7 +98,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public void LoadBestSellByYear()
         {
             if (SelectedBestSellTime.Length != 4) return;
-            Top5Movie = StatisticsService.Ins.GetTop5BestMovieByYear(2021);
+            Top5Movie = StatisticsService.Ins.GetTop5BestMovieByYear(int.Parse(SelectedBestSellTime));
 
 
             List<decimal> chartdata = new List<decimal>();
@@ -113,6 +113,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 new ColumnSeries
                 {
                     Values = new ChartValues<decimal>(chartdata),
+                    Title = "Doanh thu"
                 },
 
             };
@@ -135,6 +136,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 new ColumnSeries
                 {
                     Values = new ChartValues<decimal>(chartdata),
+                     Title = "Doanh thu"
                 },
 
             };
@@ -170,7 +172,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public void LoadBestSellByYear2()
         {
             if (SelectedBestSellTime2.Length != 4) return;
-            Top5Product = StatisticsService.Ins.GetTop5BestProductByYear(2021);
+            Top5Product = StatisticsService.Ins.GetTop5BestProductByYear(int.Parse(SelectedBestSellTime2));
 
 
             List<decimal> chartdata = new List<decimal>();
@@ -185,6 +187,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 new ColumnSeries
                 {
                     Values = new ChartValues<decimal>(chartdata),
+                     Title = "Doanh thu"
                 },
 
             };
@@ -207,6 +210,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 new ColumnSeries
                 {
                     Values = new ChartValues<decimal>(chartdata),
+                     Title = "Doanh thu"
                 },
 
             };
