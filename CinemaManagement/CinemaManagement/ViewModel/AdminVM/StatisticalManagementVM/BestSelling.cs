@@ -98,7 +98,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public void LoadBestSellByYear()
         {
             if (SelectedBestSellTime.Length != 4) return;
-            Top5Movie = StatisticsService.Ins.GetTop5BestMovie();
+            Top5Movie = StatisticsService.Ins.GetTop5BestMovieByYear(2021);
 
 
             List<decimal> chartdata = new List<decimal>();
@@ -170,7 +170,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public void LoadBestSellByYear2()
         {
             if (SelectedBestSellTime2.Length != 4) return;
-            Top5Product = StatisticsService.Ins.GetTop5BestProduct();
+            Top5Product = StatisticsService.Ins.GetTop5BestProductByYear(2021);
 
 
             List<decimal> chartdata = new List<decimal>();

@@ -237,7 +237,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         {
             if (SelectedIncomeTime.Length == 4) return;
             LabelMaxValue = 30;
-            TotalBill = OverviewStatisticService.Ins.GetBillQuantity(2021, int.Parse(SelectedIncomeTime));
+            TotalBill = OverviewStatisticService.Ins.GetBillQuantity(2021, int.Parse(SelectedIncomeTime.Remove(0, 6)));
             (List<decimal> dailyRevenue, decimal MonthProductReve, decimal MonthTicketReve, string MonthRateStr) = OverviewStatisticService.Ins.GetRevenueByMonth(DateTime.Now.Year, int.Parse(SelectedIncomeTime.Remove(0, 6)));
             (List<decimal> dailyExpense, decimal MonthProductExpense, decimal MonthRepairCost, string MonthExpenseRateStr) = OverviewStatisticService.Ins.GetExpenseByMonth(DateTime.Now.Year, int.Parse(SelectedIncomeTime.Remove(0, 6)));
             TicketReve = Helper.FormatVNMoney(MonthTicketReve);

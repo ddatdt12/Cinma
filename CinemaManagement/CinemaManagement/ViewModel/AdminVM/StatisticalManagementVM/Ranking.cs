@@ -94,12 +94,14 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public void LoadRankingByYear()
         {
             if (SelectedRankingTime.Length != 4) return;
-            Top5Customer = StatisticsService.Ins.GetTop5CustomerExpense();
+            (List<CustomerDTO> Top5Cus, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) = StatisticsService.Ins.GetTop5CustomerExpenseByYear(2021);
+            Top5Customer = Top5Cus; 
         }
         public void LoadRankingByMonth()
         {
             if (SelectedRankingTime.Length == 4) return;
-            Top5Customer = StatisticsService.Ins.GetTop5CustomerExpenseByMonth(int.Parse(SelectedRankingTime.Remove(0, 6)));
+            (List<CustomerDTO> Top5Cus, decimal TicketExpenseTop1Cus, decimal ProductExpenseTop1Cus) = StatisticsService.Ins.GetTop5CustomerExpenseByMonth(int.Parse(SelectedRankingTime.Remove(0, 6)));
+            Top5Customer = Top5Cus;
         }
 
         public void ChangeRankingPeriod2()
@@ -131,7 +133,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public void LoadRankingByYear2()
         {
             if (SelectedRankingTime2.Length != 4) return;
-            Top5Staff = StatisticsService.Ins.GetTop5ContributionStaff();
+            Top5Staff = StatisticsService.Ins.GetTop5ContributionStaffByYear(2021);
         }
         public void LoadRankingByMonth2()
         {

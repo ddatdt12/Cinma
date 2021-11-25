@@ -10,7 +10,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
 {
     class TicketWindowViewModel : BaseViewModel
     {
-
         public static ShowtimeDTO CurrentShowtime;
         private SeatSettingDTO _SelectedSeat;
 
@@ -63,8 +62,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             get { return _WaitingList; }
             set { _WaitingList = value; }
         }
-
-
 
         public ICommand CloseTicketWindowCM { get; set; }
         public ICommand MinimizeTicketWindowCM { get; set; }
@@ -124,7 +121,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             });
             SelectedSeatCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
             {
-
                 if (p != null)
                 {
                     foreach (var item in WaitingList)
@@ -136,14 +132,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                             p.Foreground = new SolidColorBrush(Colors.Black);
                             return;
                         }
-
                     }
                     p.Background = new SolidColorBrush(Colors.Green);
                     p.Foreground = new SolidColorBrush(Colors.White);
                     WaitingSeatList(p.Content.ToString());
                 }
-              
-
             });
         }
 
