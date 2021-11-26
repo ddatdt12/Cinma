@@ -10,6 +10,16 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 {
     public partial class VoucherViewModel : BaseViewModel
     {
+
+        private DateTime getCurrentDate;
+        public DateTime GetCurrentDate
+        {
+            get { return getCurrentDate; }
+            set { getCurrentDate = value; OnPropertyChanged(); }
+        }
+
+
+
         private ObservableCollection<int> listMiniVoucher;
         public ObservableCollection<int> ListMiniVoucher
         {

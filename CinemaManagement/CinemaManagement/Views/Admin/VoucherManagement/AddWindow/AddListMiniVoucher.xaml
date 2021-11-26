@@ -15,6 +15,7 @@
         Title="AddMiniVoucher"
         Height="300"
         Width="500"
+        FontFamily="arial"
         DataContext="{StaticResource VoucherVM}">
 
     <Border BorderBrush="Black"
@@ -23,14 +24,15 @@
             Background="White">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="10*" />
-                <RowDefinition Height="90*" />
+                <RowDefinition Height="13*" />
+                <RowDefinition Height="87*" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
                 <Label Content="Thêm danh sách voucher"
                        FontSize="18"
-                       FontWeight="Bold" />
+                       FontWeight="Bold"
+                       Margin="5"/>
                 <Button Click="Button_Click_1"
                         ToolBar.OverflowMode="AsNeeded"
                         Background="Transparent"
@@ -54,7 +56,7 @@
                 </Grid.RowDefinitions>
 
                 <Border BorderBrush="Gray"
-                        BorderThickness="0,1,0,1"
+                        BorderThickness="0,1,0,0"
                         Grid.Row="0">
 
                     <StackPanel>

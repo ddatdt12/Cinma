@@ -35,21 +35,31 @@
                      Height="30"
                      Padding="0"
                      x:Name="FilterBox"
-                   
                      VerticalAlignment="Bottom">
             </TextBox>
             <StackPanel Orientation="Horizontal"
                         Margin="30,0,0,0"
                         VerticalAlignment="Bottom">
-                <Button  Content="Thêm"
-                         VerticalAlignment="Top"
-                         HorizontalAlignment="Center"
-                         Width="120"
-                         Height="40"
-                         FontSize="25"
-                         FontFamily="arial"
-                         materialDesign:ButtonAssist.CornerRadius="5"
-                         Command="{Binding LoadAddWindowCM}">
+                <Button VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Width="120"
+                        Height="40"
+                        FontSize="25"
+                        FontFamily="arial"
+                        Padding="0"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Command="{Binding LoadAddWindowCM}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline"
+                                                     Width="25"
+                                                     Height="25"
+                                                     VerticalAlignment="Center"
+                                                     Margin="0,0,0,0" />
+                            <TextBlock Text="Thêm"
+                                       Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Button.Content>
                 </Button>
             </StackPanel>
         </StackPanel>
@@ -61,11 +71,11 @@
                                  UniformCornerRadius="5">
                 <ListView x:Name="VoucherListView"
                           Focusable="True">
-                    <!--<i:Interaction.Triggers>
+                    <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding LoadInforMovieCM}" />
+                            <i:InvokeCommandAction Command="{Binding LoadInforBigVoucherCM}" />
                         </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
+                    </i:Interaction.Triggers>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Mã phát hành">

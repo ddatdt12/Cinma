@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
+namespace CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow
 {
     /// <summary>
-    /// Interaction logic for AddMiniVoucher.xaml
+    /// Interaction logic for Infor_EditWindow.xaml
     /// </summary>
-    public partial class AddMiniVoucher : Window
+    public partial class Infor_EditWindow : Window
     {
-        public AddMiniVoucher()
+        public Infor_EditWindow()
         {
             InitializeComponent();
-
         }
-
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -46,6 +44,5 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
         {
             this.Close();
         }
-
     }
 }
