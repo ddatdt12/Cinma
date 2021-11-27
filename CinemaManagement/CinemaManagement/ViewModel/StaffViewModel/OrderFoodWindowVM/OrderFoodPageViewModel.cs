@@ -7,13 +7,11 @@ using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
 {
-    public class OrderFoodViewModel : BaseViewModel
+    public class OrderFoodPageViewModel : BaseViewModel
     {
-        public ICommand CloseWindowCM { get; set; }
-        public ICommand MinimizeWindowCM { get; set; }
         public ICommand GoBackCommand { get; set; }
         public ICommand MouseMoveCommand { get; set; }
-        public ICommand FilterAllProductsCommand { get; set;}
+        public ICommand FilterAllProductsCommand { get; set; }
         public ICommand FilterFoodCommand { get; set; }
         public ICommand FilterDrinkCommand { get; set; }
         public ICommand SelectedProductCommand { get; set; }
@@ -93,7 +91,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             }
         }
 
-        public OrderFoodViewModel()
+        public OrderFoodPageViewModel()
         {
             AllProduct = new ObservableCollection<ProductDTO>();
             OrderList = new ObservableCollection<ProductDTO>();
@@ -110,9 +108,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
 
             //Filter All Products
             FilterAllProductsCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
-           {
-               MenuList = new ObservableCollection<ProductDTO>(AllProduct);
-           });
+            {
+                MenuList = new ObservableCollection<ProductDTO>(AllProduct);
+            });
 
             //Filter đồ ăn
             FilterFoodCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -264,14 +262,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                 }
             });
 
-
             //Mua hàng, lưu xuống bill
             BuyCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 if (MessageBox.Show("Xác nhận thanh toán? Nhấn OK.", "Xác nhận", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
                     //var prodList = ProductService.Ins.GetAllProduct();
-                    //BillDTO bill = new BillDTO { CustomerId = "KH0002", StaffId = "NV002", TotalPrice = 100000 };
+                    //BillDTO bill = new BillDTO { CustomerId = "KH0002", StaffId = "NV002", _TotalPrice = 100000 };
                     //List<ProductBillInfoDTO> orderedProds = new List<ProductBillInfoDTO>();
                     //orderedProds.Add(new ProductBillInfoDTO { ProductId = prodList[1].Id, PricePerItem = prodList[1].Price, Quantity = 3 });
                     //orderedProds.Add(new ProductBillInfoDTO { ProductId = prodList[2].Id, PricePerItem = prodList[2].Price, Quantity = 2 });
@@ -281,30 +278,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                 }
             });
 
-
-            CloseWindowCM = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
-            {
-
-                if (p != null)
-                {
-                    p.Close();
-                }
-
-            });
-            MinimizeWindowCM = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
-            {
-
-                if (p != null)
-                {
-                    p.WindowState = WindowState.Minimized;
-                }
-            });
-
             GoBackCommand = new RelayCommand<Page>((p) => { return true; }, (p) =>
             {
-                if (p!=null)
+                if (p != null)
                 {
-                    
+
                 }
             });
 
@@ -316,7 +294,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                 {
                     w.DragMove();
                 }
-            });
+            }
+       );
         }
         private Window GetWindowParent(Window p)
         {
@@ -409,18 +388,18 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
 
         public void Demo()
         {
-            AllProduct.Add(new ProductDTO(1, "Burger gà", "Đồ ăn", 45000, "/Resources/Images/ImageFood/pop-corn.png", 5));
-            AllProduct.Add(new ProductDTO(2, "Trà sữa", "Thức uống", 20000, "/Resources/Images/ImageFood/pop-corn.png", 9));
-            AllProduct.Add(new ProductDTO(3, "Coca Cola", "Thức uống", 25000, "/Resources/Images/ImageFood/pop-corn.png", 10));
-            AllProduct.Add(new ProductDTO(4, "Bỏng ngô Caramel", "Đồ ăn", 30000, "/Resources/Images/ImageFood/pop-corn.png", 50));
-            AllProduct.Add(new ProductDTO(5, "Snack Ostar", "Đồ ăn", 15000, "/Resources/Images/ImageFood/pop-corn.png", 25));
-            AllProduct.Add(new ProductDTO(6, "Burger bò", "Đồ ăn", 45000, "/Resources/Images/ImageFood/pop-corn.png", 10));
-            AllProduct.Add(new ProductDTO(7, "Snack Poca", "Đồ ăn", 15000, "/Resources/Images/ImageFood/pop-corn.png", 50));
-            AllProduct.Add(new ProductDTO(8, "Snack Tonies", "Đồ ăn", 15000, "/Resources/Images/ImageFood/pop-corn.png", 30));
-            AllProduct.Add(new ProductDTO(9, "Hotdog Choripan", "Đồ ăn", 30000, "/Resources/Images/ImageFood/pop-corn.png", 40));
-            AllProduct.Add(new ProductDTO(10, "Cà phê Espresso", "Thức uống", 50000, "/Resources/Images/ImageFood/pop-corn.png", 90));
-            AllProduct.Add(new ProductDTO(11, "Trà đào", "Thức uống", 20000, "/Resources/Images/ImageFood/pop-corn.png", 120));
-            AllProduct.Add(new ProductDTO(12, "Pepsi", "Thức uống", 25000, "/Resources/Images/ImageFood/pop-corn.png", 100));
+            AllProduct.Add(new ProductDTO(1, "Burger gà", "Đồ ăn", 45000, "/Resources/FoodLayout/Food/Burger/Chicken.jpg", 5));
+            AllProduct.Add(new ProductDTO(2, "Trà sữa", "Thức uống", 20000, "/Resources/FoodLayout/Food/Drink/Milk Tea.jpg", 9));
+            AllProduct.Add(new ProductDTO(3, "Coca Cola", "Thức uống", 25000, "/Resources/FoodLayout/Food/Drink/Coca Cola.jpg", 10));
+            AllProduct.Add(new ProductDTO(4, "Bỏng ngô Caramel", "Đồ ăn", 30000, "/Resources/FoodLayout/Food/Popcorn/Caramel.jpg", 50));
+            AllProduct.Add(new ProductDTO(5, "Snack Ostar", "Đồ ăn", 15000, "/Resources/FoodLayout/Food/Snack/Ostar.jpg", 25));
+            AllProduct.Add(new ProductDTO(6, "Burger bò", "Đồ ăn", 45000, "/Resources/FoodLayout/Food/Burger/Beef.jpg", 10));
+            AllProduct.Add(new ProductDTO(7, "Snack Poca", "Đồ ăn", 15000, "/Resources/FoodLayout/Food/Snack/Poca.jpg", 50));
+            AllProduct.Add(new ProductDTO(8, "Snack Tonies", "Đồ ăn", 15000, "/Resources/FoodLayout/Food/Snack/Tonies.jpg", 30));
+            AllProduct.Add(new ProductDTO(9, "Hotdog Choripan", "Đồ ăn", 30000, "/Resources/FoodLayout/Food/Hotdog/Choripan.jpg", 40));
+            AllProduct.Add(new ProductDTO(10, "Cà phê Espresso", "Thức uống", 50000, "/Resources/FoodLayout/Food/Drink/Espresso Coffee.jpg", 90));
+            AllProduct.Add(new ProductDTO(11, "Trà đào", "Thức uống", 20000, "/Resources/FoodLayout/Food/Drink/Peach Tea.jpg", 120));
+            AllProduct.Add(new ProductDTO(12, "Pepsi", "Thức uống", 25000, "/Resources/FoodLayout/Food/Drink/Pepsi.jpg", 100));
         }
     }
 }
