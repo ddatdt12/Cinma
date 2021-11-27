@@ -336,6 +336,7 @@
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\ServiceProblemsWindowVM\ServiceProblemsPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
     <Compile Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml.cs">
       <DependentUpon>AddFoodWindow.xaml</DependentUpon>
@@ -433,6 +434,12 @@
     </Compile>
     <Compile Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml.cs">
       <DependentUpon>FoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\ServiceProblemsWindow\ServiceProblesWindow.xaml.cs">
+      <DependentUpon>ServiceProblesWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\ServiceProblemsWindow\SeviceReportPage.xaml.cs">
+      <DependentUpon>SeviceReportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\TicketWindow\TicketWindow.xaml.cs">
       <DependentUpon>TicketWindow.xaml</DependentUpon>
@@ -580,6 +587,14 @@
     <Page Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\ServiceProblemsWindow\ServiceProblesWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Staff\ServiceProblemsWindow\SeviceReportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Staff\TicketWindow\TicketWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
