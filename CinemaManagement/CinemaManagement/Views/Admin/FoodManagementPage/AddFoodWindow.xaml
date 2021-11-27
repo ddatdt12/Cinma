@@ -20,10 +20,26 @@
         WindowStartupLocation="CenterOwner"
         Name="AddFoodWd"
         ResizeMode="NoResize"
-        Title="AddFoodWindow"
         Height="400"
         Width="280">
-    
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="AddFoodWd"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+
     <Grid>
         <Border BorderBrush="#18ffff"
                 BorderThickness="2"

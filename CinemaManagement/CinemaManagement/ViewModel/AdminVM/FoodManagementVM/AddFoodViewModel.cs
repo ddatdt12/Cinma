@@ -31,9 +31,10 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 if (successAddProduct)
                 {
-                    IsAddingProduct = false;
                     SaveImgToApp();
+                    IsAddingProduct = false;
                     LoadProductListView(Operation.CREATE, newProduct);
+                    MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 }
                 MessageBox.Show(messageFromAddProduct);

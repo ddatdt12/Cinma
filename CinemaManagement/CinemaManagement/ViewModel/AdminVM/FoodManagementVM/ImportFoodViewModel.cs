@@ -40,6 +40,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     if (successAddProductReceipt)
                     {
                         LoadProductListView(Operation.UPDATE_PROD_QUANTITY);
+                        MaskName.Visibility = Visibility.Collapsed;
                         p.Close();
                     }
                     MessageBox.Show(messageFromAddProductReceipt);

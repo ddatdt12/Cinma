@@ -96,6 +96,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         string oldMovieName;
         bool IsImageChanged = false;
         bool IsAddingMovie = false;
+        public static System.Windows.Controls.Grid MaskName { get; set; }
 
         System.Windows.Controls.ListView MainListView;
 
@@ -142,6 +143,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public ICommand LoadDeleteMovieCM { get; set; }
         public ICommand StoreMainListViewNameCM { get; set; }
         public ICommand UpdateMovieCM { get; set; }
+        public ICommand MaskNameCM { get; set; }
 
         public MovieManagementViewModel()
         {
@@ -168,12 +170,17 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             {
                 MainListView = p;
             });
+            MaskNameCM = new RelayCommand<System.Windows.Controls.Grid>((p) => { return true; }, (p) =>
+            {
+                MaskName = p;
+            });
 
             LoadAddMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 RenewWindowData();
                 Window w1 = new AddMovieWindow();
                 IsAddingMovie = true;
+                MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
 
             });
@@ -183,6 +190,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 RenewWindowData();
                 InforMovieWindow w1 = new InforMovieWindow();
                 LoadInforMovie(w1);
+                MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
             LoadEditMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -191,6 +199,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 oldMovieName = movieName;
                 EditMovie w1 = new EditMovie();
                 LoadEditMovie(w1);
+                MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
             LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -220,7 +229,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                           break;
                   }
               });
-
             UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openfile = new OpenFileDialog();
@@ -263,6 +271,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         {
             try
             {
+                if (IsAddingMovie)
+                {
+                    appPath = Helper.GetMovieImgPath(imgfullname);
+                    File.Copy(filepath, appPath, true);
+                    return;
+                }
                 if (imgfullname != SelectedItem.Image)
                 {
                     appPath = Helper.GetMovieImgPath(imgfullname);

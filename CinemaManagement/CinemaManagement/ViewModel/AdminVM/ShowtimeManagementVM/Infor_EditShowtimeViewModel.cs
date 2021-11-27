@@ -1,6 +1,5 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Views.Admin.ShowtimeManagement;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -57,6 +56,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 LoadDataEditWindow(p);
                 EditShowtimeWindow = p;
                 oldSelectedItem = SelectedItem;
+                ShadowMask.Visibility = System.Windows.Visibility.Visible;
                 p.ShowDialog();
             }
         }

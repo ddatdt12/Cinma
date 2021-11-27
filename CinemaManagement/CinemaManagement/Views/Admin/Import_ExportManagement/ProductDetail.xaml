@@ -11,11 +11,27 @@
         AllowsTransparency="True"
         Background="Transparent"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="ExportDetail"
+        x:Name="mainWin"
         Height="720"
         Width="450"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         DataContext="{StaticResource Import_ExportManagementVM}">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainWin"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
     <Border Background="White"
             BorderThickness="1"
             CornerRadius="10"
@@ -39,7 +55,7 @@
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
                             Grid.Row="0">
-            
+
                     <Button Click="Button_Click_1"
                             ToolBar.OverflowMode="AsNeeded"
                             Background="Transparent"
@@ -168,8 +184,8 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Label Content="Tổng tiền"
-                           FontSize="20" 
-                           Grid.Column="0"/>
+                           FontSize="20"
+                           Grid.Column="0" />
                     <Label Content="{Binding BillDetail.OriginalTotalPriceStr}"
                            FontSize="20"
                            HorizontalAlignment="Right"

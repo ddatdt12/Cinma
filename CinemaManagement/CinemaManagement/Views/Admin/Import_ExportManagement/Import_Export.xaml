@@ -32,6 +32,13 @@
         </EventTrigger>
     </Page.Triggers>
 
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding MaskNameCM}"
+                                   CommandParameter="{Binding ElementName=ShadowMask}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid Background="#f0f2f5">
 
         <!--cong cu va cac button-->
@@ -76,6 +83,10 @@
             </materialDesign:Card>
         </Grid>
 
-
+        <Grid
+              Background="Gray"
+              Opacity="0.3"
+              Visibility="Collapsed"
+              x:Name="ShadowMask" />
     </Grid>
 </Page>

@@ -37,10 +37,11 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (successAddMovie)
                 {
-                    IsAddingMovie = false;
                     System.Windows.MessageBox.Show(messageFromAddMovie);
                     SaveImgToApp();
+                    IsAddingMovie = false;
                     LoadMovieListView(Operation.CREATE, newMovie);
+                    MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 }
                 else

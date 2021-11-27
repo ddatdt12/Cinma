@@ -10,7 +10,15 @@
       d:DesignHeight="720"
       d:DesignWidth="1440"
       x:Name="mainPage">
-    
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding MaskNameCM}"
+                                   CommandParameter="{Binding ElementName=ShadowMask}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
             <BeginStoryboard>
@@ -19,7 +27,7 @@
                                      Storyboard.TargetProperty="Opacity"
                                      From="0"
                                      To="1"
-                                     Duration="0:0:0.5" />
+                                     Duration="0:0:0.3" />
 
 
                 </Storyboard>
@@ -247,6 +255,10 @@
             </materialDesign:Card>
         </Grid>
 
-
+        <Grid Grid.RowSpan="2"
+              Background="Gray"
+              Opacity="0.3"
+              Visibility="Collapsed"
+              x:Name="ShadowMask" />
     </Grid>
 </Page>

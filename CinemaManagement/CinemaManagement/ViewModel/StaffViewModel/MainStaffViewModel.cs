@@ -2,6 +2,7 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
+using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff;
 using CinemaManagement.Views.Staff.MovieScheduleWindow;
 using System;

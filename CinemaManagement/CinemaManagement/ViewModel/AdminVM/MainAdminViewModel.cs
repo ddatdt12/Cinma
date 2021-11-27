@@ -4,6 +4,7 @@ using CinemaManagement.Views.Admin.MovieManagement;
 using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 using CinemaManagement.Views.Admin.ShowtimeManagementVM;
 using CinemaManagement.Views.Admin.StatisticalManagement;
+using CinemaManagement.Views.LoginWindow;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

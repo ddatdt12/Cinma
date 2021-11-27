@@ -20,6 +20,7 @@
       DataContext="{StaticResource StaffManagementVM}"
       ShowsNavigationUI="False"
       x:Name="mainPage">
+ 
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
             <BeginStoryboard>
@@ -40,6 +41,10 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding GetListViewCommand}"
                                    CommandParameter="{Binding ElementName=_ListView}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding MaskNameCM}"
+                                   CommandParameter="{Binding ElementName=ShadowMask}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -232,5 +237,11 @@
             </ScrollViewer>
         </materialDesign:Card>
         <!--#endregion-->
+        
+        <Grid Grid.RowSpan="2"
+              Background="Gray"
+              Opacity="0.3"
+              Visibility="Collapsed"
+              x:Name="ShadowMask" />
     </Grid>
 </Page>

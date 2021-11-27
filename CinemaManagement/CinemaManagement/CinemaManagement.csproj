@@ -435,12 +435,17 @@
     <Compile Include="Views\ExampleWindow.xaml.cs">
       <DependentUpon>ExampleWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ForgotPassWindow.xaml.cs">
-      <DependentUpon>ForgotPassWindow.xaml</DependentUpon>
+    <Compile Include="Views\LoginWindow\ChangePassPage.xaml.cs">
+      <DependentUpon>ChangePassPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginWindow.xaml.cs">
+    <Compile Include="Views\LoginWindow\ForgotPassPage.xaml.cs">
+      <DependentUpon>ForgotPassPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
@@ -583,13 +588,21 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\ForgotPassWindow.xaml">
+    <Page Include="Views\LoginWindow\ChangePassPage.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoginWindow.xaml">
+    <Page Include="Views\LoginWindow\ForgotPassPage.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Staff\MainStaffWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

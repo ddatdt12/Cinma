@@ -58,7 +58,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 
 
         public int SelectedView = 0;
-
+        public static Grid MaskName { get; set; }
 
 
 
@@ -67,6 +67,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public ICommand LoadExportPageCM { get; set; }
         public ICommand ExportFileCM { get; set; }
         public ICommand LoadInforBillCM { get; set; }
+        public ICommand MaskNameCM { get; set; }
 
 
 
@@ -131,6 +132,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                             sum += item.Quantity * item.PricePerItem;
                         }
                         w._totalproduct.Content = sum;
+                        MaskName.Visibility = System.Windows.Visibility.Visible;
                         w.ShowDialog();
                     }
                     else if (BillDetail.ProductBillInfoes.Count == 0)
@@ -140,6 +142,8 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                         w._price.Content = BillDetail.TicketInfo.PricePerTicketStr;
                         w._time.Content = BillDetail.CreatedAt.ToString("dd/MM/yyyy HH:mm");
                         w._totalticket.Content = BillDetail.TicketInfo.TotalPriceTicketStr;
+                        MaskName.Visibility = System.Windows.Visibility.Visible;
+
                         w.ShowDialog();
 
                     }
@@ -150,9 +154,15 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                         w._price.Content = BillDetail.TicketInfo.PricePerTicketStr;
                         w._time.Content = BillDetail.CreatedAt.ToString("dd/MM/yyyy HH:mm");
                         w._totalticket.Content = BillDetail.TicketInfo.TotalPriceTicketStr;
+                        MaskName.Visibility = System.Windows.Visibility.Visible;
+
                         w.ShowDialog();
                     }
                 }
+            });
+            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+            {
+                MaskName = p;
             });
         }
 

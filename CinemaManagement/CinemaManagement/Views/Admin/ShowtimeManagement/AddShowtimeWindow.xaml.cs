@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -52,6 +53,7 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
+            ShowtimeManagementViewModel.ShadowMask.Visibility = Visibility.Collapsed;
         }
     }
 }

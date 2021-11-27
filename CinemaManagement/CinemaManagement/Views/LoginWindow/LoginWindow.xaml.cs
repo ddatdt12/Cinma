@@ -7,9 +7,8 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
-namespace CinemaManagement
+namespace CinemaManagement.Views.LoginWindow
 {
-
     public partial class LoginWindow : Window
     {
         public LoginWindow()
@@ -17,20 +16,19 @@ namespace CinemaManagement
             InitializeComponent();
         }
 
+
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
 
             btn.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFA5B9D6");
         }
-
         private void Button_MouseLeave(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
 
             btn.Background = new SolidColorBrush(Colors.Transparent);
         }
-
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
@@ -43,9 +41,6 @@ namespace CinemaManagement
             Button btn = sender as Button;
             btn.Background = new SolidColorBrush(Colors.Transparent);
         }
-
-
-
         private void Loginwindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.Dispatcher.Invoke(DispatcherPriority.Normal, (Action)(() =>
@@ -169,6 +164,16 @@ namespace CinemaManagement
 
             imagerotator();
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
     }
 }

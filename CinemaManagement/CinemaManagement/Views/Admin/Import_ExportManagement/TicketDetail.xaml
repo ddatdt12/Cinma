@@ -11,12 +11,26 @@
         AllowsTransparency="True"
         Background="Transparent"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="ExportDetail"
+        x:Name="mainWin"
         Height="720"
         Width="450"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         DataContext="{StaticResource Import_ExportManagementVM}">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainWin"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
 
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
     <Border Background="White"
             BorderThickness="1"
             CornerRadius="10"

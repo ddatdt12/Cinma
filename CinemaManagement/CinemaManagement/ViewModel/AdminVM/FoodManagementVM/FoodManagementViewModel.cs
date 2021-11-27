@@ -92,6 +92,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         string oldFoodName;
         bool IsImageChanged = false;
         bool IsAddingProduct = false;
+        public static Grid MaskName { get; set; }
 
         private ObservableCollection<ProductDTO> _foodList;
         public ObservableCollection<ProductDTO> FoodList
@@ -122,6 +123,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
         public ICommand MouseMoveCommand { get; set; }
         public ICommand CloseCommand { get; set; }
+        public ICommand MaskNameCM { get; set; }
 
         //
         private ProductDTO _SelectedItem;
@@ -260,6 +262,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 {
                     ImportFoodWindow wd = new ImportFoodWindow();
                     LoadImportFoodWindow(wd);
+                    MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
                 });
             ImportFoodCommand = new RelayCommand<Window>((p) => { return true; },
@@ -276,6 +279,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     RenewWindowData();
                     AddFoodWindow wd = new AddFoodWindow();
                     IsAddingProduct = true;
+                    MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
                 });
             AddFoodCommand = new RelayCommand<Window>((p) => { return true; },
@@ -307,6 +311,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                     }
 
+                    MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
 
                 });
@@ -323,6 +328,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     DeleteFoodWindow wd = new DeleteFoodWindow();
                     Image = SelectedItem.Image;
                     Id = SelectedItem.Id;
+                    MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
 
                 });
@@ -339,6 +345,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 var w = window as Window;
                 if (w != null)
                 {
+                    MaskName.Visibility = Visibility.Collapsed;
                     w.Close();
                 }
             }
@@ -373,6 +380,10 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             }
            );
 
+            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+              {
+                  MaskName = p;
+              });
         }
 
         public void LoadImage()
@@ -393,6 +404,12 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             try
             {
+                if (IsAddingProduct)
+                {
+                    appPath = Helper.GetProductImgPath(imgfullname);
+                    File.Copy(filepath, appPath, true);
+                    return;
+                }
                 if (imgfullname != Image)
                 {
                     appPath = Helper.GetProductImgPath(imgfullname);
