@@ -32,7 +32,7 @@ namespace CinemaManagement
         private void MainFrame_MouseDown(object sender, MouseButtonEventArgs e)
         {
             SlideButton.IsChecked = false;
-
+        }
         private void SlideButton_Checked(object sender, RoutedEventArgs e)
         {
             topnotifi.Visibility = Visibility.Collapsed;

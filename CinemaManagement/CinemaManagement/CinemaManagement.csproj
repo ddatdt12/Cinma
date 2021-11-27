@@ -316,6 +316,9 @@
     <Compile Include="Utils\Constant.cs" />
     <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />
+    <Compile Include="ViewModel\AdminVM\ErrorVM\ErrorViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\ErrorVM\HintLevelConverter.cs" />
+    <Compile Include="ViewModel\AdminVM\ErrorVM\StatusBrushConverter.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\AddFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\DeleteFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\EditFoodViewModel.cs" />
@@ -348,6 +351,18 @@
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
+    <Compile Include="Views\Admin\ErrorManagement\DoneError.xaml.cs">
+      <DependentUpon>DoneError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ErrorManagement\ErrorManagement.xaml.cs">
+      <DependentUpon>ErrorManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ErrorManagement\InprogressError.xaml.cs">
+      <DependentUpon>InprogressError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ErrorManagement\WaitingError.xaml.cs">
+      <DependentUpon>WaitingError.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml.cs">
       <DependentUpon>AddFoodWindow.xaml</DependentUpon>
     </Compile>
@@ -471,6 +486,22 @@
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\DoneError.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\ErrorManagement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\InprogressError.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\WaitingError.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
