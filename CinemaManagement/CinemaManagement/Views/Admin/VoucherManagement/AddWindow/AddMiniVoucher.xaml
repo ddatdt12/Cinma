@@ -62,7 +62,8 @@
 
                     <ListBox ItemsSource="{Binding ListMiniVoucher}"
                              x:Name="listbox"
-                             SelectedItem="{Binding SelectedWaitingVoucher}">
+                             SelectedItem="{Binding SelectedWaitingVoucher}"
+                            Height="190">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem"
                                    BasedOn="{StaticResource MaterialDesignListBoxItem}">
