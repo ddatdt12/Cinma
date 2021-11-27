@@ -406,6 +406,9 @@
     <Compile Include="Views\Staff\ShowtimePage\ShowtimePage.xaml.cs">
       <DependentUpon>ShowtimePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Staff\TicketBill\TicketBillNoFoodPage.xaml.cs">
+      <DependentUpon>TicketBillNoFoodPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Staff\TicketBill\TicketBillPage.xaml.cs">
       <DependentUpon>TicketBillPage.xaml</DependentUpon>
     </Compile>
@@ -535,6 +538,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Staff\TicketBill\TicketBillNoFoodPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Staff\TicketBill\TicketBillPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -630,6 +637,8 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\IconPack\employee.png" />
+    <Resource Include="Resources\IconPack\waiter.png" />
     <Resource Include="Resources\IconPack\foodstrip.png" />
     <Resource Include="Resources\IconPack\filmstrip.png" />
   </ItemGroup>

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CinemaManagement.Views.Staff.TicketBill
 {
     /// <summary>
-    /// Interaction logic for TicketBillPage.xaml
+    /// Interaction logic for TicketBillNoFoodPage.xaml
     /// </summary>
-    public partial class TicketBillPage : Page
+    public partial class TicketBillNoFoodPage : Page
     {
-        public TicketBillPage()
+        public TicketBillNoFoodPage()
         {
             InitializeComponent();
         }
