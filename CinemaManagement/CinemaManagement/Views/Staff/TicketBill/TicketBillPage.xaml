@@ -368,7 +368,7 @@
                                     <DataTemplate >
                                         <Grid Width="330">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="250"/>
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             
@@ -386,8 +386,7 @@
                                                            Text="{Binding Name}"
                                                            FontSize="16"
                                                            FontWeight="Light"
-                                                           HorizontalAlignment="Right"
-                                                           TextAlignment="Right" />
+                                                           HorizontalAlignment="Right"/>
                                             </Grid>
 
                                             <Grid Grid.Column="1">

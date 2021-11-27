@@ -93,6 +93,15 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         {
             ListVoucher = new ObservableCollection<CustomerDTO>();
 
+            for(int i=0; i<10;i++)
+            {
+                CustomerDTO temp = new CustomerDTO();
+                temp.Id = "DUONGDEPTRAI";
+                temp.Name = "Miễn phí đủ mọi thứ!";
+                ListVoucher.Add(temp);
+                
+            }
+
             IsValidPhone = false;
             IsWalkinGuest = false;
             ShowPhone = true;
