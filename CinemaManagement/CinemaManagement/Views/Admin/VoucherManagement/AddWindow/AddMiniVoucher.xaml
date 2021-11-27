@@ -62,7 +62,7 @@
 
                     <ListBox ItemsSource="{Binding ListMiniVoucher}"
                              x:Name="listbox"
-                             SelectedItem="{Binding SelectedWaitingVoucher}"
+                             SelectedIndex="{Binding SelectedWaitingVoucher}"
                             Height="190">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem"
@@ -82,7 +82,7 @@
                                              Padding="0,10,0,0"
                                              Margin="100,0,0,0"
                                              BorderBrush="Gray"
-                                             FontSize="15" />
+                                             FontSize="15"/>
                                     <Border>
 
 

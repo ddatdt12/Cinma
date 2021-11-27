@@ -4,6 +4,7 @@ using CinemaManagement.Views.Admin.VoucherManagement.AddVoucher;
 using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
 using CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow;
 using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
@@ -73,8 +74,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             LoadAddMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 AddMiniVoucher w = new AddMiniVoucher();
-                ListMiniVoucher = new ObservableCollection<int>();
-                ListMiniVoucher.Add(ListMiniVoucher.Count + 1);
+                ListMiniVoucher = new ObservableCollection<String>();
+                ListMiniVoucher.Add("");
                 w.ShowDialog();
             });
             LoadAddListMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -84,7 +85,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             });
             MoreVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                ListMiniVoucher.Add(ListMiniVoucher.Count + 1);
+                ListMiniVoucher.Add("");
             });
             LessVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {

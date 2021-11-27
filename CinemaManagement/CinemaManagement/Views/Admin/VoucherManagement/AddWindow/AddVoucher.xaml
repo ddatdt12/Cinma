@@ -61,6 +61,10 @@
                             HorizontalAlignment="Right"
                             Margin="0,0,10,5"
                             Orientation="Horizontal">
+                    <Button Content="Phát hành voucher"
+                            materialDesign:ButtonAssist.CornerRadius="5"
+                            Margin="0,0,10,0"
+                            FontWeight="Bold" />
                     <Border  Background="{StaticResource PrimaryHueMidBrush}"
                              CornerRadius="5"
                              Height="32"
@@ -82,10 +86,6 @@
                                                                  Margin="5,0,0,0" />
                                     </StackPanel>
                                 </MenuItem.Header>
-                                <MenuItem Header="Phát hành voucher"
-                                          Foreground="Black"
-                                          Background="LightGray"
-                                          Margin="0,-16,0,0" />
                                 <MenuItem Header="Xoá voucher"
                                           Foreground="Black"
                                           Background="LightGray" />
@@ -127,72 +127,82 @@
                               Padding="0,28,0,0"
                               Margin="20,0,0,0">
                         <ComboBoxItem>Toàn bộ</ComboBoxItem>
-                        <ComboBoxItem>Chưa sử dụng</ComboBoxItem>
+                        <ComboBoxItem>Chưa phát hành</ComboBoxItem>
+                        <ComboBoxItem>Đã phát hành</ComboBoxItem>
                         <ComboBoxItem>Đã sử dụng</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
 
-
-                <ListView x:Name="ListView"
-                          ItemsSource="{Binding Listtemp}"
-                          Focusable="True"
-                          Grid.Row="1">
-                    <!--<i:Interaction.Triggers>
+                <Grid Grid.Row="1">
+                    <ListView x:Name="Listview"
+                              ItemsSource="{Binding Listtemp}"
+                              Focusable="True">
+                        <!--<i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseDoubleClick">
                             <i:InvokeCommandAction Command="{Binding LoadInforMovieCM}" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>-->
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Mã voucher">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <CheckBox Content="{Binding Name}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Người mua">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <!--<TextBlock Text="{Binding MovieType}"
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã voucher">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <CheckBox Content="{Binding Name}"
+                                                          Loaded="allcheck"
+                                                          x:Name="allcheck"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Người mua">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <!--<TextBlock Text="{Binding MovieType}"
                                                    Margin="30,0,0,0"
                                                    FontSize="18" />-->
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Ngày sử dụng">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <!--<TextBlock Text="{Binding RunningTime}"
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Ngày sử dụng">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <!--<TextBlock Text="{Binding RunningTime}"
                                                    Margin="40,0,0,0"
                                                    FontSize="18" />-->
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Mệnh giá">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <!--<TextBlock Text="{Binding RunningTime}"
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Mệnh giá">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <!--<TextBlock Text="{Binding RunningTime}"
                                                    Margin="40,0,0,0"
                                                    FontSize="18" />-->
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Trạng thái">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <!--<TextBlock Text="{Binding RunningTime}"
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Trạng thái">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <!--<TextBlock Text="{Binding RunningTime}"
                                                    Margin="40,0,0,0"
                                                    FontSize="18" />-->
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
 
-                </ListView>
+                    </ListView>
+                    <CheckBox VerticalAlignment="Top"
+                              HorizontalAlignment="Left"
+                              Margin="13,18,20,0"
+                              Checked="CheckBox_Checked"
+                              Unchecked="CheckBox_Unchecked"/>
+                </Grid>
+
+
             </Grid>
 
         </materialDesign:Card>

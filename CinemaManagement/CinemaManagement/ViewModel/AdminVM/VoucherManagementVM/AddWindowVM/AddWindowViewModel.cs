@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
@@ -20,16 +21,16 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
 
 
-        private ObservableCollection<int> listMiniVoucher;
-        public ObservableCollection<int> ListMiniVoucher
+        private ObservableCollection<String> listMiniVoucher;
+        public ObservableCollection<String> ListMiniVoucher
         {
             get { return listMiniVoucher; }
             set { listMiniVoucher = value; OnPropertyChanged(); }
         }
 
 
-        private int? selectedWaitingVoucher;
-        public int? SelectedWaitingVoucher
+        private int selectedWaitingVoucher;
+        public int SelectedWaitingVoucher
         {
             get { return selectedWaitingVoucher; }
             set { selectedWaitingVoucher = value; OnPropertyChanged(); }
@@ -49,13 +50,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
         public void LessVoucherFunc()
         {
-            foreach(int item in ListMiniVoucher.ToList<int>())
-            {
-                if (item == SelectedWaitingVoucher)
-                {
-                    ListMiniVoucher.Remove(item);
-                }
-            }
+            ListMiniVoucher.RemoveAt(selectedWaitingVoucher);
         }
     }
 }
