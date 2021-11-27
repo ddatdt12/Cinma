@@ -156,11 +156,11 @@ namespace CinemaManagement.Models.Services
 
                 context.SaveChanges();
 
-                return (true, null);
+                return (true, "Cập nhật thành công");
             }
             catch (Exception e)
             {
-                throw e;
+                return (false, e.Message);
             }
         }
         public int GetWaitingTroubleCount()
