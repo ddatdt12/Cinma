@@ -131,7 +131,8 @@
                                 ToolTip="Icon"
                                 VerticalAlignment="Bottom"
                                 Margin="15 0 10 0"
-                                Command="{Binding CheckPhoneNumberCM}" />
+                                Command="{Binding CheckPhoneNumberCM}"
+                                />
 
                         <Grid.Style>
                             <Style>

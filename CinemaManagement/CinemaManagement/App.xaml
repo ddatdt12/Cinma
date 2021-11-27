@@ -22,7 +22,7 @@
             <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush"
                              Color="#FFFFFF" />
             <SolidColorBrush x:Key="PrimaryHueMidBrush"
-                             Color="#0c70b6" />
+                             Color="#007bff" />
             <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush"
                              Color="#FFFFFF" />
             <SolidColorBrush x:Key="MyFirstColor"

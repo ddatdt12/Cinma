@@ -38,7 +38,7 @@
         <materialDesign:Card VerticalAlignment="Stretch"
                              HorizontalAlignment="Left"
                              Width="450"
-                             Margin="200 150 0 40"
+                             Margin="200 130 0 40"
                              UniformCornerRadius="6">
             <Grid>
                 <Grid.RowDefinitions>
@@ -109,7 +109,7 @@
                                   FontSize="18"
                                   VerticalAlignment="Bottom"
                                   x:Name="checkBox"
-                                  Command="{Binding WalkinGuestCM}"
+                                  Command="{Binding CboxWalkinGuestCM}"
                                   CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" />
                     </Grid>
 
@@ -129,7 +129,8 @@
                                 ToolTip="Icon"
                                 VerticalAlignment="Bottom"
                                 Margin="15 0 10 0"
-                                Command="{Binding CheckPhoneNumberCM}" />
+                                Command="{Binding CheckPhoneNumberCM}"
+                                />
 
                         <Grid.Style>
                             <Style>
