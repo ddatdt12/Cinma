@@ -165,8 +165,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                                     Category = AllProduct[i].Category,
                                     Price = AllProduct[i].Price,
                                     Image = AllProduct[i].Image,
-                                    Quantity = 1,
-                                    ImgSource = AllProduct[i].ImgSource
+                                    Quantity = 1
                                 });
                                 ReCalculate();
                             }

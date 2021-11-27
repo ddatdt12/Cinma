@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.TicketWindow;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
         public ICommand MinimizeTicketWindowCM { get; set; }
         public ICommand MouseMoveWindowCM { get; set; }
         public ICommand LoadTicketBookingPageCM { get; set; }
+        public ICommand LoadFoodPageCM { get; set; }
         public TicketWindowViewModel()
         {
             CaculateTime();
@@ -96,14 +98,19 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             {
                 p.Content = new TicketBookingPage();
             });
-            SetStatusSeatCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            //SetStatusSeatCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            //{
+            //    foreach (var item in listlabel)
+            //    {
+            //      item.Background = new SolidColorBrush(Colors.Brown);
+            //      item.Foreground = new SolidColorBrush(Colors.White);
+            //    }
+            //    MessageBox.Show("Đặt ghế thành công!");
+            //});
+            LoadFoodPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                foreach (var item in listlabel)
-                {
-                  item.Background = new SolidColorBrush(Colors.Brown);
-                  item.Foreground = new SolidColorBrush(Colors.White);
-                }
-                MessageBox.Show("Đặt ghế thành công!");
+                p.Content = new FoodPage();
+
             });
         }
     }

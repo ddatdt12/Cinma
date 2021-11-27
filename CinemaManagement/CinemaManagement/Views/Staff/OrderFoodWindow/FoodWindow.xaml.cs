@@ -20,7 +20,6 @@ namespace CinemaManagement.Views.Staff.OrderFoodWindow
         public FoodWindow()
         {
             InitializeComponent();
-
         }
 
     }

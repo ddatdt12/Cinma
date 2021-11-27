@@ -87,7 +87,9 @@
                                      Content="Đồ Ăn"
                                      GroupName="mainOptions"
                                      x:Name="btnFood"
-                                     Width="110" />
+                                     Width="110"
+                                     Command="{Binding LoadFoodPageCM}"
+                                     CommandParameter="{Binding ElementName=mainFrame}" />
                     </StackPanel>
                 </Border>
             </StackPanel>

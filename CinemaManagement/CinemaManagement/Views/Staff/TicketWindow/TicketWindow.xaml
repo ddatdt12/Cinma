@@ -149,7 +149,8 @@
                                 Width="80"
                                 Background="Transparent"
                                 BorderBrush="Transparent"
-                                Command="{Binding SetStatusSeatCM}">
+                                Command="{Binding LoadFoodPageCM}"
+                                CommandParameter="{Binding ElementName=TicketBookingFrame}">
                             <StackPanel>
                                 <materialDesign:PackIcon Kind="ArrowRightBold"
                                                          Width="50"

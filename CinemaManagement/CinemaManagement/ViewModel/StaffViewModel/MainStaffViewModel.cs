@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
 using CinemaManagement.Views.Staff.MovieScheduleWindow;
+using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.ShowtimePage;
 using System;
 using System.Collections.Generic;
@@ -86,7 +87,8 @@ namespace CinemaManagement.ViewModel
         public ICommand MinimizeMainStaffWindowCM { get; set; }
         public ICommand MouseMoveWindowCM { get; set; }
         public ICommand LoadMovieScheduleWindow { get; set; }
-        
+        public ICommand LoadFoodPageCM{ get; set; }
+
         public ICommand SignoutCM { get; set; }
         
         private string _UserName;
@@ -148,6 +150,11 @@ namespace CinemaManagement.ViewModel
             LoadShowtimePageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 p.Content = new ShowtimePage();
+
+            });
+            LoadFoodPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new FoodPage();
 
             });
             LoadShowtimeDataCM = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
