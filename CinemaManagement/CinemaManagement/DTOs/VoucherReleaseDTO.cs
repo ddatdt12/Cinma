@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaManagement.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +11,24 @@ namespace CinemaManagement.DTOs
     {
         public string Id { get; set; }
         public string ReleaseName { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> FinishDate { get; set; }
-        public string Status { get; set; }
-        public string DiscountType { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime FinishDate { get; set; }
+        public bool Status { get; set; }
         public int ParValue { get; set; }
-        public decimal MinimumOrderValue { get; set; }
+        private decimal _MinimumOrderValue;
+
+        public decimal MinimumOrderValue
+        {
+            get { return decimal.Truncate(_MinimumOrderValue); }
+            set { _MinimumOrderValue = value; }
+        }
         public string ObjectType { get; set; }
-        public int MaximumDiscount { get; set; }
         public bool EnableMerge { get; set; }
         public string StaffId { get; set; }
         public string StaffName { get; set; }
-        
+        public int VCount { get; set; }
+        public int UnusedVCount { get; set; }
+
         public IList<VoucherDTO> Vouchers { get; set; }
     }
 }

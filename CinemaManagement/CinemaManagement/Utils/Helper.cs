@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Cache;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,18 +13,35 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
-        Random random = new Random();
-        public static List<string> GetListCode(string keyword, int quantity)
+        public static (string, List<string>) GetListCode(int quantity, int length, string firstChars, string lastChars)
         {
             List<string> ListCode = new List<string>();
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            int randomLength = length - firstChars.Length - lastChars.Length;
+            if (randomLength < 4)
+            {
+                return ($"Độ dài của voucher phải lớn hơn độ dài chuỗi kí tự đầu + độ dài chuỗi kí tự cuối + 4 ", null);
+            }
             for (int i = 0; i < quantity; i++)
             {
-                Regex reg = new Regex("[*'\",_&#^@:|<>?/]");
 
-                string guidStr = Guid.NewGuid().ToString("D");
-                ListCode.Add(keyword.ToUpper() + guidStr.Substring(0, 4).ToUpper() + i.ToString("000"));
+                var stringChars = new char[randomLength];
+                for (int j = 0; j < stringChars.Length; j++)
+                {
+                    stringChars[j] = chars[random.Next(chars.Length)];
+                }
+                string newCode = new String(stringChars);
+                var isExist = ListCode.Any(code => code == newCode);
+                if (isExist)
+                {
+                    i--;
+                    continue;
+                }
+                ListCode.Add(firstChars + newCode + lastChars);
             }
-            return ListCode;
+           
+            return (null, ListCode);
         }
         public static string ConvertDoubleToPercentageStr(double value)
         {

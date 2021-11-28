@@ -27,37 +27,37 @@ namespace CinemaManagement.Models.Services
 
         public List<SeatSettingDTO> GetSeatsByShowtime(int showtimeId)
         {
-            var context = DataProvider.Ins.DB;
             try
             {
-                var seatList = (from s in context.SeatSettings
-                                where s.ShowtimeId == showtimeId
-                                select new SeatSettingDTO
-                                {
-                                    SeatId = s.SeatId,
-                                    ShowtimeId = s.ShowtimeId,
-                                    Status = s.Status,
-                                    Seat = new SeatDTO
+                using (var context = new CinemaManagementEntities())
+                {
+                    var seatList = (from s in context.SeatSettings
+                                    where s.ShowtimeId == showtimeId
+                                    select new SeatSettingDTO
                                     {
-                                        Id = s.Seat.Id,
-                                        RoomId = s.Seat.RoomId,
-                                        Row = s.Seat.Row,
-                                        SeatNumber = s.Seat.SeatNumber,
-                                    },
-                                }
-                           ).ToList();
-                return seatList;
+                                        SeatId = s.SeatId,
+                                        ShowtimeId = s.ShowtimeId,
+                                        Status = s.Status,
+                                        Seat = new SeatDTO
+                                        {
+                                            Id = s.Seat.Id,
+                                            RoomId = s.Seat.RoomId,
+                                            Row = s.Seat.Row,
+                                            SeatNumber = s.Seat.SeatNumber,
+                                        },
+                                    }
+                               ).ToList();
+                    return seatList;
+                }
+
             }
             catch (Exception e)
             {
                 throw e;
             }
         }
-        public (bool IsSuccess, string message) SettingSeatForNewShowtime(int roomId, int showtimeId)
+        public void SettingSeatForNewShowtime(CinemaManagementEntities context, int roomId, int showtimeId)
         {
-
-            var context = DataProvider.Ins.DB;
-
             try
             {
                 var seatIds = (from s in context.Seats
@@ -74,13 +74,11 @@ namespace CinemaManagement.Models.Services
                     });
                 }
                 context.SeatSettings.AddRange(seatSetList);
-                context.SaveChanges();
             }
             catch (Exception e)
             {
-                return (false, "Lỗi hệ thống");
+                throw e;
             }
-            return (true, "");
         }
 
     }

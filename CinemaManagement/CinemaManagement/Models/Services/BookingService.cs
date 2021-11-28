@@ -46,7 +46,6 @@ namespace CinemaManagement.Models.Services
             {
                 return (false, "Vui lòng chọn ghế!");
             }
-            var context = DataProvider.Ins.DB;
             try
             {
                 //Update seat 
@@ -54,24 +53,27 @@ namespace CinemaManagement.Models.Services
                 newTicketList.ForEach(s => idSeatList.Add(s.SeatId));
                 //Make seat of showtime status = true
                 int showtimeId = newTicketList[0].ShowtimeId;
-                var seatSets = context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId)).ToList();
-                foreach (var s in seatSets)
+                using (var context = new CinemaManagementEntities())
                 {
-                    if (s.Status)
+                    var seatSets = context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId)).ToList();
+                    foreach (var s in seatSets)
                     {
-                        var seat = s.Seat;
-                        return (false, $"Ghế {seat.Row}{seat.SeatNumber} đã được đặt!");
+                        if (s.Status)
+                        {
+                            var seat = s.Seat;
+                            return (false, $"Ghế {seat.Row}{seat.SeatNumber} đã được đặt!");
+                        }
+                        s.Status = true;
                     }
-                    s.Status = true;
+
+                    //Bill
+                    string billId = CreateNewBill(context, bill);
+
+                    //Ticket
+                    AddNewTickets(context, billId, newTicketList);
+
+                    context.SaveChanges();
                 }
-
-                //Bill
-                string billId = CreateNewBill(ref context, bill);
-
-                //Ticket
-                AddNewTickets(billId, newTicketList);
-
-                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -81,50 +83,52 @@ namespace CinemaManagement.Models.Services
             return (true, "Đặt vé thành công");
         }
 
-         /// <summary>
-         /// (Dành cho cả mua vé và đặt hàng) Tạo hóa đơn khi biết Bill (chứa CustomerId, StaffId , totalPrice) , danh sách vé, danh sách các sản phẩm đc đặt
-         /// </summary>
-         /// <param name="bill"></param>
-         /// <param name="newTicketList"></param>
-         /// <param name="orderedProductList"></param>
-         /// <returns></returns>
-        public (bool IsSuccess, string message) CreateFullOptionBooking(BillDTO bill, List<TicketDTO> newTicketList, List<ProductBillInfoDTO> orderedProductList )
+        /// <summary>
+        /// (Dành cho cả mua vé và đặt hàng) Tạo hóa đơn khi biết Bill (chứa CustomerId, StaffId , totalPrice) , danh sách vé, danh sách các sản phẩm đc đặt
+        /// </summary>
+        /// <param name="bill"></param>
+        /// <param name="newTicketList"></param>
+        /// <param name="orderedProductList"></param>
+        /// <returns></returns>
+        public (bool IsSuccess, string message) CreateFullOptionBooking(BillDTO bill, List<TicketDTO> newTicketList, List<ProductBillInfoDTO> orderedProductList)
         {
             if (newTicketList.Count() == 0)
             {
                 return (false, "Vui lòng chọn ghế!");
             }
-            var context = DataProvider.Ins.DB;
             try
             {
-                //Update seat 
-                var idSeatList = new List<int>();
-                newTicketList.ForEach(s => idSeatList.Add(s.SeatId));
-                //Make seat of showtime status = true
-                int showtimeId = newTicketList[0].ShowtimeId;
-                var seatSets = context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId)).ToList();
-                foreach (var s in seatSets)
+                using (var context = new CinemaManagementEntities())
                 {
-                    if (s.Status)
+                    //Update seat 
+                    var idSeatList = new List<int>();
+                    newTicketList.ForEach(s => idSeatList.Add(s.SeatId));
+                    //Make seat of showtime status = true
+                    int showtimeId = newTicketList[0].ShowtimeId;
+                    var seatSets = context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId)).ToList();
+                    foreach (var s in seatSets)
                     {
-                        var seat = s.Seat;
-                        return (false, $"Ghế {seat.Row}{seat.SeatNumber} đã được đặt!");
+                        if (s.Status)
+                        {
+                            var seat = s.Seat;
+                            return (false, $"Ghế {seat.Row}{seat.SeatNumber} đã được đặt!");
+                        }
+                        s.Status = true;
                     }
-                    s.Status = true;
-                }
-                //Bill
-                string billId = CreateNewBill(ref context, bill);
+                    //Bill
+                    string billId = CreateNewBill(context, bill);
 
-                //Ticket
-                AddNewTickets(billId, newTicketList);
+                    //Ticket
+                    AddNewTickets(context, billId, newTicketList);
 
-                //Product
-                bool addSuccess = AddNewProductBills(billId, orderedProductList);
-                if (!addSuccess)
-                {
-                    return (false, "Số lượng sản phẩm không đủ để đáp ứng!");
+                    //Product
+                    bool addSuccess = AddNewProductBills(context ,billId, orderedProductList);
+                    if (!addSuccess)
+                    {
+                        return (false, "Số lượng sản phẩm không đủ để đáp ứng!");
+                    }
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
             }
             catch (Exception e)
             {
@@ -144,18 +148,20 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                var context = DataProvider.Ins.DB;
-                //Bill
-                string billId = CreateNewBill(ref context, bill);
-
-                //Product
-               bool addSuccess = AddNewProductBills(billId, orderedProductList);
-                if (!addSuccess)
+                using (var context = new CinemaManagementEntities())
                 {
-                    return (false, "Số lượng sản phẩm không đủ để đáp ứng!");
-                }
+                    //Bill
+                    string billId = CreateNewBill(context, bill);
 
-                context.SaveChanges();
+                    //Product
+                    bool addSuccess = AddNewProductBills(context, billId, orderedProductList);
+                    if (!addSuccess)
+                    {
+                        return (false, "Số lượng sản phẩm không đủ để đáp ứng!");
+                    }
+
+                    context.SaveChanges();
+                }
             }
             catch (Exception e)
             {
@@ -166,7 +172,7 @@ namespace CinemaManagement.Models.Services
         }
 
 
-        private string CreateNewBill(ref CinemaManagementEntities context, BillDTO bill)
+        private string CreateNewBill(CinemaManagementEntities context, BillDTO bill)
         {
             string maxId = context.Bills.Max(b => b.Id);
             string billId = CreateNextBillId(maxId);
@@ -182,9 +188,10 @@ namespace CinemaManagement.Models.Services
             context.Bills.Add(newBill);
             return billId;
         }
-        private void AddNewTickets(string billId, List<TicketDTO> newTicketList)
+        private void AddNewTickets(CinemaManagementEntities context, string billId, List<TicketDTO> newTicketList)
         {
             List<Ticket> ticketList = new List<Ticket>();
+
             for (int i = 0; i < newTicketList.Count; i++)
             {
                 ticketList.Add(new Ticket
@@ -195,12 +202,11 @@ namespace CinemaManagement.Models.Services
                     ShowtimeId = newTicketList[i].ShowtimeId,
                 });
             }
-            DataProvider.Ins.DB.Tickets.AddRange(ticketList);
+            context.Tickets.AddRange(ticketList);
         }
 
-        private bool AddNewProductBills(string billId, List<ProductBillInfoDTO> orderedProductList)
+        private bool AddNewProductBills(CinemaManagementEntities context, string billId, List<ProductBillInfoDTO> orderedProductList)
         {
-            var context = DataProvider.Ins.DB;
             List<ProductBillInfo> prodBillList = new List<ProductBillInfo>();
 
             List<int> prodIdList = new List<int>();
@@ -217,7 +223,7 @@ namespace CinemaManagement.Models.Services
                 var Product = context.Products.Find(orderedProductList[i].ProductId);
                 Product.Quantity -= orderedProductList[i].Quantity;
 
-                if(Product.Quantity < 0)
+                if (Product.Quantity < 0)
                 {
                     return false;
                 }

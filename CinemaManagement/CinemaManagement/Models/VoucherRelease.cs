@@ -22,19 +22,17 @@ namespace CinemaManagement.Models
     
         public string Id { get; set; }
         public string ReleaseName { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> FinishDate { get; set; }
-        public string Status { get; set; }
-        public string DiscountType { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public System.DateTime FinishDate { get; set; }
+        public bool Status { get; set; }
         public int ParValue { get; set; }
         public decimal MinimumOrderValue { get; set; }
         public string ObjectType { get; set; }
-        public int MaximumDiscount { get; set; }
         public bool EnableMerge { get; set; }
         public string StaffId { get; set; }
     
+        public virtual Staff Staff { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Voucher> Vouchers { get; set; }
-        public virtual Staff Staff { get; set; }
     }
 }

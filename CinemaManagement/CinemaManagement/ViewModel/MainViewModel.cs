@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Core;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -305,8 +306,6 @@ namespace CinemaManagement.ViewModel
 
                 #endregion
 
-                var code = Helper.GetListCode("CODE", 100);
-
 
 
                 #region Trouble
@@ -331,10 +330,45 @@ namespace CinemaManagement.ViewModel
                 int troubleCount = TroubleService.Ins.GetWaitingTroubleCount();
                 #endregion
 
+                #region Voucher
+                (string error, List<string> listCode) = Helper.GetListCode(100, 9 , "BFR", "6");
+
+                VoucherReleaseDTO newVR = new VoucherReleaseDTO
+                {
+                    ReleaseName = "Black Friday 2021",
+                    StartDate = DateTime.Today,
+                    FinishDate = DateTime.Today.AddDays(14),
+                    EnableMerge = true,
+                    MinimumOrderValue = 150000,
+                    ParValue = 30000,
+                    ObjectType = VOUCHER_OBJECT_TYPE.ALL,
+                    Status = true,
+                    StaffId = "NV002"
+                };
+
+                (bool isSucess, string addSuccess, VoucherReleaseDTO newVoucherRelease) = VoucherService.Ins.CreateVoucherRelease(newVR);
+
+                List<VoucherReleaseDTO> voucherReleases = VoucherService.Ins.GetAllVoucherReleases();
+                //(bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = VoucherService.Ins.CreateRandomVoucherList(newVoucherRelease.Id, listCode);
+                //(VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails("VCRL0001");
+
+                //(bool deleteSuccess, string messageFromDelete) = VoucherService.Ins.DeteleVoucherRelease("VCRL0001");
+
+                //Delete multiple vouchers
+                //List<int> voucherIdList = voucherReleaseDetail.Vouchers.Take(10).Select(v => v.Id).ToList();
+
+                //(bool deleteSuccess, string messageFromDelete) = VoucherService.Ins.DeteleVouchers(voucherIdList);
+
+                ////Release Voucher
+                //(bool releaseSuccess, string messageFromRelease) = VoucherService.Ins.ReleaseMultiVoucher(voucherIdList);
+
+                //(voucherReleaseDetail, haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails("VCRL0001");
+                #endregion
+
                 //(bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login("dothanhdat123","123456");
                 MovieList = new List<MovieDTO>(movieDTOs);
                 GenreList = new ObservableCollection<GenreDTO>(genreDTOs);
-                
+
             }
             catch (InvalidOperationException e)
             {
@@ -359,16 +393,17 @@ namespace CinemaManagement.ViewModel
         }
         private void AddGenreCommandHandler()
         {
-            GenreDTO genre = new GenreDTO { DisplayName = EnteredGenreName };
-            (bool isSuccess, string message) = GenreService.Ins.AddGenre(genre);
-            if (isSuccess)
-            {
-                LoadGenreList();
-            }
-            else
-            {
-                MessageBox.Show(message);
-            }
+            (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails("VCRL0001");
+            //GenreDTO genre = new GenreDTO { DisplayName = EnteredGenreName };
+            //(bool isSuccess, string message) = GenreService.Ins.AddGenre(genre);
+            //if (isSuccess)
+            //{
+            //    LoadGenreList();
+            //}
+            //else
+            //{
+            //    MessageBox.Show(message);
+            //}
         }
 
         private void EditGenreCommandHandler()

@@ -16,10 +16,11 @@ namespace CinemaManagement.Models
     {
         public int Id { get; set; }
         public string Code { get; set; }
-        public string VoucherReleaseTimeId { get; set; }
-        public bool Status { get; set; }
+        public string VoucherReleaseId { get; set; }
+        public string Status { get; set; }
         public string CustomerId { get; set; }
         public Nullable<System.DateTime> UsedAt { get; set; }
+        public Nullable<System.DateTime> ReleaseAt { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual VoucherRelease VoucherRelease { get; set; }

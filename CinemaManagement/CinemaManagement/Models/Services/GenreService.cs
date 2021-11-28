@@ -29,9 +29,11 @@ namespace CinemaManagement.Models.Services
             List<GenreDTO> genres;
             try
             {
-                var context = DataProvider.Ins.DB;
-                genres = (from s in context.Genres
-                          select new GenreDTO { Id = s.Id, DisplayName = s.DisplayName }).ToList();
+                using (var context = new CinemaManagementEntities())
+                {
+                    genres = (from s in context.Genres
+                              select new GenreDTO { Id = s.Id, DisplayName = s.DisplayName }).ToList();
+                }
             }
             catch (Exception e)
             {
@@ -45,16 +47,19 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                var genreInDB = DataProvider.Ins.DB.Genres.Where(g => g.DisplayName == genre.DisplayName).FirstOrDefault();
-                if (genreInDB != null)
+                using (var context = new CinemaManagementEntities())
                 {
-                    return (false, "Thể loại phim này đã tồn tại");
+                    var genreInDB = context.Genres.Where(g => g.DisplayName == genre.DisplayName).FirstOrDefault();
+                    if (genreInDB != null)
+                    {
+                        return (false, "Thể loại phim này đã tồn tại");
+                    }
+                    context.Genres.Add(new Genre
+                    {
+                        DisplayName = genre.DisplayName,
+                    });
+                    context.SaveChanges();
                 }
-                DataProvider.Ins.DB.Genres.Add(new Genre
-                {
-                    DisplayName = genre.DisplayName,
-                });
-                DataProvider.Ins.DB.SaveChanges();
 
             }
             catch (DbEntityValidationException e)
@@ -83,13 +88,16 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                var genre = DataProvider.Ins.DB.Genres.Where(g => g.Id == GenreId).FirstOrDefault();
-                if (genre == null)
+                using (var context = new CinemaManagementEntities())
                 {
-                    return (false, "Genre don't exist");
+                    var genre = context.Genres.Where(g => g.Id == GenreId).FirstOrDefault();
+                    if (genre == null)
+                    {
+                        return (false, "Genre don't exist");
+                    }
+                    genre.DisplayName = newDisplayName;
+                    context.SaveChanges();
                 }
-                genre.DisplayName = newDisplayName;
-                DataProvider.Ins.DB.SaveChanges();
             }
             catch (DbEntityValidationException e)
             {

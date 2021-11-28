@@ -30,17 +30,20 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                var customer = DataProvider.Ins.DB.Customers.Where(c => c.PhoneNumber == phoneNumber).FirstOrDefault();
-                if (customer is null)
+                using (var context = new CinemaManagementEntities())
                 {
-                    return null;
+                    var customer = context.Customers.Where(c => c.PhoneNumber == phoneNumber).FirstOrDefault();
+                    if (customer is null)
+                    {
+                        return null;
+                    }
+                    return new CustomerDTO
+                    {
+                        Id = customer.Id,
+                        Name = customer.Name,
+                        PhoneNumber = customer.PhoneNumber
+                    };
                 }
-                return new CustomerDTO
-                {
-                    Id = customer.Id,
-                    Name = customer.Name,
-                    PhoneNumber = customer.PhoneNumber
-                };
             }
             catch (Exception e)
             {
@@ -52,26 +55,29 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                var context = DataProvider.Ins.DB;
-                var isExistPhone = context.Customers.Any(c => c.PhoneNumber == newCus.PhoneNumber);
-                if (isExistPhone)
+                using (var context = new CinemaManagementEntities())
                 {
-                    return (false, "Số điện thoại này đã tồn tại", null);
-                }
-                var isExistEmail = context.Customers.Any(c => c.Email == newCus.Email);
-                if (isExistPhone)
-                {
-                    return (false, "Email này đã tồn tại", null);
-                }
+                    var isExistPhone = context.Customers.Any(c => c.PhoneNumber == newCus.PhoneNumber);
+                    if (isExistPhone)
+                    {
+                        return (false, "Số điện thoại này đã tồn tại", null);
+                    }
+                    var isExistEmail = context.Customers.Any(c => c.Email == newCus.Email);
+                    if (isExistPhone)
+                    {
+                        return (false, "Email này đã tồn tại", null);
+                    }
 
-                Customer cus = new Customer { 
-                    Name = newCus.Name, 
-                    PhoneNumber = newCus.PhoneNumber,
-                    Email = newCus.Email,
-                };
+                    Customer cus = new Customer
+                    {
+                        Name = newCus.Name,
+                        PhoneNumber = newCus.PhoneNumber,
+                        Email = newCus.Email,
+                    };
 
-                context.Customers.Add(cus);
-                return (true, "", cus.Id);
+                    context.Customers.Add(cus);
+                    return (true, "", cus.Id);
+                }
             }
             catch (Exception e)
             {

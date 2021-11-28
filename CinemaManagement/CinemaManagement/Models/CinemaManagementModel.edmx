@@ -179,10 +179,11 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="VoucherReleaseTimeId" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="VoucherReleaseId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="CustomerId" Type="varchar" MaxLength="10" />
           <Property Name="UsedAt" Type="smalldatetime" />
+          <Property Name="ReleaseAt" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="VoucherRelease">
           <Key>
@@ -190,14 +191,12 @@
           </Key>
           <Property Name="Id" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="ReleaseName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="StartDate" Type="smalldatetime" />
-          <Property Name="FinishDate" Type="smalldatetime" />
-          <Property Name="Status" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="DiscountType" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="StartDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="FinishDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="ParValue" Type="int" Nullable="false" />
           <Property Name="MinimumOrderValue" Type="money" Nullable="false" />
           <Property Name="ObjectType" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="MaximumDiscount" Type="int" Nullable="false" />
           <Property Name="EnableMerge" Type="bit" Nullable="false" />
           <Property Name="StaffId" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
@@ -349,7 +348,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Voucher__Custome__08B54D69">
+        <Association Name="FK__Voucher__Custome__3493CFA7">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
           <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
           <ReferentialConstraint>
@@ -361,19 +360,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Voucher__Voucher__07C12930">
-          <End Role="VoucherRelease" Type="Self.VoucherRelease" Multiplicity="1" />
-          <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VoucherRelease">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Voucher">
-              <PropertyRef Name="VoucherReleaseTimeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__VoucherRe__Staff__09A971A2">
+        <Association Name="FK__VoucherRe__Staff__2B0A656D">
           <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
           <End Role="VoucherRelease" Type="Self.VoucherRelease" Multiplicity="*" />
           <ReferentialConstraint>
@@ -382,6 +369,20 @@
             </Principal>
             <Dependent Role="VoucherRelease">
               <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VOUCHER_VOUCERRELEASE">
+          <End Role="VoucherRelease" Type="Self.VoucherRelease" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoucherRelease">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="VoucherReleaseId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -524,17 +525,17 @@
             <End Role="Staff" EntitySet="Staff" />
             <End Role="Trouble" EntitySet="Trouble" />
           </AssociationSet>
-          <AssociationSet Name="FK__Voucher__Custome__08B54D69" Association="Self.FK__Voucher__Custome__08B54D69">
+          <AssociationSet Name="FK__Voucher__Custome__3493CFA7" Association="Self.FK__Voucher__Custome__3493CFA7">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Voucher" EntitySet="Voucher" />
           </AssociationSet>
-          <AssociationSet Name="FK__Voucher__Voucher__07C12930" Association="Self.FK__Voucher__Voucher__07C12930">
-            <End Role="VoucherRelease" EntitySet="VoucherRelease" />
-            <End Role="Voucher" EntitySet="Voucher" />
-          </AssociationSet>
-          <AssociationSet Name="FK__VoucherRe__Staff__09A971A2" Association="Self.FK__VoucherRe__Staff__09A971A2">
+          <AssociationSet Name="FK__VoucherRe__Staff__2B0A656D" Association="Self.FK__VoucherRe__Staff__2B0A656D">
             <End Role="Staff" EntitySet="Staff" />
             <End Role="VoucherRelease" EntitySet="VoucherRelease" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VOUCHER_VOUCERRELEASE" Association="Self.FK_VOUCHER_VOUCERRELEASE">
+            <End Role="VoucherRelease" EntitySet="VoucherRelease" />
+            <End Role="Voucher" EntitySet="Voucher" />
           </AssociationSet>
           <AssociationSet Name="GENREID_FK" Association="Self.GENREID_FK">
             <End Role="Genre" EntitySet="Genre" />
@@ -590,7 +591,7 @@
           <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
           <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__CustomerId__59FA5E80" FromRole="Customer" ToRole="Bill" />
           <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Vouchers" Relationship="CinemaManagementModel.FK__Voucher__Custome__08B54D69" FromRole="Customer" ToRole="Voucher" />
+          <NavigationProperty Name="Vouchers" Relationship="CinemaManagementModel.FK__Voucher__Custome__2FCF1A8A" FromRole="Customer" ToRole="Voucher" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -729,7 +730,7 @@
           <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__StaffId__5AEE82B9" FromRole="Staff" ToRole="Bill" />
           <NavigationProperty Name="ProductReceipts" Relationship="Self.PRODUCT_RECEIPT_StaffId_FK" FromRole="Staff" ToRole="ProductReceipt" />
           <NavigationProperty Name="Troubles" Relationship="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" FromRole="Staff" ToRole="Trouble" />
-          <NavigationProperty Name="VoucherReleases" Relationship="CinemaManagementModel.FK__VoucherRe__Staff__09A971A2" FromRole="Staff" ToRole="VoucherRelease" />
+          <NavigationProperty Name="VoucherReleases" Relationship="CinemaManagementModel.FK__VoucherRe__Staff__2B0A656D" FromRole="Staff" ToRole="VoucherRelease" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
@@ -1018,19 +1019,19 @@
           </AssociationSet>
           <EntitySet Name="Vouchers" EntityType="CinemaManagementModel.Voucher" />
           <EntitySet Name="VoucherReleases" EntityType="CinemaManagementModel.VoucherRelease" />
-          <AssociationSet Name="FK__Voucher__Custome__08B54D69" Association="CinemaManagementModel.FK__Voucher__Custome__08B54D69">
+          <AssociationSet Name="FK__Voucher__Custome__2FCF1A8A" Association="CinemaManagementModel.FK__Voucher__Custome__2FCF1A8A">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Voucher" EntitySet="Vouchers" />
           </AssociationSet>
-          <AssociationSet Name="FK__Voucher__Voucher__07C12930" Association="CinemaManagementModel.FK__Voucher__Voucher__07C12930">
-            <End Role="VoucherRelease" EntitySet="VoucherReleases" />
-            <End Role="Voucher" EntitySet="Vouchers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__VoucherRe__Staff__09A971A2" Association="CinemaManagementModel.FK__VoucherRe__Staff__09A971A2">
+          <AssociationSet Name="FK__VoucherRe__Staff__2B0A656D" Association="CinemaManagementModel.FK__VoucherRe__Staff__2B0A656D">
             <End Role="Staff" EntitySet="Staffs" />
             <End Role="VoucherRelease" EntitySet="VoucherReleases" />
           </AssociationSet>
-        </EntityContainer>
+          <AssociationSet Name="FK__Voucher__Voucher__2EDAF651" Association="CinemaManagementModel.FK__Voucher__Voucher__2EDAF651">
+            <End Role="VoucherRelease" EntitySet="VoucherReleases" />
+            <End Role="Voucher" EntitySet="Vouchers" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Trouble">
           <Key>
             <PropertyRef Name="Id" />
@@ -1066,12 +1067,13 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="VoucherReleaseTimeId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="VoucherReleaseId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
           <Property Name="CustomerId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="UsedAt" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Customer" Relationship="CinemaManagementModel.FK__Voucher__Custome__08B54D69" FromRole="Voucher" ToRole="Customer" />
-          <NavigationProperty Name="VoucherRelease" Relationship="CinemaManagementModel.FK__Voucher__Voucher__07C12930" FromRole="Voucher" ToRole="VoucherRelease" />
+          <Property Name="ReleaseAt" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="CinemaManagementModel.FK__Voucher__Custome__2FCF1A8A" FromRole="Voucher" ToRole="Customer" />
+          <NavigationProperty Name="VoucherRelease" Relationship="CinemaManagementModel.FK__Voucher__Voucher__2EDAF651" FromRole="Voucher" ToRole="VoucherRelease" />
         </EntityType>
         <EntityType Name="VoucherRelease">
           <Key>
@@ -1079,20 +1081,18 @@
           </Key>
           <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="ReleaseName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="StartDate" Type="DateTime" Precision="0" />
-          <Property Name="FinishDate" Type="DateTime" Precision="0" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="DiscountType" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FinishDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
           <Property Name="ParValue" Type="Int32" Nullable="false" />
           <Property Name="MinimumOrderValue" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="ObjectType" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="MaximumDiscount" Type="Int32" Nullable="false" />
           <Property Name="EnableMerge" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Vouchers" Relationship="CinemaManagementModel.FK__Voucher__Voucher__07C12930" FromRole="VoucherRelease" ToRole="Voucher" />
           <Property Name="StaffId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Staff" Relationship="CinemaManagementModel.FK__VoucherRe__Staff__09A971A2" FromRole="VoucherRelease" ToRole="Staff" />
+          <NavigationProperty Name="Staff" Relationship="CinemaManagementModel.FK__VoucherRe__Staff__2B0A656D" FromRole="VoucherRelease" ToRole="Staff" />
+          <NavigationProperty Name="Vouchers" Relationship="CinemaManagementModel.FK__Voucher__Voucher__2EDAF651" FromRole="VoucherRelease" ToRole="Voucher" />
         </EntityType>
-        <Association Name="FK__Voucher__Custome__08B54D69">
+        <Association Name="FK__Voucher__Custome__2FCF1A8A">
           <End Type="CinemaManagementModel.Customer" Role="Customer" Multiplicity="0..1" />
           <End Type="CinemaManagementModel.Voucher" Role="Voucher" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1104,19 +1104,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Voucher__Voucher__07C12930">
-          <End Type="CinemaManagementModel.VoucherRelease" Role="VoucherRelease" Multiplicity="1" />
-          <End Type="CinemaManagementModel.Voucher" Role="Voucher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VoucherRelease">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Voucher">
-              <PropertyRef Name="VoucherReleaseTimeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__VoucherRe__Staff__09A971A2">
+        <Association Name="FK__VoucherRe__Staff__2B0A656D">
           <End Type="CinemaManagementModel.Staff" Role="Staff" Multiplicity="1" />
           <End Type="CinemaManagementModel.VoucherRelease" Role="VoucherRelease" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1128,7 +1116,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK__Voucher__Voucher__2EDAF651">
+          <End Type="CinemaManagementModel.VoucherRelease" Role="VoucherRelease" Multiplicity="1" />
+          <End Type="CinemaManagementModel.Voucher" Role="Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoucherRelease">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="VoucherReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1318,10 +1318,11 @@
           <EntitySetMapping Name="Vouchers">
             <EntityTypeMapping TypeName="CinemaManagementModel.Voucher">
               <MappingFragment StoreEntitySet="Voucher">
+                <ScalarProperty Name="ReleaseAt" ColumnName="ReleaseAt" />
                 <ScalarProperty Name="UsedAt" ColumnName="UsedAt" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="VoucherReleaseTimeId" ColumnName="VoucherReleaseTimeId" />
+                <ScalarProperty Name="VoucherReleaseId" ColumnName="VoucherReleaseId" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -1332,11 +1333,9 @@
               <MappingFragment StoreEntitySet="VoucherRelease">
                 <ScalarProperty Name="StaffId" ColumnName="StaffId" />
                 <ScalarProperty Name="EnableMerge" ColumnName="EnableMerge" />
-                <ScalarProperty Name="MaximumDiscount" ColumnName="MaximumDiscount" />
                 <ScalarProperty Name="ObjectType" ColumnName="ObjectType" />
                 <ScalarProperty Name="MinimumOrderValue" ColumnName="MinimumOrderValue" />
                 <ScalarProperty Name="ParValue" ColumnName="ParValue" />
-                <ScalarProperty Name="DiscountType" ColumnName="DiscountType" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />

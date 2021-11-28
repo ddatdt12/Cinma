@@ -38,7 +38,6 @@ namespace CinemaManagement.ViewModel
         {
             try
             {
-                var ctx = DataProvider.Ins.DB;
             }
             catch (InvalidOperationException e)
             {

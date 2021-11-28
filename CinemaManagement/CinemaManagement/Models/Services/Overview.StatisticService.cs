@@ -29,16 +29,18 @@ namespace CinemaManagement.Models.Services
         #region Overview
         public int GetBillQuantity(int year, int month = 0)
         {
-            var context = DataProvider.Ins.DB;
             try
             {
-                if (month == 0)
+                using (var context = new CinemaManagementEntities())
                 {
-                    return context.Bills.Where(b => b.CreatedAt.Year == year).Count();
-                }
-                else
-                {
-                    return context.Bills.Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month).Count();
+                    if (month == 0)
+                    {
+                        return context.Bills.Where(b => b.CreatedAt.Year == year).Count();
+                    }
+                    else
+                    {
+                        return context.Bills.Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month).Count();
+                    }
                 }
             }
             catch (Exception e)
@@ -51,45 +53,47 @@ namespace CinemaManagement.Models.Services
         #region Revenue
 
 
-        
-        public (List<decimal>, decimal ProductRevenue,  decimal TicketRevenue, string TicketRateStr) GetRevenueByYear(int year)
+
+        public (List<decimal>, decimal ProductRevenue, decimal TicketRevenue, string TicketRateStr) GetRevenueByYear(int year)
         {
-            var context = DataProvider.Ins.DB;
             List<decimal> MonthlyRevenueList = new List<decimal>(new decimal[12]);
 
             try
             {
-                var billList = context.Bills
+                using (var context = new CinemaManagementEntities())
+                {
+                    var billList = context.Bills
                     .Where(b => b.CreatedAt.Year == year);
 
-                (decimal ProductRevenue, decimal TicketRevenue) = GetFullRevenue(year);
+                    (decimal ProductRevenue, decimal TicketRevenue) = GetFullRevenue(context, year);
 
-                var MonthlyRevenue = billList
-                         .GroupBy(b => b.CreatedAt.Month)
-                         .Select(gr => new
-                         {
-                             Month = gr.Key,
-                             Income = gr.Sum(b => (decimal?)b.TotalPrice) ?? 0
-                         }).ToList();
+                    var MonthlyRevenue = billList
+                             .GroupBy(b => b.CreatedAt.Month)
+                             .Select(gr => new
+                             {
+                                 Month = gr.Key,
+                                 Income = gr.Sum(b => (decimal?)b.TotalPrice) ?? 0
+                             }).ToList();
 
-                foreach (var re in MonthlyRevenue)
-                {
-                    MonthlyRevenueList[re.Month - 1] = decimal.Truncate(re.Income);
-                }
+                    foreach (var re in MonthlyRevenue)
+                    {
+                        MonthlyRevenueList[re.Month - 1] = decimal.Truncate(re.Income);
+                    }
 
-                (decimal lastProdReve, decimal lastTicketReve) = GetFullRevenue(year - 1);
-                decimal lastRevenueTotal = lastProdReve + lastTicketReve;
-                string RevenueRateStr;
-                if (lastRevenueTotal == 0)
-                {
-                    RevenueRateStr = "-2";
+                    (decimal lastProdReve, decimal lastTicketReve) = GetFullRevenue(context, year - 1);
+                    decimal lastRevenueTotal = lastProdReve + lastTicketReve;
+                    string RevenueRateStr;
+                    if (lastRevenueTotal == 0)
+                    {
+                        RevenueRateStr = "-2";
+                    }
+                    else
+                    {
+                        RevenueRateStr = Helper.ConvertDoubleToPercentageStr((double)((ProductRevenue + TicketRevenue) / lastRevenueTotal) - 1);
+                    }
+
+                    return (MonthlyRevenueList, decimal.Truncate(ProductRevenue), decimal.Truncate(TicketRevenue), RevenueRateStr);
                 }
-                else
-                {
-                    RevenueRateStr = Helper.ConvertDoubleToPercentageStr((double)((ProductRevenue + TicketRevenue) / lastRevenueTotal) - 1);
-                }
-               
-                return (MonthlyRevenueList, decimal.Truncate(ProductRevenue), decimal.Truncate(TicketRevenue), RevenueRateStr);
             }
             catch (Exception e)
             {
@@ -99,51 +103,54 @@ namespace CinemaManagement.Models.Services
         }
 
 
-        public (List<decimal>, decimal ProductRevenue,  decimal TicketRevenue, string RevenueRate) GetRevenueByMonth(int year, int month)
+        public (List<decimal>, decimal ProductRevenue, decimal TicketRevenue, string RevenueRate) GetRevenueByMonth(int year, int month)
         {
-            var context = DataProvider.Ins.DB;
             int days = DateTime.DaysInMonth(year, month);
             List<decimal> DailyReveList = new List<decimal>(new decimal[days]);
 
             try
             {
-                var billList = context.Bills
+
+                using (var context = new CinemaManagementEntities())
+                {
+                    var billList = context.Bills
                      .Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month);
 
-                (decimal ProductRevenue, decimal TicketRevenue) = GetFullRevenue(year, month);
+                    (decimal ProductRevenue, decimal TicketRevenue) = GetFullRevenue(context, year, month);
 
-                var dailyRevenue = billList
-                            .GroupBy(b => b.CreatedAt.Day)
-                             .Select(gr => new
-                             {
-                                 Day = gr.Key,
-                                 Income = gr.Sum(b => b.TotalPrice),
-                                 DiscountPrice = gr.Sum(b => (decimal?)b.DiscountPrice) ?? 0,
-                             }).ToList();
+                    var dailyRevenue = billList
+                                .GroupBy(b => b.CreatedAt.Day)
+                                 .Select(gr => new
+                                 {
+                                     Day = gr.Key,
+                                     Income = gr.Sum(b => b.TotalPrice),
+                                     DiscountPrice = gr.Sum(b => (decimal?)b.DiscountPrice) ?? 0,
+                                 }).ToList();
 
-                foreach (var re in dailyRevenue)
-                {
-                    DailyReveList[re.Day - 1] = decimal.Truncate(re.Income);
-                }
+                    foreach (var re in dailyRevenue)
+                    {
+                        DailyReveList[re.Day - 1] = decimal.Truncate(re.Income);
+                    }
 
-                if (month == 1)
-                {
-                    year--;
-                    month = 13;
-                }
-                (decimal lastProdReve, decimal lastTicketReve) = GetFullRevenue(year, month - 1);
-                decimal lastRevenueTotal = lastProdReve + lastTicketReve;
-                string RevenueRateStr;
-                if (lastRevenueTotal == 0)
-                {
-                    RevenueRateStr = "-2";
-                }
-                else
-                {
-                    RevenueRateStr = Helper.ConvertDoubleToPercentageStr((double)((ProductRevenue + TicketRevenue) / lastRevenueTotal) - 1);
-                }
+                    if (month == 1)
+                    {
+                        year--;
+                        month = 13;
+                    }
+                    (decimal lastProdReve, decimal lastTicketReve) = GetFullRevenue(context ,year, month - 1);
+                    decimal lastRevenueTotal = lastProdReve + lastTicketReve;
+                    string RevenueRateStr;
+                    if (lastRevenueTotal == 0)
+                    {
+                        RevenueRateStr = "-2";
+                    }
+                    else
+                    {
+                        RevenueRateStr = Helper.ConvertDoubleToPercentageStr((double)((ProductRevenue + TicketRevenue) / lastRevenueTotal) - 1);
+                    }
 
-                return (DailyReveList, decimal.Truncate(ProductRevenue), decimal.Truncate(TicketRevenue), RevenueRateStr);
+                    return (DailyReveList, decimal.Truncate(ProductRevenue), decimal.Truncate(TicketRevenue), RevenueRateStr);
+                }
             }
             catch (Exception e)
             {
@@ -157,12 +164,11 @@ namespace CinemaManagement.Models.Services
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <returns></returns>
-        public (decimal, decimal) GetFullRevenue(int year, int month = 0)
+        public (decimal, decimal) GetFullRevenue(CinemaManagementEntities context, int year, int month = 0)
         {
             try
             {
 
-                var context = DataProvider.Ins.DB;
                 if (month != 0)
                 {
 
@@ -193,9 +199,8 @@ namespace CinemaManagement.Models.Services
 
 
         #region Expense
-        private decimal GetFullExpenseLastTime(int year, int month = 0)
+        private decimal GetFullExpenseLastTime(CinemaManagementEntities context, int year, int month = 0)
         {
-            var context = DataProvider.Ins.DB;
             try
             {
                 if (month == 0)
@@ -228,7 +233,6 @@ namespace CinemaManagement.Models.Services
         }
         public (List<decimal> MonthlyExpense, decimal ProductExpense, decimal RepairCost, string ExpenseRate) GetExpenseByYear(int year)
         {
-            var context = DataProvider.Ins.DB;
             List<decimal> MonthlyExpense = new List<decimal>(new decimal[12]);
             decimal ProductExpenseTotal = 0;
             decimal RepairCostTotal = 0;
@@ -236,7 +240,9 @@ namespace CinemaManagement.Models.Services
             //Product Receipt
             try
             {
-                var MonthlyProdExpense = DataProvider.Ins.DB.ProductReceipts
+                using (var context = new CinemaManagementEntities())
+                {
+                    var MonthlyProdExpense = context.ProductReceipts
                      .Where(b => b.CreatedAt.Year == year)
                      .GroupBy(b => b.CreatedAt.Month)
                      .Select(gr => new
@@ -245,36 +251,39 @@ namespace CinemaManagement.Models.Services
                          Outcome = gr.Sum(b => (decimal?)b.ImportPrice) ?? 0
                      }).ToList();
 
-                //Repair Cost
-                var MonthlyRepairCost = MonthlyProdExpense.Select(p => new { Month = p.Month, Outcome = p.Outcome * 2 }).ToList();
+                    //Repair Cost
+                    var MonthlyRepairCost = MonthlyProdExpense.Select(p => new { Month = p.Month, Outcome = p.Outcome * 2 }).ToList();
 
 
-                //Accumulate
-                foreach (var ex in MonthlyProdExpense)
-                {
-                    MonthlyExpense[ex.Month - 1] += decimal.Truncate(ex.Outcome);
-                    ProductExpenseTotal += ex.Outcome;
+                    //Accumulate
+                    foreach (var ex in MonthlyProdExpense)
+                    {
+                        MonthlyExpense[ex.Month - 1] += decimal.Truncate(ex.Outcome);
+                        ProductExpenseTotal += ex.Outcome;
+                    }
+
+                    foreach (var ex in MonthlyRepairCost)
+                    {
+                        MonthlyExpense[ex.Month - 1] += decimal.Truncate(ex.Outcome);
+                        RepairCostTotal += ex.Outcome;
+                    }
+                    decimal lastProductExpenseTotal = GetFullExpenseLastTime(context, year - 1);
+
+                    string ExpenseRateStr;
+                    //check mẫu  = 0
+                    if (lastProductExpenseTotal == 0)
+                    {
+                        ExpenseRateStr = "-2";
+                    }
+                    else
+                    {
+                        ExpenseRateStr = Helper.ConvertDoubleToPercentageStr(((double)(ProductExpenseTotal / lastProductExpenseTotal) - 1));
+                    }
+
+
+                    return (MonthlyExpense, decimal.Truncate(ProductExpenseTotal), decimal.Truncate(RepairCostTotal), ExpenseRateStr);
                 }
 
-                foreach (var ex in MonthlyRepairCost)
-                {
-                    MonthlyExpense[ex.Month - 1] += decimal.Truncate(ex.Outcome);
-                    RepairCostTotal += ex.Outcome;
-                }
-                decimal lastProductExpenseTotal = GetFullExpenseLastTime(year - 1);
-                string ExpenseRateStr;
-                //check mẫu  = 0
-                if (lastProductExpenseTotal == 0)
-                {
-                    ExpenseRateStr = "-2";
-                }
-                else
-                {
-                    ExpenseRateStr = Helper.ConvertDoubleToPercentageStr(((double)(ProductExpenseTotal / lastProductExpenseTotal) - 1));
-                }
-
-
-                return (MonthlyExpense, decimal.Truncate(ProductExpenseTotal), decimal.Truncate(RepairCostTotal), ExpenseRateStr);
             }
             catch (Exception e)
             {
@@ -284,7 +293,6 @@ namespace CinemaManagement.Models.Services
 
         public (List<decimal> DailyExpense, decimal ProductExpense, decimal RepairCost, string RepairRateStr) GetExpenseByMonth(int year, int month)
         {
-            var context = DataProvider.Ins.DB;
 
             int days = DateTime.DaysInMonth(year, month);
             List<decimal> DailyExpense = new List<decimal>(new decimal[days]);
@@ -293,8 +301,11 @@ namespace CinemaManagement.Models.Services
 
             try
             {
-                //Product Receipt
-                var MonthlyProdExpense = DataProvider.Ins.DB.ProductReceipts
+
+                using (var context = new CinemaManagementEntities())
+                {
+                    //Product Receipt
+                    var MonthlyProdExpense = context.ProductReceipts
                          .Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month)
                          .GroupBy(b => b.CreatedAt.Day)
                          .Select(gr => new
@@ -302,40 +313,41 @@ namespace CinemaManagement.Models.Services
                              Day = gr.Key,
                              Outcome = gr.Sum(b => (decimal?)b.ImportPrice) ?? 0
                          }).ToList();
+                    //Repair Cost
+                    var MonthlyRepairCost = MonthlyProdExpense.Select(p => new { Day = p.Day, Outcome = p.Outcome * 2 }).ToList();
 
-                //Repair Cost
-                var MonthlyRepairCost = MonthlyProdExpense.Select(p => new { Day = p.Day, Outcome = p.Outcome * 2 }).ToList();
+                    //Accumulate
+                    foreach (var ex in MonthlyProdExpense)
+                    {
+                        DailyExpense[ex.Day - 1] += decimal.Truncate(ex.Outcome);
+                        ProductExpenseTotal += ex.Outcome;
+                    }
+                    foreach (var ex in MonthlyRepairCost)
+                    {
+                        DailyExpense[ex.Day - 1] += decimal.Truncate(ex.Outcome);
+                        RepairCostTotal += ex.Outcome;
+                    }
+                    if (month == 1)
+                    {
+                        year--;
+                        month = 13;
+                    }
 
-                //Accumulate
-                foreach (var ex in MonthlyProdExpense)
-                {
-                    DailyExpense[ex.Day - 1] += decimal.Truncate(ex.Outcome);
-                    ProductExpenseTotal += ex.Outcome;
-                }
-                foreach (var ex in MonthlyRepairCost)
-                {
-                    DailyExpense[ex.Day - 1] += decimal.Truncate(ex.Outcome);
-                    RepairCostTotal += ex.Outcome;
-                }
-                if (month == 1)
-                {
-                    year--;
-                    month = 13;
-                }
 
-                decimal lastProductExpenseTotal = GetFullExpenseLastTime(year, month - 1);
-                string ExpenseRateStr;
-                //check mẫu  = 0
-                if (lastProductExpenseTotal == 0)
-                {
-                    ExpenseRateStr = "-2";
-                }
-                else
-                {
-                    ExpenseRateStr = Helper.ConvertDoubleToPercentageStr(((double)(ProductExpenseTotal / lastProductExpenseTotal) - 1));
-                }
+                    decimal lastProductExpenseTotal = GetFullExpenseLastTime(context, year, month - 1);
+                    string ExpenseRateStr;
+                    //check mẫu  = 0
+                    if (lastProductExpenseTotal == 0)
+                    {
+                        ExpenseRateStr = "-2";
+                    }
+                    else
+                    {
+                        ExpenseRateStr = Helper.ConvertDoubleToPercentageStr(((double)(ProductExpenseTotal / lastProductExpenseTotal) - 1));
+                    }
 
-                return (DailyExpense, ProductExpenseTotal, RepairCostTotal, ExpenseRateStr);
+                    return (DailyExpense, ProductExpenseTotal, RepairCostTotal, ExpenseRateStr);
+                }
             }
             catch (Exception e)
             {

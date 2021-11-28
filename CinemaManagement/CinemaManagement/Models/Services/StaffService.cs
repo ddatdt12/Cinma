@@ -27,49 +27,52 @@ namespace CinemaManagement.Models.Services
         public List<StaffDTO> GetAllStaff()
         {
             List<StaffDTO> staffs = null;
-
-            var context = DataProvider.Ins.DB;
-            staffs = (from s in context.Staffs
-                      where s.IsDeleted == false
-                      select new StaffDTO
-                      {
-                          Id = s.Id,
-                          BirthDate = s.BirthDate,
-                          Gender = s.Gender,
-                          Username = s.Username,
-                          Name = s.Name,
-                          Role = s.Role,
-                          PhoneNumber = s.PhoneNumber,
-                          StartingDate = s.StartingDate,
-                          Password = s.Password
-                      }).ToList();
-            return staffs;
+            using (var context = new CinemaManagementEntities())
+            {
+                staffs = (from s in context.Staffs
+                          where s.IsDeleted == false
+                          select new StaffDTO
+                          {
+                              Id = s.Id,
+                              BirthDate = s.BirthDate,
+                              Gender = s.Gender,
+                              Username = s.Username,
+                              Name = s.Name,
+                              Role = s.Role,
+                              PhoneNumber = s.PhoneNumber,
+                              StartingDate = s.StartingDate,
+                              Password = s.Password
+                          }).ToList();
+                return staffs;
+            }
         }
         public (bool, string, StaffDTO) Login(string username, string password)
         {
-            var context = DataProvider.Ins.DB;
 
             string hassPass = Helper.MD5Hash(password);
+             
             try
             {
-                StaffDTO staff = (from s in context.Staffs
-                                  where s.Username == username && s.Password == hassPass
-                                  select new StaffDTO
-                                  {
-                                      Id = s.Id,
-                                      BirthDate = s.BirthDate,
-                                      Gender = s.Gender,
-                                      Name = s.Name,
-                                      Role = s.Role,
-                                      PhoneNumber = s.PhoneNumber,
-                                      StartingDate = s.StartingDate
-                                  }).FirstOrDefault();
-
+                StaffDTO staff;
+                using (var context = new CinemaManagementEntities())
+                {
+                  staff =    (from s in context.Staffs
+                                      where s.Username == username && s.Password == hassPass
+                                      select new StaffDTO
+                                      {
+                                          Id = s.Id,
+                                          BirthDate = s.BirthDate,
+                                          Gender = s.Gender,
+                                          Name = s.Name,
+                                          Role = s.Role,
+                                          PhoneNumber = s.PhoneNumber,
+                                          StartingDate = s.StartingDate
+                                      }).FirstOrDefault();
+                }
                 if (staff == null)
                 {
                     return (false, "Sai tài khoản hoặc mật khẩu", null);
                 }
-
                 return (true, "", staff);
             }
             catch (Exception e)
@@ -86,23 +89,24 @@ namespace CinemaManagement.Models.Services
         }
         public (bool, string, StaffDTO) AddStaff(StaffDTO newStaff)
         {
-            var context = DataProvider.Ins.DB;
-
             try
             {
-                bool usernameIsExist = context.Staffs.Any(s => s.Username == newStaff.Username);
-
-                if (usernameIsExist)
+                using (var context = new CinemaManagementEntities())
                 {
-                    return (false, "Tài khoản đã tồn tại!", null);
-                }
-                var maxId = context.Staffs.Max(s => s.Id);
+                    bool usernameIsExist = context.Staffs.Any(s => s.Username == newStaff.Username);
 
-                Staff st = Copy(newStaff);
-                st.Id = CreateNextStaffId(maxId);
-                st.Password = Helper.MD5Hash(newStaff.Password);
-                context.Staffs.Add(st);
-                context.SaveChanges();
+                    if (usernameIsExist)
+                    {
+                        return (false, "Tài khoản đã tồn tại!", null);
+                    }
+                    var maxId = context.Staffs.Max(s => s.Id);
+
+                    Staff st = Copy(newStaff);
+                    st.Id = CreateNextStaffId(maxId);
+                    st.Password = Helper.MD5Hash(newStaff.Password);
+                    context.Staffs.Add(st);
+                    context.SaveChanges();
+                }
             }
             catch  (DbEntityValidationException e)
             {
@@ -112,7 +116,6 @@ namespace CinemaManagement.Models.Services
             {
                 return (false, "Lỗi hệ thống", null);
             }
-
             return (true, "Thêm nhân viên mới thành công", newStaff);
         }
         private Staff Copy(StaffDTO s)
@@ -133,27 +136,29 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                var context = DataProvider.Ins.DB;
-                bool usernameIsExist = context.Staffs.Any(s => s.Username == updatedStaff.Username && s.Id != updatedStaff.Id);
-                if (usernameIsExist)
+                using (var context = new CinemaManagementEntities())
                 {
-                    return (false, "Tài khoản đăng nhập đã tồn tại");
-                }
+                    bool usernameIsExist = context.Staffs.Any(s => s.Username == updatedStaff.Username && s.Id != updatedStaff.Id);
+                    if (usernameIsExist)
+                    {
+                        return (false, "Tài khoản đăng nhập đã tồn tại");
+                    }
 
-                Staff staff = context.Staffs.Find(updatedStaff.Id);
-                if (staff == null)
-                {
-                    return (false, "Nhân viên không tồn tại");
-                }
-                staff.BirthDate = updatedStaff.BirthDate;
-                staff.Gender = updatedStaff.Gender;
-                staff.Username = updatedStaff.Username;
-                staff.Name = updatedStaff.Name;
-                staff.Role = updatedStaff.Role;
-                staff.PhoneNumber = updatedStaff.PhoneNumber;
-                staff.StartingDate = updatedStaff.StartingDate;
+                    Staff staff = context.Staffs.Find(updatedStaff.Id);
+                    if (staff == null)
+                    {
+                        return (false, "Nhân viên không tồn tại");
+                    }
+                    staff.BirthDate = updatedStaff.BirthDate;
+                    staff.Gender = updatedStaff.Gender;
+                    staff.Username = updatedStaff.Username;
+                    staff.Name = updatedStaff.Name;
+                    staff.Role = updatedStaff.Role;
+                    staff.PhoneNumber = updatedStaff.PhoneNumber;
+                    staff.StartingDate = updatedStaff.StartingDate;
 
-                DataProvider.Ins.DB.SaveChanges();
+                    context.SaveChanges();
+                }
             }
             catch (DbEntityValidationException e)
             {
@@ -189,17 +194,18 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                var context = DataProvider.Ins.DB;
-
-                Staff staff = context.Staffs.Find(StaffId);
-                if (staff == null)
+                using (var context = new CinemaManagementEntities())
                 {
-                    return (false, "Tài khoản không tồn tại");
+                    Staff staff = context.Staffs.Find(StaffId);
+                    if (staff == null)
+                    {
+                        return (false, "Tài khoản không tồn tại");
+                    }
+
+                    staff.Password = newPassword;
+
+                    context.SaveChanges();
                 }
-
-                staff.Password = newPassword;
-
-                DataProvider.Ins.DB.SaveChanges();
             }
             catch (DbUpdateException e)
             {
@@ -218,17 +224,20 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                Staff staff = (from p in DataProvider.Ins.DB.Staffs
-                               where p.Id == Id && !p.IsDeleted
-                               select p).SingleOrDefault();
-                if (staff is null || staff?.IsDeleted == true)
+                using (var context = new CinemaManagementEntities())
                 {
-                    return (false, "Nhân viên không tồn tại!");
-                }
-                staff.IsDeleted = true;
-                staff.Username = null;
+                    Staff staff = (from p in context.Staffs
+                                   where p.Id == Id && !p.IsDeleted
+                                   select p).SingleOrDefault();
+                    if (staff is null || staff?.IsDeleted == true)
+                    {
+                        return (false, "Nhân viên không tồn tại!");
+                    }
+                    staff.IsDeleted = true;
+                    staff.Username = null;
 
-                DataProvider.Ins.DB.SaveChanges();
+                    context.SaveChanges();
+                }
             }
             catch (Exception e)
             {

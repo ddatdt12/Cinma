@@ -671,11 +671,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\ImageStaff\" />
     <Folder Include="Resources\Images\Troubles\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\ImageStaff\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Models\CinemaManagementModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
