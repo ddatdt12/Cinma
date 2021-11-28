@@ -7,7 +7,6 @@
                     xmlns:viewmodel23="clr-namespace:CinemaManagement.ViewModel.AdminVM.StaffManagementVM"
                     xmlns:viewmodel2="clr-namespace:CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM"
                     xmlns:viewmodel24="clr-namespace:CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM"
-                    xmlns:viewmodelFood="clr-namespace:CinemaManagement.ViewModel.AdminVM.FoodManagementVM"
                     xmlns:viewmodel3="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.TicketVM"
                     xmlns:viewmodel31="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM">
     <viewmodel:MainViewModel x:Key="MainVM" />

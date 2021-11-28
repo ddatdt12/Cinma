@@ -187,15 +187,9 @@
                                         CommandParameter="{Binding ElementName=Error}" />
                             </StackPanel>
                         </StackPanel>
-
                     </StackPanel>
-
                 </materialDesign:Card>
-
             </Grid>
-
-
         </Grid>
     </Border>
-
 </Window>
