@@ -1,5 +1,7 @@
 ﻿using CinemaManagement.DTOs;
-using CinemaManagement.Models.Services;
+using CinemaManagement.Views.Staff.OrderFoodWindow;
+using CinemaManagement.Views.Staff.TicketWindow;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,96 +10,28 @@ using System.Windows.Media;
 
 namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
 {
-    class TicketWindowViewModel : BaseViewModel
+    public partial class TicketWindowViewModel : BaseViewModel
     {
-        public static ShowtimeDTO CurrentShowtime;
-        private SeatSettingDTO _SelectedSeat;
-
-        public SeatSettingDTO SelectedSeat
-        {
-            get { return _SelectedSeat; }
-            set { _SelectedSeat = value; OnPropertyChanged();}
-        }
-
-        public static MovieDTO tempFilmName;
-
-        private string _txtFilm;
-        public string txtFilm
-        {
-            get { return _txtFilm; }
-            set { _txtFilm = value; OnPropertyChanged(); }
-        }
-
-        private ImageSource _imgSourceFilmName;
-
-        public ImageSource imgSourceFilmName
-        {
-            get { return _imgSourceFilmName; }
-            set { _imgSourceFilmName = value; }
-        }
-
-        private List<SeatSettingDTO> _ListSeat;
-        public List<SeatSettingDTO> ListSeat
-        {
-            get { return _ListSeat; }
-            set { _ListSeat = value; }
-        }
-
-        private List<SeatSettingDTO> _ListSeat1;
-        public List<SeatSettingDTO> ListSeat1
-        {
-            get { return _ListSeat1; }
-            set { _ListSeat1 = value; }
-        }
-        private List<SeatSettingDTO> _ListSeat2;
-        public List<SeatSettingDTO> ListSeat2
-        {
-            get { return _ListSeat2; }
-            set { _ListSeat2 = value; }
-        }
-
-        private List<SeatSettingDTO> _WaitingList;
-        public List<SeatSettingDTO> WaitingList
-        {
-            get { return _WaitingList; }
-            set { _WaitingList = value; }
-        }
-
         public ICommand CloseTicketWindowCM { get; set; }
         public ICommand MinimizeTicketWindowCM { get; set; }
         public ICommand MouseMoveWindowCM { get; set; }
-        public ICommand SelectedSeatCM { get; set; }
-
-
-
-        private int _totalPrice;
-        public int TotalPrice
-        {
-            get { return _totalPrice; }
-            set { _totalPrice = value; OnPropertyChanged(); }
-        }
-        private string _totalSeat;
-        public string TotalSeat
-        {
-            get { return _totalSeat; }
-            set { _totalSeat = value; OnPropertyChanged(); }
-        }
-
-
-
+        public ICommand LoadTicketBookingPageCM { get; set; }
+        public ICommand LoadFoodPageCM { get; set; }
         public TicketWindowViewModel()
         {
+            CaculateTime();
+            Output_ToString();
             GenerateSeat();
-            imgSourceFilmName = tempFilmName.ImgSource;
-            txtFilm = tempFilmName.DisplayName;
             WaitingList = new List<SeatSettingDTO>();
 
+            sumCurrentSeat = "Số ghế   (" + (ListSeat.Count - ListStatusSeat.Count).ToString() + "/128)";
             CloseTicketWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
             {
                 FrameworkElement window = Window.GetWindow(p);
                 var w = window as Window;
                 if (w != null)
                 {
+                    w.DataContext = new TicketWindowViewModel();
                     w.Close();
                 }
             });
@@ -123,78 +57,61 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             {
                 if (p != null)
                 {
-                    foreach (var item in WaitingList)
-                    {
-                        if (IsExist(p.Content.ToString()))
+                    foreach (var st in ListStatusSeat)
+                        if (p.Content.ToString() == st.SeatPosition)
                         {
-                            p.Background = new SolidColorBrush(Colors.Transparent);
-                            WaitingSeatList(p.Content.ToString());
-                            p.Foreground = new SolidColorBrush(Colors.Black);
+                            MessageBox.Show("Ghế này đã bán vui lòng chọn ghế khác!");
                             return;
                         }
+                    if (IsExist(p.Content.ToString()))
+                    {
+                        p.Background = new SolidColorBrush(Colors.Transparent);
+                        p.Foreground = new SolidColorBrush(Colors.Black);
+                        WaitingSeatList(p);
+                        return;
                     }
                     p.Background = new SolidColorBrush(Colors.Green);
                     p.Foreground = new SolidColorBrush(Colors.White);
-                    WaitingSeatList(p.Content.ToString());
+                    WaitingSeatList(p);
                 }
+
+
             });
-        }
-
-
-        public void GenerateSeat()
-        {
-            ListSeat = SeatService.Ins.GetSeatsByShowtime(CurrentShowtime.Id);
-            ListSeat1 = new List<SeatSettingDTO>();
-            ListSeat2 = new List<SeatSettingDTO>();
-            foreach (var item in ListSeat)
+            LoadStatusSeatCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
             {
-                if (item.SeatPosition.Length == 2 && item.SeatPosition[1] < '3')
+
+                if (p != null)
                 {
-                    ListSeat2.Add(item);
-                }
-                else
-                {
-                    ListSeat1.Add(item);
-                }
-            }
-        }
-        public void WaitingSeatList(string id)
-        {
-            if (!string.IsNullOrEmpty(id))
-            {
-                foreach (var item in WaitingList)
-                {
-                    if (item.SeatPosition == id)
+                    foreach (var item in ListSeat)
                     {
-                        WaitingList.RemoveAll(r => r.SeatPosition == id);
-                        ReCalculate();
-                        return;
+                        if (item.SeatPosition == p.Content.ToString() && item.Status == true)
+                        {
+                            p.Background = new SolidColorBrush(Colors.Brown);
+                            p.Foreground = new SolidColorBrush(Colors.White);
+                            return;
+                        }
+
                     }
                 }
-
-                WaitingList.Add(SelectedSeat);
-                ReCalculate();
-            }
-        }
-
-        public void ReCalculate(SeatSettingDTO seat = null)
-        {
-            TotalPrice = 0;
-            foreach (var item in WaitingList)
+            });
+            LoadTicketBookingPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                TotalPrice += 45000;
-            }
-            TotalSeat = WaitingList.Count.ToString();
-        }
-
-        public bool IsExist(string id)
-        {
-            foreach(var item in WaitingList)
+                p.Content = new TicketBookingPage();
+            });
+            //SetStatusSeatCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            //{
+            //    foreach (var item in listlabel)
+            //    {
+            //      item.Background = new SolidColorBrush(Colors.Brown);
+            //      item.Foreground = new SolidColorBrush(Colors.White);
+            //    }
+            //    MessageBox.Show("Đặt ghế thành công!");
+            //});
+            LoadFoodPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                if (item.SeatPosition == id) return true;
+                p.Content = new FoodPage();
 
-            }
-            return false;
+            });
         }
     }
 }
