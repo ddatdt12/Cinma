@@ -332,11 +332,12 @@
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\AddDeviceProblemPageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\DeviceReportPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\ServiceProblemsWindowVM\ServiceProblemsPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
     <Compile Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml.cs">
       <DependentUpon>AddFoodWindow.xaml</DependentUpon>
@@ -423,6 +424,9 @@
       <DependentUpon>LoginWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\Staff\DeviceProblemsWindow\AddDeviceProblemPage.xaml.cs">
+      <DependentUpon>AddDeviceProblemPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
     </Compile>
@@ -434,12 +438,6 @@
     </Compile>
     <Compile Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml.cs">
       <DependentUpon>FoodWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Staff\ServiceProblemsWindow\ServiceProblesWindow.xaml.cs">
-      <DependentUpon>ServiceProblesWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Staff\ServiceProblemsWindow\SeviceReportPage.xaml.cs">
-      <DependentUpon>SeviceReportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\TicketWindow\TicketWindow.xaml.cs">
       <DependentUpon>TicketWindow.xaml</DependentUpon>
@@ -572,6 +570,10 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
+    <Page Include="Views\Staff\DeviceProblemsWindow\AddDeviceProblemPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Staff\MainStaffWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -588,11 +590,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Staff\ServiceProblemsWindow\ServiceProblesWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Staff\ServiceProblemsWindow\SeviceReportPage.xaml">
+    <Page Include="Views\Staff\DeviceProblemsWindow\DeviceReportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -32,20 +32,31 @@
         <Label Name="lblBack"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
-               Cursor="Hand">
-            <Label.Style>
-                <Style TargetType="Label">
-                    <Setter Property="Background" Value="#EEEEEE"/>
-                    <Style.Triggers >
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#CCCCCC"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-            <materialDesign:PackIcon Kind="KeyboardBackspace"
-                                     Height="Auto"
-                                     Width="Auto"/>
+               Cursor="Hand"
+               Margin="5">
+            <Label.Template>
+                <ControlTemplate TargetType="Label">
+                    <Grid>
+                        <Ellipse>
+                            <Ellipse.Resources>
+                                <Style TargetType="Ellipse">
+                                    <Setter Property="Fill" Value="Transparent"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Fill" Value="#EEEEEE"/>
+                                            <Setter Property="ToolTip" Value="Quay lại"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Ellipse.Resources>
+                        </Ellipse>
+                        <materialDesign:PackIcon Kind="KeyboardBackspace"
+                                                 Height="Auto"
+                                                 Width="Auto"/>
+                    </Grid>
+                </ControlTemplate>
+            </Label.Template>
+            
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
                     <i:InvokeCommandAction Command="{Binding ElementName=Food_Page, Path=DataContext.GoBackCommand}"/>

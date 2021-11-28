@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CinemaManagement.Views.Staff.ServiceProblemsWindow
+namespace CinemaManagement.Views.Staff.DeviceProblemsWindow
 {
     /// <summary>
-    /// Interaction logic for ServiceProblesWindow.xaml
+    /// Interaction logic for AddDeviceProblemPage.xaml
     /// </summary>
-    public partial class ServiceProblesWindow : Window
+    public partial class AddDeviceProblemPage : Page
     {
-        public ServiceProblesWindow()
+        public AddDeviceProblemPage()
         {
             InitializeComponent();
         }
