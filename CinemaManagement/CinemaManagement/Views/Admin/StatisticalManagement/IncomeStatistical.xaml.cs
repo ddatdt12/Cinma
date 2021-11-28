@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.StatisticalManagement
@@ -10,6 +11,7 @@ namespace CinemaManagement.Views.Admin.StatisticalManagement
         public IncomeStatistical()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
 
         }
 

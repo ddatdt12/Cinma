@@ -2,18 +2,17 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.Import_ExportManagement
 {
-    /// <summary>
-    /// Interaction logic for TicketDetail.xaml
-    /// </summary>
     public partial class TicketDetail : Window
     {
         public TicketDetail()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

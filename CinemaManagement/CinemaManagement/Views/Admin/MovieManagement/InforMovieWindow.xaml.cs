@@ -2,16 +2,17 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 {
-
     public partial class InforMovieWindow : Window
     {
         public InforMovieWindow()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

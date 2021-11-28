@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,16 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow
             TextBox tb = sender as TextBox;
             if (tb.Text.Length == 0)
                 tb.Text = "0";
+        }
+
+        private void yes_Checked(object sender, RoutedEventArgs e)
+        {
+            VoucherViewModel.Status2 = true;
+        }
+
+        private void no_Checked(object sender, RoutedEventArgs e)
+        {
+            VoucherViewModel.Status2 = false;
         }
     }
 }

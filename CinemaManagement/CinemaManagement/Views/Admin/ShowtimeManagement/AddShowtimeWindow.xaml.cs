@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
@@ -13,6 +14,7 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
         public AddShowtimeWindow()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void AddSuatChieu_MouseDown(object sender, MouseButtonEventArgs e)

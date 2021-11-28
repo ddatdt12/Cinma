@@ -1,16 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using System.Windows.Markup;
 
 namespace CinemaManagement.Views.Admin.StatisticalManagement
 {
-    /// <summary>
-    /// Interaction logic for StatisticalManagement.xaml
-    /// </summary>
     public partial class StatisticalManagement : Page
     {
         public StatisticalManagement()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
     }
 }

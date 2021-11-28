@@ -3,18 +3,17 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 {
-    /// <summary>
-    /// Interaction logic for EditMovie.xaml
-    /// </summary>
     public partial class EditMovie : Window
     {
         public EditMovie()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

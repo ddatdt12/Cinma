@@ -133,7 +133,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
         public ShowtimeManagementViewModel()
         {
-
             GetCurrentDate = DateTime.Today;
             SelectedDate = GetCurrentDate;
             showtimeDate = GetCurrentDate;

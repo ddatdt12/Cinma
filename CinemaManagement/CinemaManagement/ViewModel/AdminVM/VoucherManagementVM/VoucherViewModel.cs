@@ -27,13 +27,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             set { selectedItem = value; OnPropertyChanged(); }
         }
 
-
-        //private List<VoucherReleaseDTO> _ListBigVoucher;
-        //public List<VoucherReleaseDTO> ListBigVoucher
-        //{
-        //    get { return _ListBigVoucher; }
-        //    set { _ListBigVoucher = value; OnPropertyChanged(); }
-        //}
         public ObservableCollection<VoucherReleaseDTO> _ListBigVoucher;
         public ObservableCollection<VoucherReleaseDTO> ListBigVoucher
         {
@@ -67,6 +60,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 AddVoucherWindow w = new AddVoucherWindow();
                 BindStaffID = StaffID;
+                Unlock = false;
                 w.ShowDialog();
             });
             LoadAddInforCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
@@ -81,18 +75,28 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 if (Unlock == false) return false;
                 else
                     return true;
-            }, 
+            },
             (p) =>
             {
                 if (p is null) return;
                 ChangeView(p);
-                mainFrame.Content = new AddVoucher();
+                AddVoucher w = new AddVoucher();
+                if (SelectedItem.Status == false)
+                    w.releasebtn.Visibility = Visibility.Collapsed;
+                else
+                    w.releasebtn.Visibility = Visibility.Visible;
+                mainFrame.Content = w;
+                WaitingMiniVoucher = new ObservableCollection<VoucherDTO>();
             });
             LoadAddMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 AddMiniVoucher w = new AddMiniVoucher();
-                ListMiniVoucher = new ObservableCollection<String>();
-                ListMiniVoucher.Add("");
+                ListMiniVoucher = new ObservableCollection<VoucherDTO>();
+                ListMiniVoucher.Add(new VoucherDTO
+                {
+                    Code = "",
+                    VoucherReleaseId = SelectedItem.Id
+                });
                 w.ShowDialog();
             });
             LoadAddListMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -102,7 +106,21 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             });
             MoreVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                ListMiniVoucher.Add("");
+
+                for (int i = ListMiniVoucher.Count - 2; i >= 0; i--)
+                {
+                    if (ListMiniVoucher[ListMiniVoucher.Count - 1].Code == ListMiniVoucher[i].Code)
+                    {
+                        MessageBox.Show("Mã đã bị trùng!");
+                        return;
+                    }
+                }
+
+                ListMiniVoucher.Add(new VoucherDTO
+                {
+                    Code = "",
+                    VoucherReleaseId = SelectedItem.Id
+                });
             });
             LessVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -112,27 +130,74 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 if (SelectedItem is null) return;
 
+                (VoucherReleaseDTO vc, bool haveAny) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
+                SelectedItem = vc;
                 Infor_EditWindow w = new Infor_EditWindow();
+                ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
+                StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
                 w.ShowDialog();
             });
             LoadInforCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
             {
-                if (p is null) return;
                 ChangeView(p);
-                mainFrame.Content = new Edit_InforPage();
+                Edit_InforPage w = new Edit_InforPage();
+                LoadEdit_InforViewDataFunc(w);
+                mainFrame.Content = w;
+                Unlock = true;
             });
             LoadDeleteVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 if (SelectedItem is null) return;
 
                 else
-                    MessageBox.Show("delete");
+                {
+
+                    string message = "Bạn có chắc muốn xoá đợt phát hành này không? Dữ liệu không thể phục hồi sau khi xoá!";
+
+                    MessageBoxResult result = MessageBox.Show(message, "Xác nhận xoá", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        (bool deleteSuccess, string messageFromDelete) = VoucherService.Ins.DeteleVoucherRelease(SelectedItem.Id);
+                        MessageBox.Show(messageFromDelete);
+
+                        if (deleteSuccess)
+                        {
+                            ListBigVoucher.Remove(SelectedItem);
+                        }
+                    }
+                }
             });
             SaveNewBigVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 SaveNewBigVoucherFunc();
             });
+            SaveMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                SaveMiniVoucherFunc();
+            });
+            SaveListMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                SaveListMiniVoucherFunc();
+            });
+            UpdateBigVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                UpdateBigVoucherFunc();
+            });
+            DeleteMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                DeleteMiniVoucherFunc();
+            });
+            ReleaseVoucherCM = new RelayCommand<Button>((p) =>
+            {
+                if (HaveUsed)
+                    return false;
+                return true; ;
+            },
+            (p) =>
+            {
 
+            });
 
             LoadViewCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
@@ -142,7 +207,10 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             LoadEdit_InforViewCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 mainFrame = p;
-                p.Content = new Edit_InforPage();
+                Edit_InforPage w = new Edit_InforPage();
+                LoadEdit_InforViewDataFunc(w);
+                p.Content = w;
+                Unlock = true;
             });
             SavemainFrameNameCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
