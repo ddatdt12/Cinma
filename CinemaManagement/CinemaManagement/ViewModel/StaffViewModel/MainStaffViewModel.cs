@@ -5,6 +5,8 @@ using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
 using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff;
 using CinemaManagement.Views.Staff.MovieScheduleWindow;
+using CinemaManagement.Views.Staff.OrderFoodWindow;
+using CinemaManagement.Views.Staff.ShowtimePage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -86,13 +88,12 @@ namespace CinemaManagement.ViewModel
         public ICommand CloseMainStaffWindowCM { get; set; }
         public ICommand MinimizeMainStaffWindowCM { get; set; }
         public ICommand MouseMoveWindowCM { get; set; }
-        public ICommand CategoryFilmLabel { get; set; }
-        public ICommand LoadMainStaffCM { get; set; }
         public ICommand LoadMovieScheduleWindow { get; set; }
+        public ICommand LoadFoodPageCM{ get; set; }
+
         public ICommand SignoutCM { get; set; }
-
+        
         private string _UserName;
-
         public string UserName
         {
             get { return _UserName; }
@@ -104,7 +105,8 @@ namespace CinemaManagement.ViewModel
         public MainStaffViewModel()
         {
             LoadCurrentDate();
-            ListMovie1 = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
+            SelectedDate = GetCurrentDate;
+            ListMovie1 = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
             GenreList = GenreService.Ins.GetAllGenre();
             CloseMainStaffWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
                 {
@@ -133,41 +135,35 @@ namespace CinemaManagement.ViewModel
                         w.DragMove();
                     }
                 });
-            CategoryFilmLabel = new RelayCommand<Grid>((p) => { return p == null ? false : true; }, (p) =>
-                {
-                    if (p != null)
-                    {
-                        if (p.Visibility == Visibility.Collapsed)
-                        {
-                            p.Visibility = Visibility.Visible;
-                        }
-                        else
-                        {
-                            p.Visibility = Visibility.Collapsed;
-                        }
-                    }
-                });
-
-
             LoadMovieScheduleWindow = new RelayCommand<Page>((p) => { return true; }, (p) =>
             {
                 MovieScheduleWindow w;
                 if (SelectedItem != null)
                 {
+                    MovieScheduleWindowViewModel.tempFilebinding = SelectedItem;
                     w = new MovieScheduleWindow();
                     w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
                     w.imgframe.Source = Helper.GetMovieImageSource(SelectedItem.Image);
                     w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
                     w.txtframe.Text = SelectedItem.DisplayName;
-                    MovieScheduleWindowViewModel.tempFilebinding = SelectedItem;
                     w.ShowDialog();
                 }
             });
-            LoadMainStaffCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            LoadShowtimePageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                LoadMainListBox(0);
-                SetCurrentDate = GetCurrentDate.ToString();
+                p.Content = new ShowtimePage();
+
             });
+            LoadFoodPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new FoodPage();
+
+            });
+            LoadShowtimeDataCM = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
+             {
+                 p.SelectedIndex = -1;
+                 LoadShowtimeData();
+             });
             SignoutCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 p.Hide();
@@ -175,42 +171,6 @@ namespace CinemaManagement.ViewModel
                 w1.ShowDialog();
                 p.Close();
             });
-        }
-        public void LoadCurrentDate()
-        {
-            GetCurrentDate = DateTime.Now.Date;
-            SetCurrentDate = GetCurrentDate.ToShortDateString();
-        }
-        public void LoadMainListBox(int func)
-        {
-            switch (func)
-            {
-                case 0:
-                    {
-                        ListMovie = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
-                        break;
-                    }
-                case 1:
-                    {
-                        FilterMovieByGenre(SelectedGenre.Id);
-                        break;
-                    }
-            }
-
-        }
-
-        public void FilterMovieByGenre(int _Id)
-        {
-            ObservableCollection<MovieDTO> byGenre = new ObservableCollection<MovieDTO>();
-
-            foreach (var item in ListMovie1)
-            {
-                if (item.Genres[0].Id == _Id)
-                {
-                    byGenre.Add(item);
-                }
-            }
-            ListMovie = new ObservableCollection<MovieDTO>(byGenre);
-        }
+        } 
     }
 }
