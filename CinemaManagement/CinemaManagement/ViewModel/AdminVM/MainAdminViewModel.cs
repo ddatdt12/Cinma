@@ -10,6 +10,7 @@ using CinemaManagement.Views.Admin.StatisticalManagement;
 using CinemaManagement.Views.LoginWindow;
 using System;
 using System.Collections.Generic;
+using CinemaManagement.Views.Admin.VoucherManagement;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -27,6 +28,8 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadTKPageCM { get; set; }
         public ICommand LoadFoodPageCM { get; set; }
         public ICommand LoadErrorPage { get; set; }
+        public ICommand LoadVCPageCM { get; set; }
+
 
         private string _SelectedFuncName;
         public string SelectedFuncName
@@ -126,8 +129,15 @@ namespace CinemaManagement.ViewModel
             SelectedDate = DateTime.Today;
             SelectedFinishDate = DateTime.Today;
             ReloadErrorList();
+            });
             //======================================
+            LoadVCPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
+            {
+                SelectedFuncName = "Voucher";
+                if (p != null)
+                    p.Content = new VoucherManagement();
 
+            });
 
 
 

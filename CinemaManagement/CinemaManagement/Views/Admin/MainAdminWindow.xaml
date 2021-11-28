@@ -310,6 +310,23 @@
                                     </Grid>
                                     
                                 </StackPanel>
+				</StackPanel>
+                                    <materialDesign:PackIcon Kind="TicketPercent"
+                                                             Height="30"
+                                                             Width="30"
+                                                             VerticalAlignment="Center" />
+                                    <Button Margin="0,0,0,5"
+                                            Content="Voucher"
+                                            Height="50"
+                                            FontSize="25"
+                                            Width="240"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Command="{Binding LoadVCPageCM}"
+                                            CommandParameter="{Binding ElementName=MainFrame}" />
+                                </StackPanel>
+
                             </StackPanel>
                         </Grid>
                         <Grid Margin="40,0,0,0">
