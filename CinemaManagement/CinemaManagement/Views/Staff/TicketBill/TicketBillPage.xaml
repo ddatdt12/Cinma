@@ -131,8 +131,7 @@
                                 ToolTip="Icon"
                                 VerticalAlignment="Bottom"
                                 Margin="15 0 10 0"
-                                Command="{Binding CheckPhoneNumberCM}"
-                                />
+                                Command="{Binding CheckPhoneNumberCM}" />
 
                         <Grid.Style>
                             <Style>
@@ -358,27 +357,26 @@
                     </Grid>
 
                     <Grid VerticalAlignment="Stretch"
-                          Margin="10 230 10 10">
+                          Margin="10 240 10 60">
                         <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                      PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
-                                      >
+                                      PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
                             <ListBox ItemsSource="{Binding ListVoucher}"
                                      x:Name="listBox"
                                      SelectedItem="{Binding SelectedItem}">
                                 <ListBox.ItemTemplate>
-                                    <DataTemplate >
+                                    <DataTemplate>
                                         <Grid Width="330">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="250"/>
+                                                <ColumnDefinition Width="250" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
-                                            
+
                                             <Grid Grid.Column="0">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition />
                                                     <RowDefinition />
                                                 </Grid.RowDefinitions>
-                                                
+
                                                 <TextBlock Grid.Row="0"
                                                            Text="{Binding Id}"
                                                            FontSize="18"
@@ -387,24 +385,25 @@
                                                            Text="{Binding Name}"
                                                            FontSize="16"
                                                            FontWeight="Light"
-                                                           HorizontalAlignment="Right"/>
+                                                           HorizontalAlignment="Right" />
                                             </Grid>
 
                                             <Grid Grid.Column="1">
                                                 <Border VerticalAlignment="Center"
                                                         HorizontalAlignment="Right"
-                                                        BorderBrush="Black"
-                                                        BorderThickness="1"
-                                                        CornerRadius="8"
-                                                        Height="30"
-                                                        Width="30"
+                                                        Height="25"
+                                                        Width="25"
                                                         Margin="0 0 25 0"
-                                                        Cursor="Hand">
-                                                    <materialDesign:PackIcon Kind="DeleteForeverOutline"
-                                                                             VerticalAlignment="Center"
-                                                                             HorizontalAlignment="Center"
-                                                                             Height="28"
-                                                                             Width="28"/>
+                                                        Cursor="Hand"
+                                                        CornerRadius="8">
+                                                    <Label VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           Height="25"
+                                                           Width="25"
+                                                           Content="X"
+                                                           VerticalContentAlignment="Center"
+                                                           HorizontalContentAlignment="Center">
+                                                    </Label>
                                                     <Border.Style>
                                                         <Style TargetType="Border">
                                                             <Style.Triggers>
@@ -422,8 +421,9 @@
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>
+                                                
                                             </Grid>
-                                            
+
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -441,6 +441,25 @@
                             </Style>
                         </Grid.Style>
                     </Grid>
+
+                    <Button Width="100"
+                            Height="32"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
+                            Margin="0 0 10 10"
+                            Content="Hoàn tất">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShowInfoCustomer}"
+                                                 Value="False">
+                                        <Setter Property="Button.Visibility"
+                                                Value="Hidden" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
 
                     <!--#endregion-->
 

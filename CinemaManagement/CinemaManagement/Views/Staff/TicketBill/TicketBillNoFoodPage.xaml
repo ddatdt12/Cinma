@@ -356,7 +356,7 @@
                     </Grid>
 
                     <Grid VerticalAlignment="Stretch"
-                          Margin="10 230 10 10">
+                          Margin="10 240 10 70">
                         <ScrollViewer VerticalScrollBarVisibility="Auto"
                                       PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
                             <ListBox ItemsSource="{Binding ListVoucher}"
@@ -366,7 +366,7 @@
                                     <DataTemplate>
                                         <Grid Width="420">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="340"/>
+                                                <ColumnDefinition Width="340" />
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
 
@@ -384,24 +384,25 @@
                                                            Text="{Binding Name}"
                                                            FontSize="16"
                                                            FontWeight="Light"
-                                                           HorizontalAlignment="Right"/>
+                                                           HorizontalAlignment="Right" />
                                             </Grid>
 
                                             <Grid Grid.Column="1">
                                                 <Border VerticalAlignment="Center"
                                                         HorizontalAlignment="Right"
-                                                        BorderBrush="Black"
-                                                        BorderThickness="1"
-                                                        CornerRadius="8"
-                                                        Height="30"
-                                                        Width="30"
+                                                        Height="25"
+                                                        Width="25"
                                                         Margin="0 0 25 0"
-                                                        Cursor="Hand">
-                                                    <materialDesign:PackIcon Kind="DeleteForeverOutline"
-                                                                             VerticalAlignment="Center"
-                                                                             HorizontalAlignment="Center"
-                                                                             Height="28"
-                                                                             Width="28" />
+                                                        Cursor="Hand"
+                                                        CornerRadius="8">
+                                                    <Label VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"
+                                                           Height="25"
+                                                           Width="25"
+                                                           Content="X"
+                                                           VerticalContentAlignment="Center"
+                                                           HorizontalContentAlignment="Center">
+                                                    </Label>
                                                     <Border.Style>
                                                         <Style TargetType="Border">
                                                             <Style.Triggers>
@@ -419,6 +420,7 @@
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>
+
                                             </Grid>
 
                                         </Grid>
@@ -438,6 +440,26 @@
                             </Style>
                         </Grid.Style>
                     </Grid>
+
+                    <Button Width="100"
+                            Height="32"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
+                            Margin="0 0 10 10"
+                            Content="Hoàn tất">
+                        <Button.Style>
+                            <Style TargetType="Button"
+                                   BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ShowInfoCustomer}"
+                                                 Value="False">
+                                        <Setter Property="Button.Visibility"
+                                                Value="Hidden" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
 
                     <!--#endregion-->
 
