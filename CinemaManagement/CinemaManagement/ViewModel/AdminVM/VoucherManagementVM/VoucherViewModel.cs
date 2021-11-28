@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models.Services;
 using CinemaManagement.Views.Admin.VoucherManagement;
 using CinemaManagement.Views.Admin.VoucherManagement.AddVoucher;
 using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
@@ -7,6 +8,7 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -18,54 +20,69 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public Frame mainFrame { get; set; }
         public Card ButtonView { get; set; }
 
-
-        private List<StaffDTO> listtemp;
-        public List<StaffDTO> Listtemp
+        private VoucherReleaseDTO selectedItem;
+        public VoucherReleaseDTO SelectedItem
         {
-            get { return listtemp; }
-            set { listtemp = value; OnPropertyChanged(); }
+            get { return selectedItem; }
+            set { selectedItem = value; OnPropertyChanged(); }
+        }
+
+
+        //private List<VoucherReleaseDTO> _ListBigVoucher;
+        //public List<VoucherReleaseDTO> ListBigVoucher
+        //{
+        //    get { return _ListBigVoucher; }
+        //    set { _ListBigVoucher = value; OnPropertyChanged(); }
+        //}
+        public ObservableCollection<VoucherReleaseDTO> _ListBigVoucher;
+        public ObservableCollection<VoucherReleaseDTO> ListBigVoucher
+        {
+            get { return _ListBigVoucher; }
+            set { _ListBigVoucher = value; OnPropertyChanged(); }
         }
 
         public ICommand SavemainFrameNameCM { get; set; }
         public ICommand StoreButtonNameCM { get; set; }
         public ICommand LoadViewCM { get; set; }
         public ICommand LoadEdit_InforViewCM { get; set; }
+        public ICommand LoadDeleteVoucherCM { get; set; }
 
         public VoucherViewModel()
         {
-            GetCurrentDate = System.DateTime.Today;
+            GetCurrentDate = DateTime.Today;
+            StartDate = FinishDate = DateTime.Today;
 
-            Listtemp = new List<StaffDTO>();
-            Listtemp.Add(new StaffDTO
+            try
             {
-                Name = "tran khoi",
-            });
-            Listtemp.Add(new StaffDTO
+                ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(VoucherService.Ins.GetAllVoucherReleases());
+            }
+            catch (Exception e)
             {
-                Name = "tran khoi",
-            }); Listtemp.Add(new StaffDTO
-            {
-                Name = "tran khoi",
-            }); Listtemp.Add(new StaffDTO
-            {
-                Name = "tran khoi",
-            }); Listtemp.Add(new StaffDTO
-            {
-                Name = "tran khoi",
-            });
+
+                throw e;
+            }
+
 
             LoadAddWindowCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 AddVoucherWindow w = new AddVoucherWindow();
+                BindStaffID = StaffID;
                 w.ShowDialog();
             });
             LoadAddInforCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
             {
                 if (p is null) return;
                 ChangeView(p);
-                mainFrame.Content = new AddInfor();
+                AddInfor w = new AddInfor();
+                mainFrame.Content = w;
             });
-            LoadAddVoucherCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
+            LoadAddVoucherCM = new RelayCommand<Card>((p) =>
+            {
+                if (Unlock == false) return false;
+                else
+                    return true;
+            }, 
+            (p) =>
             {
                 if (p is null) return;
                 ChangeView(p);
@@ -93,6 +110,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             });
             LoadInforBigVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+                if (SelectedItem is null) return;
+
                 Infor_EditWindow w = new Infor_EditWindow();
                 w.ShowDialog();
             });
@@ -102,8 +121,17 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 ChangeView(p);
                 mainFrame.Content = new Edit_InforPage();
             });
+            LoadDeleteVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                if (SelectedItem is null) return;
 
-
+                else
+                    MessageBox.Show("delete");
+            });
+            SaveNewBigVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                SaveNewBigVoucherFunc();
+            });
 
 
             LoadViewCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
@@ -127,7 +155,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 p.Background = new SolidColorBrush(Colors.White);
                 p.SetValue(ShadowAssist.ShadowDepthProperty, ShadowDepth.Depth0);
             });
-
         }
         public void ChangeView(Card p)
         {

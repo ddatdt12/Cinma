@@ -109,9 +109,16 @@ namespace CinemaManagement.ViewModel
                     p.Content = new ErrorManagement();
 
             });
+            LoadVCPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
+            {
+                SelectedFuncName = "Voucher";
+                if (p != null)
+                    p.Content = new VoucherManagement();
 
-            
-            
+            });
+
+
+
             // this is  the ErrorViewmodel resources
             LoadDetailErrorCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -129,16 +136,7 @@ namespace CinemaManagement.ViewModel
             SelectedDate = DateTime.Today;
             SelectedFinishDate = DateTime.Today;
             ReloadErrorList();
-            });
             //======================================
-            LoadVCPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
-            {
-                SelectedFuncName = "Voucher";
-                if (p != null)
-                    p.Content = new VoucherManagement();
-
-            });
-
 
 
             FrameworkElement GetParentWindow(FrameworkElement p)

@@ -34,7 +34,7 @@ namespace CinemaManagement.Models.Services
             {
                 return "VCRL0001";
             }
-            string newIdString = $"000{int.Parse(maxId.Substring(2)) + 1}";
+            string newIdString = $"000{int.Parse(maxId.Substring(4)) + 1}";
             return "VCRL" + newIdString.Substring(newIdString.Length - 4, 4);
         }
         public List<VoucherReleaseDTO> GetAllVoucherReleases()
