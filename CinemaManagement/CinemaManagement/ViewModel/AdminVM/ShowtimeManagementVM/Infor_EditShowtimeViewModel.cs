@@ -34,6 +34,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public ICommand LoadInfor_EditShowtime { get; set; }
         public ICommand CloseEditCM { get; set; }
         public ICommand LoadSeatCM { get; set; }
+        public ICommand EditPriceCM { get; set; }
 
 
         private ShowtimeDTO _selectedShowtime; //the showtime being selected
@@ -66,7 +67,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         {
             p._movieName.Text = SelectedItem.DisplayName;
             p._ShowtimeDate.Text = SelectedDate.ToString("dd-MM-yyyy");
-            p._showtimePrice.Text = "";
 
             if (SelectedRoomId == -1)
                 p._ShowtimeRoom.Text = "Phòng: Toàn bộ ";

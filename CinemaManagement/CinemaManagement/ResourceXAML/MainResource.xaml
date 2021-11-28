@@ -24,5 +24,6 @@
     <viewmodel3:TicketWindowViewModel x:Key="TicketWindowVM" />
     <viewmodel31:OrderFoodViewModel x:Key="OrderFoodWindowVM" />
     <viewmodel31:OrderFoodViewModel x:Key="OrderFoodPageWindowVM" />
+    <viewmodelFood:FoodManagementViewModel x:Key="FoodManagementVM" />
 </ResourceDictionary>
     

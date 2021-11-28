@@ -147,7 +147,7 @@ namespace CinemaManagement.Models.Services
             {
                 return (false, "Lỗi hệ thống");
             }
-            return (true, "Xóa suất chiếu thành công!");
+            return (true, "Cập nhật giá thành công!");
         }
         public bool CheckShowtimeHaveBooking(int showtimeId)
         {

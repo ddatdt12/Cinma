@@ -41,26 +41,19 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
         {
             ComboBox cbb = sender as ComboBox;
 
-            if (cbbmonth != null && timepicker != null)
+            if (cbbmonth != null)
             {
                 switch (cbb.SelectedIndex)
                 {
                     case 0:
                         {
                             cbbmonth.Visibility = System.Windows.Visibility.Collapsed;
-                            timepicker.Visibility = System.Windows.Visibility.Collapsed;
+                           
                             break;
                         }
                     case 1:
                         {
-                            cbbmonth.Visibility = System.Windows.Visibility.Collapsed;
-                            timepicker.Visibility = System.Windows.Visibility.Visible;
-                            break;
-                        }
-                    case 2:
-                        {
                             cbbmonth.Visibility = System.Windows.Visibility.Visible;
-                            timepicker.Visibility = System.Windows.Visibility.Collapsed;
                             break;
                         }
                 }

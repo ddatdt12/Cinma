@@ -322,10 +322,11 @@
                                     Width="30"
                                     x:Name="topnotifi"
                                     Height="30"
-                                    Margin="20,-5,-15,28"
+                                    Margin="20,-5,-15,23"
                                     Visibility="{Binding ErrorCount,Converter={StaticResource CountConverter}}">
                                 <TextBlock Text="{Binding ErrorCount}"
                                            FontSize="20"
+                                           x:Name="count"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
                                            />

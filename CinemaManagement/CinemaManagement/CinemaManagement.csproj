@@ -770,6 +770,39 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Icon\error.png" />
+    <Resource Include="Resources\Icon\ErrorIcon.png" />
+    <Resource Include="Resources\Icon\info.png" />
+    <Resource Include="Resources\Icon\logo.png" />
+    <Resource Include="Resources\Icon\Money.jpg" />
+    <Resource Include="Resources\Icon\succes.png" />
+    <Resource Include="Resources\Icon\warning.png" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Beef.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Cheese.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Chicken.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Coca Cola.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Espresso Coffee.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Milk Tea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Peach Tea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Pepsi.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Boerie Rolls.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Choripan.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Completo.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Bulgogi.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Lamacun.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Langos.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Sfiha.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Tarte Flambee.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Butter Milk.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Caramel.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Healthy.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Salty Butter.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\French Fries.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Ostar.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Poca.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Slide.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Tonies.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Money.jpg" />
     <Resource Include="Resources\Images\ImageFood\add-image.png" />
     <Resource Include="Resources\Images\ImageFood\adding.png" />
     <Resource Include="Resources\Images\ImageFood\delete.png" />
@@ -789,7 +822,6 @@
     <Resource Include="Resources\Images\Movies\hoi_dap_1988.jpg" />
     <Resource Include="Resources\Images\Movies\john_wick_chapter_4.jpg" />
     <Resource Include="Resources\Images\Movies\lat_mat_48h.jpg" />
-    <Resource Include="Resources\Images\Movies\mat_biec.jpg" />
     <Resource Include="Resources\Images\Movies\nobita_va_dao_giau_vang.jpg" />
     <Resource Include="Resources\Images\Movies\Palm_springs.jpg" />
     <Resource Include="Resources\Images\Movies\the_walking_dead.jpg" />

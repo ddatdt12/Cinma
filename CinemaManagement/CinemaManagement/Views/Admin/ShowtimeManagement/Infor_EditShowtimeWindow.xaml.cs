@@ -18,7 +18,7 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagement
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+        //    this.DragMove();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

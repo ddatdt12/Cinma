@@ -99,6 +99,8 @@
                         <StackPanel Margin="0,10,0,0">
                             <TextBlock Text="Trạng thái:" />
                             <ComboBox Width="140"
+                                      materialDesign:HintAssist.HintOpacity="1"
+                                      materialDesign:HintAssist.Hint="{Binding SelectedItem.Status}"
                                       SelectionChanged="ComboBox_SelectionChanged"
                                       HorizontalAlignment="Left"
                                       SelectedValuePath="Content"
@@ -114,7 +116,7 @@
                             <TextBlock Text="Ngày sửa:" />
                             <DatePicker Width="140"
                                         HorizontalAlignment="Left"
-                                        SelectedDate="{Binding SelectedDate,Mode=TwoWay}" />
+                                        SelectedDate="{Binding SelectedItem.StartDate}" />
                         </StackPanel>
 
                         <StackPanel Margin="0,10,0,0"
@@ -123,6 +125,7 @@
                             <TextBlock Text="Ngày hoàn thành:" />
                             <DatePicker Width="140"
                                         HorizontalAlignment="Left"
+                                        DisplayDateStart="{Binding SelectedItem.SubmittedAt}"
                                         SelectedDate="{Binding SelectedFinishDate,Mode=TwoWay}" />
                         </StackPanel>
 
