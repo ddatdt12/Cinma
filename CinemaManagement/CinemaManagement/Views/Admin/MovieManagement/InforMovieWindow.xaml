@@ -16,7 +16,24 @@
         Background="Transparent"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Height="650"
-        Width="1000">
+        Width="1000"
+        x:Name="main">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="main"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
     <Grid>
         <Border Background="#FFF0F3F7"
                 CornerRadius="10"
@@ -55,7 +72,7 @@
                                 </Button>
                             </StackPanel>
                         </Grid>
-                        
+
                     </Border>
 
                 </Grid>
@@ -217,8 +234,8 @@
                                             Width="346">
                                     <Image x:Name="imageframe"
                                            Height="335"
-                                           Width="245" 
-                                           Source="{Binding ImageSource}"/>
+                                           Width="245"
+                                           Source="{Binding ImageSource}" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -241,15 +258,15 @@
                                            Margin="0,10,0,0" />
                                     <Grid>
                                         <TextBox x:Name="Year"
-                                                    FontSize="25"
-                                                    Background="Transparent"
-                                                    VerticalAlignment="Top"
-                                                    Height="48"
-                                                    Margin="0,-15,0,0"
-                                                    Padding="0"
-                                                    Focusable="False"
-                                                    Text="{Binding movieYear}"
-                                                    VerticalContentAlignment="Bottom"/>
+                                                 FontSize="25"
+                                                 Background="Transparent"
+                                                 VerticalAlignment="Top"
+                                                 Height="48"
+                                                 Margin="0,-15,0,0"
+                                                 Padding="0"
+                                                 Focusable="False"
+                                                 Text="{Binding movieYear}"
+                                                 VerticalContentAlignment="Bottom" />
                                     </Grid>
                                 </StackPanel>
                             </Grid>

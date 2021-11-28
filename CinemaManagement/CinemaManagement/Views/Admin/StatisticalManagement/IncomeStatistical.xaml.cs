@@ -76,7 +76,18 @@ namespace CinemaManagement.Views.Admin.StatisticalManagement
             if (!string.IsNullOrEmpty(tb.Text))
             {
                 if (tb.Text.StartsWith("-"))
-                    tb.Foreground = new SolidColorBrush(Colors.Red);
+                {
+                    if (tb.Text == "-2")
+                    {
+                        tb.Text = "Tăng";
+                        tb.Foreground = new SolidColorBrush(Colors.Green);
+                    }
+                    else
+                    {
+                        tb.Foreground = new SolidColorBrush(Colors.Red);
+                    }
+                }
+                    
                 else
                     tb.Foreground = new SolidColorBrush(Colors.Green);
             }
@@ -88,7 +99,18 @@ namespace CinemaManagement.Views.Admin.StatisticalManagement
             if (!string.IsNullOrEmpty(tb.Text))
             {
                 if (tb.Text.StartsWith("-"))
-                    tb.Foreground = new SolidColorBrush(Colors.Green);
+                {
+                    if(tb.Text == "-2")
+                    {
+                        tb.Text = "Tăng";
+                        tb.Foreground = new SolidColorBrush(Colors.Red);
+                    }
+                    else
+                    {
+                        tb.Foreground = new SolidColorBrush(Colors.Green);
+                    }
+                }
+                    
                 else
                     tb.Foreground = new SolidColorBrush(Colors.Red);
             }

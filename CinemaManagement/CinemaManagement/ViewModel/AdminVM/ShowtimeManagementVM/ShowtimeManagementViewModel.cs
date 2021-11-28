@@ -12,7 +12,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 {
     public partial class ShowtimeManagementViewModel : BaseViewModel
     {
-
+        public static Grid ShadowMask { get; set; }
         // this is for  binding data
         private MovieDTO _movieSelected;
         public MovieDTO movieSelected
@@ -128,6 +128,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public ICommand ChangedRoomCM { get; set; }
 
         public ICommand LoadDeleteShowtimeCM { get; set; }
+        public ICommand MaskNameCM { get; set; }
 
 
         public ShowtimeManagementViewModel()
@@ -140,13 +141,17 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
 
 
-
+            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+            {
+                ShadowMask = p;
+            });
             LoadAddShowtimeCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 GenerateListRoom();
                 RenewData();
                 AddShowtimeWindow temp = new AddShowtimeWindow();
                 MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
+                ShadowMask.Visibility = Visibility.Visible;
                 temp.ShowDialog();
             });
             SaveCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -241,6 +246,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             });
             CloseEditCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
+                ShadowMask.Visibility = Visibility.Collapsed;
                 p.Close();
                 SelectedShowtime = null;
             });

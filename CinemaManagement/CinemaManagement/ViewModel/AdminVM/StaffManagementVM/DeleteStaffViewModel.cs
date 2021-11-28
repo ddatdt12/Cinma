@@ -10,6 +10,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             (bool successDeleteStaff, string messageFromDeleteStaff) = StaffService.Ins.DeleteStaff(SelectedItem.Id);
             if (successDeleteStaff)
             {
+                MaskName.Visibility = Visibility.Collapsed;
                 p.Close();
                 LoadStaffListView(Utils.Operation.DELETE);
             }

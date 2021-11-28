@@ -17,12 +17,14 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 MessageBox.Show(messageFromDelMovie);
                 LoadProductListView(Operation.DELETE);
                 SelectedItem = null;
+                MaskName.Visibility = Visibility.Collapsed;
                 p.Close();
                 return;
             }
             else
             {
                 MessageBox.Show(messageFromDelMovie);
+                MaskName.Visibility = Visibility.Collapsed;
                 p.Close();
                 return;
             }

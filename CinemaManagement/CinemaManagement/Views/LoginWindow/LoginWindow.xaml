@@ -1,0 +1,127 @@
+﻿<Window x:Class="CinemaManagement.Views.LoginWindow.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Name="Loginwindow"
+        Height="443"
+        Width="780"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="Transparent"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource LoginVM}"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Loaded="Loginwindow_Loaded"
+        WindowStartupLocation="CenterScreen">
+
+
+
+    <!--DragMove window-->
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseLeftButtonDownWindowCM}"
+                                   CommandParameter="{Binding ElementName=Loginwindow}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding SaveLoginWindowNameCM}"
+                                   CommandParameter="{Binding ElementName=Loginwindow}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Border BorderThickness="0.5"
+            BorderBrush="White"
+            CornerRadius="10"
+            Background="white">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="314*" />
+                <ColumnDefinition Width="466*" />
+            </Grid.ColumnDefinitions>
+
+            <!--Left-->
+
+            <Image x:Name="imgframe"
+                   Grid.Row="0"
+                   Source="/CinemaManagement;component/Resources/LayoutSignin/StoryboardMovie/1.jpg"
+                   HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch">
+                <Image.Clip>
+                    <RectangleGeometry RadiusX="10"
+                                       RadiusY="10"
+                                       Rect="0,0,350,443" />
+                </Image.Clip>
+            </Image>
+
+            <!--Right-->
+            <Grid Grid.Column="1"
+                  Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="32*" />
+                    <RowDefinition Height="412*" />
+                </Grid.RowDefinitions>
+
+                <!--Close_Minimize bar-->
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Grid.Row="0">
+
+                    <Button Click="Button_Click_1"
+                            ToolBar.OverflowMode="AsNeeded"
+                            Margin="0,0,5,0"
+                            BorderThickness="0"
+                            Background="Transparent"
+                            Foreground="Black"
+                            BorderBrush="Transparent"
+                            MouseEnter="Button_MouseEnter"
+                            MouseLeave="Button_MouseLeave">
+                        <materialDesign:PackIcon Kind="WindowMinimize" />
+                    </Button>
+
+                    <Button Click="Button_Click"
+                            ToolBar.OverflowMode="AsNeeded"
+                            Background="Transparent"
+                            Foreground="Black"
+                            BorderBrush="Transparent"
+                            MouseEnter="Button_MouseEnter_1"
+                            MouseLeave="Button_MouseLeave_1"
+                            materialDesign:ButtonAssist.CornerRadius="0,10,0,0">
+                        <materialDesign:PackIcon Kind="WindowClose"
+                                                 Padding="0" />
+                    </Button>
+                </StackPanel>
+
+                <!--Login Form-->
+                <materialDesign:Card Margin="20,50,20,20"
+                                     Grid.RowSpan="2"
+                                     UniformCornerRadius="8">
+
+                    <Frame x:Name="frame"
+                           NavigationUIVisibility="Hidden">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding LoadLoginPageCM}"
+                                                       CommandParameter="{Binding ElementName=frame}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Frame>
+
+
+
+                </materialDesign:Card>
+
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

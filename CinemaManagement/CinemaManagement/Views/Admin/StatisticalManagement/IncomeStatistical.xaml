@@ -82,7 +82,7 @@
                     <StackPanel Grid.Row="0"
                                 Orientation="Horizontal">
                         <materialDesign:Card Width="195"
-                                             Margin="30,30,0,10">
+                                             Margin="30,10,0,10">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Thu:"
@@ -125,7 +125,7 @@
                         </materialDesign:Card>
 
                         <materialDesign:Card Width="196"
-                                             Margin="10,30,0,10">
+                                             Margin="10,10,0,10">
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <Label Content="Chi:"
@@ -339,7 +339,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Số hoá đơn:"
                                                Width="105" />
-                                    <TextBlock Text="{Binding TotalBill}"/>
+                                    <TextBlock Text="{Binding TotalBill}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Lợi nhuận:"
@@ -359,9 +359,9 @@
                             Orientation="Horizontal"
                             x:Name="cardRight">
                     <materialDesign:Card Background="White"
-                                         Margin="30,30,0,12"
+                                         Margin="30,10,0,0"
                                          Width="950"
-                                         Height="553"
+                                         Height="573"
                                          HorizontalAlignment="Right"
                                          UniformCornerRadius="5"
                                          VerticalAlignment="Top">
@@ -378,7 +378,8 @@
                                 </lvc:AxesCollection>
                             </lvc:CartesianChart.AxisX>
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Triệu đồng" FontFamily="arial"
+                                <lvc:Axis Title="Triệu đồng"
+                                          FontFamily="arial"
                                           MinValue="0" />
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>

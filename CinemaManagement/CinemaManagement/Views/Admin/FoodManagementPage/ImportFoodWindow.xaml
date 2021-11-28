@@ -20,9 +20,26 @@
         AllowsTransparency="True"
         Name="ImportFoodWd"
         ResizeMode="NoResize"
-        Title="ImportFoodWindow"
         Height="250"
         Width="550">
+    
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="ImportFoodWd"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+
     <Grid>
         <Border BorderBrush="#18ffff"
                 BorderThickness="2"

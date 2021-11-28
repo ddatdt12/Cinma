@@ -21,7 +21,24 @@
         Name="EditFoodWd"
         ResizeMode="NoResize"
         Title="EditFoodWindow" Height="400" Width="280">
-    
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="EditFoodWd"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+
     <Border BorderBrush="#18ffff"
             BorderThickness="2"
             CornerRadius="10">

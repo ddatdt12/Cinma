@@ -33,5 +33,15 @@ namespace CinemaManagement
         {
             SlideButton.IsChecked = false;
         }
+        private void SlideButton_Checked(object sender, RoutedEventArgs e)
+        {
+            topnotifi.Visibility = Visibility.Collapsed;
+        }
+
+        private void SlideButton_Unchecked(object sender, RoutedEventArgs e)
+        {
+            topnotifi.Visibility = Visibility.Visible;
+
+        }
     }
 }

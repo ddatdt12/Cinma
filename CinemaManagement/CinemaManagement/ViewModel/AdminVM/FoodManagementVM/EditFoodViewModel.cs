@@ -82,6 +82,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     SaveImgToApp();
                     LoadProductListView(Operation.UPDATE, product);
                     MessageBox.Show(messageFromUpdateProduct);
+                    MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 }
                 else

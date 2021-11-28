@@ -9,7 +9,7 @@
                     xmlns:viewmodel24="clr-namespace:CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM"
                     xmlns:viewmodelFood="clr-namespace:CinemaManagement.ViewModel.AdminVM.FoodManagementVM"
                     xmlns:viewmodel3="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.TicketVM">
-                
+
 
 
 
@@ -25,7 +25,6 @@
     <viewmodel23:StaffManagementViewModel x:Key="StaffManagementVM" />
     <viewmodel24:StatisticalManagementViewModel x:Key="StatisticalManagementVM" />
     <viewmodel3:TicketWindowViewModel x:Key="TicketWindowVM" />
-
     <viewmodelFood:FoodManagementViewModel x:Key="FoodManagementVM" />
 
 </ResourceDictionary>

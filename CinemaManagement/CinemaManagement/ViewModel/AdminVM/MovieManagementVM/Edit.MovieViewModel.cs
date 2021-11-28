@@ -92,6 +92,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     MessageBox.Show(messageFromUpdateMovie);
                     LoadMovieListView(Operation.UPDATE, movie);
 
+                    MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 }
                 else

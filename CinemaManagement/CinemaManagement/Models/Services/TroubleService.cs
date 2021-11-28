@@ -131,6 +131,7 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
+
                 using (var context = new CinemaManagementEntities())
                 {
 
@@ -155,17 +156,16 @@ namespace CinemaManagement.Models.Services
                         trouble.RepairCost = 0;
                     }
 
-
                     trouble.Status = updatedTrouble.Status;
 
                     context.SaveChanges();
 
-                    return (true, null);
+                    return (true, "Cập nhật thành công");
                 }
             }
             catch (Exception e)
             {
-                throw e;
+                return (false, e.Message);
             }
         }
         public int GetWaitingTroubleCount()
@@ -173,7 +173,7 @@ namespace CinemaManagement.Models.Services
             try
             {
                 using (var context = new CinemaManagementEntities())
-                { 
+                {
                     return context.Troubles.Count();
                 }
             }

@@ -8,17 +8,17 @@
       mc:Ignorable="d"
       d:DesignHeight="568"
       d:DesignWidth="1400"
-      Title="ExportPage"
+      x:Name="mainPage"
       DataContext="{StaticResource Import_ExportManagementVM}">
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
             <BeginStoryboard>
                 <Storyboard>
-                    <ThicknessAnimation Storyboard.TargetName="_ListView"
-                                        Storyboard.TargetProperty="Margin"
-                                        From="1400,0,-1400,0"
-                                        To="0"
-                                        Duration="0:0:0.5" />
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
 
 
                 </Storyboard>

@@ -94,14 +94,45 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public void LoadRankingByYear()
         {
             if (SelectedRankingTime.Length != 4) return;
-            (List<CustomerDTO> Top5Cus, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) = StatisticsService.Ins.GetTop5CustomerExpenseByYear(2021);
-            Top5Customer = Top5Cus; 
+            (List<CustomerDTO> Top5Cus, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) = StatisticsService.Ins.GetTop5CustomerExpenseByYear(int.Parse(SelectedRankingTime));
+            Top5Customer = Top5Cus;
+
+            CustomerExpe = new SeriesCollection
+            {
+                new PieSeries
+                {
+                    Values = new ChartValues<decimal>{TicketExpenseOfTop1 },
+                    Title = "Tiền vé",
+                },
+                new PieSeries
+                {
+                    Values = new ChartValues<decimal>{ProductExpenseOfTop1 },
+                    Title = "Sản phẩm",
+                }
+            };
+
+
         }
         public void LoadRankingByMonth()
         {
             if (SelectedRankingTime.Length == 4) return;
             (List<CustomerDTO> Top5Cus, decimal TicketExpenseTop1Cus, decimal ProductExpenseTop1Cus) = StatisticsService.Ins.GetTop5CustomerExpenseByMonth(int.Parse(SelectedRankingTime.Remove(0, 6)));
             Top5Customer = Top5Cus;
+
+
+            CustomerExpe = new SeriesCollection
+            {
+                new PieSeries
+                {
+                    Values = new ChartValues<decimal>{TicketExpenseTop1Cus },
+                    Title = "Tiền vé",
+                },
+                new PieSeries
+                {
+                    Values = new ChartValues<decimal>{ProductExpenseTop1Cus },
+                    Title = "Sản phẩm",
+                }
+            };
         }
 
         public void ChangeRankingPeriod2()
@@ -133,7 +164,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public void LoadRankingByYear2()
         {
             if (SelectedRankingTime2.Length != 4) return;
-            Top5Staff = StatisticsService.Ins.GetTop5ContributionStaffByYear(2021);
+            Top5Staff = StatisticsService.Ins.GetTop5ContributionStaffByYear(int.Parse(SelectedRankingTime2));
         }
         public void LoadRankingByMonth2()
         {

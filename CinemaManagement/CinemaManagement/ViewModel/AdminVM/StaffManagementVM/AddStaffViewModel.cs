@@ -30,6 +30,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
                 if (successAddStaff)
                 {
+                    MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                     LoadStaffListView(Operation.CREATE, newStaff);
                 }

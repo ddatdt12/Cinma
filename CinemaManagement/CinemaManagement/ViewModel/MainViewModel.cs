@@ -346,11 +346,11 @@ namespace CinemaManagement.ViewModel
                     StaffId = "NV002"
                 };
 
-                (bool isSucess, string addSuccess, VoucherReleaseDTO newVoucherRelease) = VoucherService.Ins.CreateVoucherRelease(newVR);
+                //(bool isSucess, string addSuccess, VoucherReleaseDTO newVoucherRelease) = VoucherService.Ins.CreateVoucherRelease(newVR);
 
+                //(bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = VoucherService.Ins.CreateRandomVoucherList("VCRL0001", listCode);
                 List<VoucherReleaseDTO> voucherReleases = VoucherService.Ins.GetAllVoucherReleases();
-                //(bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = VoucherService.Ins.CreateRandomVoucherList(newVoucherRelease.Id, listCode);
-                //(VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails("VCRL0001");
+                (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails("VCRL0001");
 
                 //(bool deleteSuccess, string messageFromDelete) = VoucherService.Ins.DeteleVoucherRelease("VCRL0001");
 

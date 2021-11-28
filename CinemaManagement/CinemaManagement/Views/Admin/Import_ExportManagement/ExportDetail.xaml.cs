@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -35,6 +36,7 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            Import_ExportManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
             this.Close();
         }
     }

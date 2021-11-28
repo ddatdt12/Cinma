@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using CinemaManagement.ViewModel.AdminVM.MovieManagementVM;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -17,7 +18,7 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
         {
             this.DragMove();
         }
- 
+
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
@@ -32,6 +33,7 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            MovieManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
             this.Close();
         }
     }

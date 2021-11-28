@@ -316,6 +316,9 @@
     <Compile Include="Utils\Constant.cs" />
     <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />
+    <Compile Include="ViewModel\AdminVM\ErrorVM\ErrorViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\ErrorVM\HintLevelConverter.cs" />
+    <Compile Include="ViewModel\AdminVM\ErrorVM\StatusBrushConverter.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\AddFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\DeleteFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\EditFoodViewModel.cs" />
@@ -338,6 +341,7 @@
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\StaffManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\BestSelling.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\Income.cs" />
+    <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\IndexConverter.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\Ranking.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\StatisticalManagementViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
@@ -347,6 +351,18 @@
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
+    <Compile Include="Views\Admin\ErrorManagement\DoneError.xaml.cs">
+      <DependentUpon>DoneError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ErrorManagement\ErrorManagement.xaml.cs">
+      <DependentUpon>ErrorManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ErrorManagement\InprogressError.xaml.cs">
+      <DependentUpon>InprogressError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ErrorManagement\WaitingError.xaml.cs">
+      <DependentUpon>WaitingError.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml.cs">
       <DependentUpon>AddFoodWindow.xaml</DependentUpon>
     </Compile>
@@ -434,12 +450,17 @@
     <Compile Include="Views\ExampleWindow.xaml.cs">
       <DependentUpon>ExampleWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ForgotPassWindow.xaml.cs">
-      <DependentUpon>ForgotPassWindow.xaml</DependentUpon>
+    <Compile Include="Views\LoginWindow\ChangePassPage.xaml.cs">
+      <DependentUpon>ChangePassPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginWindow.xaml.cs">
+    <Compile Include="Views\LoginWindow\ForgotPassPage.xaml.cs">
+      <DependentUpon>ForgotPassPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
@@ -465,6 +486,22 @@
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\DoneError.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\ErrorManagement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\InprogressError.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\WaitingError.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -582,13 +619,21 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\ForgotPassWindow.xaml">
+    <Page Include="Views\LoginWindow\ChangePassPage.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoginWindow.xaml">
+    <Page Include="Views\LoginWindow\ForgotPassPage.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Staff\MainStaffWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

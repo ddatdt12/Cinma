@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using CinemaManagement.ViewModel.AdminVM.MovieManagementVM;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -66,6 +67,7 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            MovieManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
             this.Close();
         }
     }

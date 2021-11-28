@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:CinemaManagement.Views.Admin.StatisticalManagement"
+      xmlns:local="clr-namespace:CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM"
       mc:Ignorable="d"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
@@ -28,6 +28,10 @@
             </BeginStoryboard>
         </EventTrigger>
     </Page.Triggers>
+
+    <Page.Resources>
+        <local:IndexConverter x:Key="IndexConverter" />
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -110,21 +114,36 @@
                     <ListView.View>
 
                         <GridView>
+                            <GridViewColumn Header="STT"
+                                            Width="90">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Text="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                         AncestorType={x:Type ListViewItem}}, 
+                                         Converter={StaticResource IndexConverter}}"
+                                                    FontSize="18"
+                                                    Margin="20,5,0,0" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                             <GridViewColumn Header="Tên phim"
-                                            Width="380">
+                                            Width="290">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding DisplayName}"
-                                                   FontSize="18" />
+                                                   FontSize="18"
+                                                   Height="34"
+                                                   Margin="0,5,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Doanh thu"
-                                            Width="200">
+                                            Width="180">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding RevenueStr}"
-                                                   FontSize="18" />
+                                                   FontSize="18"
+                                                   Margin="0,5,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -133,7 +152,7 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding TicketCount}"
                                                    FontSize="18"
-                                                   Margin="20,0,0,0" />
+                                                   Margin="20,5,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -217,21 +236,36 @@
                     <ListView.View>
 
                         <GridView>
+                            <GridViewColumn Header="STT"
+                                            Width="90">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock  Text="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                         AncestorType={x:Type ListViewItem}}, 
+                                         Converter={StaticResource IndexConverter}}"
+                                                    FontSize="18"
+                                                    Margin="20,5,0,0" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                             <GridViewColumn Header="Tên sản phẩm"
-                                            Width="380">
+                                            Width="280">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding DisplayName}"
-                                                   FontSize="18" />
+                                                   FontSize="18"
+                                                   Height="34"
+                                                   Margin="0,5,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Doanh thu"
-                                            Width="180">
+                                            Width="170">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding RevenueStr}"
-                                                   FontSize="18" />
+                                                   FontSize="18"
+                                                   Margin="0,5,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -240,7 +274,7 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding SalesQuantity}"
                                                    FontSize="18"
-                                                   Margin="20,0,0,0"/>
+                                                   Margin="20,5,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
