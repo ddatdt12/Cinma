@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,16 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddVoucher
             TextBox tb = sender as TextBox;
             if (tb.Text.Length == 0)
                 tb.Text = "0";
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            VoucherViewModel.Status = true;
+        }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            VoucherViewModel.Status = false ;
         }
     }
 }

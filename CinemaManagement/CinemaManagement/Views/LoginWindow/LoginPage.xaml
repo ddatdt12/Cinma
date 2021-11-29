@@ -99,7 +99,6 @@
                         BorderBrush="Transparent"
                         HorizontalContentAlignment="Right"
                         Command="{Binding ForgotPassCM}" />
-
                 <Button Content="Đăng nhập"
                         Width="120"
                         materialDesign:ButtonAssist.CornerRadius="5"

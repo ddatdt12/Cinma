@@ -1,10 +1,12 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models;
 using CinemaManagement.Models.Services;
+using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
 using CinemaManagement.Views;
 using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -39,6 +41,13 @@ namespace CinemaManagement.ViewModel
         {
             get { return _password; }
             set { _password = value; OnPropertyChanged(); }
+        }
+
+        private bool isloadding;
+        public bool IsLoading
+        {
+            get { return isloadding; }
+            set { isloadding = value; OnPropertyChanged(); }
         }
 
 
@@ -97,14 +106,12 @@ namespace CinemaManagement.ViewModel
                 return;
             }
 
-
             (bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login(usn, pwr);
-
             if (loginSuccess)
             {
-             
-                Password = "";
 
+                Password = "";
+                VoucherViewModel.StaffID = staff.Id;
                 LoginWindow.Hide();
                 if (staff.Role == "Quản lý")
                 {

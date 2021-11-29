@@ -7,11 +7,23 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
-      Title="VoucherManagement"
+      x:Name="mainPage"
       d:DesignHeight="720"
       d:DesignWidth="1440"
       DataContext="{StaticResource VoucherVM}">
-
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
 
     <Grid  Background="#f0f2f5">
 
@@ -70,64 +82,67 @@
                                  Margin="100,20,100,20"
                                  UniformCornerRadius="5">
                 <ListView x:Name="VoucherListView"
-                          Focusable="True">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding LoadInforBigVoucherCM}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
+                          Focusable="True"
+                          SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
+                          ItemsSource="{Binding ListBigVoucher}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="Mã phát hành">
+                            <GridViewColumn Header="Mã phát hành"
+                                            Width="200">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--<TextBlock Text="{Binding DisplayName}"
-                                                   FontSize="18" />-->
+                                        <TextBlock Text="{Binding Id}"
+                                                   FontSize="18"
+                                                   Margin="18,0,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Tên đợt phát hành">
+                            <GridViewColumn Header="Tên đợt phát hành"
+                                            Width="350">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--<TextBlock Text="{Binding MovieType}"
-                                                   Margin="30,0,0,0"
-                                                   FontSize="18" />-->
+                                        <TextBlock Text="{Binding ReleaseName}"
+                                                   Margin="15,0,0,0"
+                                                   FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Từ ngày">
+                            <GridViewColumn Header="Từ ngày"
+                                            Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--<TextBlock Text="{Binding RunningTime}"
-                                                   Margin="40,0,0,0"
-                                                   FontSize="18" />-->
+                                        <TextBlock Text="{Binding StartDate,StringFormat=dd/MM/yyyy}"
+                                                   Margin="15,0,0,0"
+                                                   FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Đến ngày">
+                            <GridViewColumn Header="Đến ngày"
+                                            Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--<TextBlock Text="{Binding RunningTime}"
-                                                   Margin="40,0,0,0"
-                                                   FontSize="18" />-->
+                                        <TextBlock Text="{Binding FinishDate,StringFormat=dd/MM/yyyy}"
+                                                   Margin="15,0,0,0"
+                                                   FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Số lượng">
+                            <GridViewColumn Header="Số lượng"
+                                            Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--<TextBlock Text="{Binding RunningTime}"
-                                                   Margin="40,0,0,0"
-                                                   FontSize="18" />-->
+                                        <TextBlock Text="{Binding VCount}"
+                                                   Margin="20,0,0,0"
+                                                   FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Mệnh giá">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--<TextBlock Text="{Binding RunningTime}"
-                                                   Margin="40,0,0,0"
-                                                   FontSize="18" />-->
+                                        <TextBlock Text="{Binding ParValue}"
+                                                   Margin="15,0,0,0"
+                                                   FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -141,7 +156,7 @@
                                                 <StackPanel>
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadEditMovieCM}" />
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=VoucherListView, Path=DataContext.LoadInforBigVoucherCM}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                     <Image Source="/Resources/IconPack/pencil.png"
@@ -162,7 +177,7 @@
                                                                              Cursor="Hand">
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                                <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadDeleteMovieCM}" />
+                                                                <i:InvokeCommandAction Command="{Binding ElementName=VoucherListView, Path=DataContext.LoadDeleteVoucherCM}" />
                                                             </i:EventTrigger>
                                                         </i:Interaction.Triggers>
                                                     </materialDesign:PackIcon>

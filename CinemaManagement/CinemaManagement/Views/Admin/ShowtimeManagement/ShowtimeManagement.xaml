@@ -71,21 +71,18 @@
                          materialDesign:ButtonAssist.CornerRadius="5"
                          Command="{Binding LoadAddShowtimeCM}">
                 </Button>
-
-                <DatePicker x:Name="Calendar"
-                            Style="{StaticResource MaterialDesignOutlinedDatePicker}"
-                            FirstDayOfWeek="Monday"
-                            Foreground="Black"
-                            FontSize="25"
-                            Width="200"
+                <DatePicker Width="200"
+                            x:Name="Calendar"
                             Height="55"
+                            Style="{StaticResource MaterialDesignOutlinedDatePicker}"
                             BorderBrush="#0c70b6"
                             Margin="500,0,0,0"
+                            FontSize="25"
+                            Foreground="Black"
                             Padding="10,0,20,0"
                             materialDesign:ValidationAssist.Background="#f0f2f5"
                             materialDesign:ValidationAssist.FontSize="0.01"
                             SelectedDate="{Binding SelectedDate,Mode=TwoWay}" />
-
             </StackPanel>
 
         </StackPanel>

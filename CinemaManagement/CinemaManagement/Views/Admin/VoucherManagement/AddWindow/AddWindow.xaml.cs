@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,6 +45,7 @@ namespace CinemaManagement.Views.Admin.VoucherManagement
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
+            VoucherViewModel.Unlock = false;
         }
     }
 }

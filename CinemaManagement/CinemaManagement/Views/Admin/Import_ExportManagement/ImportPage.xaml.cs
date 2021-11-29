@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace CinemaManagement.Views.Admin.Import_ExportManagement
 {
@@ -10,6 +11,7 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
         public ImportPage()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

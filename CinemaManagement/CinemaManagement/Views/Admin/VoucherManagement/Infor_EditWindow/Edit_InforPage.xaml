@@ -47,7 +47,9 @@
                                Width="auto"
                                Grid.Column="0" />
                     <TextBox Margin="10,0,0,5"
-                             Grid.Column="1" />
+                             Grid.Column="1"
+                             Text="{Binding SelectedItem.Id}"
+                             IsEnabled="False" />
                 </Grid>
                 <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
@@ -59,7 +61,8 @@
                                Width="auto"
                                Grid.Column="0" />
                     <TextBox Margin="10,0,0,5"
-                             Grid.Column="1" />
+                             Grid.Column="1"
+                             Text="{Binding Name,Mode=TwoWay}" />
                 </Grid>
                 <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
@@ -72,7 +75,7 @@
                                Grid.Column="0" />
                     <TextBox Margin="10,0,0,5"
                              Grid.Column="1"
-                             Text="0"
+                             Text="{Binding Par,Mode=TwoWay}"
                              PreviewTextInput="TextBox_PreviewTextInput"
                              TextChanged="TextBox_TextChanged" />
                 </Grid>
@@ -89,9 +92,13 @@
                                 Grid.Column="1"
                                 Margin="10,0,0,0">
                         <RadioButton Content="Kích hoạt"
-                                     IsChecked="True" />
+                                     IsChecked="True"
+                                     x:Name="yes"
+                                     Checked="yes_Checked" />
                         <RadioButton Content="Chưa áp dụng"
-                                     Margin="40,0,0,0" />
+                                     Margin="40,0,0,0"
+                                     x:Name="no"
+                                     Checked="no_Checked" />
                     </StackPanel>
 
                 </Grid>
@@ -110,6 +117,7 @@
                         <DatePicker Width="135"
                                     x:Name="startdate"
                                     Focusable="False"
+                                    SelectedDate="{Binding Start,Mode=TwoWay}"
                                     DisplayDateStart="{Binding GetCurrentDate}" />
                         <TextBlock Text=" ->"
                                    VerticalAlignment="Bottom"
@@ -118,11 +126,14 @@
                         <DatePicker Width="135"
                                     Focusable="False"
                                     Margin="15,0,0,0"
+                                    SelectedDate="{Binding Finish,Mode=TwoWay}"
                                     DisplayDateStart="{Binding ElementName=startdate,Path=SelectedDate}" />
                     </StackPanel>
                 </Grid>
                 <CheckBox Content="Áp dụng gộp nhiều voucher cho một hoá đơn"
-                          Margin="0,40,0,0" />
+                          Margin="0,40,0,0"
+                          x:Name="merge"
+                          IsChecked="{Binding Merge,Mode=TwoWay}" />
             </StackPanel>
 
         </StackPanel>
@@ -144,7 +155,8 @@
 
                     <ComboBox Grid.Column="1"
                               SelectedIndex="0"
-                              Margin="50,0,0,0">
+                              Margin="50,0,0,0"
+                              SelectedItem="{Binding Object,Mode=TwoWay}">
                         <ComboBoxItem>Toàn bộ</ComboBoxItem>
                         <ComboBoxItem>Sản phẩm</ComboBoxItem>
                         <ComboBoxItem>Vé xem phim</ComboBoxItem>
@@ -168,13 +180,22 @@
 
                     <TextBox Grid.Column="1"
                              Margin="50,0,0,5"
-                             Text="0"
+                             Text="{Binding Minimum,Mode=TwoWay}"
                              TextChanged="TextBox_TextChanged"
                              PreviewTextInput="TextBox_PreviewTextInput" />
                 </Grid>
-                <Grid Margin="0,25,0,0">
-                    <TextBox Grid.Column="1"
-                             materialDesign:HintAssist.Hint="Ghi chú" />
+
+                <Grid Margin="0,20,0,0">
+                    <TextBlock Text="Số voucher còn lại"
+                               VerticalAlignment="Bottom"
+                               Width="auto" />
+                    <StackPanel  Margin="170,4,-10,-3"
+                                 Width="200"
+                                 Orientation="Horizontal">
+                        <Label x:Name="unused" />
+                        <Label Content="/" />
+                        <Label x:Name="total" />
+                    </StackPanel>
                 </Grid>
             </StackPanel>
 
@@ -187,6 +208,7 @@
                     HorizontalAlignment="Right"
                     Margin="0,0,0,20"
                     Padding="0,0,0,5"
+                    Command="{Binding UpdateBigVoucherCM}"
                     materialDesign:ButtonAssist.CornerRadius="5" />
 
         </Grid>

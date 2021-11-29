@@ -100,6 +100,7 @@
                                              BorderThickness="0"
                                              x:Name="card2">
                             <Button Height="auto"
+                                    x:Name="unlockbtn"
                                     Content="Danh sách voucher"
                                     Background="Transparent"
                                     Foreground="Black"
@@ -107,7 +108,8 @@
                                     BorderThickness="0"
                                     materialDesign:ButtonAssist.CornerRadius="0"
                                     Command="{Binding LoadAddVoucherCM}"
-                                    CommandParameter="{Binding ElementName=card2}" />
+                                    CommandParameter="{Binding ElementName=card2}">
+                            </Button>
                         </materialDesign:Card>
 
                     </StackPanel>

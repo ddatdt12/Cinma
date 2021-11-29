@@ -15,10 +15,10 @@
             <BeginStoryboard>
                 <Storyboard>
                     <DoubleAnimation Storyboard.TargetName="mainPage"
-                                        Storyboard.TargetProperty="Opacity"
-                                        From="0"
-                                        To="1"
-                                        Duration="0:0:0.5" />
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.5" />
 
 
                 </Storyboard>
@@ -47,7 +47,8 @@
                                Width="auto"
                                Grid.Column="0" />
                     <TextBox Margin="10,0,0,5"
-                             Grid.Column="1" />
+                             Grid.Column="1"
+                             IsEnabled="False" />
                 </Grid>
                 <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
@@ -59,7 +60,8 @@
                                Width="auto"
                                Grid.Column="0" />
                     <TextBox Margin="10,0,0,5"
-                             Grid.Column="1" />
+                             Grid.Column="1"
+                             Text="{Binding ReleaseName,Mode=OneWayToSource}" />
                 </Grid>
                 <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
@@ -72,9 +74,9 @@
                                Grid.Column="0" />
                     <TextBox Margin="10,0,0,5"
                              Grid.Column="1"
-                             Text="0"
+                             Text="{Binding ParValue,Mode=TwoWay}"
                              PreviewTextInput="TextBox_PreviewTextInput"
-                             TextChanged="TextBox_TextChanged"/>
+                             TextChanged="TextBox_TextChanged" />
                 </Grid>
                 <Grid Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
@@ -89,9 +91,11 @@
                                 Grid.Column="1"
                                 Margin="10,0,0,0">
                         <RadioButton Content="Kích hoạt"
-                                     IsChecked="True"/>
+                                     IsChecked="True"
+                                     Checked="RadioButton_Checked" />
                         <RadioButton Content="Chưa áp dụng"
-                                     Margin="40,0,0,0" />
+                                     Margin="40,0,0,0"
+                                     Checked="RadioButton_Checked_1" />
                     </StackPanel>
 
                 </Grid>
@@ -109,8 +113,9 @@
                                 Margin="10,0,0,0">
                         <DatePicker Width="135"
                                     x:Name="startdate"
-                                    Focusable="False" 
-                                    DisplayDateStart="{Binding GetCurrentDate}"/>
+                                    Focusable="False"
+                                    DisplayDateStart="{Binding GetCurrentDate}"
+                                    SelectedDate="{Binding StartDate,Mode=Default}" />
                         <TextBlock Text=" ->"
                                    VerticalAlignment="Bottom"
                                    Width="auto"
@@ -118,11 +123,13 @@
                         <DatePicker Width="135"
                                     Focusable="False"
                                     Margin="15,0,0,0"
+                                    SelectedDate="{Binding FinishDate}"
                                     DisplayDateStart="{Binding ElementName=startdate,Path=SelectedDate}" />
                     </StackPanel>
                 </Grid>
                 <CheckBox Content="Áp dụng gộp nhiều voucher cho một hoá đơn"
-                          Margin="0,40,0,0" />
+                          Margin="0,40,0,0"
+                          IsChecked="{Binding EnableMerge,Mode=OneWayToSource}" />
             </StackPanel>
 
         </StackPanel>
@@ -144,7 +151,8 @@
 
                     <ComboBox Grid.Column="1"
                               SelectedIndex="0"
-                              Margin="50,0,0,0">
+                              Margin="50,0,0,0"
+                              SelectedItem="{Binding ObjectType}">
                         <ComboBoxItem>Toàn bộ</ComboBoxItem>
                         <ComboBoxItem>Sản phẩm</ComboBoxItem>
                         <ComboBoxItem>Vé xem phim</ComboBoxItem>
@@ -167,14 +175,10 @@
                                              ToolTip="Số tiền tối thiểu của đơn hàng để có thể áp dụng voucher" />
 
                     <TextBox Grid.Column="1"
-                             Margin="50,0,0,5" 
-                             Text="0"
+                             Margin="50,0,0,5"
+                             Text="{Binding MinimumValue,Mode=TwoWay}"
                              TextChanged="TextBox_TextChanged"
-                             PreviewTextInput="TextBox_PreviewTextInput"/>
-                </Grid>
-                <Grid Margin="0,25,0,0">
-                    <TextBox Grid.Column="1"
-                             materialDesign:HintAssist.Hint="Ghi chú" />
+                             PreviewTextInput="TextBox_PreviewTextInput" />
                 </Grid>
             </StackPanel>
 
@@ -187,6 +191,7 @@
                     HorizontalAlignment="Right"
                     Margin="0,0,0,20"
                     Padding="0,0,0,5"
+                    Command="{Binding SaveNewBigVoucherCM}"
                     materialDesign:ButtonAssist.CornerRadius="5" />
 
         </Grid>
