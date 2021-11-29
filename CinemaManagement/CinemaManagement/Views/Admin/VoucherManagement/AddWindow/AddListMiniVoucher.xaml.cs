@@ -1,33 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
 {
-    /// <summary>
-    /// Interaction logic for AddListMiniVoucher.xaml
-    /// </summary>
+
     public partial class AddListMiniVoucher : Window
     {
         public AddListMiniVoucher()
         {
             InitializeComponent();
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
         }
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {
@@ -59,6 +43,11 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
             TextBox tb = sender as TextBox;
             if (tb.Text.Length == 0)
                 tb.Text = "1";
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

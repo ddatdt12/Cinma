@@ -44,6 +44,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         {
             GetCurrentDate = DateTime.Today;
             StartDate = FinishDate = DateTime.Today;
+            ReleaseDate = DateTime.Today;
 
             try
             {
@@ -86,7 +87,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 else
                     w.releasebtn.Visibility = Visibility.Visible;
                 mainFrame.Content = w;
-                WaitingMiniVoucher = new ObservableCollection<VoucherDTO>();
+                WaitingMiniVoucher = new List<int>();
             });
             LoadAddMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -188,7 +189,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 DeleteMiniVoucherFunc();
             });
-            ReleaseVoucherCM = new RelayCommand<Button>((p) =>
+            OpenReleaseVoucherCM = new RelayCommand<Button>((p) =>
             {
                 if (HaveUsed)
                     return false;
@@ -196,7 +197,100 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             },
             (p) =>
             {
+                ReleaseVoucher w = new ReleaseVoucher();
+                ReleaseVoucherList = new ObservableCollection<VoucherDTO>();
+                ListCustomerEmail = new ObservableCollection<CustomerEmail>();
+                ListCustomerEmail.Add(new CustomerEmail { Email = "" });
 
+                for (int i = 0; i < WaitingMiniVoucher.Count; i++)
+                {
+                    for (int j = 0; j < StoreAllMini.Count; j++)
+                    {
+                        if (WaitingMiniVoucher[i] == StoreAllMini[j].Id)
+                        {
+                            VoucherDTO temp = new VoucherDTO
+                            {
+                                Id = WaitingMiniVoucher[i],
+                                Code = StoreAllMini[j].Code
+                            };
+                            ReleaseVoucherList.Add(temp);
+                            break;
+                        }
+                    }
+                }
+
+                w.ShowDialog();
+            });
+            ReleaseVoucherCM = new RelayCommand<ReleaseVoucher>((p) => { return true; }, (p) =>
+            {
+                ReleaseVoucherFunc(p);
+            });
+            StoreWaitingListCM = new RelayCommand<CheckBox>((p) => { return true; }, (p) =>
+            {
+                int temp = int.Parse(p.Content.ToString());
+                if (p.IsChecked == false)
+                {
+                    if (WaitingMiniVoucher.Contains(temp))
+                        WaitingMiniVoucher.Remove(temp);
+                }
+                else
+                {
+                    if (!WaitingMiniVoucher.Contains(temp))
+                        WaitingMiniVoucher.Add(temp);
+                }
+
+                if (WaitingMiniVoucher.Count == 0)
+                    AddVoucher.topcheck.IsChecked = false;
+
+            });
+            CheckAllMiniVoucherCM = new RelayCommand<CheckBox>((p) => { return true; }, (p) =>
+            {
+                if (p.IsChecked == true)
+                {
+                    CheckAllMiniVoucherFunc(true);
+                }
+                else
+                {
+                    CheckAllMiniVoucherFunc(false);
+                }
+
+            });
+            DeleteWaitingReleaseCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                if (SelectedWaitingVoucher >= 0)
+                {
+                    foreach (var item in WaitingMiniVoucher)
+                    {
+                        if (item == ReleaseVoucherList[SelectedWaitingVoucher].Id)
+                        {
+                            WaitingMiniVoucher.Remove(item);
+                            break;
+                        }
+
+                    }
+                    ReleaseVoucherList.RemoveAt(SelectedWaitingVoucher);
+                }
+            });
+            MoreEmailCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+
+                for (int i = ListCustomerEmail.Count - 2; i >= 0; i--)
+                {
+                    if (ListCustomerEmail[ListCustomerEmail.Count - 1].Email == ListCustomerEmail[i].Email)
+                    {
+                        MessageBox.Show("Email đã bị trùng!");
+                        return;
+                    }
+                }
+
+                ListCustomerEmail.Add(new CustomerEmail
+                {
+                    Email = "",
+                });
+            });
+            LessEmailCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                ListCustomerEmail.RemoveAt(selectedWaitingVoucher);
             });
 
             LoadViewCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>

@@ -1,12 +1,10 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -249,12 +247,16 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
             if (createSuccess)
             {
+                AddVoucher.AllCheckBox.Clear();
                 MessageBox.Show(createRandomSuccess);
                 (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
 
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+
+                AddVoucher.topcheck.IsChecked = false;
+                AddVoucher._cbb.SelectedIndex = 0;
             }
             else
             {
@@ -283,10 +285,13 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 MessageBox.Show(createRandomSuccess);
                 (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
+                AddVoucher.AllCheckBox.Clear();
 
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                AddVoucher.topcheck.IsChecked = false;
+                AddVoucher._cbb.SelectedIndex = 0;
             }
             else
             {
@@ -298,11 +303,18 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         {
             if (SelectedCbbFilter is null) return;
             ListViewVoucher = new ObservableCollection<VoucherDTO>();
-            if (SelectedCbbFilter.Content.ToString() == Utils.VOUCHER_STATUS.USED)
+            (VoucherReleaseDTO voucherReleaseDetail, _) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
+            StoreAllMini = new List<VoucherDTO>(voucherReleaseDetail.Vouchers);
+            AddVoucher.AllCheckBox.Clear();
+            if (WaitingMiniVoucher != null)
+                WaitingMiniVoucher.Clear();
+
+
+            if (SelectedCbbFilter.Content.ToString() == Utils.VOUCHER_STATUS.REALEASED)
             {
                 foreach (var item in StoreAllMini)
                 {
-                    if (item.Status == SelectedCbbFilter.Content.ToString())
+                    if (item.Status == "Ðã phát hành")
                     {
                         ListViewVoucher.Add(item);
                     }
@@ -335,10 +347,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 foreach (var item in StoreAllMini)
                 {
-                    if (item.Status == Utils.VOUCHER_STATUS.UNRELEASED)
-                    {
-                        ListViewVoucher.Add(item);
-                    }
+                    ListViewVoucher.Add(item);
                 }
                 return;
             }

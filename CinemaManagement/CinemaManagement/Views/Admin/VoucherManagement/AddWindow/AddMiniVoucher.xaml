@@ -11,7 +11,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        MouseDown="Window_MouseDown"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Title="AddMiniVoucher"
         Height="300"
         Width="500"

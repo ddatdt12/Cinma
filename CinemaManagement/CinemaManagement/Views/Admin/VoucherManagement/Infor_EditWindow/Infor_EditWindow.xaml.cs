@@ -23,10 +23,6 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow
         {
             InitializeComponent();
         }
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
-        }
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
@@ -43,6 +39,11 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

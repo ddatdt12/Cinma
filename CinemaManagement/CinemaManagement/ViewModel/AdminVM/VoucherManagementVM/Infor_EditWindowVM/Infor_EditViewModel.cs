@@ -74,17 +74,11 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
         VoucherReleaseDTO oldVer = new VoucherReleaseDTO();
 
-        private VoucherDTO selectedMiniVoucher;
-        public VoucherDTO SelectedMiniVoucher
-        {
-            get { return selectedMiniVoucher; }
-            set { selectedMiniVoucher = value; OnPropertyChanged(); }
-        }
 
-        private static ObservableCollection<VoucherDTO> waitingMiniVoucher;
-        public static ObservableCollection<VoucherDTO> WaitingMiniVoucher
+        private static List<int> waitingMiniVoucher;
+        public static List<int> WaitingMiniVoucher
         {
-            get {  return waitingMiniVoucher; }
+            get { return waitingMiniVoucher; }
             set { waitingMiniVoucher = value; }
         }
 
@@ -94,7 +88,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public ICommand LoadInforCM { get; set; }
         public ICommand UpdateBigVoucherCM { get; set; }
         public ICommand DeleteMiniVoucherCM { get; set; }
-        public ICommand ReleaseVoucherCM { get; set; }
+        public ICommand StoreWaitingListCM { get; set; }
+        public ICommand CheckAllMiniVoucherCM { get; set; }
 
         public void LoadEdit_InforViewDataFunc(Edit_InforPage w)
         {
@@ -152,7 +147,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 (VoucherReleaseDTO voucherReleaseDetail, _) = VoucherService.Ins.GetVoucherReleaseDetails(oldVer.Id);
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                StoreAllMini = new System.Collections.Generic.List<VoucherDTO>(ListViewVoucher);
+                StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
             }
             else
             {
@@ -167,14 +162,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 return;
             }
 
-
-            List<int> voucherIdList = new List<int>();
-            foreach (var item in WaitingMiniVoucher)
-            {
-                voucherIdList.Add(item.Id);
-            }
-
-            (bool deleteSuccess, string messageFromDelete) = VoucherService.Ins.DeteleVouchers(voucherIdList);
+            (bool deleteSuccess, string messageFromDelete) = VoucherService.Ins.DeteleVouchers(WaitingMiniVoucher);
 
             if (deleteSuccess)
             {
@@ -185,22 +173,28 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                AddVoucher.topcheck.IsChecked = false;
             }
             else
             {
                 MessageBox.Show(messageFromDelete);
             }
         }
-        public static void HaveUsedVoucher()
+        public void CheckAllMiniVoucherFunc(bool func)
         {
-            foreach (var item in WaitingMiniVoucher)
-                if (item.Status == Utils.VOUCHER_STATUS.REALEASED)
+            if (func)
+            {
+                WaitingMiniVoucher.Clear();
+                foreach (var item in ListViewVoucher)
                 {
-                    HaveUsed = true;
-                    return;
+                    if (item.Status != "Ðã phát hành")
+                        WaitingMiniVoucher.Add(item.Id);
                 }
-            HaveUsed = false;
-            return;
+            }
+            else
+            {
+                WaitingMiniVoucher.Clear();
+            }
         }
     }
 }

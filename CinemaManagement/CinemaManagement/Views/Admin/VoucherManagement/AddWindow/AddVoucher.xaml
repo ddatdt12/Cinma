@@ -72,16 +72,10 @@
                                 Margin="0,0,10,0"
                                 FontWeight="Bold"
                                 x:Name="releasebtn"
-                                IsEnabledChanged="releasebtn_IsEnabledChanged"
-                                Command="{Binding ReleaseVoucherCM}"
+                                Command="{Binding OpenReleaseVoucherCM}"
                                 CommandParameter="{Binding ElementName=releasebtn}" />
-                        <Grid x:Name="toolt"
-                              Visibility="Collapsed"
-                              Background="LightGray"
-                              Opacity="0.1"
-                              Margin="0,0,10,0" />
                     </Grid>
-                   
+
 
                     <Border  Background="{StaticResource PrimaryHueMidBrush}"
                              CornerRadius="5"
@@ -146,6 +140,8 @@
                               SelectedIndex="0"
                               Padding="0,28,0,0"
                               Margin="20,0,0,0"
+                              x:Name="cbb"
+                              SelectionChanged="ComboBox_SelectionChanged"
                               SelectedItem="{Binding SelectedCbbFilter,Mode=OneWayToSource}">
                         <ComboBoxItem>Toàn bộ</ComboBoxItem>
                         <ComboBoxItem>Chưa phát hành</ComboBoxItem>
@@ -157,19 +153,25 @@
                 <Grid Grid.Row="1">
                     <ListView x:Name="Listviewmini"
                               ItemsSource="{Binding ListViewVoucher,UpdateSourceTrigger=PropertyChanged}"
-                              Focusable="True"
-                              SelectedItem="{Binding SelectedMiniVoucher}">
+                              Focusable="False">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="30">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <CheckBox Loaded="allcheck"
-                                                          Content=""
+                                            <StackPanel Orientation="Horizontal"
+                                                        Focusable="False">
+                                                <CheckBox Content="{Binding Id}"
                                                           x:Name="allcheck"
-                                                          Click="allcheck_Click"
-                                                          Visibility="{Binding Status,Converter={StaticResource Converter}}" />
+                                                          Loaded="allcheck_load"
+                                                          Visibility="{Binding Status,Converter={StaticResource Converter}}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Click">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=Listviewmini, Path=DataContext.StoreWaitingListCM}"
+                                                                                   CommandParameter="{Binding ElementName=allcheck}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </CheckBox>
 
                                             </StackPanel>
                                         </DataTemplate>
@@ -180,7 +182,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Code}"
-                                                       Margin="30,0,0,0"
+                                                       Margin="15,0,0,0"
                                                        FontSize="18" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -214,7 +216,8 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Trạng thái">
+                                <GridViewColumn Header="Trạng thái"
+                                                Width="180">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Status}"
@@ -230,8 +233,12 @@
                     <CheckBox VerticalAlignment="Top"
                               HorizontalAlignment="Left"
                               Margin="13,18,20,0"
+                              x:Name="topcheckbox"
                               Checked="CheckBox_Checked"
-                              Unchecked="CheckBox_Unchecked" />
+                              Unchecked="CheckBox_Unchecked"
+                              Content="{Binding ListViewVoucher.Count}"
+                              Command="{Binding CheckAllMiniVoucherCM}"
+                              CommandParameter="{Binding ElementName=topcheckbox}" />
                 </Grid>
 
 
