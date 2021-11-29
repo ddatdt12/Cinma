@@ -8,9 +8,10 @@
                     xmlns:viewmodel2="clr-namespace:CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM"
                     xmlns:viewmodel24="clr-namespace:CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM"
                     xmlns:viewmodelFood="clr-namespace:CinemaManagement.ViewModel.AdminVM.FoodManagementVM"
-                    xmlns:viewmodel3="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.TicketVM"<<<<<<< HEAD
-                    xmlns:viewmodel31="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM">
-                    xmlns:viewmodel4="clr-namespace:CinemaManagement.ViewModel.AdminVM.VoucherManagementVM">
+                    xmlns:viewmodel3="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.TicketVM"
+                    xmlns:viewmodel31="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM"
+                    xmlns:viewmodel4="clr-namespace:CinemaManagement.ViewModel.AdminVM.VoucherManagementVM"
+                    xmlns:viewmodel32="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM">
                 
 
 
@@ -32,5 +33,7 @@
     <viewmodel31:OrderFoodViewModel x:Key="OrderFoodPageWindowVM" />
     <viewmodel4:VoucherViewModel x:Key="VoucherVM" />
     <viewmodelFood:FoodManagementViewModel x:Key="FoodManagementVM" />
+    <viewmodel32:AddDeviceProblemPageViewModel x:Key="AddDeviceProblemPageVM"/>
+    <viewmodel32:DeviceReportPageViewModel x:Key="DeviceReportPageVM" />
 </ResourceDictionary>
     
