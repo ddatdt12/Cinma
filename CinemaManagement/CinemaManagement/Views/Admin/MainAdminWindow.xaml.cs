@@ -40,8 +40,8 @@ namespace CinemaManagement
 
         private void SlideButton_Unchecked(object sender, RoutedEventArgs e)
         {
-            topnotifi.Visibility = Visibility.Visible;
-
+            if (count.Text != "0")
+                topnotifi.Visibility = Visibility.Visible;
         }
     }
 }

@@ -133,7 +133,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
         public ShowtimeManagementViewModel()
         {
-
             GetCurrentDate = DateTime.Today;
             SelectedDate = GetCurrentDate;
             showtimeDate = GetCurrentDate;
@@ -255,9 +254,30 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 if (SelectedShowtime != null)
                 {
                     ListSeat = _oldselectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
-                    moviePrice = (decimal)SelectedShowtime.TicketPrice;
+
+                    if (SelectedShowtime.TicketPrice.ToString().Length > 5)
+                        moviePrice = decimal.Parse(SelectedShowtime.TicketPrice.ToString().Remove(5, 5));
+                    else
+                        moviePrice = decimal.Parse(SelectedShowtime.TicketPrice.ToString());
                 }
 
+            });
+            EditPriceCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
+            {
+                if (SelectedShowtime is null) return;
+                if (p.Content.ToString() == "Lưu") return;
+
+                (bool IsSuccess, string message) = ShowtimeService.Ins.UpdateTicketPrice(SelectedShowtime.Id, moviePrice);
+
+                if (IsSuccess)
+                {
+                    SelectedShowtime.TicketPrice = moviePrice;
+                    MessageBox.Show(message);
+                }
+                else
+                {
+                    MessageBox.Show(message);
+                }
             });
         }
 

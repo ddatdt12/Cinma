@@ -124,8 +124,6 @@
                                       Background="#FF383737"
                                       MouseLeftButtonDown="mainadminwindow_MouseLeftButtonDown">
                 <DockPanel>
-
-
                     <StackPanel Orientation="Horizontal">
                         <StackPanel.Style>
                             <Style TargetType="{x:Type StackPanel}">
@@ -191,7 +189,6 @@
 
                                 </StackPanel>
 
-
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="MovieEdit"
                                                              Height="30"
@@ -227,7 +224,7 @@
                                             Command="{Binding LoadFoodPageCM}"
                                             CommandParameter="{Binding ElementName=MainFrame}" />
                                 </StackPanel>
-                                
+
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="AccountGroupOutline"
                                                              Width="30"
@@ -262,6 +259,7 @@
                                             Command="{Binding LoadTKPageCM}"
                                             CommandParameter="{Binding ElementName=MainFrame}" />
                                 </StackPanel>
+
                                 <StackPanel Orientation="Horizontal"
                                             Margin="10,0,0,0">
                                     <materialDesign:PackIcon Kind="SwapVerticalBold"
@@ -279,6 +277,25 @@
                                             Command="{Binding LoadLSPage}"
                                             CommandParameter="{Binding ElementName=MainFrame}" />
                                 </StackPanel>
+
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="10,0,0,0">
+                                    <materialDesign:PackIcon Kind="TicketPercent"
+                                                             Height="30"
+                                                             Width="30"
+                                                             VerticalAlignment="Center" />
+                                    <Button Margin="0,0,0,5"
+                                            Content="Voucher"
+                                            Height="50"
+                                            FontSize="25"
+                                            Width="240"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Command="{Binding LoadVCPageCM}"
+                                            CommandParameter="{Binding ElementName=MainFrame}" />
+                                </StackPanel>
+
                                 <StackPanel Orientation="Horizontal"
                                             Margin="10,0,0,0">
                                     <materialDesign:PackIcon Kind="AlertCircle"
@@ -301,37 +318,37 @@
                                                 Width="30"
                                                 Height="30"
                                                 Visibility="{Binding ErrorCount,Converter={StaticResource CountConverter}}"
-                                               Margin="-20,-8,0,0">
+                                                Margin="-20,-8,0,0">
                                             <TextBlock Text="{Binding ErrorCount}"
                                                        FontSize="20"
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center" />
                                         </Border>
                                     </Grid>
-                                    
+
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
                         <Grid Margin="40,0,0,0">
                             <ToggleButton x:Name="SlideButton"
-                                          Style="{DynamicResource MaterialDesignHamburgerToggleButton}" 
+                                          Style="{DynamicResource MaterialDesignHamburgerToggleButton}"
                                           Checked="SlideButton_Checked"
-                                          Unchecked="SlideButton_Unchecked"/>
+                                          Unchecked="SlideButton_Unchecked" />
                             <Border Background="Red"
                                     CornerRadius="100"
                                     Width="30"
                                     x:Name="topnotifi"
                                     Height="30"
-                                    Margin="20,-5,-15,28"
+                                    Margin="20,-5,-15,23"
                                     Visibility="{Binding ErrorCount,Converter={StaticResource CountConverter}}">
                                 <TextBlock Text="{Binding ErrorCount}"
                                            FontSize="20"
+                                           x:Name="count"
                                            VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                           />
+                                           HorizontalAlignment="Center" />
                             </Border>
                         </Grid>
-                       
+
                         <TextBlock VerticalAlignment="Center"
                                    FontSize="30"
                                    Margin="30,0,0,0"

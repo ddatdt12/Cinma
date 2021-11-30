@@ -1,28 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace CinemaManagement.Views.Admin.ErrorManagement
 {
-    /// <summary>
-    /// Interaction logic for InprogressError.xaml
-    /// </summary>
     public partial class InprogressError : Window
     {
         public InprogressError()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)

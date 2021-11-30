@@ -344,16 +344,11 @@
                                                        VerticalAlignment="Bottom"
                                                        HorizontalAlignment="Right" />
 
-                                            <TextBlock Text="{Binding Price}"
+                                            <TextBlock Text="{Binding PriceStr}"
                                                        FontSize="18"
                                                        VerticalAlignment="Bottom"
                                                        HorizontalAlignment="Right"
-                                                       Margin="0 0 3 3" />
-                                            <TextBlock Text="₫"
-                                                       FontSize="18"
-                                                       VerticalAlignment="Bottom"
-                                                       HorizontalAlignment="Right"
-                                                       Margin="0 0 3 3" />
+                                                       Margin="35 0 3 3" />
                                             <Image Source="/Resources/Images/ImageFood/dong.png"
                                                    Margin=" 0 0 3 3"
                                                    Height="22"

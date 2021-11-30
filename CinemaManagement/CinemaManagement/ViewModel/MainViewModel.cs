@@ -87,7 +87,6 @@ namespace CinemaManagement.ViewModel
                 ////createTicketTask.Wait();
                 //watch.Stop();
                 //var elapsedMs = watch.ElapsedMilliseconds;
-                var s = "Pause";
 
                 //staffDTOs = StaffService.Ins.GetAllStaff();
 

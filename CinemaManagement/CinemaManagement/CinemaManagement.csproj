@@ -344,12 +344,21 @@
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\IndexConverter.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\Ranking.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\StatisticalManagementViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\VoucherManagementVM\AddWindowVM\AddWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\VoucherManagementVM\AddWindowVM\CheckBoxVisibleConverter.cs" />
+    <Compile Include="ViewModel\AdminVM\VoucherManagementVM\AddWindowVM\ReleaseWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\VoucherManagementVM\Infor_EditWindowVM\Infor_EditViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\VoucherManagementVM\VoucherViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodPageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\ShowtimePageVM\ShowtimePageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketBookingPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
     <Compile Include="Views\Admin\ErrorManagement\DoneError.xaml.cs">
       <DependentUpon>DoneError.xaml</DependentUpon>
@@ -447,6 +456,33 @@
     <Compile Include="Views\Admin\StatisticalManagement\StatisticalManagement.xaml.cs">
       <DependentUpon>StatisticalManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddInfor.xaml.cs">
+      <DependentUpon>AddInfor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddListMiniVoucher.xaml.cs">
+      <DependentUpon>AddListMiniVoucher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddMiniVoucher.xaml.cs">
+      <DependentUpon>AddMiniVoucher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddVoucher.xaml.cs">
+      <DependentUpon>AddVoucher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddWindow.xaml.cs">
+      <DependentUpon>AddWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\ReleaseVoucher.xaml.cs">
+      <DependentUpon>ReleaseVoucher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\Infor_EditWindow\Edit_InforPage.xaml.cs">
+      <DependentUpon>Edit_InforPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\Infor_EditWindow\Infor_EditWindow.xaml.cs">
+      <DependentUpon>Infor_EditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\VoucherManagement.xaml.cs">
+      <DependentUpon>VoucherManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExampleWindow.xaml.cs">
       <DependentUpon>ExampleWindow.xaml</DependentUpon>
     </Compile>
@@ -462,11 +498,26 @@
     <Compile Include="Views\LoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MessageBoxCustom.xaml.cs">
+      <DependentUpon>MessageBoxCustom.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml.cs">
       <DependentUpon>MovieScheduleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\OrderFoodWindow\FoodPage.xaml.cs">
+      <DependentUpon>FoodPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml.cs">
+      <DependentUpon>FoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\ShowtimePage\ShowtimePage.xaml.cs">
+      <DependentUpon>ShowtimePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\TicketWindow\TicketBookingPage.xaml.cs">
+      <DependentUpon>TicketBookingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\TicketWindow\TicketWindow.xaml.cs">
       <DependentUpon>TicketWindow.xaml</DependentUpon>
@@ -615,6 +666,42 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddInfor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddListMiniVoucher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddMiniVoucher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddVoucher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\ReleaseVoucher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\Infor_EditWindow\Edit_InforPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\Infor_EditWindow\Infor_EditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\VoucherManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ExampleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
@@ -635,11 +722,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MessageBoxCustom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Staff\MainStaffWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\OrderFoodWindow\FoodPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\ShowtimePage\ShowtimePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\TicketWindow\TicketBookingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -731,6 +838,39 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Icon\error.png" />
+    <Resource Include="Resources\Icon\ErrorIcon.png" />
+    <Resource Include="Resources\Icon\info.png" />
+    <Resource Include="Resources\Icon\logo.png" />
+    <Resource Include="Resources\Icon\Money.jpg" />
+    <Resource Include="Resources\Icon\succes.png" />
+    <Resource Include="Resources\Icon\warning.png" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Beef.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Cheese.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Chicken.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Coca Cola.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Espresso Coffee.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Milk Tea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Peach Tea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Pepsi.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Boerie Rolls.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Choripan.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Completo.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Bulgogi.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Lamacun.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Langos.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Sfiha.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Tarte Flambee.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Butter Milk.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Caramel.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Healthy.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Salty Butter.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\French Fries.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Ostar.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Poca.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Slide.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Tonies.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Money.jpg" />
     <Resource Include="Resources\Images\ImageFood\add-image.png" />
     <Resource Include="Resources\Images\ImageFood\adding.png" />
     <Resource Include="Resources\Images\ImageFood\delete.png" />
@@ -750,7 +890,6 @@
     <Resource Include="Resources\Images\Movies\hoi_dap_1988.jpg" />
     <Resource Include="Resources\Images\Movies\john_wick_chapter_4.jpg" />
     <Resource Include="Resources\Images\Movies\lat_mat_48h.jpg" />
-    <Resource Include="Resources\Images\Movies\mat_biec.jpg" />
     <Resource Include="Resources\Images\Movies\nobita_va_dao_giau_vang.jpg" />
     <Resource Include="Resources\Images\Movies\Palm_springs.jpg" />
     <Resource Include="Resources\Images\Movies\the_walking_dead.jpg" />

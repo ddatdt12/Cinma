@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:CinemaManagement"
-             StartupUri="Views/LoginWindow/LoginWindow.xaml">
+   	     StartupUri="Views/LoginWindow/LoginWindow.xaml">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -86,6 +86,49 @@
                         <ControlTemplate TargetType="ListBoxItem">
                             <Border Name="Border"
                                     Padding="7"
+                                    SnapsToDevicePixels="True">
+                                <ContentPresenter />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsEnabled"
+                                         Value="False">
+                                    <Setter Property="Opacity"
+                                            Value=".56" />
+                                </Trigger>
+                                <Trigger Property="IsSelected"
+                                         Value="true">
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="ItemsControl.AlternationIndex"
+                             Value="0">
+                        <Setter Property="Background"
+                                Value="#FFFFFF"></Setter>
+                    </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex"
+                             Value="1">
+                        <Setter Property="Background"
+                                Value="#F7F7F7"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <!--Style ListBoxItems1-->
+            <Style x:Key="styleListBoxItems1"
+                   TargetType="{x:Type ListBoxItem}">
+                <Setter Property="SnapsToDevicePixels"
+                        Value="False" />
+                <Setter Property="OverridesDefaultStyle"
+                        Value="true" />
+                <Setter Property="Margin"
+                        Value="0 0 0 0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border Name="Border"
+                                    Padding="5"
                                     SnapsToDevicePixels="True">
                                 <ContentPresenter />
                             </Border>

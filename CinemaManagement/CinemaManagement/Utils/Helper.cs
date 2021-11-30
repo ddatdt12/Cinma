@@ -19,6 +19,10 @@ namespace CinemaManagement.Utils
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var random = new Random();
             int randomLength = length - firstChars.Length - lastChars.Length;
+            if (randomLength <= 0)
+            {
+                return ("Độ dài của voucher phải lớn hơn độ dài chuỗi kí tự đầu + độ dài chuỗi kí tự cuối", null);
+            }
             if (randomLength < 4)
             {
                 return ($"Độ dài của voucher phải lớn hơn độ dài chuỗi kí tự đầu + độ dài chuỗi kí tự cuối + 4 ", null);
