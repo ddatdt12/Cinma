@@ -29,7 +29,7 @@
     <viewmodel24:StatisticalManagementViewModel x:Key="StatisticalManagementVM" />
     <viewmodel3:TicketWindowViewModel x:Key="TicketWindowVM" />
     <viewmodel31:OrderFoodViewModel x:Key="OrderFoodWindowVM" />
-    <viewmodel31:OrderFoodViewModel x:Key="OrderFoodPageWindowVM" />
+    <viewmodel31:OrderFoodPageViewModel x:Key="OrderFoodPageWindowVM" />
     <viewmodel4:VoucherViewModel x:Key="VoucherVM" />
     <viewmodelFood:FoodManagementViewModel x:Key="FoodManagementVM" />
     

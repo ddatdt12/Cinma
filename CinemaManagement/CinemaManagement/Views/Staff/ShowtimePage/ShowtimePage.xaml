@@ -21,78 +21,86 @@
                 <RowDefinition Height="60" />
                 <RowDefinition Height="660" />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0"
-                        Height="60"
-                        VerticalAlignment="Top"
-                        Orientation="Horizontal"
-                        Background="#FF16274D">
-                <Grid>
-                    <StackPanel Orientation="Horizontal">
+            <Border Background="#f2f5f9"
+                    Grid.Row="0"
+                    Height="60"
+                    VerticalAlignment="Top"
+                    BorderBrush="Black"
+                    BorderThickness="0 0 0 2.5">
+                <StackPanel Orientation="Horizontal">
+                    <Grid>
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Magnify"
-                                                     Width="25"
-                                                     Height="35"
-                                                     Foreground="White"
-                                                     VerticalAlignment="Bottom" />
-                            <TextBox x:Name="FilterBox"
-                                     Width="300"
-                                     VerticalAlignment="Bottom"
-                                     Height="40"
-                                     FontSize="20"
-                                     Foreground="White"
-                                     materialDesign:HintAssist.Hint="Tìm kiếm phim"
-                                     TextChanged="FilterBox_TextChanged" />
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0 10 0 5">
+                                <materialDesign:PackIcon Kind="Magnify"
+                                                         Width="25"
+                                                         Height="35"
+                                                         Foreground="Black"
+                                                         VerticalAlignment="Bottom" />
+                                <TextBox x:Name="FilterBox"
+                                         Width="300"
+                                         VerticalAlignment="Bottom"
+                                         Height="35"
+                                         FontSize="16"
+                                         Foreground="Black"
+                                         Padding="0 7 0 0"
+                                         materialDesign:HintAssist.Hint="Tìm kiếm phim"
+                                         FontWeight="DemiBold"
+                                         TextChanged="FilterBox_TextChanged" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10 10 0 5">
+                                <materialDesign:PackIcon Kind="Filter"
+                                                         Width="25"
+                                                         Height="35"
+                                                         Foreground="Black"
+                                                         VerticalAlignment="Bottom" />
+                                <ComboBox materialDesign:HintAssist.Hint="Thể loại"
+                                          VerticalContentAlignment="Bottom"
+                                          Width="175"
+                                          Height="40"
+                                          HorizontalAlignment="Left"
+                                          FontSize="17"
+                                          FontWeight="DemiBold"
+                                          ItemsSource="{Binding GenreList}"
+                                          DisplayMemberPath="DisplayName"
+                                          materialDesign:HintAssist.HintOpacity="0.5"
+                                          BorderBrush="Black"
+                                          SelectedItem="{Binding SelectedGenre,UpdateSourceTrigger=PropertyChanged}"
+                                          Foreground="Black"
+                                          VerticalAlignment="Bottom"
+                                          x:Name="Filtercbb">
+                                    <ComboBox.ItemContainerStyle>
+                                        <Style TargetType="ComboBoxItem">
+                                            <Setter Property="Foreground"
+                                                    Value="Black" />
+                                            <Setter Property="Margin"
+                                                    Value="5" />
+                                        </Style>
+                                    </ComboBox.ItemContainerStyle>
+                                </ComboBox>
+                            </StackPanel>
+                            <DatePicker materialDesign:HintAssist.Hint="Ngày chiếu"
+                                        SelectedDate="{Binding SelectedDate,UpdateSourceTrigger=PropertyChanged}"
+                                        Text="{Binding SetCurrentDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                        Width="175"
+                                        Height="40"
+                                        FontSize="15"
+                                        materialDesign:HintAssist.HintOpacity="0.5"
+                                        BorderBrush="Black"
+                                        Padding="0 10 0 0"
+                                        Margin="30,20,0,5"
+                                        HorizontalContentAlignment="Left"
+                                        VerticalAlignment="Bottom"
+                                        FontWeight="DemiBold">
+                            </DatePicker>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Filter"
-                                                     Width="25"
-                                                     Height="35"
-                                                     Foreground="White"
-                                                     VerticalAlignment="Bottom" />
-                            <ComboBox materialDesign:HintAssist.Hint="Thể loại"
-                                      VerticalContentAlignment="Bottom"
-                                      Width="175"
-                                      Height="40"
-                                      HorizontalAlignment="Left"
-                                      FontSize="15"
-                                      ItemsSource="{Binding GenreList}"
-                                      DisplayMemberPath="DisplayName"
-                                      materialDesign:HintAssist.HintOpacity="0.5"
-                                      BorderBrush="White"
-                                      SelectedItem="{Binding SelectedGenre,UpdateSourceTrigger=PropertyChanged}"
-                                      Foreground="White"
-                                      VerticalAlignment="Bottom"
-                                      x:Name="Filtercbb">
-                                <ComboBox.ItemContainerStyle>
-                                    <Style TargetType="ComboBoxItem">
-                                        <Setter Property="Foreground"
-                                                Value="Black" />
-                                        <Setter Property="Margin"
-                                                Value="5" />
-                                    </Style>
-                                </ComboBox.ItemContainerStyle>
-                            </ComboBox>
-                        </StackPanel>
-                        <DatePicker materialDesign:HintAssist.Hint="Ngày chiếu"
-                                    SelectedDate="{Binding SelectedDate,UpdateSourceTrigger=PropertyChanged}"
-                                    Text="{Binding SetCurrentDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                    Width="175"
-                                    Height="40"
-                                    FontSize="15"
-                                    materialDesign:HintAssist.HintOpacity="3"
-                                    BorderBrush="White"
-                                    Margin="30,0,0,2"
-                                    HorizontalContentAlignment="Left"
-                                    VerticalAlignment="Bottom"
-                                    FontWeight="DemiBold"
-                                    Foreground="#DDEE3550">
-                        </DatePicker>
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
             <ListBox ItemsSource="{Binding ListMovie,UpdateSourceTrigger=PropertyChanged}"
                      Grid.Row="1"
-                     Background="#FF2B3D66"
+                     Background="#f3f5f7"
                      x:Name="MainListBox"
                      SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemContainerStyle>
@@ -106,47 +114,53 @@
                 </ListBox.ItemsPanel>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Background="Transparent"
-                                    Cursor="Hand"
-                                    Height="350"
-                                    Width="215"
-                                    Margin="20 20 0 0"
-                                    VerticalAlignment="Top">
+                        <materialDesign:Card UniformCornerRadius="10"
+                                             Cursor="Hand"
+                                             Height="360"
+                                             Width="215"
+                                             Margin="20 20 0 0"
+                                             VerticalAlignment="Top">
+                            <materialDesign:Card.Style>
+                                <Style TargetType="materialDesign:Card">
+                                    <Setter Property="Background"
+                                            Value="White" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background"
+                                                    Value="LightGray" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:Card.Style>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseUp">
                                     <i:InvokeCommandAction Command="{Binding ElementName=MainListBox, Path=DataContext.LoadMovieScheduleWindow}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
-                            <Image Source="{Binding ImgSource}"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Top">
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Setter Property="Height"
-                                                Value="270" />
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver"
-                                                     Value="True">
-                                                <Setter Property="Height"
-                                                        Value="275" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
-                            </Image>
-                            <TextBlock Text="{Binding DisplayName}"
-                                       FontSize="16"
-                                       Foreground="White"
-                                       Width="210"
-                                       TextAlignment="Left"
+                            <StackPanel>
+                                <Image Source="{Binding ImgSource}"
                                        HorizontalAlignment="Left"
-                                       TextWrapping="Wrap"
-                                       Margin="0,10,0,0" />
-                            <TextBlock Text="{Binding ReleaseYear}"
-                                       FontSize="15"
-                                       Foreground="#FFD6C6C3"
-                                       TextAlignment="Left" />
-                        </StackPanel>
+                                       VerticalAlignment="Top"
+                                       Width="210"
+                                       Margin="8"
+                                       Stretch="Fill"
+                                       Height="270">
+                                </Image>
+                                <TextBlock Text="{Binding DisplayName}"
+                                           FontSize="16"
+                                           Foreground="Black"
+                                           Width="210"
+                                           TextAlignment="Left"
+                                           HorizontalAlignment="Left"
+                                           TextWrapping="Wrap"
+                                           Margin="10,10,0,0" />
+                                <TextBlock Text="{Binding ReleaseYear}"
+                                           FontSize="15"
+                                           Foreground="#FF3E3A39"
+                                           TextAlignment="Left"
+                                           Margin="10,0,0,0" />
+                            </StackPanel>
+                        </materialDesign:Card>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
