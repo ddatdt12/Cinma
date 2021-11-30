@@ -7,8 +7,23 @@
       mc:Ignorable="d"
       d:DesignHeight="568"
       d:DesignWidth="1400"
-      Title="ImportPage"
+      x:Name="mainPage"
       DataContext="{StaticResource Import_ExportManagementVM}">
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -55,9 +70,9 @@
                               Padding="0,10,10,0"
                               FontSize="13"
                               SelectedIndex="0"
+                              SelectedItem="{Binding SelectedImportItemFilter}"
                               SelectionChanged="ComboBox_SelectionChanged_1">
                         <ComboBoxItem Content="Toàn bộ" />
-                        <ComboBoxItem Content="Theo ngày" />
                         <ComboBoxItem Content="Theo tháng" />
                     </ComboBox>
                     <ComboBox Height="30"
@@ -66,7 +81,7 @@
                               Padding="0,10,10,0"
                               Visibility="Collapsed"
                               x:Name="cbbmonth"
-                              SelectedIndex="0">
+                              SelectedIndex="{Binding SelectedImportMonth,Mode=TwoWay}">
                         <ComboBoxItem Content="Tháng 1" />
                         <ComboBoxItem Content="Tháng 2" />
                         <ComboBoxItem Content="Tháng 3" />
@@ -80,14 +95,6 @@
                         <ComboBoxItem Content="Tháng 11" />
                         <ComboBoxItem Content="Tháng 12" />
                     </ComboBox>
-                    <DatePicker Height="30"
-                                Width="130"
-                                FontSize="13"
-                                Margin="10 0 0 0"
-                                Padding="0,10,10,0"
-                                Visibility="Collapsed"
-                                x:Name="timepicker">
-                    </DatePicker>
                 </StackPanel>
                 <StackPanel Grid.Column="1"
                             Orientation="Horizontal">
@@ -147,7 +154,7 @@
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding  ImportPrice}"
+                                <TextBlock  Text="{Binding  ImportPriceStr}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>

@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace CinemaManagement.Views.Admin.Import_ExportManagement
 {
@@ -10,6 +11,7 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
         public ImportPage()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -41,26 +43,19 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
         {
             ComboBox cbb = sender as ComboBox;
 
-            if (cbbmonth != null && timepicker != null)
+            if (cbbmonth != null)
             {
                 switch (cbb.SelectedIndex)
                 {
                     case 0:
                         {
                             cbbmonth.Visibility = System.Windows.Visibility.Collapsed;
-                            timepicker.Visibility = System.Windows.Visibility.Collapsed;
+                           
                             break;
                         }
                     case 1:
                         {
-                            cbbmonth.Visibility = System.Windows.Visibility.Collapsed;
-                            timepicker.Visibility = System.Windows.Visibility.Visible;
-                            break;
-                        }
-                    case 2:
-                        {
                             cbbmonth.Visibility = System.Windows.Visibility.Visible;
-                            timepicker.Visibility = System.Windows.Visibility.Collapsed;
                             break;
                         }
                 }

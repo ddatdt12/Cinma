@@ -2,7 +2,10 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
+using CinemaManagement.Views.LoginWindow;
+using CinemaManagement.Views.Staff;
 using CinemaManagement.Views.Staff.MovieScheduleWindow;
+using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.ShowtimePage;
 using System;
 using System.Collections.Generic;
@@ -86,7 +89,8 @@ namespace CinemaManagement.ViewModel
         public ICommand MinimizeMainStaffWindowCM { get; set; }
         public ICommand MouseMoveWindowCM { get; set; }
         public ICommand LoadMovieScheduleWindow { get; set; }
-        
+        public ICommand LoadFoodPageCM{ get; set; }
+
         public ICommand SignoutCM { get; set; }
         
         private string _UserName;
@@ -139,7 +143,7 @@ namespace CinemaManagement.ViewModel
                     MovieScheduleWindowViewModel.tempFilebinding = SelectedItem;
                     w = new MovieScheduleWindow();
                     w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
-                    w.imgframe.Source = Helper.GetImageSource(SelectedItem.Image);
+                    w.imgframe.Source = Helper.GetMovieImageSource(SelectedItem.Image);
                     w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
                     w.txtframe.Text = SelectedItem.DisplayName;
                     w.ShowDialog();
@@ -148,6 +152,11 @@ namespace CinemaManagement.ViewModel
             LoadShowtimePageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 p.Content = new ShowtimePage();
+
+            });
+            LoadFoodPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new FoodPage();
 
             });
             LoadShowtimeDataCM = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
@@ -162,8 +171,6 @@ namespace CinemaManagement.ViewModel
                 w1.ShowDialog();
                 p.Close();
             });
-        }
-
-       
+        } 
     }
 }

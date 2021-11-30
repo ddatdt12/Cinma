@@ -1,8 +1,16 @@
-﻿using CinemaManagement.Views.Admin.Import_ExportManagement;
+﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models.Services;
+using CinemaManagement.Views.Admin.ErrorManagement;
+using CinemaManagement.Views.Admin.FoodManagementPage;
+using CinemaManagement.Views.Admin.Import_ExportManagement;
 using CinemaManagement.Views.Admin.MovieManagement;
 using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 using CinemaManagement.Views.Admin.ShowtimeManagementVM;
 using CinemaManagement.Views.Admin.StatisticalManagement;
+using CinemaManagement.Views.LoginWindow;
+using System;
+using System.Collections.Generic;
+using CinemaManagement.Views.Admin.VoucherManagement;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,7 +18,7 @@ using System.Windows.Input;
 namespace CinemaManagement.ViewModel
 {
 
-    public class MainAdminViewModel : BaseViewModel
+    public partial class MainAdminViewModel : BaseViewModel
     {
         public ICommand SignoutCM { get; set; }
         public ICommand LoadQLPPageCM { get; set; }
@@ -18,6 +26,10 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadSuatChieuPageCM { get; set; }
         public ICommand LoadLSPage { get; set; }
         public ICommand LoadTKPageCM { get; set; }
+        public ICommand LoadFoodPageCM { get; set; }
+        public ICommand LoadErrorPage { get; set; }
+        public ICommand LoadVCPageCM { get; set; }
+
 
         private string _SelectedFuncName;
         public string SelectedFuncName
@@ -26,10 +38,20 @@ namespace CinemaManagement.ViewModel
             set { _SelectedFuncName = value; OnPropertyChanged(); }
         }
 
+        private string _ErrorCount;
+        public string ErrorCount
+        {
+            get { return _ErrorCount; }
+            set { _ErrorCount = value; OnPropertyChanged(); }
+        }
+
+
+
 
         public MainAdminViewModel()
         {
             SelectedFuncName = "Quản lý suất chiếu";
+            CountErrorFunc();
 
             SignoutCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
                {
@@ -73,19 +95,72 @@ namespace CinemaManagement.ViewModel
                 if (p != null)
                     p.Content = new StatisticalManagement();
             });
-
-        }
-
-
-        FrameworkElement GetParentWindow(FrameworkElement p)
-        {
-            FrameworkElement parent = p;
-
-            while (parent.Parent != null)
+            LoadFoodPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
-                parent = parent.Parent as FrameworkElement;
+                SelectedFuncName = "Quản lý sản phẩm";
+                if (p != null)
+                    p.Content = new FoodPage();
+
+            });
+            LoadErrorPage = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
+            {
+                SelectedFuncName = "Sự cố";
+                if (p != null)
+                    p.Content = new ErrorManagement();
+
+            });
+            LoadVCPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
+            {
+                SelectedFuncName = "Voucher";
+                if (p != null)
+                    p.Content = new VoucherManagement();
+
+            });
+
+
+
+            // this is  the ErrorViewmodel resources
+            LoadDetailErrorCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                ChoseWindow();
+            });
+            UpdateErrorCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                if (SelectedStatus is null)
+                {
+                    MessageBox.Show("Không hợp lệ!");
+                    return;
+                }
+                UpdateErrorFunc(p);
+            });
+            SelectedDate = DateTime.Today;
+            SelectedFinishDate = DateTime.Today;
+            ReloadErrorList();
+            //======================================
+
+
+            FrameworkElement GetParentWindow(FrameworkElement p)
+            {
+                FrameworkElement parent = p;
+
+                while (parent.Parent != null)
+                {
+                    parent = parent.Parent as FrameworkElement;
+                }
+                return parent;
             }
-            return parent;
+        }
+        public void CountErrorFunc()
+        {
+            List<TroubleDTO> countlist = new List<TroubleDTO>(TroubleService.Ins.GetAllTrouble());
+            int counttemp = 0;
+            ErrorCount = "0";
+            foreach (var item in countlist)
+            {
+                if (item.Status == Utils.STATUS.WAITING)
+                    counttemp++;
+            }
+            ErrorCount = counttemp.ToString();
         }
     }
 }

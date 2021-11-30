@@ -11,7 +11,6 @@ namespace CinemaManagement.Views.Admin.MovieManagement
         public MovieManagementWindow()
         {
             InitializeComponent();
-
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(MovieListView.ItemsSource);
             view.Filter = Filter;
         }
@@ -28,6 +27,5 @@ namespace CinemaManagement.Views.Admin.MovieManagement
             else
                 return ((item as MovieDTO).DisplayName.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
         }
-
     }
 }

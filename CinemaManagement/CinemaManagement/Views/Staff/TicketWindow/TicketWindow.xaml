@@ -16,20 +16,19 @@
         DataContext="{StaticResource TicketWindowVM}"
         ResizeMode="NoResize"
         Name="Ticket_Window"
-        Height="810"
+        Height="740"
         Width="1300"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
-    <Grid Background="#FFFBF5F5">
+    <Grid Background="#f3f5f7">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
             <RowDefinition Height="720" />
-            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <!--Thanh taskbar để kéo thả-->
         <StackPanel DockPanel.Dock="Top"
                     Grid.Row="0"
-                    Height="40"
+                    Height="20"
                     VerticalAlignment="Top"
                     Orientation="Horizontal"
                     Background="#FF342B2B">
@@ -40,11 +39,18 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <Label Cursor="Hand"
-                   Margin="1230 0 0 0"
+                   ToolBar.OverflowMode="AsNeeded"
+                   Height="20"
+                   BorderThickness="0"
+                   Foreground="Black"
+                   BorderBrush="Transparent"
                    Width="30"
                    HorizontalAlignment="Center"
-                   Foreground="White">
-                <materialDesign:PackIcon Kind="WindowMinimize"></materialDesign:PackIcon>
+                   Margin="1230 0 0 0">
+                <materialDesign:PackIcon Kind="WindowMinimize"
+                                         Height="15"
+                                         Width="20"
+                                         Foreground="White" />
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonDown">
                         <i:InvokeCommandAction Command="{Binding MinimizeTicketWindowCM}"
@@ -53,17 +59,13 @@
                 </i:Interaction.Triggers>
                 <Label.Style>
                     <Style TargetType="Label">
-                        <Setter Property="Height"
-                                Value="25"></Setter>
                         <Setter Property="Background"
                                 Value="Transparent"></Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver"
                                      Value="True">
-                                <Setter Property="Height"
-                                        Value="30"></Setter>
                                 <Setter Property="Background"
-                                        Value="Blue"></Setter>
+                                        Value="Gray"></Setter>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -72,8 +74,17 @@
             <Label Cursor="Hand"
                    Width="30"
                    HorizontalAlignment="Center"
-                   Foreground="White">
-                <materialDesign:PackIcon Kind="WindowClose" />
+                   ToolBar.OverflowMode="AsNeeded"
+                   Height="20"
+                   Foreground="Black"
+                   materialDesign:ButtonAssist.CornerRadius="0,10,0,0"
+                   Margin="10,0,0,0">
+                <materialDesign:PackIcon Kind="WindowClose"
+                                         Padding="0"
+                                         Foreground="White"
+                                         Width="20"
+                                         Height="15"
+                                         Margin="0,-3,0,0" />
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonDown">
                         <i:InvokeCommandAction Command="{Binding CloseTicketWindowCM}"
@@ -82,15 +93,11 @@
                 </i:Interaction.Triggers>
                 <Label.Style>
                     <Style TargetType="Label">
-                        <Setter Property="Height"
-                                Value="30"></Setter>
                         <Setter Property="Background"
                                 Value="Transparent"></Setter>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver"
                                      Value="True">
-                                <Setter Property="Height"
-                                        Value="35"></Setter>
                                 <Setter Property="Background"
                                         Value="Red"></Setter>
                             </Trigger>
@@ -106,63 +113,9 @@
                NavigationUIVisibility="Hidden">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">
-                    <i:InvokeCommandAction Command="{Binding LoadTicketBookingPageCM}"
-                                           CommandParameter="{Binding ElementName=TicketBookingFrame}" />
+                    <i:InvokeCommandAction Command="{Binding LoadTicketBookingPageCM}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Frame>
-        <!--back avaf next-->
-        <Grid Grid.Row="2">
-            <StackPanel DockPanel.Dock="Bottom"
-                        Width="1300"
-                        Height="50"
-                        Background="Black">
-                <StackPanel Orientation="Horizontal">
-                    <Border Background="#FFC12729"
-                            Height="40"
-                            Width="80"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Margin="5"
-                            CornerRadius="10">
-                        <Button FontSize="20"
-                                Height="40"
-                                Width="80"
-                                Background="Transparent"
-                                BorderBrush="Transparent">
-                            <StackPanel>
-                                <materialDesign:PackIcon Kind="ArrowLeftBold"
-                                                         Width="50"
-                                                         Height="35" />
-                                <TextBlock Text="Next"
-                                           TextAlignment="Center" />
-                            </StackPanel>
-                        </Button>
-                    </Border>
-                    <Border Background="#FFC12729"
-                            Height="40"
-                            Width="80"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Margin="1120 5 0 5"
-                            CornerRadius="10">
-                        <Button FontSize="20"
-                                Height="40"
-                                Width="80"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                Command="{Binding SetStatusSeatCM}">
-                            <StackPanel>
-                                <materialDesign:PackIcon Kind="ArrowRightBold"
-                                                         Width="50"
-                                                         Height="35" />
-                                <TextBlock Text="Next"
-                                           TextAlignment="Center" />
-                            </StackPanel>
-                        </Button>
-                    </Border>
-                </StackPanel>
-            </StackPanel>
-        </Grid>
     </Grid>
 </Window>

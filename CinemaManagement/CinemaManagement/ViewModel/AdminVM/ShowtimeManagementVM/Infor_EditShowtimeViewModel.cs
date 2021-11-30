@@ -1,6 +1,5 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Views.Admin.ShowtimeManagement;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -35,6 +34,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public ICommand LoadInfor_EditShowtime { get; set; }
         public ICommand CloseEditCM { get; set; }
         public ICommand LoadSeatCM { get; set; }
+        public ICommand EditPriceCM { get; set; }
 
 
         private ShowtimeDTO _selectedShowtime; //the showtime being selected
@@ -57,6 +57,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 LoadDataEditWindow(p);
                 EditShowtimeWindow = p;
                 oldSelectedItem = SelectedItem;
+                ShadowMask.Visibility = System.Windows.Visibility.Visible;
                 p.ShowDialog();
             }
         }
@@ -66,7 +67,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         {
             p._movieName.Text = SelectedItem.DisplayName;
             p._ShowtimeDate.Text = SelectedDate.ToString("dd-MM-yyyy");
-            p._showtimePrice.Text = "";
 
             if (SelectedRoomId == -1)
                 p._ShowtimeRoom.Text = "Phòng: Toàn bộ ";

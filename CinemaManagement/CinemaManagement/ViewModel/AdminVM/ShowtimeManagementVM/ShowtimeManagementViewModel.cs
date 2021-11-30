@@ -12,7 +12,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 {
     public partial class ShowtimeManagementViewModel : BaseViewModel
     {
-
+        public static Grid ShadowMask { get; set; }
         // this is for  binding data
         private MovieDTO _movieSelected;
         public MovieDTO movieSelected
@@ -128,24 +128,29 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public ICommand ChangedRoomCM { get; set; }
 
         public ICommand LoadDeleteShowtimeCM { get; set; }
+        public ICommand MaskNameCM { get; set; }
 
 
         public ShowtimeManagementViewModel()
         {
-
             GetCurrentDate = DateTime.Today;
             SelectedDate = GetCurrentDate;
+            showtimeDate = GetCurrentDate;
             ReloadShowtimeList(-1);
 
 
 
-
+            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+            {
+                ShadowMask = p;
+            });
             LoadAddShowtimeCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 GenerateListRoom();
                 RenewData();
                 AddShowtimeWindow temp = new AddShowtimeWindow();
                 MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
+                ShadowMask.Visibility = Visibility.Visible;
                 temp.ShowDialog();
             });
             SaveCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -240,6 +245,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             });
             CloseEditCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
+                ShadowMask.Visibility = Visibility.Collapsed;
                 p.Close();
                 SelectedShowtime = null;
             });
@@ -248,9 +254,30 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 if (SelectedShowtime != null)
                 {
                     ListSeat = _oldselectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
-                    moviePrice = (decimal)SelectedShowtime.TicketPrice;
+
+                    if (SelectedShowtime.TicketPrice.ToString().Length > 5)
+                        moviePrice = decimal.Parse(SelectedShowtime.TicketPrice.ToString().Remove(5, 5));
+                    else
+                        moviePrice = decimal.Parse(SelectedShowtime.TicketPrice.ToString());
                 }
 
+            });
+            EditPriceCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
+            {
+                if (SelectedShowtime is null) return;
+                if (p.Content.ToString() == "Lưu") return;
+
+                (bool IsSuccess, string message) = ShowtimeService.Ins.UpdateTicketPrice(SelectedShowtime.Id, moviePrice);
+
+                if (IsSuccess)
+                {
+                    SelectedShowtime.TicketPrice = moviePrice;
+                    MessageBox.Show(message);
+                }
+                else
+                {
+                    MessageBox.Show(message);
+                }
             });
         }
 

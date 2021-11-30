@@ -15,6 +15,22 @@
         Height="600"
         Width="1100"
         x:Name="EditWindow">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="EditWindow"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
     <Border Background="#FFF0F3F7"
             CornerRadius="20"
             BorderBrush="Gray"
@@ -91,9 +107,9 @@
                                 <TextBox x:Name="_showtimePrice"
                                          FontSize="20"
                                          Margin="10,0,0,0"
-                                         Text="{Binding moviePrice,Mode=TwoWay}"
+                                         Text="{Binding moviePrice,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                          IsEnabled="False"
-                                       PreviewTextInput="_showtimePrice_PreviewTextInput">
+                                         PreviewTextInput="_showtimePrice_PreviewTextInput">
                                     <TextBox.Style>
                                         <Style TargetType="TextBox">
                                             <Setter Property="BorderThickness"
@@ -104,12 +120,19 @@
                                     </TextBox.Style>
                                 </TextBox>
                                 <Label x:Name="_lblEdit"
-                                    Content="Thay đổi"
+                                       Content="Thay đổi"
                                        FontWeight="Light"
                                        Foreground="Blue"
                                        Margin="0,0,0,10"
                                        Cursor="Hand"
-                                       MouseLeftButtonDown="Label_MouseLeftButtonDown" />
+                                       MouseLeftButtonDown="Label_MouseLeftButtonDown">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                            <i:InvokeCommandAction Command="{Binding EditPriceCM}"
+                                                                   CommandParameter="{Binding ElementName=_lblEdit}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Label>
                             </StackPanel>
 
 

@@ -44,6 +44,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 {
                     MessageBox.Show(message);
                     ReloadShowtimeList(SelectedRoomId);
+                    ShadowMask.Visibility = Visibility.Collapsed;
                     p.Close();
                 }
                 else

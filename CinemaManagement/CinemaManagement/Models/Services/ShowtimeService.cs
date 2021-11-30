@@ -26,71 +26,68 @@ namespace CinemaManagement.Models.Services
         }
         private ShowtimeService() { }
 
-       
+
         public (bool IsSuccess, string message) AddShowtime(ShowtimeDTO newShowtime)
         {
-
-            var context = DataProvider.Ins.DB;
             try
             {
-
-                //Uncomment when release
-                //if (newShowtime.ShowDate < DateTime.Today)
-                //{
-                //    return (false,"Thời gian này đã qua không thể thêm suất chiếu" ,null);
-                //}
-                var showtimeSet = context.ShowtimeSettings
+                using (var context = new CinemaManagementEntities())
+                {
+                    //Uncomment when release
+                    //if (newShowtime.ShowDate < DateTime.Today)
+                    //{
+                    //    return (false,"Thời gian này đã qua không thể thêm suất chiếu" ,null);
+                    //}
+                    var showtimeSet = context.ShowtimeSettings
                     .Where(s => DbFunctions.TruncateTime(s.ShowDate) == newShowtime.ShowDate.Date
                     && s.RoomId == newShowtime.RoomId).FirstOrDefault();
 
-                if (showtimeSet == null)
-                {
-                    showtimeSet = new ShowtimeSetting
+                    if (showtimeSet == null)
                     {
-                        RoomId = newShowtime.RoomId,
-                        ShowDate = newShowtime.ShowDate.Date,
-                    }; ;
-                    context.ShowtimeSettings.Add(showtimeSet);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    Showtime show = null;
-
-                    Movie m = context.Movies.Find(newShowtime.MovieId);
-                    var newStartTime = newShowtime.StartTime;
-                    var newEndTime = newShowtime.StartTime + new TimeSpan(0,m.RunningTime,0);
-                    show = showtimeSet.Showtimes.AsEnumerable().Where(s =>
-                    {
-                        var endTime = new TimeSpan(0, s.Movie.RunningTime, 0) + s.StartTime;
-                        return TimeBetwwenIn(newStartTime, newEndTime, s.StartTime, endTime + TIME.BreakTime);
-                    }).FirstOrDefault();
-
-                    if (show != null)
-                    {
-                        var endTime = new TimeSpan(0, show.Movie.RunningTime, 0) + show.StartTime;
-                        return (false, $"Khoảng thời gian từ {Helper.GetHourMinutes(show.StartTime)} đến {Helper.GetHourMinutes(endTime + TIME.BreakTime)} đã có phim chiếu tại phòng {showtimeSet.RoomId}");
+                        showtimeSet = new ShowtimeSetting
+                        {
+                            RoomId = newShowtime.RoomId,
+                            ShowDate = newShowtime.ShowDate.Date,
+                        }; ;
+                        context.ShowtimeSettings.Add(showtimeSet);
+                        context.SaveChanges();
                     }
+                    else
+                    {
+                        Showtime show = null;
+
+                        Movie m = context.Movies.Find(newShowtime.MovieId);
+                        var newStartTime = newShowtime.StartTime;
+                        var newEndTime = newShowtime.StartTime + new TimeSpan(0, m.RunningTime, 0);
+                        show = showtimeSet.Showtimes.AsEnumerable().Where(s =>
+                        {
+                            var endTime = new TimeSpan(0, s.Movie.RunningTime, 0) + s.StartTime;
+                            return TimeBetwwenIn(newStartTime, newEndTime, s.StartTime, endTime + TIME.BreakTime);
+                        }).FirstOrDefault();
+
+                        if (show != null)
+                        {
+                            var endTime = new TimeSpan(0, show.Movie.RunningTime, 0) + show.StartTime;
+                            return (false, $"Khoảng thời gian từ {Helper.GetHourMinutes(show.StartTime)} đến {Helper.GetHourMinutes(endTime + TIME.BreakTime)} đã có phim chiếu tại phòng {showtimeSet.RoomId}");
+                        }
+                    }
+
+                    Showtime showtime = new Showtime
+                    {
+                        MovieId = newShowtime.MovieId,
+                        ShowtimeSettingId = showtimeSet.Id,
+                        StartTime = newShowtime.StartTime,
+                        TicketPrice = newShowtime.TicketPrice
+                    };
+                    context.Showtimes.Add(showtime);
+
+                    //setting seats in room for new showtime 
+                    SeatService.Ins.SettingSeatForNewShowtime(context, showtimeSet.RoomId, showtime.Id);
+
+                    context.SaveChanges();
+                    newShowtime.Id = showtime.Id;
+                    return (true, "Thêm suất chiếu thành công");
                 }
-
-                Showtime showtime = new Showtime
-                {
-                    MovieId = newShowtime.MovieId,
-                    ShowtimeSettingId = showtimeSet.Id,
-                    StartTime = newShowtime.StartTime,
-                    TicketPrice = newShowtime.TicketPrice
-                };
-
-
-                context.Showtimes.Add(showtime);
-                context.SaveChanges();
-
-                //setting seats in room for new showtime 
-                (bool IsSuccess, string messsage) = SeatService.Ins.SettingSeatForNewShowtime(showtimeSet.RoomId, showtime.Id);
-                if (!IsSuccess)
-                    return (false, "Lỗi hệ thống! Vui lòng thử lại");
-                newShowtime.Id = showtime.Id;
-                return (true, "Thêm suất chiếu thành công" );
             }
             catch (DbEntityValidationException e)
             {
@@ -108,34 +105,60 @@ namespace CinemaManagement.Models.Services
 
             }
         }
-        public (bool IsSuccess, string message) DeleteShowtime(int showtimeId) {
+        public (bool IsSuccess, string message) DeleteShowtime(int showtimeId)
+        {
 
-            var context = DataProvider.Ins.DB;
             try
             {
-                Showtime show = context.Showtimes.Find(showtimeId);
-                if(show is null)
+                using (var context = new CinemaManagementEntities())
                 {
-                    return (false, "Suất chiếu không tồn tại!");
+                    Showtime show = context.Showtimes.Find(showtimeId);
+                    if (show is null)
+                    {
+                        return (false, "Suất chiếu không tồn tại!");
+                    }
+                    context.Showtimes.Remove(show);
+                    context.SaveChanges();
                 }
-                context.Showtimes.Remove(show);
-                context.SaveChanges();
             }
             catch (Exception)
             {
-                return (false, "Lỗi hệ thống");   
+                return (false, "Lỗi hệ thống");
             }
             return (true, "Xóa suất chiếu thành công!");
         }
+        public (bool IsSuccess, string message) UpdateTicketPrice(int showtimeId, decimal price)
+        {
 
+            try
+            {
+                using (var context = new CinemaManagementEntities())
+                {
+                    Showtime show = context.Showtimes.Find(showtimeId);
+                    if (show is null)
+                    {
+                        return (false, "Suất chiếu không tồn tại!");
+                    }
+                    show.TicketPrice = price;
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception)
+            {
+                return (false, "Lỗi hệ thống");
+            }
+            return (true, "Cập nhật giá thành công!");
+        }
         public bool CheckShowtimeHaveBooking(int showtimeId)
         {
 
-            var context = DataProvider.Ins.DB;
             try
             {
-                var IsExist = context.SeatSettings.Any(s => s.ShowtimeId == showtimeId && s.Status);
-                return IsExist;
+                using (var context = new CinemaManagementEntities())
+                {
+                    var IsExist = context.SeatSettings.Any(s => s.ShowtimeId == showtimeId && s.Status);
+                    return IsExist;
+                }
             }
             catch (Exception e)
             {

@@ -151,9 +151,6 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
-    </Reference>
     <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Collections.Immutable.1.7.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
     </Reference>
@@ -226,6 +223,9 @@
     <Compile Include="DTOs\StaffDTO.cs" />
     <Compile Include="DTOs\TicketDTO.cs" />
     <Compile Include="DTOs\TicketBillInfoDTO.cs" />
+    <Compile Include="DTOs\TroubleDTO.cs" />
+    <Compile Include="DTOs\VoucherDTO.cs" />
+    <Compile Include="DTOs\VoucherReleaseDTO.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -280,12 +280,15 @@
     <Compile Include="Models\Services\CustomerService.cs" />
     <Compile Include="Models\Services\GenreService.cs" />
     <Compile Include="Models\Services\MovieService.cs" />
+    <Compile Include="Models\Services\Overview.StatisticService.cs" />
     <Compile Include="Models\Services\ProductReceiptService.cs" />
     <Compile Include="Models\Services\ProductService.cs" />
     <Compile Include="Models\Services\SeatService.cs" />
     <Compile Include="Models\Services\ShowtimeService.cs" />
     <Compile Include="Models\Services\StaffService.cs" />
     <Compile Include="Models\Services\StatisticsService.cs" />
+    <Compile Include="Models\Services\TroubleService.cs" />
+    <Compile Include="Models\Services\VoucherService.cs" />
     <Compile Include="Models\Showtime.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
@@ -298,9 +301,26 @@
     <Compile Include="Models\Ticket.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Trouble.cs">
+      <DependentUpon>CinemaManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Voucher.cs">
+      <DependentUpon>CinemaManagementModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VoucherRelease.cs">
+      <DependentUpon>CinemaManagementModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Constant.cs" />
     <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />
+    <Compile Include="ViewModel\AdminVM\ErrorVM\ErrorViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\ErrorVM\HintLevelConverter.cs" />
+    <Compile Include="ViewModel\AdminVM\ErrorVM\StatusBrushConverter.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\AddFoodViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\DeleteFoodViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\EditFoodViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\FoodManagementViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\FoodManagementVM\ImportFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Import_ExportManagementVM\ExportDetailViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Import_ExportManagementVM\Import_ExportManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
@@ -316,17 +336,53 @@
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\DoiMatKhauWindowVM.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\EditStaffViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\StaffManagementViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\BestSelling.cs" />
+    <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\Income.cs" />
+    <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\IndexConverter.cs" />
+    <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\Ranking.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\StatisticalManagementViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\VoucherManagementVM\AddWindowVM\AddWindowViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\VoucherManagementVM\AddWindowVM\CheckBoxVisibleConverter.cs" />
+    <Compile Include="ViewModel\AdminVM\VoucherManagementVM\Infor_EditWindowVM\Infor_EditViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\VoucherManagementVM\VoucherViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodPageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\ShowtimePageVM\ShowtimePageViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\TicketBillVM\TicketBillViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketBookingPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
+    <Compile Include="Views\Admin\ErrorManagement\DoneError.xaml.cs">
+      <DependentUpon>DoneError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ErrorManagement\ErrorManagement.xaml.cs">
+      <DependentUpon>ErrorManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ErrorManagement\InprogressError.xaml.cs">
+      <DependentUpon>InprogressError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\ErrorManagement\WaitingError.xaml.cs">
+      <DependentUpon>WaitingError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml.cs">
+      <DependentUpon>AddFoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml.cs">
+      <DependentUpon>DeleteFoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\EditFoodWindow.xaml.cs">
+      <DependentUpon>EditFoodWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\FoodPage.xaml.cs">
+      <DependentUpon>FoodPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\FoodManagementPage\ImportFoodWindow.xaml.cs">
+      <DependentUpon>ImportFoodWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\Import_ExportManagement\ExportDetail.xaml.cs">
       <DependentUpon>ExportDetail.xaml</DependentUpon>
     </Compile>
@@ -384,18 +440,56 @@
     <Compile Include="Views\Admin\ShowtimeManagement\ShowtimeManagement.xaml.cs">
       <DependentUpon>ShowtimeManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\StatisticalManagement\BestSellingStatistical.xaml.cs">
+      <DependentUpon>BestSellingStatistical.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\StatisticalManagement\IncomeStatistical.xaml.cs">
+      <DependentUpon>IncomeStatistical.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\StatisticalManagement\RankingStatistical.xaml.cs">
+      <DependentUpon>RankingStatistical.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\StatisticalManagement\StatisticalManagement.xaml.cs">
       <DependentUpon>StatisticalManagement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExampleWindow.xaml.cs">
-      <DependentUpon>ExampleWindow.xaml</DependentUpon>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddInfor.xaml.cs">
+      <DependentUpon>AddInfor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ForgotPassWindow.xaml.cs">
-      <DependentUpon>ForgotPassWindow.xaml</DependentUpon>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddListMiniVoucher.xaml.cs">
+      <DependentUpon>AddListMiniVoucher.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginWindow.xaml.cs">
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddMiniVoucher.xaml.cs">
+      <DependentUpon>AddMiniVoucher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddVoucher.xaml.cs">
+      <DependentUpon>AddVoucher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddWindow.xaml.cs">
+      <DependentUpon>AddWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\Infor_EditWindow\Edit_InforPage.xaml.cs">
+      <DependentUpon>Edit_InforPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\Infor_EditWindow\Infor_EditWindow.xaml.cs">
+      <DependentUpon>Infor_EditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\VoucherManagement.xaml.cs">
+      <DependentUpon>VoucherManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow\ChangePassPage.xaml.cs">
+      <DependentUpon>ChangePassPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow\ForgotPassPage.xaml.cs">
+      <DependentUpon>ForgotPassPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MessageBoxCustom.xaml.cs">
+      <DependentUpon>MessageBoxCustom.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
@@ -403,14 +497,14 @@
     <Compile Include="Views\Staff\MovieScheduleWindow\MovieScheduleWindow.xaml.cs">
       <DependentUpon>MovieScheduleWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Staff\OrderFoodWindow\FoodPage.xaml.cs">
+      <DependentUpon>FoodPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml.cs">
+      <DependentUpon>FoodWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Staff\ShowtimePage\ShowtimePage.xaml.cs">
       <DependentUpon>ShowtimePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Staff\TicketBill\TicketBillNoFoodPage.xaml.cs">
-      <DependentUpon>TicketBillNoFoodPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Staff\TicketBill\TicketBillPage.xaml.cs">
-      <DependentUpon>TicketBillPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\TicketWindow\TicketBookingPage.xaml.cs">
       <DependentUpon>TicketBookingPage.xaml</DependentUpon>
@@ -427,12 +521,48 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\Scrollbar\Scrollbar.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\DoneError.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\ErrorManagement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\InprogressError.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\ErrorManagement\WaitingError.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\EditFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\FoodPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\FoodManagementPage\ImportFoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Admin\Import_ExportManagement\ExportDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -510,21 +640,73 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
+    <Page Include="Views\Admin\StatisticalManagement\BestSellingStatistical.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\StatisticalManagement\IncomeStatistical.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\StatisticalManagement\RankingStatistical.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Admin\StatisticalManagement\StatisticalManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ExampleWindow.xaml">
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddInfor.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ForgotPassWindow.xaml">
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddListMiniVoucher.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoginWindow.xaml">
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddMiniVoucher.xaml">
       <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddVoucher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\AddWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\Infor_EditWindow\Edit_InforPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\Infor_EditWindow\Infor_EditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\VoucherManagement\VoucherManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow\ChangePassPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow\ForgotPassPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MessageBoxCustom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Staff\MainStaffWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -534,21 +716,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Staff\OrderFoodWindow\FoodPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Staff\ShowtimePage\ShowtimePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Staff\TicketBill\TicketBillNoFoodPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Staff\TicketBill\TicketBillPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Staff\TicketWindow\TicketBookingPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Staff\TicketWindow\TicketWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -589,14 +771,20 @@
     </None>
     <Resource Include="Font\junegull.ttf" />
     <Resource Include="Resources\Admin\MovieGenreSource.txt" />
-    <Resource Include="Resources\ImageStaff\add-user.png" />
+    <Resource Include="Resources\IconPack\award.png" />
+    <Resource Include="Resources\IconPack\award1.png" />
+    <Resource Include="Resources\IconPack\filmstrip.png" />
+    <Resource Include="Resources\IconPack\foodstrip.png" />
+    <Resource Include="Resources\IconPack\pencil.png" />
+    <Resource Include="Resources\Images\Movies\null.jpg" />
     <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
     <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
     <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
     <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
-    <Resource Include="Resources\LayoutSignin\StoryboardMovie\2.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\1.jpg" />
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\2.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\3.jpg" />
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\4.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -617,15 +805,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Images\Products\" />
+    <Folder Include="Resources\ImageStaff\" />
+    <Folder Include="Resources\Images\Troubles\" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Images\Movies\null.jpg" />
-    <Resource Include="Resources\IconPack\pencil.png" />
-    <Resource Include="Resources\ImageStaff\pencil.png" />
-    <Resource Include="Resources\ImageStaff\delete.png" />
-    <Resource Include="Resources\LayoutSignin\StoryboardMovie\4.jpg" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Models\CinemaManagementModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -637,10 +820,67 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Resources\IconPack\employee.png" />
-    <Resource Include="Resources\IconPack\waiter.png" />
-    <Resource Include="Resources\IconPack\foodstrip.png" />
-    <Resource Include="Resources\IconPack\filmstrip.png" />
+    <Resource Include="Views\Staff\ShowtimePage\movie-theatre-png-35891.png" />
+    <Resource Include="Views\Staff\ShowtimePage\pngtree-blue-movie-film-texture-background-image_321897.jpg" />
+    <Resource Include="Resources\Icon\error.png" />
+    <Resource Include="Resources\Icon\ErrorIcon.png" />
+    <Resource Include="Resources\Icon\info.png" />
+    <Resource Include="Resources\Icon\logo.png" />
+    <Resource Include="Resources\Icon\Money.jpg" />
+    <Resource Include="Resources\Icon\succes.png" />
+    <Resource Include="Resources\Icon\warning.png" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Beef.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Cheese.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Burger\Chicken.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Coca Cola.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Espresso Coffee.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Milk Tea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Peach Tea.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Drink\Pepsi.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Boerie Rolls.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Choripan.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Hotdog\Completo.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Bulgogi.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Lamacun.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Langos.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Sfiha.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Pizza\Tarte Flambee.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Butter Milk.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Caramel.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Healthy.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Popcorn\Salty Butter.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\French Fries.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Ostar.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Poca.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Slide.jpg" />
+    <Resource Include="Resources\FoodLayout\Food\Snack\Tonies.jpg" />
+    <Resource Include="Resources\FoodLayout\Icon\Money.jpg" />
+    <Resource Include="Resources\Images\ImageFood\add-image.png" />
+    <Resource Include="Resources\Images\ImageFood\adding.png" />
+    <Resource Include="Resources\Images\ImageFood\delete.png" />
+    <Resource Include="Resources\Images\ImageFood\dong.png" />
+    <Resource Include="Resources\Images\ImageFood\edit.png" />
+    <Resource Include="Resources\Images\ImageFood\pop-corn.png" />
+    <Resource Include="Resources\Images\ImageFood\popcorn.png" />
+    <Resource Include="Resources\Images\ImageStaff\add-user.png" />
+    <Resource Include="Resources\Images\ImageStaff\delete.png" />
+    <Resource Include="Resources\Images\ImageStaff\pencil.png" />
+    <Resource Include="Resources\Images\Movies\ban_tay_quy_diet.jpg" />
+    <Resource Include="Resources\Images\Movies\bo_gia.jpg" />
+    <Resource Include="Resources\Images\Movies\conan_movie_24.jpg" />
+    <Resource Include="Resources\Images\Movies\Con_lac_ta_thuat.jpg" />
+    <Resource Include="Resources\Images\Movies\duong_son_dai_dia_chan.jpg" />
+    <Resource Include="Resources\Images\Movies\godzilla_vs_Kong.jpg" />
+    <Resource Include="Resources\Images\Movies\hoi_dap_1988.jpg" />
+    <Resource Include="Resources\Images\Movies\john_wick_chapter_4.jpg" />
+    <Resource Include="Resources\Images\Movies\lat_mat_48h.jpg" />
+    <Resource Include="Resources\Images\Movies\nobita_va_dao_giau_vang.jpg" />
+    <Resource Include="Resources\Images\Movies\Palm_springs.jpg" />
+    <Resource Include="Resources\Images\Movies\the_walking_dead.jpg" />
+    <Resource Include="Resources\Images\Movies\thor_love_and_thunder.jpg" />
+    <Resource Include="Resources\Images\Movies\tro_choi_con_muc.jpg" />
+    <Resource Include="Resources\Images\Movies\z_nation_1.jpg" />
+    <Resource Include="Resources\Images\Products\null.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.2.1\build\MaterialDesignThemes.targets')" />

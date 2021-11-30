@@ -11,7 +11,6 @@ namespace CinemaManagement.Views.Staff.TicketWindow
         public TicketWindow()
         {
             InitializeComponent();
-            DataContext = new TicketWindowViewModel();
         }
     }
 }

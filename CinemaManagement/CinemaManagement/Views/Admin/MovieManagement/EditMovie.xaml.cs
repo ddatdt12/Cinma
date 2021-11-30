@@ -1,19 +1,19 @@
-﻿using System.Text.RegularExpressions;
+﻿using CinemaManagement.ViewModel.AdminVM.MovieManagementVM;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 {
-    /// <summary>
-    /// Interaction logic for EditMovie.xaml
-    /// </summary>
     public partial class EditMovie : Window
     {
         public EditMovie()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -66,6 +66,7 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            MovieManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
             this.Close();
         }
     }

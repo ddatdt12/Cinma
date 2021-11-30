@@ -16,8 +16,24 @@
         MouseDown="AddSuatChieu_MouseDown"
         DataContext="{StaticResource ShowtimeManagementVM}"
         Title="AddSuatChieuWindow">
-    <Grid>
-        <Border Background="#FFF0F3F7"
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="AddSuatChieu"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Border Background="#FFF0F3F7"
                 CornerRadius="10"
                 BorderBrush="Gray"
                 BorderThickness="1">
@@ -109,7 +125,6 @@
                                             Margin="0,0,64,0"
                                             x:Name="_movieDate"
                                             SelectedDate="{Binding showtimeDate, Mode=TwoWay}"
-                                            Text="{Binding SetCurrentDate}"
                                             materialDesign:HintAssist.IsFloating="False"
                                             Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
                                             Focusable="False"/>
@@ -266,5 +281,5 @@
                 </Grid>
             </Grid>
         </Border>
-    </Grid>
+
 </Window>

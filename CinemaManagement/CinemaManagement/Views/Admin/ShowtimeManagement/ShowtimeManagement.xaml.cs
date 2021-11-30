@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Controls;
 using System.Windows.Data;
-
+using System.Windows.Markup;
 namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
 {
 
@@ -11,8 +11,8 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
         public ShowtimeManagement()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
 
-           
         }
 
         private bool Filter(object item)

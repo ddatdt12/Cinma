@@ -14,7 +14,30 @@
       FontFamily="{DynamicResource MaterialDesignFont}"
       DataContext="{StaticResource Import_ExportManagementVM}"
       d:DesignHeight="720"
-      d:DesignWidth="1440">
+      d:DesignWidth="1440"
+      x:Name="mainPage">
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.5" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding MaskNameCM}"
+                                   CommandParameter="{Binding ElementName=ShadowMask}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid Background="#f0f2f5">
 
@@ -60,6 +83,10 @@
             </materialDesign:Card>
         </Grid>
 
-
+        <Grid
+              Background="Gray"
+              Opacity="0.3"
+              Visibility="Collapsed"
+              x:Name="ShadowMask" />
     </Grid>
 </Page>

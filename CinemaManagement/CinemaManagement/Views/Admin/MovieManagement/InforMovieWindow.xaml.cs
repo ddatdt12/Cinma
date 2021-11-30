@@ -1,23 +1,25 @@
-﻿using System.Windows;
+﻿using CinemaManagement.ViewModel.AdminVM.MovieManagementVM;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 {
-
     public partial class InforMovieWindow : Window
     {
         public InforMovieWindow()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
- 
+
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
@@ -32,6 +34,7 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            MovieManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
             this.Close();
         }
     }

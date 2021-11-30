@@ -8,9 +8,23 @@
       mc:Ignorable="d"
       d:DesignHeight="568"
       d:DesignWidth="1400"
-      Title="ExportPage"
+      x:Name="mainPage"
       DataContext="{StaticResource Import_ExportManagementVM}">
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
 
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="75*" />
@@ -55,7 +69,9 @@
                               Margin="10 0 0 0"
                               Padding="0,10,10,0"
                               FontSize="14"
-                              SelectedIndex="{Binding SelectedIndexFilter,Mode=TwoWay}"
+                              SelectedIndex="1"
+                              x:Name="Filterbox"
+                              SelectedItem="{Binding SelectedItemFilter}"
                               SelectionChanged="ComboBox_SelectionChanged_1">
                         <ComboBoxItem Content="Toàn bộ" />
                         <ComboBoxItem Content="Theo ngày" />
@@ -112,7 +128,6 @@
                    ItemsSource="{Binding ListBill}"
                    Grid.Row="1"
                    SelectedItem="{Binding SelectedTicketBill}">
-
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding LoadInforBillCM}" />
@@ -166,7 +181,7 @@ StringFormat=dd/MM/yyyy HH:mm:ss}"
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding OriginalTotalPrice}"
+                                <TextBlock  Text="{Binding OriginalTotalPriceStr}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -176,7 +191,7 @@ StringFormat=dd/MM/yyyy HH:mm:ss}"
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding DiscountPrice}"
+                                <TextBlock  Text="{Binding DiscountPriceStr}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>
@@ -186,7 +201,7 @@ StringFormat=dd/MM/yyyy HH:mm:ss}"
                                     Width="200">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock  Text="{Binding TotalPrice}"
+                                <TextBlock  Text="{Binding TotalPriceStr}"
                                             FontSize="18"
                                             Margin="10,0,0,0" />
                             </DataTemplate>

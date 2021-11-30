@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:CinemaManagement"
-             StartupUri="Views/Staff/TicketBill/TicketBillPage.xaml">
+             StartupUri="Views/Staff/MainStaffWindow.xaml">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -22,7 +23,7 @@
             <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush"
                              Color="#FFFFFF" />
             <SolidColorBrush x:Key="PrimaryHueMidBrush"
-                             Color="#007bff" />
+                             Color="#0c70b6" />
             <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush"
                              Color="#FFFFFF" />
             <SolidColorBrush x:Key="MyFirstColor"
@@ -52,8 +53,8 @@
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Left"
                                                Foreground="{TemplateBinding Property=Foreground}"
-                                               Padding="2"
-                                               Margin="5 0 0 0"
+                                               Padding="1"
+                                               Margin="2"
                                                FontSize="13" />
                                 </Grid>
                             </ControlTemplate>

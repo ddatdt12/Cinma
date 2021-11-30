@@ -1,23 +1,33 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models;
 using CinemaManagement.Models.Services;
+using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
+using CinemaManagement.Views;
+using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace CinemaManagement.ViewModel
 {
     public class LoginViewModel : BaseViewModel
     {
+        public static Frame MainFrame { get; set; }
+        public Window LoginWindow { get; set; }
+        public ICommand ShadowMaskCM { get; set; }
         public ICommand CloseWindowCM { get; set; }
         public ICommand MinimizeWindowCM { get; set; }
         public ICommand MouseLeftButtonDownWindowCM { get; set; }
         public ICommand ForgotPassCM { get; set; }
         public ICommand LoginCM { get; set; }
         public ICommand PasswordChangedCM { get; set; }
+        public ICommand LoadLoginPageCM { get; set; }
+        public ICommand SaveLoginWindowNameCM { get; set; }
 
 
         private string _username;
@@ -33,12 +43,18 @@ namespace CinemaManagement.ViewModel
             set { _password = value; OnPropertyChanged(); }
         }
 
+        private bool isloadding;
+        public bool IsLoading
+        {
+            get { return isloadding; }
+            set { isloadding = value; OnPropertyChanged(); }
+        }
+
 
         public LoginViewModel()
         {
             try
             {
-                var ctx = DataProvider.Ins.DB;
             }
             catch (InvalidOperationException e)
             {
@@ -47,23 +63,6 @@ namespace CinemaManagement.ViewModel
             {
                 MessageBox.Show($"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            CloseWindowCM = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
-            {
-
-                if (p != null)
-                {
-                    p.Close();
-                }
-
-            });
-            MinimizeWindowCM = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
-            {
-
-                if (p != null)
-                {
-                    p.WindowState = WindowState.Minimized;
-                }
-            });
             MouseLeftButtonDownWindowCM = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {
                 if (p != null)
@@ -71,31 +70,34 @@ namespace CinemaManagement.ViewModel
                     p.DragMove();
                 }
             });
-            ForgotPassCM = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
+            ForgotPassCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                ForgotPassWindow w1 = new ForgotPassWindow();
-                w1.ShowDialog();
-            });
 
+                MainFrame.Content = new ForgotPassPage();
+            });
             LoginCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
             {
                 string username = Username;
                 string password = Password;
 
-                Window temp = GetParentWindow(p) as Window;
-
-                CheckValidateAccount(username, password, temp, p);
-
-
+                CheckValidateAccount(username, password, p);
             });
-
             PasswordChangedCM = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
             {
                 Password = p.Password;
             });
+            LoadLoginPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+              {
+                  MainFrame = p;
+                  p.Content = new LoginPage();
+              });
+            SaveLoginWindowNameCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                LoginWindow = p;
+            });
         }
 
-        public void CheckValidateAccount(string usn, string pwr, Window p, Label lbl)
+        public void CheckValidateAccount(string usn, string pwr, Label lbl)
         {
 
             if (string.IsNullOrEmpty(usn) || string.IsNullOrEmpty(pwr))
@@ -104,29 +106,27 @@ namespace CinemaManagement.ViewModel
                 return;
             }
 
-
             (bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login(usn, pwr);
-
             if (loginSuccess)
             {
-                Password = "";
 
+                Password = "";
+                VoucherViewModel.StaffID = staff.Id;
+                LoginWindow.Hide();
                 if (staff.Role == "Quản lý")
                 {
                     MainAdminWindow w1 = new MainAdminWindow();
                     w1.CurrentUserName.Content = staff.Name;
-                    p.Hide();
-                    w1.ShowDialog();
-                    p.Close();
+                    w1.Show();
+                    LoginWindow.Close();
                     return;
                 }
                 else
                 {
                     MainStaffWindow w1 = new MainStaffWindow();
-                    p.Hide();
                     w1._StaffName.Text = staff.Name;
-                    w1.ShowDialog();
-                    p.Close();
+                    w1.Show();
+                    LoginWindow.Close();
                     return;
                 }
 

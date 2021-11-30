@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace CinemaManagement.Views.Admin.Import_ExportManagement
 {
-    /// <summary>
-    /// Interaction logic for ProductDetail.xaml
-    /// </summary>
     public partial class ProductDetail : Window
     {
         public ProductDetail()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -44,6 +35,7 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            Import_ExportManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
             this.Close();
         }
     }

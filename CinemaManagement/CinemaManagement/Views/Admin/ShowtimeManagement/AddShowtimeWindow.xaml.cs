@@ -1,7 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
@@ -12,6 +14,7 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
         public AddShowtimeWindow()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void AddSuatChieu_MouseDown(object sender, MouseButtonEventArgs e)
@@ -29,7 +32,7 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
             return !_regex.IsMatch(text);
         }
 
-        private void _moviePrice_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void _moviePrice_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox tb = sender as TextBox;
             if (tb.Text.Length == 0)
@@ -52,6 +55,7 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
+            ShowtimeManagementViewModel.ShadowMask.Visibility = Visibility.Collapsed;
         }
     }
 }

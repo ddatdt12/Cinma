@@ -83,7 +83,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             get { return _movieYear; }
             set { _movieYear = value; OnPropertyChanged(); }
         }
-        
+
 
         #endregion
 
@@ -96,6 +96,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         string oldMovieName;
         bool IsImageChanged = false;
         bool IsAddingMovie = false;
+        public static System.Windows.Controls.Grid MaskName { get; set; }
 
         System.Windows.Controls.ListView MainListView;
 
@@ -142,12 +143,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public ICommand LoadDeleteMovieCM { get; set; }
         public ICommand StoreMainListViewNameCM { get; set; }
         public ICommand UpdateMovieCM { get; set; }
+        public ICommand MaskNameCM { get; set; }
 
         public MovieManagementViewModel()
         {
             ListCountrySource = new List<string>();
             IsImageChanged = false;
-            
+
             try
             {
                 GenreList = GenreService.Ins.GetAllGenre();
@@ -168,20 +170,27 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             {
                 MainListView = p;
             });
+            MaskNameCM = new RelayCommand<System.Windows.Controls.Grid>((p) => { return true; }, (p) =>
+            {
+                MaskName = p;
+            });
 
             LoadAddMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 RenewWindowData();
                 Window w1 = new AddMovieWindow();
                 IsAddingMovie = true;
+                MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
 
             });
-            LoadInforMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>{
+            LoadInforMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
                 if (SelectedItem == null) return;
                 RenewWindowData();
                 InforMovieWindow w1 = new InforMovieWindow();
                 LoadInforMovie(w1);
+                MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
             LoadEditMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -190,6 +199,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 oldMovieName = movieName;
                 EditMovie w1 = new EditMovie();
                 LoadEditMovie(w1);
+                MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
             LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -219,7 +229,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                           break;
                   }
               });
-
             UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openfile = new OpenFileDialog();
@@ -262,10 +271,44 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         {
             try
             {
-                appPath = Helper.GetMovieImgPath(imgfullname);
-                if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
-                    File.Delete(Helper.GetMovieImgPath(imgfullname));
-                File.Copy(filepath, appPath,true);
+                if (IsAddingMovie)
+                {
+                    appPath = Helper.GetMovieImgPath(imgfullname);
+                    File.Copy(filepath, appPath, true);
+                    return;
+                }
+                if (imgfullname != SelectedItem.Image)
+                {
+                    appPath = Helper.GetMovieImgPath(imgfullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)))
+                        File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
+                }
+                else
+                {
+                    string temp_name = imgfullname.Split('.')[0] + "temp";
+                    string temp_ex = imgfullname.Split('.')[1];
+                    string temp_fullname = Helper.CreateImageFullName(temp_name, temp_ex);
+
+                    appPath = Helper.GetMovieImgPath(temp_fullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
+                        File.Delete(Helper.GetMovieImgPath(imgfullname));
+                    appPath = Helper.GetMovieImgPath(imgfullname);
+                    filepath = Helper.GetMovieImgPath(temp_fullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetMovieImgPath(temp_fullname)))
+                        File.Delete(Helper.GetMovieImgPath(temp_fullname));
+
+                }
+
+
+
+                //appPath = Helper.GetMovieImgPath(imgfullname);
+                //if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
+                //    File.Delete(Helper.GetMovieImgPath(imgfullname));
+                //File.Copy(filepath, appPath, true);
+
             }
             catch (Exception exp)
             {

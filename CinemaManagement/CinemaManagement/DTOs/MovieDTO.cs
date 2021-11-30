@@ -24,17 +24,9 @@ namespace CinemaManagement.DTOs
         public IList<ShowtimeDTO> Showtimes { get; set; }
         public IList<GenreDTO> Genres { get; set; }
 
-        private string _image;
         public string Image
         {
-            get
-            {
-                return _image;
-            }
-            set
-            {
-                _image = value;
-            }
+            get;set;
         }
 
         public ImageSource _imgSource;
@@ -44,22 +36,28 @@ namespace CinemaManagement.DTOs
             {
                 if (_imgSource is null)
                 {
-                    if (File.Exists(Helper.GetMovieImgPath(_image)))
+                    if (File.Exists(Helper.GetMovieImgPath(Image)))
                     {
-                        _imgSource = Helper.GetImageSource(_image);
+                        _imgSource = Helper.GetMovieImageSource(Image);
                     }
                     else
                     {
-                        _imgSource = Helper.GetImageSource("null.jpg");
+                        _imgSource = Helper.GetMovieImageSource("null.jpg");
                     }
                 }
                 return _imgSource;
             }
-            set
+        }
+        public decimal Revenue { get; set; }
+        public string RevenueStr
+        {
+            get
             {
-                _imgSource = value;
+                return Helper.FormatVNMoney(Revenue);
             }
         }
+
+        public int TicketCount { get; set; }
 
     }
 }

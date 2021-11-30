@@ -112,6 +112,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
         public ICommand MouseMoveCommand { get; set; }
         public ICommand CloseCommand { get; set; }
+        public ICommand MaskNameCM { get; set; }
 
 
 
@@ -123,6 +124,8 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             get { return _SelectedItem; }
             set { _SelectedItem = value; OnPropertyChanged(); }
         }
+
+        public static Grid MaskName { get; set; }
 
 
         public StaffManagementViewModel()
@@ -171,6 +174,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 {
                     ThemNhanVienWindow wd = new ThemNhanVienWindow();
                     ResetData();
+                    MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
 
                 });
@@ -203,10 +207,13 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     //StartDate = (DateTime)SelectedItem.StartingDate;
                     TaiKhoan = SelectedItem.Username;
 
+                    MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
                 });
 
-            OpenDeleteStaffCommand = new RelayCommand<object>((p) => { return true; }, (p) => { XoaNhanVienWindow wd = new XoaNhanVienWindow(); wd.ShowDialog(); });
+            OpenDeleteStaffCommand = new RelayCommand<object>((p) => { return true; }, (p) => { XoaNhanVienWindow wd = new XoaNhanVienWindow();
+                MaskName.Visibility = Visibility.Visible;
+                wd.ShowDialog(); });
 
             OpenChangePassCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -222,10 +229,15 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 var w = window as Window;
                 if (w != null)
                 {
+                    MaskName.Visibility = Visibility.Collapsed;
                     w.Close();
                 }
             }
             );
+            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+            {
+                MaskName = p;
+            });
 
             MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {

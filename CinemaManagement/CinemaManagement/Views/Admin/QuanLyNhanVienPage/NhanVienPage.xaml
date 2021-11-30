@@ -18,11 +18,33 @@
       d:DesignWidth="1440"
       Title="NhanVienPage"
       DataContext="{StaticResource StaffManagementVM}"
-      ShowsNavigationUI="False">
+      ShowsNavigationUI="False"
+      x:Name="mainPage">
+ 
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.5" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding GetListViewCommand}"
-                                   CommandParameter="{Binding ElementName=ListView}" />
+                                   CommandParameter="{Binding ElementName=_ListView}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding MaskNameCM}"
+                                   CommandParameter="{Binding ElementName=ShadowMask}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -65,7 +87,7 @@
                              UniformCornerRadius="5"
                              Margin="30,20,30,20">
             <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          x:Name="listView"
+                          x:Name="_listView"
                           PreviewMouseWheel="listView_PreviewMouseWheel">
                 <ListView ItemsSource="{Binding StaffList}"
                           FontFamily="Ubuntu"
@@ -169,7 +191,7 @@
                                                        Cursor="Hand" />
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=listView, Path=DataContext.OpenEditStaffCommand}" />
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.OpenEditStaffCommand}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </Border>
@@ -195,7 +217,7 @@
                                                                          Cursor="Hand" />
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=listView, Path=DataContext.OpenDeleteStaffCommand}" />
+                                                        <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.OpenDeleteStaffCommand}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </Border>
@@ -215,5 +237,11 @@
             </ScrollViewer>
         </materialDesign:Card>
         <!--#endregion-->
+        
+        <Grid Grid.RowSpan="2"
+              Background="Gray"
+              Opacity="0.3"
+              Visibility="Collapsed"
+              x:Name="ShadowMask" />
     </Grid>
 </Page>

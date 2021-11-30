@@ -11,7 +11,8 @@ namespace CinemaManagement.DTOs
         public int Id { get; set; }
         public int ShowtimeId { get; set; }
         public int SeatId { get; set; }
-        public decimal Price { get; set; }
+        public decimal _price;
+        public decimal Price { get { return decimal.Truncate(_price); } set { _price = value; } }
 
         //Use when show bill details 
         public int SeatPosition { get; set; }

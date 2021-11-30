@@ -14,8 +14,30 @@
       FontFamily="{DynamicResource MaterialDesignFont}"
       DataContext="{StaticResource MovieManagementVM}"
       d:DesignHeight="720"
-      d:DesignWidth="1440">
+      d:DesignWidth="1440"
+      x:Name="mainPage">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding MaskNameCM}"
+                                   CommandParameter="{Binding ElementName=ShadowMask}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="mainPage"
+                                        Storyboard.TargetProperty="Opacity"
+                                        From="0"
+                                        To="1"
+                                        Duration="0:0:0.3" />
 
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
 
     <Grid Background="#f0f2f5">
 
@@ -74,14 +96,6 @@
                     </i:Interaction.Triggers>
                     <ListView.View>
                         <GridView>
-                            <!--<GridViewColumn Header="ID">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock  Text="{Binding Id}"
-                                                    FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>-->
                             <GridViewColumn Header="Tên phim">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -159,5 +173,11 @@
             </materialDesign:Card>
 
         </Grid>
+
+        <Grid Grid.RowSpan="2"
+              Background="Gray"
+              Opacity="0.3"
+              Visibility="Collapsed"
+              x:Name="ShadowMask" />
     </Grid>
 </Page>

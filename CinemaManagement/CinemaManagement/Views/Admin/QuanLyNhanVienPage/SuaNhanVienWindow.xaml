@@ -18,10 +18,25 @@
         WindowStyle="None"
         Name="SuaNV"
         ResizeMode="NoResize"
-        Title="SuaNhanVienWindow"
         Height="480"
         Width="500"
         WindowStartupLocation="CenterOwner">
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="SuaNV"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
@@ -247,13 +262,11 @@
                             </TextBlock>
 
                         </Label>
-
                         <Button Content="Hủy"
                                 Margin="0 0 110 10"
                                 Command="{Binding CloseCommand}"
                                 CommandParameter="{Binding ElementName=SuaNV}"
                                 Background="OrangeRed" />
-
                         <Button Content="Lưu"
                                 Margin="0 0 10 10"
                                 Command="{Binding EditStaffCommand}"

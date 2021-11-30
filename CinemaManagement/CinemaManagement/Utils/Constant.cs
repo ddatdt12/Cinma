@@ -9,7 +9,7 @@ namespace CinemaManagement.Utils
         UPDATE,
         DELETE,
         UPDATE_PASSWORD,
-
+        UPDATE_PROD_QUANTITY
     }
     public class TIME
     {
@@ -25,5 +25,32 @@ namespace CinemaManagement.Utils
         public static readonly string ProductsSource = "/CinemaManagement;component/Resouces/Products";
         public static readonly string MoviesSource = "/CinemaManagement;component/Resouces/Movies";
     }
-
+    public class LEVEL
+    {
+        //LEVEL
+        public static readonly string NORMAL = "Bình thường";
+        public static readonly string CRITICAL = "Nghiêm trọng";
+    }
+    public class STATUS
+    {
+        // STATUS
+        public static readonly string WAITING = "Chờ tiếp nhận";
+        public static readonly string IN_PROGRESS = "Đang giải quyết";
+        public static readonly string DONE = "Đã giải quyết";
+        public static readonly string CANCLE = "Đã hủy";
+    }
+    public class VOUCHER_OBJECT_TYPE
+    {
+        // STATUS
+        public static readonly string PRODUCT = "Sản phẩm";
+        public static readonly string TICKET = "Vé xem phim";
+        public static readonly string ALL = "Toàn bộ";
+    }
+    public class VOUCHER_STATUS
+    {
+        // STATUS
+        public static readonly string REALEASED = "Đã phát hành";
+        public static readonly string UNRELEASED = "Chưa phát hành";
+        public static readonly string USED = "Đã sử dụng";
+    }
 }

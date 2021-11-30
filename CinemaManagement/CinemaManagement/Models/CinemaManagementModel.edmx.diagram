@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7049e52014da4e9ca31376de415a5d4c" Name="Diagram1">
+      <Diagram DiagramId="7049e52014da4e9ca31376de415a5d4c" Name="Diagram1" ZoomLevel="77">
         <EntityTypeShape EntityType="CinemaManagementModel.Bill" Width="1.5" PointX="6" PointY="15.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Customer" Width="1.5" PointX="3.75" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Genre" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Movie" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="8.75" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.ProductBillInfo" Width="1.5" PointX="10" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.ProductReceipt" Width="1.5" PointX="10" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="9" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.ProductBillInfo" Width="1.5" PointX="5.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaManagementModel.ProductReceipt" Width="1.5" PointX="9.875" PointY="15.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Room" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Seat" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.SeatSetting" Width="1.5" PointX="5.75" PointY="2.375" IsExpanded="true" />
@@ -35,7 +35,14 @@
         <AssociationConnector Association="CinemaManagementModel.FK__Showtime__Showti__5070F446" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__Ticket__Showtime__619B8048" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.GenreDetails" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="CinemaManagementModel.Trouble" Width="1.5" PointX="0.875" PointY="14.375" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Voucher" Width="1.5" PointX="8.25" PointY="20.625" />
+        <EntityTypeShape EntityType="CinemaManagementModel.VoucherRelease" Width="1.5" PointX="6" PointY="20.375" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Voucher__Custome__2FCF1A8A" />
+        <AssociationConnector Association="CinemaManagementModel.FK__VoucherRe__Staff__2B0A656D" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Voucher__Voucher__2EDAF651" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

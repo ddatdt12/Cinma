@@ -10,6 +10,7 @@ namespace CinemaManagement.DTOs
         {
             Role = ROLE.Staff;
         }
+
         public StaffDTO(string id, string name, string gender, DateTime birthday, string phonenumber, string role, DateTime startingdate)
         {
             Id = id; Name = name; Gender = gender; BirthDate = birthday; PhoneNumber = phonenumber; Role = role; StartingDate = startingdate;
@@ -44,5 +45,16 @@ namespace CinemaManagement.DTOs
         public string Role { get; set; }
 
         public virtual IList<BillDTO> Bills { get; set; }
+
+
+        //Statistic
+        public decimal BenefitContribution { get; set; }
+        public string BenefitContributionStr
+        {
+            get
+            {
+                return Helper.FormatVNMoney(BenefitContribution);
+            }
+        }
     }
 }

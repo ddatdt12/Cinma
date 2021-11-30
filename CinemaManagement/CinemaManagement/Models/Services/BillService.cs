@@ -30,23 +30,24 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                var context = DataProvider.Ins.DB;
-
-
-                var billList = (from b in context.Bills
-                                select new BillDTO
-                                {
-                                    Id = b.Id,
-                                    StaffId = b.StaffId,
-                                    StaffName = b.Staff.Name,
-                                    TotalPrice = b.TotalPrice,
-                                    DiscountPrice = b.DiscountPrice,
-                                    CustomerId = b.CustomerId,
-                                    CustomerName = b.Customer.Name,
-                                    PhoneNumber = b.Customer.PhoneNumber,
-                                    CreatedAt =b.CreatedAt
-                                }).ToList();
-                return billList;
+                using (var context = new CinemaManagementEntities())
+                {
+                    var billList = (from b in context.Bills
+                                    orderby b.CreatedAt descending
+                                    select new BillDTO
+                                    {
+                                        Id = b.Id,
+                                        StaffId = b.StaffId,
+                                        StaffName = b.Staff.Name,
+                                        TotalPrice = b.TotalPrice,
+                                        DiscountPrice = b.DiscountPrice,
+                                        CustomerId = b.CustomerId,
+                                        CustomerName = b.Customer.Name,
+                                        PhoneNumber = b.Customer.PhoneNumber,
+                                        CreatedAt = b.CreatedAt
+                                    }).ToList();
+                    return billList;
+                }
             }
             catch (Exception e)
             {
@@ -59,27 +60,29 @@ namespace CinemaManagement.Models.Services
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<BillDTO> GetBillByDate(DateTime date) {
+        public List<BillDTO> GetBillByDate(DateTime date)
+        {
             try
             {
-                var context = DataProvider.Ins.DB;
-
-
-                var billList = (from b in context.Bills
-                        where DbFunctions.TruncateTime(b.CreatedAt) == date.Date
-                        select new BillDTO
-                        {
-                            Id = b.Id,
-                            StaffId = b.StaffId,
-                            StaffName = b.Staff.Name,
-                            TotalPrice = b.TotalPrice,
-                            DiscountPrice = b.DiscountPrice,
-                            CustomerId =b.CustomerId,
-                            CustomerName =b.Customer.Name,
-                            PhoneNumber = b.Customer.PhoneNumber,
-                            CreatedAt = b.CreatedAt
-                        }).ToList();
-                return billList;
+                using (var context = new CinemaManagementEntities())
+                {
+                    var billList = (from b in context.Bills
+                                    where DbFunctions.TruncateTime(b.CreatedAt) == date.Date
+                                    orderby b.CreatedAt descending
+                                    select new BillDTO
+                                    {
+                                        Id = b.Id,
+                                        StaffId = b.StaffId,
+                                        StaffName = b.Staff.Name,
+                                        TotalPrice = b.TotalPrice,
+                                        DiscountPrice = b.DiscountPrice,
+                                        CustomerId = b.CustomerId,
+                                        CustomerName = b.Customer.Name,
+                                        PhoneNumber = b.Customer.PhoneNumber,
+                                        CreatedAt = b.CreatedAt
+                                    }).ToList();
+                    return billList;
+                }
             }
             catch (Exception e)
             {
@@ -96,24 +99,25 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                var context = DataProvider.Ins.DB;
-
-
-                var billList = (from b in context.Bills
-                                where b.CreatedAt.Month == month
-                                select new BillDTO
-                                {
-                                    Id = b.Id,
-                                    StaffId = b.StaffId,
-                                    StaffName = b.Staff.Name,
-                                    TotalPrice = b.TotalPrice,
-                                    DiscountPrice = b.DiscountPrice,
-                                    CustomerId = b.CustomerId,
-                                    CustomerName = b.Customer.Name,
-                                    PhoneNumber = b.Customer.PhoneNumber,
-                                    CreatedAt = b.CreatedAt
-                                }).ToList();
-                return billList;
+                using (var context = new CinemaManagementEntities())
+                {
+                    var billList = (from b in context.Bills
+                                    where b.CreatedAt.Year == DateTime.Now.Year && b.CreatedAt.Month == month
+                                    orderby b.CreatedAt descending
+                                    select new BillDTO
+                                    {
+                                        Id = b.Id,
+                                        StaffId = b.StaffId,
+                                        StaffName = b.Staff.Name,
+                                        TotalPrice = b.TotalPrice,
+                                        DiscountPrice = b.DiscountPrice,
+                                        CustomerId = b.CustomerId,
+                                        CustomerName = b.Customer.Name,
+                                        PhoneNumber = b.Customer.PhoneNumber,
+                                        CreatedAt = b.CreatedAt
+                                    }).ToList();
+                    return billList;
+                }
             }
             catch (Exception e)
             {
@@ -130,61 +134,62 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                var context = DataProvider.Ins.DB;
-                var bill= context.Bills.Find(billId);
+                using (var context = new CinemaManagementEntities())
+                {
+                    var bill = context.Bills.Find(billId);
 
-                BillDTO billInfo = new BillDTO
-                {
-                    Id = bill.Id,
-                    StaffId = bill.Staff.Id,
-                    StaffName = bill.Staff.Name,
-                    DiscountPrice = bill.DiscountPrice,
-                    TotalPrice = bill.TotalPrice,
-                    CreatedAt = bill.CreatedAt,
-                    ProductBillInfoes = (from pi in bill.ProductBillInfoes
-                                         select new ProductBillInfoDTO
-                                         {
-                                             BillId = pi.BillId,
-                                             ProductId = pi.ProductId,
-                                             ProductName = pi.Product.DisplayName,
-                                             PricePerItem = pi.PricePerItem,
-                                             Quantity = pi.Quantity
-                                         }).ToList(),
-                };
-                if (bill.CustomerId !=  null)
-                {
-                    billInfo.CustomerId = bill.Customer.Id;
-                    billInfo.CustomerName = bill.Customer.Name;
-                    billInfo.PhoneNumber = bill.Customer.PhoneNumber;
-                }
-                
-
-                var tickets = bill.Tickets;
-                if (tickets.Count != 0)
-                {
-                    var showtime = tickets.FirstOrDefault().Showtime;
-                    int roomId = 0;
-                    List<string> seatList = new List<string>();
-                    foreach (var t in tickets)
+                    BillDTO billInfo = new BillDTO
                     {
-                        if (roomId == 0)
-                        {
-                            roomId = t.Seat.RoomId;
-                        }
-                        seatList.Add($"{t.Seat.Row}{t.Seat.SeatNumber}");
-                    }
-                    billInfo.TicketInfo = new TicketBillInfoDTO()
-                    {
-                        roomId = roomId,
-                        movieName = showtime.Movie.DisplayName,
-                        ShowDate = showtime.ShowtimeSetting.ShowDate,
-                        StartShowTime = showtime.StartTime,
-                        TotalPriceTicket = tickets.Count() * showtime.TicketPrice,
-                        seats = seatList,
+                        Id = bill.Id,
+                        StaffId = bill.Staff.Id,
+                        StaffName = bill.Staff.Name,
+                        DiscountPrice = bill.DiscountPrice,
+                        TotalPrice = bill.TotalPrice,
+                        CreatedAt = bill.CreatedAt,
+                        ProductBillInfoes = (from pi in bill.ProductBillInfoes
+                                             select new ProductBillInfoDTO
+                                             {
+                                                 BillId = pi.BillId,
+                                                 ProductId = pi.ProductId,
+                                                 ProductName = pi.Product.DisplayName,
+                                                 PricePerItem = pi.PricePerItem,
+                                                 Quantity = pi.Quantity
+                                             }).ToList(),
                     };
-                }
-              
+                    if (bill.CustomerId != null)
+                    {
+                        billInfo.CustomerId = bill.Customer.Id;
+                        billInfo.CustomerName = bill.Customer.Name;
+                        billInfo.PhoneNumber = bill.Customer.PhoneNumber;
+                    }
+
+
+                    var tickets = bill.Tickets;
+                    if (tickets.Count != 0)
+                    {
+                        var showtime = tickets.FirstOrDefault().Showtime;
+                        int roomId = 0;
+                        List<string> seatList = new List<string>();
+                        foreach (var t in tickets)
+                        {
+                            if (roomId == 0)
+                            {
+                                roomId = t.Seat.RoomId;
+                            }
+                            seatList.Add($"{t.Seat.Row}{t.Seat.SeatNumber}");
+                        }
+                        billInfo.TicketInfo = new TicketBillInfoDTO()
+                        {
+                            roomId = roomId,
+                            movieName = showtime.Movie.DisplayName,
+                            ShowDate = showtime.ShowtimeSetting.ShowDate,
+                            StartShowTime = showtime.StartTime,
+                            TotalPriceTicket = tickets.Count() * showtime.TicketPrice,
+                            seats = seatList,
+                        };
+                    }
                 return billInfo;
+                }
             }
             catch (Exception e)
             {

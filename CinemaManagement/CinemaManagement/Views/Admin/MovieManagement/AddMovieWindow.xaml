@@ -20,6 +20,22 @@
         MouseLeftButtonDown="addmoviewindow_MouseLeftButtonDown"
         DataContext="{StaticResource MovieManagementVM}"
         PreviewKeyUp="addmoviewindow_PreviewKeyUp">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="addmoviewindow"
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
+
+
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
     <Grid>
         <Border Background="White"
                 CornerRadius="10"

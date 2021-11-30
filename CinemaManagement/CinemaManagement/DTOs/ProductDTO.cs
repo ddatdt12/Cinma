@@ -7,37 +7,64 @@ namespace CinemaManagement.DTOs
 {
     public class ProductDTO
     {
-        public ProductDTO()
+        public ProductDTO() { }
+        public ProductDTO(int id,
+                          string displayname,
+                          string category,
+                          decimal price,
+                          string image,
+                          int quantity)
         {
+            this.Id = id;
+            this.DisplayName = displayname;
+            this.Category = category;
+            this.Price = price;
+            this.Image = image;
+            this.Quantity = quantity;
         }
         public int Id { get; set; }
         public string DisplayName { get; set; }
         public string Category { get; set; }
         public decimal Price { get; set; }
-        public int Quantity { get; set; }
-
-        private string _image;
-        public string Image
+        public string PriceStr
         {
             get
             {
-                return _image;
-            }
-            set
-            {
-                _image = value;
-                if (File.Exists(Helper.GetProductImgPath()))
-                {
-                    ImgSource = Helper.GetImageSource(_image);
-                }
-                else
-                {
-                    _image = "null.jpg";
-                    ImgSource = Helper.GetImageSource("null.jpg");
-                }
+                return Helper.FormatVNMoney(Price);
             }
         }
-        public ImageSource ImgSource { get; set; }
-
+        public int Quantity { get; set; }
+        public string Image
+        {
+            get;set;
+        }
+        public ImageSource _imgSource;
+        public ImageSource ImgSource
+        {
+            get
+            {
+                if (_imgSource is null)
+                {
+                    if (File.Exists(Helper.GetMovieImgPath(Image)))
+                    {
+                        _imgSource = Helper.GetProductImageSource(Image);
+                    }
+                    else
+                    {
+                        _imgSource = Helper.GetProductImageSource("null.jpg");
+                    }
+                }
+                return _imgSource;
+            }
+        }
+        public decimal Revenue { get; set; }
+        public string RevenueStr
+        {
+            get
+            {
+                return Helper.FormatVNMoney(Revenue);
+            }
+        }
+        public int SalesQuantity { get; set; }
     }
 }
