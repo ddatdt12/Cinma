@@ -21,13 +21,12 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
     <Grid>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="140" />
             <ColumnDefinition Width="1300" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0"
-              Background="#FF1F2F55">
+              Background="#FF383737">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80" />
                 <RowDefinition Height="720" />
@@ -47,7 +46,6 @@
             </Grid.Resources>
             <StackPanel Grid.Row="1">
                 <Border BorderBrush="#FF16274D"
-                        BorderThickness="0 2 0 2"
                         CornerRadius="5">
                     <StackPanel x:Name="grdShowing"
                                 Tag="{Binding ElementName=btnShowing}"
@@ -63,6 +61,7 @@
                         <RadioButton Style="{StaticResource MenuButtonMainStaff}"
                                      GroupName="mainOptions"
                                      Content="Phim Đang chiếu"
+                                     FontWeight="Bold"
                                      x:Name="btnShowing"
                                      Width="auto"
                                      Command="{Binding LoadShowtimePageCM}"
@@ -70,7 +69,6 @@
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="#FF16274D"
-                        BorderThickness="0 2 0 2"
                         CornerRadius="5">
                     <StackPanel x:Name="grdFood"
                                 Tag="{Binding ElementName=btnFood}"
@@ -85,6 +83,7 @@
                                                  Foreground="White" />
                         <RadioButton Style="{StaticResource MenuButtonMainStaff}"
                                      Content="Đồ Ăn"
+                                     FontWeight="Bold"
                                      GroupName="mainOptions"
                                      x:Name="btnFood"
                                      Width="110"
@@ -96,116 +95,138 @@
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="80*" />
-                <RowDefinition Height="720*" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="720" />
             </Grid.RowDefinitions>
             <!--thanh task bar de keo-->
-            <StackPanel DockPanel.Dock="Top"
-                        Height="80"
-                        VerticalAlignment="Top"
-                        Orientation="Vertical"
-                        Background="#FF263456"
-                        Grid.Row="0">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                        <i:InvokeCommandAction Command="{Binding MouseMoveWindowCM}"
-                                               CommandParameter="{Binding ElementName=Main_Staff}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <StackPanel Orientation="Horizontal"
-                            Margin="1230,0,0,0"
-                            Height="30"
-                            VerticalAlignment="Top">
-                    <Label Cursor="Hand"
-                           Width="30"
-                           HorizontalAlignment="Center"
-                           Foreground="White">
-                        <materialDesign:PackIcon Kind="WindowMinimize"></materialDesign:PackIcon>
+            <Border Grid.Row="0"
+                    Background="#fffffff2"
+                    BorderThickness="0 0 0 0.5"
+                    BorderBrush="Black">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20" />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"
+                          Height="20"
+                          VerticalAlignment="Top">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding MinimizeMainStaffWindowCM}"
+                                <i:InvokeCommandAction Command="{Binding MouseMoveWindowCM}"
                                                        CommandParameter="{Binding ElementName=Main_Staff}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <Label.Style>
-                            <Style TargetType="Label">
-                                <Setter Property="Height"
-                                        Value="20"></Setter>
-                                <Setter Property="Background"
-                                        Value="Transparent"></Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Height"
-                                                Value="25"></Setter>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="1230,0,0,0"
+                                    VerticalAlignment="Top">
+                            <Label Cursor="Hand"
+                                   ToolBar.OverflowMode="AsNeeded"
+                                   Height="20"
+                                   BorderThickness="0"
+                                   Foreground="Black"
+                                   BorderBrush="Transparent"
+                                   Width="30"
+                                   HorizontalAlignment="Center">
+                                <materialDesign:PackIcon Kind="WindowMinimize"
+                                                         Height="15"
+                                                         Width="20"
+                                                         Foreground="Black" />
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding MinimizeMainStaffWindowCM}"
+                                                               CommandParameter="{Binding ElementName=Main_Staff}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <Label.Style>
+                                    <Style TargetType="Label">
                                         <Setter Property="Background"
-                                                Value="Blue"></Setter>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Label.Style>
-                    </Label>
-                    <Label Cursor="Hand"
-                           Width="30"
-                           HorizontalAlignment="Center"
-                           Foreground="White"
-                           Margin="10,0,0,0">
-                        <materialDesign:PackIcon Kind="WindowClose" />
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding CloseMainStaffWindowCM}"
-                                                       CommandParameter="{Binding ElementName=Main_Staff}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <Label.Style>
-                            <Style TargetType="Label">
-                                <Setter Property="Height"
-                                        Value="25"></Setter>
-                                <Setter Property="Background"
-                                        Value="Transparent"></Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Height"
-                                                Value="30"></Setter>
+                                                Value="Transparent"></Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="True">
+                                                <Setter Property="Background"
+                                                        Value="Gray"></Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                            <Label Cursor="Hand"
+                                   Width="30"
+                                   HorizontalAlignment="Center"
+                                   ToolBar.OverflowMode="AsNeeded"
+                                   Height="20"
+                                   Foreground="Black"
+                                   BorderBrush="Transparent"
+                                   materialDesign:ButtonAssist.CornerRadius="0,10,0,0"
+                                   Margin="10,0,0,0">
+                                <materialDesign:PackIcon Kind="WindowClose"
+                                                         Padding="0"
+                                                         Foreground="Black"
+                                                         Width="20"
+                                                         Height="15"
+                                                         Margin="0,-3,0,0" />
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <i:InvokeCommandAction Command="{Binding CloseMainStaffWindowCM}"
+                                                               CommandParameter="{Binding ElementName=Main_Staff}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                <Label.Style>
+                                    <Style TargetType="Label">
                                         <Setter Property="Background"
-                                                Value="Red"></Setter>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Label.Style>
-                    </Label>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                            Margin="1080,0,0,0"
-                            Height="50">
-                    <TextBlock VerticalAlignment="Center"
-                               x:Name="_StaffName"
-                               Height="35"
-                               FontSize="22"
-                               TextWrapping="Wrap"
-                               Foreground="White"
-                               Margin="0 25 0 0"
-                               Padding="0" />
-                    <materialDesign:PackIcon Kind="AccountCircle"
-                                             Width="50"
-                                             Height="50"
-                                             Background="Transparent"
-                                             Foreground="White" />
-                    <materialDesign:PopupBox DockPanel.Dock="Right"
-                                             PlacementMode="BottomAndAlignRightEdges"
-                                             Foreground="White">
-                        <StackPanel Orientation="Vertical">
-                            <Button x:Name="signout"
-                                    Content="Thông tin tài khoản" />
-
-                            <Button Content="Đăng xuất"
-                                    Command="{Binding SignoutCM}"
-                                    CommandParameter="{Binding ElementName=Main_Staff}" />
+                                                Value="Transparent"></Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="True">
+                                                <Setter Property="Background"
+                                                        Value="Red"></Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
                         </StackPanel>
-                    </materialDesign:PopupBox>
-                </StackPanel>
-            </StackPanel>
+                    </Grid>
+                    <Grid Height="50"
+                          Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*" />
+                            <ColumnDefinition Width="12*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="404.267,0,0,0"
+                                    Grid.Column="1">
+                            <TextBlock VerticalAlignment="Bottom"
+                                       x:Name="_StaffName"
+                                       Height="40"
+                                       FontSize="20"
+                                       TextWrapping="Wrap"
+                                       Foreground="Black"
+                                       Margin="0 10 0 0"
+                                       Padding="0 10 0 0" />
+                            <materialDesign:PackIcon Kind="AccountCircle"
+                                                     Width="50"
+                                                     Height="50"
+                                                     Background="Transparent"
+                                                     Foreground="Black" />
+                            <materialDesign:PopupBox DockPanel.Dock="Right"
+                                                     PlacementMode="BottomAndAlignRightEdges"
+                                                     Foreground="Black">
+                                <StackPanel Orientation="Vertical">
+                                    <Button x:Name="signout"
+                                            Content="Thông tin tài khoản" />
+
+                                    <Button Content="Đăng xuất"
+                                            Command="{Binding SignoutCM}"
+                                            CommandParameter="{Binding ElementName=Main_Staff}" />
+                                </StackPanel>
+                            </materialDesign:PopupBox>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
             <Frame x:Name="mainFrame"
                    Height="720"
                    Grid.Row="1"

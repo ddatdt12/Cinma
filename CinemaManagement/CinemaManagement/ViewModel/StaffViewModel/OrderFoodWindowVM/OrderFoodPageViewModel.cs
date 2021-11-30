@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Utils;
+using CinemaManagement.Views.Staff.OrderFoodWindow;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -282,7 +283,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             {
                 if (p != null)
                 {
-
+                    p.NavigationService.GoBack();
                 }
             });
 

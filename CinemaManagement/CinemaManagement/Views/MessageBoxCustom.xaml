@@ -92,6 +92,7 @@
                                 <TextBlock x:Name="txtMessage"
                                            TextWrapping="Wrap"
                                            Width="220"
+                                           Height="35"
                                            HorizontalAlignment="Center"
                                            Grid.Row="0"
                                            Margin="15 20 5 10"
