@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.ViewModel.StaffViewModel.TicketVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
     {
         public static ShowtimeDTO Showtime;
         public static MovieDTO Movie;
+        private static List<SeatSettingDTO> _ListSeat;
+        public static List<SeatSettingDTO> ListSeat
+        {
+            get { return _ListSeat; }
+            set { _ListSeat = value; }
+        }
 
         private bool _IsWalkinGuest;
         public bool IsWalkinGuest
@@ -78,6 +85,33 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             set { _MovieName = value; OnPropertyChanged(); }
         }
 
+        private string _Date;
+        public string Date
+        {
+            get { return _Date; }
+            set { _Date = value; OnPropertyChanged(); }
+        }
+
+        private string _Time;
+        public string Time
+        {
+            get { return _Time; }
+            set { _Time = value; OnPropertyChanged(); }
+        }
+
+        private string _Room;
+        public string Room
+        {
+            get { return _Room; }
+            set { _Room = value; OnPropertyChanged(); }
+        }
+
+        private decimal _Price;
+        public decimal Price
+        {
+            get { return _Price; }
+            set { _Price = value; OnPropertyChanged(); }
+        }
 
         public ICommand CboxWalkinGuestCM { get; set; }
         public ICommand CheckPhoneNumberCM { get; set; }
@@ -105,13 +139,41 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             set { _SelectedItem = value; OnPropertyChanged(); }
         }
 
+        DateTime start, end;
+        public void CaculateTime()
+        {
+            start = Showtime.ShowDate;
+            start = start.Add(Showtime.StartTime);
+            end = start.AddMinutes(Movie.RunningTime);
+        }
+
         public TicketBillViewModel()
         {
+            // Biến tạm thời
             Movie = new MovieDTO();
             Movie.DisplayName = "Trò chơi con bạch tuộc";
+            
+            Movie.RunningTime = 120;
 
+            Showtime = new ShowtimeDTO();
+            Showtime.ShowDate = new DateTime(2008, 5, 1, 8, 30, 52);
+            Showtime.RoomId = 5;
+            Showtime.TicketPrice = 45000;
+
+            
+
+
+            //Movie = TicketWindowViewModel.tempFilmName;
+            //Showtime = TicketWindowViewModel.CurrentShowtime;
+
+            Date = Showtime.ShowDate.ToString("dd/MM/yyyy");
             MovieName = Movie.DisplayName;
+            Room = "0" + Showtime.RoomId.ToString();
+            Price = Showtime.TicketPrice;
 
+            CaculateTime();
+            Time = start.ToString("HH:mm") + " - " + end.ToString("HH:mm");
+            //
             ListVoucher = new ObservableCollection<CustomerDTO>();
 
             for(int i=0; i<10;i++)

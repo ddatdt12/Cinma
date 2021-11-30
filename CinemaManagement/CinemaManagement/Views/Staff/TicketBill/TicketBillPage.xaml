@@ -22,6 +22,10 @@
       x:Name="BillPage">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="231*" />
+            <ColumnDefinition Width="419*" />
+        </Grid.ColumnDefinitions>
 
         <materialDesign:Card HorizontalAlignment="Left"
                              Width="360"
@@ -421,7 +425,7 @@
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>
-                                                
+
                                             </Grid>
 
                                         </Grid>
@@ -449,7 +453,8 @@
                             Margin="0 0 10 10"
                             Content="Hoàn tất">
                         <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                            <Style TargetType="Button"
+                                   BasedOn="{StaticResource MaterialDesignRaisedButton}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding ShowDoneButton}"
                                                  Value="False">
@@ -477,7 +482,8 @@
                              Height="640"
                              Width="900"
                              Margin="0 40 40 0"
-                             UniformCornerRadius="6">
+                             UniformCornerRadius="6"
+                             Grid.ColumnSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -539,7 +545,7 @@
                                                        HorizontalAlignment="Right"
                                                        FontSize="20"
                                                        x:Name="_moviename"
-                                                       Content="{Binding MovieName}"/>
+                                                       Content="{Binding MovieName}" />
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
@@ -550,10 +556,10 @@
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
 
-                                                <Label Content="Giờ bắt đầu"
+                                                <Label Content="Ngày chiếu"
                                                        Grid.Column="0"
                                                        FontSize="18" />
-                                                <Label Content="{Binding BillDetail.TicketInfo.ShowtimeInfo}"
+                                                <Label Content="{Binding Date}"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20" />
@@ -567,10 +573,11 @@
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
 
-                                                <Label Content="Giờ kết thúc"
+                                                <Label Content="Giờ chiếu"
                                                        Grid.Column="0"
                                                        FontSize="18" />
-                                                <Label Grid.Column="1"
+                                                <Label Content="{Binding Time}"
+                                                       Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20"
                                                        x:Name="_time" />
@@ -604,7 +611,7 @@
                                                 <Label Content="Phòng chiếu"
                                                        Grid.Column="0"
                                                        FontSize="18" />
-                                                <Label Content="{Binding BillDetail.TicketInfo.RoomName}"
+                                                <Label Content="{Binding Room}"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20" />
@@ -638,13 +645,14 @@
                                                 <Label Content="Giá vé"
                                                        Grid.Column="0"
                                                        FontSize="18" />
-                                                <Label Grid.Column="1"
+                                                <Label Content="{Binding Price}"
+                                                       Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20"
                                                        x:Name="_price" />
                                             </Grid>
                                         </StackPanel>
-                                        
+
                                     </StackPanel>
                                 </Border>
                                 <Border Grid.Row="1"
