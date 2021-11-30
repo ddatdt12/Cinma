@@ -149,12 +149,11 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
         public FoodManagementViewModel()
         {
-
             LoadProductListView(Operation.READ);
             FilterName = "";
             IsImageChanged = false;
-            FilterTboxFoodCommand = new RelayCommand<System.Windows.Controls.TextBox>((p) => { return true; },
-                (p) =>
+            FilterTboxFoodCommand = new RelayCommand<System.Windows.Controls.TextBox>( (p) => { return true; },
+                 (p) =>
                 {
                     ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
                     tempList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
