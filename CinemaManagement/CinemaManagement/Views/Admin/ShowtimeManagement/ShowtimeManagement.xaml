@@ -14,7 +14,7 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding MaskNameCM}"
-                                   CommandParameter="{Binding ElementName=ShadowMask}"/>
+                                   CommandParameter="{Binding ElementName=ShadowMask}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -99,6 +99,7 @@
                              Content="Toàn bộ"
                              x:Name="all"
                              Padding="0,10,0,10"
+                             Click="all_Click"
                              BorderBrush="#0c70b6"
                              Command="{Binding ChangedRoomCM}"
                              CommandParameter="{Binding ElementName=all}" />
@@ -107,6 +108,7 @@
                              Content="Phòng 1"
                              x:Name="r1"
                              Padding="0,10,0,10"
+                             Click="all_Click"
                              BorderBrush="#0c70b6"
                              Command="{Binding ChangedRoomCM}"
                              CommandParameter="{Binding ElementName=r1}" />
@@ -114,6 +116,7 @@
                              IsChecked="False"
                              Content="Phòng 2"
                              x:Name="r2"
+                             Click="all_Click"
                              Padding="0,10,0,10"
                              BorderBrush="#0c70b6"
                              Command="{Binding ChangedRoomCM}"
@@ -123,6 +126,7 @@
                              IsChecked="False"
                              Content="Phòng 3"
                              x:Name="r3"
+                             Click="all_Click"
                              BorderBrush="#0c70b6"
                              Command="{Binding ChangedRoomCM}"
                              CommandParameter="{Binding ElementName=r3}" />
@@ -131,6 +135,7 @@
                              IsChecked="False"
                              Content="Phòng 4"
                              x:Name="r4"
+                             Click="all_Click"
                              BorderBrush="#0c70b6"
                              Command="{Binding ChangedRoomCM}"
                              CommandParameter="{Binding ElementName=r4}" />
@@ -140,6 +145,7 @@
                              IsChecked="False"
                              Content="Phòng 5"
                              x:Name="r5"
+                             Click="all_Click"
                              BorderBrush="#0c70b6"
                              Command="{Binding ChangedRoomCM}"
                              CommandParameter="{Binding ElementName=r5}" />
@@ -150,105 +156,118 @@
             <materialDesign:Card Background="White"
                                  Margin="100,20,30,20"
                                  UniformCornerRadius="5">
+                <StackPanel>
+                    <ListView x:Name="ShowtimeListview"
+                              ItemsSource="{Binding ShowtimeList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedItem}"
+                              Focusable="True"
+                              Height="578"
+                              VerticalAlignment="Top">
 
-                <ListView x:Name="ShowtimeListview"
-                          ItemsSource="{Binding ShowtimeList,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedItem}"
-                          Focusable="True">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Tên phim"
+                                                Width="390">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock  Text="{Binding DisplayName}"
+                                                        FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Loại phim">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock  Text="{Binding MovieType}"
+                                                        FontSize="18"
+                                                        Margin="30,0,0,0" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Thời lượng">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock  Text="{Binding  RunningTime}"
+                                                        FontSize="18"
+                                                        Margin="30,0,0,0" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Giờ chiếu">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ListBox ItemsSource="{Binding Showtimes}">
 
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Tên phim"
-                                            Width="390">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock  Text="{Binding DisplayName}"
-                                                    FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Loại phim">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock  Text="{Binding MovieType}"
-                                                    FontSize="18"
-                                                    Margin="30,0,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Thời lượng">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock  Text="{Binding  RunningTime}"
-                                                    FontSize="18"
-                                                    Margin="30,0,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Giờ chiếu">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <ListBox ItemsSource="{Binding Showtimes}">
+                                                <ListBox.ItemContainerStyle>
+                                                    <Style TargetType="ListBoxItem">
+                                                        <Setter Property="Margin"
+                                                                Value="10,2,10,0" />
+                                                        <Setter Property="Padding"
+                                                                Value="0" />
+                                                    </Style>
+                                                </ListBox.ItemContainerStyle>
 
-                                            <ListBox.ItemContainerStyle>
-                                                <Style TargetType="ListBoxItem">
-                                                    <Setter Property="Margin"
-                                                            Value="10,2,10,0" />
-                                                    <Setter Property="Padding"
-                                                            Value="0" />
-                                                </Style>
-                                            </ListBox.ItemContainerStyle>
+                                                <ListBox.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <UniformGrid Columns="4" />
+                                                    </ItemsPanelTemplate>
+                                                </ListBox.ItemsPanel>
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Button Content="{Binding           StartTime}"
+                                                                    FontSize="18"
+                                                                    Width="120"
+                                                                    Background="LightGoldenrodYellow"
+                                                                    Foreground="Black">
+                                                            </Button>
+                                                        </StackPanel>
 
-                                            <ListBox.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <UniformGrid Columns="4" />
-                                                </ItemsPanelTemplate>
-                                            </ListBox.ItemsPanel>
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <Button Content="{Binding           StartTime}"
-                                                                FontSize="18"
-                                                                Width="120"
-                                                                Background="LightGoldenrodYellow"
-                                                                Foreground="Black">
-                                                        </Button>
-                                                    </StackPanel>
-
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
-                                        </ListBox>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border BorderThickness="0.5"
-                                                BorderBrush="Black"
-                                                Margin="0,5,0,0"
-                                                CornerRadius="5">
-                                            <StackPanel Cursor="Hand">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=ShowtimeListview, Path=DataContext.LoadInfor_EditShowtime}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                                <Image Height="30"
-                                                       Width="30"
-                                                       Source="/Resources/IconPack/pencil.png" />
-                                            </StackPanel>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border BorderThickness="0.5"
+                                                    BorderBrush="Black"
+                                                    Margin="0,5,0,0"
+                                                    CornerRadius="5">
+                                                <StackPanel Cursor="Hand">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=ShowtimeListview, Path=DataContext.LoadInfor_EditShowtime}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <Image Height="30"
+                                                           Width="30"
+                                                           Source="/Resources/IconPack/pencil.png" />
+                                                </StackPanel>
 
 
-                                        </Border>
+                                            </Border>
 
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,20,0">
+                            <Label Content="Kết quả: "
+                                   FontSize="15" />
+                            <Label Content="{Binding ShowtimeList.Count}"
+                                   x:Name="result"
+                                   FontSize="15" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
             </materialDesign:Card>
         </Grid>
 

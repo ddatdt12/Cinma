@@ -1,11 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
@@ -25,7 +20,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.Price = Price;
                 product.Image = imgfullname;
                 product.Quantity = 0;
-                
+
 
                 (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = ProductService.Ins.AddNewProduct(product);
 

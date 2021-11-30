@@ -1,13 +1,9 @@
 ﻿using CinemaManagement.DTOs;
-using CinemaManagement.Models;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data.Entity.Core;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -330,7 +326,7 @@ namespace CinemaManagement.ViewModel
                 #endregion
 
                 #region Voucher
-                (string error, List<string> listCode) = Helper.GetListCode(100, 9 , "BFR", "6");
+                (string error, List<string> listCode) = Helper.GetListCode(100, 9, "BFR", "6");
 
                 VoucherReleaseDTO newVR = new VoucherReleaseDTO
                 {

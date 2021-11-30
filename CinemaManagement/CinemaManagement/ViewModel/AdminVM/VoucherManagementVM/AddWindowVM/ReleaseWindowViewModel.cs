@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
@@ -15,11 +16,18 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
 
         private DateTime _ReleaseDate;
-
         public DateTime ReleaseDate
         {
             get { return _ReleaseDate; }
             set { _ReleaseDate = value; OnPropertyChanged(); }
+        }
+
+        private ComboBoxItem _ReleaseCustomerList;
+
+        public ComboBoxItem ReleaseCustomerList
+        {
+            get { return _ReleaseCustomerList; }
+            set { _ReleaseCustomerList = value; RefreshEmailList(); }
         }
 
 
@@ -28,6 +36,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public ICommand LessEmailCM { get; set; }
         public ICommand OpenReleaseVoucherCM { get; set; }
         public ICommand ReleaseVoucherCM { get; set; }
+        public ICommand ResetSelectedNumberCM { get; set; }
 
         private ObservableCollection<VoucherDTO> releaseVoucherList;
         public ObservableCollection<VoucherDTO> ReleaseVoucherList
@@ -51,7 +60,14 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 MessageBox.Show("Danh sách voucher đang trống!");
                 return;
             }
-
+            foreach (var item in ListCustomerEmail)
+            {
+                if (string.IsNullOrEmpty(item.Email))
+                {
+                    MessageBox.Show("Tồn tại email trống");
+                    return;
+                }
+            }
             //top 5 customer
             if (NumberCustomer == 5)
             {
@@ -91,15 +107,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     MessageBox.Show(mess);
                     return;
                 }
-
-                foreach(var item in ListCustomerEmail)
-                {
-                    if (string.IsNullOrEmpty(item.Email))
-                    {
-                        MessageBox.Show("Tồn tại email trống");
-                        return;
-                    }
-                }
             }
             // new customer
             //code here
@@ -119,6 +126,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 AddVoucher.topcheck.IsChecked = false;
                 AddVoucher.AllCheckBox.Clear();
                 AddVoucher._cbb.SelectedIndex = 0;
+                NumberSelected = 0;
                 p.Close();
             }
             else
@@ -127,7 +135,36 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             }
 
         }
+        public void RefreshEmailList()
+        {
+            if (ReleaseCustomerList is null) return;
 
+            switch (ReleaseCustomerList.Content.ToString())
+            {
+                case "Top 5 khách hàng trong tháng":
+                    {
+                        (List<CustomerDTO> top5cus, _, _) = StatisticsService.Ins.GetTop5CustomerExpenseByMonth(DateTime.Today.Month);
+                        ListCustomerEmail = new ObservableCollection<CustomerEmail>();
+
+                        foreach (var item in top5cus)
+                        {
+                            ListCustomerEmail.Add(new CustomerEmail { Email = item.Email });
+                        }
+
+                        return;
+                    }
+                case "Khác":
+                    {
+                        ListCustomerEmail = new ObservableCollection<CustomerEmail>();
+                        return;
+                    }
+                case "Khách hàng mới trong tháng":
+                    {
+                        ListCustomerEmail = new ObservableCollection<CustomerEmail>();
+                        return;
+                    }
+            }
+        }
     }
 
     public class CustomerEmail

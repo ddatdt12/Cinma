@@ -17,6 +17,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 {
     public partial class VoucherViewModel : BaseViewModel
     {
+        public static Grid ShadowMask { get; set; }
         public Frame mainFrame { get; set; }
         public Card ButtonView { get; set; }
 
@@ -39,6 +40,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public ICommand LoadViewCM { get; set; }
         public ICommand LoadEdit_InforViewCM { get; set; }
         public ICommand LoadDeleteVoucherCM { get; set; }
+        public ICommand MaskNameCM { get; set; }
 
         public VoucherViewModel()
         {
@@ -62,6 +64,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 AddVoucherWindow w = new AddVoucherWindow();
                 BindStaffID = StaffID;
                 Unlock = false;
+                ShadowMask.Visibility = Visibility.Visible;
                 w.ShowDialog();
             });
             LoadAddInforCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
@@ -88,6 +91,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     w.releasebtn.Visibility = Visibility.Visible;
                 mainFrame.Content = w;
                 WaitingMiniVoucher = new List<int>();
+                NumberSelected = 0;
             });
             LoadAddMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -136,6 +140,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 Infor_EditWindow w = new Infor_EditWindow();
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                ShadowMask.Visibility = Visibility.Visible;
                 w.ShowDialog();
             });
             LoadInforCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
@@ -199,8 +204,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 ReleaseVoucher w = new ReleaseVoucher();
                 ReleaseVoucherList = new ObservableCollection<VoucherDTO>();
-                ListCustomerEmail = new ObservableCollection<CustomerEmail>();
-                ListCustomerEmail.Add(new CustomerEmail { Email = "" });
 
                 for (int i = 0; i < WaitingMiniVoucher.Count; i++)
                 {
@@ -231,12 +234,20 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 if (p.IsChecked == false)
                 {
                     if (WaitingMiniVoucher.Contains(temp))
+                    {
                         WaitingMiniVoucher.Remove(temp);
+                        NumberSelected--;
+                    }
+
                 }
                 else
                 {
                     if (!WaitingMiniVoucher.Contains(temp))
+                    {
                         WaitingMiniVoucher.Add(temp);
+                        NumberSelected++;
+                    }
+
                 }
 
                 if (WaitingMiniVoucher.Count == 0)
@@ -316,6 +327,14 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 ButtonView = p;
                 p.Background = new SolidColorBrush(Colors.White);
                 p.SetValue(ShadowAssist.ShadowDepthProperty, ShadowDepth.Depth0);
+            });
+            ResetSelectedNumberCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                NumberSelected = 0;
+            });
+            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+            {
+                ShadowMask = p;
             });
         }
         public void ChangeView(Card p)

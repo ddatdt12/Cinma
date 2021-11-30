@@ -27,6 +27,7 @@ namespace CinemaManagement.Views.Admin.VoucherManagement
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            VoucherViewModel.ShadowMask.Visibility = Visibility.Collapsed;
             this.Close();
             VoucherViewModel.Unlock = false;
         }

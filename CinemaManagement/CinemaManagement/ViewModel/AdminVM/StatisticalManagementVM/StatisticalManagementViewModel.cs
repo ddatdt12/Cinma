@@ -1,10 +1,7 @@
 ﻿using CinemaManagement.Views.Admin.StatisticalManagement;
 using LiveCharts;
-using LiveCharts.Wpf;
 using MaterialDesignThemes.Wpf;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -25,11 +22,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public ICommand LoadAllStatisticalCM { get; set; }
         public ICommand LoadRankStatisticalCM { get; set; }
         public ICommand LoadBestSellingCM { get; set; }
-
-
-
-
-
 
 
         public StatisticalManagementViewModel()

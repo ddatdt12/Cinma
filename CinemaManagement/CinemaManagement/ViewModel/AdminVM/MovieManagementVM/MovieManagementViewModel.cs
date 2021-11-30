@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Cache;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -170,7 +171,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             {
                 MainListView = p;
             });
-            MaskNameCM = new RelayCommand<System.Windows.Controls.Grid>((p) => { return true; }, (p) =>
+            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
             {
                 MaskName = p;
             });
@@ -301,14 +302,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                         File.Delete(Helper.GetMovieImgPath(temp_fullname));
 
                 }
-
-
-
-                //appPath = Helper.GetMovieImgPath(imgfullname);
-                //if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
-                //    File.Delete(Helper.GetMovieImgPath(imgfullname));
-                //File.Copy(filepath, appPath, true);
-
             }
             catch (Exception exp)
             {

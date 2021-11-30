@@ -324,7 +324,6 @@
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\EditFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\FoodManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\ImportFoodViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\Import_ExportManagementVM\ExportDetailViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Import_ExportManagementVM\Import_ExportManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\Add.MovieViewModel.cs" />

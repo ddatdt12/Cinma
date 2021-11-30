@@ -257,6 +257,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                 AddVoucher.topcheck.IsChecked = false;
                 AddVoucher._cbb.SelectedIndex = 0;
+                NumberSelected = 0;
             }
             else
             {
@@ -292,6 +293,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
                 AddVoucher.topcheck.IsChecked = false;
                 AddVoucher._cbb.SelectedIndex = 0;
+                NumberSelected = 0;
             }
             else
             {
@@ -306,6 +308,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             (VoucherReleaseDTO voucherReleaseDetail, _) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
             StoreAllMini = new List<VoucherDTO>(voucherReleaseDetail.Vouchers);
             AddVoucher.AllCheckBox.Clear();
+            NumberSelected = 0;
             if (WaitingMiniVoucher != null)
                 WaitingMiniVoucher.Clear();
 

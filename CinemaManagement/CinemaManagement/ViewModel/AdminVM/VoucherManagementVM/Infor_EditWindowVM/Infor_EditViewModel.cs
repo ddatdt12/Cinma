@@ -82,6 +82,14 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             set { waitingMiniVoucher = value; }
         }
 
+        private int numberSelected;
+        public int NumberSelected
+        {
+            get { return numberSelected; }
+            set { numberSelected = value; OnPropertyChanged(); }
+        }
+
+
         public static bool HaveUsed = false;
 
         public ICommand LoadInforBigVoucherCM { get; set; }
@@ -148,6 +156,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                NumberSelected = 0;
             }
             else
             {
@@ -174,6 +183,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
                 AddVoucher.topcheck.IsChecked = false;
+                NumberSelected = 0;
             }
             else
             {
@@ -190,10 +200,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     if (item.Status != "Ðã phát hành")
                         WaitingMiniVoucher.Add(item.Id);
                 }
+                NumberSelected = WaitingMiniVoucher.Count;
             }
             else
             {
                 WaitingMiniVoucher.Clear();
+                NumberSelected = 0;
             }
         }
     }

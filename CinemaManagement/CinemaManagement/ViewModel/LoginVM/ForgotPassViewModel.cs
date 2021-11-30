@@ -1,5 +1,4 @@
-﻿using CinemaManagement.Views;
-using CinemaManagement.Views.LoginWindow;
+﻿using CinemaManagement.Views.LoginWindow;
 using System;
 using System.Net;
 using System.Net.Mail;

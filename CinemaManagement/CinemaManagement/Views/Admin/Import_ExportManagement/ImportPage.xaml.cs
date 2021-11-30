@@ -18,6 +18,7 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
         {
             CollectionViewSource.GetDefaultView(_ListView.ItemsSource).Refresh();
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(_ListView.ItemsSource);
+            result.Content = _ListView.Items.Count;
             view.Filter = Filter;
         }
         private bool Filter(object item)

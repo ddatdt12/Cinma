@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace CinemaManagement.ViewModel.AdminVM.ErrorVM
 {
@@ -37,7 +32,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ErrorVM
             object parameter, CultureInfo language)
         {
             // Retrieve the format string and use it to format the value.
-            
+
             string text = value as string;
 
             if (text == "0")

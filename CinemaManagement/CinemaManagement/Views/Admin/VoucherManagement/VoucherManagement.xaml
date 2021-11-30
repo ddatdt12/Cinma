@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:CinemaManagement.Views.Admin.VoucherManagement"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
@@ -11,6 +10,14 @@
       d:DesignHeight="720"
       d:DesignWidth="1440"
       DataContext="{StaticResource VoucherVM}">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding MaskNameCM}"
+                                   CommandParameter="{Binding ElementName=ShadowMask}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
             <BeginStoryboard>
@@ -32,7 +39,6 @@
             <RowDefinition Height="90*" />
 
         </Grid.RowDefinitions>
-
         <!--cong cu va cac button-->
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal"
@@ -75,7 +81,6 @@
                 </Button>
             </StackPanel>
         </StackPanel>
-
         <Grid Grid.Row="1">
 
             <materialDesign:Card Background="White"
@@ -196,5 +201,11 @@
             </materialDesign:Card>
 
         </Grid>
+
+        <Grid Grid.RowSpan="2"
+              Background="Gray"
+              Opacity="0.3"
+              Visibility="Collapsed"
+              x:Name="ShadowMask" />
     </Grid>
 </Page>

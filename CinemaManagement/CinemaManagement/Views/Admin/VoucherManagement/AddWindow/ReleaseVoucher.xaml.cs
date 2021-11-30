@@ -61,11 +61,13 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
 
             switch (item.Content.ToString())
             {
-                case "Top 5 khách hàng":
+                case "Top 5 khách hàng trong tháng":
                     {
                         VoucherViewModel.NumberCustomer = 5;
                         if (emaillistbox != null)
-                            emaillistbox.IsEnabled = false;
+                        {
+                            emaillistbox.IsEnabled = true;
+                        }
                         return;
                     }
                 case "Khách hàng mới trong tháng":

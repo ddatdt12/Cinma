@@ -27,7 +27,14 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
         {
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ShowtimeListview.ItemsSource);
             view.Filter = Filter;
+            result.Content = ShowtimeListview.Items.Count;
             CollectionViewSource.GetDefaultView(ShowtimeListview.ItemsSource).Refresh();
+        }
+
+        private void all_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _FilterBox.Text = "";
+            result.Content = ShowtimeListview.Items.Count;
         }
     }
 }

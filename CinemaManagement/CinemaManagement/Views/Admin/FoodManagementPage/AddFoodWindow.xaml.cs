@@ -5,9 +5,6 @@ using System.Windows.Input;
 
 namespace CinemaManagement.Views.Admin.FoodManagementPage
 {
-    /// <summary>
-    /// Interaction logic for AddFoodWindow.xaml
-    /// </summary>
     public partial class AddFoodWindow : Window
     {
         public AddFoodWindow()

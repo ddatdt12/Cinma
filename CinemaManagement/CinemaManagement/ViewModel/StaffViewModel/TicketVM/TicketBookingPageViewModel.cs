@@ -199,9 +199,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
 
 
             TotalSeat = "";
-            for(int i = 0; i < WaitingList.Count;i++)
+            for (int i = 0; i < WaitingList.Count; i++)
             {
-                if(i == 0)
+                if (i == 0)
                     TotalSeat += WaitingList[i].SeatPosition;
                 else
                     TotalSeat += ", " + WaitingList[i].SeatPosition;
@@ -233,7 +233,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             txtFilm = tempFilmName.DisplayName;
             startTime = CurrentShowtime.StartTime.ToString("hh\\:mm");
             endTime = end.ToString("HH:mm");
-            showTime = startTime + " - " + endTime; 
+            showTime = startTime + " - " + endTime;
             showDateAfter = CurrentShowtime.ShowDate.ToString("dd-MM-yyyy");
             showDateBefore = CurrentShowtime.ShowDate.ToString("dd-MM-yyyy");
             price = Helper.FormatVNMoney(CurrentShowtime.TicketPrice);
