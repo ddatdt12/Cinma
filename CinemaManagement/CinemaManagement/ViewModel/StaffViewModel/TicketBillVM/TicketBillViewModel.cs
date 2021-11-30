@@ -12,6 +12,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 {
     public partial class TicketBillViewModel : BaseViewModel
     {
+        public static ShowtimeDTO Showtime;
+        public static MovieDTO Movie;
+
         private bool _IsWalkinGuest;
         public bool IsWalkinGuest
         {
@@ -54,6 +57,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             set { _ShowInfoCustomer = value; OnPropertyChanged(); }
         }
 
+        private bool _ShowDoneButton;
+        public bool ShowDoneButton
+        {
+            get { return _ShowDoneButton; }
+            set { _ShowDoneButton = value; OnPropertyChanged(); }
+        }
+
         private string _VoucherID;
         public string VoucherID
         {
@@ -61,6 +71,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             set { _VoucherID = value; OnPropertyChanged(); }
         }
 
+        private string _MovieName;
+        public string MovieName
+        {
+            get { return _MovieName; }
+            set { _MovieName = value; OnPropertyChanged(); }
+        }
 
 
         public ICommand CboxWalkinGuestCM { get; set; }
@@ -91,6 +107,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 
         public TicketBillViewModel()
         {
+            Movie = new MovieDTO();
+            Movie.DisplayName = "Trò chơi con bạch tuộc";
+
+            MovieName = Movie.DisplayName;
+
             ListVoucher = new ObservableCollection<CustomerDTO>();
 
             for(int i=0; i<10;i++)
@@ -107,6 +128,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             ShowPhone = true;
             ShowPhoneError = false;
             ShowSignUp = false;
+            ShowDoneButton = false;
 
             CboxWalkinGuestCM = new RelayCommand<object>((p) => { return true; },
                 (p) =>
@@ -115,17 +137,16 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                     if (IsWalkinGuest)
                     {
                         ShowPhone = false;
-                        ShowPhoneError = false;
-                        ShowSignUp = false;
-                        ShowInfoCustomer = false;
+                        ShowDoneButton = true;
                     }
                     else
                     {
                         ShowPhone = true;
-                        ShowPhoneError = false;
-                        ShowSignUp = false;
-                        ShowInfoCustomer = false;
+                        ShowDoneButton = false;
                     }
+                    ShowPhoneError = false;
+                    ShowSignUp = false;
+                    ShowInfoCustomer = false;
 
                 });
 
@@ -137,12 +158,14 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                     {
                         ShowPhoneError = true;
                         ShowInfoCustomer = false;
+                        ShowDoneButton = false;
                     }
                     else
                     {
                         ShowPhoneError = false;
                         ShowSignUp = false;
                         ShowInfoCustomer = true;
+                        ShowDoneButton = true;
                     }
 
                 });

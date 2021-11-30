@@ -271,7 +271,6 @@
                         <TextBlock Text="Họ và tên:" />
                         <TextBox Grid.Column="1"
                                  IsEnabled="False"
-                                 Text="Dương đẹp trai"
                                  Margin="0 0 10 0"
                                  VerticalContentAlignment="Bottom"
                                  VerticalAlignment="Center" />
@@ -298,7 +297,6 @@
                         <TextBlock Text="Email:" />
                         <TextBox Grid.Column="1"
                                  IsEnabled="False"
-                                 Text="Dương đẹp trai"
                                  Margin="0 0 10 0"
                                  VerticalContentAlignment="Bottom"
                                  VerticalAlignment="Center" />
