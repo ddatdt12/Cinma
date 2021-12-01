@@ -70,15 +70,27 @@
                      TextChanged="TextBox_TextChanged"
                      VerticalAlignment="Bottom">
             </TextBox>
-            <Button  Content="Thêm"
-                     Width="120"
-                     Height="40"
-                     FontSize="25"
-                     FontFamily="arial"
-                     Margin="30,0,0,0"
-                     VerticalAlignment="Bottom"
-                     materialDesign:ButtonAssist.CornerRadius="5"
-                     Command="{Binding OpenAddStaffCommand}" />
+            <Button Width="120"
+                    Height="40"
+                    FontSize="25"
+                    FontFamily="arial"
+                    Margin="30,0,0,0"
+                    Padding="0"
+                    VerticalAlignment="Bottom"
+                    materialDesign:ButtonAssist.CornerRadius="8"
+                    Command="{Binding OpenAddStaffCommand}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PlusCircleOutline"
+                                                 Width="25"
+                                                 Height="25"
+                                                 VerticalAlignment="Center"
+                                                 Margin="0,0,0,0" />
+                        <TextBlock Text="Thêm"
+                                   Margin="5,0,0,0" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </StackPanel>
 
         <!--#region Danh sách nhân viên-->

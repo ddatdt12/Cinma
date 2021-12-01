@@ -7,8 +7,8 @@
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d"
       d:DesignHeight="720"
+      FontFamily="arial"
       d:DesignWidth="1440"
-      Title="StatisticalManagement"
       DataContext="{StaticResource StatisticalManagementVM}">
 
     <i:Interaction.Triggers>

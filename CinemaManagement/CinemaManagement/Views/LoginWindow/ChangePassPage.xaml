@@ -114,7 +114,7 @@
                     <Button Content="Xác nhận"
                             Width="120"
                             x:Name="sendmailbtn"
-                            materialDesign:ButtonAssist.CornerRadius="5"
+                            materialDesign:ButtonAssist.CornerRadius="8"
                             Margin="0,70,20,0"
                             Command="{Binding SaveNewPassCM}"
                             CommandParameter="{Binding ElementName=error}" />

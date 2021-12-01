@@ -99,19 +99,58 @@
                                                                  Margin="5,0,0,0" />
                                     </StackPanel>
                                 </MenuItem.Header>
-                                <MenuItem Header="Xoá voucher"
-                                          Foreground="Black"
+                                <MenuItem Foreground="Black"
                                           Background="LightGray"
                                           Command="{Binding DeleteMiniVoucherCM}"
-                                          Margin="0,-20,0,0" />
-                                <MenuItem Header="Thêm voucher"
-                                          Foreground="Black"
+                                          Margin="0,-15,0,0">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Margin="-20,0,0,0">
+                                            <materialDesign:PackIcon Kind="DeleteEmpty"
+                                                                     Width="25"
+                                                                     Height="25"
+                                                                     VerticalAlignment="Center" />
+                                            <TextBlock Text="Xoá voucher"
+                                                       Margin="5,0,0,0"
+                                                       FontSize="15"
+                                                       VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Foreground="Black"
                                           Background="LightGray"
-                                          Command="{Binding LoadAddMiniVoucherCM}" />
-                                <MenuItem Header="Thêm danh sách voucher"
-                                          Foreground="Black"
+                                          Command="{Binding LoadAddMiniVoucherCM}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Margin="-20,0,0,0">
+                                            <materialDesign:PackIcon Kind="PlusCircleOutline"
+                                                                     Width="25"
+                                                                     Height="25"
+                                                                     VerticalAlignment="Center" />
+                                            <TextBlock Text="Thêm voucher"
+                                                       Margin="5,0,0,0"
+                                                       FontSize="15"
+                                                       VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Foreground="Black"
                                           Background="LightGray"
-                                          Command="{Binding LoadAddListMiniVoucherCM}" />
+                                          Command="{Binding LoadAddListMiniVoucherCM}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Margin="-20,0,0,0">
+                                            <materialDesign:PackIcon Kind="PlaylistPlus"
+                                                                     Width="25"
+                                                                     Height="25"
+                                                                     VerticalAlignment="Center" />
+                                            <TextBlock Text="Thêm danh sách voucher"
+                                                       Margin="5,0,0,0"
+                                                       FontSize="15"
+                                                       VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
                             </MenuItem>
                         </Menu>
                     </Border>
@@ -264,7 +303,7 @@
                        x:Name="result" />
             </StackPanel>
         </Grid>
-        
+
 
     </Grid>
 

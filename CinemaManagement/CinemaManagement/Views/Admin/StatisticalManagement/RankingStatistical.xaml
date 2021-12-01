@@ -10,6 +10,7 @@
       d:DesignHeight="662"
       d:DesignWidth="1440"
       x:Name="mainPage"
+      FontFamily="arial"
       DataContext="{StaticResource StatisticalManagementVM}">
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">

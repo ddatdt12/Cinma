@@ -254,7 +254,7 @@
                                     Height="28"
                                     Margin="0,0,10,0"
                                     Command="{Binding ReleaseVoucherCM}"
-                                    materialDesign:ButtonAssist.CornerRadius="5"
+                                    materialDesign:ButtonAssist.CornerRadius="8"
                                     Content="Xác nhận"
                                     CommandParameter="{Binding ElementName=window}" />
                         </Grid>

@@ -129,7 +129,7 @@
 
                         <Button Content="Lưu"
                                 HorizontalAlignment="Right"
-                                materialDesign:ButtonAssist.CornerRadius="5"
+                                materialDesign:ButtonAssist.CornerRadius="8"
                                 Margin="0,0,10,0"
                                 Height="30"
                                 Padding="15,0,15,3"

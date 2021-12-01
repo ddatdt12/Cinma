@@ -100,14 +100,25 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1"
                             Orientation="Horizontal">
-                    <Button  Content="Xuất file Excel"
-                             Height="40"
-                             Width="130"
-                             FontFamily="arial"
-                             FontWeight="Bold"
-                             Margin="250,0,0,0"
-                             materialDesign:ButtonAssist.CornerRadius="5"
-                             Command="{Binding ExportFileCM}" />
+                    <Button Height="40"
+                            Width="130"
+                            FontFamily="arial"
+                            FontWeight="Bold"
+                            Margin="250,0,0,0"
+                            Padding="0"
+                            materialDesign:ButtonAssist.CornerRadius="8"
+                            Command="{Binding ExportFileCM}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="FileExport"
+                                                         Width="25"
+                                                         Height="23" />
+                                <Label  Content="Xuất file Excel"
+                                        Foreground="White"
+                                        Margin="-5,0,0,0" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
                 </StackPanel>
             </Grid>
         </StackPanel>

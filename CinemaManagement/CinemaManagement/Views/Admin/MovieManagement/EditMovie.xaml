@@ -251,24 +251,30 @@
 
                                 </StackPanel>
                                 <StackPanel Margin="30,10,0,00"
-                                            Width="346">
-                                    <Image Width="209"
-                                           x:Name="imgframe"
-                                           HorizontalAlignment="Right"
-                                           Margin="0,0,137,15"
-                                           Height="280"
-                                           Source="{Binding ImageSource,Mode=TwoWay}">
-                                    </Image>
-                                    <Button HorizontalAlignment="Left"
-                                            Content="Tải ảnh"
-                                            Margin="10,0,0,0"
-                                            Width="100"
+                                            Width="346"
+                                            Orientation="Horizontal">
+
+                                    <Border BorderBrush="Black"
+                                            BorderThickness="1"
+                                            Width="210"
+                                            Height="300"
+                                            Margin="0,15,0,0">
+                                        <Image x:Name="imgframe"
+                                               Source="{Binding ImageSource,Mode=TwoWay}" />
+                                    </Border>
+                                    <Button Padding="0"
+                                            Width="50"
                                             VerticalAlignment="Bottom"
-                                            materialDesign:ButtonAssist.CornerRadius="10"
-                                            Command="{Binding UploadImageCM}" />
-
+                                            Margin="10,0,0,17"
+                                            materialDesign:ButtonAssist.CornerRadius="5"
+                                            Command="{Binding UploadImageCM}">
+                                        <Button.Content>
+                                            <materialDesign:PackIcon Kind="FolderUpload"
+                                                                     Height="23"
+                                                                     Width="25" />
+                                        </Button.Content>
+                                    </Button>
                                 </StackPanel>
-
                             </StackPanel>
                         </Grid>
 

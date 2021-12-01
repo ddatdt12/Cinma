@@ -150,7 +150,7 @@
                             Width="120"
                             Visibility="Collapsed"
                             x:Name="acceptbutn"
-                            materialDesign:ButtonAssist.CornerRadius="5"
+                            materialDesign:ButtonAssist.CornerRadius="8"
                             Margin="0,50,20,0"
                             Click="acceptbutn_Click"
                             Command="{Binding ConfirmCM}"

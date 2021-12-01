@@ -11,10 +11,10 @@
       TextElement.FontSize="13"
       TextOptions.TextFormattingMode="Ideal"
       TextOptions.TextRenderingMode="Auto"
-      FontFamily="{DynamicResource MaterialDesignFont}"
       DataContext="{StaticResource MovieManagementVM}"
       d:DesignHeight="720"
       d:DesignWidth="1440"
+      FontFamily="arial"
       x:Name="mainPage">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -67,15 +67,26 @@
             <StackPanel Orientation="Horizontal"
                         Margin="30,0,0,0"
                         VerticalAlignment="Bottom">
-                <Button  Content="Thêm"
-                         VerticalAlignment="Top"
-                         HorizontalAlignment="Center"
-                         Width="120"
-                         Height="40"
-                         FontSize="25"
-                         FontFamily="arial"
-                         materialDesign:ButtonAssist.CornerRadius="5"
-                         Command="{Binding LoadAddMovieCM}">
+                <Button VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Width="120"
+                        Height="40"
+                        FontSize="25"
+                        FontFamily="arial"
+                        Padding="0"
+                        materialDesign:ButtonAssist.CornerRadius="8"
+                        Command="{Binding LoadAddMovieCM}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline"
+                                                     Width="25"
+                                                     Height="25"
+                                                     VerticalAlignment="Center"
+                                                     Margin="0,0,0,0" />
+                            <TextBlock Text="Thêm"
+                                       Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Button.Content>
                 </Button>
             </StackPanel>
         </StackPanel>

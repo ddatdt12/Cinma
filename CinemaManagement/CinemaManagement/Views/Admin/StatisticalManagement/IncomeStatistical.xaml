@@ -9,6 +9,7 @@
       d:DesignHeight="662"
       d:DesignWidth="1440"
       x:Name="mainPage"
+      FontFamily="arial"
       DataContext="{StaticResource StatisticalManagementVM}">
 
     <!---FADED-->

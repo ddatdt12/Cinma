@@ -31,5 +31,10 @@ namespace CinemaManagement.Views.Admin.FoodManagementPage
             if (t.Text.Length <= 0)
                 t.Text = "0";
         }
+
+        private void AddFoodWd_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

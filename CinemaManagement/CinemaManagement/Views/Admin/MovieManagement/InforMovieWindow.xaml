@@ -13,6 +13,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
+        FontFamily="arial"
         Background="Transparent"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Height="650"
@@ -233,8 +234,10 @@
                                 <StackPanel Margin="30,10,0,00"
                                             Width="346">
                                     <Image x:Name="imageframe"
-                                           Height="335"
-                                           Width="245"
+                                           Height="300"
+                                           Width="210"
+                                           HorizontalAlignment="Left"
+                                           Margin="0,30,0,0"
                                            Source="{Binding ImageSource}" />
                                 </StackPanel>
                             </StackPanel>

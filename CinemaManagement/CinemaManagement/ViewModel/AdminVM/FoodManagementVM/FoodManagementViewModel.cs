@@ -117,8 +117,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ICommand DeleteFoodCommand { get; set; }
 
         public ICommand UpLoadImageCommand { get; set; }
-
-        public ICommand MouseMoveCommand { get; set; }
         public ICommand CloseCommand { get; set; }
         public ICommand MaskNameCM { get; set; }
 
@@ -364,18 +362,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     }
                     IsImageChanged = false;
                 });
-
-            MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
-            {
-                Window window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
-                {
-
-                    w.DragMove();
-                }
-            }
-           );
 
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
               {

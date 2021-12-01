@@ -9,6 +9,7 @@
       DataContext="{StaticResource ShowtimeManagementVM}"
       d:DesignHeight="720"
       d:DesignWidth="1440"
+      FontFamily="arial"
       x:Name="mainPage">
 
     <i:Interaction.Triggers>
@@ -61,15 +62,26 @@
             <StackPanel Orientation="Horizontal"
                         Margin="30,0,0,0"
                         VerticalAlignment="Bottom">
-                <Button  Content="Thêm"
+                <Button  Padding="0"
                          VerticalAlignment="Bottom"
                          HorizontalAlignment="Center"
                          Width="120"
                          Height="40"
                          FontSize="25"
                          FontFamily="arial"
-                         materialDesign:ButtonAssist.CornerRadius="5"
+                         materialDesign:ButtonAssist.CornerRadius="8"
                          Command="{Binding LoadAddShowtimeCM}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline"
+                                                     Width="25"
+                                                     Height="25"
+                                                     VerticalAlignment="Center"
+                                                     Margin="0,0,0,0" />
+                            <TextBlock Text="Thêm"
+                                       Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Button.Content>
                 </Button>
                 <DatePicker Width="200"
                             x:Name="Calendar"

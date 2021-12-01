@@ -9,6 +9,7 @@
       x:Name="mainPage"
       d:DesignHeight="720"
       d:DesignWidth="1440"
+      FontFamily="arial"
       DataContext="{StaticResource VoucherVM}">
 
     <i:Interaction.Triggers>
@@ -65,7 +66,7 @@
                         FontSize="25"
                         FontFamily="arial"
                         Padding="0"
-                        materialDesign:ButtonAssist.CornerRadius="5"
+                        materialDesign:ButtonAssist.CornerRadius="8"
                         Command="{Binding LoadAddWindowCM}">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
