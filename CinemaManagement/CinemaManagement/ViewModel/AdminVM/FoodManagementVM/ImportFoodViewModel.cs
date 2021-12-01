@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.FoodManagementPage;
 using System.Windows;
 
@@ -19,7 +20,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             if (SelectedProduct != null)
             {
-                if (Quantity>0 && Price>=0)
+                if (Quantity > 0 && Price >= 0)
                 {
                     ProductReceiptDTO productReceipt = new ProductReceiptDTO();
                     productReceipt.ProductId = SelectedProduct.Id;
@@ -34,16 +35,21 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                         LoadProductListView(Operation.UPDATE_PROD_QUANTITY);
                         MaskName.Visibility = Visibility.Collapsed;
                         p.Close();
+                        MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddProductReceipt, MessageType.Success, MessageButtons.OK);
+                        mb.ShowDialog();
                     }
-                    MessageBox.Show(messageFromAddProductReceipt);
                 }
                 else
                 {
-                    MessageBox.Show("Số lượng hoặc giá nhập không hợp lệ!");
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Số lượng hoặc giá nhập không hợp lệ!", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
             }
             else
-                MessageBox.Show("Vui lòng chọn sản phẩm!");
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng chọn sản phẩm!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+            }
         }
     }
 }

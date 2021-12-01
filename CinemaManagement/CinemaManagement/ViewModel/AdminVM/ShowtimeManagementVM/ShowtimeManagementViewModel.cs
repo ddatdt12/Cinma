@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.ShowtimeManagementVM;
 using System;
 using System.Collections.Generic;
@@ -165,24 +166,22 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 {
                     //Kiểm tra suất chiếu đã có người đặt ghế nào chưa để có thông báo phù hợp
                     bool isShowHaveBooking = ShowtimeService.Ins.CheckShowtimeHaveBooking(SelectedShowtime.Id);
-                    if (true)
+                    if (isShowHaveBooking)
                     {
                         message = $"Suất chiếu này có ghế đã được đặt.\n{message}";
                     }
                 }
                 catch (Exception e)
                 {
-                    System.Windows.MessageBox.Show("Lỗi hệ thống");
+                    MessageBoxCustom ms = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Warning, MessageButtons.OK);
+                    ms.ShowDialog();
                 }
 
-                MessageBoxResult result = System.Windows.MessageBox.Show(message, "Xác nhận xoá", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes)
+                MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
+                result.ShowDialog();
+                if (result.DialogResult == true)
                 {
                     (bool deleteSuccess, string messageFromDelete) = ShowtimeService.Ins.DeleteShowtime(SelectedShowtime.Id);
-                    MessageBox.Show(messageFromDelete);
-
-
                     if (deleteSuccess)
                     {
                         for (int i = 0; i < ListShowtimeofMovie.Count; i++)
@@ -193,6 +192,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                         oldSelectedItem = SelectedItem;
                         ReloadShowtimeList(SelectedRoomId);
                         SelectedShowtime = null;
+                        MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Success, MessageButtons.OK);
+                        mb.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
                     }
 
 
@@ -273,11 +279,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 if (IsSuccess)
                 {
                     SelectedShowtime.TicketPrice = moviePrice;
-                    MessageBox.Show(message);
+                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
                 else
                 {
-                    MessageBox.Show(message);
+                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
             });
         }

@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.FoodManagementPage;
 using System;
 using System.Collections.ObjectModel;
@@ -420,7 +421,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             }
             catch (Exception exp)
             {
-                System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Unable to open file " + exp.Message, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
             }
         }
 
@@ -440,7 +442,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     }
                     catch (Exception e)
                     {
-                        System.Windows.MessageBox.Show("Lỗi hệ thống " + e.Message);
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
                     }
                     break;
                 case Operation.CREATE:

@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.FoodManagementPage;
 using System;
 using System.IO;
@@ -77,15 +78,23 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 {
                     SaveImgToApp();
                     LoadProductListView(Operation.UPDATE, product);
-                    MessageBox.Show(messageFromUpdateProduct);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateProduct, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 }
                 else
-                    MessageBox.Show(messageFromUpdateProduct);
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateProduct, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
+
             }
             else
-                MessageBox.Show("Vui lòng nhập đủ thông tin!");
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+            }
         }
     }
 }

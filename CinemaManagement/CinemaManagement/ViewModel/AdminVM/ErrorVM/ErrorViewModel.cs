@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.ErrorManagement;
 using System;
 using System.Collections.Generic;
@@ -93,7 +94,7 @@ namespace CinemaManagement.ViewModel
                 ListError = new ObservableCollection<TroubleDTO>();
 
                 //reduce the number notifi of main page
-                int counttemp = 0;              
+                int counttemp = 0;
                 foreach (var item in temp)
                 {
                     if (item.Status == Utils.STATUS.WAITING)
@@ -153,7 +154,8 @@ namespace CinemaManagement.ViewModel
             {
                 if (DateTime.Compare(SelectedItem.SubmittedAt.Date, SelectedDate.Date) > 0)
                 {
-                    MessageBox.Show("Ngày không hợp lệ!");
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Ngày không hợp lệ!", MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
                     return;
                 }
 
@@ -167,13 +169,15 @@ namespace CinemaManagement.ViewModel
 
                 if (isS)
                 {
-                    MessageBox.Show(messageFromUpdate);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                     ReloadErrorList();
                     p.Close();
                 }
                 else
                 {
-                    MessageBox.Show(messageFromUpdate);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
 
             }
@@ -188,13 +192,15 @@ namespace CinemaManagement.ViewModel
 
                 if (isS)
                 {
-                    MessageBox.Show(messageFromUpdate);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                     ReloadErrorList();
                     p.Close();
                 }
                 else
                 {
-                    MessageBox.Show(messageFromUpdate);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
             }
             else if (SelectedStatus.Content.ToString() == Utils.STATUS.DONE)
@@ -204,7 +210,8 @@ namespace CinemaManagement.ViewModel
                     DateTime t = SelectedItem.StartDate.Value;
                     if (DateTime.Compare(t.Date, SelectedFinishDate.Date) > 0)
                     {
-                        MessageBox.Show("Ngày không hợp lệ!");
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Ngày không hợp lệ!", MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
                         return;
                     }
                 }
@@ -221,13 +228,15 @@ namespace CinemaManagement.ViewModel
 
                 if (isS)
                 {
-                    MessageBox.Show(messageFromUpdate);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                     ReloadErrorList();
                     p.Close();
                 }
                 else
                 {
-                    MessageBox.Show(messageFromUpdate);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
 
             }
