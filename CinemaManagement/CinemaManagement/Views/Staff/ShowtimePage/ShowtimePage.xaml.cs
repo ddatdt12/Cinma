@@ -2,6 +2,7 @@
 using System;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace CinemaManagement.Views.Staff.ShowtimePage
 {
@@ -10,6 +11,7 @@ namespace CinemaManagement.Views.Staff.ShowtimePage
         public ShowtimePage()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
         private bool Filter(object item)
         {

@@ -29,29 +29,25 @@
             <RowDefinition Height="60*"></RowDefinition>
             <RowDefinition Height="460*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Name="lblBack"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               Cursor="Hand">
-            <Label.Style>
-                <Style TargetType="Label">
-                    <Setter Property="Background" Value="#EEEEEE"/>
-                    <Style.Triggers >
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#CCCCCC"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Label.Style>
-            <materialDesign:PackIcon Kind="KeyboardBackspace"
-                                     Height="Auto"
-                                     Width="Auto"/>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding ElementName=Food_Page, Path=DataContext.GoBackCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Label>
+        <Button x:Name="btnClose"
+                BorderBrush="Black"
+                BorderThickness="0.3"
+                materialDesign:ButtonAssist.CornerRadius="30"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Cursor="Hand"
+                Width="35"
+                Height="35"
+                Margin="0 0 15 10"
+                Background="#FFA7C7D1"
+                Foreground="Black"
+                Command="{Binding GoBackCommand}"
+                CommandParameter="{Binding ElementName=Food_Page}"
+                Padding="0">
+            <materialDesign:PackIcon Kind="ArrowLeft"
+                                     Height="30"
+                                     Width="30" />
+        </Button>
 
         <Border BorderBrush="LightGray"
                 BorderThickness="0,0,0,0.5"
