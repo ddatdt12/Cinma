@@ -22,6 +22,13 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public Frame mainFrame { get; set; }
         public Card ButtonView { get; set; }
 
+        private bool _IsReleaseVoucherLoading;
+        public bool IsReleaseVoucherLoading
+        {
+            get { return _IsReleaseVoucherLoading; }
+            set { _IsReleaseVoucherLoading = value; OnPropertyChanged(); }
+        }
+
         private VoucherReleaseDTO selectedItem;
         public VoucherReleaseDTO SelectedItem
         {
@@ -181,17 +188,18 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     }
                 }
             });
-            SaveNewBigVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            SaveNewBigVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                SaveNewBigVoucherFunc();
+                await SaveNewBigVoucherFunc();
             });
-            SaveMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+
+            SaveMiniVoucherCM = new RelayCommand<object>((p) => { return true; },async (p) =>
             {
-                SaveMiniVoucherFunc();
+                await SaveMiniVoucherFunc();
             });
-            SaveListMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            SaveListMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                SaveListMiniVoucherFunc();
+                await SaveListMiniVoucherFunc();
             });
             UpdateBigVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -231,9 +239,14 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                 w.ShowDialog();
             });
-            ReleaseVoucherCM = new RelayCommand<ReleaseVoucher>((p) => { return true; }, (p) =>
+            ReleaseVoucherCM = new RelayCommand<ReleaseVoucher>((p) => { return true; }, async (p) =>
             {
-                ReleaseVoucherFunc(p);
+                IsReleaseVoucherLoading = true;
+
+                await ReleaseVoucherFunc(p);
+
+                IsReleaseVoucherLoading = false;
+
             });
             StoreWaitingListCM = new RelayCommand<CheckBox>((p) => { return true; }, (p) =>
             {

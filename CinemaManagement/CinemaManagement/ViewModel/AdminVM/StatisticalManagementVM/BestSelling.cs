@@ -114,7 +114,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                     Values = new ChartValues<decimal>(chartdata),
                     Title = "Doanh thu"
                 },
-
             };
         }
         public void LoadBestSellByMonth()

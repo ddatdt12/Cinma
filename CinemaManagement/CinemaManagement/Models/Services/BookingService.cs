@@ -55,7 +55,7 @@ namespace CinemaManagement.Models.Services
                 int showtimeId = newTicketList[0].ShowtimeId;
                 using (var context = new CinemaManagementEntities())
                 {
-                    var seatSets = context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId)).ToList();
+                    var seatSets = context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId));
                     foreach (var s in seatSets)
                     {
                         if (s.Status)
@@ -105,7 +105,7 @@ namespace CinemaManagement.Models.Services
                     newTicketList.ForEach(s => idSeatList.Add(s.SeatId));
                     //Make seat of showtime status = true
                     int showtimeId = newTicketList[0].ShowtimeId;
-                    var seatSets = context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId)).ToList();
+                    var seatSets = context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId));
                     foreach (var s in seatSets)
                     {
                         if (s.Status)
@@ -122,7 +122,7 @@ namespace CinemaManagement.Models.Services
                     AddNewTickets(context, billId, newTicketList);
 
                     //Product
-                    bool addSuccess = AddNewProductBills(context ,billId, orderedProductList);
+                    bool addSuccess = AddNewProductBills(context, billId, orderedProductList);
                     if (!addSuccess)
                     {
                         return (false, "Số lượng sản phẩm không đủ để đáp ứng!");

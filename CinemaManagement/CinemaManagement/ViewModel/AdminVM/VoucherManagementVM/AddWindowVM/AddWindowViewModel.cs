@@ -6,6 +6,7 @@ using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -162,12 +163,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             set { _SelectedCbbFilter = value; OnPropertyChanged(); ChangeListViewSource(); }
         }
 
-
-
-
-
-
-
         public ICommand LoadAddWindowCM { get; set; }
         public ICommand LoadAddInforCM { get; set; }
         public ICommand LoadAddVoucherCM { get; set; }
@@ -180,14 +175,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public ICommand SaveMiniVoucherCM { get; set; }
         public ICommand SaveListMiniVoucherCM { get; set; }
 
-
         public void LessVoucherFunc()
         {
             ListMiniVoucher.RemoveAt(selectedWaitingVoucher);
         }
-        public void SaveNewBigVoucherFunc()
+        public async Task SaveNewBigVoucherFunc()
         {
-
             if (string.IsNullOrEmpty(ReleaseName))
             {
                 MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin", MessageType.Warning, MessageButtons.OK);
@@ -208,6 +201,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 Status = Status,
             };
 
+            await Task.Delay(0);
             (bool isSucess, string addSuccess, VoucherReleaseDTO newVoucherRelease) = VoucherService.Ins.CreateVoucherRelease(vr);
 
             if (isSucess)
@@ -228,7 +222,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
             }
         }
-        public void SaveMiniVoucherFunc()
+        public async Task SaveMiniVoucherFunc()
         {
             foreach (VoucherDTO item in ListMiniVoucher)
             {
@@ -249,7 +243,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 }
             }
 
-            (bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = VoucherService.Ins.CreateInputVoucherList(SelectedItem.Id, new List<VoucherDTO>(ListMiniVoucher));
+            (bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = await VoucherService.Ins.CreateInputVoucherList(SelectedItem.Id, new List<VoucherDTO>(ListMiniVoucher));
 
             if (createSuccess)
             {
@@ -272,7 +266,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
             }
         }
-        public void SaveListMiniVoucherFunc()
+        public async Task SaveListMiniVoucherFunc()
         {
             if (Quantity == 0 || Length == 0 || string.IsNullOrEmpty(FirstChar) || string.IsNullOrEmpty(LastChar))
             {
@@ -281,8 +275,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 return;
             }
 
-
-            (string error, List<string> listCode) = Helper.GetListCode(Quantity, Length, FirstChar, LastChar);
+            (string error, List<string> listCode) = await Task<(string, List<string>)>.Run(() => Helper.GetListCode(Quantity, Length, FirstChar, LastChar));
             if (error != null)
             {
                 MessageBoxCustom mb = new MessageBoxCustom("", error, MessageType.Error, MessageButtons.OK);
@@ -290,7 +283,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 return;
             }
 
-            (bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = VoucherService.Ins.CreateRandomVoucherList(SelectedItem.Id, listCode);
+            (bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = await VoucherService.Ins.CreateRandomVoucherList(SelectedItem.Id, listCode);
 
             if (createSuccess)
             {
@@ -311,7 +304,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 MessageBoxCustom mb = new MessageBoxCustom("", createRandomSuccess, MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
             }
-
         }
         public void ChangeListViewSource()
         {
@@ -323,7 +315,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             NumberSelected = 0;
             if (WaitingMiniVoucher != null)
                 WaitingMiniVoucher.Clear();
-
 
             if (SelectedCbbFilter.Content.ToString() == Utils.VOUCHER_STATUS.REALEASED)
             {

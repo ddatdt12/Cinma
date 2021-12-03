@@ -37,6 +37,11 @@
                            FontWeight="Bold"
                            FontSize="25"
                            Margin="5" />
+
+                    <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}"
+                                 HorizontalAlignment="Center"
+                                 IsIndeterminate="{Binding IsReleaseVoucherLoading}"
+                                 Value="0" />
                     <Button Click="Button_Click_1"
                             ToolBar.OverflowMode="AsNeeded"
                             Background="Transparent"
@@ -249,6 +254,7 @@
                             </StackPanel>
                         </StackPanel>
                         <Grid Grid.Row="1">
+
                             <Button VerticalAlignment="Top"
                                     HorizontalAlignment="Right"
                                     Width="100"
@@ -258,9 +264,13 @@
                                     materialDesign:ButtonAssist.CornerRadius="8"
                                     Content="Xác nhận"
                                     CommandParameter="{Binding ElementName=window}" />
+
                         </Grid>
+
+
                     </Grid>
                 </materialDesign:Card>
+
             </Grid>
         </Grid>
     </Border>

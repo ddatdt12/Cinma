@@ -1,10 +1,20 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Views;
+using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -45,7 +55,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             set { _ListCustomerEmail = value; OnPropertyChanged(); }
         }
 
-        public void ReleaseVoucherFunc(ReleaseVoucher p)
+        public async Task ReleaseVoucherFunc(ReleaseVoucher p)
         {
             string mess = "Số voucher không chia hết cho khách hàng!";
             if (WaitingMiniVoucher.Count == 0)
@@ -108,6 +118,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     return;
                 }
             }
+
             // new customer
             //code here
             if (NumberCustomer == -2)
@@ -117,7 +128,23 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     return;
             }
 
-            (bool releaseSuccess, string messageFromRelease) = VoucherService.Ins.ReleaseMultiVoucher(WaitingMiniVoucher);
+            // Danh sách code và khách hàng
+            List<string> listCode = ReleaseVoucherList.Select(v => v.Code).ToList();
+            List<string> listCustomerEmail = ListCustomerEmail.Select(v => v.Email).ToList();
+
+            //Chia danh sách code theo số lượng khách hàng
+            int sizePerItem = listCode.Count / listCustomerEmail.Count;
+            List<List<string>> ListCodePerEmailList = ChunkBy(listCode, sizePerItem);
+
+            (bool sendSuccess, string messageFromSendEmail) = await sendHtmlEmail(listCustomerEmail, ListCodePerEmailList);
+
+            if (!sendSuccess)
+            {
+                MessageBox.Show(messageFromSendEmail);
+                return;
+            }
+
+            (bool releaseSuccess, string messageFromRelease) = await VoucherService.Ins.ReleaseMultiVoucher(WaitingMiniVoucher);
 
             if (releaseSuccess)
             {
@@ -140,7 +167,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 MessageBoxCustom mb = new MessageBoxCustom("", messageFromRelease, MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
             }
-
         }
         public void RefreshEmailList()
         {
@@ -173,6 +199,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     }
             }
         }
+
         bool IsExport = false;
         public void ExportVoucherFunc()
         {
@@ -213,6 +240,92 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 }
             }
         }
+
+        protected async Task<(bool, string)> sendHtmlEmail(List<string> customerEmailList, List<List<string>> ListCodePerEmailList)
+        {
+            List<Task> listSendEmailTask = new List<Task>();
+            for (int i = 0; i < customerEmailList.Count; i++)
+            {
+                listSendEmailTask.Add(sendEmailForACustomer(customerEmailList[i], ListCodePerEmailList[i]));
+            }
+
+            try
+            {
+                await Task.WhenAll(listSendEmailTask);
+                return (true, "Gửi thành công");
+            }
+            catch (Exception e)
+            {
+                return (false, e.Message);
+            }
+        }
+
+        private Task sendEmailForACustomer(string customerEmail, List<string> listCode)
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+            string APP_EMAIL = appSettings["APP_EMAIL"];
+            string APP_PASSWORD = appSettings["APP_PASSWORD"];
+
+            //SMTP CONFIG
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+            smtp.EnableSsl = true;
+            smtp.Port = 587;
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential(APP_EMAIL, APP_PASSWORD);
+
+            MailMessage mail = new MailMessage();
+            mail.IsBodyHtml = true;
+
+            //create Alrternative HTML view
+
+            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(GetCustomerGratitudeTemplate(listCode), Encoding.UTF8, "text/html");
+            //Add Image
+            LinkedResource image = new LinkedResource(Helper.GetImagePath("poster.png"), "image/png");
+            image.ContentId = "myImageID";
+            image.ContentType.Name = "thank_you_picture";
+            image.TransferEncoding = TransferEncoding.Base64;
+            image.ContentLink = new Uri("cid:" + image.ContentId);
+
+            //Add the Image to the Alternate view
+            htmlView.LinkedResources.Add(image);
+            //Add view to the Email Message
+            mail.AlternateViews.Add(htmlView);
+
+            mail.From = new MailAddress(APP_EMAIL, "Squadin Cinema");
+            mail.To.Add(customerEmail);
+            mail.Subject = "Tri ân khách hàng thân thiết";
+
+            return smtp.SendMailAsync(mail);
+        }
+
+        private string GetCustomerGratitudeTemplate(List<string> listCode)
+        {
+            string templateHTML = Helper.GetEmailTemplatePath(GRATITUDE_TEMPLATE_FILE);
+            string listVoucherHTML = "";
+
+            for (int i = 0; i < listCode.Count; i++)
+            {
+                listVoucherHTML += VOUCHER_ITEM_HTML.Replace("{INDEX}", $"{i + 1}").Replace("{CODE_HERE}", listCode[i]);
+            }
+
+
+            String HTML = File.ReadAllText(templateHTML).Replace("{LIST_CODE_HERE}", listVoucherHTML);
+            return HTML;
+        }
+
+        public List<List<string>> ChunkBy(List<string> source, int chunkSize)
+        {
+            return source
+                .Select((x, i) => new { Index = i, Value = x })
+                .GroupBy(x => x.Index / chunkSize)
+                .Select(x => x.Select(v => v.Value).ToList())
+                .ToList();
+        }
+
+        const string GRATITUDE_TEMPLATE_FILE = "top5_customer_gratitude_html.txt";
+        const string VOUCHER_ITEM_HTML = "<li>Voucher {INDEX}: {CODE_HERE}</li>";
+
     }
 
     public class CustomerEmail

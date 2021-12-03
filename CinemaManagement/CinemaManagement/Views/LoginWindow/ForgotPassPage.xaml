@@ -139,13 +139,25 @@
                 </Grid>
 
                 <Grid HorizontalAlignment="Right">
-                    <Button Content="Gửi mã"
-                            Width="120"
-                            x:Name="sendmailbtn"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            Margin="0,50,20,0"
-                            Click="sendmailbtn_Click"
-                            Command="{Binding SendMailCM}" />
+                    <Grid>
+                        <Button Width="120"
+                                x:Name="sendmailbtn"
+                                Content="Gửi mã"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Margin="0,50,20,0"
+                                Click="sendmailbtn_Click"
+                                Command="{Binding SendMailCM}"
+                                CommandParameter="{Binding ElementName=sendmailbtn}" />
+
+                        <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}"
+                                     HorizontalAlignment="Center"
+                                     IsIndeterminate="{Binding IsLoading}"
+                                     Foreground="White"
+                                     Value="0"
+                                     Margin="45,55,70,5" />
+                    </Grid>
+                   
+                  
                     <Button Content="Xác nhận"
                             Width="120"
                             Visibility="Collapsed"
@@ -155,7 +167,9 @@
                             Click="acceptbutn_Click"
                             Command="{Binding ConfirmCM}"
                             CommandParameter="{Binding ElementName=codefield}" />
+                    
                 </Grid>
+
             </StackPanel>
 
         </StackPanel>

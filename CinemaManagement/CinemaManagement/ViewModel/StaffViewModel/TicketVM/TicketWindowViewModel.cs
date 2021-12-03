@@ -94,12 +94,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                     }
                 }
             });
-            LoadTicketBookingPageCM = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            LoadTicketBookingPageCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
                 tk.TicketBookingFrame.Content = new TicketBookingPage();
             });
-            LoadFoodPageCM = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            LoadFoodPageCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
                 tk.TicketBookingFrame.Content = new FoodPage();

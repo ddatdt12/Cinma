@@ -15,7 +15,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
     {
         public void LoadEditFood(EditFoodWindow wd)
         {
-
             if (SelectedItem != null)
             {
                 DisplayName = SelectedItem.DisplayName;
@@ -29,7 +28,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 if (File.Exists(Helper.GetProductImgPath(SelectedItem.Image)) == true)
                 {
-
                     BitmapImage _image = new BitmapImage();
                     _image.BeginInit();
                     _image.CacheOption = BitmapCacheOption.None;
@@ -46,7 +44,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     wd.EditImage.Source = Helper.GetProductImageSource("null.jpg");
                 }
             }
-
         }
 
         public void EditFood(Window p)

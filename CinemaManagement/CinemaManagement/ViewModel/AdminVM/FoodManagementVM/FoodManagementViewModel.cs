@@ -144,12 +144,11 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
         public FoodManagementViewModel()
         {
-
             LoadProductListView(Operation.READ);
             FilterName = "";
             IsImageChanged = false;
             FilterTboxFoodCommand = new RelayCommand<System.Windows.Controls.TextBox>((p) => { return true; },
-                (p) =>
+                 (p) =>
                 {
                     ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
                     tempList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
@@ -191,7 +190,9 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 (p) =>
                 {
                     ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
+
                     tempList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
+
                     FoodList.Clear();
                     string temp = FilterName.ToLower();
                     if (Category.Content.ToString() == "Tất cả")

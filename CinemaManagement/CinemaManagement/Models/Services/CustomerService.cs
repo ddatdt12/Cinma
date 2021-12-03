@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -82,6 +83,40 @@ namespace CinemaManagement.Models.Services
             catch (Exception e)
             {
                 return (false, "Lỗi hệ thống", null);
+            }
+        }
+
+        public async Task<List<CustomerDTO>> GetTop5CustomerEmail()
+        {
+            try
+            {
+                using (var context = new CinemaManagementEntities())
+                {
+                    var cusStatistic = await context.Bills.Where(b => b.CreatedAt.Year == DateTime.Now.Year && b.CreatedAt.Month == DateTime.Now.Month)
+                        .GroupBy(b => b.CustomerId)
+                        .Select(grC => new
+                        {
+                            CustomerId = grC.Key,
+                            Expense = grC.Sum(c => (Decimal?)(c.TotalPrice + c.DiscountPrice)) ?? 0
+                        })
+                        .OrderByDescending(b => b.Expense).Take(5)
+                        .Join(
+                        context.Customers,
+                        statis => statis.CustomerId,
+                        cus => cus.Id,
+                        (statis, cus) => new CustomerDTO
+                        {
+                            Id = cus.Id,
+                            Name = cus.Name,
+                            PhoneNumber = cus.PhoneNumber,
+                            Email = cus.Email
+                        }).ToListAsync();
+                    return cusStatistic;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
     }

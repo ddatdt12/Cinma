@@ -47,8 +47,6 @@ namespace CinemaManagement.ViewModel
         }
 
 
-
-
         public MainAdminViewModel()
         {
             SelectedFuncName = "Quản lý suất chiếu";
