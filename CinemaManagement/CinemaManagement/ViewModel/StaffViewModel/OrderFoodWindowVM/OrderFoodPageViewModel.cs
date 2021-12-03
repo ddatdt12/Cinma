@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Utils;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -91,11 +92,14 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             }
         }
 
+        public static List<ProductDTO> ListOrder;
+
         public OrderFoodPageViewModel()
         {
             AllProduct = new ObservableCollection<ProductDTO>();
             OrderList = new ObservableCollection<ProductDTO>();
             MenuList = new ObservableCollection<ProductDTO>();
+            ListOrder = new List<ProductDTO>();
 
             //Khởi tạo giá trị ban đầu cho tổng giá tiền
             ReCalculate();
@@ -267,14 +271,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             {
                 if (MessageBox.Show("Xác nhận thanh toán? Nhấn OK.", "Xác nhận", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
-                    //var prodList = ProductService.Ins.GetAllProduct();
-                    //BillDTO bill = new BillDTO { CustomerId = "KH0002", StaffId = "NV002", _TotalPrice = 100000 };
-                    //List<ProductBillInfoDTO> orderedProds = new List<ProductBillInfoDTO>();
-                    //orderedProds.Add(new ProductBillInfoDTO { ProductId = prodList[1].Id, PricePerItem = prodList[1].Price, Quantity = 3 });
-                    //orderedProds.Add(new ProductBillInfoDTO { ProductId = prodList[2].Id, PricePerItem = prodList[2].Price, Quantity = 2 });
-                    ////ticketList.Add(new TicketDTO { SeatId=43, Price = showtime.TicketPrice , ShowtimeId = showtime.Id });
-                    ////ticketList.Add(new TicketDTO { SeatId=44, Price = showtime.TicketPrice , ShowtimeId = showtime.Id });
-                    //(bool isSuccess, string message) = BookingService.Ins.CreateProductOrder(bill, orderedProds);
+                    ListOrder = new List<ProductDTO>(OrderList);
                 }
             });
 
