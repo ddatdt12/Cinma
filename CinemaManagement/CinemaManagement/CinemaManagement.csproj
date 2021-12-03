@@ -354,6 +354,8 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\AddDeviceProblemPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\DeviceReportPageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\EditDeviceProblemPageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\ViewDeviceProblemPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodPageViewModel.cs" />
@@ -501,6 +503,15 @@
     </Compile>
     <Compile Include="Views\Staff\DeviceProblemsWindow\AddDeviceProblemPage.xaml.cs">
       <DependentUpon>AddDeviceProblemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\DeviceProblemsWindow\DeviceReportPage.xaml.cs">
+      <DependentUpon>DeviceReportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\DeviceProblemsWindow\EditDeviceProblemPage.xaml.cs">
+      <DependentUpon>EditDeviceProblemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\DeviceProblemsWindow\ViewDeviceProblemPage.xaml.cs">
+      <DependentUpon>ViewDeviceProblemPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
@@ -728,8 +739,16 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Staff\DeviceProblemsWindow\DeviceReportPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Staff\DeviceProblemsWindow\EditDeviceProblemPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Staff\DeviceProblemsWindow\ViewDeviceProblemPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Staff\MainStaffWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

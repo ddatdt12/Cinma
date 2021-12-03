@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
 {
-    public class AddDeviceProblemPageViewModel : BaseViewModel
+    public class EditDeviceProblemPageViewModel: BaseViewModel
     {
         public ICommand UploadImageCM { get; set; }
         public ICommand CancelCM { get; set; }
@@ -68,7 +68,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         {
             get => _SubmittedAt;
             set
-            { 
+            {
                 _SubmittedAt = value;
                 OnPropertyChanged();
             }
@@ -88,11 +88,38 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             set { _ImgSource = value; OnPropertyChanged(); }
         }
 
+        private string _Level;
+        public string Level
+        {
+            get => _Level;
+            set { _Level = value; OnPropertyChanged(); }
+        }
+
+        private string _RepairCostStr;
+        public string RepairCostStr
+        {
+            get => _RepairCostStr;
+            set { _RepairCostStr = value; OnPropertyChanged(); }
+        }
+
+        private DateTime? _StartDate;
+        public DateTime? StartDate
+        {
+            get => _StartDate;
+            set { _StartDate = value; OnPropertyChanged(); }
+        }
+
+        private DateTime? _FinishDate;
+        public DateTime? FinishDate
+        {
+            get => _FinishDate;
+            set { _FinishDate = value; OnPropertyChanged(); }
+        }
+
         MessageBoxCustom Message;
 
-        public AddDeviceProblemPageViewModel()
+        public EditDeviceProblemPageViewModel()
         {
-            //Khởi tạo
             Initialization();
 
             UploadImageCM = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -110,7 +137,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
 
             CancelCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                if (p!=null)
+                if (p != null)
                 {
 
                 }
@@ -125,7 +152,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                         SaveData();
                         //Wtrite code here
 
-                        Message = new MessageBoxCustom("Thông báo", "Lưu thông tin thành công!", MessageType.Info, MessageButtons.OK);
+                        Message = new MessageBoxCustom("Thông báo", "Cập nhật thông tin thành công!", MessageType.Info, MessageButtons.OK);
                         Message.ShowDialog();
                     }
                     else
@@ -144,13 +171,17 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
 
         public void Refresh()
         {
-            Title = null;
-            StaffId = null;
-            StaffName = null;
-            Status = "Chờ tiếp nhận";
-            SubmittedAt = DateTime.Now;
-            Description = null;
-            ImgSource = null;
+            Title = ErrorDevice.Title;
+            StaffId = ErrorDevice.StaffId;
+            StaffName = ErrorDevice.StaffName;
+            Status = ErrorDevice.Status;
+            SubmittedAt = ErrorDevice.SubmittedAt;
+            Description = ErrorDevice.Description;
+            ImgSource = ErrorDevice.Image;
+            Level = ErrorDevice.Level;
+            StartDate = ErrorDevice.StartDate;
+            FinishDate = ErrorDevice.FinishDate;
+            RepairCostStr = ErrorDevice.RepairCostStr;
         }
 
         public void Initialization()
@@ -158,7 +189,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             Refresh();
             ErrorDevice = new TroubleDTO();
             ListStaff = new List<StaffDTO>();
-            SubmittedAt = DateTime.Now;
 
             //Gán danh sách nhân viên
             LoadListStaff();

@@ -17,11 +17,11 @@ using System.Windows.Shapes;
 namespace CinemaManagement.Views.Staff.DeviceProblemsWindow
 {
     /// <summary>
-    /// Interaction logic for AddDeviceProblemPage.xaml
+    /// Interaction logic for DeviceReportPage.xaml
     /// </summary>
-    public partial class AddDeviceProblemPage : Page
+    public partial class DeviceReportPage : Page
     {
-        public AddDeviceProblemPage()
+        public DeviceReportPage()
         {
             InitializeComponent();
             this.Language = XmlLanguage.GetLanguage("vi-VN");

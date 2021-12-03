@@ -1,19 +1,21 @@
-﻿<Page x:Class="CinemaManagement.Views.Staff.ServiceProblemsWindow.SeviceReportPage"
+﻿<Page x:Class="CinemaManagement.Views.Staff.DeviceProblemsWindow.DeviceReportPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      mc:Ignorable="d" 
-      DataContext="{Binding DeviceReportPageVM}"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      mc:Ignorable="d"
+      DataContext="{StaticResource DeviceReportPageVM}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
       TextOptions.TextFormattingMode="Ideal"
       TextOptions.TextRenderingMode="Auto"
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="{DynamicResource MaterialDesignFont}"
       d:DesignHeight="720" 
       d:DesignWidth="1300"
-      Title="SeviceReportPage"
-      x:Name="Sevice_Report_Page"
+      Title="DeviceReportPage"
+      x:Name="Device_Report_Page"
       ShowsNavigationUI="False">
     <Grid>
         <Border BorderBrush="Gray"
@@ -40,47 +42,67 @@
                         <RowDefinition Height="50"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    
+
                     <Grid Grid.Row="0">
-                        
+                        <ComboBox Width="150"
+                                  Height="30"
+                                  VerticalAlignment="Center"
+                                  VerticalContentAlignment="Center"
+                                  HorizontalAlignment="Left"
+                                  HorizontalContentAlignment="Center"
+                                  Margin="80,0,0,0"
+                                  FontSize="15"
+                                  SelectedIndex="0"
+                                  SelectedItem="{Binding FilterListError,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem>Toàn bộ</ComboBoxItem>
+                            <ComboBoxItem>Chờ tiếp nhận</ComboBoxItem>
+                            <ComboBoxItem>Đang giải quyết</ComboBoxItem>
+                            <ComboBoxItem>Đã giải quyết</ComboBoxItem>
+                            <ComboBoxItem>Đã hủy</ComboBoxItem>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding FilterListErrorCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
                     </Grid>
 
-                    <materialDesign:Card Grid.Row="1">
+                    <materialDesign:Card Grid.Row="1"
+                                         Margin="60,10,60,20">
                         <ListView ItemsSource="{Binding ListError}"
-                      SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
-                      x:Name="Listview">
+                                  SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
+                                  x:Name="lvError">
                             <ListView.View>
                                 <GridView>
 
                                     <GridViewColumn Header="Sự cố"
-                                        Width="590">
+                                                    Width="500">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
                                                     <materialDesign:PackIcon Kind="AlertCircleOutline"
-                                                                 Width="40"
-                                                                 Height="40"
-                                                                 Foreground="Red"
-                                                                 Margin="0,30,20,0"/>
+                                                                             Width="40"
+                                                                             Height="40"
+                                                                             Foreground="Red"
+                                                                             Margin="0,30,20,0"/>
                                                     <Border CornerRadius="8,8,8,8"
-                                                Width="100"
-                                                Height="100">
+                                                            Width="100"
+                                                            Height="100">
                                                         <Border.Background>
-                                                            <ImageBrush x:Name="smallimg"
-                                                            Stretch="Fill"
-                                                            ImageSource="{Binding ImgSource}" />
+                                                            <ImageBrush Stretch="Fill"
+                                                                        ImageSource="{Binding ImgSource}" />
                                                         </Border.Background>
                                                     </Border>
                                                     <StackPanel Margin="20,0,0,0">
                                                         <Label Content="{Binding Title}"
-                                                   FontSize="25"
-                                                   FontWeight="Bold"
-                                                   Width="350" />
+                                                               FontSize="25"
+                                                               FontWeight="Bold"
+                                                               Width="350" />
                                                         <StackPanel Orientation="Horizontal">
                                                             <Label Content="Chi phí:"
-                                                       FontSize="20" />
+                                                                   FontSize="20" />
                                                             <Label Content="{Binding RepairCostStr}"
-                                                       FontSize="20" />
+                                                                   FontSize="20" />
                                                         </StackPanel>
 
                                                     </StackPanel>
@@ -89,27 +111,27 @@
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Header="Ngày nhận"
-                                        Width="350">
+                                                    Width="350">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding SubmittedAt}"
-                                               FontSize="25"
-                                               Margin="0,30,0,0" />
+                                                           FontSize="25"
+                                                           Margin="0,30,0,0" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Header="Trạng thái"
-                                        Width="170">
+                                                    Width="170">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Border BorderThickness="1"
-                                            Margin="0,25,0,0"
-                                            CornerRadius="20">
+                                                        Margin="0,25,0,0"
+                                                        CornerRadius="20">
                                                     <TextBlock Text="{Binding Status}"
-                                                   FontSize="20"
-                                                   FontStyle="Italic"
-                                                   Margin="7"
-                                                   FontWeight="Medium"/>
+                                                               FontSize="20"
+                                                               FontStyle="Italic"
+                                                               Margin="7"
+                                                               FontWeight="Medium"/>
                                                 </Border>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
@@ -118,14 +140,21 @@
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Border Cursor="Hand"
-                                            BorderBrush="Black"
-                                            BorderThickness="1"
-                                            Margin="20,30,0,0"
-                                            CornerRadius="5"
-                                            Background="Transparent">
+                                                        BorderBrush="Black"
+                                                        BorderThickness="1"
+                                                        Margin="10,30,0,0"
+                                                        CornerRadius="5"
+                                                        Background="Transparent"
+                                                        Width="30"
+                                                        Height="30">
                                                     <materialDesign:PackIcon Kind="Pencil"
-                                                                 Width="30"
-                                                                 Height="30" />
+                                                                             Width="30"
+                                                                             Height="30"/>
+                                                    <Border.InputBindings>
+                                                        <MouseBinding MouseAction="LeftClick"
+                                                                      Command="{Binding LoadPageCommand}"
+                                                                      CommandParameter="{Binding}" />
+                                                    </Border.InputBindings>
                                                 </Border>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>

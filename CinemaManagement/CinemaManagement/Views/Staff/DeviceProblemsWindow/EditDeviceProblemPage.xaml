@@ -1,4 +1,4 @@
-﻿<Page x:Class="CinemaManagement.Views.Staff.DeviceProblemsWindow.AddDeviceProblemPage"
+﻿<Page x:Class="CinemaManagement.Views.Staff.DeviceProblemsWindow.EditDeviceProblemPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
-      DataContext="{StaticResource AddDeviceProblemPageVM}"
+      DataContext="{StaticResource EditDeviceProblemPageVM}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextElement.FontWeight="Regular"
       TextOptions.TextFormattingMode="Ideal"
@@ -15,8 +15,8 @@
       FontFamily="{DynamicResource MaterialDesignFont}"
       d:DesignHeight="720"
       d:DesignWidth="1300"
-      Title="AddDeviceProblemPage"
-      x:Name="Add_Device_Problem_Page"
+      Title="EditDeviceProblemPage"
+      x:Name="Edit_Device_Problem_Page"
       ShowsNavigationUI="False">
 
     <Grid>
@@ -36,7 +36,7 @@
                             materialDesign:ShadowAssist.ShadowEdges="Bottom"
                             materialDesign:ShadowAssist.ShadowDepth="Depth1">
                         <Grid>
-                            <TextBlock Text="Thêm sự cố thiết bị"
+                            <TextBlock Text="Sửa thông tin sự cố"
                                        FontSize="25"
                                        Margin="20,10,0,0"
                                        FontWeight="Bold" />
@@ -141,8 +141,12 @@
                                           MaxDropDownHeight="240"
                                           materialDesign:ValidationAssist.Background="White"
                                           SelectedIndex="0"
-                                          x:Name="cbxStatusError">
+                                          x:Name="cbxStatusError"
+                                          Text="{Binding Status, Mode=OneWayToSource}">
                                     <ComboBoxItem>Chờ tiếp nhận</ComboBoxItem>
+                                    <ComboBoxItem>Đang giải quyết</ComboBoxItem>
+                                    <ComboBoxItem>Đã giải quyết</ComboBoxItem>
+                                    <ComboBoxItem>Đã hủy</ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
 
@@ -169,7 +173,6 @@
                         </StackPanel>
                     </Grid>
                 </Grid>
-                
                 <Grid Grid.Row="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -204,9 +207,8 @@
                                          Text="{Binding Description, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </StackPanel>
-                        
                         <StackPanel Grid.Column="1">
-                            
+
                             <!--Images Source-->
                             <Image Source="{Binding ImgSource}"
                                    x:Name="FrameImage"
@@ -233,7 +235,7 @@
                                     HorizontalAlignment="Right"
                                     Orientation="Horizontal"
                                     Margin="10">
-                            
+
                             <!--Cancel-->
                             <Button Content="Huỷ"
                                     Background="#EE3B3B"
@@ -245,7 +247,7 @@
                                     Margin="10,10,30,10"
                                     materialDesign:ButtonAssist.CornerRadius="8"
                                     Command="{Binding CancelCM}"/>
-                            
+
                             <!--Confirm-->
                             <Button Content="Xác nhận"
                                     Background="#007bff"
@@ -264,3 +266,4 @@
         </Border>
     </Grid>
 </Page>
+
