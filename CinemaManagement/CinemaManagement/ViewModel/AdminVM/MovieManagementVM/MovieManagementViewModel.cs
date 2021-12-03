@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using System;
 using System.Collections.Generic;
@@ -162,7 +163,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             }
             catch (Exception e)
             {
-                System.Windows.MessageBox.Show("Lỗi hệ thống " + e.Message);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
             }
 
             InsertCountryToComboBox();
@@ -205,28 +207,32 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             });
             LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
               {
-                  MessageBoxResult result = System.Windows.MessageBox.Show("Bạn có chắc muốn xoá phim này không ? Dữ liệu không thể phục hồi sau khi xoá!", "Xác nhận xoá", MessageBoxButton.YesNo);
-                  switch (result)
+                  string message = "Bạn có chắc muốn xoá phim này không? Dữ liệu không thể phục hồi sau khi xoá!";
+                  MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
+                  result.ShowDialog();
+                  switch (result.DialogResult)
                   {
-                      case MessageBoxResult.Yes:
+                      case true:
                           {
                               (bool successDelMovie, string messageFromDelMovie) = MovieService.Ins.DeleteMovie(SelectedItem.Id);
 
                               if (successDelMovie)
                               {
                                   File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-                                  System.Windows.MessageBox.Show(messageFromDelMovie);
                                   LoadMovieListView(Operation.DELETE);
                                   SelectedItem = null;
+                                  MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
+                                  mb.ShowDialog();
                                   break;
                               }
                               else
                               {
-                                  System.Windows.MessageBox.Show(messageFromDelMovie);
+                                  MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Error, MessageButtons.OK);
+                                  mb.ShowDialog();
                                   break;
                               }
                           }
-                      case MessageBoxResult.No:
+                      case false:
                           break;
                   }
               });

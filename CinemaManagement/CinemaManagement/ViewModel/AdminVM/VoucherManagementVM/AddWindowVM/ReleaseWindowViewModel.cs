@@ -1,11 +1,12 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
@@ -13,14 +14,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
     public partial class VoucherViewModel : BaseViewModel
     {
         public static int NumberCustomer;
-
-
-        private DateTime _ReleaseDate;
-        public DateTime ReleaseDate
-        {
-            get { return _ReleaseDate; }
-            set { _ReleaseDate = value; OnPropertyChanged(); }
-        }
 
         private ComboBoxItem _ReleaseCustomerList;
 
@@ -57,32 +50,36 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             string mess = "Số voucher không chia hết cho khách hàng!";
             if (WaitingMiniVoucher.Count == 0)
             {
-                MessageBox.Show("Danh sách voucher đang trống!");
+                MessageBoxCustom mb = new MessageBoxCustom("", "Danh sách voucher đang trống!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
                 return;
             }
             foreach (var item in ListCustomerEmail)
             {
                 if (string.IsNullOrEmpty(item.Email))
                 {
-                    MessageBox.Show("Tồn tại email trống");
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Tồn tại email trống", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
                     return;
                 }
             }
             //top 5 customer
             if (NumberCustomer == 5)
             {
-                if (WaitingMiniVoucher.Count > 5)
+                if (ListCustomerEmail.Count == 0)
                 {
-                    if (WaitingMiniVoucher.Count % 5 != 0)
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Danh sách khách hàng đang trống!", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
+                    return;
+                }
+                else
+                {
+                    if (WaitingMiniVoucher.Count % ListCustomerEmail.Count != 0)
                     {
-                        MessageBox.Show(mess);
+                        MessageBoxCustom mb = new MessageBoxCustom("", mess, MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
                         return;
                     }
-                }
-                else if (WaitingMiniVoucher.Count < 5)
-                {
-                    MessageBox.Show(mess);
-                    return;
                 }
 
             }
@@ -91,32 +88,41 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 if (ListCustomerEmail.Count == 0)
                 {
-                    MessageBox.Show("Danh sách khách hàng đang trống!");
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Danh sách khách hàng đang trống!", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
                     return;
                 }
                 if (WaitingMiniVoucher.Count > ListCustomerEmail.Count)
                 {
                     if (WaitingMiniVoucher.Count % ListCustomerEmail.Count != 0)
                     {
-                        MessageBox.Show(mess);
+                        MessageBoxCustom mb = new MessageBoxCustom("", mess, MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
                         return;
                     }
                 }
                 else if (WaitingMiniVoucher.Count < ListCustomerEmail.Count)
                 {
-                    MessageBox.Show(mess);
+                    MessageBoxCustom mb = new MessageBoxCustom("", mess, MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
                     return;
                 }
             }
             // new customer
             //code here
-
+            if (NumberCustomer == -2)
+            {
+                ExportVoucherFunc();
+                if (!IsExport)
+                    return;
+            }
 
             (bool releaseSuccess, string messageFromRelease) = VoucherService.Ins.ReleaseMultiVoucher(WaitingMiniVoucher);
 
             if (releaseSuccess)
             {
-                MessageBox.Show(messageFromRelease);
+                MessageBoxCustom mb = new MessageBoxCustom("", messageFromRelease, MessageType.Success, MessageButtons.OK);
+                mb.ShowDialog();
                 WaitingMiniVoucher.Clear();
                 (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
 
@@ -131,7 +137,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             }
             else
             {
-                MessageBox.Show(messageFromRelease);
+                MessageBoxCustom mb = new MessageBoxCustom("", messageFromRelease, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
             }
 
         }
@@ -148,7 +155,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                         foreach (var item in top5cus)
                         {
-                            ListCustomerEmail.Add(new CustomerEmail { Email = item.Email });
+                            if (item.Email != null)
+                                ListCustomerEmail.Add(new CustomerEmail { Email = item.Email });
                         }
 
                         return;
@@ -163,6 +171,46 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                         ListCustomerEmail = new ObservableCollection<CustomerEmail>();
                         return;
                     }
+            }
+        }
+        bool IsExport = false;
+        public void ExportVoucherFunc()
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
+            {
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+                    app.Visible = false;
+                    Microsoft.Office.Interop.Excel.Workbook wb = app.Workbooks.Add(1);
+                    Microsoft.Office.Interop.Excel.Worksheet ws = (Microsoft.Office.Interop.Excel.Worksheet)wb.Worksheets[1];
+
+                    ws.Cells[1, 1] = "Tên đợt phát hành: " + SelectedItem.ReleaseName;
+                    ws.Cells[2, 1] = "Ngày phát hành: " + DateTime.Today;
+                    ws.Cells[3, 1] = "Hiệu lực đến: " + SelectedItem.FinishDate;
+                    ws.Cells[4, 1] = "Số lượng: " + ReleaseVoucherList.Count;
+                    ws.Cells[6, 5] = "ID voucher";
+                    ws.Cells[6, 6] = "Mã voucher";
+
+                    int i2 = 7;
+                    foreach (var item in ReleaseVoucherList)
+                    {
+
+                        ws.Cells[i2, 5] = item.Id;
+                        ws.Cells[i2, 6] = item.Code;
+
+                        i2++;
+                    }
+                    ws.SaveAs(sfd.FileName);
+                    wb.Close();
+                    app.Quit();
+
+                    IsExport = true;
+                }
+                else
+                {
+                    IsExport = false;
+                }
             }
         }
     }

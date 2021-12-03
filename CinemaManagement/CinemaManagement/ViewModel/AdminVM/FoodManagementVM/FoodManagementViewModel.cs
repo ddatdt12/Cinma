@@ -110,7 +110,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ICommand OpenImportFoodCommand { get; set; }
         public ICommand OpenAddFoodCommand { get; set; }
         public ICommand OpenEditFoodCommand { get; set; }
-        public ICommand OpenDeleteFoodCommand { get; set; }
 
         public ICommand ImportFoodCommand { get; set; }
         public ICommand AddFoodCommand { get; set; }
@@ -318,21 +317,32 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     EditFood(p);
                 });
 
-            OpenDeleteFoodCommand = new RelayCommand<object>((p) => { return true; },
-                (p) =>
-                {
-                    DeleteFoodWindow wd = new DeleteFoodWindow();
-                    Image = SelectedItem.Image;
-                    Id = SelectedItem.Id;
-                    MaskName.Visibility = Visibility.Visible;
-                    wd.ShowDialog();
-
-                });
-
             DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; },
                 (p) =>
                 {
-                    DeleteFood(p);
+                    Image = SelectedItem.Image;
+                    Id = SelectedItem.Id;
+                    MessageBoxCustom mbx = new MessageBoxCustom("Cảnh báo", "Bạn có chắc muốn xoá sản phẩm này không?", MessageType.Warning, MessageButtons.YesNo);
+                    mbx.ShowDialog();
+                    if (mbx.DialogResult == true)
+                    {
+                        (bool successDelMovie, string messageFromDelMovie) = ProductService.Ins.DeleteProduct(Id);
+                        if (successDelMovie)
+                        {
+                            File.Delete(Helper.GetProductImgPath(Image));
+                            MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
+                            mb.ShowDialog();
+                            LoadProductListView(Operation.DELETE);
+                            SelectedItem = null;
+                            return;
+                        }
+                        else
+                        {
+                            MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                            return;
+                        }
+                    }
                 });
 
             CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>

@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
+using CinemaManagement.Views;
 using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff;
 using System;
@@ -56,7 +57,8 @@ namespace CinemaManagement.ViewModel
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxCustom mb = new MessageBoxCustom("Lỗi hệ thống", $"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
             }
             MouseLeftButtonDownWindowCM = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {

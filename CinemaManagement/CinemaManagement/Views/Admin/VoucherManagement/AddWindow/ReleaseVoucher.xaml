@@ -146,6 +146,7 @@
                                               SelectionChanged="ComboBox_SelectionChanged_1">
                                         <ComboBoxItem>Top 5 khách hàng trong tháng</ComboBoxItem>
                                         <ComboBoxItem>Khách hàng mới trong tháng</ComboBoxItem>
+                                        <ComboBoxItem>Xuất Excel</ComboBoxItem>
                                         <ComboBoxItem>Khác</ComboBoxItem>
                                     </ComboBox>
                                 </Grid>
@@ -159,11 +160,9 @@
                                     </Grid.ColumnDefinitions>
                                     <Label Content="Ngày phát hành:"
                                            Grid.Column="0" />
-                                    <DatePicker Grid.Column="1"
-                                                Margin="0,0,20,0"
-                                                Focusable="False"
-                                                SelectedDate="{Binding ReleaseDate,Mode=TwoWay}"
-                                                DisplayDateStart="{Binding GetCurrentDate}" />
+                                    <Label Loaded="Label_Loaded"
+                                           Grid.Column="1"
+                                           FontSize="16"/>
 
 
                                 </Grid>
@@ -171,7 +170,8 @@
                             <StackPanel Orientation="Horizontal"
                                         Margin="10,30,0,0">
                                 <Grid Width="439"
-                                      x:Name="emaillistbox">
+                                      x:Name="emaillistbox" 
+                                      IsEnabled="False">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40*" />
                                         <ColumnDefinition Width="60*" />
@@ -182,6 +182,7 @@
                                                Grid.Column="0" />
                                         <StackPanel Orientation="Horizontal">
                                             <Button Content="+ Thêm mới"
+                                                    x:Name="addnewemail"
                                                     Background="Transparent"
                                                     Foreground="Black"
                                                     BorderBrush="Black"

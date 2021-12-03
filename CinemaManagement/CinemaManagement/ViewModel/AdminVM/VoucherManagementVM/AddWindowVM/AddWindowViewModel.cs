@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
 using System;
 using System.Collections.Generic;
@@ -189,7 +190,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
             if (string.IsNullOrEmpty(ReleaseName))
             {
-                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
                 return;
             }
 
@@ -211,7 +213,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             if (isSucess)
             {
                 Unlock = true;
-                MessageBox.Show(addSuccess);
+                MessageBoxCustom mb = new MessageBoxCustom("", addSuccess, MessageType.Success, MessageButtons.OK);
+                mb.ShowDialog();
                 ListBigVoucher.Add(newVoucherRelease);
 
                 (VoucherReleaseDTO voucherReleaseDetail, _) = VoucherService.Ins.GetVoucherReleaseDetails(newVoucherRelease.Id);
@@ -221,7 +224,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             }
             else
             {
-                MessageBox.Show(addSuccess);
+                MessageBoxCustom mb = new MessageBoxCustom("", addSuccess, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
             }
         }
         public void SaveMiniVoucherFunc()
@@ -230,7 +234,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 if (string.IsNullOrEmpty(item.Code))
                 {
-                    MessageBox.Show("Không được để trống!");
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Không được để trống!", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
                     return;
                 }
             }
@@ -238,7 +243,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 if (ListMiniVoucher[ListMiniVoucher.Count - 1].Code == ListMiniVoucher[i].Code)
                 {
-                    MessageBox.Show("Mã đã bị trùng!");
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Mã đã bị trùng!", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
                     return;
                 }
             }
@@ -248,7 +254,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             if (createSuccess)
             {
                 AddVoucher.AllCheckBox.Clear();
-                MessageBox.Show(createRandomSuccess);
+                MessageBoxCustom mb = new MessageBoxCustom("", createRandomSuccess, MessageType.Success, MessageButtons.OK);
+                mb.ShowDialog();
                 (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
 
                 SelectedItem = voucherReleaseDetail;
@@ -261,14 +268,16 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             }
             else
             {
-                MessageBox.Show(createRandomSuccess);
+                MessageBoxCustom mb = new MessageBoxCustom("", createRandomSuccess, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
             }
         }
         public void SaveListMiniVoucherFunc()
         {
             if (Quantity == 0 || Length == 0 || string.IsNullOrEmpty(FirstChar) || string.IsNullOrEmpty(LastChar))
             {
-                MessageBox.Show("Không được để trống!");
+                MessageBoxCustom mb = new MessageBoxCustom("", "Không được để trống!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
                 return;
             }
 
@@ -276,7 +285,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             (string error, List<string> listCode) = Helper.GetListCode(Quantity, Length, FirstChar, LastChar);
             if (error != null)
             {
-                MessageBox.Show(error);
+                MessageBoxCustom mb = new MessageBoxCustom("", error, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
                 return;
             }
 
@@ -284,7 +294,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
             if (createSuccess)
             {
-                MessageBox.Show(createRandomSuccess);
+                MessageBoxCustom mb = new MessageBoxCustom("", createRandomSuccess, MessageType.Success, MessageButtons.OK);
+                mb.ShowDialog();
                 (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
                 AddVoucher.AllCheckBox.Clear();
 
@@ -297,7 +308,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             }
             else
             {
-                MessageBox.Show(createRandomSuccess);
+                MessageBoxCustom mb = new MessageBoxCustom("", createRandomSuccess, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
             }
 
         }

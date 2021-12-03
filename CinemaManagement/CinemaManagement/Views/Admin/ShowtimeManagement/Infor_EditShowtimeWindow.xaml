@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CinemaManagement.ViewModel.AdminVM.ShowtimeManagementVM"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
@@ -30,6 +31,9 @@
             </BeginStoryboard>
         </EventTrigger>
     </Window.Triggers>
+    <Window.Resources>
+        <local:SeatStatusConverter x:Key="seatconverter" />
+    </Window.Resources>
 
     <Border Background="#FFF0F3F7"
             CornerRadius="20"
@@ -37,9 +41,9 @@
             BorderThickness="1">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="39.9*" />
+                <ColumnDefinition Width="38*" />
                 <ColumnDefinition Width="0.2*" />
-                <ColumnDefinition Width="59.9*" />
+                <ColumnDefinition Width="62*" />
             </Grid.ColumnDefinitions>
 
 
@@ -208,7 +212,7 @@
 
                         <Button Width="100"
                                 Content="Thoát"
-                                Margin="220,30,0,0"
+                                Margin="200,30,0,0"
                                 materialDesign:ButtonAssist.CornerRadius="8"
                                 Command="{Binding CloseEditCM}"
                                 CommandParameter="{Binding ElementName=EditWindow}" />
@@ -219,13 +223,134 @@
             </StackPanel>
 
 
-            <StackPanel Grid.Column="2"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center">
-                <TextBlock Text="{Binding ListSeat,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                           FontSize="50" />
-            </StackPanel>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20*" />
+                    <RowDefinition Height="80*" />
+                </Grid.RowDefinitions>
 
+                <StackPanel Grid.Row="0"
+                            Margin="100,80,0,0"
+                            Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Tổng số ghế: "
+                                   FontSize="20"
+                                   Grid.Column="0" />
+                            <Label Content="{Binding ListSeat.Count}"
+                                   FontSize="20"
+                                   Grid.Column="1" />
+                        </Grid>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="50,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Đã đặt: "
+                                   FontSize="20"
+                                   Grid.Column="0" />
+                            <Label Content="{Binding IsBought}"
+                                   FontSize="20"
+                                   Grid.Column="1" />
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="50,0,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Còn trống: "
+                                   FontSize="20"
+                                   Grid.Column="0" />
+                            <Label Content="{Binding IsFree}"
+                                   FontSize="20"
+                                   Grid.Column="1" />
+                        </Grid>
+                    </StackPanel>
+                </StackPanel >
+                <Grid Grid.Row="1"
+                      Width="680"
+                      Height="400">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="87*" />
+                        <ColumnDefinition Width="13*" />
+                    </Grid.ColumnDefinitions>
+                    <ListBox ItemsSource="{Binding ListSeat1}"
+                             x:Name="SeatListBox1"
+                             Grid.Column="0">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem"
+                                   BasedOn="{StaticResource styleListBoxItems1}" />
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="14"
+                                             FlowDirection="RightToLeft" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border   BorderBrush="Green"
+                                          BorderThickness="2"
+                                          CornerRadius="3"
+                                          Width="30"
+                                          Height="30">
+                                    <Label Content="{Binding SeatPosition}"
+                                           Background="{Binding Status,Converter={StaticResource seatconverter}}"
+                                           Foreground="black"
+                                           FontSize="11"
+                                           Padding="0"
+                                           FontWeight="Bold"
+                                           VerticalContentAlignment="Center"
+                                           HorizontalContentAlignment="Center">
+                                    </Label>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <ListBox ItemsSource="{Binding ListSeat2}"
+                             x:Name="SeatListBox2"
+                             Grid.Column="2">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem"
+                                   BasedOn="{StaticResource styleListBoxItems1}" />
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="2"
+                                             FlowDirection="RightToLeft" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border   BorderBrush="Green"
+                                          BorderThickness="2"
+                                          CornerRadius="3"
+                                          Width="30"
+                                          Height="30">
+                                    <Label Content="{Binding SeatPosition}"
+                                           Background="{Binding Status,Converter={StaticResource seatconverter} }"
+                                           Foreground="black"
+                                           FontWeight="Bold"
+                                           FontSize="11">
+                                    </Label>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+
+            </Grid>
         </Grid>
     </Border>
 

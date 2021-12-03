@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -66,7 +67,7 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
                         VoucherViewModel.NumberCustomer = 5;
                         if (emaillistbox != null)
                         {
-                            emaillistbox.IsEnabled = true;
+                            emaillistbox.IsEnabled = false;
                         }
                         return;
                     }
@@ -82,7 +83,20 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
                         emaillistbox.IsEnabled = true;
                         return;
                     }
+                case "Xuất Excel":
+                    {
+                        VoucherViewModel.NumberCustomer = -2;
+                        emaillistbox.IsEnabled = false;
+                        return;
+                    }
             }
+        }
+
+        private void Label_Loaded(object sender, RoutedEventArgs e)
+        {
+            Label lb = sender as Label;
+
+            lb.Content = DateTime.Today.ToShortDateString();
         }
     }
 }

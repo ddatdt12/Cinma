@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.VoucherManagement;
 using CinemaManagement.Views.Admin.VoucherManagement.AddVoucher;
 using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
@@ -46,7 +47,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         {
             GetCurrentDate = DateTime.Today;
             StartDate = FinishDate = DateTime.Today;
-            ReleaseDate = DateTime.Today;
 
             try
             {
@@ -116,7 +116,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 {
                     if (ListMiniVoucher[ListMiniVoucher.Count - 1].Code == ListMiniVoucher[i].Code)
                     {
-                        MessageBox.Show("Mã đã bị trùng!");
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Mã đã bị trùng!", MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
                         return;
                     }
                 }
@@ -159,17 +160,23 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 {
 
                     string message = "Bạn có chắc muốn xoá đợt phát hành này không? Dữ liệu không thể phục hồi sau khi xoá!";
+                    MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
+                    result.ShowDialog();
 
-                    MessageBoxResult result = MessageBox.Show(message, "Xác nhận xoá", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                    if (result == MessageBoxResult.Yes)
+                    if (result.DialogResult == true)
                     {
                         (bool deleteSuccess, string messageFromDelete) = VoucherService.Ins.DeteleVoucherRelease(SelectedItem.Id);
-                        MessageBox.Show(messageFromDelete);
 
                         if (deleteSuccess)
                         {
                             ListBigVoucher.Remove(SelectedItem);
+                            MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Success, MessageButtons.OK);
+                            mb.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
                         }
                     }
                 }
@@ -289,7 +296,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 {
                     if (ListCustomerEmail[ListCustomerEmail.Count - 1].Email == ListCustomerEmail[i].Email)
                     {
-                        MessageBox.Show("Email đã bị trùng!");
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Email đã bị trùng!", MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
                         return;
                     }
                 }

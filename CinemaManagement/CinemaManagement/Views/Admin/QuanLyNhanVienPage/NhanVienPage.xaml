@@ -230,7 +230,7 @@
                                                                              Cursor="Hand" />
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.OpenDeleteStaffCommand}" />
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.DeleteStaffCommand}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>

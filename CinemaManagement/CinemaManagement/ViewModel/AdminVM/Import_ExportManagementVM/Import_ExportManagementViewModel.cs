@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.Import_ExportManagement;
 using System;
 using System.Collections.ObjectModel;
@@ -221,7 +222,8 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 
                                 Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
 
-                                MessageBox.Show("Xuất file thành công");
+                                MessageBoxCustom mb = new MessageBoxCustom("", "Xuất file thành công", MessageType.Success, MessageButtons.OK);
+                                mb.ShowDialog();
                             }
                         }
                         break;
@@ -268,7 +270,8 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 
                                 Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
 
-                                MessageBox.Show("Xuất file thành công");
+                                MessageBoxCustom mb = new MessageBoxCustom("", "Xuất file thành công", MessageType.Success, MessageButtons.OK);
+                                mb.ShowDialog();
                             }
                         }
                         break;

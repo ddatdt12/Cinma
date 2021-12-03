@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using System;
 using System.Windows;
 using System.Windows.Input;
@@ -42,18 +43,23 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
                 if (IsSuccess)
                 {
-                    MessageBox.Show(message);
+                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                     ReloadShowtimeList(SelectedRoomId);
                     ShadowMask.Visibility = Visibility.Collapsed;
                     p.Close();
                 }
                 else
                 {
-                    MessageBox.Show(message);
+                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
             }
             else
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đầy đủ thông tin!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+            }
         }
         public void CalculateRunningTime()
         {

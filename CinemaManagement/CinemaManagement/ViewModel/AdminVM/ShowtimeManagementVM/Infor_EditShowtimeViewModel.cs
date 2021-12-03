@@ -1,5 +1,7 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models.Services;
 using CinemaManagement.Views.Admin.ShowtimeManagement;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -7,11 +9,23 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 {
     public partial class ShowtimeManagementViewModel : BaseViewModel
     {
-        private string _ListSeat;
-        public string ListSeat
+        private List<SeatSettingDTO> _ListSeat;
+        public List<SeatSettingDTO> ListSeat
         {
             get { return _ListSeat; }
             set { _ListSeat = value; OnPropertyChanged(); }
+        }
+        private ObservableCollection<SeatSettingDTO> _ListSeat1;
+        public ObservableCollection<SeatSettingDTO> ListSeat1
+        {
+            get { return _ListSeat1; }
+            set { _ListSeat1 = value; OnPropertyChanged(); }
+        }
+        private ObservableCollection<SeatSettingDTO> _ListSeat2;
+        public ObservableCollection<SeatSettingDTO> ListSeat2
+        {
+            get { return _ListSeat2; }
+            set { _ListSeat2 = value; OnPropertyChanged(); }
         }
 
         private Infor_EditShowtimeWindow _EditShowtimeWindow;
@@ -27,6 +41,20 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             get { return _ListShowtimeofMovie; }
             set { _ListShowtimeofMovie = value; OnPropertyChanged(); }
         }
+
+        private int _IsBought;
+        public int IsBought
+        {
+            get { return _IsBought; }
+            set { _IsBought = value; OnPropertyChanged(); }
+        }
+        private int _IsFree;
+        public int IsFree
+        {
+            get { return _IsFree; }
+            set { _IsFree = value; OnPropertyChanged(); }
+        }
+
 
 
 
@@ -74,10 +102,33 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 p._ShowtimeRoom.Text = "Phòng: " + SelectedRoomId.ToString();
 
             ListShowtimeofMovie = new ObservableCollection<ShowtimeDTO>(SelectedItem.Showtimes);
-            ListSeat = "";
+
 
             moviePrice = 0;
         }
-
+        public void GenerateSeat()
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+            ListSeat = new List<SeatSettingDTO>(SeatService.Ins.GetSeatsByShowtime(SelectedShowtime.Id));
+            ListSeat1 = new ObservableCollection<SeatSettingDTO>();
+            ListSeat2 = new ObservableCollection<SeatSettingDTO>();
+            IsBought = 0;
+            IsFree = 0;
+            foreach (var item in ListSeat)
+            {
+                if (item.SeatPosition.Length == 2 && item.SeatPosition[1] < '3')
+                {
+                    ListSeat2.Add(item);
+                }
+                else
+                {
+                    ListSeat1.Add(item);
+                }
+                if (item.Status)
+                    IsBought++;
+            }
+            Mouse.OverrideCursor = Cursors.Arrow;
+            IsFree = ListSeat.Count - IsBought;
+        }
     }
 }

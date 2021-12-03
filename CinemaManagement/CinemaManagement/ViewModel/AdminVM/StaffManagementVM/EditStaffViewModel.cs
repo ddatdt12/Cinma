@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using System.Windows;
 
 namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
@@ -29,12 +30,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                     LoadStaffListView(Utils.Operation.UPDATE, staff);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateStaff, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
-                MessageBox.Show(messageFromUpdateStaff);
+                else
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateStaff, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
             }
             else
             {
-                MessageBox.Show(error);
+                MessageBoxCustom mb = new MessageBoxCustom("", error, MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
             }
         }
     }

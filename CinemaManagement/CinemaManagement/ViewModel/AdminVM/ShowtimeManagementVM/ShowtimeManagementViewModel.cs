@@ -260,8 +260,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 if (SelectedShowtime != null)
                 {
-                    ListSeat = _oldselectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
-
+                    GenerateSeat();
                     if (SelectedShowtime.TicketPrice.ToString().Length > 5)
                         moviePrice = decimal.Parse(SelectedShowtime.TicketPrice.ToString().Remove(5, 5));
                     else

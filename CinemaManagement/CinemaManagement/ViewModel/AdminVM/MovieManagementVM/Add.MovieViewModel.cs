@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -37,7 +38,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (successAddMovie)
                 {
-                    MessageBox.Show(messageFromAddMovie);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddMovie, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                     SaveImgToApp();
                     IsAddingMovie = false;
                     LoadMovieListView(Operation.CREATE, newMovie);
@@ -46,12 +48,14 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 }
                 else
                 {
-                    MessageBox.Show(messageFromAddMovie);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddMovie, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
             }
             else
             {
-                MessageBox.Show("Vui lòng nhập đủ thông tin!");
+                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
             }
         }
     }

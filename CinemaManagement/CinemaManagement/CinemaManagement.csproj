@@ -317,7 +317,6 @@
     <Compile Include="ViewModel\AdminVM\ErrorVM\HintLevelConverter.cs" />
     <Compile Include="ViewModel\AdminVM\ErrorVM\StatusBrushConverter.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\AddFoodViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\FoodManagementVM\DeleteFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\EditFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\FoodManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\ImportFoodViewModel.cs" />
@@ -329,9 +328,9 @@
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\MovieManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\Add.ShowtimeWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\Infor_EditShowtimeViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\SeatStatusConverter.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\ShowtimeManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\AddStaffViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\StaffManagementVM\DeleteStaffViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\DoiMatKhauWindowVM.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\EditStaffViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\StaffManagementViewModel.cs" />
@@ -370,9 +369,6 @@
     </Compile>
     <Compile Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml.cs">
       <DependentUpon>AddFoodWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml.cs">
-      <DependentUpon>DeleteFoodWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\FoodManagementPage\EditFoodWindow.xaml.cs">
       <DependentUpon>EditFoodWindow.xaml</DependentUpon>
@@ -427,9 +423,6 @@
     </Compile>
     <Compile Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml.cs">
       <DependentUpon>ThemNhanVienWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml.cs">
-      <DependentUpon>XoaNhanVienWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\ShowtimeManagement\AddShowtimeWindow.xaml.cs">
       <DependentUpon>AddShowtimeWindow.xaml</DependentUpon>
@@ -551,10 +544,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Admin\FoodManagementPage\EditFoodWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -624,10 +613,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

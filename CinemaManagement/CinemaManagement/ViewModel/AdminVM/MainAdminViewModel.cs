@@ -14,6 +14,7 @@ using CinemaManagement.Views.Admin.VoucherManagement;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CinemaManagement.Views;
 
 namespace CinemaManagement.ViewModel
 {
@@ -128,7 +129,8 @@ namespace CinemaManagement.ViewModel
             {
                 if (SelectedStatus is null)
                 {
-                    MessageBox.Show("Không hợp lệ!");
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Không hợp lệ!", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
                     return;
                 }
                 UpdateErrorFunc(p);

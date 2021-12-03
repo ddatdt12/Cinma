@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 using System;
 using System.Collections.ObjectModel;
@@ -107,7 +108,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
         public ICommand OpenAddStaffCommand { get; set; }
         public ICommand OpenEditStaffCommand { get; set; }
-        public ICommand OpenDeleteStaffCommand { get; set; }
         public ICommand OpenChangePassCommand { get; set; }
 
         public ICommand MouseMoveCommand { get; set; }
@@ -166,7 +166,24 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             DeleteStaffCommand = new RelayCommand<Window>((p) => { return true; },
                 (p) =>
                 {
-                    DeleteStaff(p);
+                    MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", "Bạn có chắc muốn xoá nhân viên này không?", MessageType.Warning, MessageButtons.YesNo);
+                    result.ShowDialog();
+
+                    if (result.DialogResult == true)
+                    {
+                        (bool successDeleteStaff, string messageFromDeleteStaff) = StaffService.Ins.DeleteStaff(SelectedItem.Id);
+                        if (successDeleteStaff)
+                        {
+                            LoadStaffListView(Utils.Operation.DELETE);
+                            MessageBoxCustom mb = new MessageBoxCustom("", messageFromDeleteStaff, MessageType.Success, MessageButtons.OK);
+                            mb.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBoxCustom mb = new MessageBoxCustom("", messageFromDeleteStaff, MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                        }
+                    }
                 });
 
             OpenAddStaffCommand = new RelayCommand<object>((p) => { return true; },
@@ -210,10 +227,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
                 });
-
-            OpenDeleteStaffCommand = new RelayCommand<object>((p) => { return true; }, (p) => { XoaNhanVienWindow wd = new XoaNhanVienWindow();
-                MaskName.Visibility = Visibility.Visible;
-                wd.ShowDialog(); });
 
             OpenChangePassCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -267,7 +280,8 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Lỗi hệ thống " + e.Message);
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
                     }
                     break;
                 case Operation.CREATE:

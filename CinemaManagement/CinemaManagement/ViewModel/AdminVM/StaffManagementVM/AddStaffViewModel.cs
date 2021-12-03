@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using System;
 using System.Windows;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 
 namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 {
@@ -33,13 +34,20 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                     LoadStaffListView(Operation.CREATE, newStaff);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddStaff, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
-                MessageBox.Show(messageFromAddStaff);
+                else
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddStaff, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
 
             }
             else
             {
-                MessageBox.Show(error);
+                MessageBoxCustom mb = new MessageBoxCustom("", error, MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
             }
         }
         private (bool, string) ValidateAge(DateTime birthDate)
