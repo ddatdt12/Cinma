@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -105,7 +106,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             ReCalculate();
 
             //Gán giá trị demo mẫu đồ ăn và thức uống
-            Demo();
+            LoadListProduct();
 
             //Khởi tạo giá trị ban đầu các item cho MenuList
             MenuList = AllProduct;
@@ -383,20 +384,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             }
         }
 
-        public void Demo()
+        public void LoadListProduct()
         {
-            AllProduct.Add(new ProductDTO(1, "Burger gà", "Đồ ăn", 45000, "/Resources/FoodLayout/Food/Burger/Chicken.jpg", 5));
-            AllProduct.Add(new ProductDTO(2, "Trà sữa", "Thức uống", 20000, "/Resources/FoodLayout/Food/Drink/Milk Tea.jpg", 9));
-            AllProduct.Add(new ProductDTO(3, "Coca Cola", "Thức uống", 25000, "/Resources/FoodLayout/Food/Drink/Coca Cola.jpg", 10));
-            AllProduct.Add(new ProductDTO(4, "Bỏng ngô Caramel", "Đồ ăn", 30000, "/Resources/FoodLayout/Food/Popcorn/Caramel.jpg", 50));
-            AllProduct.Add(new ProductDTO(5, "Snack Ostar", "Đồ ăn", 15000, "/Resources/FoodLayout/Food/Snack/Ostar.jpg", 25));
-            AllProduct.Add(new ProductDTO(6, "Burger bò", "Đồ ăn", 45000, "/Resources/FoodLayout/Food/Burger/Beef.jpg", 10));
-            AllProduct.Add(new ProductDTO(7, "Snack Poca", "Đồ ăn", 15000, "/Resources/FoodLayout/Food/Snack/Poca.jpg", 50));
-            AllProduct.Add(new ProductDTO(8, "Snack Tonies", "Đồ ăn", 15000, "/Resources/FoodLayout/Food/Snack/Tonies.jpg", 30));
-            AllProduct.Add(new ProductDTO(9, "Hotdog Choripan", "Đồ ăn", 30000, "/Resources/FoodLayout/Food/Hotdog/Choripan.jpg", 40));
-            AllProduct.Add(new ProductDTO(10, "Cà phê Espresso", "Thức uống", 50000, "/Resources/FoodLayout/Food/Drink/Espresso Coffee.jpg", 90));
-            AllProduct.Add(new ProductDTO(11, "Trà đào", "Thức uống", 20000, "/Resources/FoodLayout/Food/Drink/Peach Tea.jpg", 120));
-            AllProduct.Add(new ProductDTO(12, "Pepsi", "Thức uống", 25000, "/Resources/FoodLayout/Food/Drink/Pepsi.jpg", 100));
+            AllProduct = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
         }
     }
 }
