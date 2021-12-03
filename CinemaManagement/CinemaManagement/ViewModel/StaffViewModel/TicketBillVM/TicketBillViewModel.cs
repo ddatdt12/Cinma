@@ -106,11 +106,25 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             set { _Room = value; OnPropertyChanged(); }
         }
 
+        private string _Seat;
+        public string Seat
+        {
+            get { return _Seat; }
+            set { _Seat = value; OnPropertyChanged(); }
+        }
+
         private decimal _Price;
         public decimal Price
         {
             get { return _Price; }
             set { _Price = value; OnPropertyChanged(); }
+        }
+
+        private decimal _TotalPriceMovie;
+        public decimal TotalPriceMovie
+        {
+            get { return _TotalPriceMovie; }
+            set { _TotalPriceMovie = value; OnPropertyChanged(); }
         }
 
         public ICommand CboxWalkinGuestCM { get; set; }
@@ -149,30 +163,28 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 
         public TicketBillViewModel()
         {
-            // Biến tạm thời
-            Movie = new MovieDTO();
-            Movie.DisplayName = "Trò chơi con bạch tuộc";
-            
-            Movie.RunningTime = 120;
+            Movie = TicketWindowViewModel.tempFilmName;
+            Showtime = TicketWindowViewModel.CurrentShowtime;
+            ListSeat = TicketWindowViewModel.WaitingList;
 
-            Showtime = new ShowtimeDTO();
-            Showtime.ShowDate = new DateTime(2008, 5, 1, 8, 30, 52);
-            Showtime.RoomId = 5;
-            Showtime.TicketPrice = 45000;
-
-            
-
-
-            //Movie = TicketWindowViewModel.tempFilmName;
-            //Showtime = TicketWindowViewModel.CurrentShowtime;
-
-            Date = Showtime.ShowDate.ToString("dd/MM/yyyy");
             MovieName = Movie.DisplayName;
-            Room = "0" + Showtime.RoomId.ToString();
-            Price = Showtime.TicketPrice;
-
+            Date = Showtime.ShowDate.ToString("dd/MM/yyyy");
             CaculateTime();
             Time = start.ToString("HH:mm") + " - " + end.ToString("HH:mm");
+
+            Seat = ListSeat[0].SeatPosition;
+
+            for (int i = 1; i < ListSeat.Count; i++)
+            {
+                Seat += ", " + ListSeat[i].SeatPosition;
+            }
+
+            Room = "0" + Showtime.RoomId.ToString();
+
+            Price = Showtime.TicketPrice;
+            TotalPriceMovie = Price * ListSeat.Count;
+
+            
             //
             ListVoucher = new ObservableCollection<CustomerDTO>();
 

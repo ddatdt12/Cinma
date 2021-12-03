@@ -628,7 +628,7 @@
                                                 <Label Content="Ghế"
                                                        Grid.Column="0"
                                                        FontSize="18" />
-                                                <Label Content="{Binding BillDetail.TicketInfo.SeatInfo}"
+                                                <Label Content="{Binding Seat}"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20" />
@@ -674,7 +674,8 @@
                                                 <Label x:Name="_totalticket"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
-                                                       FontSize="20" />
+                                                       FontSize="20" 
+                                                       Content="{Binding TotalPriceMovie}"/>
                                             </Grid>
                                         </StackPanel>
                                     </StackPanel>
