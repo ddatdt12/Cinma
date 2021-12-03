@@ -3,9 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.VoucherManagement.AddWindow"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -32,7 +30,7 @@
                 <Label Content="Thêm danh sách voucher"
                        FontSize="18"
                        FontWeight="Bold"
-                       Margin="5"/>
+                       Margin="5" />
                 <Button Click="Button_Click_1"
                         ToolBar.OverflowMode="AsNeeded"
                         Background="Transparent"
@@ -80,8 +78,8 @@
                         </StackPanel.Resources>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="48*"/>
-                                <ColumnDefinition Width="52*"/>
+                                <ColumnDefinition Width="48*" />
+                                <ColumnDefinition Width="52*" />
                             </Grid.ColumnDefinitions>
 
 
@@ -104,9 +102,9 @@
                                          Text="{Binding Length}"
                                          PreviewTextInput="TextBox_PreviewTextInput" />
                                 <TextBox TextAlignment="Right"
-                                         Text="{Binding FirstChar}"/>
-                                <TextBox TextAlignment="Right" 
-                                         Text="{Binding LastChar}"/>
+                                         Text="{Binding FirstChar}" />
+                                <TextBox TextAlignment="Right"
+                                         Text="{Binding LastChar}" />
                             </StackPanel>
 
                         </Grid>
@@ -122,7 +120,7 @@
                             Margin="0,0,10,0"
                             Height="30"
                             Padding="15,0,15,3"
-                            Command="{Binding SaveListMiniVoucherCM}"/>
+                            Command="{Binding SaveListMiniVoucherCM}" />
                 </Grid>
 
             </Grid>

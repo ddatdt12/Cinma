@@ -11,15 +11,16 @@ namespace CinemaManagement.Views.Admin.MovieManagement
         public MovieManagementWindow()
         {
             InitializeComponent();
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(MovieListView.ItemsSource);
-            view.Filter = Filter;
+
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(MovieListView.ItemsSource);
+            view.Filter = Filter;
+            result.Content = MovieListView.Items.Count;
             CollectionViewSource.GetDefaultView(MovieListView.ItemsSource).Refresh();
         }
-
         private bool Filter(object item)
         {
             if (String.IsNullOrEmpty(FilterBox.Text))

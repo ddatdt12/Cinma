@@ -5,6 +5,7 @@ using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -161,12 +162,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             set { _SelectedCbbFilter = value; OnPropertyChanged(); ChangeListViewSource(); }
         }
 
-
-
-
-
-
-
         public ICommand LoadAddWindowCM { get; set; }
         public ICommand LoadAddInforCM { get; set; }
         public ICommand LoadAddVoucherCM { get; set; }
@@ -179,14 +174,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public ICommand SaveMiniVoucherCM { get; set; }
         public ICommand SaveListMiniVoucherCM { get; set; }
 
-
         public void LessVoucherFunc()
         {
             ListMiniVoucher.RemoveAt(selectedWaitingVoucher);
         }
-        public void SaveNewBigVoucherFunc()
+        public async Task SaveNewBigVoucherFunc()
         {
-
             if (string.IsNullOrEmpty(ReleaseName))
             {
                 MessageBox.Show("Vui lòng nhập đủ thông tin");
@@ -206,6 +199,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 Status = Status,
             };
 
+            await Task.Delay(0);
             (bool isSucess, string addSuccess, VoucherReleaseDTO newVoucherRelease) = VoucherService.Ins.CreateVoucherRelease(vr);
 
             if (isSucess)
@@ -224,7 +218,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 MessageBox.Show(addSuccess);
             }
         }
-        public void SaveMiniVoucherFunc()
+        public async Task SaveMiniVoucherFunc()
         {
             foreach (VoucherDTO item in ListMiniVoucher)
             {
@@ -243,7 +237,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 }
             }
 
-            (bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = VoucherService.Ins.CreateInputVoucherList(SelectedItem.Id, new List<VoucherDTO>(ListMiniVoucher));
+            (bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = await VoucherService.Ins.CreateInputVoucherList(SelectedItem.Id, new List<VoucherDTO>(ListMiniVoucher));
 
             if (createSuccess)
             {
@@ -257,13 +251,14 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                 AddVoucher.topcheck.IsChecked = false;
                 AddVoucher._cbb.SelectedIndex = 0;
+                NumberSelected = 0;
             }
             else
             {
                 MessageBox.Show(createRandomSuccess);
             }
         }
-        public void SaveListMiniVoucherFunc()
+        public async Task SaveListMiniVoucherFunc()
         {
             if (Quantity == 0 || Length == 0 || string.IsNullOrEmpty(FirstChar) || string.IsNullOrEmpty(LastChar))
             {
@@ -271,15 +266,14 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 return;
             }
 
-
-            (string error, List<string> listCode) = Helper.GetListCode(Quantity, Length, FirstChar, LastChar);
+            (string error, List<string> listCode) = await Task<(string, List<string>)>.Run(() => Helper.GetListCode(Quantity, Length, FirstChar, LastChar));
             if (error != null)
             {
                 MessageBox.Show(error);
                 return;
             }
 
-            (bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = VoucherService.Ins.CreateRandomVoucherList(SelectedItem.Id, listCode);
+            (bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = await VoucherService.Ins.CreateRandomVoucherList(SelectedItem.Id, listCode);
 
             if (createSuccess)
             {
@@ -292,12 +286,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
                 AddVoucher.topcheck.IsChecked = false;
                 AddVoucher._cbb.SelectedIndex = 0;
+                NumberSelected = 0;
             }
             else
             {
                 MessageBox.Show(createRandomSuccess);
             }
-
         }
         public void ChangeListViewSource()
         {
@@ -306,9 +300,9 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             (VoucherReleaseDTO voucherReleaseDetail, _) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
             StoreAllMini = new List<VoucherDTO>(voucherReleaseDetail.Vouchers);
             AddVoucher.AllCheckBox.Clear();
+            NumberSelected = 0;
             if (WaitingMiniVoucher != null)
                 WaitingMiniVoucher.Clear();
-
 
             if (SelectedCbbFilter.Content.ToString() == Utils.VOUCHER_STATUS.REALEASED)
             {

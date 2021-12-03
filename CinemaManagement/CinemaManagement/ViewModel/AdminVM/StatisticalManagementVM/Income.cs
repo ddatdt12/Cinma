@@ -2,7 +2,6 @@
 using CinemaManagement.Utils;
 using LiveCharts;
 using LiveCharts.Wpf;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Controls;

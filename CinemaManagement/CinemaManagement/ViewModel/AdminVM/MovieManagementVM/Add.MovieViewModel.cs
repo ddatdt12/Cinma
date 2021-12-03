@@ -37,7 +37,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (successAddMovie)
                 {
-                    System.Windows.MessageBox.Show(messageFromAddMovie);
+                    MessageBox.Show(messageFromAddMovie);
                     SaveImgToApp();
                     IsAddingMovie = false;
                     LoadMovieListView(Operation.CREATE, newMovie);
@@ -46,12 +46,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 }
                 else
                 {
-                    System.Windows.MessageBox.Show(messageFromAddMovie);
+                    MessageBox.Show(messageFromAddMovie);
                 }
             }
             else
             {
-                System.Windows.MessageBox.Show("Vui lòng nhập đủ thông tin!");
+                MessageBox.Show("Vui lòng nhập đủ thông tin!");
             }
         }
     }

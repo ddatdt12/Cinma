@@ -3,9 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:CinemaManagement.Views.Staff.ShowtimePage"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
       d:DesignHeight="720"
       d:DesignWidth="1300"
@@ -414,6 +412,20 @@
                         </Border>
                     </Grid>
                 </Border>
+                <Button x:Name="btnClose"
+                        BorderBrush="Black"
+                        BorderThickness="0.3"
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Cursor="Hand"
+                        Width="50"
+                        Height="50"
+                        Margin="0 0 15 10"
+                        Background="#FFA7C7D1"
+                        Foreground="Black"
+                        Command="{Binding LoadFoodPageCM}"
+                        Padding="7">
+                </Button>
             </Grid>
         </Grid>
     </Grid>

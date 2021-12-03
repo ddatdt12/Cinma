@@ -2,7 +2,7 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Views.Admin.Import_ExportManagement;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -61,7 +61,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             get { return _SelectedMonth; }
             set { _SelectedMonth = value; OnPropertyChanged(); CheckMonthFilter(); }
         }
-        
+
         private int _SelectedImportMonth;
         public int SelectedImportMonth
         {
@@ -83,15 +83,15 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 
 
 
-        private List<ProductReceiptDTO> _ListProduct;
-        public List<ProductReceiptDTO> ListProduct
+        private ObservableCollection<ProductReceiptDTO> _ListProduct;
+        public ObservableCollection<ProductReceiptDTO> ListProduct
         {
             get { return _ListProduct; }
             set { _ListProduct = value; OnPropertyChanged(); }
         }
 
-        private List<BillDTO> _ListBill;
-        public List<BillDTO> ListBill
+        private ObservableCollection<BillDTO> _ListBill;
+        public ObservableCollection<BillDTO> ListBill
         {
             get { return _ListBill; }
             set { _ListBill = value; OnPropertyChanged(); }
@@ -115,7 +115,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                 GetExportListSource("date");
                 ExportPage page = new ExportPage();
                 p.Content = page;
-               
+
             });
             ExportFileCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -277,12 +277,12 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         }
         public void GetImportListSource(string s = "")
         {
-            ListProduct = new List<ProductReceiptDTO>();
+            ListProduct = new ObservableCollection<ProductReceiptDTO>();
             switch (s)
             {
                 case "":
                     {
-                        ListProduct = new List<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt());
+                        ListProduct = new ObservableCollection<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt());
                         return;
                     }
                 case "month":
@@ -295,17 +295,17 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         }
         public void GetExportListSource(string s = "")
         {
-            ListBill = new List<BillDTO>();
+            ListBill = new ObservableCollection<BillDTO>();
             switch (s)
             {
                 case "date":
                     {
-                        ListBill = new  List<BillDTO>(BillService.Ins.GetBillByDate(SelectedDate));
+                        ListBill = new ObservableCollection<BillDTO>(BillService.Ins.GetBillByDate(SelectedDate));
                         return;
                     }
                 case "":
                     {
-                        ListBill = new List<BillDTO>(BillService.Ins.GetAllBill());
+                        ListBill = new ObservableCollection<BillDTO>(BillService.Ins.GetAllBill());
                         return;
                     }
                 case "month":
@@ -355,11 +355,11 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         }
         public void CheckMonthFilter()
         {
-            ListBill = new List<BillDTO>(BillService.Ins.GetBillByMonth(SelectedMonth + 1));
+            ListBill = new ObservableCollection<BillDTO>(BillService.Ins.GetBillByMonth(SelectedMonth + 1));
         }
         public void CheckImportMonthFilter()
         {
-            ListProduct = new List<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt(SelectedImportMonth + 1));
+            ListProduct = new ObservableCollection<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt(SelectedImportMonth + 1));
         }
     }
 }

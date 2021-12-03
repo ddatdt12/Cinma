@@ -2,7 +2,6 @@
 using CinemaManagement.Models.Services;
 using LiveCharts;
 using LiveCharts.Wpf;
-using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
 
@@ -115,7 +114,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                     Values = new ChartValues<decimal>(chartdata),
                     Title = "Doanh thu"
                 },
-
             };
         }
         public void LoadBestSellByMonth()

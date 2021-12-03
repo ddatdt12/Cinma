@@ -136,13 +136,14 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             GetCurrentDate = DateTime.Today;
             SelectedDate = GetCurrentDate;
             showtimeDate = GetCurrentDate;
-            ReloadShowtimeList(-1);
+            ReloadShowtimeList();
 
 
 
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
             {
                 ShadowMask = p;
+                ReloadShowtimeList();
             });
             LoadAddShowtimeCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -282,7 +283,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         }
 
 
-        public void ReloadShowtimeList(int id)
+        public void ReloadShowtimeList(int id = -1)
         {
             if (id != -1)
                 ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));

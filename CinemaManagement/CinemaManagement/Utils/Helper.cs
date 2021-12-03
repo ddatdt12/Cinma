@@ -13,6 +13,7 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
+
         public static (string, List<string>) GetListCode(int quantity, int length, string firstChars, string lastChars)
         {
             List<string> ListCode = new List<string>();

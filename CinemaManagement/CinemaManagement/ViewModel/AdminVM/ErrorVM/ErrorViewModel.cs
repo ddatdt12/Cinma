@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Views.Admin.ErrorManagement;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,8 +19,8 @@ namespace CinemaManagement.ViewModel
             set { _SelectedFilterList = value; OnPropertyChanged(); ReloadErrorList(); }
         }
 
-        private List<TroubleDTO> listError;
-        public List<TroubleDTO> ListError
+        private ObservableCollection<TroubleDTO> listError;
+        public ObservableCollection<TroubleDTO> ListError
         {
             get { return listError; }
             set { listError = value; OnPropertyChanged(); }
@@ -89,7 +90,7 @@ namespace CinemaManagement.ViewModel
                 if (SelectedFilterList is null) return;
 
                 List<TroubleDTO> temp = new List<TroubleDTO>(TroubleService.Ins.GetAllTrouble());
-                ListError = new List<TroubleDTO>();
+                ListError = new ObservableCollection<TroubleDTO>();
 
                 //reduce the number notifi of main page
                 int counttemp = 0;              
@@ -138,7 +139,7 @@ namespace CinemaManagement.ViewModel
                     return;
                 }
 
-                ListError = temp;
+                ListError = new ObservableCollection<TroubleDTO>(temp);
 
             }
             catch (Exception e)

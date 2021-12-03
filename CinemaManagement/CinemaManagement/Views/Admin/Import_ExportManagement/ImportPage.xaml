@@ -5,9 +5,11 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      d:DesignHeight="568"
+      d:DesignHeight="620"
       d:DesignWidth="1400"
       x:Name="mainPage"
+      FontSize="15"
+      FontFamily="arial"
       DataContext="{StaticResource Import_ExportManagementVM}">
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
@@ -27,8 +29,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75*" />
-            <RowDefinition Height="493*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="90*" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0"
@@ -108,14 +110,13 @@
                              Command="{Binding ExportFileCM}" />
                 </StackPanel>
             </Grid>
-
         </StackPanel>
 
-
-
-        <ListView  x:Name="_ListView"
+        <StackPanel  Grid.Row="1">
+            <ListView  x:Name="_ListView"
                    Focusable="True"
-                   Grid.Row="1"
+                       Height="530"
+                       VerticalAlignment="Top"
                    ItemsSource="{Binding ListProduct}"
                    HorizontalContentAlignment="Stretch">
             <ListView.View>
@@ -183,6 +184,17 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
+            <Grid>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,20,0">
+                    <Label Content="Kết quả: "
+                           FontSize="15" />
+                    <Label Content="{Binding ListProduct.Count}"
+                           x:Name="result"
+                           FontSize="15" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Page>

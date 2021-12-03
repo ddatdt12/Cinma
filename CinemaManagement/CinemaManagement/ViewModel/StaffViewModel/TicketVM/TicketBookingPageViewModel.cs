@@ -125,8 +125,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             set { _ListSeat2 = value; }
         }
 
-        private List<SeatSettingDTO> _WaitingList;
-        public List<SeatSettingDTO> WaitingList
+        private static List<SeatSettingDTO> _WaitingList;
+        public static List<SeatSettingDTO> WaitingList
         {
             get { return _WaitingList; }
             set { _WaitingList = value; }
@@ -152,6 +152,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             ListStatusSeat = new List<SeatSettingDTO>();
             ListSeat1 = new List<SeatSettingDTO>();
             ListSeat2 = new List<SeatSettingDTO>();
+            WaitingList = new List<SeatSettingDTO>();
             foreach (var item in ListSeat)
             {
                 if (item.SeatPosition.Length == 2 && item.SeatPosition[1] < '3')
@@ -199,9 +200,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
 
 
             TotalSeat = "";
-            for(int i = 0; i < WaitingList.Count;i++)
+            for (int i = 0; i < WaitingList.Count; i++)
             {
-                if(i == 0)
+                if (i == 0)
                     TotalSeat += WaitingList[i].SeatPosition;
                 else
                     TotalSeat += ", " + WaitingList[i].SeatPosition;
@@ -234,8 +235,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             startTime = CurrentShowtime.StartTime.ToString("hh\\:mm");
             endTime = end.ToString("HH:mm");
             showTime = startTime + " - " + endTime; 
-            showDateAfter = CurrentShowtime.ShowDate.ToString("dd-MM-yyyy");
-            showDateBefore = CurrentShowtime.ShowDate.ToString("dd-MM-yyyy");
+            showDateAfter = start.ToString("dd-MM-yyyy");
+            showDateBefore = end.ToString("dd-MM-yyyy");
             price = Helper.FormatVNMoney(CurrentShowtime.TicketPrice);
         }
     }

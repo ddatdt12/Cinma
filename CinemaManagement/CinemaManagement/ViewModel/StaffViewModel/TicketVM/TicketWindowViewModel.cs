@@ -1,8 +1,9 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.TicketWindow;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,8 +23,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             CaculateTime();
             Output_ToString();
             GenerateSeat();
-            WaitingList = new List<SeatSettingDTO>();
-
             sumCurrentSeat = "Số ghế   (" + (ListSeat.Count - ListStatusSeat.Count).ToString() + "/128)";
             CloseTicketWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
             {
@@ -60,7 +59,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                     foreach (var st in ListStatusSeat)
                         if (p.Content.ToString() == st.SeatPosition)
                         {
-                            MessageBox.Show("Ghế này đã bán vui lòng chọn ghế khác!");
+                            new MessageBoxCustom("Lỗi", "Ghế này đã bán vui lòng chọn ghế khác!", MessageType.Error, MessageButtons.OK).ShowDialog();
                             return;
                         }
                     if (IsExist(p.Content.ToString()))
@@ -94,23 +93,15 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                     }
                 }
             });
-            LoadTicketBookingPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            LoadTicketBookingPageCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                p.Content = new TicketBookingPage();
+                TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
+                tk.TicketBookingFrame.Content = new TicketBookingPage();
             });
-            //SetStatusSeatCM = new RelayCommand<object>((p) => { return true; }, (p) =>
-            //{
-            //    foreach (var item in listlabel)
-            //    {
-            //      item.Background = new SolidColorBrush(Colors.Brown);
-            //      item.Foreground = new SolidColorBrush(Colors.White);
-            //    }
-            //    MessageBox.Show("Đặt ghế thành công!");
-            //});
-            LoadFoodPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            LoadFoodPageCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                p.Content = new FoodPage();
-
+                TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
+                tk.TicketBookingFrame.Content = new FoodPage();
             });
         }
     }

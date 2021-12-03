@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.VoucherManagement.AddWindow"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
@@ -33,7 +32,7 @@
                 <Label Content="Thêm voucher"
                        FontSize="18"
                        FontWeight="Bold"
-                       Margin="5"/>
+                       Margin="5" />
                 <Button Click="Button_Click_1"
                         ToolBar.OverflowMode="AsNeeded"
                         Background="Transparent"
@@ -63,7 +62,7 @@
                     <ListBox ItemsSource="{Binding ListMiniVoucher}"
                              x:Name="listbox"
                              SelectedIndex="{Binding SelectedWaitingVoucher}"
-                            Height="190">
+                             Height="190">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem"
                                    BasedOn="{StaticResource MaterialDesignListBoxItem}">
@@ -83,7 +82,7 @@
                                              Margin="100,0,0,0"
                                              BorderBrush="Gray"
                                              FontSize="15"
-                                             Text="{Binding Code,Mode=TwoWay}"/>
+                                             Text="{Binding Code,Mode=TwoWay}" />
                                     <Border>
 
 
@@ -134,7 +133,7 @@
                                 Margin="0,0,10,0"
                                 Height="30"
                                 Padding="15,0,15,3"
-                                Command="{Binding SaveMiniVoucherCM}"/>
+                                Command="{Binding SaveMiniVoucherCM}" />
 
                     </Grid>
                 </StackPanel>

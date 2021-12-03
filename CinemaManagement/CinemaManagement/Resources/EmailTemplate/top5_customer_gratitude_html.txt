@@ -1,0 +1,35 @@
+<div style="font-family:'Segoe UI Semibold','Segoe UI Bold','Segoe UI','Helvetica Neue Medium',Arial,sans-serif">
+    <table dir="ltr">
+      <tbody style="padding:0;font-size:24px;color:#2a2a2a">
+        <tr>
+          <td style="padding:0;font-size:17px;color:#707070">
+            Squadin Cinema
+          </td>
+        </tr>
+        <tr>
+          <td style="font-size:41px;color:#2672ec">
+            Tri ân khách hàng
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-top:10px;">
+            Nội dung: 
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-top:15px;">
+            Quà tặng: {VOUCHER_CONTENT}
+            <ul style="list-style-type: circle">
+              {LIST_CODE_HERE}
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding-top:10px;">
+            Cảm ơn,
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <img src=cid:myImageID width="500px" height="auto" alt="thank_image">
+  </div>

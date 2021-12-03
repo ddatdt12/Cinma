@@ -1,7 +1,10 @@
 ﻿using CinemaManagement.Utils;
 using CinemaManagement.Views;
 using CinemaManagement.Views.LoginWindow;
+using System.Configuration;
+using System.Collections.Specialized;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
@@ -15,7 +18,6 @@ namespace CinemaManagement.ViewModel
 
     public class ForgotPassViewModel : BaseViewModel
     {
-
         private string _usremail;
         public string usremail
         {
@@ -73,7 +75,7 @@ namespace CinemaManagement.ViewModel
                 }
 
             });
-            
+
             PreviousPageCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
             {
                 LoginViewModel.MainFrame.Content = new ForgotPassPage();
@@ -87,11 +89,19 @@ namespace CinemaManagement.ViewModel
                  IsLoading = true;
                  p.IsEnabled = false;
                  p.Content = "";
-                 (bool IsSucess ,string message)= await sendHtmlEmail();
+
+                 //Check email
+                 bool success = RegexUtilities.IsValidEmail(usremail);
+
+
+                 await Task.Delay(3000);
+                 //(bool isSuccess, string message)  = await sendHtmlEmail();
+                 //MessageBox.Show(message);
+
                  IsLoading = false;
                  p.IsEnabled = true;
                  p.Content = "Gửi mã";
-                 MessageBox.Show(message);
+
 
                  //string to, from, pass, messageBody;
                  //MailMessage message = new MailMessage();
@@ -142,82 +152,65 @@ namespace CinemaManagement.ViewModel
                 NewPass = p.Password;
             });
         }
-        protected async Task SendEmail()
-        {
-            string Themessage = @"<html>
-                              <body>
-                                <table width=""100%"">
-                                <tr>
-                                    <td style=""font-style:arial; color:maroon; font-weight:bold"">
-                                   Hi! <br>
-                                    <img src=cid:myImageID>
-                                    </td>
-                                </tr>
-                                </table>
-                                </body>
-                                </html>";
-
-            string content = @"";
-            //await sendHtmlEmail(Themessage);
-        }
         protected async Task<(bool, string)> sendHtmlEmail()
         {
-            //create an instance of new mail message
-            MailMessage mail = new MailMessage();
-
-            //set the HTML format to true
-            mail.IsBodyHtml = true;
-
-            //create Alrternative HTML view
-            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(GetResetPasswordTemplate(), null, "text/html");
-
-            //Add Image
-            LinkedResource theEmailImage = new LinkedResource(Helper.GetImagePath("poster.png"));
-            theEmailImage.ContentId = "myImageID";
-
-            //Add the Image to the Alternate view
-            htmlView.LinkedResources.Add(theEmailImage);
-
-            //Add view to the Email Message
-            mail.AlternateViews.Add(htmlView);
-
-            //set the SMTP info
             string to1 = "binzml1714@gmail.com";
             string to2 = "ddatdt12@gmail.com";
 
-            string FROM_EMAIL = "squandincinema@gmail.com";
-            string PASS_EMAIL = "khongcopass@2k2";
+            List<string> listCode1 = new List<string> { "CODE1", "CODE2", "CODE3", "CODE4" };
+            List<string> listCode2 = new List<string> { "CODE5", "CODE6", "CODE7", "CODE8" };
 
-            //set the "from email" address and specify a friendly 'from' name
-            mail.From = new MailAddress(FROM_EMAIL, "Squadin Cinema");
 
-            //set the "to" email address
-            mail.To.Add(to1);
-            mail.To.Add(to2);
+            Task t1 = sendEmailForACustomer(to1, listCode1);
+            Task t2 = sendEmailForACustomer(to2, listCode2);
 
-            //set the Email subject
-            mail.Subject = "Gửi mail tri ân";
-
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-            smtp.EnableSsl = true;
-            smtp.Port = 587;
-            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential(FROM_EMAIL, PASS_EMAIL);
-
-            //send the email
             try
             {
-                //await smtp.SendMailAsync(mail);
-                await Task.Delay(5000);
-                return (true, "Gửi email thành công!");
+                await Task.WhenAll(t1, t2);
+                return (false, "Gửi thành công");
             }
             catch (Exception e)
             {
                 return (false, e.Message);
             }
-        }
 
+        }
+        protected Task sendEmailForACustomer(string customerEmail, List<string> listCode)
+        {
+            var appSettings = ConfigurationManager.AppSettings;
+            string APP_EMAIL = appSettings["APP_EMAIL"];
+            string APP_PASSWORD = appSettings["APP_PASSWORD"];
+
+            //SMTP CONFIG
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+            smtp.EnableSsl = true;
+            smtp.Port = 587;
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential(APP_EMAIL, APP_PASSWORD);
+
+            MailMessage mail = new MailMessage();
+            mail.IsBodyHtml = true;
+
+            //create Alrternative HTML view
+
+            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(GetCustomerGratitudeTemplate(listCode), null, "text/html");
+            //Add Image
+            LinkedResource theEmailImage = new LinkedResource(Helper.GetImagePath("poster.png"));
+            theEmailImage.ContentId = "myImageID";
+
+
+            //Add the Image to the Alternate view
+            htmlView.LinkedResources.Add(theEmailImage);
+            //Add view to the Email Message
+            mail.AlternateViews.Add(htmlView);
+
+            mail.From = new MailAddress(FROM_EMAIL, "Squadin Cinema");
+            mail.To.Add(customerEmail);
+            mail.Subject = "Tri ân khách hàng thân thiết";
+
+            return smtp.SendMailAsync(mail);
+        }
 
         FrameworkElement GetParentWindow(FrameworkElement p)
         {
@@ -230,13 +223,34 @@ namespace CinemaManagement.ViewModel
             return parent;
         }
 
-
         private string GetResetPasswordTemplate()
         {
             string resetPasswordHTML = Helper.GetEmailTemplatePath(RESET_PASS_TEMPLATE_FILE);
-            String sHTML = File.ReadAllText(resetPasswordHTML).Replace("RESET_PASSWORD_CODE", "123123");
-            return sHTML;
+            String HTML = File.ReadAllText(resetPasswordHTML).Replace("RESET_PASSWORD_CODE", "123123");
+            return HTML;
         }
+
+        private string GetCustomerGratitudeTemplate(List<string> listCode)
+        {
+            string templateHTML = Helper.GetEmailTemplatePath(GRATITUDE_TEMPLATE_FILE);
+            string listVoucherHTML = "";
+
+            for (int i = 0; i < listCode.Count; i++)
+            {
+                listVoucherHTML += VOUCHER_ITEM_HTML.Replace("{INDEX}", $"{i + 1}").Replace("{CODE_HERE}", listCode[i]);
+            }
+
+
+            String HTML = File.ReadAllText(templateHTML).Replace("{LIST_CODE_HERE}", listVoucherHTML);
+            return HTML;
+        }
+
+        string FROM_EMAIL = "squandincinema@gmail.com";
+        string PASS_EMAIL = "khongcopass@2k2";
+
         const string RESET_PASS_TEMPLATE_FILE = "reset_password_html.txt";
+        const string GRATITUDE_TEMPLATE_FILE = "top5_customer_gratitude_html.txt";
+
+        const string VOUCHER_ITEM_HTML = "<li>Voucher {INDEX}: {CODE_HERE}</li>";
     }
 }

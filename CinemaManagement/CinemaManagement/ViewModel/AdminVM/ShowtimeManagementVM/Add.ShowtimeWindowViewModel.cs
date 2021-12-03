@@ -57,7 +57,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         }
         public void CalculateRunningTime()
         {
-            
+
             if (movieSelected != null)
             {
                 EndTime = Showtime.AddMinutes(movieSelected.RunningTime);

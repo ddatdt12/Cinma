@@ -10,7 +10,7 @@
       Title="AddInfor"
       FontSize="15"
       DataContext="{StaticResource VoucherVM}"
-      Height="454"
+      Height="484"
       Width="998"
       FontFamily="arial"
       x:Name="mainPage">
@@ -35,10 +35,11 @@
     </Page.Triggers>
 
 
-    <Grid>
+    <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
-            <RowDefinition Height="90*" />
+            <RowDefinition Height="45*" />
+            <RowDefinition Height="409*" />
+            <RowDefinition Height="30*" />
         </Grid.RowDefinitions>
 
         <materialDesign:Card Grid.Row="0">
@@ -131,7 +132,9 @@
                     <TextBox materialDesign:HintAssist.Hint="Tìm kiếm mã voucher"
                              Padding="0,20,0,0"
                              Width="300"
-                             Margin="10,0,0,0" />
+                             x:Name="FilterBox"
+                             Margin="10,0,0,0"
+                             TextChanged="FilterBox_TextChanged" />
                     <Label Margin="360,0,0,0"
                            Content="Trạng thái:"
                            FontSize="18"
@@ -197,27 +200,28 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Ngày sử dụng"
-                                                Width="200">
+                                <GridViewColumn Header="Ngày phát hành"
+                                                Width="180">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding UsedAt}"
-                                                       Margin="40,0,0,0"
+                                            <TextBlock Text="{Binding ReleaseAt,StringFormat=dd/MM/yyyy}"
+                                                       Margin="20,0,0,0"
                                                        FontSize="18" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Mệnh giá"
-                                                Width="150">
+                                <GridViewColumn Header="Ngày sử dụng"
+                                                Width="180">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Margin="40,0,0,0"
+                                            <TextBlock Text="{Binding UsedAt,StringFormat=dd/MM/yyyy}"
+                                                       Margin="20,0,0,0"
                                                        FontSize="18" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Trạng thái"
-                                                Width="180">
+                                                Width="170">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Status}"
@@ -236,7 +240,6 @@
                               x:Name="topcheckbox"
                               Checked="CheckBox_Checked"
                               Unchecked="CheckBox_Unchecked"
-                              Content="{Binding ListViewVoucher.Count}"
                               Command="{Binding CheckAllMiniVoucherCM}"
                               CommandParameter="{Binding ElementName=topcheckbox}" />
                 </Grid>
@@ -246,8 +249,22 @@
 
         </materialDesign:Card>
 
+        <Grid Grid.Row="2">
+            <StackPanel Orientation="Horizontal"
+                        Margin="20,0,0,0">
+                <Label Content="Đang chọn: " />
+                <Label Content="{Binding NumberSelected}" />
+            </StackPanel>
 
-
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,20,0">
+                <Label Content="Kết quả: " />
+                <Label Content="{Binding ListViewVoucher.Count}"
+                       x:Name="result" />
+            </StackPanel>
+        </Grid>
+        
 
     </Grid>
 

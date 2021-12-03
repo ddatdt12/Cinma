@@ -1,8 +1,9 @@
 ﻿using CinemaManagement.DTOs;
-using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
 {
@@ -38,6 +39,20 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
         private void allcheck_load(object sender, System.EventArgs e)
         {
             AllCheckBox.Add((CheckBox)sender);
+        }
+        private bool Filter(object item)
+        {
+            if (String.IsNullOrEmpty(FilterBox.Text))
+                return true;
+            else
+                return ((item as VoucherDTO).Code.IndexOf(FilterBox.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+        private void FilterBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(Listviewmini.ItemsSource);
+            view.Filter = Filter;
+            result.Content = Listviewmini.Items.Count;
+            CollectionViewSource.GetDefaultView(Listviewmini.ItemsSource).Refresh();
         }
     }
 }

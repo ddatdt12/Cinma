@@ -3,13 +3,10 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views.Admin.FoodManagementPage;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net.Cache;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -152,7 +149,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             LoadProductListView(Operation.READ);
             FilterName = "";
             IsImageChanged = false;
-            FilterTboxFoodCommand = new RelayCommand<System.Windows.Controls.TextBox>( (p) => { return true; },
+            FilterTboxFoodCommand = new RelayCommand<System.Windows.Controls.TextBox>((p) => { return true; },
                  (p) =>
                 {
                     ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
@@ -195,7 +192,9 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 (p) =>
                 {
                     ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
+
                     tempList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
+
                     FoodList.Clear();
                     string temp = FilterName.ToLower();
                     if (Category.Content.ToString() == "Tất cả")

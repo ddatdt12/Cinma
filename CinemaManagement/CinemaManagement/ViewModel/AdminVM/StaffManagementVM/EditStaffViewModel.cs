@@ -8,9 +8,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
     {
         public void EditStaff(Window p)
         {
-            //Fullname = SelectedItem.Name;
-            //Phone = SelectedItem.PhoneNumber;
-            //TaiKhoan = SelectedItem.Username;
             MatKhau = SelectedItem.Password;
 
             (bool isValid, string error) = IsValidData(Utils.Operation.UPDATE);
