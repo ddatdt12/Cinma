@@ -354,8 +354,8 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\AddError.cs" />
     <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\DeviceReportPageViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\EditDeviceProblemPageViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\ViewDeviceProblemPageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\EditConverter.cs" />
+    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\EditError.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodPageViewModel.cs" />
@@ -506,14 +506,8 @@
     <Compile Include="Views\Staff\DeviceProblemsWindow\DeviceReportPage.xaml.cs">
       <DependentUpon>DeviceReportPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Staff\DeviceProblemsWindow\EditDeviceProblemPage.xaml.cs">
-      <DependentUpon>EditDeviceProblemPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Staff\DeviceProblemsWindow\EditError.xaml.cs">
       <DependentUpon>EditError.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Staff\DeviceProblemsWindow\ViewDeviceProblemPage.xaml.cs">
-      <DependentUpon>ViewDeviceProblemPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\DeviceProblemsWindow\ViewError.xaml.cs">
       <DependentUpon>ViewError.xaml</DependentUpon>
@@ -744,15 +738,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Staff\DeviceProblemsWindow\EditDeviceProblemPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Staff\DeviceProblemsWindow\EditError.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Staff\DeviceProblemsWindow\ViewDeviceProblemPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

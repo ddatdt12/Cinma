@@ -3,327 +3,144 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Staff.DeviceProblemsWindow"
+        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.ErrorManagement"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Title="InprogressError"
         DataContext="{StaticResource DeviceReportPageVM}"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextOptions.TextFormattingMode="Ideal"
-        TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="ViewError" 
-        Height="720"
-        Width="1300"
-        x:Name="View_Error"
+        Height="500"
+        Width="850"
+        MouseDown="Window_MouseDown"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None">
-    <Grid>
-        <Border Background="White"
-                BorderBrush="Gray"
-                BorderThickness="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="35*" />
-                    <RowDefinition Height="65*" />
-                </Grid.RowDefinitions>
+        FontSize="15"
+        x:Name="window">
+    <Border BorderThickness="1"
+            BorderBrush="Black"
+            CornerRadius="10"
+            Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*" />
+                <RowDefinition Height="83*" />
+            </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0">
-                    <Border BorderThickness="0,0,0,1"
-                            BorderBrush="Black"
-                            materialDesign:ShadowAssist.ShadowEdges="Bottom"
-                            materialDesign:ShadowAssist.ShadowDepth="Depth1">
-                        <Grid>
-                            <TextBlock Text="Chi tiết sự cố"
-                                       FontSize="25"
-                                       Margin="20,10,0,0"
-                                       FontWeight="Bold" />
-                        </Grid>
-                    </Border>
-                </Grid>
+            <Border BorderThickness="0,0,0,0.5"
+                    BorderBrush="Black"
+                    Grid.Row="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Chi tiết sự cố"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Margin="10,0,0,0" />
+                    <Button Click="Button_Click_1"
+                            ToolBar.OverflowMode="AsNeeded"
+                            Background="Transparent"
+                            Foreground="Black"
+                            BorderBrush="Transparent"
+                            MouseEnter="Button_MouseEnter_1"
+                            MouseLeave="Button_MouseLeave_1"
+                            materialDesign:ButtonAssist.CornerRadius="0,10,0,0"
+                            Margin="636,-6,0,0">
+                        <materialDesign:PackIcon Kind="WindowClose"
+                                                 Padding="0" />
+                    </Button>
+                </StackPanel>
+            </Border>
 
-                <Grid  Grid.Row="1"
-                       Margin="0,10,0,0">
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="42*" />
+                    <ColumnDefinition Width="58*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0"
+                        Margin="10"
+                        CornerRadius="8"
+                        BorderThickness="1"
+                        BorderBrush="Black">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding SelectedItem.ImgSource}" />
+                    </Border.Background>
+                </Border>
+
+                <Grid Grid.Column="1"
+                      Margin="10">
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="90*" />
+                        <RowDefinition Height="10*" />
                     </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0"
-                          Margin="0,24,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50*" />
-                            <ColumnDefinition Width="65*" />
-                        </Grid.ColumnDefinitions>
-
-                        <!--Title-->
-                        <StackPanel Grid.Column="0"
-                                    Margin="25,0,25,0">
-                            <Label Content="Tiêu đề"
-                                   FontSize="20" />
-                            <TextBox Text="{Binding Title}"
-                                     IsReadOnly="True"
-                                     TextWrapping="Wrap"
-                                     FontSize="22"
-                                     TextAlignment="Left"
-                                     Background="White"
-                                     BorderThickness="0,0,0,1"
-                                     Foreground="Black"
-                                     Height="40"
-                                     materialDesign:ValidationAssist.Background="White"
-                                     x:Name="tbxTitleError"/>
+                    <StackPanel Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding SelectedItem.Title}"
+                                       FontWeight="Bold"
+                                       FontSize="18" />
+                            <TextBlock Text="Mức độ: "
+                                       Margin="120,3,0,0"
+                                       FontSize="15" />
+                            <TextBlock Text="{Binding SelectedItem.Level}"
+                                       TextWrapping="Wrap"
+                                       Margin="0,3,0,0"
+                                       FontSize="15" />
                         </StackPanel>
-
-                        <!--Staff ID-->
-                        <StackPanel Grid.Column="1"
-                                    Margin="100,0,400,0">
-                            <StackPanel>
-                                <Label Content="Mã nhân viên"
-                                       FontSize="20"/>
-                                <TextBox VerticalAlignment="Bottom"
-                                         IsReadOnly="True"
-                                         TextWrapping="Wrap"
-                                         TextAlignment="Left"
-                                         FontSize="22"
-                                         Background="White"
-                                         BorderThickness="0,0,0,1"
-                                         Foreground="Black"
-                                         Height="40"
-                                         materialDesign:ValidationAssist.Background="White"
-                                         x:Name="tbxStaffId"
-                                         Text="{Binding StaffId}"/>
+                        <Border BorderThickness="0,0,0,0.5"
+                                BorderBrush="Black">
+                            <TextBlock Text="{Binding SelectedItem.Description}"
+                                       TextWrapping="Wrap"
+                                       Margin="0,15,0,0"
+                                       FontSize="15" />
+                        </Border>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Margin="0,10,0,0">
+                                <TextBlock Text="Ngày tiếp nhận:" />
+                                <TextBlock Text="{Binding SelectedItem.SubmittedAt,StringFormat=dd/MM/yyyy HH:mm:ss}" />
                             </StackPanel>
-                        </StackPanel>
-                    </Grid>
-
-                    <Grid Grid.Row="1"
-                          Margin="0,10,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50*" />
-                            <ColumnDefinition Width="65*" />
-                        </Grid.ColumnDefinitions>
-
-                        <!--Staff Name-->
-                        <StackPanel Grid.Column="1"
-                                    Margin="100,0,200,0">
-                            <StackPanel Grid.Column="0">
-                                <Label Content="Tên nhân viên"
-                                       FontSize="20"/>
-                                <TextBox AcceptsReturn="True"
-                                         IsReadOnly="True"
-                                         TextWrapping="Wrap"
-                                         FontSize="22"
-                                         Background="White"
-                                         Padding="0"
-                                         TextAlignment="Left"
-                                         Height="40"
-                                         materialDesign:ValidationAssist.Background="White"
-                                         x:Name="tbxStaffName"
-                                         Text="{Binding StaffName}">
-                                </TextBox>
+                            <StackPanel Margin="120,10,0,0">
+                                <TextBlock Text="Nhân viên:" />
+                                <TextBlock Text="{Binding SelectedItem.StaffName}" />
                             </StackPanel>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="0"
-                                    Orientation="Horizontal">
+                        <StackPanel Margin="0,10,0,0">
+                            <TextBlock Text="Trạng thái:" />
+                            <TextBlock Width="140"
+                                       Text="{Binding SelectedItem.Status}"
+                                       HorizontalAlignment="Left" />
 
-                            <!--Status-->
-                            <StackPanel Grid.Column="0"
-                                        Margin="25,0,0,0"
-                                        Width="250">
-                                <Label Content="Trạng thái"
-                                       FontSize="20"/>
-                                <ComboBox IsEditable="True"
-                                          IsReadOnly="True"
-                                          IsEnabled="False"
-                                          HorizontalContentAlignment="Center"
-                                          FontSize="22"
-                                          Height="40"
-                                          VerticalContentAlignment="Bottom"
-                                          MaxDropDownHeight="240"
-                                          materialDesign:ValidationAssist.Background="White"
-                                          Text="{Binding Status}"
-                                          x:Name="cbxStatusError">
-                                </ComboBox>
-                            </StackPanel>
 
-                            <!--Time-->
-                            <StackPanel Grid.Column="1"
-                                        Margin="60,0,0,0"
-                                        Width="200">
-                                <Label Content="Thời gian sự cố"
-                                   FontSize="20"/>
-                                <StackPanel>
-                                    <DatePicker FirstDayOfWeek="Monday"
-                                                IsEnabled="False"
-                                                SelectedDateFormat="Short"
-                                                DisplayDateEnd="{x:Static sys:DateTime.Today}"
-                                                Foreground="Black"
-                                                FontSize="25"
-                                                Height="40"
-                                                x:Name="datePickerIncidentTime"
-                                                SelectedDate="{Binding SubmittedAt}"
-                                                materialDesign:HintAssist.IsFloating="False"
-                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
-                                                Focusable="False"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="2">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel HorizontalAlignment="Left"
-                                    Orientation="Horizontal"
-                                    Margin="25,0,0,0">
-
-                            <!--Description-->
-                            <StackPanel>
-                                <Label Content="Mô tả"
-                                       FontSize="20"
-                                       Foreground="Black"
-                                       Margin="0,10,0,0"
-                                       Padding="5"/>
-                                <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                         IsReadOnly="True"
-                                         VerticalAlignment="Top"
-                                         AcceptsReturn="True"
-                                         TextWrapping="Wrap"
-                                         VerticalScrollBarVisibility="Auto"
-                                         HorizontalScrollBarVisibility="Disabled"
-                                         materialDesign:HintAssist.Hint="Mô tả lỗi"
-                                         FontSize="20"
-                                         Height="350"
-                                         Width="520"
-                                         Margin="5,5,0,0"
-                                         Foreground="Black"
-                                         materialDesign:ValidationAssist.Background="White"
-                                         Text="{Binding Description}" />
-                            </StackPanel>
                         </StackPanel>
 
-                        <DockPanel Grid.Column="1">
-                            <StackPanel DockPanel.Dock="Left">
-
-                                <!--Images Source-->
-                                <Image Source="{Binding ImgSource}"
-                                       x:Name="FrameImage"
-                                       Height="340"
-                                       Width="250"
+                        <StackPanel Margin="0,10,0,0"
+                                    x:Name="_startday"
+                                    IsEnabled="False">
+                            <TextBlock Text="Ngày sửa:" />
+                            <TextBlock Width="140"
                                        HorizontalAlignment="Left"
-                                       Margin="10,0,0,0"
-                                       Stretch="Fill"/>
-
-                                <!--Upload Images-->
-                                <Button HorizontalAlignment="Left"
-                                        Content="Tải ảnh"
-                                        Cursor="Hand"
-                                        Margin="20,30,0,0"
-                                        Width="100"
-                                        VerticalAlignment="Bottom"
-                                        materialDesign:ButtonAssist.CornerRadius="10"
-                                        Command="{Binding UploadImageCM}" />
-                            </StackPanel>
-
-                            <StackPanel Width="200"
-                                        DockPanel.Dock="Right"
-                                        HorizontalAlignment="Right"
-                                        Margin="0,0,50,100">
-                                <StackPanel Orientation="Horizontal">
-
-                                    <!--Level-->
-                                    <Label Content="Mức độ:"
-                                           FontSize="20"/>
-                                    <Border BorderBrush="Gray"
-                                            BorderThickness="0,0,0,1"
-                                            Margin="10,0,0,0">
-                                        <TextBlock Text="{Binding Level}"
-                                                   TextAlignment="Left"
-                                                   FontSize="25"/>
-                                    </Border>
-                                </StackPanel>
-
-                                <!--StartDate-->
-                                <StackPanel Margin="0,20,0,0">
-                                    <Label Content="Ngày sửa chữa"
-                                           FontSize="20"/>
-                                    <StackPanel>
-                                        <DatePicker FirstDayOfWeek="Monday"
-                                                    IsEnabled="False"
-                                                    SelectedDateFormat="Short"
-                                                    Foreground="Black"
-                                                    FontSize="25"
-                                                    Height="40"
-                                                    SelectedDate="{Binding StartDate}"
-                                                    materialDesign:HintAssist.IsFloating="False"
-                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
-                                                    Focusable="False"/>
-                                    </StackPanel>
-                                </StackPanel>
-
-                                <!--FinishDate-->
-                                <StackPanel Margin="0,20,0,0">
-                                    <Label Content="Ngày kết thúc"
-                                           FontSize="20"/>
-                                    <StackPanel>
-                                        <DatePicker FirstDayOfWeek="Monday"
-                                                    IsEnabled="False"
-                                                    SelectedDateFormat="Short"
-                                                    Foreground="Black"
-                                                    FontSize="25"
-                                                    Height="40"
-                                                    SelectedDate="{Binding FinishDate}"
-                                                    materialDesign:HintAssist.IsFloating="False"
-                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
-                                                    Focusable="False"/>
-                                    </StackPanel>
-                                </StackPanel>
-
-                                <!--Cost-->
-                                <StackPanel Margin="0,20,0,0">
-                                    <Label Content="Chi phí"
-                                           FontSize="20"/>
-
-                                    <Border BorderBrush="Gray"
-                                            BorderThickness="0,0,0,1">
-                                        <TextBlock Text="{Binding RepairCostStr}"
-                                                   TextAlignment="Right"
-                                                   FontSize="25"/>
-                                    </Border>
-                                </StackPanel>
-                            </StackPanel>
-                        </DockPanel>
-                    </Grid>
-
-                    <Grid Grid.Column="1">
-                        <StackPanel VerticalAlignment="Bottom"
-                                    HorizontalAlignment="Right"
-                                    Orientation="Horizontal"
-                                    Margin="0,0,20,20">
-
-                            <!--Confirm-->
-                            <Button Content="OK"
-                                    Background="#007bff"
-                                    Cursor="Hand"
-                                    Padding="0,0,0,3"
-                                    FontSize="15"
-                                    Height="40"
-                                    Width="100"
-                                    materialDesign:ButtonAssist.CornerRadius="8"
-                                    Command="{Binding CancelCM}"
-                                    CommandParameter="{Binding ElementName=View_Error}"/>
+                                       Text="{Binding SelectedItem.StartDate,StringFormat=dd/MM/yyyy HH:mm:ss}" />
                         </StackPanel>
-                    </Grid>
+
+                        <StackPanel Margin="0,10,0,0"
+                                    x:Name="_Finishday"
+                                    IsEnabled="False">
+                            <TextBlock Text="Ngày hoàn thành:" />
+                            <TextBlock Width="140"
+                                       HorizontalAlignment="Left"
+                                       Text="{Binding SelectedItem.FinishDate,StringFormat=dd/MM/yyyy HH:mm:ss}" />
+                        </StackPanel>
+
+                        <StackPanel Margin="0,10,0,0"
+                                    x:Name="_cost"
+                                    IsEnabled="False">
+                            <TextBlock Text="Chi phí:" />
+                            <TextBlock Width="140"
+                                       HorizontalAlignment="Left"
+                                       Text="{Binding SelectedItem.RepairCostStr}" />
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
             </Grid>
-        </Border>
-    </Grid>
+        </Grid>
+    </Border>
 </Window>

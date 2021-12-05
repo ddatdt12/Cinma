@@ -77,17 +77,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (successUpdateMovie)
                 {
-                    //if (SelectedItem.Image != movie.Image)
-                    //{
-                    //    File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-                    //}
-                    //else
-                    //{
-                    //    if (!string.IsNullOrEmpty(filepath))
-                    //    {
-                    //        File.Copy(filepath, Helper.GetMovieImgPath(movie.Image), true);
-                    //    }
-                    //}
                     SaveImgToApp();
                     MessageBox.Show(messageFromUpdateMovie);
                     LoadMovieListView(Operation.UPDATE, movie);

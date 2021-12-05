@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:local="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM"
       mc:Ignorable="d"
       DataContext="{StaticResource DeviceReportPageVM}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -26,6 +27,9 @@
                                    CommandParameter="{Binding ElementName=ShadowMask}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+    <Page.Resources>
+        <local:EditConverter x:Key="EditConverter" />
+    </Page.Resources>
 
     <Grid>
         <Border BorderBrush="Gray"
@@ -83,19 +87,13 @@
                     <materialDesign:Card Grid.Row="1"
                                          Margin="60,10,60,20">
                         <ListView ItemsSource="{Binding ListError}"
-                                  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding SelectedItem}"
                                   x:Name="lvError">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver"
-                                                 Value="True">
-                                            <Setter Property="IsSelected"
-                                                    Value="True" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ListView.ItemContainerStyle>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction Command="{Binding LoadDetailWindowCM}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Sự cố"
@@ -163,13 +161,14 @@
                                                         CornerRadius="5"
                                                         Background="Transparent"
                                                         Width="30"
-                                                        Height="30">
+                                                        Height="30"
+                                                        Visibility="{Binding Status,Converter={StaticResource EditConverter}}">
                                                     <materialDesign:PackIcon Kind="Pencil"
                                                                              Width="30"
                                                                              Height="30" />
                                                     <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=lvError, Path=DataContext.LoadDetailWindowCM}" />
+                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=lvError, Path=DataContext.LoadEditErrorCM}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>

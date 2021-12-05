@@ -1,17 +1,12 @@
 ﻿using CinemaManagement.DTOs;
-using CinemaManagement.Models;
 using CinemaManagement.Models.Services;
 using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
-using CinemaManagement.Views;
 using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff;
 using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace CinemaManagement.ViewModel
 {
@@ -56,10 +51,10 @@ namespace CinemaManagement.ViewModel
             try
             {
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show($"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
             }

@@ -1,26 +1,23 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Utils;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Staff.DeviceProblemsWindow;
-using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Net.Cache;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
 {
     public partial class DeviceReportPageViewModel : BaseViewModel
     {
-        public ICommand CancelCM { get; set; }
-        public ICommand FirstLoadCM { get; set; }
-        public ICommand FilterListErrorCommand { get; set; }
-        public ICommand LoadDetailWindowCM { get; set; }
-        public ICommand OpenAddErrorCommand { get; set; }
-        public ICommand MaskNameCM { get; set; }
-
-
         public static ObservableCollection<TroubleDTO> GetAllError { get; set; }
 
         private ObservableCollection<TroubleDTO> _ListError;
@@ -52,11 +49,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             set { _ErrorDevice = value; OnPropertyChanged(); }
         }
 
-        private List<StaffDTO> _ListStaff;
-        public List<StaffDTO> ListStaff
+        private ObservableCollection<StaffDTO> _ListStaff;
+        public ObservableCollection<StaffDTO> ListStaff
         {
             get => _ListStaff;
-            set { _ListStaff = value; }
+            set { _ListStaff = value; OnPropertyChanged(); }
         }
 
         private string _Title;
@@ -64,13 +61,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         {
             get => _Title;
             set { _Title = value; OnPropertyChanged(); }
-        }
-
-        private string _StaffId;
-        public string StaffId
-        {
-            get => _StaffId;
-            set { _StaffId = value; OnPropertyChanged(); }
         }
 
         private string _Status;
@@ -94,12 +84,21 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             set { _ImageSource = value; OnPropertyChanged(); }
         }
 
-        private string _Level;
-        public string Level
+        private ComboBoxItem _Level;
+        public ComboBoxItem Level
         {
             get => _Level;
             set { _Level = value; OnPropertyChanged(); }
         }
+
+
+        public ICommand CancelCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
+        public ICommand FilterListErrorCommand { get; set; }
+        public ICommand LoadDetailWindowCM { get; set; }
+        public ICommand OpenAddErrorCommand { get; set; }
+        public ICommand MaskNameCM { get; set; }
+        public ICommand UploadImageCM { get; set; }
 
         string filepath;
         string appPath;
@@ -109,9 +108,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         string oldErrorName;
         bool IsImageChanged = false;
         bool IsAddingError = false;
-        MessageBoxCustom Message;
+
         public static Grid MaskName { get; set; }
-        public static StaffDTO CurrentStaff{ get; set; }
+        public static StaffDTO CurrentStaff { get; set; }
         public DeviceReportPageViewModel()
         {
             GetCurrentDate = System.DateTime.Today;
@@ -126,39 +125,67 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 LoadListError();
+                LoadListStaff();
+
             });
-            FilterListErrorCommand = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
+            FilterListErrorCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, (p) =>
             {
                 FilterListError();
             });
-            LoadDetailWindowCM = new RelayCommand<ListView>((p) => { return true; }, (p) =>
+            LoadDetailWindowCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
             {
                 if (SelectedItem is null) return;
 
-                if (SelectedItem.Status == Utils.STATUS.WAITING)
+                if (SelectedItem.Status == Utils.STATUS.IN_PROGRESS || SelectedItem.Status == Utils.STATUS.DONE)
                 {
-
+                    ViewError w = new ViewError();
+                    w.ShowDialog();
                 }
-                if (SelectedItem.Status == Utils.STATUS.IN_PROGRESS)
+                if (SelectedItem.Status == Utils.STATUS.CANCLE)
                 {
-
-                }
-                if (SelectedItem.Status == Utils.STATUS.DONE)
-                {
-
+                    return;
                 }
             });
             OpenAddErrorCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 RenewWindowData();
-                Window w1 = new AddError();
+                AddError w1 = new AddError();
                 IsAddingError = true;
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
+            SaveErrorCM = new RelayCommand<AddError>((p) => { return true; }, (p) =>
+            {
+                SaveErrorFunc(p);
+            });
+            UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                OpenFileDialog openfile = new OpenFileDialog();
+                openfile.Title = "Select an image";
+                openfile.Filter = "Image File (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg; *.png";
+                if (openfile.ShowDialog() == DialogResult.OK)
+                {
+                    IsImageChanged = true;
+                    filepath = openfile.FileName;
+                    extension = openfile.SafeFileName.Split('.')[1];
+                    LoadImage();
+                    return;
+                }
+                IsImageChanged = false;
 
-
-
+            });
+            LoadEditErrorCM = new RelayCommand<EditError>((p) => { return true; }, (p) =>
+            {
+                oldErrorName = Title;
+                EditError w1 = new EditError();
+                LoadEditError(w1);
+                MaskName.Visibility = Visibility.Visible;
+                w1.ShowDialog();
+            });
+            UpdateErrorCM = new RelayCommand<EditError>((p) => { return true; }, (p) =>
+            {
+                UpdateErrorFunc(p);
+            });
 
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
             {
@@ -173,8 +200,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             GetAllError = new ObservableCollection<TroubleDTO>();
             ErrorDevice = new TroubleDTO();
             IsImageChanged = false;
-
-            GetAllError = new ObservableCollection<TroubleDTO>(TroubleService.Ins.GetAllTrouble());
 
             //Lấy dữ liệu cho ListError
             GetData();
@@ -202,43 +227,77 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         }
         public void GetData()
         {
+            GetAllError = new ObservableCollection<TroubleDTO>(TroubleService.Ins.GetAllTrouble());
             ListError = new ObservableCollection<TroubleDTO>(GetAllError);
         }
         public void RenewWindowData()
         {
             Title = null;
-            StaffId = null;
             Description = null;
             ImageSource = null;
             Level = null;
         }
-        public void RefreshAddPage()
-        {
-            Title = null;
-            StaffId = null;
-            Status = "Chờ tiếp nhận";
-            Description = null;
-        } //Gán lại giá trị mặc định trước khi thêm mới lỗi
-        public void InitializationAdding()
-        {
-            RefreshAddPage();
-            ErrorDevice = new TroubleDTO();
-            ListStaff = new List<StaffDTO>();
-
-            //Gán danh sách nhân viên
-            LoadListStaff();
-        } //Khởi tạo cho biến và danh sách nhân viên
 
         public void LoadListStaff()
         {
-            ListStaff = new List<StaffDTO>(StaffService.Ins.GetAllStaff());
+            ListStaff = new ObservableCollection<StaffDTO>(StaffService.Ins.GetAllStaff());
         }
         public bool IsValidData()
         {
+            return !string.IsNullOrEmpty(Title)
+                     && !string.IsNullOrEmpty(Description) && !string.IsNullOrEmpty(Level.Content.ToString());
+        }
+        public void LoadImage()
+        {
+            BitmapImage _image = new BitmapImage();
+            _image.BeginInit();
+            _image.CacheOption = BitmapCacheOption.None;
+            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+            _image.CacheOption = BitmapCacheOption.OnLoad;
+            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            _image.UriSource = new Uri(filepath, UriKind.RelativeOrAbsolute);
+            _image.EndInit();
+            ImageSource = _image;
+        }
+        public void SaveImgToApp()
+        {
+            try
+            {
+                if (IsAddingError)
+                {
+                    appPath = Helper.GetTroubleImgPath(imgfullname);
+                    File.Copy(filepath, appPath, true);
+                    return;
+                }
+                if (imgfullname != SelectedItem.Image)
+                {
+                    appPath = Helper.GetTroubleImgPath(imgfullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetTroubleImgPath(SelectedItem.Image)))
+                        File.Delete(Helper.GetTroubleImgPath(SelectedItem.Image));
+                }
+                else
+                {
+                    string temp_name = imgfullname.Split('.')[0] + "temp";
+                    string temp_ex = imgfullname.Split('.')[1];
+                    string temp_fullname = Helper.CreateImageFullName(temp_name, temp_ex);
 
-            return !string.IsNullOrEmpty(StaffId) && !string.IsNullOrEmpty(Title)
-                     && !string.IsNullOrEmpty(Description);
-            //&& !string.IsNullOrEmpty(ImgSource);
-        }   //Kiểm tra giá trị đã nhập để thêm vào danh sách lỗi
+                    appPath = Helper.GetTroubleImgPath(temp_fullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetTroubleImgPath(imgfullname)))
+                        File.Delete(Helper.GetTroubleImgPath(imgfullname));
+                    appPath = Helper.GetTroubleImgPath(imgfullname);
+                    filepath = Helper.GetTroubleImgPath(temp_fullname);
+                    File.Copy(filepath, appPath, true);
+                    if (File.Exists(Helper.GetTroubleImgPath(temp_fullname)))
+                        File.Delete(Helper.GetTroubleImgPath(temp_fullname));
+
+                }
+            }
+            catch (Exception exp)
+            {
+                System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
+            }
+        }
     }
 }

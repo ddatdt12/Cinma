@@ -1,9 +1,11 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM;
 using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
 using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff;
+using CinemaManagement.Views.Staff.DeviceProblemsWindow;
 using CinemaManagement.Views.Staff.MovieScheduleWindow;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.ShowtimePage;
@@ -89,10 +91,10 @@ namespace CinemaManagement.ViewModel
         public ICommand MinimizeMainStaffWindowCM { get; set; }
         public ICommand MouseMoveWindowCM { get; set; }
         public ICommand LoadMovieScheduleWindow { get; set; }
-        public ICommand LoadFoodPageCM{ get; set; }
-
+        public ICommand LoadFoodPageCM { get; set; }
+        public ICommand LoadErrorPageCM { get; set; }
         public ICommand SignoutCM { get; set; }
-        
+
         private string _UserName;
         public string UserName
         {
@@ -164,6 +166,10 @@ namespace CinemaManagement.ViewModel
                  p.SelectedIndex = -1;
                  LoadShowtimeData();
              });
+            LoadErrorPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+             {
+                 p.Content = new DeviceReportPage();
+             });
             SignoutCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 p.Hide();
@@ -171,6 +177,6 @@ namespace CinemaManagement.ViewModel
                 w1.ShowDialog();
                 p.Close();
             });
-        } 
+        }
     }
 }

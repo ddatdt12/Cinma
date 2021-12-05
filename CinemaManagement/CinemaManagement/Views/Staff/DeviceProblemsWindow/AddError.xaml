@@ -13,8 +13,8 @@
         TextOptions.TextRenderingMode="Auto"
         Background="Transparent"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        d:DesignHeight="700"
-        d:DesignWidth="1000"
+        Height="650"
+        Width="1000"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -52,16 +52,14 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0"
-                      Margin="0,24,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*" />
-                        <ColumnDefinition Width="50*" />
-                    </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="0"
+                            Margin="0,24,0,0">
 
                     <!--Title-->
                     <StackPanel Grid.Column="0"
-                                Margin="25,0,25,0">
+                                Margin="25,0,25,0"
+                                Width="550">
                         <Label Content="Tiêu đề"
                                FontSize="20" />
                         <TextBox Text="{Binding Title,Mode=TwoWay}"
@@ -77,38 +75,32 @@
                     </StackPanel>
                     <!--Staff Name-->
                     <StackPanel Grid.Column="1"
-                                Margin="100,0,100,0">
+                                Margin="50,0,100,0">
                         <StackPanel Grid.Column="0">
                             <Label Content="Tên nhân viên"
                                    FontSize="20" />
-                            <TextBlock FontSize="22"
+                            <TextBlock FontSize="25"
                                        Height="40"
-                                       Margin="5,10,0,0"
-                                       x:Name="StaffName">
-                            </TextBlock>
+                                       Width="300"
+                                       Padding="0"
+                                       Margin="0,10,0,0"
+                                       Text="Lê Hải Phong" />
+
                         </StackPanel>
                     </StackPanel>
-                </Grid>
+                </StackPanel>
 
                 <Grid Grid.Row="1"
                       Margin="0,10,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*" />
-                        <ColumnDefinition Width="65*" />
-                    </Grid.ColumnDefinitions>
 
-
-
-                    <StackPanel Grid.Column="0"
-                                Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
 
                         <!--Status-->
-                        <StackPanel Grid.Column="0"
-                                    Margin="25,0,0,0"
+                        <StackPanel Margin="25,0,0,0"
                                     Width="250">
                             <Label Content="Trạng thái"
                                    FontSize="20" />
-                            <TextBlock Margin="0,5,0,0"
+                            <TextBlock Margin="0,10,0,0"
                                        FontSize="22"
                                        Height="40"
                                        Text="Chờ tiếp nhận"
@@ -116,15 +108,32 @@
                         </StackPanel>
 
                         <!--Time-->
-                        <StackPanel Grid.Column="1"
-                                    Width="200">
+                        <StackPanel Width="200"
+                                    Margin="100,0,0,0">
                             <Label Content="Ngày báo cáo"
                                    FontSize="20" />
                             <StackPanel>
                                 <TextBlock Foreground="Black"
+                                           Margin="0,10,0,0"
                                            FontSize="25"
                                            Height="40"
                                            Text="{Binding GetCurrentDate,StringFormat=dd/MM/yyyy}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <!--Time-->
+                        <StackPanel Width="200"
+                                    Margin="80,0,0,0">
+                            <Label Content="Mức độ"
+                                   FontSize="20" />
+                            <StackPanel>
+                                <ComboBox Foreground="Black"
+                                          FontSize="25"
+                                          Height="40"
+                                          SelectedIndex="0"
+                                          SelectedItem="{Binding Level,Mode=OneWayToSource}">
+                                    <ComboBoxItem>Bình thường</ComboBoxItem>
+                                    <ComboBoxItem>Nghiêm trọng</ComboBoxItem>
+                                </ComboBox>
                             </StackPanel>
                         </StackPanel>
                     </StackPanel>
@@ -157,8 +166,8 @@
                                      HorizontalScrollBarVisibility="Disabled"
                                      materialDesign:HintAssist.Hint="Mô tả lỗi"
                                      FontSize="20"
-                                     Height="350"
-                                     Width="520"
+                                     Height="300"
+                                     Width="400"
                                      Margin="5,5,0,0"
                                      Foreground="Black"
                                      materialDesign:ValidationAssist.Background="White"
@@ -169,19 +178,18 @@
                     <StackPanel Grid.Column="1">
 
                         <!--Images Source-->
-                        <Image Source="{Binding ImgSource}"
+                        <Image Source="{Binding ImageSource,Mode=TwoWay}"
                                x:Name="FrameImage"
                                Height="340"
                                Width="250"
                                HorizontalAlignment="Left"
-                               Margin="10,0,0,0"
+                               Margin="-50,0,0,0"
                                Stretch="Fill" />
 
                         <!--Upload Images-->
                         <Button HorizontalAlignment="Left"
                                 Content="Tải ảnh"
                                 Cursor="Hand"
-                                Margin="20,30,0,0"
                                 Width="100"
                                 VerticalAlignment="Bottom"
                                 materialDesign:ButtonAssist.CornerRadius="10"
@@ -218,7 +226,8 @@
                                 Width="100"
                                 Margin="10"
                                 materialDesign:ButtonAssist.CornerRadius="8"
-                                Command="{Binding ConfirmCM}" />
+                                Command="{Binding SaveErrorCM}"
+                                CommandParameter="{Binding ElementName=Add_Page}" />
                     </StackPanel>
                 </Grid>
             </Grid>
