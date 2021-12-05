@@ -1,4 +1,6 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Utils;
+using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
 using CinemaManagement.ViewModel.StaffViewModel.TicketVM;
 using System;
 using System.Collections.Generic;
@@ -13,8 +15,38 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 {
     public partial class TicketBillViewModel : BaseViewModel
     {
+        public class Food
+        {
+            public string DisplayName { get; set; }
+            public decimal Price { get; set; }
+            public string PriceStr
+            {
+                get
+                {
+                    return Helper.FormatVNMoney(Price);
+                }
+            }
+            public decimal TotalPrice
+            {
+                get
+                {
+                    return Price * Quantity;
+                }
+            }
+            public string TotalPriceStr
+            {
+                get
+                {
+                    return Helper.FormatVNMoney(TotalPrice);
+                }
+            }
+            public int Quantity { get; set; }
+        }
+
         public static ShowtimeDTO Showtime;
         public static MovieDTO Movie;
+        public static ObservableCollection<ProductDTO> ListFood;
+
         private static List<SeatSettingDTO> _ListSeat;
         public static List<SeatSettingDTO> ListSeat
         {
@@ -113,18 +145,32 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             set { _Seat = value; OnPropertyChanged(); }
         }
 
-        private decimal _Price;
-        public decimal Price
+        private string _Price;
+        public string Price
         {
             get { return _Price; }
             set { _Price = value; OnPropertyChanged(); }
         }
 
-        private decimal _TotalPriceMovie;
-        public decimal TotalPriceMovie
+        private string _TotalPriceMovie;
+        public string TotalPriceMovie
         {
             get { return _TotalPriceMovie; }
             set { _TotalPriceMovie = value; OnPropertyChanged(); }
+        }
+
+        private string _TotalPriceFood;
+        public string TotalPriceFood
+        {
+            get { return _TotalPriceFood; }
+            set { _TotalPriceFood = value; OnPropertyChanged(); }
+        }
+
+        private string _TotalPrice;
+        public string TotalPrice
+        {
+            get { return _TotalPrice; }
+            set { _TotalPrice = value; OnPropertyChanged(); }
         }
 
         public ICommand CboxWalkinGuestCM { get; set; }
@@ -146,6 +192,17 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             }
         }
 
+        private ObservableCollection<Food> _ListFoodDisplay;
+        public ObservableCollection<Food> ListFoodDisplay
+        {
+            get => _ListFoodDisplay;
+            set
+            {
+                _ListFoodDisplay = value;
+                OnPropertyChanged();
+            }
+        }
+
         private CustomerDTO _SelectedItem;
         public CustomerDTO SelectedItem
         {
@@ -163,31 +220,46 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 
         public TicketBillViewModel()
         {
+            // Movie
             Movie = TicketWindowViewModel.tempFilmName;
             Showtime = TicketWindowViewModel.CurrentShowtime;
             ListSeat = TicketWindowViewModel.WaitingList;
-
             MovieName = Movie.DisplayName;
             Date = Showtime.ShowDate.ToString("dd/MM/yyyy");
             CaculateTime();
             Time = start.ToString("HH:mm") + " - " + end.ToString("HH:mm");
-
             Seat = ListSeat[0].SeatPosition;
-
             for (int i = 1; i < ListSeat.Count; i++)
             {
                 Seat += ", " + ListSeat[i].SeatPosition;
             }
-
             Room = "0" + Showtime.RoomId.ToString();
+            Price = Helper.FormatVNMoney(Showtime.TicketPrice);
+            TotalPriceMovie = Helper.FormatVNMoney(Showtime.TicketPrice * ListSeat.Count);
 
-            Price = Showtime.TicketPrice;
-            TotalPriceMovie = Price * ListSeat.Count;
-
-            
+            // Food
+            ListFood = OrderFoodPageViewModel.ListOrder;
+            ListFoodDisplay = new ObservableCollection<Food>();
+            for(int i=0; i<ListFood.Count;i++)
+            {
+                Food tempFood = new Food();
+                tempFood.DisplayName = ListFood[i].DisplayName;
+                tempFood.Quantity = ListFood[i].Quantity;
+                tempFood.Price = ListFood[i].Price;
+                ListFoodDisplay.Add(tempFood);
+            }
+            decimal TotalFood = 0;
+            for (int i=0; i<ListFoodDisplay.Count;i++)
+            {
+                TotalFood += ListFoodDisplay[i].TotalPrice;
+            }
+            TotalPriceFood = Helper.FormatVNMoney(TotalFood);
             //
-            ListVoucher = new ObservableCollection<CustomerDTO>();
 
+            decimal Total = TotalFood + Showtime.TicketPrice * ListSeat.Count;
+            TotalPrice = Helper.FormatVNMoney(Total);
+
+            ListVoucher = new ObservableCollection<CustomerDTO>();
             for(int i=0; i<10;i++)
             {
                 CustomerDTO temp = new CustomerDTO();
