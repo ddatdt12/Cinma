@@ -1,24 +1,25 @@
-﻿<Page x:Class="CinemaManagement.Views.Staff.DeviceProblemsWindow.AddDeviceProblemPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:sys="clr-namespace:System;assembly=mscorlib"
-      mc:Ignorable="d" 
-      DataContext="{StaticResource DeviceReportPageVM}"
-      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-      TextElement.FontWeight="Regular"
-      TextOptions.TextFormattingMode="Ideal"
-      TextOptions.TextRenderingMode="Auto"
-      Background="{DynamicResource MaterialDesignPaper}"
-      FontFamily="{DynamicResource MaterialDesignFont}"
-      d:DesignHeight="720"
-      d:DesignWidth="1300"
-      Title="AddDeviceProblemPage"
-      x:Name="Add_Device_Problem_Page"
-      ShowsNavigationUI="False">
-
+﻿<Window x:Class="CinemaManagement.Views.Staff.DeviceProblemsWindow.ViewError"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CinemaManagement.Views.Staff.DeviceProblemsWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        DataContext="{StaticResource DeviceReportPageVM}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="ViewError" 
+        Height="720"
+        Width="1300"
+        x:Name="View_Error"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
     <Grid>
         <Border Background="White"
                 BorderBrush="Gray"
@@ -36,7 +37,7 @@
                             materialDesign:ShadowAssist.ShadowEdges="Bottom"
                             materialDesign:ShadowAssist.ShadowDepth="Depth1">
                         <Grid>
-                            <TextBlock Text="Thêm sự cố thiết bị"
+                            <TextBlock Text="Chi tiết sự cố"
                                        FontSize="25"
                                        Margin="20,10,0,0"
                                        FontWeight="Bold" />
@@ -63,7 +64,8 @@
                                     Margin="25,0,25,0">
                             <Label Content="Tiêu đề"
                                    FontSize="20" />
-                            <TextBox Text="{Binding Title, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+                            <TextBox Text="{Binding Title}"
+                                     IsReadOnly="True"
                                      TextWrapping="Wrap"
                                      FontSize="22"
                                      TextAlignment="Left"
@@ -82,6 +84,7 @@
                                 <Label Content="Mã nhân viên"
                                        FontSize="20"/>
                                 <TextBox VerticalAlignment="Bottom"
+                                         IsReadOnly="True"
                                          TextWrapping="Wrap"
                                          TextAlignment="Left"
                                          FontSize="22"
@@ -91,7 +94,7 @@
                                          Height="40"
                                          materialDesign:ValidationAssist.Background="White"
                                          x:Name="tbxStaffId"
-                                         Text="{Binding StaffId, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                                         Text="{Binding StaffId}"/>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
@@ -110,6 +113,7 @@
                                 <Label Content="Tên nhân viên"
                                        FontSize="20"/>
                                 <TextBox AcceptsReturn="True"
+                                         IsReadOnly="True"
                                          TextWrapping="Wrap"
                                          FontSize="22"
                                          Background="White"
@@ -118,7 +122,7 @@
                                          Height="40"
                                          materialDesign:ValidationAssist.Background="White"
                                          x:Name="tbxStaffName"
-                                         Text="{Binding StaffName, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                                         Text="{Binding StaffName}">
                                 </TextBox>
                             </StackPanel>
                         </StackPanel>
@@ -134,15 +138,15 @@
                                        FontSize="20"/>
                                 <ComboBox IsEditable="True"
                                           IsReadOnly="True"
+                                          IsEnabled="False"
                                           HorizontalContentAlignment="Center"
                                           FontSize="22"
                                           Height="40"
                                           VerticalContentAlignment="Bottom"
                                           MaxDropDownHeight="240"
                                           materialDesign:ValidationAssist.Background="White"
-                                          SelectedIndex="0"
+                                          Text="{Binding Status}"
                                           x:Name="cbxStatusError">
-                                    <ComboBoxItem>Chờ tiếp nhận</ComboBoxItem>
                                 </ComboBox>
                             </StackPanel>
 
@@ -150,7 +154,7 @@
                             <StackPanel Grid.Column="1"
                                         Margin="60,0,0,0"
                                         Width="200">
-                                <Label Content="Ngày báo cáo"
+                                <Label Content="Thời gian sự cố"
                                    FontSize="20"/>
                                 <StackPanel>
                                     <DatePicker FirstDayOfWeek="Monday"
@@ -161,7 +165,7 @@
                                                 FontSize="25"
                                                 Height="40"
                                                 x:Name="datePickerIncidentTime"
-                                                SelectedDate="{Binding SubmittedAt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                SelectedDate="{Binding SubmittedAt}"
                                                 materialDesign:HintAssist.IsFloating="False"
                                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
                                                 Focusable="False"/>
@@ -170,7 +174,6 @@
                         </StackPanel>
                     </Grid>
                 </Grid>
-                
                 <Grid Grid.Row="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -190,6 +193,7 @@
                                        Margin="0,10,0,0"
                                        Padding="5"/>
                                 <TextBox Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         IsReadOnly="True"
                                          VerticalAlignment="Top"
                                          AcceptsReturn="True"
                                          TextWrapping="Wrap"
@@ -202,66 +206,124 @@
                                          Margin="5,5,0,0"
                                          Foreground="Black"
                                          materialDesign:ValidationAssist.Background="White"
-                                         Text="{Binding Description, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                                         Text="{Binding Description}" />
                             </StackPanel>
                         </StackPanel>
-                        
-                        <StackPanel Grid.Column="1">
-                            
-                            <!--Images Source-->
-                            <Image Source="{Binding ImgSource}"
-                                   x:Name="FrameImage"
-                                   Height="340"
-                                   Width="250"
-                                   HorizontalAlignment="Left"
-                                   Margin="10,0,0,0"
-                                   Stretch="Fill"/>
 
-                            <!--Upload Images-->
-                            <Button HorizontalAlignment="Left"
-                                    Content="Tải ảnh"
-                                    Cursor="Hand"
-                                    Margin="20,30,0,0"
-                                    Width="100"
-                                    VerticalAlignment="Bottom"
-                                    materialDesign:ButtonAssist.CornerRadius="10"
-                                    Command="{Binding UploadImageCM}" />
-                        </StackPanel>
+                        <DockPanel Grid.Column="1">
+                            <StackPanel DockPanel.Dock="Left">
+
+                                <!--Images Source-->
+                                <Image Source="{Binding ImgSource}"
+                                       x:Name="FrameImage"
+                                       Height="340"
+                                       Width="250"
+                                       HorizontalAlignment="Left"
+                                       Margin="10,0,0,0"
+                                       Stretch="Fill"/>
+
+                                <!--Upload Images-->
+                                <Button HorizontalAlignment="Left"
+                                        Content="Tải ảnh"
+                                        Cursor="Hand"
+                                        Margin="20,30,0,0"
+                                        Width="100"
+                                        VerticalAlignment="Bottom"
+                                        materialDesign:ButtonAssist.CornerRadius="10"
+                                        Command="{Binding UploadImageCM}" />
+                            </StackPanel>
+
+                            <StackPanel Width="200"
+                                        DockPanel.Dock="Right"
+                                        HorizontalAlignment="Right"
+                                        Margin="0,0,50,100">
+                                <StackPanel Orientation="Horizontal">
+
+                                    <!--Level-->
+                                    <Label Content="Mức độ:"
+                                           FontSize="20"/>
+                                    <Border BorderBrush="Gray"
+                                            BorderThickness="0,0,0,1"
+                                            Margin="10,0,0,0">
+                                        <TextBlock Text="{Binding Level}"
+                                                   TextAlignment="Left"
+                                                   FontSize="25"/>
+                                    </Border>
+                                </StackPanel>
+
+                                <!--StartDate-->
+                                <StackPanel Margin="0,20,0,0">
+                                    <Label Content="Ngày sửa chữa"
+                                           FontSize="20"/>
+                                    <StackPanel>
+                                        <DatePicker FirstDayOfWeek="Monday"
+                                                    IsEnabled="False"
+                                                    SelectedDateFormat="Short"
+                                                    Foreground="Black"
+                                                    FontSize="25"
+                                                    Height="40"
+                                                    SelectedDate="{Binding StartDate}"
+                                                    materialDesign:HintAssist.IsFloating="False"
+                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                                    Focusable="False"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <!--FinishDate-->
+                                <StackPanel Margin="0,20,0,0">
+                                    <Label Content="Ngày kết thúc"
+                                           FontSize="20"/>
+                                    <StackPanel>
+                                        <DatePicker FirstDayOfWeek="Monday"
+                                                    IsEnabled="False"
+                                                    SelectedDateFormat="Short"
+                                                    Foreground="Black"
+                                                    FontSize="25"
+                                                    Height="40"
+                                                    SelectedDate="{Binding FinishDate}"
+                                                    materialDesign:HintAssist.IsFloating="False"
+                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}" 
+                                                    Focusable="False"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <!--Cost-->
+                                <StackPanel Margin="0,20,0,0">
+                                    <Label Content="Chi phí"
+                                           FontSize="20"/>
+
+                                    <Border BorderBrush="Gray"
+                                            BorderThickness="0,0,0,1">
+                                        <TextBlock Text="{Binding RepairCostStr}"
+                                                   TextAlignment="Right"
+                                                   FontSize="25"/>
+                                    </Border>
+                                </StackPanel>
+                            </StackPanel>
+                        </DockPanel>
                     </Grid>
 
                     <Grid Grid.Column="1">
                         <StackPanel VerticalAlignment="Bottom"
                                     HorizontalAlignment="Right"
                                     Orientation="Horizontal"
-                                    Margin="10">
-                            
-                            <!--Cancel-->
-                            <Button Content="Huỷ"
-                                    Background="#EE3B3B"
-                                    Cursor="Hand"
-                                    Padding="0,0,0,3"
-                                    FontSize="15"
-                                    Height="40"
-                                    Width="100"
-                                    Margin="10,10,30,10"
-                                    materialDesign:ButtonAssist.CornerRadius="8"
-                                    Command="{Binding CancelCM}"/>
-                            
+                                    Margin="0,0,20,20">
+
                             <!--Confirm-->
-                            <Button Content="Xác nhận"
+                            <Button Content="OK"
                                     Background="#007bff"
                                     Cursor="Hand"
                                     Padding="0,0,0,3"
                                     FontSize="15"
                                     Height="40"
                                     Width="100"
-                                    Margin="10"
                                     materialDesign:ButtonAssist.CornerRadius="8"
-                                    Command="{Binding ConfirmCM}" />
+                                    Command="{Binding CancelCM}"
+                                    CommandParameter="{Binding ElementName=View_Error}"/>
                         </StackPanel>
                     </Grid>
                 </Grid>
             </Grid>
         </Border>
     </Grid>
-</Page>
+</Window>

@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d"
       DataContext="{StaticResource DeviceReportPageVM}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -12,11 +13,17 @@
       TextOptions.TextRenderingMode="Auto"
       Background="{DynamicResource MaterialDesignPaper}"
       FontFamily="{DynamicResource MaterialDesignFont}"
+      TextElement.FontSize="13"
       d:DesignHeight="720" 
       d:DesignWidth="1300"
       Title="DeviceReportPage"
       x:Name="Device_Report_Page"
       ShowsNavigationUI="False">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Border BorderBrush="Gray"
                 BorderThickness="1"
@@ -39,53 +46,72 @@
 
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="80"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
-                        <ComboBox Width="150"
+                        <ComboBox x:Name="cbxViewMode"
+                                  Width="150"
                                   Height="30"
-                                  VerticalAlignment="Center"
+                                  VerticalAlignment="Bottom"
                                   VerticalContentAlignment="Center"
                                   HorizontalAlignment="Left"
                                   HorizontalContentAlignment="Center"
-                                  Margin="80,0,0,0"
+                                  Margin="80,0,0,15"
                                   FontSize="15"
                                   SelectedIndex="0"
-                                  SelectedItem="{Binding FilterListError,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                                  SelectedItem="{Binding ItemViewMode,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
                             <ComboBoxItem>Toàn bộ</ComboBoxItem>
                             <ComboBoxItem>Chờ tiếp nhận</ComboBoxItem>
                             <ComboBoxItem>Đang giải quyết</ComboBoxItem>
                             <ComboBoxItem>Đã giải quyết</ComboBoxItem>
-                            <ComboBoxItem>Đã hủy</ComboBoxItem>
+                            <ComboBoxItem>Đã huỷ</ComboBoxItem>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding FilterListErrorCommand}" />
+                                    <i:InvokeCommandAction Command="{Binding FilterListErrorCommand}"
+                                                           CommandParameter="{Binding ElementName=cbxViewMode}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ComboBox>
+
+                        <Button Content="Thêm +"
+                                Width="100"
+                                Height="40"
+                                Margin="0,0,80,10"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Command="{Binding ElementName=lvError, Path=DataContext.OpenAddErrorCommand}"
+                                CommandParameter="{Binding ElementName=Device_Report_Page}">
+
+                        </Button>
                     </Grid>
 
                     <materialDesign:Card Grid.Row="1"
                                          Margin="60,10,60,20">
-                        <ListView ItemsSource="{Binding ListError}"
-                                  SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
+                        <ListView ItemsSource="{Binding ListError, Mode=TwoWay}"
+                                  SelectedItem="{Binding SelectedItem, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"
                                   x:Name="lvError">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True">
+                                            <Setter Property="IsSelected"
+                                                    Value="True"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
                             <ListView.View>
                                 <GridView>
-
                                     <GridViewColumn Header="Sự cố"
                                                     Width="500">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <materialDesign:PackIcon Kind="AlertCircleOutline"
-                                                                             Width="40"
-                                                                             Height="40"
-                                                                             Foreground="Red"
-                                                                             Margin="0,30,20,0"/>
-                                                    <Border CornerRadius="8,8,8,8"
+                                                    <Border CornerRadius="8"
                                                             Width="100"
                                                             Height="100">
                                                         <Border.Background>
@@ -96,8 +122,7 @@
                                                     <StackPanel Margin="20,0,0,0">
                                                         <Label Content="{Binding Title}"
                                                                FontSize="25"
-                                                               FontWeight="Bold"
-                                                               Width="350" />
+                                                               FontWeight="Bold"/>
                                                         <StackPanel Orientation="Horizontal">
                                                             <Label Content="Chi phí:"
                                                                    FontSize="20" />
@@ -114,18 +139,18 @@
                                                     Width="350">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding SubmittedAt}"
+                                                <TextBlock Text="{Binding SubmittedAt, StringFormat='dd/MM/yyyy'}"
                                                            FontSize="25"
                                                            Margin="0,30,0,0" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn Header="Trạng thái"
-                                                    Width="170">
+                                                    Width="200">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Border BorderThickness="1"
-                                                        Margin="0,25,0,0"
+                                                        Margin="10,25,0,0"
                                                         CornerRadius="20">
                                                     <TextBlock Text="{Binding Status}"
                                                                FontSize="20"
@@ -142,7 +167,7 @@
                                                 <Border Cursor="Hand"
                                                         BorderBrush="Black"
                                                         BorderThickness="1"
-                                                        Margin="10,30,0,0"
+                                                        Margin="10,20,0,0"
                                                         CornerRadius="5"
                                                         Background="Transparent"
                                                         Width="30"
@@ -150,11 +175,11 @@
                                                     <materialDesign:PackIcon Kind="Pencil"
                                                                              Width="30"
                                                                              Height="30"/>
-                                                    <Border.InputBindings>
-                                                        <MouseBinding MouseAction="LeftClick"
-                                                                      Command="{Binding LoadPageCommand}"
-                                                                      CommandParameter="{Binding}" />
-                                                    </Border.InputBindings>
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=lvError, Path=DataContext.LoadPageCommand}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
                                                 </Border>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>

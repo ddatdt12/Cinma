@@ -12,15 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace CinemaManagement.Views.Staff.OrderFoodWindow
+namespace CinemaManagement.Views.Staff.DeviceProblemsWindow
 {
-
-    public partial class FoodWindow : Window
+    /// <summary>
+    /// Interaction logic for AddError.xaml
+    /// </summary>
+    public partial class AddError : Window
     {
-        public FoodWindow()
+        public AddError()
         {
             InitializeComponent();
         }
-
     }
 }

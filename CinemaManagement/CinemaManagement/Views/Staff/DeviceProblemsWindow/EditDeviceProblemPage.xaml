@@ -142,7 +142,7 @@
                                           materialDesign:ValidationAssist.Background="White"
                                           SelectedIndex="0"
                                           x:Name="cbxStatusError"
-                                          Text="{Binding Status, Mode=OneWayToSource}">
+                                          Text="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <ComboBoxItem>Chờ tiếp nhận</ComboBoxItem>
                                     <ComboBoxItem>Đang giải quyết</ComboBoxItem>
                                     <ComboBoxItem>Đã giải quyết</ComboBoxItem>
@@ -154,10 +154,11 @@
                             <StackPanel Grid.Column="1"
                                         Margin="60,0,0,0"
                                         Width="200">
-                                <Label Content="Thời gian sự cố"
-                                   FontSize="20"/>
+                                <Label Content="Ngày báo cáo"
+                                       FontSize="20"/>
                                 <StackPanel>
                                     <DatePicker FirstDayOfWeek="Monday"
+                                                IsEnabled="False"
                                                 SelectedDateFormat="Short"
                                                 DisplayDateEnd="{x:Static sys:DateTime.Today}"
                                                 Foreground="Black"
@@ -204,13 +205,13 @@
                                          Margin="5,5,0,0"
                                          Foreground="Black"
                                          materialDesign:ValidationAssist.Background="White"
-                                         Text="{Binding Description, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                                         Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
 
                             <!--Images Source-->
-                            <Image Source="{Binding ImgSource}"
+                            <Image Source="{Binding ImgSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                    x:Name="FrameImage"
                                    Height="340"
                                    Width="250"

@@ -1,24 +1,25 @@
-﻿<Page x:Class="CinemaManagement.Views.Staff.DeviceProblemsWindow.AddDeviceProblemPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:sys="clr-namespace:System;assembly=mscorlib"
-      mc:Ignorable="d" 
-      DataContext="{StaticResource DeviceReportPageVM}"
-      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-      TextElement.FontWeight="Regular"
-      TextOptions.TextFormattingMode="Ideal"
-      TextOptions.TextRenderingMode="Auto"
-      Background="{DynamicResource MaterialDesignPaper}"
-      FontFamily="{DynamicResource MaterialDesignFont}"
-      d:DesignHeight="720"
-      d:DesignWidth="1300"
-      Title="AddDeviceProblemPage"
-      x:Name="Add_Device_Problem_Page"
-      ShowsNavigationUI="False">
-
+﻿<Window x:Class="CinemaManagement.Views.Staff.DeviceProblemsWindow.AddError"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CinemaManagement.Views.Staff.DeviceProblemsWindow"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        DataContext="{StaticResource DeviceReportPageVM}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="AddError" 
+        Height="720"
+        Width="1300"
+        x:Name="Add_Error"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
     <Grid>
         <Border Background="White"
                 BorderBrush="Gray"
@@ -170,7 +171,7 @@
                         </StackPanel>
                     </Grid>
                 </Grid>
-                
+
                 <Grid Grid.Row="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -205,9 +206,9 @@
                                          Text="{Binding Description, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </StackPanel>
-                        
+
                         <StackPanel Grid.Column="1">
-                            
+
                             <!--Images Source-->
                             <Image Source="{Binding ImgSource}"
                                    x:Name="FrameImage"
@@ -234,7 +235,7 @@
                                     HorizontalAlignment="Right"
                                     Orientation="Horizontal"
                                     Margin="10">
-                            
+
                             <!--Cancel-->
                             <Button Content="Huỷ"
                                     Background="#EE3B3B"
@@ -245,8 +246,9 @@
                                     Width="100"
                                     Margin="10,10,30,10"
                                     materialDesign:ButtonAssist.CornerRadius="8"
-                                    Command="{Binding CancelCM}"/>
-                            
+                                    Command="{Binding CancelCM}"
+                                    CommandParameter="{Binding ElementName=Add_Error}"/>
+
                             <!--Confirm-->
                             <Button Content="Xác nhận"
                                     Background="#007bff"
@@ -257,11 +259,12 @@
                                     Width="100"
                                     Margin="10"
                                     materialDesign:ButtonAssist.CornerRadius="8"
-                                    Command="{Binding ConfirmCM}" />
+                                    Command="{Binding ConfirmCM}"
+                                    CommandParameter="{Binding ElementName=Add_Error}" />
                         </StackPanel>
                     </Grid>
                 </Grid>
             </Grid>
         </Border>
     </Grid>
-</Page>
+</Window>

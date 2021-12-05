@@ -12,7 +12,7 @@
       TextOptions.TextRenderingMode="Auto"
       Background="#FFFBF5F5"
       FontFamily="{DynamicResource MaterialDesignFont}"
-      DataContext="{StaticResource OrderFoodPageWindowVM}"
+      DataContext="{StaticResource OrderFoodPageVM}"
       d:DesignHeight="720" 
       d:DesignWidth="1300"
       x:Name="Food_Page"
@@ -175,10 +175,10 @@
             <materialDesign:Card UniformCornerRadius="5"
                                  Margin="5,5,2,5">
                 <ListView ItemsSource="{Binding OrderList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedProductToBill, Mode=TwoWay}"
-                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                      x:Name="lvOrderList">
-                <ListView.ItemContainerStyle>
+                          SelectedItem="{Binding SelectedProductToBill, Mode=TwoWay}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          x:Name="lvOrderList">
+                    <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Background" Value="Transparent" />
                             <Setter Property="Foreground"

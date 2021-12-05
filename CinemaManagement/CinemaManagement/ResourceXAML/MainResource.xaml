@@ -29,13 +29,9 @@
     <viewmodel23:StaffManagementViewModel x:Key="StaffManagementVM" />
     <viewmodel24:StatisticalManagementViewModel x:Key="StatisticalManagementVM" />
     <viewmodel3:TicketWindowViewModel x:Key="TicketWindowVM" />
-    <viewmodel31:OrderFoodViewModel x:Key="OrderFoodWindowVM" />
-    <viewmodel31:OrderFoodViewModel x:Key="OrderFoodPageWindowVM" />
+    <viewmodel31:OrderFoodPageViewModel x:Key="OrderFoodPageVM" />
     <viewmodel4:VoucherViewModel x:Key="VoucherVM" />
     <viewmodelFood:FoodManagementViewModel x:Key="FoodManagementVM" />
-    <viewmodel32:AddDeviceProblemPageViewModel x:Key="AddDeviceProblemPageVM"/>
     <viewmodel32:DeviceReportPageViewModel x:Key="DeviceReportPageVM" />
-    <viewmodel32:ViewDeviceProblemPageViewModel x:Key="ViewDeviceProblemPageVM"/>
-    <viewmodel32:EditDeviceProblemPageViewModel x:Key="EditDeviceProblemPageVM" />
 
 </ResourceDictionary>

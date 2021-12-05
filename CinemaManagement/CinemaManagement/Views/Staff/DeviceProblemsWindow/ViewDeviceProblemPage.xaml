@@ -16,7 +16,7 @@
       d:DesignHeight="720"
       d:DesignWidth="1300"
       Title="ViewDeviceProblemPage"
-      x:Name="View_Device_Problem_Page"
+      x:Name="View_Error"
       ShowsNavigationUI="False">
 
     <Grid>
@@ -321,7 +321,7 @@
                                     Height="40"
                                     Width="100"
                                     materialDesign:ButtonAssist.CornerRadius="8"
-                                    Command="{Binding OkCM}" />
+                                    Command="{Binding CancelCM}" />
                         </StackPanel>
                     </Grid>
                 </Grid>
