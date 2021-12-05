@@ -10,7 +10,7 @@ namespace CinemaManagement.Views.Admin.FoodManagementPage
         public AddFoodWindow()
         {
             InitializeComponent();
-            this.Owner = App.Current.MainWindow;
+            //this.Owner = App.Current.MainWindow;
             
         }
 
@@ -34,7 +34,8 @@ namespace CinemaManagement.Views.Admin.FoodManagementPage
 
         private void AddFoodWd_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.DragMove();
+            //this.DragMove();
         }
+
     }
 }

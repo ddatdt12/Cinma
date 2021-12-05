@@ -15,7 +15,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource FoodManagementVM}"
         WindowStyle="None"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Name="ImportFoodWd"
         ResizeMode="NoResize"
@@ -89,7 +89,7 @@
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
+                                <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}"
                                                        CommandParameter="{Binding ElementName=ImportFoodWd}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>

@@ -19,7 +19,7 @@
         ResizeMode="NoResize"
         Height="480"
         Width="500"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterScreen">
 
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">

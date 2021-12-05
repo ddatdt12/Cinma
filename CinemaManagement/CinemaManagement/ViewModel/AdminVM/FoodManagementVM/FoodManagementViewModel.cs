@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.FoodManagementPage;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -122,6 +123,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ICommand MaskNameCM { get; set; }
         public ICommand LoadProductListViewCM { get; set; }
         public ICommand FirstLoadCM { get; set; }
+        public ICommand MouseMoveWindowCommand { get; set; }
 
         //
         private ProductDTO _SelectedItem;
@@ -376,6 +378,17 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
               {
                   MaskName = p;
               });
+
+            MouseMoveWindowCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
+            {
+                FrameworkElement window = GetWindowParent(p);
+                var w = window as Window;
+                if (w != null)
+                {
+                    w.DragMove();
+                }
+            }
+            );
         }
 
         public void LoadImage()

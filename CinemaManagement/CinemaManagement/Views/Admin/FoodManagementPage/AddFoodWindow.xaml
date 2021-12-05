@@ -16,7 +16,7 @@
         DataContext="{StaticResource FoodManagementVM}"
         WindowStyle="None"
         AllowsTransparency="True"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         Name="AddFoodWd"
         ResizeMode="NoResize"
         Height="400"
@@ -85,7 +85,8 @@
                                           BorderThickness="0,0,0,1"
                                           BorderBrush="Black"
                                           Background="White"
-                                          Grid.Row="0">
+                                          Grid.Row="0"
+                                          x:Name="HeaderAddFood">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center"
                                    Margin="10 0 0 0"
@@ -94,6 +95,12 @@
                                    FontWeight="DemiBold"
                                    FontSize="20" />
                     </StackPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}"
+                                                   CommandParameter="{Binding ElementName=AddFoodWd}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </materialDesign:ColorZone>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>

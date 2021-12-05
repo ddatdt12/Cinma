@@ -7,7 +7,7 @@ namespace CinemaManagement.Views.Admin.QuanLyNhanVienPage
         public SuaNhanVienWindow()
         {
             InitializeComponent();
-            this.Owner = App.Current.MainWindow;
+            //this.Owner = App.Current.MainWindow;
         }
 
     }
