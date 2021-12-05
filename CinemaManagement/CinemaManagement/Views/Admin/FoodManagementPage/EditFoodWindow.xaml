@@ -16,7 +16,7 @@
         DataContext="{StaticResource FoodManagementVM}"
         WindowStyle="None"
         AllowsTransparency="True"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         Name="EditFoodWd"
         ResizeMode="NoResize"
         Title="EditFoodWindow"
@@ -97,7 +97,7 @@
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonDown">
-                                    <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
+                                    <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}"
                                                            CommandParameter="{Binding ElementName=EditFoodWd}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>

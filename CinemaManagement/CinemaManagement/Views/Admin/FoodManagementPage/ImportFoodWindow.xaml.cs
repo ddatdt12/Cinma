@@ -7,7 +7,7 @@ namespace CinemaManagement.Views.Admin.FoodManagementPage
         public ImportFoodWindow()
         {
             InitializeComponent();
-            this.Owner = App.Current.MainWindow;
+            //this.Owner = App.Current.MainWindow;
         }
     }
 }

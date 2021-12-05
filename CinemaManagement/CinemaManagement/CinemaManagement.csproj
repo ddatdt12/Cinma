@@ -830,6 +830,7 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\Products\hehe.png" />
     <Resource Include="Views\Staff\ShowtimePage\movie-theatre-png-35891.png" />
     <Resource Include="Views\Staff\ShowtimePage\pngtree-blue-movie-film-texture-background-image_321897.jpg" />
     <Resource Include="Resources\Icon\error.png" />

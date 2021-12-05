@@ -35,6 +35,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     p.Close();
                     MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddProduct, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
+                    filepath = null; 
                 }
                 else
                 {
