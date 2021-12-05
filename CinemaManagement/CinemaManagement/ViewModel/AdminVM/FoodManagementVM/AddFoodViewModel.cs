@@ -2,13 +2,14 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 {
     public partial class FoodManagementViewModel : BaseViewModel
     {
-        public void AddFood(Window p)
+        public async Task AddFood(Window p)
         {
             if (filepath != null && IsValidData())
             {
@@ -22,7 +23,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.Image = imgfullname;
                 product.Quantity = 0;
 
-
+                await Task.Delay(0);
                 (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = ProductService.Ins.AddNewProduct(product);
 
                 if (successAddProduct)

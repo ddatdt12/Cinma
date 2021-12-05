@@ -5,6 +5,7 @@ using CinemaManagement.Views;
 using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,6 +14,7 @@ namespace CinemaManagement.ViewModel
 {
     public class LoginViewModel : BaseViewModel
     {
+        public Button LoginBtn { get; set; }
         public static Frame MainFrame { get; set; }
         public Window LoginWindow { get; set; }
         public ICommand ShadowMaskCM { get; set; }
@@ -24,6 +26,7 @@ namespace CinemaManagement.ViewModel
         public ICommand PasswordChangedCM { get; set; }
         public ICommand LoadLoginPageCM { get; set; }
         public ICommand SaveLoginWindowNameCM { get; set; }
+        public ICommand SaveLoginBtnCM { get; set; }
 
 
         private string _username;
@@ -49,17 +52,7 @@ namespace CinemaManagement.ViewModel
 
         public LoginViewModel()
         {
-            try
-            {
-            }
-            catch (InvalidOperationException e)
-            {
-            }
-            catch (Exception e)
-            {
-                MessageBoxCustom mb = new MessageBoxCustom("Lỗi hệ thống", $"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại", MessageType.Error, MessageButtons.OK);
-                mb.ShowDialog();
-            }
+
             MouseLeftButtonDownWindowCM = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {
                 if (p != null)
@@ -72,13 +65,13 @@ namespace CinemaManagement.ViewModel
 
                 MainFrame.Content = new ForgotPassPage();
             });
-            LoginCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
-            {
-                string username = Username;
-                string password = Password;
+            LoginCM = new RelayCommand<Label>((p) => { return true; }, async (p) =>
+             {
+                 string username = Username;
+                 string password = Password;
 
-                CheckValidateAccount(username, password, p);
-            });
+                 await CheckValidateAccount(username, password, p);
+             });
             PasswordChangedCM = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
             {
                 Password = p.Password;
@@ -92,9 +85,13 @@ namespace CinemaManagement.ViewModel
             {
                 LoginWindow = p;
             });
+            SaveLoginBtnCM = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            {
+                LoginBtn = p;
+            });
         }
 
-        public void CheckValidateAccount(string usn, string pwr, Label lbl)
+        public async Task CheckValidateAccount(string usn, string pwr, Label lbl)
         {
 
             if (string.IsNullOrEmpty(usn) || string.IsNullOrEmpty(pwr))
@@ -103,7 +100,16 @@ namespace CinemaManagement.ViewModel
                 return;
             }
 
+            IsLoading = true;
+            LoginBtn.Content = "";
+            LoginBtn.IsHitTestVisible = false;
+            LoginPage.pgb.Visibility = Visibility.Visible;
+            await Task.Delay(3000);
             (bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login(usn, pwr);
+            IsLoading = false;
+            LoginBtn.Content = "Đăng nhập";
+            LoginBtn.IsHitTestVisible = true;
+            LoginPage.pgb.Visibility = Visibility.Collapsed;
             if (loginSuccess)
             {
 

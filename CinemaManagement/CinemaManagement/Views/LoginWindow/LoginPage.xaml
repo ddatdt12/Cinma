@@ -98,12 +98,28 @@
                         BorderBrush="Transparent"
                         HorizontalContentAlignment="Right"
                         Command="{Binding ForgotPassCM}" />
-                <Button Content="Đăng nhập"
-                        Width="120"
-                        materialDesign:ButtonAssist.CornerRadius="8"
-                        Margin="0,10,20,0"
-                        Command="{Binding LoginCM}"
-                        CommandParameter="{Binding ElementName=Error}" />
+                <Grid Margin="0,10,20,0">
+                    <Button Content="Đăng nhập"
+                            Width="120"
+                            x:Name="loginbtn"
+                            materialDesign:ButtonAssist.CornerRadius="8"
+                            Command="{Binding LoginCM}"
+                            CommandParameter="{Binding ElementName=Error}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding SaveLoginBtnCM}"
+                                                       CommandParameter="{Binding ElementName=loginbtn}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 Value="0"
+                                 Foreground="White"
+                                 IsIndeterminate="{Binding IsLoading}"
+                                 Loaded="ProgressBar_Loaded"
+                                 Visibility="Collapsed"/>
+                </Grid>
+
             </StackPanel>
         </StackPanel>
 

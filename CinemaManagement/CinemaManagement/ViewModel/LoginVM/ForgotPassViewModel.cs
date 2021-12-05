@@ -18,6 +18,7 @@ namespace CinemaManagement.ViewModel
 
     public class ForgotPassViewModel : BaseViewModel
     {
+        public Button SendmailBtn { get; set; }
         private string _usremail;
         public string usremail
         {
@@ -39,13 +40,6 @@ namespace CinemaManagement.ViewModel
             set { newPass = value; OnPropertyChanged(); }
         }
 
-        private bool isLoading;
-        public bool IsLoading
-        {
-            get { return isLoading; }
-            set { isLoading = value; OnPropertyChanged(); }
-        }
-
         public ICommand ConfirmCM { get; set; }
         public ICommand CancelCM { get; set; }
         public ICommand SendMailCM { get; set; }
@@ -53,6 +47,7 @@ namespace CinemaManagement.ViewModel
         public ICommand PreviousPageCM { get; set; }
         public ICommand SaveNewPassCM { get; set; }
         public ICommand NewPassChanged { get; set; }
+        public ICommand SaveSendmailBtnCM { get; set; }
 
         public ForgotPassViewModel()
         {
@@ -86,22 +81,13 @@ namespace CinemaManagement.ViewModel
             });
             SendMailCM = new RelayCommand<Button>((p) => { return true; }, async (p) =>
              {
-                 IsLoading = true;
-                 p.IsEnabled = false;
-                 p.Content = "";
 
-                 //Check email
-                 bool success = RegexUtilities.IsValidEmail(usremail);
+                 if (string.IsNullOrEmpty(usremail)) return;
 
+                 if (!RegexUtilities.IsValidEmail(usremail)) return;
 
-                 await Task.Delay(3000);
                  //(bool isSuccess, string message)  = await sendHtmlEmail();
                  //MessageBox.Show(message);
-
-                 IsLoading = false;
-                 p.IsEnabled = true;
-                 p.Content = "Gửi mã";
-
 
                  //string to, from, pass, messageBody;
                  //MailMessage message = new MailMessage();
@@ -150,6 +136,10 @@ namespace CinemaManagement.ViewModel
             NewPassChanged = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
             {
                 NewPass = p.Password;
+            });
+            SaveSendmailBtnCM = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            {
+                SendmailBtn = p;
             });
         }
         protected async Task<(bool, string)> sendHtmlEmail()

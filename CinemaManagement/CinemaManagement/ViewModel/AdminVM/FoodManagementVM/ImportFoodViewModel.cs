@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.FoodManagementPage;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
@@ -16,7 +17,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             Price = 0;
             Quantity = 0;
         }
-        public void ImportFood(Window p)
+        public async Task ImportFood(Window p)
         {
             if (SelectedProduct != null)
             {
@@ -28,6 +29,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     productReceipt.Quantity = Quantity;
                     productReceipt.StaffId = "NV002";
 
+                    await Task.Delay(0);
                     (bool successAddProductReceipt, string messageFromAddProductReceipt, ProductReceiptDTO newProductReceipt) = ProductReceiptService.Ins.CreateProductReceipt(productReceipt);
 
                     if (successAddProductReceipt)

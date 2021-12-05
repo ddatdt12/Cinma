@@ -384,22 +384,6 @@
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </materialDesign:Card>
-
-                    <StackPanel.Triggers>
-                        <EventTrigger RoutedEvent="StackPanel.Loaded">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="cardRight"
-                                                     Storyboard.TargetProperty="Height"
-                                                     From="0"
-                                                     To="596"
-                                                     Duration="0:0:0.5" />
-
-
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </StackPanel.Triggers>
                 </StackPanel>
             </Grid>
         </Grid>

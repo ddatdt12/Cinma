@@ -89,6 +89,7 @@ namespace CinemaManagement.ViewModel
         public ICommand MouseMoveWindowCM { get; set; }
         public ICommand LoadMovieScheduleWindow { get; set; }
         public ICommand LoadFoodPageCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
 
         public ICommand SignoutCM { get; set; }
 
@@ -103,10 +104,14 @@ namespace CinemaManagement.ViewModel
         #endregion
         public MainStaffViewModel()
         {
-            LoadCurrentDate();
-            SelectedDate = GetCurrentDate;
-            ListMovie1 = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
-            GenreList = GenreService.Ins.GetAllGenre();
+
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                LoadCurrentDate();
+                SelectedDate = GetCurrentDate;
+                ListMovie1 = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
+                GenreList = GenreService.Ins.GetAllGenre();
+            });
             CloseMainStaffWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
                 {
                     FrameworkElement window = Window.GetWindow(p);

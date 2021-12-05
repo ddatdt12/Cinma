@@ -64,6 +64,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
                 return;
             }
+            if (ListCustomerEmail.Count == 0)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Danh sách khách hàng đang trống!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+                return;
+            }
             foreach (var item in ListCustomerEmail)
             {
                 if (string.IsNullOrEmpty(item.Email))
@@ -123,7 +129,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             //code here
             if (NumberCustomer == -2)
             {
-                ExportVoucherFunc();
+                await ExportVoucherFunc();
                 if (!IsExport)
                     return;
             }
@@ -140,7 +146,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
             if (!sendSuccess)
             {
-                MessageBox.Show(messageFromSendEmail);
+                MessageBoxCustom mb = new MessageBoxCustom("", messageFromSendEmail, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
                 return;
             }
 
@@ -168,7 +175,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
             }
         }
-        public void RefreshEmailList()
+        public async Task RefreshEmailList()
         {
             if (ReleaseCustomerList is null) return;
 
@@ -176,10 +183,11 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 case "Top 5 khách hàng trong tháng":
                     {
-                        (List<CustomerDTO> top5cus, _, _) = StatisticsService.Ins.GetTop5CustomerExpenseByMonth(DateTime.Today.Month);
+                        
+                        List<CustomerDTO> list = await CustomerService.Ins.GetTop5CustomerEmail();
                         ListCustomerEmail = new ObservableCollection<CustomerEmail>();
 
-                        foreach (var item in top5cus)
+                        foreach (var item in list)
                         {
                             if (item.Email != null)
                                 ListCustomerEmail.Add(new CustomerEmail { Email = item.Email });
@@ -201,12 +209,13 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         }
 
         bool IsExport = false;
-        public void ExportVoucherFunc()
+        public async Task ExportVoucherFunc()
         {
             using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
+                    await Task.Delay(0);
                     Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
                     app.Visible = false;
                     Microsoft.Office.Interop.Excel.Workbook wb = app.Workbooks.Add(1);

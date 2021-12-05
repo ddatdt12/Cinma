@@ -28,7 +28,12 @@
     <Window.Resources>
         <local1:HintCountConverter x:Key="CountConverter" />
     </Window.Resources>
-
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>

@@ -125,76 +125,76 @@
 
         <StackPanel  Grid.Row="1">
             <ListView  x:Name="_ListView"
-                   Focusable="True"
+                       Focusable="True"
                        Height="530"
                        VerticalAlignment="Top"
-                   ItemsSource="{Binding ListProduct}"
-                   HorizontalContentAlignment="Stretch">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Mã đơn"
-                                    Width="130">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding Id}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Tên sản phẩm"
-                                    Width="300">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding ProductName}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Số lượng"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding Quantity}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Tổng giá"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding  ImportPriceStr}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Nhân viên"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding StaffName}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Ngày nhập"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding CreatedAt, StringFormat=dd-MM-yyyy HH:mm:ss}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+                       ItemsSource="{Binding ListProduct}"
+                       HorizontalContentAlignment="Stretch">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Mã đơn"
+                                        Width="130">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding Id}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Tên sản phẩm"
+                                        Width="300">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding ProductName}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Số lượng"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding Quantity}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Tổng giá"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding  ImportPriceStr}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Nhân viên"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding StaffName}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Ngày nhập"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding CreatedAt, StringFormat=dd-MM-yyyy HH:mm:ss}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
             <Grid>
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right"

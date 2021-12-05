@@ -30,6 +30,7 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadFoodPageCM { get; set; }
         public ICommand LoadErrorPage { get; set; }
         public ICommand LoadVCPageCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
 
 
         private string _SelectedFuncName;
@@ -49,9 +50,12 @@ namespace CinemaManagement.ViewModel
 
         public MainAdminViewModel()
         {
-            SelectedFuncName = "Quản lý suất chiếu";
-            CountErrorFunc();
-
+           
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                SelectedFuncName = "Quản lý suất chiếu";
+                CountErrorFunc();
+            });
             SignoutCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
                {
                    FrameworkElement window = GetParentWindow(p);
@@ -119,11 +123,11 @@ namespace CinemaManagement.ViewModel
 
 
             // this is  the ErrorViewmodel resources
-            LoadDetailErrorCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            LoadDetailErrorCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                ChoseWindow();
+                await ChoseWindow();
             });
-            UpdateErrorCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            UpdateErrorCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
                 if (SelectedStatus is null)
                 {
@@ -131,7 +135,7 @@ namespace CinemaManagement.ViewModel
                     mb.ShowDialog();
                     return;
                 }
-                UpdateErrorFunc(p);
+               await UpdateErrorFunc(p);
             });
             SelectedDate = DateTime.Today;
             SelectedFinishDate = DateTime.Today;

@@ -113,6 +113,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         public ICommand MouseMoveCommand { get; set; }
         public ICommand CloseCommand { get; set; }
         public ICommand MaskNameCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
 
 
 
@@ -131,7 +132,11 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         public StaffManagementViewModel()
         {
 
-            LoadStaffListView(Operation.READ);
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+
+                LoadStaffListView(Operation.READ);
+            });
             GetListViewCommand = new RelayCommand<ListView>((p) => { return true; },
                 (p) =>
                 {

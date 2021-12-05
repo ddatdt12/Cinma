@@ -16,6 +16,7 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding MaskNameCM}"
                                    CommandParameter="{Binding ElementName=ShadowMask}" />
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     
@@ -54,6 +55,7 @@
                      Height="30"
                      Padding="0"
                      x:Name="FilterBox"
+                     TextChanged="TextBox_TextChanged"
                      VerticalAlignment="Bottom">
             </TextBox>
             <StackPanel Orientation="Horizontal"
@@ -87,117 +89,131 @@
             <materialDesign:Card Background="White"
                                  Margin="100,20,100,20"
                                  UniformCornerRadius="5">
-                <ListView x:Name="VoucherListView"
-                          Focusable="True"
-                          SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
-                          ItemsSource="{Binding ListBigVoucher}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Mã phát hành"
-                                            Width="200">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Id}"
-                                                   FontSize="18"
-                                                   Margin="18,0,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Tên đợt phát hành"
-                                            Width="350">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding ReleaseName}"
-                                                   Margin="15,0,0,0"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Từ ngày"
-                                            Width="150">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding StartDate,StringFormat=dd/MM/yyyy}"
-                                                   Margin="15,0,0,0"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Đến ngày"
-                                            Width="150">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding FinishDate,StringFormat=dd/MM/yyyy}"
-                                                   Margin="15,0,0,0"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Số lượng"
-                                            Width="150">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding VCount}"
-                                                   Margin="20,0,0,0"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Mệnh giá">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding ParValue}"
-                                                   Margin="15,0,0,0"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Border BorderBrush="Black"
-                                                    BorderThickness="0.5"
-                                                    CornerRadius="5">
-                                                <StackPanel>
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=VoucherListView, Path=DataContext.LoadInforBigVoucherCM}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                    <Image Source="/Resources/IconPack/pencil.png"
-                                                           Width="30"
-                                                           Height="30"
-                                                           Cursor="Hand" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <Border BorderThickness="0.5"
-                                                    BorderBrush="Black"
-                                                    CornerRadius="5"
-                                                    Margin="10,0,0,0">
-                                                <StackPanel>
-                                                    <materialDesign:PackIcon Kind="GarbageCanEmpty"
-                                                                             Width="30"
-                                                                             Height="30"
-                                                                             Cursor="Hand">
+                <StackPanel>
+                    <ListView x:Name="VoucherListView"
+                              Focusable="True"
+                              Height="585"
+                              SelectedItem="{Binding SelectedItem,UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding ListBigVoucher}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã phát hành"
+                                                Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Id}"
+                                                       FontSize="18"
+                                                       Margin="18,0,0,0" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Tên đợt phát hành"
+                                                Width="350">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ReleaseName}"
+                                                       Margin="15,0,0,0"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Từ ngày"
+                                                Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding StartDate,StringFormat=dd/MM/yyyy}"
+                                                       Margin="15,0,0,0"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Đến ngày"
+                                                Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding FinishDate,StringFormat=dd/MM/yyyy}"
+                                                       Margin="15,0,0,0"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Số lượng"
+                                                Width="150">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding VCount}"
+                                                       Margin="20,0,0,0"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Mệnh giá">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ParValue}"
+                                                       Margin="15,0,0,0"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border BorderBrush="Black"
+                                                        BorderThickness="0.5"
+                                                        CornerRadius="5">
+                                                    <StackPanel>
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                                <i:InvokeCommandAction Command="{Binding ElementName=VoucherListView, Path=DataContext.LoadDeleteVoucherCM}" />
+                                                                <i:InvokeCommandAction Command="{Binding ElementName=VoucherListView, Path=DataContext.LoadInforBigVoucherCM}" />
                                                             </i:EventTrigger>
                                                         </i:Interaction.Triggers>
-                                                    </materialDesign:PackIcon>
-                                                </StackPanel>
-                                            </Border>
-                                        </StackPanel>
+                                                        <Image Source="/Resources/IconPack/pencil.png"
+                                                               Width="30"
+                                                               Height="30"
+                                                               Cursor="Hand" />
 
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border BorderThickness="0.5"
+                                                        BorderBrush="Black"
+                                                        CornerRadius="5"
+                                                        Margin="10,0,0,0">
+                                                    <StackPanel>
+                                                        <materialDesign:PackIcon Kind="GarbageCanEmpty"
+                                                                                 Width="30"
+                                                                                 Height="30"
+                                                                                 Cursor="Hand">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                                    <i:InvokeCommandAction Command="{Binding ElementName=VoucherListView, Path=DataContext.LoadDeleteVoucherCM}" />
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </materialDesign:PackIcon>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
 
-                </ListView>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,20,0">
+                            <Label Content="Kết quả: "
+                                   FontSize="15" />
+                            <Label Content="{Binding ListBigVoucher.Count}"
+                                   x:Name="result"
+                                   FontSize="15" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+             
 
             </materialDesign:Card>
 

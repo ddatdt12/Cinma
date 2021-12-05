@@ -49,21 +49,26 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public ICommand LoadEdit_InforViewCM { get; set; }
         public ICommand LoadDeleteVoucherCM { get; set; }
         public ICommand MaskNameCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
 
         public VoucherViewModel()
         {
-            GetCurrentDate = DateTime.Today;
-            StartDate = FinishDate = DateTime.Today;
 
-            try
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(VoucherService.Ins.GetAllVoucherReleases());
-            }
-            catch (Exception e)
-            {
+                GetCurrentDate = DateTime.Today;
+                StartDate = FinishDate = DateTime.Today;
 
-                throw e;
-            }
+                try
+                {
+                    ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(VoucherService.Ins.GetAllVoucherReleases());
+                }
+                catch (Exception e)
+                {
+
+                    throw e;
+                }
+            });
 
 
             LoadAddWindowCM = new RelayCommand<object>((p) => { return true; }, (p) =>

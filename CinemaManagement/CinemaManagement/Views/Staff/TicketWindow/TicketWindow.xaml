@@ -37,6 +37,9 @@
                     <i:InvokeCommandAction Command="{Binding MouseMoveWindowCM}"
                                            CommandParameter="{Binding ElementName=Ticket_Window}" />
                 </i:EventTrigger>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
+                </i:EventTrigger>
             </i:Interaction.Triggers>
             <Label Cursor="Hand"
                    ToolBar.OverflowMode="AsNeeded"

@@ -20,6 +20,7 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding MaskNameCM}"
                                    CommandParameter="{Binding ElementName=ShadowMask}" />
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 

@@ -6,6 +6,7 @@ using CinemaManagement.Views.Admin.FoodManagementPage;
 using System;
 using System.IO;
 using System.Net.Cache;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -46,7 +47,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             }
         }
 
-        public void EditFood(Window p)
+        public async Task EditFood(Window p)
         {
             if (Id != -1 && IsValidData())
             {
@@ -69,6 +70,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     filepath = Helper.GetProductImgPath(Image);
                     product.Image = imgfullname = Helper.CreateImageFullName(Helper.CreateImageName(product.DisplayName), Image.Split('.')[1]);
                 }
+                await Task.Delay(0);
                 (bool successUpdateProduct, string messageFromUpdateProduct) = ProductService.Ins.UpdateProduct(product);
 
                 if (successUpdateProduct)

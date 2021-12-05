@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net.Cache;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -146,29 +147,33 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public ICommand StoreMainListViewNameCM { get; set; }
         public ICommand UpdateMovieCM { get; set; }
         public ICommand MaskNameCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
 
         public MovieManagementViewModel()
         {
-            ListCountrySource = new List<string>();
-            IsImageChanged = false;
-
-            try
+            
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                GenreList = GenreService.Ins.GetAllGenre();
-                LoadMovieListView(Operation.READ);
-            }
-            catch (InvalidOperationException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            catch (Exception e)
-            {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
-                mb.ShowDialog();
-            }
+                ListCountrySource = new List<string>();
+                IsImageChanged = false;
 
-            InsertCountryToComboBox();
+                try
+                {
+                    GenreList = GenreService.Ins.GetAllGenre();
+                    LoadMovieListView(Operation.READ);
+                }
+                catch (InvalidOperationException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (Exception e)
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
 
+                InsertCountryToComboBox();
+            });
             StoreMainListViewNameCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
             {
                 MainListView = p;
@@ -205,7 +210,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
-            LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
               {
                   string message = "Bạn có chắc muốn xoá phim này không? Dữ liệu không thể phục hồi sau khi xoá!";
                   MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
@@ -214,6 +219,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                   {
                       case true:
                           {
+                              await Task.Delay(0);
                               (bool successDelMovie, string messageFromDelMovie) = MovieService.Ins.DeleteMovie(SelectedItem.Id);
 
                               if (successDelMovie)
@@ -372,7 +378,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             ListCountrySource.Add("Việt Nam");
 
         }
-
         public void MovieImageChanged()
         {
             if (!IsAddingMovie)

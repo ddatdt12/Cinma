@@ -5,6 +5,7 @@ using CinemaManagement.Views.Admin.ErrorManagement;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -66,8 +67,9 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadDetailErrorCM { get; set; }
         public ICommand UpdateErrorCM { get; set; }
 
-        public void ChoseWindow()
+        public async Task ChoseWindow()
         {
+            await Task.Delay(0);
             if (SelectedItem.Status == Utils.STATUS.DONE)
             {
                 DoneError w = new DoneError();
@@ -148,8 +150,9 @@ namespace CinemaManagement.ViewModel
                 throw e;
             }
         }
-        public void UpdateErrorFunc(Window p)
+        public async Task UpdateErrorFunc(Window p)
         {
+            await Task.Delay(0);
             if (SelectedStatus.Content.ToString() == Utils.STATUS.IN_PROGRESS)
             {
                 if (DateTime.Compare(SelectedItem.SubmittedAt.Date, SelectedDate.Date) > 0)

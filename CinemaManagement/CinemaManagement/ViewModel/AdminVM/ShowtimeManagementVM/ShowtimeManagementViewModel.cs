@@ -130,17 +130,18 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
         public ICommand LoadDeleteShowtimeCM { get; set; }
         public ICommand MaskNameCM { get; set; }
-
+        public ICommand FirstLoadCM { get; set; }
 
         public ShowtimeManagementViewModel()
         {
-            GetCurrentDate = DateTime.Today;
-            SelectedDate = GetCurrentDate;
-            showtimeDate = GetCurrentDate;
-            ReloadShowtimeList();
 
-
-
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                GetCurrentDate = DateTime.Today;
+                SelectedDate = GetCurrentDate;
+                showtimeDate = GetCurrentDate;
+                ReloadShowtimeList();
+            });
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
             {
                 ShadowMask = p;
