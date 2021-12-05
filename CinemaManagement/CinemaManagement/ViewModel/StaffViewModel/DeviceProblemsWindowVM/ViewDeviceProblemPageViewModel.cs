@@ -6,8 +6,10 @@ using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
 {
-    public class ViewDeviceProblemPageViewModel: BaseViewModel
+    public class ViewDeviceProblemPageViewModel : BaseViewModel
     {
+
+
         public ICommand UploadImageCM { get; set; }
         public ICommand OkCM { get; set; }
 

@@ -352,7 +352,7 @@
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\AddDeviceProblemPageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\AddError.cs" />
     <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\DeviceReportPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\EditDeviceProblemPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\ViewDeviceProblemPageViewModel.cs" />
@@ -499,9 +499,6 @@
     </Compile>
     <Compile Include="Views\MessageBoxCustom.xaml.cs">
       <DependentUpon>MessageBoxCustom.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Staff\DeviceProblemsWindow\AddDeviceProblemPage.xaml.cs">
-      <DependentUpon>AddDeviceProblemPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\DeviceProblemsWindow\AddError.xaml.cs">
       <DependentUpon>AddError.xaml</DependentUpon>
@@ -736,10 +733,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MessageBoxCustom.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Staff\DeviceProblemsWindow\AddDeviceProblemPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

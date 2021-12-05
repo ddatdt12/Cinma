@@ -1,9 +1,9 @@
 ﻿<Page x:Class="CinemaManagement.Views.Staff.DeviceProblemsWindow.DeviceReportPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d"
       DataContext="{StaticResource DeviceReportPageVM}"
@@ -14,43 +14,36 @@
       Background="{DynamicResource MaterialDesignPaper}"
       FontFamily="{DynamicResource MaterialDesignFont}"
       TextElement.FontSize="13"
-      d:DesignHeight="720" 
+      d:DesignHeight="720"
       d:DesignWidth="1300"
       Title="DeviceReportPage"
       x:Name="Device_Report_Page"
       ShowsNavigationUI="False">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding FirstLoadCM}"/>
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
+            <i:InvokeCommandAction Command="{Binding MaskNameCM}"
+                                   CommandParameter="{Binding ElementName=ShadowMask}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+
     <Grid>
         <Border BorderBrush="Gray"
                 BorderThickness="1"
                 Background="White">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
 
-                <Border BorderBrush="Black"
-                        BorderThickness="0,0,0,1">
-                    <TextBlock Text="Danh sách sửa chữa"
-                               FontSize="25"
-                               FontFamily="Arial"
-                               FontWeight="Bold"
-                               VerticalAlignment="Center"
-                               Margin="25,0,0,0"/>
-                </Border>
-
-                <Grid Grid.Row="1">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="80"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="80" />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1249*" />
+                            <ColumnDefinition Width="49*" />
+                        </Grid.ColumnDefinitions>
                         <ComboBox x:Name="cbxViewMode"
                                   Width="150"
                                   Height="30"
@@ -70,7 +63,7 @@
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction Command="{Binding FilterListErrorCommand}"
-                                                           CommandParameter="{Binding ElementName=cbxViewMode}"/>
+                                                           CommandParameter="{Binding ElementName=cbxViewMode}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </ComboBox>
@@ -78,19 +71,18 @@
                         <Button Content="Thêm +"
                                 Width="100"
                                 Height="40"
-                                Margin="0,0,80,10"
+                                Margin="0,0,30.773,10"
                                 materialDesign:ButtonAssist.CornerRadius="5"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
-                                Command="{Binding ElementName=lvError, Path=DataContext.OpenAddErrorCommand}"
-                                CommandParameter="{Binding ElementName=Device_Report_Page}">
+                                Command="{Binding OpenAddErrorCommand}">
 
                         </Button>
                     </Grid>
 
                     <materialDesign:Card Grid.Row="1"
                                          Margin="60,10,60,20">
-                        <ListView ItemsSource="{Binding ListError, Mode=TwoWay}"
+                        <ListView ItemsSource="{Binding ListError}"
                                   SelectedItem="{Binding SelectedItem, Mode=OneWayToSource,UpdateSourceTrigger=PropertyChanged}"
                                   x:Name="lvError">
                             <ListView.ItemContainerStyle>
@@ -99,7 +91,7 @@
                                         <Trigger Property="IsMouseOver"
                                                  Value="True">
                                             <Setter Property="IsSelected"
-                                                    Value="True"/>
+                                                    Value="True" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
@@ -122,7 +114,7 @@
                                                     <StackPanel Margin="20,0,0,0">
                                                         <Label Content="{Binding Title}"
                                                                FontSize="25"
-                                                               FontWeight="Bold"/>
+                                                               FontWeight="Bold" />
                                                         <StackPanel Orientation="Horizontal">
                                                             <Label Content="Chi phí:"
                                                                    FontSize="20" />
@@ -135,7 +127,7 @@
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Header="Ngày nhận"
+                                    <GridViewColumn Header="Ngày gửi"
                                                     Width="350">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -156,7 +148,7 @@
                                                                FontSize="20"
                                                                FontStyle="Italic"
                                                                Margin="7"
-                                                               FontWeight="Medium"/>
+                                                               FontWeight="Medium" />
                                                 </Border>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
@@ -174,10 +166,10 @@
                                                         Height="30">
                                                     <materialDesign:PackIcon Kind="Pencil"
                                                                              Width="30"
-                                                                             Height="30"/>
+                                                                             Height="30" />
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=lvError, Path=DataContext.LoadPageCommand}"/>
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=lvError, Path=DataContext.LoadDetailWindowCM}" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>
@@ -191,5 +183,9 @@
                 </Grid>
             </Grid>
         </Border>
+        <Grid Background="Gray"
+              Opacity="0.3"
+              Visibility="Collapsed"
+              x:Name="ShadowMask" />
     </Grid>
 </Page>
