@@ -43,34 +43,33 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public ComboBoxItem SelectedBestSellPeriod
         {
             get { return _SelectedBestSellPeriod; }
-            set { _SelectedBestSellPeriod = value; OnPropertyChanged(); ChangeBestSSellPeriod(); }
+            set { _SelectedBestSellPeriod = value; OnPropertyChanged();}
         }
 
         private string _selectedBestSellTime;
         public string SelectedBestSellTime
         {
             get { return _selectedBestSellTime; }
-            set { _selectedBestSellTime = value; OnPropertyChanged(); ChangeBestSSellPeriod(); }
+            set { _selectedBestSellTime = value; OnPropertyChanged();  }
         }
 
         private ComboBoxItem _SelectedBestSellPeriod2;
         public ComboBoxItem SelectedBestSellPeriod2
         {
             get { return _SelectedBestSellPeriod2; }
-            set { _SelectedBestSellPeriod2 = value; OnPropertyChanged(); ChangeBestSSellPeriod2(); }
+            set { _SelectedBestSellPeriod2 = value; OnPropertyChanged(); }
         }
 
         private string _selectedBestSellTime2;
         public string SelectedBestSellTime2
         {
             get { return _selectedBestSellTime2; }
-            set { _selectedBestSellTime2 = value; OnPropertyChanged(); ChangeBestSSellPeriod2(); }
+            set { _selectedBestSellTime2 = value; OnPropertyChanged(); }
         }
 
+     
 
-
-
-        public async void ChangeBestSSellPeriod()
+        public async Task ChangeBestSellPeriod()
         {
             if (SelectedBestSellPeriod != null)
             {
@@ -143,7 +142,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
 
 
 
-        public async void ChangeBestSSellPeriod2()
+        public async Task ChangeBestSellPeriod2()
         {
             if (SelectedBestSellPeriod2 != null)
             {
@@ -168,7 +167,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 }
             }
         }
-        public async  Task LoadBestSellByYear2()
+        public async Task LoadBestSellByYear2()
         {
             if (SelectedBestSellTime2.Length != 4) return;
             Top5Product = await StatisticsService.Ins.GetTop5BestProductByYear(int.Parse(SelectedBestSellTime2));

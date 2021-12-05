@@ -7,6 +7,7 @@
       mc:Ignorable="d"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       d:DesignHeight="662"
       d:DesignWidth="1440"
       x:Name="mainPage"
@@ -27,11 +28,11 @@
             </BeginStoryboard>
         </EventTrigger>
     </Page.Triggers>
-    
+
     <Page.Resources>
         <local:IndexConverter x:Key="IndexConverter" />
     </Page.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="55*" />
@@ -58,6 +59,12 @@
                               SelectedItem="{Binding SelectedRankingPeriod}"
                               SelectionChanged="periodbox1_SelectionChanged"
                               Loaded="periodbox1_Loaded">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeRankingPeriodCM}"
+                                                       CommandParameter="{Binding ElementName=periodbox1}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem>Theo năm</ComboBoxItem>
                         <ComboBoxItem>Theo tháng</ComboBoxItem>
                     </ComboBox>
@@ -69,6 +76,11 @@
                               x:Name="Time1"
                               SelectedIndex="2"
                               SelectedItem="{Binding SelectedRankingTime,Mode=OneWayToSource}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeRankingPeriodCM}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                 </StackPanel>
             </StackPanel>
@@ -213,6 +225,11 @@
                               SelectedItem="{Binding SelectedRankingPeriod2}"
                               SelectionChanged="periodbox2_SelectionChanged"
                               Loaded="periodbox2_Loaded">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeRankingPeriod2CM}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem>Theo năm</ComboBoxItem>
                         <ComboBoxItem>Theo tháng</ComboBoxItem>
                     </ComboBox>
@@ -223,6 +240,11 @@
                               FontSize="20"
                               x:Name="Time2"
                               SelectedItem="{Binding SelectedRankingTime2,Mode=OneWayToSource}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeRankingPeriod2CM}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                 </StackPanel>
             </StackPanel>
@@ -308,18 +330,18 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Mã nhân viên" Width="145">
+                            <GridViewColumn Header="Mã nhân viên"
+                                            Width="145">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Id}"
                                                    Margin="20,5,0,0"
                                                    FontSize="18"
-                                                   Height="34"/>
+                                                   Height="34" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Tên nhân viên"
-                                           >
+                            <GridViewColumn Header="Tên nhân viên">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Name}"

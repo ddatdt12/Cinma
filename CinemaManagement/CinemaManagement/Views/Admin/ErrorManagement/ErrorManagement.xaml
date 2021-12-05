@@ -32,7 +32,14 @@
                   FontSize="15"
                   Padding="0"
                   SelectedIndex="1"
+                  x:Name="filtercbb"
                   SelectedItem="{Binding SelectedFilterList,Mode=OneWayToSource}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding ReloadErrorListCM}"
+                                           CommandParameter="{Binding ElementName=filtercbb}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <ComboBoxItem>Toàn bộ</ComboBoxItem>
             <ComboBoxItem>Chờ tiếp nhận</ComboBoxItem>
             <ComboBoxItem>Đang giải quyết</ComboBoxItem>

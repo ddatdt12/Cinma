@@ -7,6 +7,7 @@
       mc:Ignorable="d"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       d:DesignHeight="662"
       d:DesignWidth="1440"
       x:Name="mainPage"
@@ -70,6 +71,12 @@
                               x:Name="Time1"
                               SelectedIndex="2"
                               SelectedItem="{Binding SelectedBestSellTime,Mode=OneWayToSource}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriodCM}"
+                                                       CommandParameter="{Binding ElementName=Time1}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                 </StackPanel>
             </StackPanel>
@@ -194,6 +201,12 @@
                               FontSize="20"
                               SelectedItem="{Binding SelectedBestSellTime2,Mode=OneWayToSource}"
                               x:Name="Time2">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriod2CM}"
+                                                       CommandParameter="{Binding ElementName=Time2}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                 </StackPanel>
             </StackPanel>

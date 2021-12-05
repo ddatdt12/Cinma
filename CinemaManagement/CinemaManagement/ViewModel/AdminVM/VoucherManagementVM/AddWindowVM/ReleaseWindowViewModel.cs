@@ -33,7 +33,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             set
             {
                 _ReleaseCustomerList = value;
-                RefreshEmailList();
             }
         }
 
@@ -179,7 +178,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
             }
         }
-        public async void RefreshEmailList()
+        public async Task RefreshEmailList()
         {
             if (ReleaseCustomerList is null) return;
             switch (ReleaseCustomerList.Content.ToString())

@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -12,7 +13,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
     public partial class MovieManagementViewModel : BaseViewModel
     {
         public ICommand LoadAddMovieCM { get; set; }
-        public void SaveMovieFunc(Window p)
+        public async Task SaveMovieFunc(Window p)
         {
             if (filepath != null && IsValidData())
             {
@@ -42,7 +43,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     mb.ShowDialog();
                     SaveImgToApp();
                     IsAddingMovie = false;
-                    LoadMovieListView(Operation.CREATE, newMovie);
+                    await LoadMovieListView(Operation.CREATE, newMovie);
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 }

@@ -95,7 +95,14 @@
                             Padding="10,0,20,0"
                             materialDesign:ValidationAssist.Background="#f0f2f5"
                             materialDesign:ValidationAssist.FontSize="0.01"
-                            SelectedDate="{Binding SelectedDate,Mode=TwoWay}" />
+                            SelectedDate="{Binding SelectedDate,Mode=TwoWay}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectedDateChanged">
+                            <i:InvokeCommandAction Command="{Binding SelectedDateCM}"
+                                                   CommandParameter="{Binding ElementName=Calendar}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DatePicker>
             </StackPanel>
 
         </StackPanel>

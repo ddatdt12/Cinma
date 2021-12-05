@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         x:Class="CinemaManagement.Views.Admin.ShowtimeManagementVM.AddShowtimeWindow"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -94,19 +95,26 @@
                             <StackPanel>
                                 <Label Content="Tên phim"
                                        FontSize="20" />
-                                <ComboBox SelectedItem="{Binding movieSelected}"
-                                          ItemsSource="{Binding MovieList}"
-                                          DisplayMemberPath="DisplayName"
-                                          Style="{StaticResource MaterialDesignComboBox}"
-                                          VerticalAlignment="Bottom"
-                                          FontSize="25"
-                                          Background="#FFF0F3F7"
-                                          BorderThickness="0,0,0,1"
-                                          Foreground="Black"
-                                          Height="47"
-                                          Width="479"
-                                          x:Name="_movieName" />
-                            </StackPanel>
+                            <ComboBox SelectedItem="{Binding movieSelected}"
+                                      ItemsSource="{Binding MovieList}"
+                                      DisplayMemberPath="DisplayName"
+                                      Style="{StaticResource MaterialDesignComboBox}"
+                                      VerticalAlignment="Bottom"
+                                      FontSize="25"
+                                      Background="#FFF0F3F7"
+                                      BorderThickness="0,0,0,1"
+                                      Foreground="Black"
+                                      Height="47"
+                                      Width="479"
+                                      x:Name="_movieName">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding CalculateRunningTimeCM}"
+                                                               CommandParameter="{Binding ElementName=_movieName}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </StackPanel>
                         </StackPanel>
 
                         <!--Ngay chieu-->

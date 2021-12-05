@@ -149,6 +149,11 @@
                                               Margin="0,0,20,0"
                                               SelectedItem="{Binding ReleaseCustomerList}"
                                               SelectionChanged="ComboBox_SelectionChanged_1">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding RefreshEmailListCM}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
                                         <ComboBoxItem>Top 5 khách hàng trong tháng</ComboBoxItem>
                                         <ComboBoxItem>Khách hàng mới trong tháng</ComboBoxItem>
                                         <ComboBoxItem>Xuất Excel</ComboBoxItem>
@@ -167,7 +172,7 @@
                                            Grid.Column="0" />
                                     <Label Loaded="Label_Loaded"
                                            Grid.Column="1"
-                                           FontSize="16"/>
+                                           FontSize="16" />
 
 
                                 </Grid>
@@ -175,7 +180,7 @@
                             <StackPanel Orientation="Horizontal"
                                         Margin="10,30,0,0">
                                 <Grid Width="439"
-                                      x:Name="emaillistbox" 
+                                      x:Name="emaillistbox"
                                       IsEnabled="False">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40*" />

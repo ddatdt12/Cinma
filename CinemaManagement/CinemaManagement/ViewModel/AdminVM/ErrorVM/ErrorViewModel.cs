@@ -18,7 +18,7 @@ namespace CinemaManagement.ViewModel
         public ComboBoxItem SelectedFilterList
         {
             get { return _SelectedFilterList; }
-            set { _SelectedFilterList = value; OnPropertyChanged(); ReloadErrorList(); }
+            set { _SelectedFilterList = value; OnPropertyChanged(); }
         }
 
         private ObservableCollection<TroubleDTO> listError;
@@ -66,6 +66,7 @@ namespace CinemaManagement.ViewModel
 
         public ICommand LoadDetailErrorCM { get; set; }
         public ICommand UpdateErrorCM { get; set; }
+        public ICommand ReloadErrorListCM { get; set; }
 
         public void ChoseWindow()
         {

@@ -50,7 +50,7 @@ namespace CinemaManagement.ViewModel
 
         public MainAdminViewModel()
         {
-           
+
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 SelectedFuncName = "Quản lý suất chiếu";
@@ -135,11 +135,15 @@ namespace CinemaManagement.ViewModel
                     mb.ShowDialog();
                     return;
                 }
-               await UpdateErrorFunc(p);
+                await UpdateErrorFunc(p);
+            });
+            ReloadErrorListCM = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
+            {
+                ReloadErrorList();
             });
             SelectedDate = DateTime.Today;
             SelectedFinishDate = DateTime.Today;
-            ReloadErrorList();
+
             //======================================
 
 

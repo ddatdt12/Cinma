@@ -99,7 +99,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         string oldMovieName;
         bool IsImageChanged = false;
         bool IsAddingMovie = false;
-        public static System.Windows.Controls.Grid MaskName { get; set; }
+        public static Grid MaskName { get; set; }
 
         System.Windows.Controls.ListView MainListView;
 
@@ -151,8 +151,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
         public MovieManagementViewModel()
         {
-            
-            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
                 ListCountrySource = new List<string>();
                 IsImageChanged = false;
@@ -160,7 +160,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 try
                 {
                     GenreList = GenreService.Ins.GetAllGenre();
-                    LoadMovieListView(Operation.READ);
+                    await LoadMovieListView(Operation.READ);
                 }
                 catch (InvalidOperationException e)
                 {
@@ -219,13 +219,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                   {
                       case true:
                           {
-                              await Task.Delay(0);
                               (bool successDelMovie, string messageFromDelMovie) = MovieService.Ins.DeleteMovie(SelectedItem.Id);
 
                               if (successDelMovie)
                               {
                                   File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-                                  LoadMovieListView(Operation.DELETE);
+                                  await LoadMovieListView(Operation.DELETE);
                                   SelectedItem = null;
                                   MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
                                   mb.ShowDialog();

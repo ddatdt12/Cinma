@@ -23,14 +23,14 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public ComboBoxItem SelectedIncomePeriod
         {
             get { return _SelectedIncomePeriod; }
-            set { _SelectedIncomePeriod = value; OnPropertyChanged(); ChangeIncomePeriod(); }
+            set { _SelectedIncomePeriod = value; OnPropertyChanged(); }
         }
 
         private string _SelectedIncomeTime;
         public string SelectedIncomeTime
         {
             get { return _SelectedIncomeTime; }
-            set { _SelectedIncomeTime = value; OnPropertyChanged(); ChangeIncomePeriod(); }
+            set { _SelectedIncomeTime = value; OnPropertyChanged(); }
         }
 
         private int selectedYear;
@@ -169,7 +169,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
 
 
 
-        public async void ChangeIncomePeriod()
+        public async Task ChangeIncomePeriod()
         {
             if (SelectedIncomePeriod != null)
             {

@@ -5,6 +5,7 @@ using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -41,7 +42,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 w1.imgframe.Source = Helper.GetMovieImageSource("null.jpg");
             }
         }
-        public void UpdateMovieFunc(Window p)
+        public async Task UpdateMovieFunc(Window p)
         {
             if (movieID != null && IsValidData())
             {
@@ -81,7 +82,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     SaveImgToApp();
                     MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateMovie, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
-                    LoadMovieListView(Operation.UPDATE, movie);
+                    await LoadMovieListView(Operation.UPDATE, movie);
 
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();

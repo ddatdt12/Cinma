@@ -37,19 +37,19 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public DateTime SelectedDate
         {
             get { return selectedDate; }
-            set { selectedDate = value; OnPropertyChanged(); GetExportListSource("date"); }
+            set { selectedDate = value; OnPropertyChanged(); }
         }
         private ComboBoxItem _SelectedItemFilter;
         public ComboBoxItem SelectedItemFilter
         {
             get { return _SelectedItemFilter; }
-            set { _SelectedItemFilter = value; OnPropertyChanged(); CheckItemFilter(); }
+            set { _SelectedItemFilter = value; OnPropertyChanged(); }
         }
         private ComboBoxItem _SelectedImportItemFilter;
         public ComboBoxItem SelectedImportItemFilter
         {
             get { return _SelectedImportItemFilter; }
-            set { _SelectedImportItemFilter = value; OnPropertyChanged(); CheckImportItemFilter(); }
+            set { _SelectedImportItemFilter = value; OnPropertyChanged(); }
         }
         private BillDTO _selectedTicketBill;
         public BillDTO SelectedTicketBill
@@ -68,14 +68,14 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public int SelectedMonth
         {
             get { return _SelectedMonth; }
-            set { _SelectedMonth = value; OnPropertyChanged(); CheckMonthFilter(); }
+            set { _SelectedMonth = value; OnPropertyChanged(); }
         }
 
         private int _SelectedImportMonth;
         public int SelectedImportMonth
         {
             get { return _SelectedImportMonth; }
-            set { _SelectedImportMonth = value; OnPropertyChanged(); CheckImportMonthFilter(); }
+            set { _SelectedImportMonth = value; OnPropertyChanged(); }
         }
 
         public int SelectedView = 0;
@@ -87,10 +87,13 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public ICommand LoadImportPageCM { get; set; }
         public ICommand LoadExportPageCM { get; set; }
         public ICommand ExportFileCM { get; set; }
+        public ICommand SelectedDateExportListCM { get; set; }
         public ICommand LoadInforBillCM { get; set; }
         public ICommand MaskNameCM { get; set; }
-
-
+        public ICommand CheckItemFilterCM { get; set; }
+        public ICommand CheckImportItemFilterCM { get; set; }
+        public ICommand SelectedImportMonthCM { get; set; }
+        public ICommand SelectedMonthCM { get; set; }
 
         private ObservableCollection<ProductReceiptDTO> _ListProduct;
         public ObservableCollection<ProductReceiptDTO> ListProduct
@@ -111,6 +114,26 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             GetCurrentDate = DateTime.Today;
             SelectedDate = GetCurrentDate;
             SelectedMonth = 0;
+
+            SelectedMonthCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
+            {
+                await CheckMonthFilter();
+            }); SelectedImportMonthCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
+             {
+                 await CheckImportMonthFilter();
+             });
+            CheckImportItemFilterCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
+            {
+                await CheckImportItemFilter();
+            });
+            CheckItemFilterCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
+             {
+                 await CheckItemFilter();
+             });
+            SelectedDateExportListCM = new RelayCommand<DatePicker>((p) => { return true; }, async (p) =>
+            {
+                await GetExportListSource("date");
+            });
             LoadImportPageCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
                 SelectedView = 0;

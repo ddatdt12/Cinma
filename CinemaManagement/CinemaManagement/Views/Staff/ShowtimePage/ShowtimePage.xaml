@@ -1,17 +1,18 @@
 ﻿<Page x:Class="CinemaManagement.Views.Staff.ShowtimePage.ShowtimePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      mc:Ignorable="d" 
-      d:DesignHeight="720" d:DesignWidth="1300"
+      mc:Ignorable="d"
+      d:DesignHeight="720"
+      d:DesignWidth="1300"
       DataContext="{StaticResource MainStaffVM}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadShowtimeDataCM}"
-                                   CommandParameter="{Binding ElementName=Filtercbb}"/>
+                                   CommandParameter="{Binding ElementName=Filtercbb}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
@@ -70,6 +71,11 @@
                                           Foreground="Black"
                                           VerticalAlignment="Bottom"
                                           x:Name="Filtercbb">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SelectedGenreCM}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <ComboBox.ItemContainerStyle>
                                         <Style TargetType="ComboBoxItem">
                                             <Setter Property="Foreground"
@@ -93,6 +99,11 @@
                                         HorizontalContentAlignment="Left"
                                         VerticalAlignment="Bottom"
                                         FontWeight="DemiBold">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedDateChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectedDateCM}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </DatePicker>
                         </StackPanel>
                     </Grid>
@@ -125,7 +136,8 @@
                                     <Setter Property="Background"
                                             Value="White" />
                                     <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True">
                                             <Setter Property="Background"
                                                     Value="LightGray" />
                                         </Trigger>

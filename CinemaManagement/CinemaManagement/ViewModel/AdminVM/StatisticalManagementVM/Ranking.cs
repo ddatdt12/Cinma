@@ -35,34 +35,34 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public ComboBoxItem SelectedRankingPeriod
         {
             get { return _SelectedRankingPeriod; }
-            set { _SelectedRankingPeriod = value; OnPropertyChanged(); ChangeRankingPeriod(); }
+            set { _SelectedRankingPeriod = value; OnPropertyChanged(); }
         }
 
         private string _SelectedRankingTime;
         public string SelectedRankingTime
         {
             get { return _SelectedRankingTime; }
-            set { _SelectedRankingTime = value; OnPropertyChanged(); ChangeRankingPeriod(); }
+            set { _SelectedRankingTime = value; OnPropertyChanged(); }
         }
 
         private ComboBoxItem _SelectedRankingPeriod2;
         public ComboBoxItem SelectedRankingPeriod2
         {
             get { return _SelectedRankingPeriod2; }
-            set { _SelectedRankingPeriod2 = value; OnPropertyChanged(); ChangeRankingPeriod2(); }
+            set { _SelectedRankingPeriod2 = value; OnPropertyChanged(); }
         }
 
         private string _SelectedRankingTime2;
         public string SelectedRankingTime2
         {
             get { return _SelectedRankingTime2; }
-            set { _SelectedRankingTime2 = value; OnPropertyChanged(); ChangeRankingPeriod2(); }
+            set { _SelectedRankingTime2 = value; OnPropertyChanged(); }
         }
 
 
 
 
-        public async void ChangeRankingPeriod()
+        public async Task ChangeRankingPeriod()
         {
             if (SelectedRankingPeriod != null)
             {
@@ -132,7 +132,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             };
         }
 
-        public async void ChangeRankingPeriod2()
+        public async Task ChangeRankingPeriod2()
         {
             if (SelectedRankingPeriod2 != null)
             {

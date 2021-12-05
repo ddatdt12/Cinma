@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d"
       d:DesignHeight="620"
       d:DesignWidth="1400"
@@ -71,9 +72,16 @@
                               Margin="10 0 0 0"
                               Padding="0,10,10,0"
                               FontSize="13"
+                              x:Name="filtercbb"
                               SelectedIndex="0"
                               SelectedItem="{Binding SelectedImportItemFilter}"
                               SelectionChanged="ComboBox_SelectionChanged_1">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding CheckImportItemFilterCM}"
+                                                       CommandParameter="{Binding ElementName=filtercbb}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem Content="Toàn bộ" />
                         <ComboBoxItem Content="Theo tháng" />
                     </ComboBox>
@@ -84,6 +92,12 @@
                               Visibility="Collapsed"
                               x:Name="cbbmonth"
                               SelectedIndex="{Binding SelectedImportMonth,Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedImportMonthCM}"
+                                                       CommandParameter="{Binding ElementName=cbbmonth}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem Content="Tháng 1" />
                         <ComboBoxItem Content="Tháng 2" />
                         <ComboBoxItem Content="Tháng 3" />

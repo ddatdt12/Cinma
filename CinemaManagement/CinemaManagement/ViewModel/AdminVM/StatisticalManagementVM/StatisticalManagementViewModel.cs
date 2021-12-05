@@ -22,11 +22,17 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public ICommand LoadAllStatisticalCM { get; set; }
         public ICommand LoadRankStatisticalCM { get; set; }
         public ICommand LoadBestSellingCM { get; set; }
+        public ICommand ChangeBestSellPeriodCM { get; set; }
+        public ICommand ChangeBestSellPeriod2CM { get; set; }
+        public ICommand ChangeIncomePeriodCM { get; set; }
+        public ICommand ChangeRankingPeriodCM { get; set; }
+        public ICommand ChangeRankingPeriod2CM { get; set; }
+
 
 
         public StatisticalManagementViewModel()
         {
-          
+
             LoadViewCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 mainFrame = p;
@@ -54,6 +60,26 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             {
                 ChangeView(p);
                 mainFrame.Content = new BestSellingStatistical();
+            });
+            ChangeBestSellPeriodCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await ChangeBestSellPeriod();
+            });
+            ChangeBestSellPeriod2CM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await ChangeBestSellPeriod2();
+            });
+            ChangeIncomePeriodCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await ChangeIncomePeriod();
+            });
+            ChangeRankingPeriodCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await ChangeRankingPeriod();
+            });
+            ChangeRankingPeriod2CM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await ChangeRankingPeriod2();
             });
         }
 

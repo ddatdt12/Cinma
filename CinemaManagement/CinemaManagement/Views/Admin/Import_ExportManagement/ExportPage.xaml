@@ -9,7 +9,7 @@
       d:DesignHeight="620"
       d:DesignWidth="1400"
       x:Name="mainPage"
-      FontFamily="arial"    
+      FontFamily="arial"
       DataContext="{StaticResource Import_ExportManagementVM}">
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
@@ -74,6 +74,12 @@
                               x:Name="Filterbox"
                               SelectedItem="{Binding SelectedItemFilter}"
                               SelectionChanged="ComboBox_SelectionChanged_1">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding CheckItemFilterCM}"
+                                                       CommandParameter="{Binding ElementName=Filterbox}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem Content="Toàn bộ" />
                         <ComboBoxItem Content="Theo ngày" />
                         <ComboBoxItem Content="Theo tháng" />
@@ -86,6 +92,13 @@
                               Visibility="Collapsed"
                               x:Name="cbbmonth"
                               SelectedIndex="{Binding SelectedMonth,Mode=TwoWay}">
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedMonthCM}"
+                                                       CommandParameter="{Binding ElementName=cbbmonth}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem Content="Tháng 1" />
                         <ComboBoxItem Content="Tháng 2" />
                         <ComboBoxItem Content="Tháng 3" />
@@ -107,6 +120,12 @@
                                 Visibility="Visible"
                                 x:Name="timepicker"
                                 SelectedDate="{Binding SelectedDate,Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectedDateChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedDateExportListCM}"
+                                                       CommandParameter="{Binding ElementName=timepicker}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </DatePicker>
                 </StackPanel>
                 <StackPanel Grid.Column="1"
@@ -123,10 +142,10 @@
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="FileExport"
                                                          Width="25"
-                                                         Height="23"/>
-                                <Label  Content="Xuất file Excel" 
+                                                         Height="23" />
+                                <Label  Content="Xuất file Excel"
                                         Foreground="White"
-                                        Margin="-5,0,0,0"/>
+                                        Margin="-5,0,0,0" />
                             </StackPanel>
                         </Button.Content>
                     </Button>

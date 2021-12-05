@@ -50,6 +50,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public ICommand LoadDeleteVoucherCM { get; set; }
         public ICommand MaskNameCM { get; set; }
         public ICommand FirstLoadCM { get; set; }
+        public ICommand RefreshEmailListCM { get; set; }
 
         public VoucherViewModel()
         {
@@ -61,8 +62,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                  try
                  {
-                    //Loading UI Handler Here
-                    ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(await VoucherService.Ins.GetAllVoucherReleases());
+                     //Loading UI Handler Here
+                     ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(await VoucherService.Ins.GetAllVoucherReleases());
                  }
                  catch (Exception e)
                  {
@@ -365,6 +366,10 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
             {
                 ShadowMask = p;
+            });
+            RefreshEmailListCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await RefreshEmailList();
             });
         }
         public void ChangeView(Card p)
