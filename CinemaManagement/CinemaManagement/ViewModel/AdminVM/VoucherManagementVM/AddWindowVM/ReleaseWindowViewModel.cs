@@ -30,7 +30,11 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public ComboBoxItem ReleaseCustomerList
         {
             get { return _ReleaseCustomerList; }
-            set { _ReleaseCustomerList = value; RefreshEmailList(); }
+            set
+            {
+                _ReleaseCustomerList = value;
+                RefreshEmailList();
+            }
         }
 
 
@@ -129,7 +133,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             //code here
             if (NumberCustomer == -2)
             {
-                await ExportVoucherFunc();
+                ExportVoucherFunc();
                 if (!IsExport)
                     return;
             }
@@ -158,7 +162,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 MessageBoxCustom mb = new MessageBoxCustom("", messageFromRelease, MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
                 WaitingMiniVoucher.Clear();
-                (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
+                (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
 
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
@@ -175,15 +179,13 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
             }
         }
-        public async Task RefreshEmailList()
+        public async void RefreshEmailList()
         {
             if (ReleaseCustomerList is null) return;
-
             switch (ReleaseCustomerList.Content.ToString())
             {
                 case "Top 5 khách hàng trong tháng":
                     {
-                        
                         List<CustomerDTO> list = await CustomerService.Ins.GetTop5CustomerEmail();
                         ListCustomerEmail = new ObservableCollection<CustomerEmail>();
 
@@ -209,13 +211,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         }
 
         bool IsExport = false;
-        public async Task ExportVoucherFunc()
+        public void ExportVoucherFunc()
         {
             using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    await Task.Delay(0);
                     Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
                     app.Visible = false;
                     Microsoft.Office.Interop.Excel.Workbook wb = app.Workbooks.Add(1);

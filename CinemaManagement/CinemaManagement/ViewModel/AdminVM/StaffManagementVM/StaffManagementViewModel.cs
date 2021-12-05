@@ -6,6 +6,7 @@ using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -132,10 +133,9 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         public StaffManagementViewModel()
         {
 
-            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-
-                LoadStaffListView(Operation.READ);
+                await LoadStaffListView(Operation.READ);
             });
             GetListViewCommand = new RelayCommand<ListView>((p) => { return true; },
                 (p) =>
@@ -154,22 +154,22 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 });
 
             AddStaffCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
+                async (p) =>
                 {
-                    AddStaff(p);
+                    await AddStaff(p);
                 });
             EditStaffCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
+                async (p) =>
                 {
-                    EditStaff(p);
+                    await EditStaff(p);
                 });
             ChangePassCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
+                async (p) =>
                 {
-                    ChangePass(p);
+                    await ChangePass(p);
                 });
             DeleteStaffCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
+                async (p) =>
                 {
                     MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", "Bạn có chắc muốn xoá nhân viên này không?", MessageType.Warning, MessageButtons.YesNo);
                     result.ShowDialog();
@@ -179,7 +179,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                         (bool successDeleteStaff, string messageFromDeleteStaff) = StaffService.Ins.DeleteStaff(SelectedItem.Id);
                         if (successDeleteStaff)
                         {
-                            LoadStaffListView(Utils.Operation.DELETE);
+                            await LoadStaffListView(Utils.Operation.DELETE);
                             MessageBoxCustom mb = new MessageBoxCustom("", messageFromDeleteStaff, MessageType.Success, MessageButtons.OK);
                             mb.ShowDialog();
                         }
@@ -269,7 +269,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
            );
         }
 
-        public void LoadStaffListView(Operation oper, StaffDTO staff = null)
+        public async Task LoadStaffListView(Operation oper, StaffDTO staff = null)
         {
 
             switch (oper)
@@ -277,7 +277,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 case Operation.READ:
                     try
                     {
-                        StaffList = new ObservableCollection<StaffDTO>(StaffService.Ins.GetAllStaff());
+                        StaffList = new ObservableCollection<StaffDTO>(await StaffService.Ins.GetAllStaff());
                     }
                     catch (InvalidOperationException e)
                     {

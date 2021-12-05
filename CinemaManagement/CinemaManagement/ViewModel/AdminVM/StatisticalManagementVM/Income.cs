@@ -4,6 +4,7 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -168,7 +169,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
 
 
 
-        public void ChangeIncomePeriod()
+        public async void ChangeIncomePeriod()
         {
             if (SelectedIncomePeriod != null)
             {
@@ -180,7 +181,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                             {
                                 if (SelectedIncomeTime.Length == 4)
                                     SelectedYear = int.Parse(SelectedIncomeTime);
-                                LoadIncomeByYear();
+                                await LoadIncomeByYear();
                             }
                             return;
                         }
@@ -188,22 +189,21 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                         {
                             if (SelectedIncomeTime != null)
                             {
-                                LoadIncomeByMonth();
+                                await LoadIncomeByMonth();
                             }
-
                             return;
                         }
                 }
             }
         }
-        public void LoadIncomeByYear()
+        public async Task LoadIncomeByYear()
         {
             if (SelectedIncomeTime.Length != 4) return;
             LabelMaxValue = 12;
 
-            TotalBill = OverviewStatisticService.Ins.GetBillQuantity(int.Parse(SelectedIncomeTime));
-            (List<decimal> monthlyRevenue, decimal Productreve, decimal Ticketreve, string YearRevenueRateStr) = OverviewStatisticService.Ins.GetRevenueByYear(int.Parse(SelectedIncomeTime));
-            (List<decimal> monthlyExpense, decimal ProductExpense, decimal RepairCost, string YearExpenseRateStr) = OverviewStatisticService.Ins.GetExpenseByYear(int.Parse(SelectedIncomeTime));
+            TotalBill = await OverviewStatisticService.Ins.GetBillQuantity(int.Parse(SelectedIncomeTime));
+            (List<decimal> monthlyRevenue, decimal Productreve, decimal Ticketreve, string YearRevenueRateStr) = await OverviewStatisticService.Ins.GetRevenueByYear(int.Parse(SelectedIncomeTime));
+            (List<decimal> monthlyExpense, decimal ProductExpense, decimal RepairCost, string YearExpenseRateStr) = await OverviewStatisticService.Ins.GetExpenseByYear(int.Parse(SelectedIncomeTime));
             TicketReve = Helper.FormatVNMoney(Ticketreve);
             ProductReve = Helper.FormatVNMoney(Productreve);
             ProductExpe = Helper.FormatVNMoney(ProductExpense);
@@ -216,7 +216,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
 
             CalculateTrueIncome(monthlyRevenue, monthlyExpense);
             Calculate_RevExpPercentage(Ticketreve, Productreve, ProductExpense, RepairCost);
-
 
             for (int i = 1; i <= 12; i++)
             {
@@ -240,15 +239,14 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 Fill = Brushes.Transparent
             }
             };
-
         }
-        public void LoadIncomeByMonth()
+        public async Task LoadIncomeByMonth()
         {
             if (SelectedIncomeTime.Length == 4) return;
             LabelMaxValue = 30;
-            TotalBill = OverviewStatisticService.Ins.GetBillQuantity(2021, int.Parse(SelectedIncomeTime.Remove(0, 6)));
-            (List<decimal> dailyRevenue, decimal MonthProductReve, decimal MonthTicketReve, string MonthRateStr) = OverviewStatisticService.Ins.GetRevenueByMonth(SelectedYear, int.Parse(SelectedIncomeTime.Remove(0, 6)));
-            (List<decimal> dailyExpense, decimal MonthProductExpense, decimal MonthRepairCost, string MonthExpenseRateStr) = OverviewStatisticService.Ins.GetExpenseByMonth(SelectedYear, int.Parse(SelectedIncomeTime.Remove(0, 6)));
+            TotalBill = await OverviewStatisticService.Ins.GetBillQuantity(2021, int.Parse(SelectedIncomeTime.Remove(0, 6)));
+            (List<decimal> dailyRevenue, decimal MonthProductReve, decimal MonthTicketReve, string MonthRateStr) = await OverviewStatisticService.Ins.GetRevenueByMonth(SelectedYear, int.Parse(SelectedIncomeTime.Remove(0, 6)));
+            (List<decimal> dailyExpense, decimal MonthProductExpense, decimal MonthRepairCost, string MonthExpenseRateStr) = await OverviewStatisticService.Ins.GetExpenseByMonth(SelectedYear, int.Parse(SelectedIncomeTime.Remove(0, 6)));
             TicketReve = Helper.FormatVNMoney(MonthTicketReve);
             ProductReve = Helper.FormatVNMoney(MonthProductReve);
             ProductExpe = Helper.FormatVNMoney(MonthProductExpense);

@@ -1,13 +1,14 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Views;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 {
     public partial class StaffManagementViewModel : BaseViewModel
     {
-        public void EditStaff(Window p)
+        public async Task EditStaff(Window p)
         {
             MatKhau = SelectedItem.Password;
 
@@ -23,13 +24,13 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 staff.Role = Role.Content.ToString();
                 staff.StartingDate = StartDate;
                 staff.Username = TaiKhoan;
-                (bool successUpdateStaff, string messageFromUpdateStaff) = StaffService.Ins.UpdateStaff(staff);
+                (bool successUpdateStaff, string messageFromUpdateStaff) = await StaffService.Ins.UpdateStaff(staff);
+                await LoadStaffListView(Utils.Operation.UPDATE, staff);
 
                 if (successUpdateStaff)
                 {
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
-                    LoadStaffListView(Utils.Operation.UPDATE, staff);
                     MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateStaff, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                 }

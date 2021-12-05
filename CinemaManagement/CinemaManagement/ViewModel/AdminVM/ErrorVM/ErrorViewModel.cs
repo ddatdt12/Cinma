@@ -67,9 +67,8 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadDetailErrorCM { get; set; }
         public ICommand UpdateErrorCM { get; set; }
 
-        public async Task ChoseWindow()
+        public void ChoseWindow()
         {
-            await Task.Delay(0);
             if (SelectedItem.Status == Utils.STATUS.DONE)
             {
                 DoneError w = new DoneError();

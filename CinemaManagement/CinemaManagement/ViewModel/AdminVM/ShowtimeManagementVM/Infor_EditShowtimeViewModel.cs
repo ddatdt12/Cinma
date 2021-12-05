@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Views.Admin.ShowtimeManagement;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
@@ -106,10 +107,10 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
             moviePrice = 0;
         }
-        public void GenerateSeat()
+        public async Task  GenerateSeat()
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            ListSeat = new List<SeatSettingDTO>(SeatService.Ins.GetSeatsByShowtime(SelectedShowtime.Id));
+            ListSeat = new List<SeatSettingDTO>(await SeatService.Ins.GetSeatsByShowtime(SelectedShowtime.Id));
             ListSeat1 = new ObservableCollection<SeatSettingDTO>();
             ListSeat2 = new ObservableCollection<SeatSettingDTO>();
             IsBought = 0;

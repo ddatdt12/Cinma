@@ -322,7 +322,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         }
 
         //Operation is enum have 4 values { READ, UPDATE, CREATE, DELETE }
-        public void LoadMovieListView(Operation oper = Operation.READ, MovieDTO m = null)
+        public async Task LoadMovieListView(Operation oper = Operation.READ, MovieDTO m = null)
         {
             switch (oper)
             {
@@ -330,7 +330,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     MovieList.Add(m);
                     break;
                 case Operation.READ:
-                    MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
+                    MovieList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetAllMovie());
                     break;
                 case Operation.UPDATE:
                     var movieFound = MovieList.FirstOrDefault(x => x.Id == m.Id);

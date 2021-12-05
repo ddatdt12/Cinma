@@ -104,12 +104,11 @@ namespace CinemaManagement.ViewModel
         #endregion
         public MainStaffViewModel()
         {
-
-            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; },async (p) =>
             {
                 LoadCurrentDate();
                 SelectedDate = GetCurrentDate;
-                ListMovie1 = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
+                ListMovie1 = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate));
                 GenreList = GenreService.Ins.GetAllGenre();
             });
             CloseMainStaffWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>

@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,13 +26,13 @@ namespace CinemaManagement.Models.Services
         }
         private SeatService() { }
 
-        public List<SeatSettingDTO> GetSeatsByShowtime(int showtimeId)
+        public async Task<List<SeatSettingDTO>> GetSeatsByShowtime(int showtimeId)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var seatList = (from s in context.SeatSettings
+                    var seatList = await (from s in context.SeatSettings
                                     where s.ShowtimeId == showtimeId
                                     select new SeatSettingDTO
                                     {
@@ -46,7 +47,7 @@ namespace CinemaManagement.Models.Services
                                             SeatNumber = s.Seat.SeatNumber,
                                         },
                                     }
-                               ).ToList();
+                               ).ToListAsync();
                     return seatList;
                 }
 

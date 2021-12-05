@@ -125,7 +125,7 @@ namespace CinemaManagement.ViewModel
             // this is  the ErrorViewmodel resources
             LoadDetailErrorCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                await ChoseWindow();
+                ChoseWindow();
             });
             UpdateErrorCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {

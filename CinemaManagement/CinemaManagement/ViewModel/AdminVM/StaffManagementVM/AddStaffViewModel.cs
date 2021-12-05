@@ -4,12 +4,13 @@ using System;
 using System.Windows;
 using CinemaManagement.Utils;
 using CinemaManagement.Views;
+using System.Threading.Tasks;
 
 namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 {
     public partial class StaffManagementViewModel : BaseViewModel
     {
-        public void AddStaff(Window p)
+        public async Task AddStaff(Window p)
         {
 
             (bool isValid, string error) = IsValidData(Operation.CREATE);
@@ -33,7 +34,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 {
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
-                    LoadStaffListView(Operation.CREATE, newStaff);
+                    await LoadStaffListView(Operation.CREATE, newStaff);
                     MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddStaff, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                 }

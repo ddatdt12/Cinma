@@ -40,7 +40,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
                 (bool IsSuccess, string message) = ShowtimeService.Ins.AddShowtime(temp);
 
-
                 if (IsSuccess)
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Success, MessageButtons.OK);

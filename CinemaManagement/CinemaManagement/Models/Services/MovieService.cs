@@ -31,7 +31,7 @@ namespace CinemaManagement.Models.Services
             private set => _ins = value;
         }
 
-        public List<MovieDTO> GetAllMovie()
+        public async Task<List<MovieDTO>> GetAllMovie()
         {
             List<MovieDTO> movies = null;
 
@@ -39,24 +39,24 @@ namespace CinemaManagement.Models.Services
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    movies = (from movie in context.Movies
-                              where !movie.IsDeleted
-                              select new MovieDTO
-                              {
-                                  Id = movie.Id,
-                                  DisplayName = movie.DisplayName,
-                                  RunningTime = movie.RunningTime,
-                                  Country = movie.Country,
-                                  Description = movie.Description,
-                                  ReleaseYear = movie.ReleaseYear,
-                                  MovieType = movie.MovieType,
-                                  Director = movie.Director,
-                                  Image = movie.Image,
-                                  Genres = (from genre in movie.Genres
-                                            select new GenreDTO { DisplayName = genre.DisplayName, Id = genre.Id }
-                                          ).ToList(),
-                              }
-                     ).ToList();
+                    movies = await (from movie in context.Movies
+                                    where !movie.IsDeleted
+                                    select new MovieDTO
+                                    {
+                                        Id = movie.Id,
+                                        DisplayName = movie.DisplayName,
+                                        RunningTime = movie.RunningTime,
+                                        Country = movie.Country,
+                                        Description = movie.Description,
+                                        ReleaseYear = movie.ReleaseYear,
+                                        MovieType = movie.MovieType,
+                                        Director = movie.Director,
+                                        Image = movie.Image,
+                                        Genres = (from genre in movie.Genres
+                                                  select new GenreDTO { DisplayName = genre.DisplayName, Id = genre.Id }
+                                                ).ToList(),
+                                    }
+                     ).ToListAsync();
                 }
             }
             catch (Exception e)
@@ -72,22 +72,22 @@ namespace CinemaManagement.Models.Services
         /// </summary>
         /// <param  name="date"></param>
         /// <returns>List<MovieDTO></returns>
-        public List<MovieDTO> GetShowingMovieByDay(DateTime date)
+        public async Task<List<MovieDTO>> GetShowingMovieByDay(DateTime date)
         {
             List<MovieDTO> movieList = new List<MovieDTO>();
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var MovieIdList = (from showSet in context.ShowtimeSettings
-                                       where DbFunctions.TruncateTime(showSet.ShowDate) == date.Date
-                                       select showSet into S
-                                       from show in S.Showtimes
-                                       select new
-                                       {
-                                           MovieId = show.MovieId,
-                                           ShowTime = show,
-                                       }).GroupBy(m => m.MovieId).ToList();
+                    var MovieIdList = await (from showSet in context.ShowtimeSettings
+                                             where DbFunctions.TruncateTime(showSet.ShowDate) == date.Date
+                                             select showSet into S
+                                             from show in S.Showtimes
+                                             select new
+                                             {
+                                                 MovieId = show.MovieId,
+                                                 ShowTime = show,
+                                             }).GroupBy(m => m.MovieId).ToListAsync();
                     for (int i = 0; i < MovieIdList.Count(); i++)
                     {
                         int id = MovieIdList[i].Key;
@@ -111,7 +111,7 @@ namespace CinemaManagement.Models.Services
 
                                 if (movie is null)
                                 {
-                                    movie = context.Movies.Find(m.ShowTime.MovieId);
+                                    movie = await context.Movies.FindAsync(m.ShowTime.MovieId);
                                 }
                                 mov = new MovieDTO
                                 {
@@ -149,14 +149,14 @@ namespace CinemaManagement.Models.Services
         /// <param name="date"></param>
         /// <param name="roomId"></param>
         /// <returns></returns>
-        public List<MovieDTO> GetShowingMovieByDay(DateTime date, int roomId)
+        public async Task<List<MovieDTO>> GetShowingMovieByDay(DateTime date, int roomId)
         {
             List<MovieDTO> movieList = new List<MovieDTO>();
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var MovieIdList = (from showSet in context.ShowtimeSettings
+                    var MovieIdList = await (from showSet in context.ShowtimeSettings
                                        where DbFunctions.TruncateTime(showSet.ShowDate) == date.Date && showSet.RoomId == roomId
                                        select showSet into S
                                        from show in S.Showtimes
@@ -164,7 +164,7 @@ namespace CinemaManagement.Models.Services
                                        {
                                            MovieId = show.MovieId,
                                            ShowTime = show,
-                                       }).GroupBy(m => m.MovieId).ToList();
+                                       }).GroupBy(m => m.MovieId).ToListAsync();
 
 
                     for (int i = 0; i < MovieIdList.Count(); i++)

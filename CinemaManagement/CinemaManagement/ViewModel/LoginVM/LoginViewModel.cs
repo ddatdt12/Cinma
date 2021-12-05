@@ -104,8 +104,9 @@ namespace CinemaManagement.ViewModel
             LoginBtn.Content = "";
             LoginBtn.IsHitTestVisible = false;
             LoginPage.pgb.Visibility = Visibility.Visible;
-            await Task.Delay(3000);
-            (bool loginSuccess, string message, StaffDTO staff) = StaffService.Ins.Login(usn, pwr);
+
+            (bool loginSuccess, string message, StaffDTO staff) = await StaffService.Ins.Login(usn, pwr);
+
             IsLoading = false;
             LoginBtn.Content = "Đăng nhập";
             LoginBtn.IsHitTestVisible = true;

@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
@@ -61,7 +62,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
 
 
 
-        public void ChangeRankingPeriod()
+        public async void ChangeRankingPeriod()
         {
             if (SelectedRankingPeriod != null)
             {
@@ -71,7 +72,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                         {
                             if (SelectedRankingTime != null)
                             {
-                                LoadRankingByYear();
+                                await LoadRankingByYear();
                             }
                             return;
                         }
@@ -79,7 +80,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                         {
                             if (SelectedRankingTime != null)
                             {
-                                LoadRankingByMonth();
+                                await LoadRankingByMonth();
                             }
 
                             return;
@@ -87,10 +88,10 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 }
             }
         }
-        public void LoadRankingByYear()
+        public async Task LoadRankingByYear()
         {
             if (SelectedRankingTime.Length != 4) return;
-            (List<CustomerDTO> Top5Cus, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) = StatisticsService.Ins.GetTop5CustomerExpenseByYear(int.Parse(SelectedRankingTime));
+            (List<CustomerDTO> Top5Cus, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) = await StatisticsService.Ins.GetTop5CustomerExpenseByYear(int.Parse(SelectedRankingTime));
             Top5Customer = Top5Cus;
 
             CustomerExpe = new SeriesCollection
@@ -109,10 +110,10 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
 
 
         }
-        public void LoadRankingByMonth()
+        public async Task LoadRankingByMonth()
         {
             if (SelectedRankingTime.Length == 4) return;
-            (List<CustomerDTO> Top5Cus, decimal TicketExpenseTop1Cus, decimal ProductExpenseTop1Cus) = StatisticsService.Ins.GetTop5CustomerExpenseByMonth(int.Parse(SelectedRankingTime.Remove(0, 6)));
+            (List<CustomerDTO> Top5Cus, decimal TicketExpenseTop1Cus, decimal ProductExpenseTop1Cus) = await StatisticsService.Ins.GetTop5CustomerExpenseByMonth(int.Parse(SelectedRankingTime.Remove(0, 6)));
             Top5Customer = Top5Cus;
 
 
@@ -131,7 +132,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             };
         }
 
-        public void ChangeRankingPeriod2()
+        public async void ChangeRankingPeriod2()
         {
             if (SelectedRankingPeriod2 != null)
             {
@@ -141,7 +142,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                         {
                             if (SelectedRankingTime2 != null)
                             {
-                                LoadRankingByYear2();
+                                await LoadRankingByYear2();
                             }
                             return;
                         }
@@ -149,7 +150,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                         {
                             if (SelectedRankingTime2 != null)
                             {
-                                LoadRankingByMonth2();
+                                await LoadRankingByMonth2();
                             }
 
                             return;
@@ -157,15 +158,15 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 }
             }
         }
-        public void LoadRankingByYear2()
+        public async Task LoadRankingByYear2()
         {
             if (SelectedRankingTime2.Length != 4) return;
-            Top5Staff = StatisticsService.Ins.GetTop5ContributionStaffByYear(int.Parse(SelectedRankingTime2));
+            Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByYear(int.Parse(SelectedRankingTime2));
         }
-        public void LoadRankingByMonth2()
+        public async Task LoadRankingByMonth2()
         {
             if (SelectedRankingTime2.Length == 4) return;
-            Top5Staff = StatisticsService.Ins.GetTop5ContributionStaffByMonth(int.Parse(SelectedRankingTime2.Remove(0, 6)));
+            Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByMonth(int.Parse(SelectedRankingTime2.Remove(0, 6)));
         }
     }
 }

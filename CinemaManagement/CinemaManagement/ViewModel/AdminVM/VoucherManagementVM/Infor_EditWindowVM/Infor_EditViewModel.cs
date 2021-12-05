@@ -6,6 +6,7 @@ using CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -123,7 +124,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             w.unused.Content = SelectedItem.UnusedVCount;
             w.total.Content = SelectedItem.VCount;
         }
-        public void UpdateBigVoucherFunc()
+        public async Task UpdateBigVoucherFunc()
         {
             if (string.IsNullOrEmpty(Name))
             {
@@ -147,15 +148,15 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 Status = Status2,
             };
 
-            (bool isSucess, string addSuccess) = VoucherService.Ins.UpdateVoucherRelease(vr);
+            (bool isSucess, string addSuccess) = await VoucherService.Ins.UpdateVoucherRelease(vr);
 
             if (isSucess)
             {
                 MessageBoxCustom mb = new MessageBoxCustom("", addSuccess, MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
 
-                ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(VoucherService.Ins.GetAllVoucherReleases());
-                (VoucherReleaseDTO voucherReleaseDetail, _) = VoucherService.Ins.GetVoucherReleaseDetails(oldVer.Id);
+                ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(await VoucherService.Ins.GetAllVoucherReleases());
+                (VoucherReleaseDTO voucherReleaseDetail, _) = await VoucherService.Ins.GetVoucherReleaseDetails(oldVer.Id);
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
@@ -167,7 +168,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
             }
         }
-        public void DeleteMiniVoucherFunc()
+        public async Task DeleteMiniVoucherFunc()
         {
             if (WaitingMiniVoucher.Count == 0)
             {
@@ -176,14 +177,14 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 return;
             }
 
-            (bool deleteSuccess, string messageFromDelete) = VoucherService.Ins.DeteleVouchers(WaitingMiniVoucher);
+            (bool deleteSuccess, string messageFromDelete) = await VoucherService.Ins.DeteleVouchers(WaitingMiniVoucher);
 
             if (deleteSuccess)
             {
                 AddVoucher.AllCheckBox.Clear();
                 MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
-                (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
+                (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
 
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
