@@ -7,6 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net.Cache;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -238,9 +239,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             Level = null;
         }
 
-        public void LoadListStaff()
+        public async Task LoadListStaff()
         {
-            ListStaff = new ObservableCollection<StaffDTO>(StaffService.Ins.GetAllStaff());
+            ListStaff = new ObservableCollection<StaffDTO>(await StaffService.Ins.GetAllStaff());
         }
         public bool IsValidData()
         {

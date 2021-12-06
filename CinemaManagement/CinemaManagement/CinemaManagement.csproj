@@ -161,6 +161,7 @@
       <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Common, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.Common.4.3.0\lib\net451\System.Data.Common.dll</HintPath>
@@ -316,15 +317,14 @@
     <Compile Include="Utils\Constant.cs" />
     <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />
+    <Compile Include="Utils\RegexUtilities.cs" />
     <Compile Include="ViewModel\AdminVM\ErrorVM\ErrorViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\ErrorVM\HintLevelConverter.cs" />
     <Compile Include="ViewModel\AdminVM\ErrorVM\StatusBrushConverter.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\AddFoodViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\FoodManagementVM\DeleteFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\EditFoodViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\FoodManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\FoodManagementVM\ImportFoodViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\Import_ExportManagementVM\ExportDetailViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\Import_ExportManagementVM\Import_ExportManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MainAdminViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\Add.MovieViewModel.cs" />
@@ -333,9 +333,9 @@
     <Compile Include="ViewModel\AdminVM\MovieManagementVM\MovieManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\Add.ShowtimeWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\Infor_EditShowtimeViewModel.cs" />
+    <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\SeatStatusConverter.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\ShowtimeManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\AddStaffViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\StaffManagementVM\DeleteStaffViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\DoiMatKhauWindowVM.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\EditStaffViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\StaffManagementViewModel.cs" />
@@ -346,6 +346,7 @@
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\StatisticalManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\VoucherManagementVM\AddWindowVM\AddWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\VoucherManagementVM\AddWindowVM\CheckBoxVisibleConverter.cs" />
+    <Compile Include="ViewModel\AdminVM\VoucherManagementVM\AddWindowVM\ReleaseWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\VoucherManagementVM\Infor_EditWindowVM\Infor_EditViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\VoucherManagementVM\VoucherViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
@@ -360,6 +361,7 @@
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\ShowtimePageVM\ShowtimePageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\TicketBillVM\TicketBillViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketBookingPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
     <Compile Include="Views\Admin\ErrorManagement\DoneError.xaml.cs">
@@ -376,9 +378,6 @@
     </Compile>
     <Compile Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml.cs">
       <DependentUpon>AddFoodWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml.cs">
-      <DependentUpon>DeleteFoodWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\FoodManagementPage\EditFoodWindow.xaml.cs">
       <DependentUpon>EditFoodWindow.xaml</DependentUpon>
@@ -434,9 +433,6 @@
     <Compile Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml.cs">
       <DependentUpon>ThemNhanVienWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml.cs">
-      <DependentUpon>XoaNhanVienWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Admin\ShowtimeManagement\AddShowtimeWindow.xaml.cs">
       <DependentUpon>AddShowtimeWindow.xaml</DependentUpon>
     </Compile>
@@ -473,6 +469,9 @@
     <Compile Include="Views\Admin\VoucherManagement\AddWindow\AddWindow.xaml.cs">
       <DependentUpon>AddWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Admin\VoucherManagement\AddWindow\ReleaseVoucher.xaml.cs">
+      <DependentUpon>ReleaseVoucher.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\VoucherManagement\Infor_EditWindow\Edit_InforPage.xaml.cs">
       <DependentUpon>Edit_InforPage.xaml</DependentUpon>
     </Compile>
@@ -481,9 +480,6 @@
     </Compile>
     <Compile Include="Views\Admin\VoucherManagement\VoucherManagement.xaml.cs">
       <DependentUpon>VoucherManagement.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ExampleWindow.xaml.cs">
-      <DependentUpon>ExampleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginWindow\ChangePassPage.xaml.cs">
       <DependentUpon>ChangePassPage.xaml</DependentUpon>
@@ -524,6 +520,12 @@
     <Compile Include="Views\Staff\ShowtimePage\ShowtimePage.xaml.cs">
       <DependentUpon>ShowtimePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Staff\TicketBill\TicketBillNoFoodPage.xaml.cs">
+      <DependentUpon>TicketBillNoFoodPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\TicketBill\TicketBillPage.xaml.cs">
+      <DependentUpon>TicketBillPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Staff\TicketWindow\TicketBookingPage.xaml.cs">
       <DependentUpon>TicketBookingPage.xaml</DependentUpon>
     </Compile>
@@ -563,10 +565,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Admin\FoodManagementPage\AddFoodWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Admin\FoodManagementPage\DeleteFoodWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -642,10 +640,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\XoaNhanVienWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Admin\ShowtimeManagement\AddShowtimeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
@@ -694,6 +688,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Admin\VoucherManagement\AddWindow\ReleaseVoucher.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Admin\VoucherManagement\Infor_EditWindow\Edit_InforPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -705,10 +703,6 @@
     <Page Include="Views\Admin\VoucherManagement\VoucherManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ExampleWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Views\LoginWindow\ChangePassPage.xaml">
       <SubType>Designer</SubType>
@@ -759,6 +753,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Staff\ShowtimePage\ShowtimePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\TicketBill\TicketBillNoFoodPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\TicketBill\TicketBillPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

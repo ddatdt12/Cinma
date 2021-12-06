@@ -11,7 +11,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
 {
     public class OrderFoodPageViewModel : BaseViewModel
     {
-        public ICommand GoBackCommand { get; set; }
         public ICommand MouseMoveCommand { get; set; }
         public ICommand FilterAllProductsCommand { get; set; }
         public ICommand FilterFoodCommand { get; set; }
@@ -275,15 +274,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                     ListOrder = new List<ProductDTO>(OrderList);
                 }
             });
-
-            GoBackCommand = new RelayCommand<Page>((p) => { return true; }, (p) =>
-            {
-                if (p != null)
-                {
-
-                }
-            });
-
             MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {
                 Window window = GetWindowParent(p);

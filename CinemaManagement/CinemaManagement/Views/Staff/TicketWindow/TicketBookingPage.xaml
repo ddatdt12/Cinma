@@ -418,23 +418,20 @@
                         </Border>
                     </Grid>
                 </Border>
-                <Button x:Name="btnClose"
-                        materialDesign:ButtonAssist.CornerRadius="25"
-                        BorderBrush="Black"
-                        BorderThickness="0.3"
+                <Button BorderThickness="1.5"
+                        Margin="0 0 0 15"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        BorderBrush="Gray"
+                        Grid.Row="2"
                         VerticalAlignment="Bottom"
-                        HorizontalAlignment="Right"
-                        Cursor="Hand"
-                        Width="50"
+                        HorizontalAlignment="Center"
                         Height="50"
-                        Margin="0 0 15 10"
-                        Background="#FFA7C7D1"
-                        Foreground="Black"
-                        Command="{Binding LoadFoodPageCM}"
-                        Padding="7">
-                    <materialDesign:PackIcon Kind="ArrowRight" 
-                                             Width="30"
-                                             Height="30"/>
+                        Background="#FF5980B8"
+                        Width="164"
+                        Content="Tiếp tục"
+                        FontSize="25"
+                        Foreground="#FFF0F3F7"
+                        Command="{Binding LoadFoodPageCM}">
                 </Button>
             </Grid>
         </Grid>

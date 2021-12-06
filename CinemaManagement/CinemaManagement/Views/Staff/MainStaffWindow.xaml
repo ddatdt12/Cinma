@@ -50,10 +50,8 @@
                 </Style>
             </Grid.Resources>
             <StackPanel Grid.Row="1">
-                <Border BorderBrush="#FF16274D"
-                        CornerRadius="5">
-                    <StackPanel x:Name="grdShowing"
-                                Tag="{Binding ElementName=btnShowing}"
+                <Border CornerRadius="5">
+                    <StackPanel Tag="{Binding ElementName=btnShowing}"
                                 Orientation="Horizontal"
                                 Height="60"
                                 Width="140">
@@ -73,10 +71,8 @@
                                      CommandParameter="{Binding ElementName=mainFrame}" />
                     </StackPanel>
                 </Border>
-                <Border BorderBrush="#FF16274D"
-                        CornerRadius="5">
-                    <StackPanel x:Name="grdFood"
-                                Tag="{Binding ElementName=btnFood}"
+                <Border CornerRadius="5">
+                    <StackPanel Tag="{Binding ElementName=btnFood}"
                                 Orientation="Horizontal"
                                 Height="60"
                                 Width="140">
@@ -96,14 +92,12 @@
                                      CommandParameter="{Binding ElementName=mainFrame}" />
                     </StackPanel>
                 </Border>
-                <Border BorderBrush="#FF16274D"
-                        BorderThickness="0 2 0 2"
-                        CornerRadius="5">
-                    <StackPanel Tag="{Binding ElementName=btnFood}"
+                <Border CornerRadius="5">
+                    <StackPanel Tag="{Binding ElementName=btnError}"
                                 Orientation="Horizontal"
                                 Height="60"
                                 Width="140">
-                        <materialDesign:PackIcon Kind="Food"
+                        <materialDesign:PackIcon Kind="Unity"
                                                  Width="30"
                                                  Height="32"
                                                  VerticalAlignment="Center"
@@ -111,6 +105,7 @@
                                                  Foreground="White" />
                         <RadioButton Style="{StaticResource MenuButtonMainStaff}"
                                      Content="Báo cáo sự cố"
+                                     FontWeight="Bold"
                                      GroupName="mainOptions"
                                      x:Name="btnError"
                                      Width="110"

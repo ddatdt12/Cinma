@@ -105,6 +105,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             });
             LoadFoodPageCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+                if(WaitingList.Count == 0)
+                {
+                    new MessageBoxCustom("Cảnh báo", "Vui lòng chọn ghế trước khi sang bước tiếp theo", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                    return;
+                }    
                 TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
                 tk.TicketBookingFrame.Content = new FoodPage();
             });

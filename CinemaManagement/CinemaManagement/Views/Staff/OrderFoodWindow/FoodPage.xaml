@@ -29,41 +29,7 @@
             <RowDefinition Height="60*"></RowDefinition>
             <RowDefinition Height="460*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Name="lblBack"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               Cursor="Hand"
-               Margin="5">
-            <Label.Template>
-                <ControlTemplate TargetType="Label">
-                    <Grid>
-                        <Ellipse>
-                            <Ellipse.Resources>
-                                <Style TargetType="Ellipse">
-                                    <Setter Property="Fill" Value="Transparent"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Fill" Value="#EEEEEE"/>
-                                            <Setter Property="ToolTip" Value="Quay lại"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Ellipse.Resources>
-                        </Ellipse>
-                        <materialDesign:PackIcon Kind="KeyboardBackspace"
-                                                 Height="Auto"
-                                                 Width="Auto"/>
-                    </Grid>
-                </ControlTemplate>
-            </Label.Template>
-            
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding ElementName=Food_Page, Path=DataContext.GoBackCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Label>
-
+        
         <Border BorderBrush="LightGray"
                 BorderThickness="0,0,0,0.5"
                 Grid.Row="1"
@@ -191,9 +157,9 @@
                     <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="Foreground" Value="Transparent" />
-                        <Setter Property="Background" Value="{Binding Background, ElementName=BorderMain}"/>
-                        <Setter Property="Template">
+                            <Setter Property="Foreground"
+                                    Value="Transparent" />
+                            <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border x:Name="Bd">
@@ -229,7 +195,7 @@
                                     <ColumnDefinition Width="25*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <Grid>
-                                    <Image Source="{Binding Image}"
+                                    <Image Source="{Binding ImgSource}"
                                            Stretch="Fill"/>
                                 </Grid>
                                 <Grid Grid.Column="1"
@@ -369,35 +335,30 @@
                                Width="Auto"
                                FontFamily="Arial"
                                FontWeight="Bold"
-                               TextAlignment="Right"/>
+                               TextAlignment="Right" />
 
                     <TextBlock Text="Tổng:"
                                FontSize="30"
                                FontFamily="Arial"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"
-                               Margin="15,0,0,0"/>
+                               Margin="15,0,0,0" />
                 </DockPanel>
             </Border>
-
-            <Grid Grid.Row="2"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center" 
-                  Height="50" 
-                  Width="164">
-                <Border BorderThickness="1.5"
-                        CornerRadius="5"
-                        BorderBrush="Gray">
-                    <Button Command="{Binding BuyCommand}"
-                            Content="Chọn"
-                            FontSize="25"
-                            Background="#FF5980B8"
-                            Foreground="#FFF0F3F7"
-                            Width="Auto"
-                            Height="Auto">
-                    </Button>
-                </Border>
-            </Grid>
+            <Button Command="{Binding BuyCommand}"
+                    BorderThickness="1.5"
+                    materialDesign:ButtonAssist.CornerRadius="10"
+                    BorderBrush="Gray"
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="50"
+                    Background="#FF5980B8"
+                    Width="164"
+                    Content="Tiếp tục"
+                    FontSize="25"
+                    Foreground="#FFF0F3F7">
+            </Button>
         </Grid>
         <ListBox Grid.Row="3"
                  Background="Transparent"
@@ -409,8 +370,8 @@
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Foreground" Value="Transparent" />
                     <Setter Property="VerticalAlignment" Value="Top"/>
-                    <Setter Property="Margin" Value="0,20,0,10"/>
-                    <Setter Property="Background" Value="{Binding Background, ElementName=BorderMain}"/>
+                    <Setter Property="Margin"
+                            Value="0,20,0,10" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -454,7 +415,7 @@
                                 <RowDefinition Height="8*"></RowDefinition>
                                 <RowDefinition Height="5*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Source="{Binding Image}"
+                            <Image Source="{Binding ImgSource}"
                                    Stretch="Fill"/>
                             <Grid Grid.Row="1">
                                 <Grid.RowDefinitions>
