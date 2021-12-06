@@ -15,6 +15,13 @@ namespace CinemaManagement.ViewModel
 {
     public partial class MainAdminViewModel : BaseViewModel
     {
+        private bool _IsGettingSource;
+        public bool IsGettingSource
+        {
+            get { return _IsGettingSource; }
+            set { _IsGettingSource = value; OnPropertyChanged(); }
+        }
+
         private ComboBoxItem _SelectedFilterList;
         public ComboBoxItem SelectedFilterList
         {
@@ -94,9 +101,10 @@ namespace CinemaManagement.ViewModel
             {
                 return await TroubleService.Ins.GetAllTrouble();
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                MessageBox.Show(e.Message);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
                 throw;
             }
         }
@@ -106,33 +114,44 @@ namespace CinemaManagement.ViewModel
             {
                 if (SelectedFilterList is null) return;
 
-                List<TroubleDTO> troubleDTOs = await GetAllTrouble();
-
-                ListError = new ObservableCollection<TroubleDTO>();
-
-                //reduce the number notifi of main page
-                int counttemp = 0;
-                foreach (var item in troubleDTOs)
+                try
                 {
-                    if (item.Status == Utils.STATUS.WAITING)
-                        counttemp++;
+                    List<TroubleDTO> troubleDTOs = await GetAllTrouble();
+
+                    ListError = new ObservableCollection<TroubleDTO>();
+
+                    //reduce the number notifi of main page
+                    int counttemp = 0;
+                    foreach (var item in troubleDTOs)
+                    {
+                        if (item.Status == Utils.STATUS.WAITING)
+                            counttemp++;
+                    }
+                    ErrorCount = counttemp.ToString();
+                    ///================
+
+                    if ((string)SelectedFilterList.Tag == "Toàn bộ")
+                    {
+                        ListError = new ObservableCollection<TroubleDTO>(troubleDTOs);
+                    }
+                    else
+                    {
+                        ListError = new ObservableCollection<TroubleDTO>(troubleDTOs.Where(tr => tr.Status == SelectedFilterList.Tag.ToString()));
+                    }
+
                 }
-                ErrorCount = counttemp.ToString();
-                ///================
-
-                if ((string)SelectedFilterList.Tag == "Toàn bộ")
+                catch (Exception)
                 {
-                    ListError = new ObservableCollection<TroubleDTO>(troubleDTOs);
-                }
-                else
-                {
-                    ListError = new ObservableCollection<TroubleDTO>(troubleDTOs.Where(tr => tr.Status == SelectedFilterList.Tag.ToString()));
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
 
             }
             catch (Exception e)
             {
-                throw e;
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
             }
         }
         public async Task UpdateErrorFunc(Window p)

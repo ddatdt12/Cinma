@@ -67,12 +67,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
                 return;
             }
-            if (ListCustomerEmail.Count == 0)
-            {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Danh sách khách hàng đang trống!", MessageType.Warning, MessageButtons.OK);
-                mb.ShowDialog();
-                return;
-            }
             foreach (var item in ListCustomerEmail)
             {
                 if (string.IsNullOrEmpty(item.Email))
@@ -133,8 +127,40 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             if (NumberCustomer == -2)
             {
                 ExportVoucherFunc();
-                if (!IsExport)
+                if (IsExport)
+                {
+                    (bool release, string message) = await VoucherService.Ins.ReleaseMultiVoucher(WaitingMiniVoucher);
+
+                    if (release)
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Success, MessageButtons.OK);
+                        mb.ShowDialog();
+                        WaitingMiniVoucher.Clear();
+                        try
+                        {
+                            (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
+
+                            SelectedItem = voucherReleaseDetail;
+                            ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
+                            StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
+                            AddVoucher.topcheck.IsChecked = false;
+                            AddVoucher._cbb.SelectedIndex = 0;
+                            NumberSelected = 0;
+                        }
+                        catch (Exception)
+                        {
+                            MessageBoxCustom m = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                            m.ShowDialog();
+                        }
+                        p.Close();
+                    }
+                    else
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
+                    }
                     return;
+                }
             }
 
             // Danh sách code và khách hàng
@@ -145,8 +171,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             int sizePerItem = listCode.Count / listCustomerEmail.Count;
             List<List<string>> ListCodePerEmailList = ChunkBy(listCode, sizePerItem);
 
-            await Task.Delay(2000);
-            return;
             (bool sendSuccess, string messageFromSendEmail) = await sendHtmlEmail(listCustomerEmail, ListCodePerEmailList);
 
             if (!sendSuccess)
@@ -163,15 +187,23 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 MessageBoxCustom mb = new MessageBoxCustom("", messageFromRelease, MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
                 WaitingMiniVoucher.Clear();
-                (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
+                try
+                {
+                    (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
 
-                SelectedItem = voucherReleaseDetail;
-                ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
-                AddVoucher.topcheck.IsChecked = false;
-                AddVoucher.AllCheckBox.Clear();
-                AddVoucher._cbb.SelectedIndex = 0;
-                NumberSelected = 0;
+                    SelectedItem = voucherReleaseDetail;
+                    ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
+                    StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
+                    AddVoucher.topcheck.IsChecked = false;
+                    AddVoucher._cbb.SelectedIndex = 0;
+                    NumberSelected = 0;
+                }
+                catch (Exception)
+                {
+                    MessageBoxCustom m = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    m.ShowDialog();
+                }
+
                 p.Close();
             }
             else

@@ -119,8 +119,28 @@
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Margin="0,0,10,0"
                             Height="30"
+                            Width="80"
                             Padding="15,0,15,3"
-                            Command="{Binding SaveListMiniVoucherCM}" />
+                            x:Name="savelistbtn"
+                            Command="{Binding SaveListMiniVoucherCM}"
+                            CommandParameter="{Binding ElementName=savelistbtn}" />
+                    <ProgressBar IsIndeterminate="{Binding IsReleaseVoucherLoading}"
+                                 HorizontalAlignment="Right"
+                                 Foreground="White"
+                                 Margin="0,0,40,0">
+                        <ProgressBar.Style>
+                            <Style TargetType="ProgressBar"
+                                   BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsIndeterminate"
+                                             Value="False">
+                                        <Setter Property="Visibility"
+                                                Value="Collapsed" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ProgressBar.Style>
+                    </ProgressBar>
                 </Grid>
 
             </Grid>

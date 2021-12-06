@@ -70,7 +70,12 @@ namespace CinemaManagement.ViewModel
                  string username = Username;
                  string password = Password;
 
+                 IsLoading = true;
+
                  await CheckValidateAccount(username, password, p);
+
+                 IsLoading = false;
+                 //await CheckValidateAccount(username, password, p);
              });
             PasswordChangedCM = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
             {
@@ -100,14 +105,13 @@ namespace CinemaManagement.ViewModel
                 return;
             }
 
-            IsLoading = true;
+
             LoginBtn.Content = "";
             LoginBtn.IsHitTestVisible = false;
             LoginPage.pgb.Visibility = Visibility.Visible;
 
-            (bool loginSuccess, string message, StaffDTO staff) = await StaffService.Ins.Login(usn, pwr);
+            (bool loginSuccess, string message, StaffDTO staff) = await Task<(bool loginSuccess, string message, StaffDTO staff)>.Run(() => StaffService.Ins.Login(usn, pwr));
 
-            IsLoading = false;
             LoginBtn.Content = "Đăng nhập";
             LoginBtn.IsHitTestVisible = true;
             LoginPage.pgb.Visibility = Visibility.Collapsed;

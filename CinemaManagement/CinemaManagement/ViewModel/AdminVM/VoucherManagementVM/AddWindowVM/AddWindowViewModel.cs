@@ -209,11 +209,20 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 MessageBoxCustom mb = new MessageBoxCustom("", addSuccess, MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
                 ListBigVoucher.Add(newVoucherRelease);
+                try
+                {
+                    (VoucherReleaseDTO voucherReleaseDetail, _) = await VoucherService.Ins.GetVoucherReleaseDetails(newVoucherRelease.Id);
+                    SelectedItem = voucherReleaseDetail;
+                    ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
+                    StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
+                }
+                catch (Exception)
+                {
+                    MessageBoxCustom m = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    m.ShowDialog();
+                    ;
+                }
 
-                (VoucherReleaseDTO voucherReleaseDetail, _) = await VoucherService.Ins.GetVoucherReleaseDetails(newVoucherRelease.Id);
-                SelectedItem = voucherReleaseDetail;
-                ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
             }
             else
             {
@@ -246,18 +255,43 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
             if (createSuccess)
             {
-                AddVoucher.AllCheckBox.Clear();
                 MessageBoxCustom mb = new MessageBoxCustom("", createRandomSuccess, MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
-                (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
 
-                SelectedItem = voucherReleaseDetail;
-                ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
+                ListViewVoucher = new ObservableCollection<VoucherDTO>(ListViewVoucher.Concat(newListCode));
+                SelectedItem.Vouchers = new ObservableCollection<VoucherDTO>(ListViewVoucher);
                 StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
+
+                for (int i = 0; i < ListBigVoucher.Count; i++)
+                {
+                    if (ListBigVoucher[i].Id == selectedItem.Id)
+                    {
+                        VoucherReleaseDTO clone = new VoucherReleaseDTO()
+                        {
+                            Id = selectedItem.Id,
+                            ReleaseName = selectedItem.ReleaseName,
+                            StartDate = selectedItem.StartDate,
+                            FinishDate = selectedItem.FinishDate,
+                            MinimumOrderValue = selectedItem.MinimumOrderValue,
+                            ParValue = selectedItem.ParValue,
+                            ObjectType = selectedItem.ObjectType,
+                            Status = selectedItem.Status,
+                            StaffId = selectedItem.StaffId,
+                            StaffName = selectedItem.StaffName,
+                            VCount = ListViewVoucher.Count,
+                            UnusedVCount = SelectedItem.UnusedVCount + newListCode.Count,
+                        };
+                        ListBigVoucher[i] = clone;
+                        SelectedItem = ListBigVoucher[i];
+                        return;
+                    }
+                }
 
                 AddVoucher.topcheck.IsChecked = false;
                 AddVoucher._cbb.SelectedIndex = 0;
                 NumberSelected = 0;
+
+
             }
             else
             {
@@ -282,18 +316,44 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 return;
             }
 
-            (bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = await VoucherService.Ins.CreateRandomVoucherList(SelectedItem.Id, listCode);
+            IsReleaseVoucherLoading = true;
+            (bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode) = await Task<(bool createSuccess, string createRandomSuccess, List<VoucherDTO> newListCode)>.Run(() => VoucherService.Ins.CreateRandomVoucherList(SelectedItem.Id, listCode));
+            IsReleaseVoucherLoading = false;
 
             if (createSuccess)
             {
                 MessageBoxCustom mb = new MessageBoxCustom("", createRandomSuccess, MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
-                (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
-                AddVoucher.AllCheckBox.Clear();
 
-                SelectedItem = voucherReleaseDetail;
-                ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
+                ListViewVoucher = new ObservableCollection<VoucherDTO>(ListViewVoucher.Concat(newListCode));
+                SelectedItem.Vouchers = new ObservableCollection<VoucherDTO>(ListViewVoucher);
                 StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
+
+                for (int i = 0; i < ListBigVoucher.Count; i++)
+                {
+                    if (ListBigVoucher[i].Id == selectedItem.Id)
+                    {
+                        VoucherReleaseDTO clone = new VoucherReleaseDTO()
+                        {
+                            Id = selectedItem.Id,
+                            ReleaseName = selectedItem.ReleaseName,
+                            StartDate = selectedItem.StartDate,
+                            FinishDate = selectedItem.FinishDate,
+                            MinimumOrderValue = selectedItem.MinimumOrderValue,
+                            ParValue = selectedItem.ParValue,
+                            ObjectType = selectedItem.ObjectType,
+                            Status = selectedItem.Status,
+                            StaffId = selectedItem.StaffId,
+                            StaffName = selectedItem.StaffName,
+                            VCount = ListViewVoucher.Count,
+                            UnusedVCount = SelectedItem.UnusedVCount + newListCode.Count,
+                        };
+                        ListBigVoucher[i] = clone;
+                        SelectedItem = ListBigVoucher[i];
+                        return;
+                    }
+                }
+
                 AddVoucher.topcheck.IsChecked = false;
                 AddVoucher._cbb.SelectedIndex = 0;
                 NumberSelected = 0;
@@ -309,7 +369,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         {
             if (SelectedCbbFilter is null) return;
 
-            AddVoucher.AllCheckBox.Clear();
             NumberSelected = 0;
             if (WaitingMiniVoucher != null)
                 WaitingMiniVoucher.Clear();
@@ -325,23 +384,24 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(StoreAllMini.Where(v => v.Status == SelectedCbbFilter.Tag.ToString()).ToList());
             }
         }
-        public async Task GetVoucherReleaseDetails()
+        public void GetVoucherList()
         {
             if (SelectedCbbFilter is null) return;
 
             ListViewVoucher = new ObservableCollection<VoucherDTO>();
+            try
+            {
+                //await Task.Delay(0);
+                //(VoucherReleaseDTO voucherReleaseDetail, _) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
+                //StoreAllMini = new ObservableCollection<VoucherDTO>(voucherReleaseDetail.Vouchers);
+                ListViewVoucher = new ObservableCollection<VoucherDTO>(StoreAllMini);
+            }
+            catch (Exception)
+            {
 
-            (VoucherReleaseDTO voucherReleaseDetail, _) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
-
-            StoreAllMini = new ObservableCollection<VoucherDTO>(voucherReleaseDetail.Vouchers);
-
-            AddVoucher.AllCheckBox.Clear();
-            NumberSelected = 0;
-            if (WaitingMiniVoucher != null)
-                WaitingMiniVoucher.Clear();
-
-            ListViewVoucher = new ObservableCollection<VoucherDTO>(StoreAllMini);
-
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống!", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+            }
         }
     }
 }

@@ -19,7 +19,7 @@
             <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
             <BeginStoryboard>
@@ -213,7 +213,7 @@
                         </StackPanel>
                     </Grid>
                 </StackPanel>
-             
+
 
             </materialDesign:Card>
 
@@ -224,5 +224,12 @@
               Opacity="0.3"
               Visibility="Collapsed"
               x:Name="ShadowMask" />
+        <Grid Grid.RowSpan="2">
+            <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                         Value="0"
+                         IsIndeterminate="{Binding IsReleaseVoucherLoading,UpdateSourceTrigger=PropertyChanged}"
+                         Width="100"
+                         Height="100" />
+        </Grid>
     </Grid>
 </Page>

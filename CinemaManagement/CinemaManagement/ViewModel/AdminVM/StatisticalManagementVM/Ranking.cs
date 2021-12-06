@@ -1,7 +1,9 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using LiveCharts;
 using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -91,10 +93,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public async Task LoadRankingByYear()
         {
             if (SelectedRankingTime.Length != 4) return;
-            (List<CustomerDTO> Top5Cus, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) = await StatisticsService.Ins.GetTop5CustomerExpenseByYear(int.Parse(SelectedRankingTime));
-            Top5Customer = Top5Cus;
+            try
+            {
+                (List<CustomerDTO> Top5Cus, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) = await StatisticsService.Ins.GetTop5CustomerExpenseByYear(int.Parse(SelectedRankingTime));
+                Top5Customer = Top5Cus;
 
-            CustomerExpe = new SeriesCollection
+                CustomerExpe = new SeriesCollection
             {
                 new PieSeries
                 {
@@ -107,17 +111,27 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                     Title = "Sản phẩm",
                 }
             };
+            }
+            catch (Exception e)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+            }
+
+
 
 
         }
         public async Task LoadRankingByMonth()
         {
             if (SelectedRankingTime.Length == 4) return;
-            (List<CustomerDTO> Top5Cus, decimal TicketExpenseTop1Cus, decimal ProductExpenseTop1Cus) = await StatisticsService.Ins.GetTop5CustomerExpenseByMonth(int.Parse(SelectedRankingTime.Remove(0, 6)));
-            Top5Customer = Top5Cus;
+            try
+            {
+                (List<CustomerDTO> Top5Cus, decimal TicketExpenseTop1Cus, decimal ProductExpenseTop1Cus) = await StatisticsService.Ins.GetTop5CustomerExpenseByMonth(int.Parse(SelectedRankingTime.Remove(0, 6)));
+                Top5Customer = Top5Cus;
 
 
-            CustomerExpe = new SeriesCollection
+                CustomerExpe = new SeriesCollection
             {
                 new PieSeries
                 {
@@ -130,6 +144,14 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                     Title = "Sản phẩm",
                 }
             };
+            }
+            catch (Exception)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+            }
+
+
         }
 
         public async Task ChangeRankingPeriod2()
@@ -161,12 +183,31 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public async Task LoadRankingByYear2()
         {
             if (SelectedRankingTime2.Length != 4) return;
-            Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByYear(int.Parse(SelectedRankingTime2));
+            try
+            {
+                Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByYear(int.Parse(SelectedRankingTime2));
+            }
+            catch (Exception)
+            {
+
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+            }
+
         }
         public async Task LoadRankingByMonth2()
         {
             if (SelectedRankingTime2.Length == 4) return;
-            Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByMonth(int.Parse(SelectedRankingTime2.Remove(0, 6)));
+            try
+            {
+                Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByMonth(int.Parse(SelectedRankingTime2.Remove(0, 6)));
+            }
+            catch (Exception)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+            }
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.ShowtimeManagement;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -104,13 +105,21 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
             ListShowtimeofMovie = new ObservableCollection<ShowtimeDTO>(SelectedItem.Showtimes);
 
-
             moviePrice = 0;
         }
-        public async Task  GenerateSeat()
+        public async Task GenerateSeat()
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            ListSeat = new List<SeatSettingDTO>(await SeatService.Ins.GetSeatsByShowtime(SelectedShowtime.Id));
+            try
+            {
+                ListSeat = new List<SeatSettingDTO>(await SeatService.Ins.GetSeatsByShowtime(SelectedShowtime.Id));
+            }
+            catch (System.Exception)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+            }
+
             ListSeat1 = new ObservableCollection<SeatSettingDTO>();
             ListSeat2 = new ObservableCollection<SeatSettingDTO>();
             IsBought = 0;

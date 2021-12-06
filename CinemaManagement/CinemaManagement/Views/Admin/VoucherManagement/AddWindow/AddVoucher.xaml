@@ -205,7 +205,6 @@
                                                         Focusable="False">
                                                 <CheckBox Content="{Binding Id}"
                                                           x:Name="allcheck"
-                                                          Loaded="allcheck_load"
                                                           IsChecked="{Binding IsChecked}"
                                                           Visibility="{Binding Status,Converter={StaticResource Converter}}">
                                                     <i:Interaction.Triggers>
@@ -278,10 +277,15 @@
                               HorizontalAlignment="Left"
                               Margin="13,18,20,0"
                               x:Name="topcheckbox"
-                              Checked="CheckBox_Checked"
-                              Unchecked="CheckBox_Unchecked"
                               Command="{Binding CheckAllMiniVoucherCM}"
                               CommandParameter="{Binding ElementName=topcheckbox}" />
+                    <Grid>
+                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                     Value="0"
+                                     IsIndeterminate="{Binding IsReleaseVoucherLoading,UpdateSourceTrigger=PropertyChanged}"
+                                     Width="100"
+                                     Height="100" />
+                    </Grid>
                 </Grid>
 
 

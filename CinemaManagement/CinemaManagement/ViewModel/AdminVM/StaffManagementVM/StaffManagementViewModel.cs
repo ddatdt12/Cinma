@@ -88,6 +88,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         private ObservableCollection<StaffDTO> _staffList;
         public ObservableCollection<StaffDTO> StaffList
         {
+        
             get => _staffList;
             set
             {
@@ -138,10 +139,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 try
                 {
                     StaffList = new ObservableCollection<StaffDTO>(await StaffService.Ins.GetAllStaff());
-                }
-                catch (InvalidOperationException e)
-                {
-                    Console.WriteLine(e.Message);
                 }
                 catch (Exception e)
                 {
@@ -234,11 +231,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     wd._TaiKhoan.Text = SelectedItem.Username;
 
                     Fullname = SelectedItem.Name;
-                    //Gender.Content = SelectedItem.Gender;
-                    //Born = (DateTime)SelectedItem.BirthDate;
                     Phone = SelectedItem.PhoneNumber;
-                    //Role.Content = SelectedItem.Role;
-                    //StartDate = (DateTime)SelectedItem.StartingDate;
                     TaiKhoan = SelectedItem.Username;
 
                     MaskName.Visibility = Visibility.Visible;
@@ -306,8 +299,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 default:
                     break;
             }
-            //Ko cần này nhe
-            //listView.Items.Refresh();
         }
         void ResetData()
         {

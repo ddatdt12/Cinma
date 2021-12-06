@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System.Collections.Generic;
@@ -43,14 +44,14 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public ComboBoxItem SelectedBestSellPeriod
         {
             get { return _SelectedBestSellPeriod; }
-            set { _SelectedBestSellPeriod = value; OnPropertyChanged();}
+            set { _SelectedBestSellPeriod = value; OnPropertyChanged(); }
         }
 
         private string _selectedBestSellTime;
         public string SelectedBestSellTime
         {
             get { return _selectedBestSellTime; }
-            set { _selectedBestSellTime = value; OnPropertyChanged();  }
+            set { _selectedBestSellTime = value; OnPropertyChanged(); }
         }
 
         private ComboBoxItem _SelectedBestSellPeriod2;
@@ -67,7 +68,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             set { _selectedBestSellTime2 = value; OnPropertyChanged(); }
         }
 
-     
+
 
         public async Task ChangeBestSellPeriod()
         {
@@ -97,7 +98,16 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public async Task LoadBestSellByYear()
         {
             if (SelectedBestSellTime.Length != 4) return;
-            Top5Movie =await  StatisticsService.Ins.GetTop5BestMovieByYear(int.Parse(SelectedBestSellTime));
+            try
+            {
+                Top5Movie = await StatisticsService.Ins.GetTop5BestMovieByYear(int.Parse(SelectedBestSellTime));
+            }
+            catch (System.Exception)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+            }
+
 
 
             List<decimal> chartdata = new List<decimal>();
@@ -116,10 +126,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 },
             };
         }
-        public async  Task LoadBestSellByMonth()
+        public async Task LoadBestSellByMonth()
         {
             if (SelectedBestSellTime.Length == 4) return;
-            Top5Movie = await StatisticsService.Ins.GetTop5BestMovieByMonth(int.Parse(SelectedBestSellTime.Remove(0, 6)));
+            try
+            {
+                Top5Movie = await StatisticsService.Ins.GetTop5BestMovieByMonth(int.Parse(SelectedBestSellTime.Remove(0, 6)));
+            }
+            catch (System.Exception)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+            }
+
 
 
             List<decimal> chartdata = new List<decimal>();
@@ -170,7 +189,15 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public async Task LoadBestSellByYear2()
         {
             if (SelectedBestSellTime2.Length != 4) return;
-            Top5Product = await StatisticsService.Ins.GetTop5BestProductByYear(int.Parse(SelectedBestSellTime2));
+            try
+            {
+                Top5Product = await StatisticsService.Ins.GetTop5BestProductByYear(int.Parse(SelectedBestSellTime2));
+            }
+            catch (System.Exception)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+            }
 
 
             List<decimal> chartdata = new List<decimal>();
@@ -193,7 +220,16 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public async Task LoadBestSellByMonth2()
         {
             if (SelectedBestSellTime2.Length == 4) return;
-            Top5Product = await StatisticsService.Ins.GetTop5BestProductByMonth(int.Parse(SelectedBestSellTime2.Remove(0, 6)));
+            try
+            {
+                Top5Product = await StatisticsService.Ins.GetTop5BestProductByMonth(int.Parse(SelectedBestSellTime2.Remove(0, 6)));
+
+            }
+            catch (System.Exception)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+            }
 
             List<decimal> chartdata = new List<decimal>();
             chartdata.Add(0);

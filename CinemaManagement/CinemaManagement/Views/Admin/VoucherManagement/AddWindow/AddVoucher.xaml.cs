@@ -10,7 +10,6 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
 
     public partial class AddVoucher : Page
     {
-        public static List<CheckBox> AllCheckBox = new List<CheckBox>();
         public static CheckBox topcheck;
         public static ComboBox _cbb;
 
@@ -21,24 +20,10 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
             _cbb = cbb;
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            foreach (CheckBox item in AllCheckBox)
-                item.IsChecked = true;
-        }
-        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
-        {
-            foreach (CheckBox item in AllCheckBox)
-                item.IsChecked = false;
-        }
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (topcheck is null) return;
             topcheck.IsChecked = false;
-        }
-        private void allcheck_load(object sender, System.EventArgs e)
-        {
-            AllCheckBox.Add((CheckBox)sender);
         }
         private bool Filter(object item)
         {

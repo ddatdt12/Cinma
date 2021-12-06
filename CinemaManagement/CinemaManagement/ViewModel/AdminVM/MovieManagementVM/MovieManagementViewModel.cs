@@ -162,10 +162,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     GenreList = GenreService.Ins.GetAllGenre();
                     MovieList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetAllMovie());
                 }
-                catch (InvalidOperationException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
                 catch (Exception e)
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);

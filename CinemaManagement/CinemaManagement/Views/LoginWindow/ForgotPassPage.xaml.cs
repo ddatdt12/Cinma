@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.Utils;
+using CinemaManagement.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,10 +20,12 @@ namespace CinemaManagement.Views.LoginWindow
             {
                 errorlbl.Content = "Không được để trống!";
             }
-            else if (!RegexUtilities.IsValidEmail(emailfield.Text))
+            else if (true) //check if account is exists 
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Định dạng mail không hợp lệ!", MessageType.Warning, MessageButtons.OK);
+                //ForgotPassViewModel.IsExistsAccount = ....
+                MessageBoxCustom mb = new MessageBoxCustom("", "Tài khoản không tồn tại!", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
+
             }
             else
             {

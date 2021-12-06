@@ -162,9 +162,11 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                     {
                         BillDetail = await BillService.Ins.GetBillDetails(SelectedTicketBill.Id);
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-                        MessageBox.Show("Lỗi hệ thống");
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
+                        return;
                     }
 
                     if (BillDetail.TicketInfo is null)
@@ -316,11 +318,22 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             {
                 case "":
                     {
-                        IsGettingSource = true;
-                        await Task.Delay(0);
-                        ListProduct = new ObservableCollection<ProductReceiptDTO>(await ProductReceiptService .Ins.GetProductReceipt());
-                        IsGettingSource = false;
-                        return;
+                        try
+                        {
+                            IsGettingSource = true;
+                            await Task.Delay(0);
+                            ListProduct = new ObservableCollection<ProductReceiptDTO>(await ProductReceiptService.Ins.GetProductReceipt());
+                            IsGettingSource = false;
+                            return;
+                        }
+                        catch (Exception)
+                        {
+
+                            MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                            return;
+                        }
+
                     }
                 case "month":
                     {
@@ -339,17 +352,37 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             {
                 case "date":
                     {
-                        IsGettingSource = true;
-                        ListBill = new ObservableCollection<BillDTO>(await BillService.Ins.GetBillByDate(SelectedDate));
-                        IsGettingSource = false;
-                        return;
+                        try
+                        {
+                            IsGettingSource = true;
+                            ListBill = new ObservableCollection<BillDTO>(await BillService.Ins.GetBillByDate(SelectedDate));
+                            IsGettingSource = false;
+                            return;
+                        }
+                        catch (Exception)
+                        {
+                            MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                            return;
+                        }
+
                     }
                 case "":
                     {
-                        IsGettingSource = true;
-                        ListBill = new ObservableCollection<BillDTO>(await BillService.Ins.GetAllBill());
-                        IsGettingSource = false;
-                        return;
+                        try
+                        {
+                            IsGettingSource = true;
+                            ListBill = new ObservableCollection<BillDTO>(await BillService.Ins.GetAllBill());
+                            IsGettingSource = false;
+                            return;
+                        }
+                        catch (Exception)
+                        {
+                            MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                            return;
+                        }
+
                     }
                 case "month":
                     {
@@ -400,11 +433,31 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         }
         public async Task CheckMonthFilter()
         {
-            ListBill = new ObservableCollection<BillDTO>(await BillService .Ins.GetBillByMonth(SelectedMonth + 1));
+            try
+            {
+                ListBill = new ObservableCollection<BillDTO>(await BillService.Ins.GetBillByMonth(SelectedMonth + 1));
+            }
+            catch (Exception)
+            {
+
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                return;
+            }
         }
         public async Task CheckImportMonthFilter()
         {
-            ListProduct = new ObservableCollection<ProductReceiptDTO>(await ProductReceiptService.Ins.GetProductReceipt(SelectedImportMonth + 1));
+            try
+            {
+                ListProduct = new ObservableCollection<ProductReceiptDTO>(await ProductReceiptService.Ins.GetProductReceipt(SelectedImportMonth + 1));
+            }
+            catch (Exception)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                return;
+            }
+
         }
     }
 }

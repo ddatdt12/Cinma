@@ -29,10 +29,7 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             AddVoucher.topcheck.IsChecked = false;
-            foreach (var item in AddVoucher.AllCheckBox)
-            {
-                item.IsChecked = false;
-            }
+
             VoucherViewModel.WaitingMiniVoucher.Clear();
             this.Close();
         }

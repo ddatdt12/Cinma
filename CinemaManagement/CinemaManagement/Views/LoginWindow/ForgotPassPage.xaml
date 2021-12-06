@@ -67,7 +67,7 @@
                                          Height="20"
                                          Width="20"
                                          VerticalAlignment="Bottom" />
-                <TextBox materialDesign:HintAssist.Hint="Email"
+                <TextBox materialDesign:HintAssist.Hint="Tài khoản cần khôi phục"
                          Foreground="Black"
                          FontSize="15"
                          Width="200"

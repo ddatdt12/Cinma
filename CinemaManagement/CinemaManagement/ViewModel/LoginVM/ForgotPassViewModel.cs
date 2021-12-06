@@ -18,6 +18,7 @@ namespace CinemaManagement.ViewModel
 
     public class ForgotPassViewModel : BaseViewModel
     {
+        public static bool IsExistsAccount = false;
         public Button SendmailBtn { get; set; }
         private string _usremail;
         public string usremail
@@ -84,7 +85,7 @@ namespace CinemaManagement.ViewModel
 
                  if (string.IsNullOrEmpty(usremail)) return;
 
-                 if (!RegexUtilities.IsValidEmail(usremail)) return;
+                 if (!IsExistsAccount) return;
 
                  //(bool isSuccess, string message)  = await sendHtmlEmail();
                  //MessageBox.Show(message);
