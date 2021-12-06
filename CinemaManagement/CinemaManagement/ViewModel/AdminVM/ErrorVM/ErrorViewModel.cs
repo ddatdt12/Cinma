@@ -129,45 +129,6 @@ namespace CinemaManagement.ViewModel
                     ListError = new ObservableCollection<TroubleDTO>(troubleDTOs.Where(tr => tr.Status == SelectedFilterList.Tag.ToString()));
                 }
 
-                //if (SelectedFilterList.Content.ToString() == Utils.STATUS.WAITING)
-                //{
-                //    foreach (var item in temp)
-                //    {
-                //        if (item.Status == SelectedFilterList.Content.ToString())
-                //            ListError.Add(item);
-                //    }
-                //    return;
-                //}
-                //if (SelectedFilterList.Content.ToString() == Utils.STATUS.IN_PROGRESS)
-                //{
-                //    foreach (var item in temp)
-                //    {
-                //        if (item.Status == SelectedFilterList.Content.ToString())
-                //            ListError.Add(item);
-                //    }
-                //    return;
-                //}
-                //if (SelectedFilterList.Content.ToString() == Utils.STATUS.DONE)
-                //{
-                //    foreach (var item in temp)
-                //    {
-                //        if (item.Status == SelectedFilterList.Content.ToString())
-                //            ListError.Add(item);
-                //    }
-                //    return;
-                //}
-                //if (SelectedFilterList.Content.ToString() == Utils.STATUS.CANCLE)
-                //{
-                //    foreach (var item in temp)
-                //    {
-                //        if (item.Status == SelectedFilterList.Content.ToString())
-                //            ListError.Add(item);
-                //    }
-                //    return;
-                //}
-
-                //ListError = new ObservableCollection<TroubleDTO>(temp);
-
             }
             catch (Exception e)
             {

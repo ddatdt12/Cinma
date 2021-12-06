@@ -52,6 +52,10 @@
                               Loaded="periodbox_Loaded"
                               SelectedItem="{Binding SelectedIncomePeriod}">
                         <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding ChangeIncomePeriodCM}"
+                                                       CommandParameter="{Binding ElementName=periodbox}" />
+                            </i:EventTrigger>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding ChangeIncomePeriodCM}"
                                                        CommandParameter="{Binding ElementName=periodbox}" />
@@ -69,6 +73,10 @@
                               x:Name="Timebox"
                               SelectedItem="{Binding SelectedIncomeTime,Mode=OneWayToSource}">
                         <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding ChangeIncomePeriodCM}"
+                                                       CommandParameter="{Binding ElementName=Timebox}" />
+                            </i:EventTrigger>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding ChangeIncomePeriodCM}"
                                                        CommandParameter="{Binding ElementName=Timebox}" />

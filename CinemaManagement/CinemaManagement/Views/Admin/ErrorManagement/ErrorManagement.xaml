@@ -22,6 +22,11 @@
         <local:HintLevelConverter x:Key="HintLevelConverter" />
         <local:StatusEditConverter x:Key="StatusEditConverter" />
     </Page.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding ReloadErrorListCM}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <ComboBox Width="150"

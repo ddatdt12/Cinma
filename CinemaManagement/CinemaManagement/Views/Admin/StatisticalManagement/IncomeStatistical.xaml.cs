@@ -12,7 +12,6 @@ namespace CinemaManagement.Views.Admin.StatisticalManagement
         {
             InitializeComponent();
             this.Language = XmlLanguage.GetLanguage("vi-VN");
-
         }
 
         private void periodbox_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -60,6 +60,10 @@
                               SelectionChanged="periodbox1_SelectionChanged"
                               Loaded="periodbox1_Loaded">
                         <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding ChangeRankingPeriodCM}"
+                                                       CommandParameter="{Binding ElementName=periodbox1}" />
+                            </i:EventTrigger>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding ChangeRankingPeriodCM}"
                                                        CommandParameter="{Binding ElementName=periodbox1}" />
@@ -77,8 +81,13 @@
                               SelectedIndex="2"
                               SelectedItem="{Binding SelectedRankingTime,Mode=OneWayToSource}">
                         <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding ChangeRankingPeriodCM}"
+                                                       CommandParameter="{Binding ElementName=Time1}" />
+                            </i:EventTrigger>
                             <i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding ChangeRankingPeriodCM}" />
+                                <i:InvokeCommandAction Command="{Binding ChangeRankingPeriodCM}"
+                                                       CommandParameter="{Binding ElementName=Time1}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </ComboBox>
@@ -127,19 +136,7 @@
                 <materialDesign:Card Margin="10,0,0,0"
                                      Width="400">
                     <StackPanel>
-                        <!--<Label Content="Ưu đãi dành riêng"
-                               FontSize="18"
-                               FontWeight="Bold" />
-                        <Label Content="Top 1: 5 Voucher 25%"
-                               FontSize="15" />
-                        <Label Content="Top 2: 4 Voucher 25%"
-                               FontSize="15" />
-                        <Label Content="Top 3: 3 Voucher 25%"
-                               FontSize="15" />
-                        <Label Content="Top 4: 2 Voucher 25%"
-                               FontSize="15" />
-                        <Label Content="Top 5: 1 Voucher 25%"
-                               FontSize="15" />-->
+
                     </StackPanel>
                 </materialDesign:Card>
 
@@ -226,6 +223,9 @@
                               SelectionChanged="periodbox2_SelectionChanged"
                               Loaded="periodbox2_Loaded">
                         <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding ChangeRankingPeriod2CM}" />
+                            </i:EventTrigger>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding ChangeRankingPeriod2CM}" />
                             </i:EventTrigger>
@@ -241,6 +241,9 @@
                               x:Name="Time2"
                               SelectedItem="{Binding SelectedRankingTime2,Mode=OneWayToSource}">
                         <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding ChangeRankingPeriod2CM}" />
+                            </i:EventTrigger>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding ChangeRankingPeriod2CM}" />
                             </i:EventTrigger>

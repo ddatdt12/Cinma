@@ -60,6 +60,16 @@
                               SelectedItem="{Binding SelectedBestSellPeriod}"
                               SelectionChanged="periodbox1_SelectionChanged"
                               Loaded="periodbox1_Loaded">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriodCM}"
+                                                       CommandParameter="{Binding ElementName=periodbox1}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriodCM}"
+                                                       CommandParameter="{Binding ElementName=periodbox1}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem>Theo năm</ComboBoxItem>
                         <ComboBoxItem>Theo tháng</ComboBoxItem>
                     </ComboBox>
@@ -72,6 +82,10 @@
                               SelectedIndex="2"
                               SelectedItem="{Binding SelectedBestSellTime,Mode=OneWayToSource}">
                         <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriodCM}"
+                                                       CommandParameter="{Binding ElementName=Time1}" />
+                            </i:EventTrigger>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriodCM}"
                                                        CommandParameter="{Binding ElementName=Time1}" />
@@ -191,6 +205,16 @@
                               SelectedItem="{Binding SelectedBestSellPeriod2}"
                               SelectionChanged="periodbox2_SelectionChanged"
                               Loaded="periodbox2_Loaded">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriod2CM}"
+                                                       CommandParameter="{Binding ElementName=periodbox2}" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriod2CM}"
+                                                       CommandParameter="{Binding ElementName=periodbox2}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem>Theo năm</ComboBoxItem>
                         <ComboBoxItem>Theo tháng</ComboBoxItem>
                     </ComboBox>
@@ -202,6 +226,10 @@
                               SelectedItem="{Binding SelectedBestSellTime2,Mode=OneWayToSource}"
                               x:Name="Time2">
                         <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriod2CM}"
+                                                       CommandParameter="{Binding ElementName=Time2}" />
+                            </i:EventTrigger>
                             <i:EventTrigger EventName="SelectionChanged">
                                 <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriod2CM}"
                                                        CommandParameter="{Binding ElementName=Time2}" />
