@@ -2,6 +2,7 @@
 using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace CinemaManagement.Models.Services
         }
 
         #region Overview
-        public int GetBillQuantity(int year, int month = 0)
+        public async Task<int> GetBillQuantity(int year, int month = 0)
         {
             try
             {
@@ -35,11 +36,11 @@ namespace CinemaManagement.Models.Services
                 {
                     if (month == 0)
                     {
-                        return context.Bills.Where(b => b.CreatedAt.Year == year).Count();
+                        return await context.Bills.Where(b => b.CreatedAt.Year == year).CountAsync();
                     }
                     else
                     {
-                        return context.Bills.Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month).Count();
+                        return await context.Bills.Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month).CountAsync();
                     }
                 }
             }
@@ -54,7 +55,7 @@ namespace CinemaManagement.Models.Services
 
 
 
-        public (List<decimal>, decimal ProductRevenue, decimal TicketRevenue, string TicketRateStr) GetRevenueByYear(int year)
+        public async Task<(List<decimal>, decimal ProductRevenue, decimal TicketRevenue, string TicketRateStr)> GetRevenueByYear(int year)
         {
             List<decimal> MonthlyRevenueList = new List<decimal>(new decimal[12]);
 
@@ -65,7 +66,7 @@ namespace CinemaManagement.Models.Services
                     var billList = context.Bills
                     .Where(b => b.CreatedAt.Year == year);
 
-                    (decimal ProductRevenue, decimal TicketRevenue) = GetFullRevenue(context, year);
+                    (decimal ProductRevenue, decimal TicketRevenue) = await GetFullRevenue(context, year);
 
                     var MonthlyRevenue = billList
                              .GroupBy(b => b.CreatedAt.Month)
@@ -80,7 +81,7 @@ namespace CinemaManagement.Models.Services
                         MonthlyRevenueList[re.Month - 1] = decimal.Truncate(re.Income);
                     }
 
-                    (decimal lastProdReve, decimal lastTicketReve) = GetFullRevenue(context, year - 1);
+                    (decimal lastProdReve, decimal lastTicketReve) = await GetFullRevenue(context, year - 1);
                     decimal lastRevenueTotal = lastProdReve + lastTicketReve;
                     string RevenueRateStr;
                     if (lastRevenueTotal == 0)
@@ -103,7 +104,7 @@ namespace CinemaManagement.Models.Services
         }
 
 
-        public (List<decimal>, decimal ProductRevenue, decimal TicketRevenue, string RevenueRate) GetRevenueByMonth(int year, int month)
+        public async Task<(List<decimal>, decimal ProductRevenue, decimal TicketRevenue, string RevenueRate)> GetRevenueByMonth(int year, int month)
         {
             int days = DateTime.DaysInMonth(year, month);
             List<decimal> DailyReveList = new List<decimal>(new decimal[days]);
@@ -116,16 +117,16 @@ namespace CinemaManagement.Models.Services
                     var billList = context.Bills
                      .Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month);
 
-                    (decimal ProductRevenue, decimal TicketRevenue) = GetFullRevenue(context, year, month);
+                    (decimal ProductRevenue, decimal TicketRevenue) = await GetFullRevenue(context, year, month);
 
-                    var dailyRevenue = billList
+                    var dailyRevenue = await billList
                                 .GroupBy(b => b.CreatedAt.Day)
                                  .Select(gr => new
                                  {
                                      Day = gr.Key,
                                      Income = gr.Sum(b => b.TotalPrice),
                                      DiscountPrice = gr.Sum(b => (decimal?)b.DiscountPrice) ?? 0,
-                                 }).ToList();
+                                 }).ToListAsync();
 
                     foreach (var re in dailyRevenue)
                     {
@@ -137,7 +138,7 @@ namespace CinemaManagement.Models.Services
                         year--;
                         month = 13;
                     }
-                    (decimal lastProdReve, decimal lastTicketReve) = GetFullRevenue(context ,year, month - 1);
+                    (decimal lastProdReve, decimal lastTicketReve) = await GetFullRevenue(context, year, month - 1);
                     decimal lastRevenueTotal = lastProdReve + lastTicketReve;
                     string RevenueRateStr;
                     if (lastRevenueTotal == 0)
@@ -164,7 +165,7 @@ namespace CinemaManagement.Models.Services
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <returns></returns>
-        public (decimal, decimal) GetFullRevenue(CinemaManagementEntities context, int year, int month = 0)
+        public async Task<(decimal, decimal)> GetFullRevenue(CinemaManagementEntities context, int year, int month = 0)
         {
             try
             {
@@ -172,20 +173,20 @@ namespace CinemaManagement.Models.Services
                 if (month != 0)
                 {
 
-                    decimal ProductRevenue = context.ProductBillInfoes.Where(pB => pB.Bill.CreatedAt.Year == year && pB.Bill.CreatedAt.Month == month)
-                                                    .Sum(pB => (decimal?)(pB.PricePerItem * pB.Quantity)) ?? 0;
-                    decimal TicketRevenue = context.Tickets.Where(t => t.Bill.CreatedAt.Year == year && t.Bill.CreatedAt.Month == month)
-                                                    .Sum(t => (decimal?)t.Price) ?? 0;
+                    decimal ProductRevenue = await context.ProductBillInfoes.Where(pB => pB.Bill.CreatedAt.Year == year && pB.Bill.CreatedAt.Month == month)
+                                                    .SumAsync(pB => (decimal?)(pB.PricePerItem * pB.Quantity)) ?? 0;
+                    decimal TicketRevenue = await context.Tickets.Where(t => t.Bill.CreatedAt.Year == year && t.Bill.CreatedAt.Month == month)
+                                                    .SumAsync(t => (decimal?)t.Price) ?? 0;
 
                     return (ProductRevenue, TicketRevenue);
 
                 }
                 else
                 {
-                    decimal ProductRevenue = context.ProductBillInfoes.Where(pB => pB.Bill.CreatedAt.Year == year)
-                                                    .Sum(pB => (decimal?)(pB.PricePerItem * pB.Quantity)) ?? 0;
-                    decimal TicketRevenue = context.Tickets.Where(t => t.Bill.CreatedAt.Year == year)
-                                                    .Sum(t => (decimal?)t.Price) ?? 0;
+                    decimal ProductRevenue = await context.ProductBillInfoes.Where(pB => pB.Bill.CreatedAt.Year == year)
+                                                    .SumAsync(pB => (decimal?)(pB.PricePerItem * pB.Quantity)) ?? 0;
+                    decimal TicketRevenue = await context.Tickets.Where(t => t.Bill.CreatedAt.Year == year)
+                                                    .SumAsync(t => (decimal?)t.Price) ?? 0;
                     return (ProductRevenue, TicketRevenue);
                 }
             }
@@ -199,16 +200,16 @@ namespace CinemaManagement.Models.Services
 
 
         #region Expense
-        private decimal GetFullExpenseLastTime(CinemaManagementEntities context, int year, int month = 0)
+        private async Task<decimal> GetFullExpenseLastTime(CinemaManagementEntities context, int year, int month = 0)
         {
             try
             {
                 if (month == 0)
                 {
                     //Product Receipt
-                    decimal LastYearProdExpense = context.ProductReceipts
+                    decimal  LastYearProdExpense = await context.ProductReceipts
                              .Where(pr => pr.CreatedAt.Year == year)
-                             .Sum(pr => (decimal?)pr.ImportPrice) ?? 0;
+                             .SumAsync(pr => (decimal?)pr.ImportPrice) ?? 0;
 
                     //Repair Cost
                     var LastYearRepairCost = LastYearProdExpense * 2;
@@ -217,9 +218,9 @@ namespace CinemaManagement.Models.Services
                 else
                 {
                     //Product Receipt
-                    decimal LastMonthProdExpense = context.ProductReceipts
+                    decimal LastMonthProdExpense = await context.ProductReceipts
                              .Where(pr => pr.CreatedAt.Year == year && pr.CreatedAt.Month == month)
-                             .Sum(pr => (decimal?)pr.ImportPrice) ?? 0;
+                             .SumAsync(pr => (decimal?)pr.ImportPrice) ?? 0;
                     //Repair Cost
                     var LastMonthRepairCost = LastMonthProdExpense * 2;
                     return (LastMonthProdExpense + LastMonthRepairCost);
@@ -231,7 +232,7 @@ namespace CinemaManagement.Models.Services
             }
 
         }
-        public (List<decimal> MonthlyExpense, decimal ProductExpense, decimal RepairCost, string ExpenseRate) GetExpenseByYear(int year)
+        public async Task<(List<decimal> MonthlyExpense, decimal ProductExpense, decimal RepairCost, string ExpenseRate)> GetExpenseByYear(int year)
         {
             List<decimal> MonthlyExpense = new List<decimal>(new decimal[12]);
             decimal ProductExpenseTotal = 0;
@@ -242,14 +243,14 @@ namespace CinemaManagement.Models.Services
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var MonthlyProdExpense = context.ProductReceipts
+                    var MonthlyProdExpense =await context.ProductReceipts
                      .Where(b => b.CreatedAt.Year == year)
                      .GroupBy(b => b.CreatedAt.Month)
                      .Select(gr => new
                      {
                          Month = gr.Key,
                          Outcome = gr.Sum(b => (decimal?)b.ImportPrice) ?? 0
-                     }).ToList();
+                     }).ToListAsync();
 
                     //Repair Cost
                     var MonthlyRepairCost = MonthlyProdExpense.Select(p => new { Month = p.Month, Outcome = p.Outcome * 2 }).ToList();
@@ -267,7 +268,7 @@ namespace CinemaManagement.Models.Services
                         MonthlyExpense[ex.Month - 1] += decimal.Truncate(ex.Outcome);
                         RepairCostTotal += ex.Outcome;
                     }
-                    decimal lastProductExpenseTotal = GetFullExpenseLastTime(context, year - 1);
+                    decimal lastProductExpenseTotal = await GetFullExpenseLastTime(context, year - 1);
 
                     string ExpenseRateStr;
                     //check mẫu  = 0
@@ -291,7 +292,7 @@ namespace CinemaManagement.Models.Services
             }
         }
 
-        public (List<decimal> DailyExpense, decimal ProductExpense, decimal RepairCost, string RepairRateStr) GetExpenseByMonth(int year, int month)
+        public async Task<(List<decimal> DailyExpense, decimal ProductExpense, decimal RepairCost, string RepairRateStr)> GetExpenseByMonth(int year, int month)
         {
 
             int days = DateTime.DaysInMonth(year, month);
@@ -305,14 +306,14 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     //Product Receipt
-                    var MonthlyProdExpense = context.ProductReceipts
+                    var MonthlyProdExpense = await context.ProductReceipts
                          .Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month)
                          .GroupBy(b => b.CreatedAt.Day)
                          .Select(gr => new
                          {
                              Day = gr.Key,
                              Outcome = gr.Sum(b => (decimal?)b.ImportPrice) ?? 0
-                         }).ToList();
+                         }).ToListAsync();
                     //Repair Cost
                     var MonthlyRepairCost = MonthlyProdExpense.Select(p => new { Day = p.Day, Outcome = p.Outcome * 2 }).ToList();
 
@@ -322,6 +323,7 @@ namespace CinemaManagement.Models.Services
                         DailyExpense[ex.Day - 1] += decimal.Truncate(ex.Outcome);
                         ProductExpenseTotal += ex.Outcome;
                     }
+
                     foreach (var ex in MonthlyRepairCost)
                     {
                         DailyExpense[ex.Day - 1] += decimal.Truncate(ex.Outcome);
@@ -334,7 +336,7 @@ namespace CinemaManagement.Models.Services
                     }
 
 
-                    decimal lastProductExpenseTotal = GetFullExpenseLastTime(context, year, month - 1);
+                    decimal lastProductExpenseTotal = await GetFullExpenseLastTime(context, year, month - 1);
                     string ExpenseRateStr;
                     //check mẫu  = 0
                     if (lastProductExpenseTotal == 0)

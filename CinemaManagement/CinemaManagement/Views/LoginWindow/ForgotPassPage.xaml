@@ -139,23 +139,35 @@
                 </Grid>
 
                 <Grid HorizontalAlignment="Right">
-                    <Button Content="Gửi mã"
-                            Width="120"
-                            x:Name="sendmailbtn"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            Margin="0,50,20,0"
-                            Click="sendmailbtn_Click"
-                            Command="{Binding SendMailCM}" />
-                    <Button Content="Xác nhận"
-                            Width="120"
-                            Visibility="Collapsed"
-                            x:Name="acceptbutn"
-                            materialDesign:ButtonAssist.CornerRadius="5"
-                            Margin="0,50,20,0"
-                            Click="acceptbutn_Click"
-                            Command="{Binding ConfirmCM}"
-                            CommandParameter="{Binding ElementName=codefield}" />
+                    <Grid>
+                        <Button Width="120"
+                                x:Name="sendmailbtn"
+                                Content="Gửi mã"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Margin="0,50,20,0"
+                                Click="sendmailbtn_Click"
+                                Command="{Binding SendMailCM}"
+                                CommandParameter="{Binding ElementName=sendmailbtn}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Loaded">
+                                    <i:InvokeCommandAction Command="{Binding SaveSendmailBtnCM}"
+                                                           CommandParameter="{Binding ElementName=sendmailbtn}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                        <Button Content="Xác nhận"
+                                Width="120"
+                                Visibility="Collapsed"
+                                x:Name="acceptbutn"
+                                materialDesign:ButtonAssist.CornerRadius="8"
+                                Margin="0,50,20,0"
+                                Click="acceptbutn_Click"
+                                Command="{Binding ConfirmCM}"
+                                CommandParameter="{Binding ElementName=codefield}" />
+
+                    </Grid>
                 </Grid>
+
             </StackPanel>
 
         </StackPanel>

@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.VoucherManagement;
 using CinemaManagement.Views.Admin.VoucherManagement.AddVoucher;
 using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
@@ -17,8 +18,16 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 {
     public partial class VoucherViewModel : BaseViewModel
     {
+        public static Grid ShadowMask { get; set; }
         public Frame mainFrame { get; set; }
         public Card ButtonView { get; set; }
+
+        private bool _IsReleaseVoucherLoading;
+        public bool IsReleaseVoucherLoading
+        {
+            get { return _IsReleaseVoucherLoading; }
+            set { _IsReleaseVoucherLoading = value; OnPropertyChanged(); }
+        }
 
         private VoucherReleaseDTO selectedItem;
         public VoucherReleaseDTO SelectedItem
@@ -39,21 +48,29 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public ICommand LoadViewCM { get; set; }
         public ICommand LoadEdit_InforViewCM { get; set; }
         public ICommand LoadDeleteVoucherCM { get; set; }
+        public ICommand MaskNameCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
+        public ICommand RefreshEmailListCM { get; set; }
 
         public VoucherViewModel()
         {
-            GetCurrentDate = DateTime.Today;
-            StartDate = FinishDate = DateTime.Today;
 
-            try
-            {
-                ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(VoucherService.Ins.GetAllVoucherReleases());
-            }
-            catch (Exception e)
-            {
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+             {
+                 GetCurrentDate = DateTime.Today;
+                 StartDate = FinishDate = DateTime.Today;
 
-                throw e;
-            }
+                 try
+                 {
+                     //Loading UI Handler Here
+                     ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(await VoucherService.Ins.GetAllVoucherReleases());
+                 }
+                 catch (Exception e)
+                 {
+
+                     throw e;
+                 }
+             });
 
 
             LoadAddWindowCM = new RelayCommand<object>((p) => { return true; }, (p) =>
@@ -61,6 +78,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 AddVoucherWindow w = new AddVoucherWindow();
                 BindStaffID = StaffID;
                 Unlock = false;
+                ShadowMask.Visibility = Visibility.Visible;
                 w.ShowDialog();
             });
             LoadAddInforCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
@@ -76,17 +94,21 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 else
                     return true;
             },
-            (p) =>
+            async (p) =>
             {
                 if (p is null) return;
                 ChangeView(p);
+
                 AddVoucher w = new AddVoucher();
                 if (SelectedItem.Status == false)
                     w.releasebtn.Visibility = Visibility.Collapsed;
                 else
                     w.releasebtn.Visibility = Visibility.Visible;
+
+                await GetVoucherReleaseDetails();
                 mainFrame.Content = w;
-                WaitingMiniVoucher = new ObservableCollection<VoucherDTO>();
+                WaitingMiniVoucher = new List<int>();
+                NumberSelected = 0;
             });
             LoadAddMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -111,7 +133,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 {
                     if (ListMiniVoucher[ListMiniVoucher.Count - 1].Code == ListMiniVoucher[i].Code)
                     {
-                        MessageBox.Show("Mã đã bị trùng!");
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Mã đã bị trùng!", MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
                         return;
                     }
                 }
@@ -126,17 +149,18 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 LessVoucherFunc();
             });
-            LoadInforBigVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                if (SelectedItem is null) return;
+            LoadInforBigVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+             {
+                 if (SelectedItem is null) return;
 
-                (VoucherReleaseDTO vc, bool haveAny) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
-                SelectedItem = vc;
-                Infor_EditWindow w = new Infor_EditWindow();
-                ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
-                w.ShowDialog();
-            });
+                 (VoucherReleaseDTO vc, bool haveAny) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
+                 SelectedItem = vc;
+                 Infor_EditWindow w = new Infor_EditWindow();
+                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
+                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                 ShadowMask.Visibility = Visibility.Visible;
+                 w.ShowDialog();
+             });
             LoadInforCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
             {
                 ChangeView(p);
@@ -145,50 +169,57 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mainFrame.Content = w;
                 Unlock = true;
             });
-            LoadDeleteVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                if (SelectedItem is null) return;
+            LoadDeleteVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+             {
+                 if (SelectedItem is null) return;
 
-                else
-                {
+                 else
+                 {
 
-                    string message = "Bạn có chắc muốn xoá đợt phát hành này không? Dữ liệu không thể phục hồi sau khi xoá!";
+                     string message = "Bạn có chắc muốn xoá đợt phát hành này không? Dữ liệu không thể phục hồi sau khi xoá!";
+                     MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
+                     result.ShowDialog();
 
-                    MessageBoxResult result = MessageBox.Show(message, "Xác nhận xoá", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                     if (result.DialogResult == true)
+                     {
+                         (bool deleteSuccess, string messageFromDelete) = await VoucherService.Ins.DeteleVoucherRelease(SelectedItem.Id);
 
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        (bool deleteSuccess, string messageFromDelete) = VoucherService.Ins.DeteleVoucherRelease(SelectedItem.Id);
-                        MessageBox.Show(messageFromDelete);
+                         if (deleteSuccess)
+                         {
+                             ListBigVoucher.Remove(SelectedItem);
+                             MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Success, MessageButtons.OK);
+                             mb.ShowDialog();
+                         }
+                         else
+                         {
+                             MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Error, MessageButtons.OK);
+                             mb.ShowDialog();
+                         }
+                     }
+                 }
+             });
+            SaveNewBigVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await SaveNewBigVoucherFunc();
+            });
 
-                        if (deleteSuccess)
-                        {
-                            ListBigVoucher.Remove(SelectedItem);
-                        }
-                    }
-                }
-            });
-            SaveNewBigVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            SaveMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+             {
+                 await SaveMiniVoucherFunc();
+             });
+            SaveListMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                SaveNewBigVoucherFunc();
+                await SaveListMiniVoucherFunc();
             });
-            SaveMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            UpdateBigVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                SaveMiniVoucherFunc();
+                await UpdateBigVoucherFunc();
             });
-            SaveListMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            DeleteMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                SaveListMiniVoucherFunc();
+                await DeleteMiniVoucherFunc();
             });
-            UpdateBigVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                UpdateBigVoucherFunc();
-            });
-            DeleteMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                DeleteMiniVoucherFunc();
-            });
-            ReleaseVoucherCM = new RelayCommand<Button>((p) =>
+            OpenReleaseVoucherCM = new RelayCommand<Button>((p) =>
             {
                 if (HaveUsed)
                     return false;
@@ -196,7 +227,112 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             },
             (p) =>
             {
+                ReleaseVoucher w = new ReleaseVoucher();
+                ReleaseVoucherList = new ObservableCollection<VoucherDTO>();
 
+                for (int i = 0; i < WaitingMiniVoucher.Count; i++)
+                {
+                    for (int j = 0; j < StoreAllMini.Count; j++)
+                    {
+                        if (WaitingMiniVoucher[i] == StoreAllMini[j].Id)
+                        {
+                            VoucherDTO temp = new VoucherDTO
+                            {
+                                Id = WaitingMiniVoucher[i],
+                                Code = StoreAllMini[j].Code
+                            };
+                            ReleaseVoucherList.Add(temp);
+                            break;
+                        }
+                    }
+                }
+
+                w.ShowDialog();
+            });
+            ReleaseVoucherCM = new RelayCommand<ReleaseVoucher>((p) => { return true; }, async (p) =>
+            {
+                IsReleaseVoucherLoading = true;
+
+                await ReleaseVoucherFunc(p);
+
+                IsReleaseVoucherLoading = false;
+
+            });
+            StoreWaitingListCM = new RelayCommand<CheckBox>((p) => { return true; }, (p) =>
+            {
+                int temp = int.Parse(p.Content.ToString());
+                if (p.IsChecked == false)
+                {
+                    if (WaitingMiniVoucher.Contains(temp))
+                    {
+                        WaitingMiniVoucher.Remove(temp);
+                        NumberSelected--;
+                    }
+
+                }
+                else
+                {
+                    if (!WaitingMiniVoucher.Contains(temp))
+                    {
+                        WaitingMiniVoucher.Add(temp);
+                        NumberSelected++;
+                    }
+
+                }
+
+                if (WaitingMiniVoucher.Count == 0)
+                    AddVoucher.topcheck.IsChecked = false;
+
+            });
+            CheckAllMiniVoucherCM = new RelayCommand<CheckBox>((p) => { return true; }, (p) =>
+            {
+                if (p.IsChecked == true)
+                {
+                    CheckAllMiniVoucherFunc(true);
+                }
+                else
+                {
+                    CheckAllMiniVoucherFunc(false);
+                }
+
+            });
+            DeleteWaitingReleaseCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                if (SelectedWaitingVoucher >= 0)
+                {
+                    foreach (var item in WaitingMiniVoucher)
+                    {
+                        if (item == ReleaseVoucherList[SelectedWaitingVoucher].Id)
+                        {
+                            WaitingMiniVoucher.Remove(item);
+                            break;
+                        }
+
+                    }
+                    ReleaseVoucherList.RemoveAt(SelectedWaitingVoucher);
+                }
+            });
+            MoreEmailCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+
+                for (int i = ListCustomerEmail.Count - 2; i >= 0; i--)
+                {
+                    if (ListCustomerEmail[ListCustomerEmail.Count - 1].Email == ListCustomerEmail[i].Email)
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Email đã bị trùng!", MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
+                        return;
+                    }
+                }
+
+                ListCustomerEmail.Add(new CustomerEmail
+                {
+                    Email = "",
+                });
+            });
+            LessEmailCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                ListCustomerEmail.RemoveAt(selectedWaitingVoucher);
             });
 
             LoadViewCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
@@ -222,6 +358,18 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 ButtonView = p;
                 p.Background = new SolidColorBrush(Colors.White);
                 p.SetValue(ShadowAssist.ShadowDepthProperty, ShadowDepth.Depth0);
+            });
+            ResetSelectedNumberCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                NumberSelected = 0;
+            });
+            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+            {
+                ShadowMask = p;
+            });
+            RefreshEmailListCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await RefreshEmailList();
             });
         }
         public void ChangeView(Card p)

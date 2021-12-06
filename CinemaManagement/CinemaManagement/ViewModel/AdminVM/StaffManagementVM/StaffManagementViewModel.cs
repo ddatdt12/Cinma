@@ -1,10 +1,12 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.QuanLyNhanVienPage;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -107,12 +109,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
         public ICommand OpenAddStaffCommand { get; set; }
         public ICommand OpenEditStaffCommand { get; set; }
-        public ICommand OpenDeleteStaffCommand { get; set; }
         public ICommand OpenChangePassCommand { get; set; }
 
         public ICommand MouseMoveCommand { get; set; }
         public ICommand CloseCommand { get; set; }
         public ICommand MaskNameCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
 
 
 
@@ -131,7 +133,10 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         public StaffManagementViewModel()
         {
 
-            LoadStaffListView(Operation.READ);
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await LoadStaffListView(Operation.READ);
+            });
             GetListViewCommand = new RelayCommand<ListView>((p) => { return true; },
                 (p) =>
                 {
@@ -149,24 +154,41 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 });
 
             AddStaffCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
+                async (p) =>
                 {
-                    AddStaff(p);
+                    await AddStaff(p);
                 });
             EditStaffCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
+                async (p) =>
                 {
-                    EditStaff(p);
+                    await EditStaff(p);
                 });
             ChangePassCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
+                async (p) =>
                 {
-                    ChangePass(p);
+                    await ChangePass(p);
                 });
             DeleteStaffCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
+                async (p) =>
                 {
-                    DeleteStaff(p);
+                    MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", "Bạn có chắc muốn xoá nhân viên này không?", MessageType.Warning, MessageButtons.YesNo);
+                    result.ShowDialog();
+
+                    if (result.DialogResult == true)
+                    {
+                        (bool successDeleteStaff, string messageFromDeleteStaff) = StaffService.Ins.DeleteStaff(SelectedItem.Id);
+                        if (successDeleteStaff)
+                        {
+                            await LoadStaffListView(Utils.Operation.DELETE);
+                            MessageBoxCustom mb = new MessageBoxCustom("", messageFromDeleteStaff, MessageType.Success, MessageButtons.OK);
+                            mb.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBoxCustom mb = new MessageBoxCustom("", messageFromDeleteStaff, MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                        }
+                    }
                 });
 
             OpenAddStaffCommand = new RelayCommand<object>((p) => { return true; },
@@ -211,10 +233,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     wd.ShowDialog();
                 });
 
-            OpenDeleteStaffCommand = new RelayCommand<object>((p) => { return true; }, (p) => { XoaNhanVienWindow wd = new XoaNhanVienWindow();
-                MaskName.Visibility = Visibility.Visible;
-                wd.ShowDialog(); });
-
             OpenChangePassCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 DoiMatKhau wd = new DoiMatKhau();
@@ -251,7 +269,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
            );
         }
 
-        public void LoadStaffListView(Operation oper, StaffDTO staff = null)
+        public async Task LoadStaffListView(Operation oper, StaffDTO staff = null)
         {
 
             switch (oper)
@@ -259,7 +277,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 case Operation.READ:
                     try
                     {
-                        StaffList = new ObservableCollection<StaffDTO>(StaffService.Ins.GetAllStaff());
+                        StaffList = new ObservableCollection<StaffDTO>(await StaffService.Ins.GetAllStaff());
                     }
                     catch (InvalidOperationException e)
                     {
@@ -267,7 +285,8 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Lỗi hệ thống " + e.Message);
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
                     }
                     break;
                 case Operation.CREATE:

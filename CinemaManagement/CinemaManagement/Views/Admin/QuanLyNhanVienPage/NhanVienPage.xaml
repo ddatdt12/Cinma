@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:CinemaManagement.Views.Admin.QuanLyNhanVienPage"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -20,7 +19,7 @@
       DataContext="{StaticResource StaffManagementVM}"
       ShowsNavigationUI="False"
       x:Name="mainPage">
- 
+
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
             <BeginStoryboard>
@@ -45,6 +44,7 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding MaskNameCM}"
                                    CommandParameter="{Binding ElementName=ShadowMask}" />
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -71,173 +71,199 @@
                      TextChanged="TextBox_TextChanged"
                      VerticalAlignment="Bottom">
             </TextBox>
-            <Button  Content="Thêm"
-                     Width="120"
-                     Height="40"
-                     FontSize="25"
-                     FontFamily="arial"
-                     Margin="30,0,0,0"
-                     VerticalAlignment="Bottom"
-                     materialDesign:ButtonAssist.CornerRadius="5"
-                     Command="{Binding OpenAddStaffCommand}" />
-        </StackPanel> 
+            <Button Width="120"
+                    Height="40"
+                    FontSize="25"
+                    FontFamily="arial"
+                    Margin="30,0,0,0"
+                    Padding="0"
+                    VerticalAlignment="Bottom"
+                    materialDesign:ButtonAssist.CornerRadius="8"
+                    Command="{Binding OpenAddStaffCommand}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="PlusCircleOutline"
+                                                 Width="25"
+                                                 Height="25"
+                                                 VerticalAlignment="Center"
+                                                 Margin="0,0,0,0" />
+                        <TextBlock Text="Thêm"
+                                   Margin="5,0,0,0" />
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+        </StackPanel>
 
         <!--#region Danh sách nhân viên-->
         <materialDesign:Card Grid.Row="1"
                              UniformCornerRadius="5"
                              Margin="30,20,30,20">
-            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          x:Name="_listView"
-                          PreviewMouseWheel="listView_PreviewMouseWheel">
-                <ListView ItemsSource="{Binding StaffList}"
-                          FontFamily="Ubuntu"
-                          SelectedItem="{Binding SelectedItem}"
-                          x:Name="_ListView">
+            <StackPanel>
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              x:Name="_listView"
+                              PreviewMouseWheel="listView_PreviewMouseWheel"
+                              Height="570">
+                    <ListView ItemsSource="{Binding StaffList}"
+                              FontFamily="Ubuntu"
+                              SelectedItem="{Binding SelectedItem}"
+                              x:Name="_ListView">
 
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem"
-                               BasedOn="{StaticResource MaterialDesignGridViewItem}">
-                            <Setter Property="HorizontalContentAlignment"
-                                    Value="Center" />
-                            <Setter Property="Height"
-                                    Value="50" />
-                            <Setter Property="VerticalContentAlignment"
-                                    Value="Center" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem"
+                                   BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                                <Setter Property="HorizontalContentAlignment"
+                                        Value="Center" />
+                                <Setter Property="Height"
+                                        Value="50" />
+                                <Setter Property="VerticalContentAlignment"
+                                        Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
 
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="ID">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Id}"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Họ và tên">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Giới tính">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Gender}"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Ngày sinh">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding  BirthDate,StringFormat=dd-MM-yyyy}"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Số điện thoại">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding PhoneNumber}"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Chức vụ">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Role}"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Ngày bắt đầu">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding StartingDate,StringFormat=dd-MM-yyyy}"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel VerticalAlignment="Center"
-                                                    Orientation="Horizontal"
-                                                    Margin="60,0,0,0">
-                                            <Border BorderBrush="Black"
-                                                    BorderThickness="2"
-                                                    CornerRadius="6"
-                                                    Cursor="Hand">
-                                                <Border.Style>
-                                                    <Style TargetType="Border">
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsMouseOver"
-                                                                     Value="True">
-                                                                <Setter Property="Background"
-                                                                        Value="#00e5ff" />
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
-                                                <Image Source="/Resources/IconPack/pencil.png"
-                                                       Width="30"
-                                                       Height="30"
-                                                       Cursor="Hand" />
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.OpenEditStaffCommand}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Border>
-                                            <Border Margin="30 0 0 0"
-                                                    BorderBrush="Black"
-                                                    BorderThickness="2"
-                                                    CornerRadius="6"
-                                                    Cursor="Hand">
-                                                <Border.Style>
-                                                    <Style TargetType="Border">
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsMouseOver"
-                                                                     Value="True">
-                                                                <Setter Property="Background"
-                                                                        Value="#ff6255" />
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
-                                                <materialDesign:PackIcon Kind="GarbageCanEmpty"
-                                                                         Width="30"
-                                                                         Height="30"
-                                                                         Cursor="Hand" />
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.OpenDeleteStaffCommand}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Border>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Id}"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Họ và tên">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Giới tính">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Gender}"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Ngày sinh">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding  BirthDate,StringFormat=dd-MM-yyyy}"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Số điện thoại">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding PhoneNumber}"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Chức vụ">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Role}"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Ngày bắt đầu">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding StartingDate,StringFormat=dd-MM-yyyy}"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel VerticalAlignment="Center"
+                                                        Orientation="Horizontal"
+                                                        Margin="60,0,0,0">
+                                                <Border BorderBrush="Black"
+                                                        BorderThickness="2"
+                                                        CornerRadius="6"
+                                                        Cursor="Hand">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver"
+                                                                         Value="True">
+                                                                    <Setter Property="Background"
+                                                                            Value="#00e5ff" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                    <Image Source="/Resources/IconPack/pencil.png"
+                                                           Width="30"
+                                                           Height="30"
+                                                           Cursor="Hand" />
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.OpenEditStaffCommand}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Border>
+                                                <Border Margin="30 0 0 0"
+                                                        BorderBrush="Black"
+                                                        BorderThickness="2"
+                                                        CornerRadius="6"
+                                                        Cursor="Hand">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver"
+                                                                         Value="True">
+                                                                    <Setter Property="Background"
+                                                                            Value="#ff6255" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                    <materialDesign:PackIcon Kind="GarbageCanEmpty"
+                                                                             Width="30"
+                                                                             Height="30"
+                                                                             Cursor="Hand" />
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=_ListView, Path=DataContext.DeleteStaffCommand}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </Border>
 
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Background="Red"></Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollViewer>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Background="Red"></Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+                <Grid>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,20,0">
+                        <Label Content="Kết quả: "
+                               FontSize="15" />
+                        <Label Content="{Binding StaffList.Count}"
+                               x:Name="result"
+                               FontSize="15" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
         </materialDesign:Card>
         <!--#endregion-->
-        
+
         <Grid Grid.RowSpan="2"
               Background="Gray"
               Opacity="0.3"

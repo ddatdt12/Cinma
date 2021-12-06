@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.VoucherManagement"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
@@ -11,9 +10,9 @@
         Background="Transparent"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Height="550"
+        Height="580"
         Width="1000"
-        MouseDown="Window_MouseDown"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         DataContext="{StaticResource VoucherVM}">
 
     <i:Interaction.Triggers>
@@ -90,7 +89,7 @@
                                     BorderBrush="Transparent"
                                     BorderThickness="0"
                                     materialDesign:ButtonAssist.CornerRadius="0"
-                                    Command="{Binding LoadAddInforCM}"
+                                    Command="{Binding LoadInforCM}"
                                     CommandParameter="{Binding ElementName=card1}" />
                         </materialDesign:Card>
                         <materialDesign:Card Height="auto"

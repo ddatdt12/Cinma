@@ -5,15 +5,12 @@ using System.Windows.Input;
 
 namespace CinemaManagement.Views.Admin.FoodManagementPage
 {
-    /// <summary>
-    /// Interaction logic for AddFoodWindow.xaml
-    /// </summary>
     public partial class AddFoodWindow : Window
     {
         public AddFoodWindow()
         {
             InitializeComponent();
-            this.Owner = App.Current.MainWindow;
+            //this.Owner = App.Current.MainWindow;
             
         }
 
@@ -34,5 +31,11 @@ namespace CinemaManagement.Views.Admin.FoodManagementPage
             if (t.Text.Length <= 0)
                 t.Text = "0";
         }
+
+        private void AddFoodWd_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //this.DragMove();
+        }
+
     }
 }

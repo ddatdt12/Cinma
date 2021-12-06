@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.FoodManagementPage"
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -16,13 +15,13 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource FoodManagementVM}"
         WindowStyle="None"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Name="ImportFoodWd"
         ResizeMode="NoResize"
         Height="250"
         Width="550">
-    
+
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>
@@ -41,10 +40,12 @@
 
 
     <Grid>
-        <Border BorderBrush="#18ffff"
-                BorderThickness="2"
-                CornerRadius="10">
-            <materialDesign:Card UniformCornerRadius="10">
+        <Border CornerRadius="10"
+                Background="White"
+                BorderBrush="Gray"
+                BorderThickness="1">
+            <materialDesign:Card UniformCornerRadius="10"
+                                 Background="Transparent">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
@@ -75,25 +76,24 @@
                                     Value="40" />
                         </Style>
                     </Grid.Resources>
-                    <materialDesign:ColorZone Mode="SecondaryMid"
-                                              Padding="10"
-                                              Background="#0c70b6"
-                                              Grid.Row="0">
+                    <Border BorderThickness="0,0,0,1"
+                            BorderBrush="Black"
+                            Grid.Row="0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center"
-                                       Margin="30 0 0 0"
+                                       Margin="10 0 0 0"
                                        Text="NHẬP SẢN PHẨM"
-                                       Foreground="White"
+                                       Foreground="Black"
                                        FontWeight="DemiBold"
                                        FontSize="20" />
                         </StackPanel>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
+                                <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}"
                                                        CommandParameter="{Binding ElementName=ImportFoodWd}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                    </materialDesign:ColorZone>
+                    </Border>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
@@ -162,8 +162,8 @@
                                     <Image Source="{Binding ImageSource}"
                                            VerticalAlignment="Stretch"
                                            HorizontalAlignment="Stretch"
-                                           Margin="10" 
-                                           x:Name="ImportImage"/>
+                                           Margin="10"
+                                           x:Name="ImportImage" />
                                 </Border>
                             </Grid>
                             <Grid Grid.Row="1">
@@ -183,16 +183,18 @@
                                     </Style>
                                 </Grid.Resources>
                                 <Button Content="Hủy"
-                                        Margin="0 0 10 10"
+                                        Margin="0 0 100 10"
                                         Command="{Binding CloseCommand}"
                                         CommandParameter="{Binding ElementName=ImportFoodWd}"
-                                        Background="OrangeRed" />
+                                        Background="OrangeRed"
+                                        BorderBrush="Transparent"
+                                        materialDesign:ButtonAssist.CornerRadius="8" />
 
                                 <Button Content="Thêm"
-                                        Margin="0 0 100 10"
+                                        Margin="0 0 10 10"
                                         Command="{Binding ImportFoodCommand}"
                                         CommandParameter="{Binding ElementName=ImportFoodWd}"
-                                        Background="#0c70b6" />
+                                        materialDesign:ButtonAssist.CornerRadius="8" />
 
                             </Grid>
                         </Grid>

@@ -13,6 +13,7 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
+
         public static (string, List<string>) GetListCode(int quantity, int length, string firstChars, string lastChars)
         {
             List<string> ListCode = new List<string>();
@@ -123,7 +124,10 @@ namespace CinemaManagement.Utils
             _image.EndInit();
             return _image;
         }
-
+        public static string GetImagePath(string imageName)
+        {
+            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images", $"{imageName}" /*SelectedItem.Image*/);
+        }
         public static string GetMovieImgPath(string imageName)
         {
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Movies", $"{imageName}" /*SelectedItem.Image*/);
@@ -132,6 +136,7 @@ namespace CinemaManagement.Utils
         {
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Troubles", $"{imageName}" /*SelectedItem.Image*/);
         }
+
         public static string GetAdminPath(string filename)
         {
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Admin", $"{filename}" /*SelectedItem.Image*/);
@@ -141,6 +146,11 @@ namespace CinemaManagement.Utils
         public static string GetProductImgPath(string imageName)
         {
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Products", $"{imageName}" /*SelectedItem.Image*/);
+        }
+
+        public static string GetEmailTemplatePath(string fileName)
+        {
+            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\EmailTemplate", $"{fileName}" /*SelectedItem.Image*/);
         }
 
         private static string RemoveUnicode(string text)

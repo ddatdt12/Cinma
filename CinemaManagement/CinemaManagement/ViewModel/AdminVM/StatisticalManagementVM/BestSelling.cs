@@ -2,8 +2,8 @@
 using CinemaManagement.Models.Services;
 using LiveCharts;
 using LiveCharts.Wpf;
-using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
@@ -43,34 +43,33 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
         public ComboBoxItem SelectedBestSellPeriod
         {
             get { return _SelectedBestSellPeriod; }
-            set { _SelectedBestSellPeriod = value; OnPropertyChanged(); ChangeBestSSellPeriod(); }
+            set { _SelectedBestSellPeriod = value; OnPropertyChanged();}
         }
 
         private string _selectedBestSellTime;
         public string SelectedBestSellTime
         {
             get { return _selectedBestSellTime; }
-            set { _selectedBestSellTime = value; OnPropertyChanged(); ChangeBestSSellPeriod(); }
+            set { _selectedBestSellTime = value; OnPropertyChanged();  }
         }
 
         private ComboBoxItem _SelectedBestSellPeriod2;
         public ComboBoxItem SelectedBestSellPeriod2
         {
             get { return _SelectedBestSellPeriod2; }
-            set { _SelectedBestSellPeriod2 = value; OnPropertyChanged(); ChangeBestSSellPeriod2(); }
+            set { _SelectedBestSellPeriod2 = value; OnPropertyChanged(); }
         }
 
         private string _selectedBestSellTime2;
         public string SelectedBestSellTime2
         {
             get { return _selectedBestSellTime2; }
-            set { _selectedBestSellTime2 = value; OnPropertyChanged(); ChangeBestSSellPeriod2(); }
+            set { _selectedBestSellTime2 = value; OnPropertyChanged(); }
         }
 
+     
 
-
-
-        public void ChangeBestSSellPeriod()
+        public async Task ChangeBestSellPeriod()
         {
             if (SelectedBestSellPeriod != null)
             {
@@ -80,7 +79,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                         {
                             if (SelectedBestSellTime != null)
                             {
-                                LoadBestSellByYear();
+                                await LoadBestSellByYear();
                             }
                             return;
                         }
@@ -88,17 +87,17 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                         {
                             if (SelectedBestSellTime != null)
                             {
-                                LoadBestSellByMonth();
+                                await LoadBestSellByMonth();
                             }
                             return;
                         }
                 }
             }
         }
-        public void LoadBestSellByYear()
+        public async Task LoadBestSellByYear()
         {
             if (SelectedBestSellTime.Length != 4) return;
-            Top5Movie = StatisticsService.Ins.GetTop5BestMovieByYear(int.Parse(SelectedBestSellTime));
+            Top5Movie =await  StatisticsService.Ins.GetTop5BestMovieByYear(int.Parse(SelectedBestSellTime));
 
 
             List<decimal> chartdata = new List<decimal>();
@@ -115,13 +114,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                     Values = new ChartValues<decimal>(chartdata),
                     Title = "Doanh thu"
                 },
-
             };
         }
-        public void LoadBestSellByMonth()
+        public async  Task LoadBestSellByMonth()
         {
             if (SelectedBestSellTime.Length == 4) return;
-            Top5Movie = StatisticsService.Ins.GetTop5BestMovieByMonth(int.Parse(SelectedBestSellTime.Remove(0, 6)));
+            Top5Movie = await StatisticsService.Ins.GetTop5BestMovieByMonth(int.Parse(SelectedBestSellTime.Remove(0, 6)));
 
 
             List<decimal> chartdata = new List<decimal>();
@@ -144,7 +142,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
 
 
 
-        public void ChangeBestSSellPeriod2()
+        public async Task ChangeBestSellPeriod2()
         {
             if (SelectedBestSellPeriod2 != null)
             {
@@ -154,7 +152,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                         {
                             if (SelectedBestSellTime2 != null)
                             {
-                                LoadBestSellByYear2();
+                                await LoadBestSellByYear2();
                             }
                             return;
                         }
@@ -162,17 +160,17 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                         {
                             if (SelectedBestSellTime2 != null)
                             {
-                                LoadBestSellByMonth2();
+                                await LoadBestSellByMonth2();
                             }
                             return;
                         }
                 }
             }
         }
-        public void LoadBestSellByYear2()
+        public async Task LoadBestSellByYear2()
         {
             if (SelectedBestSellTime2.Length != 4) return;
-            Top5Product = StatisticsService.Ins.GetTop5BestProductByYear(int.Parse(SelectedBestSellTime2));
+            Top5Product = await StatisticsService.Ins.GetTop5BestProductByYear(int.Parse(SelectedBestSellTime2));
 
 
             List<decimal> chartdata = new List<decimal>();
@@ -192,10 +190,10 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
 
             };
         }
-        public void LoadBestSellByMonth2()
+        public async Task LoadBestSellByMonth2()
         {
             if (SelectedBestSellTime2.Length == 4) return;
-            Top5Product = StatisticsService.Ins.GetTop5BestProductByMonth(int.Parse(SelectedBestSellTime2.Remove(0, 6)));
+            Top5Product = await StatisticsService.Ins.GetTop5BestProductByMonth(int.Parse(SelectedBestSellTime2.Remove(0, 6)));
 
 
             List<decimal> chartdata = new List<decimal>();
@@ -212,7 +210,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                     Values = new ChartValues<decimal>(chartdata),
                      Title = "Doanh thu"
                 },
-
             };
         }
     }

@@ -1,10 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using CinemaManagement.Views;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -12,7 +9,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 {
     public partial class FoodManagementViewModel : BaseViewModel
     {
-        public void AddFood(Window p)
+        public async Task AddFood(Window p)
         {
             if (filepath != null && IsValidData())
             {
@@ -25,8 +22,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.Price = Price;
                 product.Image = imgfullname;
                 product.Quantity = 0;
-                
 
+                await Task.Delay(0);
                 (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = ProductService.Ins.AddNewProduct(product);
 
                 if (successAddProduct)
@@ -36,11 +33,22 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     LoadProductListView(Operation.CREATE, newProduct);
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddProduct, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
+                    filepath = null; 
                 }
-                MessageBox.Show(messageFromAddProduct);
+                else
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddProduct, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
             }
             else
-                MessageBox.Show("Vui lòng nhập đủ thông tin");
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+            }
+
         }
     }
 }

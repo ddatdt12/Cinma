@@ -1,6 +1,5 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.ViewModel.StaffViewModel.TicketVM;
-using CinemaManagement.Views.Staff.MovieScheduleWindow;
 using CinemaManagement.Views.Staff.TicketWindow;
 using System.Collections.Generic;
 using System.Windows;
@@ -53,17 +52,17 @@ namespace CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM
                 }
             });
 
-            VisibleSeat = new RelayCommand<object>((p) =>{ return true; }, (p) =>
-            {
-              if (ShowTimeRoom != null)
-                {
-                    TicketWindowViewModel.CurrentShowtime = SelectedShowtime;
-                    TicketWindowViewModel.tempFilmName = tempFilebinding;
-                    TicketWindowViewModel.showTimeRoom = ShowTimeRoom;
-                    TicketWindow w = new TicketWindow();
-                    w.ShowDialog();
-                }
-            });
+            VisibleSeat = new RelayCommand<object>((p) => { return true; }, (p) =>
+             {
+                 if (ShowTimeRoom != null)
+                 {
+                     TicketWindowViewModel.CurrentShowtime = SelectedShowtime;
+                     TicketWindowViewModel.tempFilmName = tempFilebinding;
+                     TicketWindowViewModel.showTimeRoom = ShowTimeRoom;
+                     TicketWindow w = new TicketWindow();
+                     w.ShowDialog();
+                 }
+             });
 
         }
         public void GetShowtimeRoom()

@@ -9,6 +9,7 @@
       DataContext="{StaticResource VoucherVM}"
       Height="454"
       Width="998"
+      FontFamily="arial"
       x:Name="mainPage">
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
@@ -189,10 +190,9 @@
                     Height="40"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Right"
-                    Margin="0,0,0,20"
                     Padding="0,0,0,5"
                     Command="{Binding SaveNewBigVoucherCM}"
-                    materialDesign:ButtonAssist.CornerRadius="5" />
+                    materialDesign:ButtonAssist.CornerRadius="8" />
 
         </Grid>
     </Grid>

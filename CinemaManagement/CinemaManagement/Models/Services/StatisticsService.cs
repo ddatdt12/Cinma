@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,13 +26,13 @@ namespace CinemaManagement.Models.Services
         }
         #region Customer
 
-        public (List<CustomerDTO>, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) GetTop5CustomerExpenseByYear(int year)
+        public async Task<(List<CustomerDTO>, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1)> GetTop5CustomerExpenseByYear(int year)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var cusStatistic = context.Bills.Where(b => b.CreatedAt.Year == year)
+                    var cusStatistic = await context.Bills.Where(b => b.CreatedAt.Year == year)
                        .GroupBy(b => b.CustomerId)
                        .Select(grC => new
                        {
@@ -49,7 +50,7 @@ namespace CinemaManagement.Models.Services
                            Name = cus.Name,
                            PhoneNumber = cus.PhoneNumber,
                            Expense = statis.Expense
-                       }).ToList();
+                       }).ToListAsync();
 
                     decimal TicketExpense = 0, ProductExpense = 0;
                     if (cusStatistic.Count >= 1)
@@ -68,16 +69,13 @@ namespace CinemaManagement.Models.Services
             }
         }
 
-        public (List<CustomerDTO>, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) GetTop5CustomerExpenseByMonth(int month)
+        public async Task<(List<CustomerDTO>, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1)> GetTop5CustomerExpenseByMonth(int month)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-
-                    List<CustomerDTO> cusStatistic;
-
-                    cusStatistic = context.Bills.Where(b => b.CreatedAt.Year == DateTime.Now.Year && b.CreatedAt.Month == month)
+                    List<CustomerDTO> cusStatistic = await context.Bills.Where(b => b.CreatedAt.Year == DateTime.Now.Year && b.CreatedAt.Month == month)
                         .GroupBy(b => b.CustomerId)
                         .Select(grC => new
                         {
@@ -96,7 +94,7 @@ namespace CinemaManagement.Models.Services
                             PhoneNumber = cus.PhoneNumber,
                             Expense = statis.Expense
 
-                        }).ToList();
+                        }).ToListAsync();
 
                     decimal TicketExpense = 0, ProductExpense = 0;
                     if (cusStatistic.Count >= 1)
@@ -119,7 +117,7 @@ namespace CinemaManagement.Models.Services
 
         #region Staff
 
-        public List<StaffDTO> GetTop5ContributionStaffByYear(int year)
+        public async Task<List<StaffDTO>> GetTop5ContributionStaffByYear(int year)
         {
             try
             {
@@ -142,9 +140,9 @@ namespace CinemaManagement.Models.Services
                         Id = staff.Id,
                         Name = staff.Name,
                         BenefitContribution = statis.BenefitContribution
-                    }).ToList();
+                    }).ToListAsync();
 
-                    return staffStatistic;
+                    return await staffStatistic;
                 }
             }
             catch (Exception e)
@@ -153,7 +151,7 @@ namespace CinemaManagement.Models.Services
             }
         }
 
-        public List<StaffDTO> GetTop5ContributionStaffByMonth(int month)
+        public async Task<List<StaffDTO>> GetTop5ContributionStaffByMonth(int month)
         {
             try
             {
@@ -176,9 +174,9 @@ namespace CinemaManagement.Models.Services
                        Id = staff.Id,
                        Name = staff.Name,
                        BenefitContribution = statis.BenefitContribution
-                   }).ToList();
+                   }).ToListAsync();
 
-                    return staffStatistic;
+                    return await staffStatistic;
                 }
             }
             catch (Exception e)
@@ -190,7 +188,7 @@ namespace CinemaManagement.Models.Services
         #endregion
 
         #region Movie
-        public List<MovieDTO> GetTop5BestMovieByYear(int year)
+        public async Task<List<MovieDTO>> GetTop5BestMovieByYear(int year)
         {
             try
             {
@@ -215,8 +213,9 @@ namespace CinemaManagement.Models.Services
                         DisplayName = movie.DisplayName,
                         Revenue = statis.Revenue,
                         TicketCount = statis.TicketCount
-                    }).ToList();
-                    return movieStatistic;
+                    }).ToListAsync();
+
+                    return await movieStatistic;
                 }
             }
             catch (Exception e)
@@ -224,7 +223,7 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
-        public List<MovieDTO> GetTop5BestMovieByMonth(int month)
+        public async Task<List<MovieDTO>> GetTop5BestMovieByMonth(int month)
         {
             try
             {
@@ -249,8 +248,8 @@ namespace CinemaManagement.Models.Services
                         DisplayName = movie.DisplayName,
                         Revenue = statis.Revenue,
                         TicketCount = statis.TicketCount
-                    }).ToList();
-                    return movieStatistic;
+                    }).ToListAsync();
+                    return await movieStatistic;
                 }
             }
             catch (Exception e)
@@ -261,7 +260,7 @@ namespace CinemaManagement.Models.Services
         #endregion
 
         #region Product
-        public List<ProductDTO> GetTop5BestProductByYear(int year)
+        public async Task<List<ProductDTO>> GetTop5BestProductByYear(int year)
         {
             try
             {
@@ -286,9 +285,9 @@ namespace CinemaManagement.Models.Services
                         DisplayName = prod.DisplayName,
                         Revenue = statis.Revenue,
                         SalesQuantity = statis.SalesQuantity
-                    }).ToList();
+                    }).ToListAsync();
 
-                    return prodStatistic;
+                    return await prodStatistic;
                 }
             }
             catch (Exception e)
@@ -296,7 +295,7 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
-        public List<ProductDTO> GetTop5BestProductByMonth(int month)
+        public async Task<List<ProductDTO>> GetTop5BestProductByMonth(int month)
         {
             try
             {
@@ -321,8 +320,8 @@ namespace CinemaManagement.Models.Services
                         DisplayName = prod.DisplayName,
                         Revenue = statis.Revenue,
                         SalesQuantity = statis.SalesQuantity
-                    }).ToList();
-                    return prodStatistic;
+                    }).ToListAsync();
+                    return await prodStatistic;
                 }
             }
             catch (Exception e)

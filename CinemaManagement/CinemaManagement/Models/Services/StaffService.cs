@@ -1,10 +1,11 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Utils;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CinemaManagement.Models.Services
 {
@@ -24,12 +25,11 @@ namespace CinemaManagement.Models.Services
             }
             private set => _ins = value;
         }
-        public List<StaffDTO> GetAllStaff()
+        public async Task<List<StaffDTO>> GetAllStaff()
         {
-            List<StaffDTO> staffs = null;
             using (var context = new CinemaManagementEntities())
             {
-                staffs = (from s in context.Staffs
+                var staffs = (from s in context.Staffs
                           where s.IsDeleted == false
                           select new StaffDTO
                           {
@@ -42,50 +42,52 @@ namespace CinemaManagement.Models.Services
                               PhoneNumber = s.PhoneNumber,
                               StartingDate = s.StartingDate,
                               Password = s.Password
-                          }).ToList();
-                return staffs;
+                          }).ToListAsync();
+                return await staffs;
             }
         }
-        public (bool, string, StaffDTO) Login(string username, string password)
+        public async Task<(bool, string, StaffDTO)> Login(string username, string password)
         {
 
             string hassPass = Helper.MD5Hash(password);
-             
+
             try
             {
-                StaffDTO staff;
                 using (var context = new CinemaManagementEntities())
                 {
-                  staff =    (from s in context.Staffs
-                                      where s.Username == username && s.Password == hassPass
-                                      select new StaffDTO
-                                      {
-                                          Id = s.Id,
-                                          BirthDate = s.BirthDate,
-                                          Gender = s.Gender,
-                                          Name = s.Name,
-                                          Role = s.Role,
-                                          PhoneNumber = s.PhoneNumber,
-                                          StartingDate = s.StartingDate
-                                      }).FirstOrDefault();
+                    var staff = await (from s in context.Staffs
+                                       where s.Username == username && s.Password == hassPass
+                                       select new StaffDTO
+                                       {
+                                           Id = s.Id,
+                                           BirthDate = s.BirthDate,
+                                           Gender = s.Gender,
+                                           Name = s.Name,
+                                           Role = s.Role,
+                                           PhoneNumber = s.PhoneNumber,
+                                           StartingDate = s.StartingDate
+                                       }).FirstOrDefaultAsync();
+
+                    if (staff == null)
+                    {
+                        return (false, "Sai tài khoản hoặc mật khẩu", null);
+                    }
+                    return (true, "", staff);
                 }
-                if (staff == null)
-                {
-                    return (false, "Sai tài khoản hoặc mật khẩu", null);
-                }
-                return (true, "", staff);
+
             }
             catch (Exception e)
             {
                 return (false, "Lỗi hệ thống", null);
             }
-           
+
 
         }
-        private string CreateNextStaffId(string maxId) {
+        private string CreateNextStaffId(string maxId)
+        {
             //NVxxx
             string newIdString = $"000{int.Parse(maxId.Substring(2)) + 1}";
-            return "NV" + newIdString.Substring(newIdString.Length - 3 , 3);
+            return "NV" + newIdString.Substring(newIdString.Length - 3, 3);
         }
         public (bool, string, StaffDTO) AddStaff(StaffDTO newStaff)
         {
@@ -108,7 +110,7 @@ namespace CinemaManagement.Models.Services
                     context.SaveChanges();
                 }
             }
-            catch  (DbEntityValidationException e)
+            catch (DbEntityValidationException e)
             {
                 return (false, "Lỗi hệ thống", null);
             }
@@ -132,7 +134,7 @@ namespace CinemaManagement.Models.Services
             };
         }
 
-        public (bool, string) UpdateStaff(StaffDTO updatedStaff)
+        public async Task<(bool, string)> UpdateStaff(StaffDTO updatedStaff)
         {
             try
             {
@@ -157,30 +159,16 @@ namespace CinemaManagement.Models.Services
                     staff.PhoneNumber = updatedStaff.PhoneNumber;
                     staff.StartingDate = updatedStaff.StartingDate;
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
             catch (DbEntityValidationException e)
             {
-                //foreach (var eve in e.EntityValidationErrors)
-                //{
-                //    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                //        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                //    foreach (var ve in eve.ValidationErrors)
-                //    {
-                //        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                //            ve.PropertyName, ve.ErrorMessage);
-                //    }
-                //}
                 Console.WriteLine(e);
                 return (false, "DbEntityValidationException");
 
             }
-            catch (DbUpdateException e)
-            {
-                Console.WriteLine(e);
-                return (false, $"DbUpdateException: {e.Message}");
-            }
+
             catch (Exception e)
             {
                 Console.WriteLine(e);
@@ -190,13 +178,13 @@ namespace CinemaManagement.Models.Services
 
         }
 
-        public (bool, string) UpdatePassword(string StaffId, string newPassword)
+        public async Task<(bool, string)> UpdatePassword(string StaffId, string newPassword)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    Staff staff = context.Staffs.Find(StaffId);
+                    Staff staff = await context.Staffs.FindAsync(StaffId);
                     if (staff == null)
                     {
                         return (false, "Tài khoản không tồn tại");
@@ -206,11 +194,6 @@ namespace CinemaManagement.Models.Services
 
                     context.SaveChanges();
                 }
-            }
-            catch (DbUpdateException e)
-            {
-                Console.WriteLine(e);
-                return (false, $"DbUpdateException: {e.Message}");
             }
             catch (Exception e)
             {
@@ -246,6 +229,6 @@ namespace CinemaManagement.Models.Services
             }
             return (true, "Xóa nhân viên thành công");
         }
-        
+
     }
 }

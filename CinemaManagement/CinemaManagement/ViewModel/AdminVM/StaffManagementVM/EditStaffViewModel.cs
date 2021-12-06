@@ -1,16 +1,15 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 {
     public partial class StaffManagementViewModel : BaseViewModel
     {
-        public void EditStaff(Window p)
+        public async Task EditStaff(Window p)
         {
-            //Fullname = SelectedItem.Name;
-            //Phone = SelectedItem.PhoneNumber;
-            //TaiKhoan = SelectedItem.Username;
             MatKhau = SelectedItem.Password;
 
             (bool isValid, string error) = IsValidData(Utils.Operation.UPDATE);
@@ -25,19 +24,26 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 staff.Role = Role.Content.ToString();
                 staff.StartingDate = StartDate;
                 staff.Username = TaiKhoan;
-                (bool successUpdateStaff, string messageFromUpdateStaff) = StaffService.Ins.UpdateStaff(staff);
+                (bool successUpdateStaff, string messageFromUpdateStaff) = await StaffService.Ins.UpdateStaff(staff);
+                await LoadStaffListView(Utils.Operation.UPDATE, staff);
 
                 if (successUpdateStaff)
                 {
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
-                    LoadStaffListView(Utils.Operation.UPDATE, staff);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateStaff, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
-                MessageBox.Show(messageFromUpdateStaff);
+                else
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateStaff, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
             }
             else
             {
-                MessageBox.Show(error);
+                MessageBoxCustom mb = new MessageBoxCustom("", error, MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
             }
         }
     }

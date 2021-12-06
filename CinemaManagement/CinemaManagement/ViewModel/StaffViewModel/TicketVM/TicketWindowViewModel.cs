@@ -19,12 +19,17 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
         public ICommand MouseMoveWindowCM { get; set; }
         public ICommand LoadTicketBookingPageCM { get; set; }
         public ICommand LoadFoodPageCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
         public TicketWindowViewModel()
         {
-            CaculateTime();
-            Output_ToString();
-            GenerateSeat();
-            sumCurrentSeat = "Số ghế   (" + (ListSeat.Count - ListStatusSeat.Count).ToString() + "/128)";
+
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                CaculateTime();
+                Output_ToString();
+                GenerateSeat();
+                sumCurrentSeat = "Số ghế   (" + (ListSeat.Count - ListStatusSeat.Count).ToString() + "/128)";
+            });
             CloseTicketWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
             {
                 FrameworkElement window = Window.GetWindow(p);
@@ -94,12 +99,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                     }
                 }
             });
-            LoadTicketBookingPageCM = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            LoadTicketBookingPageCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
                 tk.TicketBookingFrame.Content = new TicketBookingPage();
             });
-            LoadFoodPageCM = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            LoadFoodPageCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
                 tk.TicketBookingFrame.Content = new FoodPage();

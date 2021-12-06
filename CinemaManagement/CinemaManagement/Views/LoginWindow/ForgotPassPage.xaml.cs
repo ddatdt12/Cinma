@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using CinemaManagement.Utils;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -17,6 +18,11 @@ namespace CinemaManagement.Views.LoginWindow
             if (string.IsNullOrEmpty(emailfield.Text) && email.IsEnabled == true)
             {
                 errorlbl.Content = "Không được để trống!";
+            }
+            else if (!RegexUtilities.IsValidEmail(emailfield.Text))
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Định dạng mail không hợp lệ!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
             }
             else
             {

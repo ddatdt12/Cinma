@@ -1,9 +1,11 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -40,7 +42,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 w1.imgframe.Source = Helper.GetMovieImageSource("null.jpg");
             }
         }
-        public void UpdateMovieFunc(Window p)
+        public async Task UpdateMovieFunc(Window p)
         {
             if (movieID != null && IsValidData())
             {
@@ -77,31 +79,25 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (successUpdateMovie)
                 {
-                    //if (SelectedItem.Image != movie.Image)
-                    //{
-                    //    File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-                    //}
-                    //else
-                    //{
-                    //    if (!string.IsNullOrEmpty(filepath))
-                    //    {
-                    //        File.Copy(filepath, Helper.GetMovieImgPath(movie.Image), true);
-                    //    }
-                    //}
                     SaveImgToApp();
-                    MessageBox.Show(messageFromUpdateMovie);
-                    LoadMovieListView(Operation.UPDATE, movie);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateMovie, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
+                    await LoadMovieListView(Operation.UPDATE, movie);
 
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 }
                 else
                 {
-                    MessageBox.Show(messageFromUpdateMovie);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateMovie, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
             }
             else
-                MessageBox.Show("Vui lòng nhập đủ thông tin!");
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+            }
         }
 
     }

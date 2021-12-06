@@ -14,6 +14,7 @@ using CinemaManagement.Views.Admin.VoucherManagement;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CinemaManagement.Views;
 
 namespace CinemaManagement.ViewModel
 {
@@ -29,6 +30,7 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadFoodPageCM { get; set; }
         public ICommand LoadErrorPage { get; set; }
         public ICommand LoadVCPageCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
 
 
         private string _SelectedFuncName;
@@ -46,13 +48,14 @@ namespace CinemaManagement.ViewModel
         }
 
 
-
-
         public MainAdminViewModel()
         {
-            SelectedFuncName = "Quản lý suất chiếu";
-            CountErrorFunc();
 
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                SelectedFuncName = "Quản lý suất chiếu";
+                CountErrorFunc();
+            });
             SignoutCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
                {
                    FrameworkElement window = GetParentWindow(p);
@@ -120,22 +123,27 @@ namespace CinemaManagement.ViewModel
 
 
             // this is  the ErrorViewmodel resources
-            LoadDetailErrorCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            LoadDetailErrorCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
                 ChoseWindow();
             });
-            UpdateErrorCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            UpdateErrorCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
                 if (SelectedStatus is null)
                 {
-                    MessageBox.Show("Không hợp lệ!");
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Không hợp lệ!", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
                     return;
                 }
-                UpdateErrorFunc(p);
+                await UpdateErrorFunc(p);
+            });
+            ReloadErrorListCM = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
+            {
+                ReloadErrorList();
             });
             SelectedDate = DateTime.Today;
             SelectedFinishDate = DateTime.Today;
-            ReloadErrorList();
+
             //======================================
 
 

@@ -3,9 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.ViewModel"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local1="clr-namespace:CinemaManagement.ViewModel.AdminVM.ErrorVM"
         mc:Ignorable="d"
@@ -14,12 +12,12 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
+        Background="#f2f5f9"
         DataContext="{StaticResource MainAdminVM}"
         Title="Administrator"
         Height="820"
         Width="1440"
+        FontFamily="arial"
         Name="mainadminwindow"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -30,15 +28,20 @@
     <Window.Resources>
         <local1:HintCountConverter x:Key="CountConverter" />
     </Window.Resources>
-
+    
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="800" />
         </Grid.RowDefinitions>
-
-        <StackPanel   Background="#FF383737"
+        <!--#FF383737-->
+        <StackPanel   Background="#132644"
                       Grid.Row="0">
             <StackPanel Orientation="Horizontal"
                         VerticalAlignment="Top"
@@ -120,268 +123,291 @@
             <materialDesign:ColorZone Mode="Inverted"
                                       Padding="16"
                                       Height="80"
-                                      Margin="-280,0,0,0"
-                                      Background="#FF383737"
-                                      MouseLeftButtonDown="mainadminwindow_MouseLeftButtonDown">
-                <DockPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel.Style>
-                            <Style TargetType="{x:Type StackPanel}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsChecked, ElementName=SlideButton}"
-                                                 Value="True">
-                                        <DataTrigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                                                     From="0"
-                                                                     To="280"
-                                                                     Duration="0:0:0.2" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </DataTrigger.EnterActions>
-                                        <DataTrigger.ExitActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
+                                      Background="#132644"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                      MouseLeftButtonDown="mainadminwindow_MouseLeftButtonDown" />
+            <DockPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="-260,0,0,0">
+                    <StackPanel.Style>
+                        <Style TargetType="{x:Type StackPanel}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsChecked, ElementName=SlideButton}"
+                                             Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                                 From="0"
+                                                                 To="280"
+                                                                 Duration="0:0:0.2" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
 
-                                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                                                     From="280"
-                                                                     To="0"
-                                                                     Duration="0:0:0.2" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </DataTrigger.ExitActions>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </StackPanel.Style>
+                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                                                 From="280"
+                                                                 To="0"
+                                                                 Duration="0:0:0.2" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
 
-                        <StackPanel.RenderTransform>
-                            <TranslateTransform />
-                        </StackPanel.RenderTransform>
+                    <StackPanel.RenderTransform>
+                        <TranslateTransform />
+                    </StackPanel.RenderTransform>
 
-                        <Grid Background="#FF383737"
-                              Width="280"
-                              Margin="-20,0,0,-736">
-                            <StackPanel>
-                                <StackPanel HorizontalAlignment="Center">
-                                    <materialDesign:PackIcon Kind="HomeCircle"
-                                                             Height="60"
-                                                             Width="80"
-                                                             Cursor="Hand">
-                                    </materialDesign:PackIcon>
-                                </StackPanel>
-                                <StackPanel  Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Filmstrip"
-                                                             Height="30"
-                                                             Width="30"
-                                                             Margin="10,0,0,0"
-                                                             VerticalAlignment="Center" />
-                                    <Button Content="Quản lý suất chiếu"
-                                            Height="50"
-                                            FontSize="25"
-                                            Width="240"
-                                            HorizontalContentAlignment="Left"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Command="{Binding LoadSuatChieuPageCM}"
-                                            CommandParameter="{Binding ElementName=MainFrame}" />
-
-                                </StackPanel>
-
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="MovieEdit"
-                                                             Height="30"
-                                                             Width="30"
-                                                             Margin="10,0,0,0"
-                                                             VerticalAlignment="Center" />
-                                    <Button Margin="0,0,0,5"
-                                            Content="Quản lý phim"
-                                            Height="50"
-                                            FontSize="25"
-                                            HorizontalContentAlignment="Left"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Width="240"
-                                            Command="{Binding LoadQLPPageCM}"
-                                            CommandParameter="{Binding ElementName=MainFrame}" />
-                                </StackPanel>
-
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Food"
-                                                             Height="30"
-                                                             Width="30"
-                                                             Margin="10,0,0,0"
-                                                             VerticalAlignment="Center" />
-                                    <Button Margin="0,0,0,5"
-                                            Content="Quản lý sản phẩm"
-                                            Height="50"
-                                            FontSize="25"
-                                            HorizontalContentAlignment="Left"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Width="240"
-                                            Command="{Binding LoadFoodPageCM}"
-                                            CommandParameter="{Binding ElementName=MainFrame}" />
-                                </StackPanel>
-
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="AccountGroupOutline"
-                                                             Width="30"
-                                                             Height="30"
-                                                             VerticalAlignment="Center"
-                                                             Margin="10,0,0,0" />
-                                    <Button Margin="0,0,0,5"
-                                            Content="Quản lý nhân sự"
-                                            Height="50"
-                                            FontSize="25"
-                                            Width="240"
-                                            HorizontalContentAlignment="Left"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Command="{Binding LoadQLNVPageCM}"
-                                            CommandParameter="{Binding ElementName=MainFrame}" />
-                                </StackPanel>
-
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="10,0,0,0">
-                                    <materialDesign:PackIcon Kind="Finance"
-                                                             VerticalAlignment="Center"
-                                                             Height="30"
-                                                             Width="30" />
-                                    <Button Content="Thống kê"
-                                            Height="50"
-                                            FontSize="25"
-                                            Width="240"
-                                            HorizontalContentAlignment="Left"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Command="{Binding LoadTKPageCM}"
-                                            CommandParameter="{Binding ElementName=MainFrame}" />
-                                </StackPanel>
-
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="10,0,0,0">
-                                    <materialDesign:PackIcon Kind="SwapVerticalBold"
-                                                             Height="30"
-                                                             Width="30"
-                                                             VerticalAlignment="Center" />
-                                    <Button Margin="0,0,0,5"
-                                            Content="Lịch sử"
-                                            Height="50"
-                                            FontSize="25"
-                                            Width="240"
-                                            HorizontalContentAlignment="Left"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Command="{Binding LoadLSPage}"
-                                            CommandParameter="{Binding ElementName=MainFrame}" />
-                                </StackPanel>
-
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="10,0,0,0">
-                                    <materialDesign:PackIcon Kind="TicketPercent"
-                                                             Height="30"
-                                                             Width="30"
-                                                             VerticalAlignment="Center" />
-                                    <Button Margin="0,0,0,5"
-                                            Content="Voucher"
-                                            Height="50"
-                                            FontSize="25"
-                                            Width="240"
-                                            HorizontalContentAlignment="Left"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Command="{Binding LoadVCPageCM}"
-                                            CommandParameter="{Binding ElementName=MainFrame}" />
-                                </StackPanel>
-
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="10,0,0,0">
-                                    <materialDesign:PackIcon Kind="AlertCircle"
-                                                             Height="30"
-                                                             Width="30"
-                                                             VerticalAlignment="Center" />
-                                    <Grid>
-                                        <Button Margin="0,0,0,5"
-                                                Content="Sự cố"
-                                                Height="50"
-                                                FontSize="25"
-                                                Width="240"
-                                                HorizontalContentAlignment="Left"
-                                                Background="Transparent"
-                                                BorderBrush="Transparent"
-                                                Command="{Binding LoadErrorPage}"
-                                                CommandParameter="{Binding ElementName=MainFrame}" />
-                                        <Border Background="Red"
-                                                CornerRadius="100"
-                                                Width="30"
-                                                Height="30"
-                                                Visibility="{Binding ErrorCount,Converter={StaticResource CountConverter}}"
-                                                Margin="-20,-8,0,0">
-                                            <TextBlock Text="{Binding ErrorCount}"
-                                                       FontSize="20"
-                                                       VerticalAlignment="Center"
-                                                       HorizontalAlignment="Center" />
-                                        </Border>
-                                    </Grid>
-
-                                </StackPanel>
+                    <Grid Background="#132644"
+                          Width="280"
+                          Margin="-20,0,0,0">
+                        <StackPanel>
+                            <StackPanel.Resources>
+                                <Style TargetType="Button"
+                                       BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">
+                                    <Style.Setters>
+                                        <Setter Property="Foreground"
+                                                Value="White" />
+                                    </Style.Setters>
+                                </Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Style.Setters>
+                                        <Setter Property="Foreground"
+                                                Value="White" />
+                                    </Style.Setters>
+                                </Style>
+                            </StackPanel.Resources>
+                            <StackPanel HorizontalAlignment="Center">
+                                <materialDesign:PackIcon Kind="HomeCircle"
+                                                         Height="60"
+                                                         Width="80"
+                                                         Cursor="Hand">
+                                </materialDesign:PackIcon>
                             </StackPanel>
-                        </Grid>
-                        <Grid Margin="40,0,0,0">
-                            <ToggleButton x:Name="SlideButton"
-                                          Style="{DynamicResource MaterialDesignHamburgerToggleButton}"
-                                          Checked="SlideButton_Checked"
-                                          Unchecked="SlideButton_Unchecked" />
-                            <Border Background="Red"
-                                    CornerRadius="100"
-                                    Width="30"
-                                    x:Name="topnotifi"
-                                    Height="30"
-                                    Margin="20,-5,-15,23"
-                                    Visibility="{Binding ErrorCount,Converter={StaticResource CountConverter}}">
-                                <TextBlock Text="{Binding ErrorCount}"
-                                           FontSize="20"
-                                           x:Name="count"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                            </Border>
-                        </Grid>
+                            <StackPanel  Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Filmstrip"
+                                                         Height="30"
+                                                         Width="30"
+                                                         Margin="10,0,0,0"
+                                                         VerticalAlignment="Center" />
+                                <Button Content="Quản lý suất chiếu"
+                                        Height="50"
+                                        FontSize="25"
+                                        Width="240"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadSuatChieuPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
 
-                        <TextBlock VerticalAlignment="Center"
-                                   FontSize="30"
-                                   Margin="30,0,0,0"
-                                   Text="{Binding SelectedFuncName}" />
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Right">
-                        <materialDesign:PackIcon Kind="AccountCircle"
-                                                 VerticalAlignment="Center"
-                                                 HorizontalAlignment="Right"
-                                                 Height="50"
-                                                 Width="50" />
-                        <Label x:Name="CurrentUserName"
-                               Content=""
-                               VerticalAlignment="Center"
-                               FontSize="25"
-                               Foreground="White" />
-                        <materialDesign:PopupBox DockPanel.Dock="Right"
-                                                 PlacementMode="BottomAndAlignRightEdges">
-                            <StackPanel Orientation="Vertical">
-                                <Button x:Name="signout"
-                                        Content="Thông tin tài khoản" />
-
-                                <Button Content="Đăng xuất"
-                                        Command="{Binding SignoutCM}"
-                                        CommandParameter="{Binding ElementName=mainadminwindow}" />
                             </StackPanel>
-                        </materialDesign:PopupBox>
-                    </StackPanel>
 
-                </DockPanel>
-            </materialDesign:ColorZone>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="MovieEdit"
+                                                         Height="30"
+                                                         Width="30"
+                                                         Margin="10,0,0,0"
+                                                         VerticalAlignment="Center" />
+                                <Button Margin="0,0,0,5"
+                                        Content="Quản lý phim"
+                                        Height="50"
+                                        FontSize="25"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Width="240"
+                                        Command="{Binding LoadQLPPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Food"
+                                                         Height="30"
+                                                         Width="30"
+                                                         Margin="10,0,0,0"
+                                                         VerticalAlignment="Center" />
+                                <Button Margin="0,0,0,5"
+                                        Content="Quản lý sản phẩm"
+                                        Height="50"
+                                        FontSize="25"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Width="240"
+                                        Command="{Binding LoadFoodPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccountGroupOutline"
+                                                         Width="30"
+                                                         Height="30"
+                                                         VerticalAlignment="Center"
+                                                         Margin="10,0,0,0" />
+                                <Button Margin="0,0,0,5"
+                                        Content="Quản lý nhân sự"
+                                        Height="50"
+                                        FontSize="25"
+                                        Width="240"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadQLNVPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10,0,0,0">
+                                <materialDesign:PackIcon Kind="Finance"
+                                                         VerticalAlignment="Center"
+                                                         Height="30"
+                                                         Width="30" />
+                                <Button Content="Thống kê"
+                                        Height="50"
+                                        FontSize="25"
+                                        Width="240"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadTKPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10,0,0,0">
+                                <materialDesign:PackIcon Kind="SwapVerticalBold"
+                                                         Height="30"
+                                                         Width="30"
+                                                         VerticalAlignment="Center" />
+                                <Button Margin="0,0,0,5"
+                                        Content="Lịch sử"
+                                        Height="50"
+                                        FontSize="25"
+                                        Width="240"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadLSPage}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10,0,0,0">
+                                <materialDesign:PackIcon Kind="TicketPercent"
+                                                         Height="30"
+                                                         Width="30"
+                                                         VerticalAlignment="Center" />
+                                <Button Margin="0,0,0,5"
+                                        Content="Voucher"
+                                        Height="50"
+                                        FontSize="25"
+                                        Width="240"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadVCPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10,0,0,0">
+                                <materialDesign:PackIcon Kind="AlertCircle"
+                                                         Height="30"
+                                                         Width="30"
+                                                         VerticalAlignment="Center" />
+                                <Grid>
+                                    <Button Margin="0,0,0,5"
+                                            Content="Sự cố"
+                                            Height="50"
+                                            FontSize="25"
+                                            Width="240"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Command="{Binding LoadErrorPage}"
+                                            CommandParameter="{Binding ElementName=MainFrame}" />
+                                    <Border Background="Red"
+                                            CornerRadius="100"
+                                            Width="30"
+                                            Height="30"
+                                            Visibility="{Binding ErrorCount,Converter={StaticResource CountConverter}}"
+                                            Margin="-20,-8,0,0">
+                                        <TextBlock Text="{Binding ErrorCount}"
+                                                   FontSize="20"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center" />
+                                    </Border>
+                                </Grid>
+
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Margin="40,0,0,0">
+                        <ToggleButton x:Name="SlideButton"
+                                      Style="{DynamicResource MaterialDesignHamburgerToggleButton}"
+                                      Checked="SlideButton_Checked"
+                                      Unchecked="SlideButton_Unchecked"
+                                      VerticalAlignment="Top"
+                                      Margin="0,20,0,0"
+                                      Foreground="White" />
+                        <Border Background="Red"
+                                CornerRadius="100"
+                                Width="30"
+                                x:Name="topnotifi"
+                                Height="30"
+                                Margin="18,10,-11,760"
+                                Visibility="{Binding ErrorCount,Converter={StaticResource CountConverter}}">
+                            <TextBlock Text="{Binding ErrorCount}"
+                                       FontSize="20"
+                                       x:Name="count"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                    <TextBlock VerticalAlignment="Top"
+                               FontSize="30"
+                               Margin="0,20,0,0"
+                               Text="{Binding SelectedFuncName}"
+                               Foreground="White">
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Margin="0,20,0,0">
+                    <materialDesign:PackIcon Kind="AccountCircle"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Right"
+                                             Height="50"
+                                             Width="50"
+                                             Foreground="White" />
+                    <Label x:Name="CurrentUserName"
+                           Content=""
+                           VerticalAlignment="Center"
+                           FontSize="25"
+                           Foreground="White" />
+                    <materialDesign:PopupBox DockPanel.Dock="Right"
+                                             Foreground="White"
+                                             PlacementMode="BottomAndAlignRightEdges">
+                        <StackPanel Orientation="Vertical">
+                            <Button x:Name="signout"
+                                    Content="Thông tin tài khoản" />
+
+                            <Button Content="Đăng xuất"
+                                    Command="{Binding SignoutCM}"
+                                    CommandParameter="{Binding ElementName=mainadminwindow}" />
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </StackPanel>
+
+            </DockPanel>
         </Grid>
 
 

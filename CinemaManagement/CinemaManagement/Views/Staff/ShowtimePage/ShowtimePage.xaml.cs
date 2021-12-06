@@ -6,9 +6,6 @@ using System.Windows.Markup;
 
 namespace CinemaManagement.Views.Staff.ShowtimePage
 {
-    /// <summary>
-    /// Interaction logic for ShowtimePage.xaml
-    /// </summary>
     public partial class ShowtimePage : Page
     {
         public ShowtimePage()

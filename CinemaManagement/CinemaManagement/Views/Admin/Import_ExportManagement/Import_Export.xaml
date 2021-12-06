@@ -72,19 +72,28 @@
             <materialDesign:Card Background="White"
                                  Margin="20,80,20,20"
                                  UniformCornerRadius="5">
-                <Frame x:Name="MainListViewFrame">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Loaded">
-                            <i:InvokeCommandAction Command="{Binding LoadImportPageCM}"
-                                                   CommandParameter="{Binding ElementName=MainListViewFrame}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </Frame>
+                <Grid>
+                    <Frame x:Name="MainListViewFrame">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding LoadImportPageCM}"
+                                                       CommandParameter="{Binding ElementName=MainListViewFrame}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Frame>
+                    <Grid Grid.RowSpan="2">
+                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                     Value="0"
+                                     IsIndeterminate="{Binding IsGettingSource,UpdateSourceTrigger=PropertyChanged}"
+                                     Width="100"
+                                     Height="100" />
+                    </Grid>
+                </Grid>
+
             </materialDesign:Card>
         </Grid>
 
-        <Grid
-              Background="Gray"
+        <Grid Background="Gray"
               Opacity="0.3"
               Visibility="Collapsed"
               x:Name="ShadowMask" />

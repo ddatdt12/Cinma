@@ -3,13 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:CinemaManagement.Views.Admin.StatisticalManagement"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d"
       d:DesignHeight="662"
       d:DesignWidth="1440"
       x:Name="mainPage"
+      FontFamily="arial"
       DataContext="{StaticResource StatisticalManagementVM}">
 
     <!---FADED-->
@@ -50,6 +51,12 @@
                               SelectionChanged="periodbox_SelectionChanged"
                               Loaded="periodbox_Loaded"
                               SelectedItem="{Binding SelectedIncomePeriod}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeIncomePeriodCM}"
+                                                       CommandParameter="{Binding ElementName=periodbox}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem>Theo năm</ComboBoxItem>
                         <ComboBoxItem>Theo tháng</ComboBoxItem>
                     </ComboBox>
@@ -61,6 +68,12 @@
                               FontSize="20"
                               x:Name="Timebox"
                               SelectedItem="{Binding SelectedIncomeTime,Mode=OneWayToSource}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeIncomePeriodCM}"
+                                                       CommandParameter="{Binding ElementName=Timebox}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ComboBox>
                 </StackPanel>
             </StackPanel>
@@ -384,22 +397,6 @@
                             </lvc:CartesianChart.AxisY>
                         </lvc:CartesianChart>
                     </materialDesign:Card>
-
-                    <StackPanel.Triggers>
-                        <EventTrigger RoutedEvent="StackPanel.Loaded">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetName="cardRight"
-                                                     Storyboard.TargetProperty="Height"
-                                                     From="0"
-                                                     To="596"
-                                                     Duration="0:0:0.5" />
-
-
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </StackPanel.Triggers>
                 </StackPanel>
             </Grid>
         </Grid>

@@ -1,9 +1,11 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.ShowtimeManagementVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,7 +20,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public MovieDTO movieSelected
         {
             get { return _movieSelected; }
-            set { _movieSelected = value; OnPropertyChanged(); CalculateRunningTime(); }
+            set { _movieSelected = value; OnPropertyChanged(); }
         }
 
         private DateTime _showtimeDate;
@@ -103,7 +105,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public DateTime SelectedDate
         {
             get { return _SelectedDate; }
-            set { _SelectedDate = value; ReloadShowtimeList(-1); OnPropertyChanged(); }
+            set { _SelectedDate = value; OnPropertyChanged(); }
         }
 
         private MovieDTO _selectedItem; //the item being selected
@@ -129,112 +131,124 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
         public ICommand LoadDeleteShowtimeCM { get; set; }
         public ICommand MaskNameCM { get; set; }
-
+        public ICommand FirstLoadCM { get; set; }
+        public ICommand CalculateRunningTimeCM { get; set; }
+        public ICommand SelectedDateCM { get; set; }
 
         public ShowtimeManagementViewModel()
         {
-            GetCurrentDate = DateTime.Today;
-            SelectedDate = GetCurrentDate;
-            showtimeDate = GetCurrentDate;
-            ReloadShowtimeList(-1);
-
-
-
-            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+            CalculateRunningTimeCM = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
             {
-                ShadowMask = p;
+                CalculateRunningTime();
             });
-            LoadAddShowtimeCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                GenerateListRoom();
-                RenewData();
-                AddShowtimeWindow temp = new AddShowtimeWindow();
-                MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
-                ShadowMask.Visibility = Visibility.Visible;
-                temp.ShowDialog();
+                GetCurrentDate = DateTime.Today;
+                SelectedDate = GetCurrentDate;
+                showtimeDate = GetCurrentDate;
+                await ReloadShowtimeList();
             });
+            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, async (p) =>
+             {
+                 ShadowMask = p;
+                 await ReloadShowtimeList();
+             });
+            LoadAddShowtimeCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+             {
+                 GenerateListRoom();
+                 RenewData();
+                 AddShowtimeWindow temp = new AddShowtimeWindow();
+                 MovieList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetAllMovie());
+                 ShadowMask.Visibility = Visibility.Visible;
+                 temp.ShowDialog();
+             });
             SaveCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 SaveShowtimeFunc(p);
             });
-            LoadDeleteShowtimeCM = new RelayCommand<ListBox>((p) => { if (SelectedShowtime is null) return false; return true; }, (p) =>
-            {
-                string message = "Bạn có chắc muốn xoá suất chiếu này không? Dữ liệu không thể phục hồi sau khi xoá!";
-                try
-                {
-                    //Kiểm tra suất chiếu đã có người đặt ghế nào chưa để có thông báo phù hợp
-                    bool isShowHaveBooking = ShowtimeService.Ins.CheckShowtimeHaveBooking(SelectedShowtime.Id);
-                    if (true)
-                    {
-                        message = $"Suất chiếu này có ghế đã được đặt.\n{message}";
-                    }
-                }
-                catch (Exception e)
-                {
-                    System.Windows.MessageBox.Show("Lỗi hệ thống");
-                }
+            LoadDeleteShowtimeCM = new RelayCommand<ListBox>((p) => { if (SelectedShowtime is null) return false; return true; }, async (p) =>
+             {
+                 string message = "Bạn có chắc muốn xoá suất chiếu này không? Dữ liệu không thể phục hồi sau khi xoá!";
+                 try
+                 {
+                     //Kiểm tra suất chiếu đã có người đặt ghế nào chưa để có thông báo phù hợp
+                     bool isShowHaveBooking = ShowtimeService.Ins.CheckShowtimeHaveBooking(SelectedShowtime.Id);
+                     if (isShowHaveBooking)
+                     {
+                         message = $"Suất chiếu này có ghế đã được đặt.\n{message}";
+                     }
+                 }
+                 catch (Exception)
+                 {
+                     MessageBoxCustom ms = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Warning, MessageButtons.OK);
+                     ms.ShowDialog();
+                 }
 
-                MessageBoxResult result = System.Windows.MessageBox.Show(message, "Xác nhận xoá", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                 MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
+                 result.ShowDialog();
+                 if (result.DialogResult == true)
+                 {
+                     (bool deleteSuccess, string messageFromDelete) = ShowtimeService.Ins.DeleteShowtime(SelectedShowtime.Id);
+                     if (deleteSuccess)
+                     {
+                         for (int i = 0; i < ListShowtimeofMovie.Count; i++)
+                         {
+                             if (ListShowtimeofMovie[i].Id == SelectedShowtime.Id)
+                                 ListShowtimeofMovie.RemoveAt(i);
+                         }
+                         oldSelectedItem = SelectedItem;
+                         await ReloadShowtimeList(SelectedRoomId);
+                         SelectedShowtime = null;
+                         MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Success, MessageButtons.OK);
+                         mb.ShowDialog();
+                     }
+                     else
+                     {
+                         MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Error, MessageButtons.OK);
+                         mb.ShowDialog();
+                     }
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    (bool deleteSuccess, string messageFromDelete) = ShowtimeService.Ins.DeleteShowtime(SelectedShowtime.Id);
-                    MessageBox.Show(messageFromDelete);
 
-
-                    if (deleteSuccess)
-                    {
-                        for (int i = 0; i < ListShowtimeofMovie.Count; i++)
-                        {
-                            if (ListShowtimeofMovie[i].Id == SelectedShowtime.Id)
-                                ListShowtimeofMovie.RemoveAt(i);
-                        }
-                        oldSelectedItem = SelectedItem;
-                        ReloadShowtimeList(SelectedRoomId);
-                        SelectedShowtime = null;
-                    }
-
-
-                }
-            });
-            ChangedRoomCM = new RelayCommand<RadioButton>((p) => { return true; }, (p) =>
+                 }
+             });
+            ChangedRoomCM = new RelayCommand<RadioButton>((p) => { return true; }, async (p) =>
             {
                 switch (p.Name)
                 {
                     case "all":
                         {
                             SelectedRoomId = -1;
-                            ReloadShowtimeList(SelectedRoomId);
+                            await ReloadShowtimeList(SelectedRoomId);
                             break;
                         }
                     case "r1":
                         {
                             SelectedRoomId = 1;
-                            ReloadShowtimeList(1);
+                            await ReloadShowtimeList(1);
                             break;
                         }
                     case "r2":
                         {
                             SelectedRoomId = 2;
-                            ReloadShowtimeList(2);
+                            await ReloadShowtimeList(2);
                             break;
                         }
                     case "r3":
                         {
                             SelectedRoomId = 3;
-                            ReloadShowtimeList(3);
+                            await ReloadShowtimeList(3);
                             break;
                         }
                     case "r4":
                         {
                             SelectedRoomId = 4;
-                            ReloadShowtimeList(4);
+                            await ReloadShowtimeList(4);
                             break;
                         }
                     case "r5":
                         {
                             SelectedRoomId = 5;
-                            ReloadShowtimeList(5);
+                            await ReloadShowtimeList(5);
                             break;
                         }
                 }
@@ -249,19 +263,18 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 p.Close();
                 SelectedShowtime = null;
             });
-            LoadSeatCM = new RelayCommand<ListBox>((p) => { return true; }, (p) =>
-            {
-                if (SelectedShowtime != null)
-                {
-                    ListSeat = _oldselectedItem.DisplayName + "\n" + SelectedShowtime.StartTime.ToString();
+            LoadSeatCM = new RelayCommand<ListBox>((p) => { return true; }, async (p) =>
+             {
+                 if (SelectedShowtime != null)
+                 {
+                     await GenerateSeat();
+                     if (SelectedShowtime.TicketPrice.ToString().Length > 5)
+                         moviePrice = decimal.Parse(SelectedShowtime.TicketPrice.ToString().Remove(5, 5));
+                     else
+                         moviePrice = decimal.Parse(SelectedShowtime.TicketPrice.ToString());
+                 }
 
-                    if (SelectedShowtime.TicketPrice.ToString().Length > 5)
-                        moviePrice = decimal.Parse(SelectedShowtime.TicketPrice.ToString().Remove(5, 5));
-                    else
-                        moviePrice = decimal.Parse(SelectedShowtime.TicketPrice.ToString());
-                }
-
-            });
+             });
             EditPriceCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
             {
                 if (SelectedShowtime is null) return;
@@ -272,22 +285,28 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 if (IsSuccess)
                 {
                     SelectedShowtime.TicketPrice = moviePrice;
-                    MessageBox.Show(message);
+                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
                 else
                 {
-                    MessageBox.Show(message);
+                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
                 }
+            });
+            SelectedDateCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await ReloadShowtimeList(-1);
             });
         }
 
 
-        public void ReloadShowtimeList(int id)
+        public async Task ReloadShowtimeList(int id = -1)
         {
             if (id != -1)
-                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
+                ShowtimeList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
             else
-                ShowtimeList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
+                ShowtimeList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate));
         }
         public void GenerateListRoom()
         {

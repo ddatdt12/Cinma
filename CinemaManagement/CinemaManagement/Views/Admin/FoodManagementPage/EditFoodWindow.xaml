@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.FoodManagementPage"
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -17,10 +16,12 @@
         DataContext="{StaticResource FoodManagementVM}"
         WindowStyle="None"
         AllowsTransparency="True"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         Name="EditFoodWd"
         ResizeMode="NoResize"
-        Title="EditFoodWindow" Height="400" Width="280">
+        Title="EditFoodWindow"
+        Height="400"
+        Width="280">
 
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
@@ -39,12 +40,13 @@
     </Window.Triggers>
 
 
-    <Border BorderBrush="#18ffff"
-            BorderThickness="2"
-            CornerRadius="10">
+    <Border CornerRadius="10"
+            BorderThickness="1"
+            BorderBrush="Gray"
+            Background="White">
         <Grid Background="Transparent">
             <Border Background="Transparent">
-                <materialDesign:Card UniformCornerRadius="10">
+                <materialDesign:Card UniformCornerRadius="10" Background="Transparent">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50" />
@@ -81,19 +83,21 @@
                         </Grid.Resources>
                         <materialDesign:ColorZone Mode="SecondaryMid"
                                                   Padding="10"
-                                                  Background="#0c70b6"
+                                                  BorderThickness="0,0,0,1"
+                                                  BorderBrush="Black"
+                                                  Background="White"
                                                   Grid.Row="0">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock VerticalAlignment="Center"
-                                           Margin="30 0 0 0"
+                                           Margin="10 0 0 0"
                                            Text="SỬA ĐỒ ĂN"
-                                           Foreground="White"
+                                           Foreground="Black"
                                            FontWeight="DemiBold"
                                            FontSize="20" />
                             </StackPanel>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonDown">
-                                    <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
+                                    <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}"
                                                            CommandParameter="{Binding ElementName=EditFoodWd}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
@@ -182,15 +186,17 @@
                                 </Style>
                             </Grid.Resources>
                             <Button Content="Lưu"
-                                    Margin="0 0 100 10"
+                                    Margin="0 0 10 10"
                                     Command="{Binding EditFoodCommand}"
                                     CommandParameter="{Binding ElementName=EditFoodWd}"
-                                    Background="#0c70b6" />
+                                    materialDesign:ButtonAssist.CornerRadius="8" />
                             <Button Content="Hủy"
-                                    Margin="0 0 10 10"
+                                    Margin="0 0 100 10"
                                     Command="{Binding CloseCommand}"
                                     CommandParameter="{Binding ElementName=EditFoodWd}"
-                                    Background="OrangeRed" />
+                                    Background="OrangeRed"
+                                    materialDesign:ButtonAssist.CornerRadius="8"
+                                    BorderBrush="Transparent"/>
                         </Grid>
                     </Grid>
                 </materialDesign:Card>

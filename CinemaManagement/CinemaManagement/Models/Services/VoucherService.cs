@@ -2,9 +2,8 @@
 using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CinemaManagement.Models.Services
@@ -37,13 +36,13 @@ namespace CinemaManagement.Models.Services
             string newIdString = $"000{int.Parse(maxId.Substring(4)) + 1}";
             return "VCRL" + newIdString.Substring(newIdString.Length - 4, 4);
         }
-        public List<VoucherReleaseDTO> GetAllVoucherReleases()
+        public async Task<List<VoucherReleaseDTO>> GetAllVoucherReleases()
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var VrList = (from vr in context.VoucherReleases
+                    var VrList = await (from vr in context.VoucherReleases
                                   orderby vr.Id descending
                                   select new VoucherReleaseDTO
                                   {
@@ -59,7 +58,7 @@ namespace CinemaManagement.Models.Services
                                       StaffName = vr.Staff.Name,
                                       VCount = vr.Vouchers.Count(),
                                       UnusedVCount = vr.Vouchers.Count(v => v.Status == VOUCHER_STATUS.UNRELEASED),
-                                  }).ToList();
+                                  }).ToListAsync();
                     return VrList;
                 }
             }
@@ -68,13 +67,13 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
-        public (VoucherReleaseDTO, bool haveAnyUsedVoucher) GetVoucherReleaseDetails(string Id)
+        public async Task<(VoucherReleaseDTO, bool haveAnyUsedVoucher)> GetVoucherReleaseDetails(string Id)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var voucherRelease = context.VoucherReleases.Find(Id);
+                    var voucherRelease = await context.VoucherReleases.FindAsync(Id);
                     bool haveAnyUsedVoucher = voucherRelease.Vouchers.Any(v => v.Status == VOUCHER_STATUS.USED);
                     return (new VoucherReleaseDTO
                     {
@@ -99,6 +98,7 @@ namespace CinemaManagement.Models.Services
                             VoucherReleaseId = vR.VoucherReleaseId,
                             UsedAt = vR.UsedAt,
                             CustomerName = vR.Customer?.Name,
+                            ReleaseAt = vR.ReleaseAt,
                         }).ToList()
                     }, haveAnyUsedVoucher);
                 }
@@ -108,7 +108,7 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
-        public (bool, string, VoucherReleaseDTO newVR) CreateVoucherRelease(VoucherReleaseDTO newVR)
+        public async Task<(bool, string, VoucherReleaseDTO newVR)> CreateVoucherRelease(VoucherReleaseDTO newVR)
         {
             try
             {
@@ -130,7 +130,7 @@ namespace CinemaManagement.Models.Services
                     };
 
                     context.VoucherReleases.Add(voucherRelease);
-                    context.SaveChanges();
+                    await context .SaveChangesAsync();
 
                     newVR.Id = voucherRelease.Id;
                     return (true, "Thêm đợt phát hành mới thành công", newVR);
@@ -141,7 +141,7 @@ namespace CinemaManagement.Models.Services
                 return (false, "Lỗi hệ thống", null);
             }
         }
-        public (bool, string) UpdateVoucherRelease(VoucherReleaseDTO upVoucherR)
+        public async Task<(bool, string)> UpdateVoucherRelease(VoucherReleaseDTO upVoucherR)
         {
             try
             {
@@ -160,7 +160,7 @@ namespace CinemaManagement.Models.Services
                     voucherRelease.Status = upVoucherR.Status;
                     voucherRelease.StaffId = upVoucherR.StaffId;
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
 
                     return (true, "Cập nhật đợt phát hành thành công!");
                 }
@@ -170,7 +170,7 @@ namespace CinemaManagement.Models.Services
                 return (false, "Lỗi hệ thống");
             }
         }
-        public (bool, string, List<VoucherDTO> voucherList) CreateInputVoucherList(string voucherReleaseId, List<VoucherDTO> ListVoucher)
+        public async Task<(bool, string, List<VoucherDTO> voucherList)> CreateInputVoucherList(string voucherReleaseId, List<VoucherDTO> ListVoucher)
         {
             try
             {
@@ -191,7 +191,7 @@ namespace CinemaManagement.Models.Services
                     }).ToList();
 
                     context.Vouchers.AddRange(vouchers);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                     return (true, "Thêm danh sách voucher thành công", vouchers.Select(v => new VoucherDTO
                     {
                         VoucherReleaseId = v.VoucherReleaseId,
@@ -208,20 +208,22 @@ namespace CinemaManagement.Models.Services
                 return (false, "Lỗi hệ thống", null);
             }
         }
-        public (bool, string, List<VoucherDTO> voucherList) CreateRandomVoucherList(string voucherReleaseId, List<string> ListCode)
+        public async Task<(bool, string, List<VoucherDTO> voucherList)> CreateRandomVoucherList(string voucherReleaseId, List<string> ListCode)
         {
             try
             {
+
                 List<Voucher> vouchers = ListCode.Select(c => new Voucher
                 {
                     Code = c,
                     VoucherReleaseId = voucherReleaseId,
                     Status = VOUCHER_STATUS.UNRELEASED,
                 }).ToList();
+
                 using (var context = new CinemaManagementEntities())
                 {
                     context.Vouchers.AddRange(vouchers);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                     return (true, "Thêm danh sách voucher thành công", vouchers.Select(v => new VoucherDTO
                     {
                         VoucherReleaseId = v.VoucherReleaseId,
@@ -237,14 +239,14 @@ namespace CinemaManagement.Models.Services
             }
         }
 
-        public (bool, string) DeteleVouchers(List<int> ListCodeId)
+        public async Task<(bool, string)> DeteleVouchers(List<int> ListCodeId)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
                     context.Vouchers.RemoveRange(context.Vouchers.Where(v => ListCodeId.Contains(v.Id)));
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                     return (true, "Xóa danh sách voucher thành công");
                 }
             }
@@ -254,14 +256,14 @@ namespace CinemaManagement.Models.Services
             }
         }
 
-        public (bool, string) DeteleVoucherRelease(string VrId)
+        public async Task<(bool, string)> DeteleVoucherRelease(string VrId)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
                     context.VoucherReleases.Remove(context.VoucherReleases.Find(VrId));
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                     return (true, "Xóa đợt phát hành thành công");
                 }
             }
@@ -270,7 +272,7 @@ namespace CinemaManagement.Models.Services
                 return (false, "Lỗi hệ thống");
             }
         }
-        public (bool, string) ReleaseMultiVoucher(List<int> ListCodeId)
+        public async Task<(bool, string)> ReleaseMultiVoucher(List<int> ListCodeId)
         {
             try
             {
@@ -278,7 +280,7 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     var sql = $@"Update [Voucher] SET Status = '{VOUCHER_STATUS.REALEASED}', ReleaseAt = GETDATE()  WHERE Id IN ({idList})";
-                    context.Database.ExecuteSqlCommand(sql);
+                    await context.Database.ExecuteSqlCommandAsync(sql);
                 }
                 return (true, "Phát hành thành công");
             }

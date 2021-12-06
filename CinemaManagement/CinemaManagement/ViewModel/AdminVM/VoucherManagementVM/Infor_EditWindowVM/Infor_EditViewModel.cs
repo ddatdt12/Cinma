@@ -1,10 +1,12 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.VoucherManagement.AddWindow;
 using CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -74,19 +76,21 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
         VoucherReleaseDTO oldVer = new VoucherReleaseDTO();
 
-        private VoucherDTO selectedMiniVoucher;
-        public VoucherDTO SelectedMiniVoucher
-        {
-            get { return selectedMiniVoucher; }
-            set { selectedMiniVoucher = value; OnPropertyChanged(); }
-        }
 
-        private static ObservableCollection<VoucherDTO> waitingMiniVoucher;
-        public static ObservableCollection<VoucherDTO> WaitingMiniVoucher
+        private static List<int> waitingMiniVoucher;
+        public static List<int> WaitingMiniVoucher
         {
-            get {  return waitingMiniVoucher; }
+            get { return waitingMiniVoucher; }
             set { waitingMiniVoucher = value; }
         }
+
+        private int numberSelected;
+        public int NumberSelected
+        {
+            get { return numberSelected; }
+            set { numberSelected = value; OnPropertyChanged(); }
+        }
+
 
         public static bool HaveUsed = false;
 
@@ -94,7 +98,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public ICommand LoadInforCM { get; set; }
         public ICommand UpdateBigVoucherCM { get; set; }
         public ICommand DeleteMiniVoucherCM { get; set; }
-        public ICommand ReleaseVoucherCM { get; set; }
+        public ICommand StoreWaitingListCM { get; set; }
+        public ICommand CheckAllMiniVoucherCM { get; set; }
 
         public void LoadEdit_InforViewDataFunc(Edit_InforPage w)
         {
@@ -119,11 +124,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             w.unused.Content = SelectedItem.UnusedVCount;
             w.total.Content = SelectedItem.VCount;
         }
-        public void UpdateBigVoucherFunc()
+        public async Task UpdateBigVoucherFunc()
         {
             if (string.IsNullOrEmpty(Name))
             {
-                MessageBox.Show("Vui lòng nhập đủ thông tin");
+                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
                 return;
             }
             if (SelectedItem != null)
@@ -142,65 +148,73 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 Status = Status2,
             };
 
-            (bool isSucess, string addSuccess) = VoucherService.Ins.UpdateVoucherRelease(vr);
+            (bool isSucess, string addSuccess) = await VoucherService.Ins.UpdateVoucherRelease(vr);
 
             if (isSucess)
             {
-                MessageBox.Show(addSuccess);
+                MessageBoxCustom mb = new MessageBoxCustom("", addSuccess, MessageType.Success, MessageButtons.OK);
+                mb.ShowDialog();
 
-                ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(VoucherService.Ins.GetAllVoucherReleases());
-                (VoucherReleaseDTO voucherReleaseDetail, _) = VoucherService.Ins.GetVoucherReleaseDetails(oldVer.Id);
+                ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(await VoucherService.Ins.GetAllVoucherReleases());
+                (VoucherReleaseDTO voucherReleaseDetail, _) = await VoucherService.Ins.GetVoucherReleaseDetails(oldVer.Id);
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                StoreAllMini = new System.Collections.Generic.List<VoucherDTO>(ListViewVoucher);
+                StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                NumberSelected = 0;
             }
             else
             {
-                MessageBox.Show(addSuccess);
+                MessageBoxCustom mb = new MessageBoxCustom("", addSuccess, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
             }
         }
-        public void DeleteMiniVoucherFunc()
+        public async Task DeleteMiniVoucherFunc()
         {
             if (WaitingMiniVoucher.Count == 0)
             {
-                MessageBox.Show("Danh sách chọn đang trống!");
+                MessageBoxCustom mb = new MessageBoxCustom("", "Danh sách chọn đang trống!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
                 return;
             }
 
-
-            List<int> voucherIdList = new List<int>();
-            foreach (var item in WaitingMiniVoucher)
-            {
-                voucherIdList.Add(item.Id);
-            }
-
-            (bool deleteSuccess, string messageFromDelete) = VoucherService.Ins.DeteleVouchers(voucherIdList);
+            (bool deleteSuccess, string messageFromDelete) = await VoucherService.Ins.DeteleVouchers(WaitingMiniVoucher);
 
             if (deleteSuccess)
             {
                 AddVoucher.AllCheckBox.Clear();
-                MessageBox.Show(messageFromDelete);
-                (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
+                MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Success, MessageButtons.OK);
+                mb.ShowDialog();
+                (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
 
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                AddVoucher.topcheck.IsChecked = false;
+                NumberSelected = 0;
             }
             else
             {
-                MessageBox.Show(messageFromDelete);
+                MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
             }
         }
-        public static void HaveUsedVoucher()
+        public void CheckAllMiniVoucherFunc(bool func)
         {
-            foreach (var item in WaitingMiniVoucher)
-                if (item.Status == Utils.VOUCHER_STATUS.REALEASED)
+            if (func)
+            {
+                WaitingMiniVoucher.Clear();
+                foreach (var item in ListViewVoucher)
                 {
-                    HaveUsed = true;
-                    return;
+                    if (item.Status != "Ðã phát hành")
+                        WaitingMiniVoucher.Add(item.Id);
                 }
-            HaveUsed = false;
-            return;
+                NumberSelected = WaitingMiniVoucher.Count;
+            }
+            else
+            {
+                WaitingMiniVoucher.Clear();
+                NumberSelected = 0;
+            }
         }
     }
 }

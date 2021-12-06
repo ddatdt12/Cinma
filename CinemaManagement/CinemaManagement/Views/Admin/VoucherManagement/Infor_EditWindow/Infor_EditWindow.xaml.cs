@@ -1,31 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow
 {
-    /// <summary>
-    /// Interaction logic for Infor_EditWindow.xaml
-    /// </summary>
     public partial class Infor_EditWindow : Window
     {
         public Infor_EditWindow()
         {
             InitializeComponent();
-        }
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
         }
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {
@@ -42,7 +27,13 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            VoucherViewModel.ShadowMask.Visibility = Visibility.Collapsed;
             this.Close();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

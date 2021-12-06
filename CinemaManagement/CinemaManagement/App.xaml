@@ -19,17 +19,17 @@
             <!-- primary -->
 
             <SolidColorBrush x:Key="PrimaryHueLightBrush"
-                             Color="#FF6EA878" />
+                             Color="#0c70b6" />
             <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush"
                              Color="#FFFFFF" />
             <SolidColorBrush x:Key="PrimaryHueMidBrush"
-                             Color="#0c70b6" />
+                             Color="#1976d2" />
             <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush"
                              Color="#FFFFFF" />
             <SolidColorBrush x:Key="MyFirstColor"
                              Color="#FFA5B9D6" />
             <SolidColorBrush x:Key="PrimaryHueDarkBrush"
-                             Color="#FF6EA878" />
+                             Color="#0c70b6" />
             <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush"
                              Color="#FFFFFF" />
 

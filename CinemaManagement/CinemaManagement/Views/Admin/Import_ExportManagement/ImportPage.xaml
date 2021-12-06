@@ -4,10 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d"
-      d:DesignHeight="568"
+      d:DesignHeight="620"
       d:DesignWidth="1400"
       x:Name="mainPage"
+      FontSize="15"
+      FontFamily="arial"
       DataContext="{StaticResource Import_ExportManagementVM}">
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
@@ -27,8 +30,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75*" />
-            <RowDefinition Height="493*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="90*" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0"
@@ -69,9 +72,16 @@
                               Margin="10 0 0 0"
                               Padding="0,10,10,0"
                               FontSize="13"
+                              x:Name="filtercbb"
                               SelectedIndex="0"
                               SelectedItem="{Binding SelectedImportItemFilter}"
                               SelectionChanged="ComboBox_SelectionChanged_1">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding CheckImportItemFilterCM}"
+                                                       CommandParameter="{Binding ElementName=filtercbb}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem Content="Toàn bộ" />
                         <ComboBoxItem Content="Theo tháng" />
                     </ComboBox>
@@ -82,6 +92,12 @@
                               Visibility="Collapsed"
                               x:Name="cbbmonth"
                               SelectedIndex="{Binding SelectedImportMonth,Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedImportMonthCM}"
+                                                       CommandParameter="{Binding ElementName=cbbmonth}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem Content="Tháng 1" />
                         <ComboBoxItem Content="Tháng 2" />
                         <ComboBoxItem Content="Tháng 3" />
@@ -98,91 +114,112 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1"
                             Orientation="Horizontal">
-                    <Button  Content="Xuất file Excel"
-                             Height="40"
-                             Width="130"
-                             FontFamily="arial"
-                             FontWeight="Bold"
-                             Margin="250,0,0,0"
-                             materialDesign:ButtonAssist.CornerRadius="5"
-                             Command="{Binding ExportFileCM}" />
+                    <Button Height="40"
+                            Width="130"
+                            FontFamily="arial"
+                            FontWeight="Bold"
+                            Margin="250,0,0,0"
+                            Padding="0"
+                            materialDesign:ButtonAssist.CornerRadius="8"
+                            Command="{Binding ExportFileCM}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="FileExport"
+                                                         Width="25"
+                                                         Height="23" />
+                                <Label  Content="Xuất file Excel"
+                                        Foreground="White"
+                                        Margin="-5,0,0,0" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
                 </StackPanel>
             </Grid>
-
         </StackPanel>
 
-
-
-        <ListView  x:Name="_ListView"
-                   Focusable="True"
-                   Grid.Row="1"
-                   ItemsSource="{Binding ListProduct}"
-                   HorizontalContentAlignment="Stretch">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Mã đơn"
-                                    Width="130">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding Id}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Tên sản phẩm"
-                                    Width="300">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding ProductName}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Số lượng"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding Quantity}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Tổng giá"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding  ImportPriceStr}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Nhân viên"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding StaffName}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Ngày nhập"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding CreatedAt, StringFormat=dd-MM-yyyy HH:mm:ss}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-
+        <StackPanel  Grid.Row="1">
+            <ListView  x:Name="_ListView"
+                       Focusable="True"
+                       Height="530"
+                       VerticalAlignment="Top"
+                       ItemsSource="{Binding ListProduct}"
+                       HorizontalContentAlignment="Stretch">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Mã đơn"
+                                        Width="130">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding Id}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Tên sản phẩm"
+                                        Width="300">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding ProductName}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Số lượng"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding Quantity}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Tổng giá"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding  ImportPriceStr}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Nhân viên"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding StaffName}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Ngày nhập"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding CreatedAt, StringFormat=dd-MM-yyyy HH:mm:ss}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,20,0">
+                    <Label Content="Kết quả: "
+                           FontSize="15" />
+                    <Label Content="{Binding ListProduct.Count}"
+                           x:Name="result"
+                           FontSize="15" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Page>

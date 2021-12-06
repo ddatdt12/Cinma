@@ -3,7 +3,6 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
 using CinemaManagement.Views.LoginWindow;
-using CinemaManagement.Views.Staff;
 using CinemaManagement.Views.Staff.MovieScheduleWindow;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.ShowtimePage;
@@ -51,14 +50,14 @@ namespace CinemaManagement.ViewModel
         public DateTime SelectedDate
         {
             get { return _SelectedDate; }
-            set { _SelectedDate = value; OnPropertyChanged(); LoadMainListBox(0); }
+            set { _SelectedDate = value; OnPropertyChanged(); }
         }
 
         private GenreDTO _SelectedGenre;
         public GenreDTO SelectedGenre
         {
             get { return _SelectedGenre; }
-            set { _SelectedGenre = value; OnPropertyChanged(); LoadMainListBox(1); }
+            set { _SelectedGenre = value; OnPropertyChanged(); }
         }
 
         private DateTime _getCurrentDate;
@@ -89,10 +88,13 @@ namespace CinemaManagement.ViewModel
         public ICommand MinimizeMainStaffWindowCM { get; set; }
         public ICommand MouseMoveWindowCM { get; set; }
         public ICommand LoadMovieScheduleWindow { get; set; }
-        public ICommand LoadFoodPageCM{ get; set; }
+        public ICommand LoadFoodPageCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
+        public ICommand SelectedGenreCM { get; set; }
+        public ICommand SelectedDateCM { get; set; }
 
         public ICommand SignoutCM { get; set; }
-        
+
         private string _UserName;
         public string UserName
         {
@@ -104,10 +106,21 @@ namespace CinemaManagement.ViewModel
         #endregion
         public MainStaffViewModel()
         {
-            LoadCurrentDate();
-            SelectedDate = GetCurrentDate;
-            ListMovie1 = new ObservableCollection<MovieDTO>(MovieService.Ins.GetShowingMovieByDay(SelectedDate));
-            GenreList = GenreService.Ins.GetAllGenre();
+            SelectedGenreCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await LoadMainListBox(1);
+            });
+            SelectedDateCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                await LoadMainListBox(0);
+            });
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+             {
+                 LoadCurrentDate();
+                 SelectedDate = GetCurrentDate;
+                 ListMovie1 = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate));
+                 GenreList = GenreService.Ins.GetAllGenre();
+             });
             CloseMainStaffWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
                 {
                     FrameworkElement window = Window.GetWindow(p);
@@ -171,6 +184,6 @@ namespace CinemaManagement.ViewModel
                 w1.ShowDialog();
                 p.Close();
             });
-        } 
+        }
     }
 }

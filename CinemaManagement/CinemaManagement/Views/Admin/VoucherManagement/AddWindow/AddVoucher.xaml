@@ -10,7 +10,7 @@
       Title="AddInfor"
       FontSize="15"
       DataContext="{StaticResource VoucherVM}"
-      Height="454"
+      Height="484"
       Width="998"
       FontFamily="arial"
       x:Name="mainPage">
@@ -35,10 +35,11 @@
     </Page.Triggers>
 
 
-    <Grid>
+    <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
-            <RowDefinition Height="90*" />
+            <RowDefinition Height="45*" />
+            <RowDefinition Height="409*" />
+            <RowDefinition Height="30*" />
         </Grid.RowDefinitions>
 
         <materialDesign:Card Grid.Row="0">
@@ -72,16 +73,10 @@
                                 Margin="0,0,10,0"
                                 FontWeight="Bold"
                                 x:Name="releasebtn"
-                                IsEnabledChanged="releasebtn_IsEnabledChanged"
-                                Command="{Binding ReleaseVoucherCM}"
+                                Command="{Binding OpenReleaseVoucherCM}"
                                 CommandParameter="{Binding ElementName=releasebtn}" />
-                        <Grid x:Name="toolt"
-                              Visibility="Collapsed"
-                              Background="LightGray"
-                              Opacity="0.1"
-                              Margin="0,0,10,0" />
                     </Grid>
-                   
+
 
                     <Border  Background="{StaticResource PrimaryHueMidBrush}"
                              CornerRadius="5"
@@ -104,19 +99,58 @@
                                                                  Margin="5,0,0,0" />
                                     </StackPanel>
                                 </MenuItem.Header>
-                                <MenuItem Header="Xoá voucher"
-                                          Foreground="Black"
+                                <MenuItem Foreground="Black"
                                           Background="LightGray"
                                           Command="{Binding DeleteMiniVoucherCM}"
-                                          Margin="0,-20,0,0" />
-                                <MenuItem Header="Thêm voucher"
-                                          Foreground="Black"
+                                          Margin="0,-15,0,0">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Margin="-20,0,0,0">
+                                            <materialDesign:PackIcon Kind="DeleteEmpty"
+                                                                     Width="25"
+                                                                     Height="25"
+                                                                     VerticalAlignment="Center" />
+                                            <TextBlock Text="Xoá voucher"
+                                                       Margin="5,0,0,0"
+                                                       FontSize="15"
+                                                       VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Foreground="Black"
                                           Background="LightGray"
-                                          Command="{Binding LoadAddMiniVoucherCM}" />
-                                <MenuItem Header="Thêm danh sách voucher"
-                                          Foreground="Black"
+                                          Command="{Binding LoadAddMiniVoucherCM}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Margin="-20,0,0,0">
+                                            <materialDesign:PackIcon Kind="PlusCircleOutline"
+                                                                     Width="25"
+                                                                     Height="25"
+                                                                     VerticalAlignment="Center" />
+                                            <TextBlock Text="Thêm voucher"
+                                                       Margin="5,0,0,0"
+                                                       FontSize="15"
+                                                       VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <MenuItem Foreground="Black"
                                           Background="LightGray"
-                                          Command="{Binding LoadAddListMiniVoucherCM}" />
+                                          Command="{Binding LoadAddListMiniVoucherCM}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Margin="-20,0,0,0">
+                                            <materialDesign:PackIcon Kind="PlaylistPlus"
+                                                                     Width="25"
+                                                                     Height="25"
+                                                                     VerticalAlignment="Center" />
+                                            <TextBlock Text="Thêm danh sách voucher"
+                                                       Margin="5,0,0,0"
+                                                       FontSize="15"
+                                                       VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
                             </MenuItem>
                         </Menu>
                     </Border>
@@ -137,7 +171,9 @@
                     <TextBox materialDesign:HintAssist.Hint="Tìm kiếm mã voucher"
                              Padding="0,20,0,0"
                              Width="300"
-                             Margin="10,0,0,0" />
+                             x:Name="FilterBox"
+                             Margin="10,0,0,0"
+                             TextChanged="FilterBox_TextChanged" />
                     <Label Margin="360,0,0,0"
                            Content="Trạng thái:"
                            FontSize="18"
@@ -146,6 +182,8 @@
                               SelectedIndex="0"
                               Padding="0,28,0,0"
                               Margin="20,0,0,0"
+                              x:Name="cbb"
+                              SelectionChanged="ComboBox_SelectionChanged"
                               SelectedItem="{Binding SelectedCbbFilter,Mode=OneWayToSource}">
                         <ComboBoxItem>Toàn bộ</ComboBoxItem>
                         <ComboBoxItem>Chưa phát hành</ComboBoxItem>
@@ -157,19 +195,25 @@
                 <Grid Grid.Row="1">
                     <ListView x:Name="Listviewmini"
                               ItemsSource="{Binding ListViewVoucher,UpdateSourceTrigger=PropertyChanged}"
-                              Focusable="True"
-                              SelectedItem="{Binding SelectedMiniVoucher}">
+                              Focusable="False">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="30">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <CheckBox Loaded="allcheck"
-                                                          Content=""
+                                            <StackPanel Orientation="Horizontal"
+                                                        Focusable="False">
+                                                <CheckBox Content="{Binding Id}"
                                                           x:Name="allcheck"
-                                                          Click="allcheck_Click"
-                                                          Visibility="{Binding Status,Converter={StaticResource Converter}}" />
+                                                          Loaded="allcheck_load"
+                                                          Visibility="{Binding Status,Converter={StaticResource Converter}}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="Click">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=Listviewmini, Path=DataContext.StoreWaitingListCM}"
+                                                                                   CommandParameter="{Binding ElementName=allcheck}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </CheckBox>
 
                                             </StackPanel>
                                         </DataTemplate>
@@ -180,7 +224,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Code}"
-                                                       Margin="30,0,0,0"
+                                                       Margin="15,0,0,0"
                                                        FontSize="18" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -195,26 +239,28 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <GridViewColumn Header="Ngày phát hành"
+                                                Width="180">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ReleaseAt,StringFormat=dd/MM/yyyy}"
+                                                       Margin="20,0,0,0"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                                 <GridViewColumn Header="Ngày sử dụng"
-                                                Width="200">
+                                                Width="180">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding UsedAt}"
-                                                       Margin="40,0,0,0"
+                                            <TextBlock Text="{Binding UsedAt,StringFormat=dd/MM/yyyy}"
+                                                       Margin="20,0,0,0"
                                                        FontSize="18" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Mệnh giá"
-                                                Width="150">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Margin="40,0,0,0"
-                                                       FontSize="18" />
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Trạng thái">
+                                <GridViewColumn Header="Trạng thái"
+                                                Width="170">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Status}"
@@ -230,8 +276,11 @@
                     <CheckBox VerticalAlignment="Top"
                               HorizontalAlignment="Left"
                               Margin="13,18,20,0"
+                              x:Name="topcheckbox"
                               Checked="CheckBox_Checked"
-                              Unchecked="CheckBox_Unchecked" />
+                              Unchecked="CheckBox_Unchecked"
+                              Command="{Binding CheckAllMiniVoucherCM}"
+                              CommandParameter="{Binding ElementName=topcheckbox}" />
                 </Grid>
 
 
@@ -239,7 +288,21 @@
 
         </materialDesign:Card>
 
+        <Grid Grid.Row="2">
+            <StackPanel Orientation="Horizontal"
+                        Margin="20,0,0,0">
+                <Label Content="Đang chọn: " />
+                <Label Content="{Binding NumberSelected}" />
+            </StackPanel>
 
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,20,0">
+                <Label Content="Kết quả: " />
+                <Label Content="{Binding ListViewVoucher.Count}"
+                       x:Name="result" />
+            </StackPanel>
+        </Grid>
 
 
     </Grid>

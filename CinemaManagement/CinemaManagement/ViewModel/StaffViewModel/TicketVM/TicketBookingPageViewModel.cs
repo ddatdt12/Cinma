@@ -146,9 +146,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             set { _totalSeat = value; OnPropertyChanged(); }
         }
 
-        public void GenerateSeat()
+        public async void GenerateSeat()
         {
-            ListSeat = SeatService.Ins.GetSeatsByShowtime(CurrentShowtime.Id);
+            ListSeat = await SeatService.Ins.GetSeatsByShowtime(CurrentShowtime.Id);
             ListStatusSeat = new List<SeatSettingDTO>();
             ListSeat1 = new List<SeatSettingDTO>();
             ListSeat2 = new List<SeatSettingDTO>();
@@ -200,9 +200,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
 
 
             TotalSeat = "";
-            for(int i = 0; i < WaitingList.Count;i++)
+            for (int i = 0; i < WaitingList.Count; i++)
             {
-                if(i == 0)
+                if (i == 0)
                     TotalSeat += WaitingList[i].SeatPosition;
                 else
                     TotalSeat += ", " + WaitingList[i].SeatPosition;

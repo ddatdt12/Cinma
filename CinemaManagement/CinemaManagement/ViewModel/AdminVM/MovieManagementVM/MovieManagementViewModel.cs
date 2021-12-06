@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,9 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net.Cache;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -96,7 +99,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         string oldMovieName;
         bool IsImageChanged = false;
         bool IsAddingMovie = false;
-        public static System.Windows.Controls.Grid MaskName { get; set; }
+        public static Grid MaskName { get; set; }
 
         System.Windows.Controls.ListView MainListView;
 
@@ -144,33 +147,38 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public ICommand StoreMainListViewNameCM { get; set; }
         public ICommand UpdateMovieCM { get; set; }
         public ICommand MaskNameCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
 
         public MovieManagementViewModel()
         {
-            ListCountrySource = new List<string>();
-            IsImageChanged = false;
 
-            try
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                GenreList = GenreService.Ins.GetAllGenre();
-                LoadMovieListView(Operation.READ);
-            }
-            catch (InvalidOperationException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            catch (Exception e)
-            {
-                System.Windows.MessageBox.Show("Lỗi hệ thống " + e.Message);
-            }
+                ListCountrySource = new List<string>();
+                IsImageChanged = false;
 
-            InsertCountryToComboBox();
+                try
+                {
+                    GenreList = GenreService.Ins.GetAllGenre();
+                    await LoadMovieListView(Operation.READ);
+                }
+                catch (InvalidOperationException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (Exception e)
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
 
+                InsertCountryToComboBox();
+            });
             StoreMainListViewNameCM = new RelayCommand<System.Windows.Controls.ListView>((p) => { return true; }, (p) =>
             {
                 MainListView = p;
             });
-            MaskNameCM = new RelayCommand<System.Windows.Controls.Grid>((p) => { return true; }, (p) =>
+            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
             {
                 MaskName = p;
             });
@@ -202,30 +210,34 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
-            LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
               {
-                  MessageBoxResult result = System.Windows.MessageBox.Show("Bạn có chắc muốn xoá phim này không ? Dữ liệu không thể phục hồi sau khi xoá!", "Xác nhận xoá", MessageBoxButton.YesNo);
-                  switch (result)
+                  string message = "Bạn có chắc muốn xoá phim này không? Dữ liệu không thể phục hồi sau khi xoá!";
+                  MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
+                  result.ShowDialog();
+                  switch (result.DialogResult)
                   {
-                      case MessageBoxResult.Yes:
+                      case true:
                           {
                               (bool successDelMovie, string messageFromDelMovie) = MovieService.Ins.DeleteMovie(SelectedItem.Id);
 
                               if (successDelMovie)
                               {
                                   File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-                                  System.Windows.MessageBox.Show(messageFromDelMovie);
-                                  LoadMovieListView(Operation.DELETE);
+                                  await LoadMovieListView(Operation.DELETE);
                                   SelectedItem = null;
+                                  MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
+                                  mb.ShowDialog();
                                   break;
                               }
                               else
                               {
-                                  System.Windows.MessageBox.Show(messageFromDelMovie);
+                                  MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Error, MessageButtons.OK);
+                                  mb.ShowDialog();
                                   break;
                               }
                           }
-                      case MessageBoxResult.No:
+                      case false:
                           break;
                   }
               });
@@ -301,14 +313,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                         File.Delete(Helper.GetMovieImgPath(temp_fullname));
 
                 }
-
-
-
-                //appPath = Helper.GetMovieImgPath(imgfullname);
-                //if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
-                //    File.Delete(Helper.GetMovieImgPath(imgfullname));
-                //File.Copy(filepath, appPath, true);
-
             }
             catch (Exception exp)
             {
@@ -317,7 +321,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         }
 
         //Operation is enum have 4 values { READ, UPDATE, CREATE, DELETE }
-        public void LoadMovieListView(Operation oper = Operation.READ, MovieDTO m = null)
+        public async Task LoadMovieListView(Operation oper = Operation.READ, MovieDTO m = null)
         {
             switch (oper)
             {
@@ -325,7 +329,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     MovieList.Add(m);
                     break;
                 case Operation.READ:
-                    MovieList = new ObservableCollection<MovieDTO>(MovieService.Ins.GetAllMovie());
+                    MovieList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetAllMovie());
                     break;
                 case Operation.UPDATE:
                     var movieFound = MovieList.FirstOrDefault(x => x.Id == m.Id);
@@ -373,7 +377,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             ListCountrySource.Add("Việt Nam");
 
         }
-
         public void MovieImageChanged()
         {
             if (!IsAddingMovie)

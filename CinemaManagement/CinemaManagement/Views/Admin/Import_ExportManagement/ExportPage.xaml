@@ -6,9 +6,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d"
-      d:DesignHeight="568"
+      d:DesignHeight="620"
       d:DesignWidth="1400"
       x:Name="mainPage"
+      FontFamily="arial"
       DataContext="{StaticResource Import_ExportManagementVM}">
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
@@ -27,8 +28,8 @@
     </Page.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75*" />
-            <RowDefinition Height="493*" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="90*" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0"
@@ -73,6 +74,12 @@
                               x:Name="Filterbox"
                               SelectedItem="{Binding SelectedItemFilter}"
                               SelectionChanged="ComboBox_SelectionChanged_1">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding CheckItemFilterCM}"
+                                                       CommandParameter="{Binding ElementName=Filterbox}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem Content="Toàn bộ" />
                         <ComboBoxItem Content="Theo ngày" />
                         <ComboBoxItem Content="Theo tháng" />
@@ -85,6 +92,13 @@
                               Visibility="Collapsed"
                               x:Name="cbbmonth"
                               SelectedIndex="{Binding SelectedMonth,Mode=TwoWay}">
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedMonthCM}"
+                                                       CommandParameter="{Binding ElementName=cbbmonth}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ComboBoxItem Content="Tháng 1" />
                         <ComboBoxItem Content="Tháng 2" />
                         <ComboBoxItem Content="Tháng 3" />
@@ -106,110 +120,139 @@
                                 Visibility="Visible"
                                 x:Name="timepicker"
                                 SelectedDate="{Binding SelectedDate,Mode=TwoWay}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectedDateChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedDateExportListCM}"
+                                                       CommandParameter="{Binding ElementName=timepicker}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </DatePicker>
                 </StackPanel>
                 <StackPanel Grid.Column="1"
                             Orientation="Horizontal">
-                    <Button  Content="Xuất file Excel"
-                             Height="40"
-                             Width="130"
-                             FontFamily="arial"
-                             FontWeight="Bold"
-                             Margin="250,0,0,0"
-                             materialDesign:ButtonAssist.CornerRadius="5"
-                             Command="{Binding ExportFileCM}" />
+                    <Button Height="40"
+                            Width="130"
+                            FontFamily="arial"
+                            FontWeight="Bold"
+                            Margin="250,0,0,0"
+                            Padding="0"
+                            materialDesign:ButtonAssist.CornerRadius="8"
+                            Command="{Binding ExportFileCM}">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="FileExport"
+                                                         Width="25"
+                                                         Height="23" />
+                                <Label  Content="Xuất file Excel"
+                                        Foreground="White"
+                                        Margin="-5,0,0,0" />
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
                 </StackPanel>
             </Grid>
 
         </StackPanel>
+        <StackPanel  Grid.Row="1">
+            <ListView  x:Name="_ListView"
+                       Focusable="True"
+                       ItemsSource="{Binding ListBill}"
+                       Height="520"
+                       VerticalAlignment="Top"
+                       SelectedItem="{Binding SelectedTicketBill}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding LoadInforBillCM}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
 
-        <ListView  x:Name="_ListView"
-                   Focusable="True"
-                   ItemsSource="{Binding ListBill}"
-                   Grid.Row="1"
-                   SelectedItem="{Binding SelectedTicketBill}">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding LoadInforBillCM}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Mã đơn"
-                                    Width="130">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding Id}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Ngày xuất"
-                                    Width="220">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding CreatedAt,
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Mã đơn"
+                                        Width="130">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding Id}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Ngày xuất"
+                                        Width="220">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding CreatedAt,
 StringFormat=dd/MM/yyyy HH:mm:ss}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Khách hàng"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding CustomerName}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Số điện thoại">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding PhoneNumber}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Khách hàng"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding CustomerName}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Số điện thoại">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding PhoneNumber}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                    <GridViewColumn Header="Tổng giá"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding OriginalTotalPriceStr}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Giảm giá"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding DiscountPriceStr}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Sau giảm giá"
-                                    Width="200">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock  Text="{Binding TotalPriceStr}"
-                                            FontSize="18"
-                                            Margin="10,0,0,0" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-
+                        <GridViewColumn Header="Tổng giá"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding OriginalTotalPriceStr}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Giảm giá"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding DiscountPriceStr}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Sau giảm giá"
+                                        Width="200">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  Text="{Binding TotalPriceStr}"
+                                                FontSize="18"
+                                                Margin="10,0,0,0" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Margin="0,0,20,0">
+                    <Label Content="Kết quả: "
+                           FontSize="15" />
+                    <Label Content="{Binding ListBill.Count}"
+                           x:Name="result"
+                           FontSize="15" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Page>

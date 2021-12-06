@@ -1,13 +1,11 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.FoodManagementPage;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Cache;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -18,7 +16,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
     {
         public void LoadEditFood(EditFoodWindow wd)
         {
-
             if (SelectedItem != null)
             {
                 DisplayName = SelectedItem.DisplayName;
@@ -32,7 +29,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 if (File.Exists(Helper.GetProductImgPath(SelectedItem.Image)) == true)
                 {
-
                     BitmapImage _image = new BitmapImage();
                     _image.BeginInit();
                     _image.CacheOption = BitmapCacheOption.None;
@@ -49,10 +45,9 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     wd.EditImage.Source = Helper.GetProductImageSource("null.jpg");
                 }
             }
-
         }
 
-        public void EditFood(Window p)
+        public async Task EditFood(Window p)
         {
             if (Id != -1 && IsValidData())
             {
@@ -75,21 +70,30 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     filepath = Helper.GetProductImgPath(Image);
                     product.Image = imgfullname = Helper.CreateImageFullName(Helper.CreateImageName(product.DisplayName), Image.Split('.')[1]);
                 }
+                await Task.Delay(0);
                 (bool successUpdateProduct, string messageFromUpdateProduct) = ProductService.Ins.UpdateProduct(product);
 
                 if (successUpdateProduct)
                 {
                     SaveImgToApp();
                     LoadProductListView(Operation.UPDATE, product);
-                    MessageBox.Show(messageFromUpdateProduct);
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateProduct, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 }
                 else
-                    MessageBox.Show(messageFromUpdateProduct);
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateProduct, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
+
             }
             else
-                MessageBox.Show("Vui lòng nhập đủ thông tin!");
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+            }
         }
     }
 }

@@ -11,27 +11,28 @@
       TextElement.FontSize="13"
       TextOptions.TextFormattingMode="Ideal"
       TextOptions.TextRenderingMode="Auto"
-      FontFamily="{DynamicResource MaterialDesignFont}"
       DataContext="{StaticResource MovieManagementVM}"
       d:DesignHeight="720"
       d:DesignWidth="1440"
+      FontFamily="arial"
       x:Name="mainPage">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding MaskNameCM}"
                                    CommandParameter="{Binding ElementName=ShadowMask}" />
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
             <BeginStoryboard>
                 <Storyboard>
                     <DoubleAnimation Storyboard.TargetName="mainPage"
-                                        Storyboard.TargetProperty="Opacity"
-                                        From="0"
-                                        To="1"
-                                        Duration="0:0:0.3" />
+                                     Storyboard.TargetProperty="Opacity"
+                                     From="0"
+                                     To="1"
+                                     Duration="0:0:0.3" />
 
 
                 </Storyboard>
@@ -67,111 +68,133 @@
             <StackPanel Orientation="Horizontal"
                         Margin="30,0,0,0"
                         VerticalAlignment="Bottom">
-                <Button  Content="Thêm"
-                         VerticalAlignment="Top"
-                         HorizontalAlignment="Center"
-                         Width="120"
-                         Height="40"
-                         FontSize="25"
-                         FontFamily="arial"
-                         materialDesign:ButtonAssist.CornerRadius="5"
-                         Command="{Binding LoadAddMovieCM}">
+                <Button VerticalAlignment="Top"
+                        HorizontalAlignment="Center"
+                        Width="120"
+                        Height="40"
+                        FontSize="25"
+                        FontFamily="arial"
+                        Padding="0"
+                        materialDesign:ButtonAssist.CornerRadius="8"
+                        Command="{Binding LoadAddMovieCM}">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="PlusCircleOutline"
+                                                     Width="25"
+                                                     Height="25"
+                                                     VerticalAlignment="Center"
+                                                     Margin="0,0,0,0" />
+                            <TextBlock Text="Thêm"
+                                       Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Button.Content>
                 </Button>
             </StackPanel>
         </StackPanel>
 
         <Grid Grid.Row="1">
-
             <materialDesign:Card Background="White"
                                  Margin="30,20,30,20"
                                  UniformCornerRadius="5">
-                <ListView x:Name="MovieListView"
-                          ItemsSource="{Binding MovieList}"
-                          SelectedItem="{Binding SelectedItem}"
-                          Focusable="True">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseDoubleClick">
-                            <i:InvokeCommandAction Command="{Binding LoadInforMovieCM}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Tên phim">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding DisplayName}"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Loại phim">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding MovieType}"
-                                                   Margin="30,0,0,0"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Thời lượng(phút)"
-                                            Width="500">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding RunningTime}"
-                                                   Margin="40,0,0,0"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Border BorderBrush="Black"
-                                                    BorderThickness="0.5"
-                                                    CornerRadius="5">
-                                                <StackPanel>
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                            <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadEditMovieCM}" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                    <Image Source="/Resources/IconPack/pencil.png"
-                                                           Width="30"
-                                                           Height="30"
-                                                           Cursor="Hand" />
-
-                                                </StackPanel>
-                                            </Border>
-                                            <Border BorderThickness="0.5"
-                                                    BorderBrush="Black"
-                                                    CornerRadius="5"
-                                                    Margin="10,0,0,0">
-                                                <StackPanel>
-                                                    <materialDesign:PackIcon Kind="GarbageCanEmpty"
-                                                                             Width="30"
-                                                                             Height="30"
-                                                                             Cursor="Hand">
+                <StackPanel>
+                    <ListView x:Name="MovieListView"
+                              ItemsSource="{Binding MovieList}"
+                              SelectedItem="{Binding SelectedItem}"
+                              Focusable="True"
+                              Height="578">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding LoadInforMovieCM}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Tên phim">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding DisplayName}"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Loại phim">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding MovieType}"
+                                                       Margin="30,0,0,0"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Thời lượng(phút)"
+                                                Width="500">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding RunningTime}"
+                                                       Margin="40,0,0,0"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Border BorderBrush="Black"
+                                                        BorderThickness="0.5"
+                                                        CornerRadius="5">
+                                                    <StackPanel>
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                                <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadDeleteMovieCM}" />
+                                                                <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadEditMovieCM}" />
                                                             </i:EventTrigger>
                                                         </i:Interaction.Triggers>
-                                                    </materialDesign:PackIcon>
-                                                </StackPanel>
-                                            </Border>
-                                        </StackPanel>
+                                                        <Image Source="/Resources/IconPack/pencil.png"
+                                                               Width="30"
+                                                               Height="30"
+                                                               Cursor="Hand" />
 
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
+                                                    </StackPanel>
+                                                </Border>
+                                                <Border BorderThickness="0.5"
+                                                        BorderBrush="Black"
+                                                        CornerRadius="5"
+                                                        Margin="10,0,0,0">
+                                                    <StackPanel>
+                                                        <materialDesign:PackIcon Kind="GarbageCanEmpty"
+                                                                                 Width="30"
+                                                                                 Height="30"
+                                                                                 Cursor="Hand">
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                                    <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadDeleteMovieCM}" />
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </materialDesign:PackIcon>
+                                                    </StackPanel>
+                                                </Border>
+                                            </StackPanel>
 
-                </ListView>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
 
+                    </ListView>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,20,0">
+                            <Label Content="Kết quả: "
+                                   FontSize="15" />
+                            <Label Content="{Binding MovieList.Count}"
+                                   x:Name="result"
+                                   FontSize="15" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
             </materialDesign:Card>
-
         </Grid>
 
         <Grid Grid.RowSpan="2"

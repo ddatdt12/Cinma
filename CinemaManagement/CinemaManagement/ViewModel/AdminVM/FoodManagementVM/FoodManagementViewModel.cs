@@ -1,14 +1,14 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.FoodManagementPage;
+using MaterialDesignThemes.Wpf;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Net.Cache;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -112,7 +112,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ICommand OpenImportFoodCommand { get; set; }
         public ICommand OpenAddFoodCommand { get; set; }
         public ICommand OpenEditFoodCommand { get; set; }
-        public ICommand OpenDeleteFoodCommand { get; set; }
 
         public ICommand ImportFoodCommand { get; set; }
         public ICommand AddFoodCommand { get; set; }
@@ -120,10 +119,11 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ICommand DeleteFoodCommand { get; set; }
 
         public ICommand UpLoadImageCommand { get; set; }
-
-        public ICommand MouseMoveCommand { get; set; }
         public ICommand CloseCommand { get; set; }
         public ICommand MaskNameCM { get; set; }
+        public ICommand LoadProductListViewCM { get; set; }
+        public ICommand FirstLoadCM { get; set; }
+        public ICommand MouseMoveWindowCommand { get; set; }
 
         //
         private ProductDTO _SelectedItem;
@@ -149,54 +149,58 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
         public FoodManagementViewModel()
         {
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                LoadProductListView(Operation.READ);
+                FilterName = "";
+                IsImageChanged = false;
+            });
+            FilterTboxFoodCommand = new RelayCommand<System.Windows.Controls.TextBox>((p) => { return true; }, async (p) =>
+                 {
+                     await Task.Delay(0);
+                     ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
+                     tempList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
+                     FoodList.Clear();
+                     string temp = p.Text.ToLower();
+                     if (Category.Content.ToString() == "Tất cả")
+                     {
+                         for (int i = 0; i < tempList.Count; i++)
+                         {
+                             if (tempList[i].DisplayName.ToLower().Contains(temp))
+                             {
+                                 FoodList.Add(tempList[i]);
+                             }
+                         }
+                     }
+                     else if (Category.Content.ToString() == "Đồ ăn")
+                     {
+                         for (int i = 0; i < tempList.Count; i++)
+                         {
+                             if (tempList[i].Category == "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
+                             {
+                                 FoodList.Add(tempList[i]);
+                             }
+                         }
+                     }
+                     else
+                     {
+                         for (int i = 0; i < tempList.Count; i++)
+                         {
+                             if (tempList[i].Category != "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
+                             {
+                                 FoodList.Add(tempList[i]);
+                             }
+                         }
+                     }
+                 });
 
-            LoadProductListView(Operation.READ);
-            FilterName = "";
-            IsImageChanged = false;
-            FilterTboxFoodCommand = new RelayCommand<System.Windows.Controls.TextBox>((p) => { return true; },
-                (p) =>
+            FilterCboxFoodCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
                 {
+                    await Task.Delay(0);
                     ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
-                    tempList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
-                    FoodList.Clear();
-                    string temp = p.Text.ToLower();
-                    if (Category.Content.ToString() == "Tất cả")
-                    {
-                        for (int i = 0; i < tempList.Count; i++)
-                        {
-                            if (tempList[i].DisplayName.ToLower().Contains(temp))
-                            {
-                                FoodList.Add(tempList[i]);
-                            }
-                        }
-                    }
-                    else if (Category.Content.ToString() == "Đồ ăn")
-                    {
-                        for (int i = 0; i < tempList.Count; i++)
-                        {
-                            if (tempList[i].Category == "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
-                            {
-                                FoodList.Add(tempList[i]);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < tempList.Count; i++)
-                        {
-                            if (tempList[i].Category != "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
-                            {
-                                FoodList.Add(tempList[i]);
-                            }
-                        }
-                    }
-                });
 
-            FilterCboxFoodCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; },
-                (p) =>
-                {
-                    ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
                     tempList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
+
                     FoodList.Clear();
                     string temp = FilterName.ToLower();
                     if (Category.Content.ToString() == "Tất cả")
@@ -231,8 +235,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     }
                 });
 
-            ImportFoodChangeCommand = new RelayCommand<object>((p) => { return true; },
-                (p) =>
+            ImportFoodChangeCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
                 {
                     if (SelectedProduct != null)
                     {
@@ -257,24 +260,21 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     }
                 });
 
-            OpenImportFoodCommand = new RelayCommand<object>((p) => { return true; },
-                (p) =>
+            OpenImportFoodCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
                 {
                     ImportFoodWindow wd = new ImportFoodWindow();
                     LoadImportFoodWindow(wd);
                     MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
                 });
-            ImportFoodCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
-                {
-                    ProductDTO a = new ProductDTO();
-                    a = SelectedProduct;
-                    ImportFood(p);
-                });
+            ImportFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+                 {
+                     ProductDTO a = new ProductDTO();
+                     a = SelectedProduct;
+                     await ImportFood(p);
+                 });
 
-            OpenAddFoodCommand = new RelayCommand<object>((p) => { return true; },
-                (p) =>
+            OpenAddFoodCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
                 {
                     RenewWindowData();
                     AddFoodWindow wd = new AddFoodWindow();
@@ -282,15 +282,12 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
                 });
-            AddFoodCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
+            AddFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
                 {
-                    AddFood(p);
+                    await AddFood(p);
                 });
 
-
-            OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; },
-                (p) =>
+            OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
                 {
 
                     oldFoodName = DisplayName;
@@ -316,28 +313,38 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 });
 
-            EditFoodCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
-                {
-                    EditFood(p);
-                });
+            EditFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+               {
+                   await EditFood(p);
+               });
 
-            OpenDeleteFoodCommand = new RelayCommand<object>((p) => { return true; },
-                (p) =>
-                {
-                    DeleteFoodWindow wd = new DeleteFoodWindow();
-                    Image = SelectedItem.Image;
-                    Id = SelectedItem.Id;
-                    MaskName.Visibility = Visibility.Visible;
-                    wd.ShowDialog();
-
-                });
-
-            DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
-                {
-                    DeleteFood(p);
-                });
+            DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+                 {
+                     Image = SelectedItem.Image;
+                     Id = SelectedItem.Id;
+                     MessageBoxCustom mbx = new MessageBoxCustom("Cảnh báo", "Bạn có chắc muốn xoá sản phẩm này không?", MessageType.Warning, MessageButtons.YesNo);
+                     mbx.ShowDialog();
+                     if (mbx.DialogResult == true)
+                     {
+                         await Task.Delay(0);
+                         (bool successDelMovie, string messageFromDelMovie) = ProductService.Ins.DeleteProduct(Id);
+                         if (successDelMovie)
+                         {
+                             File.Delete(Helper.GetProductImgPath(Image));
+                             MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
+                             mb.ShowDialog();
+                             LoadProductListView(Operation.DELETE);
+                             SelectedItem = null;
+                             return;
+                         }
+                         else
+                         {
+                             MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Error, MessageButtons.OK);
+                             mb.ShowDialog();
+                             return;
+                         }
+                     }
+                 });
 
             CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {
@@ -351,8 +358,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             }
             );
 
-            UpLoadImageCommand = new RelayCommand<Window>((p) => { return true; },
-                (p) =>
+            UpLoadImageCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
                 {
                     OpenFileDialog openfile = new OpenFileDialog();
                     openfile.Title = "Select an image";
@@ -368,22 +374,21 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     IsImageChanged = false;
                 });
 
-            MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
-            {
-                Window window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
-                {
-
-                    w.DragMove();
-                }
-            }
-           );
-
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
               {
                   MaskName = p;
               });
+
+            MouseMoveWindowCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
+            {
+                FrameworkElement window = GetWindowParent(p);
+                var w = window as Window;
+                if (w != null)
+                {
+                    w.DragMove();
+                }
+            }
+            );
         }
 
         public void LoadImage()
@@ -437,13 +442,13 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             }
             catch (Exception exp)
             {
-                System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Unable to open file " + exp.Message, MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
             }
         }
 
         public void LoadProductListView(Operation oper, ProductDTO product = null)
         {
-
             switch (oper)
             {
                 case Operation.READ:
@@ -457,7 +462,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     }
                     catch (Exception e)
                     {
-                        System.Windows.MessageBox.Show("Lỗi hệ thống " + e.Message);
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
                     }
                     break;
                 case Operation.CREATE:

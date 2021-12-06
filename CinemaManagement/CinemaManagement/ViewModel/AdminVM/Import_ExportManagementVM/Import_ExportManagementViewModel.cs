@@ -1,8 +1,10 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.Import_ExportManagement;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -11,6 +13,13 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 {
     public partial class Import_ExportManagementViewModel : BaseViewModel
     {
+        private bool isGettingSource;
+        public bool IsGettingSource
+        {
+            get { return isGettingSource; }
+            set { isGettingSource = value; OnPropertyChanged(); }
+        }
+
         private DateTime _getCurrentDate;
         public DateTime GetCurrentDate
         {
@@ -28,19 +37,19 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public DateTime SelectedDate
         {
             get { return selectedDate; }
-            set { selectedDate = value; OnPropertyChanged(); GetExportListSource("date"); }
+            set { selectedDate = value; OnPropertyChanged(); }
         }
         private ComboBoxItem _SelectedItemFilter;
         public ComboBoxItem SelectedItemFilter
         {
             get { return _SelectedItemFilter; }
-            set { _SelectedItemFilter = value; OnPropertyChanged(); CheckItemFilter(); }
+            set { _SelectedItemFilter = value; OnPropertyChanged(); }
         }
         private ComboBoxItem _SelectedImportItemFilter;
         public ComboBoxItem SelectedImportItemFilter
         {
             get { return _SelectedImportItemFilter; }
-            set { _SelectedImportItemFilter = value; OnPropertyChanged(); CheckImportItemFilter(); }
+            set { _SelectedImportItemFilter = value; OnPropertyChanged(); }
         }
         private BillDTO _selectedTicketBill;
         public BillDTO SelectedTicketBill
@@ -59,14 +68,14 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public int SelectedMonth
         {
             get { return _SelectedMonth; }
-            set { _SelectedMonth = value; OnPropertyChanged(); CheckMonthFilter(); }
+            set { _SelectedMonth = value; OnPropertyChanged(); }
         }
-        
+
         private int _SelectedImportMonth;
         public int SelectedImportMonth
         {
             get { return _SelectedImportMonth; }
-            set { _SelectedImportMonth = value; OnPropertyChanged(); CheckImportMonthFilter(); }
+            set { _SelectedImportMonth = value; OnPropertyChanged(); }
         }
 
         public int SelectedView = 0;
@@ -78,20 +87,23 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public ICommand LoadImportPageCM { get; set; }
         public ICommand LoadExportPageCM { get; set; }
         public ICommand ExportFileCM { get; set; }
+        public ICommand SelectedDateExportListCM { get; set; }
         public ICommand LoadInforBillCM { get; set; }
         public ICommand MaskNameCM { get; set; }
+        public ICommand CheckItemFilterCM { get; set; }
+        public ICommand CheckImportItemFilterCM { get; set; }
+        public ICommand SelectedImportMonthCM { get; set; }
+        public ICommand SelectedMonthCM { get; set; }
 
-
-
-        private List<ProductReceiptDTO> _ListProduct;
-        public List<ProductReceiptDTO> ListProduct
+        private ObservableCollection<ProductReceiptDTO> _ListProduct;
+        public ObservableCollection<ProductReceiptDTO> ListProduct
         {
             get { return _ListProduct; }
             set { _ListProduct = value; OnPropertyChanged(); }
         }
 
-        private List<BillDTO> _ListBill;
-        public List<BillDTO> ListBill
+        private ObservableCollection<BillDTO> _ListBill;
+        public ObservableCollection<BillDTO> ListBill
         {
             get { return _ListBill; }
             set { _ListBill = value; OnPropertyChanged(); }
@@ -102,20 +114,44 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             GetCurrentDate = DateTime.Today;
             SelectedDate = GetCurrentDate;
             SelectedMonth = 0;
-            LoadImportPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+
+            SelectedMonthCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
+            {
+                await CheckMonthFilter();
+            }); SelectedImportMonthCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
+             {
+                 await CheckImportMonthFilter();
+             });
+            CheckImportItemFilterCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
+            {
+                await CheckImportItemFilter();
+            });
+            CheckItemFilterCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
+             {
+                 await CheckItemFilter();
+             });
+            SelectedDateExportListCM = new RelayCommand<DatePicker>((p) => { return true; }, async (p) =>
+            {
+                await GetExportListSource("date");
+            });
+            LoadImportPageCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
                 SelectedView = 0;
-                GetImportListSource();
+                IsGettingSource = true;
+                await GetImportListSource();
+                IsGettingSource = false;
                 ImportPage page = new ImportPage();
                 p.Content = page;
             });
-            LoadExportPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            LoadExportPageCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
                 SelectedView = 1;
-                GetExportListSource("date");
+                IsGettingSource = true;
+                await GetExportListSource("date");
+                IsGettingSource = false;
                 ExportPage page = new ExportPage();
                 p.Content = page;
-               
+
             });
             ExportFileCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
@@ -221,7 +257,8 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 
                                 Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
 
-                                MessageBox.Show("Xuất file thành công");
+                                MessageBoxCustom mb = new MessageBoxCustom("", "Xuất file thành công", MessageType.Success, MessageButtons.OK);
+                                mb.ShowDialog();
                             }
                         }
                         break;
@@ -268,98 +305,114 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
 
                                 Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
 
-                                MessageBox.Show("Xuất file thành công");
+                                MessageBoxCustom mb = new MessageBoxCustom("", "Xuất file thành công", MessageType.Success, MessageButtons.OK);
+                                mb.ShowDialog();
                             }
                         }
                         break;
                     }
             }
         }
-        public void GetImportListSource(string s = "")
+        public async Task GetImportListSource(string s = "")
         {
-            ListProduct = new List<ProductReceiptDTO>();
+            ListProduct = new ObservableCollection<ProductReceiptDTO>();
             switch (s)
             {
                 case "":
                     {
-                        ListProduct = new List<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt());
+                        IsGettingSource = true;
+                        await Task.Delay(0);
+                        ListProduct = new ObservableCollection<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt());
+                        IsGettingSource = false;
                         return;
                     }
                 case "month":
                     {
-                        CheckImportMonthFilter();
+                        IsGettingSource = true;
+                        await CheckImportMonthFilter();
+                        IsGettingSource = false;
                         return;
                     }
 
             }
         }
-        public void GetExportListSource(string s = "")
+        public async Task GetExportListSource(string s = "")
         {
-            ListBill = new List<BillDTO>();
+            ListBill = new ObservableCollection<BillDTO>();
             switch (s)
             {
                 case "date":
                     {
-                        ListBill = new  List<BillDTO>(BillService.Ins.GetBillByDate(SelectedDate));
+                        IsGettingSource = true;
+                        await Task.Delay(0);
+                        ListBill = new ObservableCollection<BillDTO>(BillService.Ins.GetBillByDate(SelectedDate));
+                        IsGettingSource = false;
                         return;
                     }
                 case "":
                     {
-                        ListBill = new List<BillDTO>(BillService.Ins.GetAllBill());
+                        IsGettingSource = true;
+                        await Task.Delay(0);
+                        ListBill = new ObservableCollection<BillDTO>(BillService.Ins.GetAllBill());
+                        IsGettingSource = false;
                         return;
                     }
                 case "month":
                     {
-                        CheckMonthFilter();
+                        IsGettingSource = true;
+                        await CheckMonthFilter();
+                        IsGettingSource = false;
                         return;
                     }
 
             }
         }
-        public void CheckItemFilter()
+        public async Task CheckItemFilter()
         {
             switch (SelectedItemFilter.Content.ToString())
             {
                 case "Toàn bộ":
                     {
-                        GetExportListSource("");
+                        await GetExportListSource("");
                         return;
                     }
                 case "Theo ngày":
                     {
-                        GetExportListSource("date");
+                        await GetExportListSource("date");
                         return;
                     }
                 case "Theo tháng":
                     {
-                        GetExportListSource("month");
+                        await GetExportListSource("month");
                         return;
                     }
             }
         }
-        public void CheckImportItemFilter()
+        public async Task CheckImportItemFilter()
         {
             switch (SelectedImportItemFilter.Content.ToString())
             {
                 case "Toàn bộ":
                     {
-                        GetImportListSource("");
+                        await GetImportListSource("");
                         return;
                     }
                 case "Theo tháng":
                     {
-                        GetImportListSource("month");
+                        await GetImportListSource("month");
                         return;
                     }
             }
         }
-        public void CheckMonthFilter()
+        public async Task CheckMonthFilter()
         {
-            ListBill = new List<BillDTO>(BillService.Ins.GetBillByMonth(SelectedMonth + 1));
+            await Task.Delay(0);
+            ListBill = new ObservableCollection<BillDTO>(BillService.Ins.GetBillByMonth(SelectedMonth + 1));
         }
-        public void CheckImportMonthFilter()
+        public async Task CheckImportMonthFilter()
         {
-            ListProduct = new List<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt(SelectedImportMonth + 1));
+            await Task.Delay(0);
+            ListProduct = new ObservableCollection<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt(SelectedImportMonth + 1));
         }
     }
 }

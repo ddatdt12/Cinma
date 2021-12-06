@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.QuanLyNhanVienPage"
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -12,7 +11,7 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}"
+        Background="Transparent"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource StaffManagementVM}"
         WindowStyle="None"
@@ -20,7 +19,7 @@
         ResizeMode="NoResize"
         Height="480"
         Width="500"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterScreen">
 
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
@@ -41,17 +40,14 @@
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
                                    CommandParameter="{Binding ElementName=SuaNV}" />
-        </i:EventTrigger>               
+        </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
-        <Border BorderBrush="#0c70b6"
-                BorderThickness="3">
-            <Border.Effect>
-                <DropShadowEffect ShadowDepth="0"
-                                  BlurRadius="5"
-                                  Color="#0c70b6" />
-            </Border.Effect>
-            <materialDesign:Card>
+        <Border BorderBrush="Gray"
+                BorderThickness="1"
+                CornerRadius="10"
+                Background="White">
+            <materialDesign:Card Background="Transparent">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -84,19 +80,18 @@
                                     Value="Center" />
                         </Style>
                     </Grid.Resources>
-                    <Grid Grid.Row="0">
-                        <materialDesign:ColorZone Mode="SecondaryMid"
-                                                  Padding="10"
-                                                  Background="#0c70b6">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock VerticalAlignment="Center"
-                                           Margin="30 0 0 0"
-                                           Text="SỬA NHÂN VIÊN"
-                                           Foreground="Black"
-                                           FontWeight="DemiBold"
-                                           FontSize="20" />
-                            </StackPanel>
-                        </materialDesign:ColorZone>
+                    <Grid Grid.Row="0"
+                          Margin="0,0,0,10">
+                        <Border BorderBrush="Black"
+                                BorderThickness="0,0,0,1">
+                            <TextBlock HorizontalAlignment="Left"
+                                       Margin="10,0,0,0"
+                                       Text="SỬA THÔNG TIN NHÂN VIÊN"
+                                       Foreground="Black"
+                                       FontWeight="DemiBold"
+                                       FontSize="20" />
+                        </Border>
+                       
                     </Grid>
                     <!--#region Thông tin-->
                     <Grid Grid.Row="1">
@@ -263,19 +258,21 @@
 
                         </Label>
                         <Button Content="Hủy"
+                                materialDesign:ButtonAssist.CornerRadius="8"
                                 Margin="0 0 110 10"
                                 Command="{Binding CloseCommand}"
                                 CommandParameter="{Binding ElementName=SuaNV}"
-                                Background="OrangeRed" />
+                                Background="OrangeRed"
+                                BorderBrush="Transparent"/>
                         <Button Content="Lưu"
                                 Margin="0 0 10 10"
+                                materialDesign:ButtonAssist.CornerRadius="8"
                                 Command="{Binding EditStaffCommand}"
-                                CommandParameter="{Binding ElementName=SuaNV}"
-                                Background="#0c70b6" />
+                                CommandParameter="{Binding ElementName=SuaNV}"/>
                     </Grid>
                 </Grid>
             </materialDesign:Card>
         </Border>
     </Grid>
-    
+
 </Window>

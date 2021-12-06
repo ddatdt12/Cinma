@@ -1,25 +1,11 @@
 ﻿using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow
 {
-    /// <summary>
-    /// Interaction logic for Edit_InforPage.xaml
-    /// </summary>
     public partial class Edit_InforPage : Page
     {
         public Edit_InforPage()

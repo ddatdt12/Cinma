@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaManagement.Views.Admin.QuanLyNhanVienPage"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="ThemNhanVienWindow"
@@ -17,7 +16,7 @@
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource StaffManagementVM}"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
@@ -45,8 +44,7 @@
                 CornerRadius="8"
                 BorderBrush="Gray"
                 Background="White">
-            <materialDesign:Card
-                Background="Transparent">
+            <materialDesign:Card Background="Transparent">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="45*" />
@@ -89,20 +87,18 @@
                         </Style>
                     </Grid.Resources>
                     <Grid Grid.Row="0">
-                        <materialDesign:ColorZone Mode="SecondaryMid"
-                                                  Padding="10"
-                                                  Background="Transparent">
-                            <Border BorderThickness="0,0,0,1"
-                                    BorderBrush="Black">
-                                <TextBlock VerticalAlignment="Center"
-                                           Margin="30 0 0 0"
-                                           Text="THÊM NHÂN VIÊN"
-                                           FontWeight="DemiBold"
-                                           FontSize="20"
-                                           HorizontalAlignment="Left"
-                                           Foreground="Black" />
-                            </Border>
-                        </materialDesign:ColorZone>
+
+                        <Border BorderThickness="0,0,0,1"
+                                BorderBrush="Black">
+                            <TextBlock VerticalAlignment="Center"
+                                       Margin="20 0 0 0"
+                                       Text="THÊM NHÂN VIÊN"
+                                       FontWeight="DemiBold"
+                                       FontSize="20"
+                                       HorizontalAlignment="Left"
+                                       Foreground="Black" />
+                        </Border>
+
                     </Grid>
                     <Grid Grid.Row="1">
                         <TextBlock Text="Thông tin cơ bản"
@@ -287,13 +283,13 @@
                                 Command="{Binding CloseCommand}"
                                 CommandParameter="{Binding ElementName=ThemNV}"
                                 Background="OrangeRed"
-                                materialDesign:ButtonAssist.CornerRadius="5" />
+                                BorderBrush="Transparent"
+                                materialDesign:ButtonAssist.CornerRadius="8" />
                         <Button Content="Hoàn tất"
                                 Margin="0 0 40 15"
                                 Command="{Binding AddStaffCommand}"
                                 CommandParameter="{Binding ElementName=ThemNV}"
-                                Background="#0c70b6"
-                                materialDesign:ButtonAssist.CornerRadius="5" />
+                                materialDesign:ButtonAssist.CornerRadius="8" />
 
                     </Grid>
                 </Grid>
