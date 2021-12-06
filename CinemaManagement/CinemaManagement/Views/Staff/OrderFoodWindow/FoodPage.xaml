@@ -10,7 +10,7 @@
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
       TextOptions.TextFormattingMode="Ideal"
       TextOptions.TextRenderingMode="Auto"
-      Background="#FFFBF5F5"
+      Background="#f3f5f7"
       FontFamily="{DynamicResource MaterialDesignFont}"
       DataContext="{StaticResource OrderFoodPageWindowVM}"
       d:DesignHeight="720" 
