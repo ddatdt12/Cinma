@@ -40,11 +40,11 @@
                                            CommandParameter="{Binding ElementName=filtercbb}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <ComboBoxItem>Toàn bộ</ComboBoxItem>
-            <ComboBoxItem>Chờ tiếp nhận</ComboBoxItem>
-            <ComboBoxItem>Đang giải quyết</ComboBoxItem>
-            <ComboBoxItem>Đã giải quyết</ComboBoxItem>
-            <ComboBoxItem>Đã hủy</ComboBoxItem>
+            <ComboBoxItem Tag="Toàn bộ">Toàn bộ</ComboBoxItem>
+            <ComboBoxItem Tag="Chờ tiếp nhận">Chờ tiếp nhận</ComboBoxItem>
+            <ComboBoxItem Tag="Đang giải quyết">Đang giải quyết</ComboBoxItem>
+            <ComboBoxItem Tag="Đã giải quyết">Đã giải quyết</ComboBoxItem>
+            <ComboBoxItem Tag="Đã hủy">Đã hủy</ComboBoxItem>
         </ComboBox>
         <materialDesign:Card Width="1200"
                              Height="630"
@@ -154,7 +154,7 @@
                                 HorizontalAlignment="Right"
                                 Margin="0,10,20,0">
                         <Label Content="Kết quả:"
-                               FontSize="15"/>
+                               FontSize="15" />
                         <Label Content="{Binding ListError.Count}"
                                x:Name="result"
                                FontSize="15" />

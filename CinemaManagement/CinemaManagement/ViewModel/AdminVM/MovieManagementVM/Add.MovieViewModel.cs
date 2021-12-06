@@ -35,7 +35,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     RunningTime = int.Parse(movieDuration),
                 };
 
-                (bool successAddMovie, string messageFromAddMovie, MovieDTO newMovie) = MovieService.Ins.AddMovie(movie);
+                (bool successAddMovie, string messageFromAddMovie, MovieDTO newMovie) = await MovieService.Ins.AddMovie(movie);
 
                 if (successAddMovie)
                 {
@@ -43,7 +43,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     mb.ShowDialog();
                     SaveImgToApp();
                     IsAddingMovie = false;
-                    await LoadMovieListView(Operation.CREATE, newMovie);
+                    LoadMovieListView(Operation.CREATE, newMovie);
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 }

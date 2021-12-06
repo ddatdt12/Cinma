@@ -29,8 +29,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     productReceipt.Quantity = Quantity;
                     productReceipt.StaffId = "NV002";
 
-                    await Task.Delay(0);
-                    (bool successAddProductReceipt, string messageFromAddProductReceipt, ProductReceiptDTO newProductReceipt) = ProductReceiptService.Ins.CreateProductReceipt(productReceipt);
+                    (bool successAddProductReceipt, string messageFromAddProductReceipt, ProductReceiptDTO newProductReceipt) = await ProductReceiptService.Ins.CreateProductReceipt(productReceipt);
 
                     if (successAddProductReceipt)
                     {

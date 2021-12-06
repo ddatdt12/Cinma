@@ -89,32 +89,30 @@ namespace CinemaManagement.Models.Services
             string newIdString = $"000{int.Parse(maxId.Substring(2)) + 1}";
             return "NV" + newIdString.Substring(newIdString.Length - 3, 3);
         }
-        public (bool, string, StaffDTO) AddStaff(StaffDTO newStaff)
+        public async Task<(bool, string, StaffDTO)> AddStaff(StaffDTO newStaff)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    bool usernameIsExist = context.Staffs.Any(s => s.Username == newStaff.Username);
+                    bool usernameIsExist = await context.Staffs.AnyAsync(s => s.Username == newStaff.Username);
 
                     if (usernameIsExist)
                     {
                         return (false, "Tài khoản đã tồn tại!", null);
                     }
-                    var maxId = context.Staffs.Max(s => s.Id);
+
+                    var maxId = await context.Staffs.MaxAsync(s => s.Id);
 
                     Staff st = Copy(newStaff);
                     st.Id = CreateNextStaffId(maxId);
                     st.Password = Helper.MD5Hash(newStaff.Password);
                     context.Staffs.Add(st);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
-            catch (DbEntityValidationException e)
-            {
-                return (false, "Lỗi hệ thống", null);
-            }
-            catch (Exception e)
+
+            catch (Exception)
             {
                 return (false, "Lỗi hệ thống", null);
             }
@@ -162,13 +160,6 @@ namespace CinemaManagement.Models.Services
                     await context.SaveChangesAsync();
                 }
             }
-            catch (DbEntityValidationException e)
-            {
-                Console.WriteLine(e);
-                return (false, "DbEntityValidationException");
-
-            }
-
             catch (Exception e)
             {
                 Console.WriteLine(e);
@@ -198,20 +189,20 @@ namespace CinemaManagement.Models.Services
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, "Lỗi Server");
+                return (false, "Lỗi hệ thống");
             }
             return (true, "Cập nhật mật khẩu thành công");
 
         }
-        public (bool, string) DeleteStaff(string Id)
+        public async Task<(bool, string)> DeleteStaff(string Id)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    Staff staff = (from p in context.Staffs
+                    Staff staff = await (from p in context.Staffs
                                    where p.Id == Id && !p.IsDeleted
-                                   select p).SingleOrDefault();
+                                   select p).FirstOrDefaultAsync();
                     if (staff is null || staff?.IsDeleted == true)
                     {
                         return (false, "Nhân viên không tồn tại!");
@@ -219,12 +210,11 @@ namespace CinemaManagement.Models.Services
                     staff.IsDeleted = true;
                     staff.Username = null;
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
                 return (false, $"Lỗi hệ thống.");
             }
             return (true, "Xóa nhân viên thành công");

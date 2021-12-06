@@ -322,15 +322,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             }
             else
             {
-                foreach (var v in StoreAllMini)
-                {
-                    var s = SelectedCbbFilter.Content.ToString().Normalize();
-                    if (v.Status.ToString().Trim() == SelectedCbbFilter.Content.ToString().Trim())
-                    {
-                        ListViewVoucher.Add(v);
-                    }
-                }
-                //ListViewVoucher = new ObservableCollection<VoucherDTO>(StoreAllMini.Where(v => v.Status == SelectedCbbFilter.Content.ToString()).ToList());
+                ListViewVoucher = new ObservableCollection<VoucherDTO>(StoreAllMini.Where(v => v.Status == SelectedCbbFilter.Tag.ToString()).ToList());
             }
         }
         public async Task GetVoucherReleaseDetails()

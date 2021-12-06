@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -146,7 +147,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             set { _totalSeat = value; OnPropertyChanged(); }
         }
 
-        public async void GenerateSeat()
+        public async Task GenerateSeat()
         {
             ListSeat = await SeatService.Ins.GetSeatsByShowtime(CurrentShowtime.Id);
             ListStatusSeat = new List<SeatSettingDTO>();

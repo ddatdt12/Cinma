@@ -26,7 +26,7 @@ namespace CinemaManagement.Models.Services
         private BillService()
         {
         }
-        public List<BillDTO> GetAllBill()
+        public async Task<List<BillDTO>> GetAllBill()
         {
             try
             {
@@ -45,8 +45,8 @@ namespace CinemaManagement.Models.Services
                                         CustomerName = b.Customer.Name,
                                         PhoneNumber = b.Customer.PhoneNumber,
                                         CreatedAt = b.CreatedAt
-                                    }).ToList();
-                    return billList;
+                                    }).ToListAsync();
+                    return await billList;
                 }
             }
             catch (Exception e)
@@ -60,7 +60,7 @@ namespace CinemaManagement.Models.Services
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<BillDTO> GetBillByDate(DateTime date)
+        public async Task<List<BillDTO>> GetBillByDate(DateTime date)
         {
             try
             {
@@ -80,8 +80,8 @@ namespace CinemaManagement.Models.Services
                                         CustomerName = b.Customer.Name,
                                         PhoneNumber = b.Customer.PhoneNumber,
                                         CreatedAt = b.CreatedAt
-                                    }).ToList();
-                    return billList;
+                                    }).ToListAsync();
+                    return await billList;
                 }
             }
             catch (Exception e)
@@ -95,7 +95,7 @@ namespace CinemaManagement.Models.Services
         /// </summary>
         /// <param name="month"></param>
         /// <returns></returns>
-        public List<BillDTO> GetBillByMonth(int month)
+        public async Task<List<BillDTO>> GetBillByMonth(int month)
         {
             try
             {
@@ -115,8 +115,8 @@ namespace CinemaManagement.Models.Services
                                         CustomerName = b.Customer.Name,
                                         PhoneNumber = b.Customer.PhoneNumber,
                                         CreatedAt = b.CreatedAt
-                                    }).ToList();
-                    return billList;
+                                    }).ToListAsync();
+                    return await billList;
                 }
             }
             catch (Exception e)
@@ -130,13 +130,13 @@ namespace CinemaManagement.Models.Services
         /// </summary>
         /// <param name="billId"></param>
         /// <returns></returns>
-        public BillDTO GetBillDetails(string billId)
+        public async Task<BillDTO> GetBillDetails(string billId)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var bill = context.Bills.Find(billId);
+                    var bill = await context.Bills.FindAsync(billId);
 
                     BillDTO billInfo = new BillDTO
                     {
@@ -163,7 +163,6 @@ namespace CinemaManagement.Models.Services
                         billInfo.PhoneNumber = bill.Customer.PhoneNumber;
                     }
 
-
                     var tickets = bill.Tickets;
                     if (tickets.Count != 0)
                     {
@@ -188,7 +187,7 @@ namespace CinemaManagement.Models.Services
                             seats = seatList,
                         };
                     }
-                return billInfo;
+                    return billInfo;
                 }
             }
             catch (Exception e)

@@ -23,8 +23,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.Image = imgfullname;
                 product.Quantity = 0;
 
-                await Task.Delay(0);
-                (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = ProductService.Ins.AddNewProduct(product);
+                (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = await ProductService.Ins.AddNewProduct(product);
 
                 if (successAddProduct)
                 {

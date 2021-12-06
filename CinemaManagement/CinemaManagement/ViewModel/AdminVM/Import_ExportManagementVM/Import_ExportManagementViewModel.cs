@@ -81,9 +81,6 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public int SelectedView = 0;
         public static Grid MaskName { get; set; }
 
-
-
-
         public ICommand LoadImportPageCM { get; set; }
         public ICommand LoadExportPageCM { get; set; }
         public ICommand ExportFileCM { get; set; }
@@ -157,18 +154,17 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             {
                 ExportToFileFunc();
             });
-            LoadInforBillCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            LoadInforBillCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
                 if (SelectedTicketBill != null)
                 {
                     try
                     {
-                        BillDetail = BillService.Ins.GetBillDetails(SelectedTicketBill.Id);
+                        BillDetail = await BillService.Ins.GetBillDetails(SelectedTicketBill.Id);
                     }
                     catch (Exception e)
                     {
-
-                        throw e;
+                        MessageBox.Show("Lỗi hệ thống");
                     }
 
                     if (BillDetail.TicketInfo is null)
@@ -322,7 +318,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                     {
                         IsGettingSource = true;
                         await Task.Delay(0);
-                        ListProduct = new ObservableCollection<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt());
+                        ListProduct = new ObservableCollection<ProductReceiptDTO>(await ProductReceiptService .Ins.GetProductReceipt());
                         IsGettingSource = false;
                         return;
                     }
@@ -344,16 +340,14 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                 case "date":
                     {
                         IsGettingSource = true;
-                        await Task.Delay(0);
-                        ListBill = new ObservableCollection<BillDTO>(BillService.Ins.GetBillByDate(SelectedDate));
+                        ListBill = new ObservableCollection<BillDTO>(await BillService.Ins.GetBillByDate(SelectedDate));
                         IsGettingSource = false;
                         return;
                     }
                 case "":
                     {
                         IsGettingSource = true;
-                        await Task.Delay(0);
-                        ListBill = new ObservableCollection<BillDTO>(BillService.Ins.GetAllBill());
+                        ListBill = new ObservableCollection<BillDTO>(await BillService.Ins.GetAllBill());
                         IsGettingSource = false;
                         return;
                     }
@@ -406,13 +400,11 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         }
         public async Task CheckMonthFilter()
         {
-            await Task.Delay(0);
-            ListBill = new ObservableCollection<BillDTO>(BillService.Ins.GetBillByMonth(SelectedMonth + 1));
+            ListBill = new ObservableCollection<BillDTO>(await BillService .Ins.GetBillByMonth(SelectedMonth + 1));
         }
         public async Task CheckImportMonthFilter()
         {
-            await Task.Delay(0);
-            ListProduct = new ObservableCollection<ProductReceiptDTO>(ProductReceiptService.Ins.GetProductReceipt(SelectedImportMonth + 1));
+            ListProduct = new ObservableCollection<ProductReceiptDTO>(await ProductReceiptService.Ins.GetProductReceipt(SelectedImportMonth + 1));
         }
     }
 }

@@ -259,7 +259,6 @@
                             </StackPanel>
                         </StackPanel>
                         <Grid Grid.Row="1">
-
                             <Button VerticalAlignment="Top"
                                     HorizontalAlignment="Right"
                                     Width="100"

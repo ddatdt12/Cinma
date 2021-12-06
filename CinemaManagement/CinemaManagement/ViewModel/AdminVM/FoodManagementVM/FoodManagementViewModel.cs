@@ -149,17 +149,28 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
         public FoodManagementViewModel()
         {
-            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; },async (p) =>
             {
-                LoadProductListView(Operation.READ);
+                try
+                {
+                    FoodList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+                }
+                catch (InvalidOperationException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (Exception e)
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
+
                 FilterName = "";
                 IsImageChanged = false;
             });
             FilterTboxFoodCommand = new RelayCommand<System.Windows.Controls.TextBox>((p) => { return true; }, async (p) =>
                  {
-                     await Task.Delay(0);
-                     ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
-                     tempList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
+                     ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
                      FoodList.Clear();
                      string temp = p.Text.ToLower();
                      if (Category.Content.ToString() == "Tất cả")
@@ -196,10 +207,9 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
             FilterCboxFoodCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
                 {
-                    await Task.Delay(0);
                     ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
 
-                    tempList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
+                    tempList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
 
                     FoodList.Clear();
                     string temp = FilterName.ToLower();
@@ -241,7 +251,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     {
                         if (File.Exists(Helper.GetProductImgPath(SelectedProduct.Image)) == true)
                         {
-
                             BitmapImage _image = new BitmapImage();
                             _image.BeginInit();
                             _image.CacheOption = BitmapCacheOption.None;
@@ -451,21 +460,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             switch (oper)
             {
-                case Operation.READ:
-                    try
-                    {
-                        FoodList = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
-                    }
-                    catch (InvalidOperationException e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
-                        mb.ShowDialog();
-                    }
-                    break;
                 case Operation.CREATE:
                     FoodList.Add(product);
                     break;

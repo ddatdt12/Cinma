@@ -75,14 +75,14 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     movie.Image = imgfullname = Helper.CreateImageFullName(Helper.CreateImageName(movieName), SelectedItem.Image.Split('.')[1]);
                 }
 
-                (bool successUpdateMovie, string messageFromUpdateMovie) = MovieService.Ins.UpdateMovie(movie);
+                (bool successUpdateMovie, string messageFromUpdateMovie) = await MovieService.Ins.UpdateMovie(movie);
 
                 if (successUpdateMovie)
                 {
                     SaveImgToApp();
                     MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateMovie, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
-                    await LoadMovieListView(Operation.UPDATE, movie);
+                    LoadMovieListView(Operation.UPDATE, movie);
 
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();

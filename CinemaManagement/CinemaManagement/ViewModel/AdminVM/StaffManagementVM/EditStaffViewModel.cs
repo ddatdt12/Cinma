@@ -25,7 +25,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 staff.StartingDate = StartDate;
                 staff.Username = TaiKhoan;
                 (bool successUpdateStaff, string messageFromUpdateStaff) = await StaffService.Ins.UpdateStaff(staff);
-                await LoadStaffListView(Utils.Operation.UPDATE, staff);
+                LoadStaffListView(Utils.Operation.UPDATE, staff);
 
                 if (successUpdateStaff)
                 {

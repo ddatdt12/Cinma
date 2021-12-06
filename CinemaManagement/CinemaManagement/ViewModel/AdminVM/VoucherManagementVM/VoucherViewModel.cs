@@ -9,6 +9,7 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -175,7 +176,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                  else
                  {
-
                      string message = "Bạn có chắc muốn xoá đợt phát hành này không? Dữ liệu không thể phục hồi sau khi xoá!";
                      MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
                      result.ShowDialog();
@@ -209,7 +209,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
              });
             SaveListMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                await SaveListMiniVoucherFunc();
+                await Task.Run(() => SaveListMiniVoucherFunc());
             });
             UpdateBigVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
@@ -249,7 +249,14 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                 w.ShowDialog();
             });
-            ReleaseVoucherCM = new RelayCommand<ReleaseVoucher>((p) => { return true; }, async (p) =>
+            ReleaseVoucherCM = new RelayCommand<ReleaseVoucher>((p) =>
+            {
+                if (IsReleaseVoucherLoading)
+                {
+                    return false;
+                }
+                return true;
+            }, async (p) =>
             {
                 IsReleaseVoucherLoading = true;
 

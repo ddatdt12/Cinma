@@ -145,6 +145,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             int sizePerItem = listCode.Count / listCustomerEmail.Count;
             List<List<string>> ListCodePerEmailList = ChunkBy(listCode, sizePerItem);
 
+            await Task.Delay(2000);
+            return;
             (bool sendSuccess, string messageFromSendEmail) = await sendHtmlEmail(listCustomerEmail, ListCodePerEmailList);
 
             if (!sendSuccess)

@@ -185,10 +185,10 @@
                               x:Name="cbb"
                               SelectionChanged="ComboBox_SelectionChanged"
                               SelectedItem="{Binding SelectedCbbFilter,Mode=OneWayToSource}">
-                        <ComboBoxItem>Toàn bộ</ComboBoxItem>
-                        <ComboBoxItem>Chưa phát hành</ComboBoxItem>
-                        <ComboBoxItem>Đã phát hành</ComboBoxItem>
-                        <ComboBoxItem>Đã sử dụng</ComboBoxItem>
+                        <ComboBoxItem Tag="Toàn bộ">Toàn bộ</ComboBoxItem>
+                        <ComboBoxItem Tag="Chưa phát hành">Chưa phát hành</ComboBoxItem>
+                        <ComboBoxItem Tag="Ðã phát hành">Ðã phát hành</ComboBoxItem>
+                        <ComboBoxItem Tag="Đã sử dụng">Đã sử dụng</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
 

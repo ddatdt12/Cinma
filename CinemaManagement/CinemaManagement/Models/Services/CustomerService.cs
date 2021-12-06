@@ -27,13 +27,13 @@ namespace CinemaManagement.Models.Services
         {
         }
 
-        public CustomerDTO FindCustomerInfo(string phoneNumber)
+        public async Task<CustomerDTO> FindCustomerInfo(string phoneNumber)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var customer = context.Customers.Where(c => c.PhoneNumber == phoneNumber).FirstOrDefault();
+                    var customer = await context.Customers.Where(c => c.PhoneNumber == phoneNumber).FirstOrDefaultAsync();
                     if (customer is null)
                     {
                         return null;
@@ -42,7 +42,8 @@ namespace CinemaManagement.Models.Services
                     {
                         Id = customer.Id,
                         Name = customer.Name,
-                        PhoneNumber = customer.PhoneNumber
+                        PhoneNumber = customer.PhoneNumber,
+                        Email = customer.Email,
                     };
                 }
             }
@@ -52,18 +53,18 @@ namespace CinemaManagement.Models.Services
             }
         }
 
-        public (bool, string, string CustomerId) CreateNewCustomer(CustomerDTO newCus)
+        public async Task<(bool, string, string CustomerId)> CreateNewCustomer(CustomerDTO newCus)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var isExistPhone = context.Customers.Any(c => c.PhoneNumber == newCus.PhoneNumber);
+                    var isExistPhone = await context.Customers.AnyAsync(c => c.PhoneNumber == newCus.PhoneNumber);
                     if (isExistPhone)
                     {
                         return (false, "Số điện thoại này đã tồn tại", null);
                     }
-                    var isExistEmail = context.Customers.Any(c => c.Email == newCus.Email);
+                    var isExistEmail = await context.Customers.AnyAsync(c => c.Email == newCus.Email);
                     if (isExistPhone)
                     {
                         return (false, "Email này đã tồn tại", null);
@@ -77,6 +78,7 @@ namespace CinemaManagement.Models.Services
                     };
 
                     context.Customers.Add(cus);
+                    await context.SaveChangesAsync();
                     return (true, "", cus.Id);
                 }
             }

@@ -195,7 +195,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             if (SelectedBestSellTime2.Length == 4) return;
             Top5Product = await StatisticsService.Ins.GetTop5BestProductByMonth(int.Parse(SelectedBestSellTime2.Remove(0, 6)));
 
-
             List<decimal> chartdata = new List<decimal>();
             chartdata.Add(0);
             for (int i = 0; i < Top5Product.Count; i++)

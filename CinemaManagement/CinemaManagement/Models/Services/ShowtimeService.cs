@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CinemaManagement.Models.Services
 {
@@ -27,7 +28,7 @@ namespace CinemaManagement.Models.Services
         private ShowtimeService() { }
 
 
-        public (bool IsSuccess, string message) AddShowtime(ShowtimeDTO newShowtime)
+        public async Task<(bool IsSuccess, string message)> AddShowtime(ShowtimeDTO newShowtime)
         {
             try
             {
@@ -38,9 +39,9 @@ namespace CinemaManagement.Models.Services
                     //{
                     //    return (false,"Thời gian này đã qua không thể thêm suất chiếu" ,null);
                     //}
-                    var showtimeSet = context.ShowtimeSettings
+                    var showtimeSet = await context.ShowtimeSettings
                     .Where(s => DbFunctions.TruncateTime(s.ShowDate) == newShowtime.ShowDate.Date
-                    && s.RoomId == newShowtime.RoomId).FirstOrDefault();
+                    && s.RoomId == newShowtime.RoomId).FirstOrDefaultAsync();
 
                     if (showtimeSet == null)
                     {
@@ -50,13 +51,13 @@ namespace CinemaManagement.Models.Services
                             ShowDate = newShowtime.ShowDate.Date,
                         }; ;
                         context.ShowtimeSettings.Add(showtimeSet);
-                        context.SaveChanges();
+                        await context.SaveChangesAsync();
                     }
                     else
                     {
                         Showtime show = null;
 
-                        Movie m = context.Movies.Find(newShowtime.MovieId);
+                        Movie m = await context.Movies.FindAsync(newShowtime.MovieId);
                         var newStartTime = newShowtime.StartTime;
                         var newEndTime = newShowtime.StartTime + new TimeSpan(0, m.RunningTime, 0);
                         show = showtimeSet.Showtimes.AsEnumerable().Where(s =>
@@ -82,22 +83,12 @@ namespace CinemaManagement.Models.Services
                     context.Showtimes.Add(showtime);
 
                     //setting seats in room for new showtime 
-                    SeatService.Ins.SettingSeatForNewShowtime(context, showtimeSet.RoomId, showtime.Id);
+                    await SeatService.Ins.SettingSeatForNewShowtime(context, showtimeSet.RoomId, showtime.Id);
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                     newShowtime.Id = showtime.Id;
                     return (true, "Thêm suất chiếu thành công");
                 }
-            }
-            catch (DbEntityValidationException e)
-            {
-                return (false, "Lỗi DbEntityValidationException" + e.Message);
-
-            }
-            catch (DbUpdateException e)
-            {
-                return (false, "Lỗi DbUpdateException" + e.Message);
-
             }
             catch (Exception e)
             {
@@ -105,7 +96,7 @@ namespace CinemaManagement.Models.Services
 
             }
         }
-        public (bool IsSuccess, string message) DeleteShowtime(int showtimeId)
+        public async Task<(bool IsSuccess, string message)> DeleteShowtime(int showtimeId)
         {
 
             try
@@ -118,7 +109,7 @@ namespace CinemaManagement.Models.Services
                         return (false, "Suất chiếu không tồn tại!");
                     }
                     context.Showtimes.Remove(show);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception)
@@ -127,20 +118,20 @@ namespace CinemaManagement.Models.Services
             }
             return (true, "Xóa suất chiếu thành công!");
         }
-        public (bool IsSuccess, string message) UpdateTicketPrice(int showtimeId, decimal price)
+        public async Task<(bool IsSuccess, string message)> UpdateTicketPrice(int showtimeId, decimal price)
         {
 
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    Showtime show = context.Showtimes.Find(showtimeId);
+                    Showtime show = await context.Showtimes.FindAsync(showtimeId);
                     if (show is null)
                     {
                         return (false, "Suất chiếu không tồn tại!");
                     }
                     show.TicketPrice = price;
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception)
@@ -149,14 +140,14 @@ namespace CinemaManagement.Models.Services
             }
             return (true, "Cập nhật giá thành công!");
         }
-        public bool CheckShowtimeHaveBooking(int showtimeId)
+        public Task<bool> CheckShowtimeHaveBooking(int showtimeId)
         {
 
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var IsExist = context.SeatSettings.Any(s => s.ShowtimeId == showtimeId && s.Status);
+                    var IsExist = context.SeatSettings.AnyAsync(s => s.ShowtimeId == showtimeId && s.Status);
                     return IsExist;
                 }
             }
