@@ -22,12 +22,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
         public ICommand FirstLoadCM { get; set; }
         public TicketWindowViewModel()
         {
-
-            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                await GenerateSeat();
                 CaculateTime();
                 Output_ToString();
-                GenerateSeat();
                 sumCurrentSeat = "Số ghế   (" + (ListSeat.Count - ListStatusSeat.Count).ToString() + "/128)";
             });
             CloseTicketWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>

@@ -3,6 +3,8 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -60,14 +62,14 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
         public string startTime
         {
             get { return _startTime; }
-            set { _startTime = value; }
+            set { _startTime = value; OnPropertyChanged(); }
         }
 
         private string _endTime;
         public string endTime
         {
             get { return _endTime; }
-            set { _endTime = value; }
+            set { _endTime = value; OnPropertyChanged(); }
         }
 
         private string _txtFilm;
@@ -81,14 +83,14 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
         public string showDateBefore
         {
             get { return _showDateBefore; }
-            set { _showDateBefore = value; }
+            set { _showDateBefore = value; OnPropertyChanged(); }
         }
 
         private string _showDateAfter;
         public string showDateAfter
         {
             get { return _showDateAfter; }
-            set { _showDateAfter = value; }
+            set { _showDateAfter = value; OnPropertyChanged(); }
         }
 
         private ImageSource _imgSourceFilmName;
@@ -102,27 +104,31 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
         public List<SeatSettingDTO> ListSeat
         {
             get { return _ListSeat; }
-            set { _ListSeat = value; }
+            set { _ListSeat = value; OnPropertyChanged(); }
         }
 
         private List<SeatSettingDTO> _ListStatusSeat;
         public List<SeatSettingDTO> ListStatusSeat
         {
             get { return _ListStatusSeat; }
-            set { _ListStatusSeat = value; }
+            set
+            {
+                _ListStatusSeat = value;
+                OnPropertyChanged();
+            }
         }
 
-        private List<SeatSettingDTO> _ListSeat1;
-        public List<SeatSettingDTO> ListSeat1
+        private ObservableCollection<SeatSettingDTO> _ListSeat1;
+        public ObservableCollection<SeatSettingDTO> ListSeat1
         {
             get { return _ListSeat1; }
-            set { _ListSeat1 = value; }
+            set { _ListSeat1 = value; OnPropertyChanged(); }
         }
-        private List<SeatSettingDTO> _ListSeat2;
-        public List<SeatSettingDTO> ListSeat2
+        private ObservableCollection<SeatSettingDTO> _ListSeat2;
+        public ObservableCollection<SeatSettingDTO> ListSeat2
         {
             get { return _ListSeat2; }
-            set { _ListSeat2 = value; }
+            set { _ListSeat2 = value; OnPropertyChanged(); }
         }
 
         private static List<SeatSettingDTO> _WaitingList;
@@ -146,12 +152,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             set { _totalSeat = value; OnPropertyChanged(); }
         }
 
-        public async void GenerateSeat()
+        public async Task GenerateSeat()
         {
-            ListSeat = await SeatService.Ins.GetSeatsByShowtime(CurrentShowtime.Id);
+            ListSeat = new List<SeatSettingDTO>(await SeatService.Ins.GetSeatsByShowtime(CurrentShowtime.Id));
             ListStatusSeat = new List<SeatSettingDTO>();
-            ListSeat1 = new List<SeatSettingDTO>();
-            ListSeat2 = new List<SeatSettingDTO>();
+            ListSeat1 = new ObservableCollection<SeatSettingDTO>();
+            ListSeat2 = new ObservableCollection<SeatSettingDTO>();
             WaitingList = new List<SeatSettingDTO>();
             foreach (var item in ListSeat)
             {
@@ -234,7 +240,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             txtFilm = tempFilmName.DisplayName;
             startTime = CurrentShowtime.StartTime.ToString("hh\\:mm");
             endTime = end.ToString("HH:mm");
-            showTime = startTime + " - " + endTime; 
+            showTime = startTime + " - " + endTime;
             showDateAfter = start.ToString("dd-MM-yyyy");
             showDateBefore = end.ToString("dd-MM-yyyy");
             price = Helper.FormatVNMoney(CurrentShowtime.TicketPrice);

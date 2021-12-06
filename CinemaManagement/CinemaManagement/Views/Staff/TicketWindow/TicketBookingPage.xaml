@@ -9,6 +9,11 @@
       d:DesignHeight="720"
       d:DesignWidth="1300"
       DataContext="{StaticResource TicketWindowVM}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45" />
@@ -414,6 +419,7 @@
                     </Grid>
                 </Border>
                 <Button x:Name="btnClose"
+                        materialDesign:ButtonAssist.CornerRadius="25"
                         BorderBrush="Black"
                         BorderThickness="0.3"
                         VerticalAlignment="Bottom"
@@ -426,6 +432,9 @@
                         Foreground="Black"
                         Command="{Binding LoadFoodPageCM}"
                         Padding="7">
+                    <materialDesign:PackIcon Kind="ArrowRight" 
+                                             Width="30"
+                                             Height="30"/>
                 </Button>
             </Grid>
         </Grid>
