@@ -508,9 +508,8 @@
                                 VerticalAlignment="Top">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="258*" />
-                                    <RowDefinition Height="135*" />
-                                    <RowDefinition Height="39*" />
+                                    <RowDefinition />
+                                    <RowDefinition Height="39" />
                                 </Grid.RowDefinitions>
 
 
@@ -520,7 +519,8 @@
                                         Margin="10,0,10,0">
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428">
+                                            <Grid Width="380"
+                                                  Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="15*" />
                                                     <ColumnDefinition Width="85*" />
@@ -532,29 +532,48 @@
                                                 <Label Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20"
-                                                       x:Name="_moviename" />
+                                                       x:Name="_moviename"
+                                                       Content="{Binding MovieName}" />
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
-                                                  Margin="0,10,0,0">
+                                            <Grid Width="380"
+                                                  Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
                                                     <ColumnDefinition />
                                                 </Grid.ColumnDefinitions>
 
-                                                <Label Content="Suất chiếu"
+                                                <Label Content="Ngày chiếu"
                                                        Grid.Column="0"
                                                        FontSize="18" />
-                                                <Label Content="{Binding BillDetail.TicketInfo.ShowtimeInfo}"
+                                                <Label Content="{Binding Date}"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20" />
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
-                                                  Margin="0,10,0,0">
+                                            <Grid Width="380"
+                                                  Margin="0,15,0,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Label Content="Giờ chiếu"
+                                                       Grid.Column="0"
+                                                       FontSize="18" />
+                                                <Label Content="{Binding Time}"
+                                                       Grid.Column="1"
+                                                       HorizontalAlignment="Right"
+                                                       FontSize="20"
+                                                       x:Name="_time" />
+                                            </Grid>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Grid Width="380"
+                                                  Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
                                                     <ColumnDefinition />
@@ -570,8 +589,8 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
-                                                  Margin="0,10,0,0">
+                                            <Grid Width="380"
+                                                  Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
                                                     <ColumnDefinition />
@@ -580,15 +599,15 @@
                                                 <Label Content="Phòng chiếu"
                                                        Grid.Column="0"
                                                        FontSize="18" />
-                                                <Label Content="{Binding BillDetail.TicketInfo.RoomName}"
+                                                <Label Content="{Binding Room}"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20" />
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
-                                                  Margin="0,10,0,0">
+                                            <Grid Width="380"
+                                                  Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
                                                     <ColumnDefinition />
@@ -597,15 +616,15 @@
                                                 <Label Content="Ghế"
                                                        Grid.Column="0"
                                                        FontSize="18" />
-                                                <Label Content="{Binding BillDetail.TicketInfo.SeatInfo}"
+                                                <Label Content="{Binding Seat}"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20" />
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
-                                                  Margin="0,10,0,0">
+                                            <Grid Width="380"
+                                                  Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
                                                     <ColumnDefinition />
@@ -614,80 +633,24 @@
                                                 <Label Content="Giá vé"
                                                        Grid.Column="0"
                                                        FontSize="18" />
-                                                <Label Grid.Column="1"
+                                                <Label Content="{Binding Price}"
+                                                       Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20"
                                                        x:Name="_price" />
                                             </Grid>
                                         </StackPanel>
+
                                     </StackPanel>
                                 </Border>
                                 <Border Grid.Row="1"
                                         BorderThickness="0,0,0,1"
                                         BorderBrush="Black"
                                         Margin="10,0,10,0">
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal"
-                                                    Margin="0,10,0,0">
-                                            <Grid Width="428">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="25*" />
-                                                    <ColumnDefinition Width="75*" />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Label Content="Người đặt"
-                                                       Grid.Column="0"
-                                                       FontSize="18" />
-                                                <Label Content="{Binding BillDetail.CustomerName}"
-                                                       Grid.Column="1"
-                                                       HorizontalAlignment="Right"
-                                                       FontSize="20" />
-                                            </Grid>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
-                                                  Margin="0,10,0,0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Label Content="Số điện thoại"
-                                                       Grid.Column="0"
-                                                       FontSize="18" />
-                                                <Label Content="{Binding BillDetail.PhoneNumber}"
-                                                       Grid.Column="1"
-                                                       HorizontalAlignment="Right"
-                                                       FontSize="20" />
-                                            </Grid>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
-                                                  Margin="0,10,0,0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition />
-                                                </Grid.ColumnDefinitions>
-
-                                                <Label Content="Thời gian"
-                                                       Grid.Column="0"
-                                                       FontSize="18" />
-                                                <Label Grid.Column="1"
-                                                       HorizontalAlignment="Right"
-                                                       FontSize="20"
-                                                       x:Name="_time" />
-                                            </Grid>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </Border>
-                                <Border Grid.Row="2"
-                                        BorderThickness="0,0,0,1"
-                                        BorderBrush="Black"
-                                        Margin="10,0,10,0">
                                     <StackPanel VerticalAlignment="Center"
                                                 Margin="0 2 0 0">
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428">
+                                            <Grid Width="380">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
                                                     <ColumnDefinition />
@@ -699,7 +662,8 @@
                                                 <Label x:Name="_totalticket"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
-                                                       FontSize="20" />
+                                                       FontSize="20"
+                                                       Content="{Binding TotalPriceMovie}" />
                                             </Grid>
                                         </StackPanel>
                                     </StackPanel>
