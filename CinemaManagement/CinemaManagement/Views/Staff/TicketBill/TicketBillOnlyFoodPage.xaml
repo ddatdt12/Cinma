@@ -567,7 +567,7 @@
                                 <StackPanel VerticalAlignment="Center"
                                             Margin="0 2 0 0">
                                     <StackPanel Orientation="Horizontal">
-                                        <Grid Width="380">
+                                        <Grid Width="420">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
                                                 <ColumnDefinition />
@@ -580,7 +580,7 @@
                                                    Grid.Column="1"
                                                    HorizontalAlignment="Right"
                                                    FontSize="20"
-                                                   Content="{Binding TotalPriceFood}" />
+                                                   Content="{Binding TotalPriceMovie}" />
                                         </Grid>
                                     </StackPanel>
                                 </StackPanel>
@@ -590,7 +590,7 @@
                     </Grid>
                     <!--#endregion-->
 
-                    <StackPanel Margin="10 -2 10 0"
+                    <StackPanel Margin="10 -2 20 0"
                                 Grid.Row="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -600,7 +600,7 @@
                             <Label Content="Tổng tiền"
                                    FontSize="18"
                                    Grid.Column="0" />
-                            <Label Content="{Binding BillDetail.OriginalTotalPrice}"
+                            <Label Content="{Binding TotalPriceFood}"
                                    FontSize="20"
                                    Grid.Column="1"
                                    HorizontalAlignment="Right" />

@@ -220,27 +220,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 
         public TicketBillViewModel()
         {
-            // Movie
-            Movie = TicketWindowViewModel.tempFilmName;
-            Showtime = TicketWindowViewModel.CurrentShowtime;
-            ListSeat = TicketWindowViewModel.WaitingList;
-            MovieName = Movie.DisplayName;
-            Date = Showtime.ShowDate.ToString("dd/MM/yyyy");
-            CaculateTime();
-            Time = start.ToString("HH:mm") + " - " + end.ToString("HH:mm");
-            Seat = ListSeat[0].SeatPosition;
-            for (int i = 1; i < ListSeat.Count; i++)
-            {
-                Seat += ", " + ListSeat[i].SeatPosition;
-            }
-            Room = "0" + Showtime.RoomId.ToString();
-            Price = Helper.FormatVNMoney(Showtime.TicketPrice);
-            TotalPriceMovie = Helper.FormatVNMoney(Showtime.TicketPrice * ListSeat.Count);
-
+            decimal TotalFullMoviePrice = 0;
             // Food
             ListFood = OrderFoodPageViewModel.ListOrder;
             ListFoodDisplay = new ObservableCollection<Food>();
-            for(int i=0; i<ListFood.Count;i++)
+            for (int i = 0; i < ListFood.Count; i++)
             {
                 Food tempFood = new Food();
                 tempFood.DisplayName = ListFood[i].DisplayName;
@@ -249,14 +233,38 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                 ListFoodDisplay.Add(tempFood);
             }
             decimal TotalFood = 0;
-            for (int i=0; i<ListFoodDisplay.Count;i++)
+            for (int i = 0; i < ListFoodDisplay.Count; i++)
             {
                 TotalFood += ListFoodDisplay[i].TotalPrice;
             }
             TotalPriceFood = Helper.FormatVNMoney(TotalFood);
+
+            // Movie
+            if (OrderFoodPageViewModel.checkOnlyFoodOfPage == false)
+            {
+                Movie = TicketWindowViewModel.tempFilmName;
+                Showtime = TicketWindowViewModel.CurrentShowtime;
+                ListSeat = TicketWindowViewModel.WaitingList;
+                MovieName = Movie.DisplayName;
+                Date = Showtime.ShowDate.ToString("dd/MM/yyyy");
+                CaculateTime();
+                Time = start.ToString("HH:mm") + " - " + end.ToString("HH:mm");
+                Seat = ListSeat[0].SeatPosition;
+                for (int i = 1; i < ListSeat.Count; i++)
+                {
+                    Seat += ", " + ListSeat[i].SeatPosition;
+                }
+                Room = "0" + Showtime.RoomId.ToString();
+                Price = Helper.FormatVNMoney(Showtime.TicketPrice);
+                TotalPriceMovie = Helper.FormatVNMoney(Showtime.TicketPrice * ListSeat.Count);
+                TotalFullMoviePrice = Showtime.TicketPrice * ListSeat.Count;
+            }
+
+
+
             //
 
-            decimal Total = TotalFood + Showtime.TicketPrice * ListSeat.Count;
+            decimal Total = TotalFood + TotalFullMoviePrice;
             TotalPrice = Helper.FormatVNMoney(Total);
 
             ListVoucher = new ObservableCollection<CustomerDTO>();
