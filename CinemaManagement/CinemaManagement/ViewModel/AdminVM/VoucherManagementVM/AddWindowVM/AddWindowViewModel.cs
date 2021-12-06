@@ -137,8 +137,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             set { listViewVoucher = value; OnPropertyChanged(); }
         }
 
-        private static List<VoucherDTO> storeAllMini;
-        public static List<VoucherDTO> StoreAllMini
+        private static ObservableCollection<VoucherDTO> storeAllMini;
+        public static ObservableCollection<VoucherDTO> StoreAllMini
         {
             get { return storeAllMini; }
             set { storeAllMini = value; }
@@ -213,7 +213,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 (VoucherReleaseDTO voucherReleaseDetail, _) = await VoucherService.Ins.GetVoucherReleaseDetails(newVoucherRelease.Id);
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
             }
             else
             {
@@ -253,7 +253,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
 
                 AddVoucher.topcheck.IsChecked = false;
                 AddVoucher._cbb.SelectedIndex = 0;
@@ -293,7 +293,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
                 AddVoucher.topcheck.IsChecked = false;
                 AddVoucher._cbb.SelectedIndex = 0;
                 NumberSelected = 0;
@@ -333,7 +333,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
             (VoucherReleaseDTO voucherReleaseDetail, _) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
 
-            StoreAllMini = new List<VoucherDTO>(voucherReleaseDetail.Vouchers);
+            StoreAllMini = new ObservableCollection<VoucherDTO>(voucherReleaseDetail.Vouchers);
 
             AddVoucher.AllCheckBox.Clear();
             NumberSelected = 0;

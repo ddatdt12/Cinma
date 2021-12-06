@@ -159,7 +159,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 (VoucherReleaseDTO voucherReleaseDetail, _) = await VoucherService.Ins.GetVoucherReleaseDetails(oldVer.Id);
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
                 NumberSelected = 0;
             }
             else
@@ -188,7 +188,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                 SelectedItem = voucherReleaseDetail;
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
                 AddVoucher.topcheck.IsChecked = false;
                 NumberSelected = 0;
             }

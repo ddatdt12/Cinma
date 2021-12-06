@@ -206,6 +206,7 @@
                                                 <CheckBox Content="{Binding Id}"
                                                           x:Name="allcheck"
                                                           Loaded="allcheck_load"
+                                                          IsChecked="{Binding IsChecked}"
                                                           Visibility="{Binding Status,Converter={StaticResource Converter}}">
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="Click">

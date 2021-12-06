@@ -9,6 +9,7 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -158,7 +159,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                  SelectedItem = vc;
                  Infor_EditWindow w = new Infor_EditWindow();
                  ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                 StoreAllMini = new List<VoucherDTO>(ListViewVoucher);
+                 StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
                  ShadowMask.Visibility = Visibility.Visible;
                  w.ShowDialog();
              });
@@ -267,28 +268,14 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             });
             StoreWaitingListCM = new RelayCommand<CheckBox>((p) => { return true; }, (p) =>
             {
-                int temp = int.Parse(p.Content.ToString());
-                if (p.IsChecked == false)
+                int voucherId = int.Parse(p.Content.ToString());
+
+                storeAllMini[0].IsChecked = false;
+
+                if (!storeAllMini.Any(v => v.IsChecked))
                 {
-                    if (WaitingMiniVoucher.Contains(temp))
-                    {
-                        WaitingMiniVoucher.Remove(temp);
-                        NumberSelected--;
-                    }
-
-                }
-                else
-                {
-                    if (!WaitingMiniVoucher.Contains(temp))
-                    {
-                        WaitingMiniVoucher.Add(temp);
-                        NumberSelected++;
-                    }
-
-                }
-
-                if (WaitingMiniVoucher.Count == 0)
                     AddVoucher.topcheck.IsChecked = false;
+                }
 
             });
             CheckAllMiniVoucherCM = new RelayCommand<CheckBox>((p) => { return true; }, (p) =>
