@@ -13,7 +13,6 @@
                     xmlns:viewmodel4="clr-namespace:CinemaManagement.ViewModel.AdminVM.VoucherManagementVM"
                     xmlns:viewmodelTicketBill="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.TicketBillVM">
 
-
     <viewmodel:MainViewModel x:Key="MainVM" />
     <viewmodel:MainStaffViewModel x:Key="MainStaffVM" />
     <viewmodel:LoginViewModel x:Key="LoginVM" />
@@ -28,7 +27,6 @@
     <viewmodel3:TicketWindowViewModel x:Key="TicketWindowVM" />
     <viewmodel31:OrderFoodPageViewModel x:Key="OrderFoodPageWindowVM" />
     <viewmodel4:VoucherViewModel x:Key="VoucherVM" />
-    <viewmodel31:OrderFoodPageViewModel x:Key="OrderFoodPageWindowVM" />
     <viewmodelFood:FoodManagementViewModel x:Key="FoodManagementVM" />
     <viewmodelTicketBill:TicketBillViewModel x:Key="BillTicketVM" />
 

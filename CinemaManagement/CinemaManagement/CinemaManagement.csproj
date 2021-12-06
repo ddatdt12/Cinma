@@ -369,7 +369,6 @@
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodPageViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\ShowtimePageVM\ShowtimePageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketBillVM\TicketBillViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketBookingPageViewModel.cs" />
@@ -514,9 +513,6 @@
     </Compile>
     <Compile Include="Views\Staff\OrderFoodWindow\FoodPage.xaml.cs">
       <DependentUpon>FoodPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml.cs">
-      <DependentUpon>FoodWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\ShowtimePage\ShowtimePage.xaml.cs">
       <DependentUpon>ShowtimePage.xaml</DependentUpon>
@@ -734,10 +730,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Staff\OrderFoodWindow\FoodPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
