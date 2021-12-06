@@ -519,7 +519,7 @@
                                         Margin="10,0,10,0">
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="380"
+                                            <Grid Width="420"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="15*" />
@@ -537,7 +537,7 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="380"
+                                            <Grid Width="420"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
@@ -554,7 +554,7 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="380"
+                                            <Grid Width="420"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
@@ -572,7 +572,7 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="380"
+                                            <Grid Width="420"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
@@ -589,7 +589,7 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="380"
+                                            <Grid Width="420"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
@@ -606,7 +606,7 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="380"
+                                            <Grid Width="420"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
@@ -623,7 +623,7 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="380"
+                                            <Grid Width="420"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
