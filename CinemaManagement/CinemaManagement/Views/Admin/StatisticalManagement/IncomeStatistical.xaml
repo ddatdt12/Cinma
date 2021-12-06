@@ -12,7 +12,6 @@
       x:Name="mainPage"
       FontFamily="arial"
       DataContext="{StaticResource StatisticalManagementVM}">
-
     <!---FADED-->
     <Page.Triggers>
         <EventTrigger RoutedEvent="Page.Loaded">
