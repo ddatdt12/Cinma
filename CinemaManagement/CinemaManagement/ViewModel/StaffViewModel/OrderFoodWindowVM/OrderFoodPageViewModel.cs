@@ -92,14 +92,14 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             }
         }
 
-        public static List<ProductDTO> ListOrder;
+        public static ObservableCollection<ProductDTO> ListOrder;
 
         public OrderFoodPageViewModel()
         {
             AllProduct = new ObservableCollection<ProductDTO>();
             OrderList = new ObservableCollection<ProductDTO>();
             MenuList = new ObservableCollection<ProductDTO>();
-            ListOrder = new List<ProductDTO>();
+            ListOrder = new ObservableCollection<ProductDTO>();
 
             //Khởi tạo giá trị ban đầu cho tổng giá tiền
             ReCalculate();
@@ -271,7 +271,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             {
                 if (MessageBox.Show("Xác nhận thanh toán? Nhấn OK.", "Xác nhận", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
-                    ListOrder = new List<ProductDTO>(OrderList);
+
+
+                    ListOrder = new ObservableCollection<ProductDTO>(OrderList);
+                    TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
+                    tk.TicketBookingFrame.Content = new TicketBillPage();
+
                 }
             });
             MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>

@@ -480,7 +480,7 @@
         <materialDesign:Card VerticalAlignment="Top"
                              HorizontalAlignment="Right"
                              Height="640"
-                             Width="900"
+                             Width="804"
                              Margin="0 40 40 0"
                              UniformCornerRadius="6"
                              Grid.ColumnSpan="2">
@@ -531,7 +531,7 @@
                                         Margin="10,0,10,0">
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
+                                            <Grid Width="380"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="15*" />
@@ -549,7 +549,7 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
+                                            <Grid Width="380"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
@@ -566,7 +566,7 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
+                                            <Grid Width="380"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
@@ -584,7 +584,7 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
+                                            <Grid Width="380"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
@@ -601,7 +601,7 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
+                                            <Grid Width="380"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
@@ -618,7 +618,7 @@
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
+                                            <Grid Width="380"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
@@ -628,14 +628,14 @@
                                                 <Label Content="Ghế"
                                                        Grid.Column="0"
                                                        FontSize="18" />
-                                                <Label Content="{Binding BillDetail.TicketInfo.SeatInfo}"
+                                                <Label Content="{Binding Seat}"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20" />
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428"
+                                            <Grid Width="380"
                                                   Margin="0,15,0,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
@@ -662,7 +662,7 @@
                                     <StackPanel VerticalAlignment="Center"
                                                 Margin="0 2 0 0">
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428">
+                                            <Grid Width="380">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
                                                     <ColumnDefinition />
@@ -674,7 +674,8 @@
                                                 <Label x:Name="_totalticket"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
-                                                       FontSize="20" />
+                                                       FontSize="20" 
+                                                       Content="{Binding TotalPriceMovie}"/>
                                             </Grid>
                                         </StackPanel>
                                     </StackPanel>
@@ -728,7 +729,7 @@
                                         Margin="10,10,10,0">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto"
                                                   x:Name="scrollview">
-                                        <ItemsControl ItemsSource="{Binding BillDetail.ProductBillInfoes}">
+                                        <ItemsControl ItemsSource="{Binding ListFoodDisplay}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate>
                                                     <Border  Height="100"
@@ -743,18 +744,18 @@
                                                             <StackPanel Orientation="Horizontal"
                                                                         Grid.Column="0">
                                                                 <StackPanel>
-                                                                    <TextBlock Text="{Binding ProductName}"
-                                                                               FontSize="35" />
+                                                                    <TextBlock Text="{Binding DisplayName}"
+                                                                               FontSize="28" />
                                                                     <StackPanel Orientation="Horizontal">
                                                                         <TextBlock Text="{Binding Quantity}"
-                                                                                   FontSize="25" />
+                                                                                   FontSize="23" />
                                                                         <TextBlock Text="x"
                                                                                    FontSize="20"
                                                                                    VerticalAlignment="Bottom"
                                                                                    Margin="3,0,0,1" />
-                                                                        <TextBlock Text="{Binding PricePerItem}"
+                                                                        <TextBlock Text="{Binding PriceStr}"
                                                                                    VerticalAlignment="Bottom"
-                                                                                   FontSize="20"
+                                                                                   FontSize="23"
                                                                                    Margin="5,0,0,1" />
                                                                     </StackPanel>
                                                                 </StackPanel>
@@ -762,9 +763,9 @@
                                                             <StackPanel Grid.Column="1"
                                                                         Orientation="Horizontal"
                                                                         HorizontalAlignment="Right">
-                                                                <TextBlock Text="{Binding TotalPrice}"
+                                                                <TextBlock Text="{Binding TotalPriceStr}"
                                                                            FontSize="22" />
-                                                                <TextBlock Text="d"
+                                                                <TextBlock Text=""
                                                                            FontSize="15" />
                                                             </StackPanel>
 
@@ -783,7 +784,7 @@
                                     <StackPanel VerticalAlignment="Center"
                                                 Margin="0 2 0 0">
                                         <StackPanel Orientation="Horizontal">
-                                            <Grid Width="428">
+                                            <Grid Width="380">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition />
                                                     <ColumnDefinition />
@@ -795,7 +796,8 @@
                                                 <Label x:Name="_totalproduct"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
-                                                       FontSize="20" />
+                                                       FontSize="20" 
+                                                       Content="{Binding TotalPriceFood}"/>
                                             </Grid>
                                         </StackPanel>
                                     </StackPanel>
@@ -814,7 +816,7 @@
                                 <Label Content="Tổng tiền"
                                        FontSize="18"
                                        Grid.Column="0" />
-                                <Label Content="{Binding BillDetail.OriginalTotalPrice}"
+                                <Label Content="{Binding TotalPrice}"
                                        FontSize="20"
                                        Grid.Column="1"
                                        HorizontalAlignment="Right" />

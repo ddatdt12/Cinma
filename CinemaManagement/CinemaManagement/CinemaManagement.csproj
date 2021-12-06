@@ -523,6 +523,9 @@
     <Compile Include="Views\Staff\TicketBill\TicketBillNoFoodPage.xaml.cs">
       <DependentUpon>TicketBillNoFoodPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Staff\TicketBill\TicketBillOnlyFoodPage.xaml.cs">
+      <DependentUpon>TicketBillOnlyFoodPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Staff\TicketBill\TicketBillPage.xaml.cs">
       <DependentUpon>TicketBillPage.xaml</DependentUpon>
     </Compile>
@@ -759,6 +762,10 @@
     <Page Include="Views\Staff\TicketBill\TicketBillNoFoodPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\TicketBill\TicketBillOnlyFoodPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Staff\TicketBill\TicketBillPage.xaml">
       <Generator>MSBuild:Compile</Generator>
