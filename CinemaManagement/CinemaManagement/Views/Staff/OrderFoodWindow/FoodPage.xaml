@@ -29,25 +29,40 @@
             <RowDefinition Height="60*"></RowDefinition>
             <RowDefinition Height="460*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button x:Name="btnClose"
-                BorderBrush="Black"
-                BorderThickness="0.3"
-                materialDesign:ButtonAssist.CornerRadius="30"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Left"
-                Cursor="Hand"
-                Width="35"
-                Height="35"
-                Margin="0 0 15 10"
-                Background="#FFA7C7D1"
-                Foreground="Black"
-                Command="{Binding GoBackCommand}"
-                CommandParameter="{Binding ElementName=Food_Page}"
-                Padding="0">
-            <materialDesign:PackIcon Kind="ArrowLeft"
-                                     Height="30"
-                                     Width="30" />
-        </Button>
+        <Label Name="lblBack"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Cursor="Hand"
+               Margin="5">
+            <Label.Template>
+                <ControlTemplate TargetType="Label">
+                    <Grid>
+                        <Ellipse>
+                            <Ellipse.Resources>
+                                <Style TargetType="Ellipse">
+                                    <Setter Property="Fill" Value="Transparent"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Fill" Value="#EEEEEE"/>
+                                            <Setter Property="ToolTip" Value="Quay lại"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Ellipse.Resources>
+                        </Ellipse>
+                        <materialDesign:PackIcon Kind="KeyboardBackspace"
+                                                 Height="Auto"
+                                                 Width="Auto"/>
+                    </Grid>
+                </ControlTemplate>
+            </Label.Template>
+            
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding ElementName=Food_Page, Path=DataContext.GoBackCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Label>
 
         <Border BorderBrush="LightGray"
                 BorderThickness="0,0,0,0.5"
@@ -78,7 +93,6 @@
                         <Setter Property="Width" Value="314"/>
                         <Setter Property="FontSize" Value="30"/>
                         <Setter Property="BorderThickness" Value="0.5"/>
-                        <Setter Property="BorderBrush" Value="Blue"/>
                         <Style.Triggers>
                             <Trigger Property="IsEnabled" Value="True">
                                 <Setter Property="Background" Value="Pink"/>
@@ -177,9 +191,9 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="Foreground"
-                                    Value="Transparent" />
-                            <Setter Property="Template">
+                        <Setter Property="Foreground" Value="Transparent" />
+                        <Setter Property="Background" Value="{Binding Background, ElementName=BorderMain}"/>
+                        <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListViewItem}">
                                     <Border x:Name="Bd">
@@ -395,8 +409,8 @@
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Foreground" Value="Transparent" />
                     <Setter Property="VerticalAlignment" Value="Top"/>
-                    <Setter Property="Margin"
-                            Value="0,20,0,10" />
+                    <Setter Property="Margin" Value="0,20,0,10"/>
+                    <Setter Property="Background" Value="{Binding Background, ElementName=BorderMain}"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
