@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
+using System.Windows.Controls;
 
 namespace CinemaManagement.Views.Staff.OrderFoodWindow
 {
@@ -7,6 +8,7 @@ namespace CinemaManagement.Views.Staff.OrderFoodWindow
         public FoodPage()
         {
             InitializeComponent();
+            //DataContext = new OrderFoodPageViewModel();
         }
     }
 }

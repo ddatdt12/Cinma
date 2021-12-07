@@ -47,12 +47,24 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         public static MovieDTO Movie;
         public static ObservableCollection<ProductDTO> ListFood;
 
-        private static List<SeatSettingDTO> _ListSeat;
-        public static List<SeatSettingDTO> ListSeat
+        public static void ClearAll()
         {
-            get { return _ListSeat; }
-            set { _ListSeat = value; }
+            if (TicketBillViewModel.ListFood!=null)
+            {
+                TicketBillViewModel.ListFood.Clear();
+            }
+            if (TicketBillViewModel.ListSeat!=null)
+            {
+                TicketBillViewModel.ListSeat.Clear();
+            }
+            if (TicketWindowViewModel.WaitingList!=null)
+            {
+                TicketWindowViewModel.WaitingList.Clear();
+            }
         }
+
+        
+        #region Biến Binding
 
         private bool _IsWalkinGuest;
         public bool IsWalkinGuest
@@ -173,6 +185,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             set { _TotalPrice = value; OnPropertyChanged(); }
         }
 
+        #endregion
+
         public ICommand CboxWalkinGuestCM { get; set; }
         public ICommand CheckPhoneNumberCM { get; set; }
 
@@ -190,6 +204,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                 _ListVoucher = value;
                 OnPropertyChanged();
             }
+        }
+
+        private static List<SeatSettingDTO> _ListSeat;
+        public static List<SeatSettingDTO> ListSeat
+        {
+            get { return _ListSeat; }
+            set { _ListSeat = value; }
         }
 
         private ObservableCollection<Food> _ListFoodDisplay;
@@ -260,13 +281,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                 TotalFullMoviePrice = Showtime.TicketPrice * ListSeat.Count;
             }
 
-
-
-            //
-
+            //Total price
             decimal Total = TotalFood + TotalFullMoviePrice;
             TotalPrice = Helper.FormatVNMoney(Total);
 
+            // Voucher
             ListVoucher = new ObservableCollection<CustomerDTO>();
             for(int i=0; i<10;i++)
             {

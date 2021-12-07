@@ -277,6 +277,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             {
                 MessageBoxCustom mgb = new MessageBoxCustom("", "Xác nhận thanh toán", MessageType.Success, MessageButtons.OK);
                 mgb.ShowDialog();
+
                 if (mgb.DialogResult == true && checkOnlyFoodOfPage)
                 {
                     ListOrder = new ObservableCollection<ProductDTO>(OrderList);
