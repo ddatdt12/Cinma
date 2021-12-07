@@ -88,6 +88,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         private ObservableCollection<StaffDTO> _staffList;
         public ObservableCollection<StaffDTO> StaffList
         {
+        
             get => _staffList;
             set
             {
@@ -135,7 +136,15 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                await LoadStaffListView(Operation.READ);
+                try
+                {
+                    StaffList = new ObservableCollection<StaffDTO>(await StaffService.Ins.GetAllStaff());
+                }
+                catch (Exception e)
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
             });
             GetListViewCommand = new RelayCommand<ListView>((p) => { return true; },
                 (p) =>
@@ -169,17 +178,17 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     await ChangePass(p);
                 });
             DeleteStaffCommand = new RelayCommand<Window>((p) => { return true; },
-                async (p) =>
+                 async (p) =>
                 {
                     MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", "Bạn có chắc muốn xoá nhân viên này không?", MessageType.Warning, MessageButtons.YesNo);
                     result.ShowDialog();
 
                     if (result.DialogResult == true)
                     {
-                        (bool successDeleteStaff, string messageFromDeleteStaff) = StaffService.Ins.DeleteStaff(SelectedItem.Id);
+                        (bool successDeleteStaff, string messageFromDeleteStaff) = await StaffService.Ins.DeleteStaff(SelectedItem.Id);
                         if (successDeleteStaff)
                         {
-                            await LoadStaffListView(Utils.Operation.DELETE);
+                            LoadStaffListView(Utils.Operation.DELETE);
                             MessageBoxCustom mb = new MessageBoxCustom("", messageFromDeleteStaff, MessageType.Success, MessageButtons.OK);
                             mb.ShowDialog();
                         }
@@ -222,11 +231,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     wd._TaiKhoan.Text = SelectedItem.Username;
 
                     Fullname = SelectedItem.Name;
-                    //Gender.Content = SelectedItem.Gender;
-                    //Born = (DateTime)SelectedItem.BirthDate;
                     Phone = SelectedItem.PhoneNumber;
-                    //Role.Content = SelectedItem.Role;
-                    //StartDate = (DateTime)SelectedItem.StartingDate;
                     TaiKhoan = SelectedItem.Username;
 
                     MaskName.Visibility = Visibility.Visible;
@@ -269,26 +274,11 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
            );
         }
 
-        public async Task LoadStaffListView(Operation oper, StaffDTO staff = null)
+        public void LoadStaffListView(Operation oper, StaffDTO staff = null)
         {
 
             switch (oper)
             {
-                case Operation.READ:
-                    try
-                    {
-                        StaffList = new ObservableCollection<StaffDTO>(await StaffService.Ins.GetAllStaff());
-                    }
-                    catch (InvalidOperationException e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
-                        mb.ShowDialog();
-                    }
-                    break;
                 case Operation.CREATE:
                     StaffList.Add(staff);
                     break;
@@ -309,8 +299,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 default:
                     break;
             }
-            //Ko cần này nhe
-            //listView.Items.Refresh();
         }
         void ResetData()
         {

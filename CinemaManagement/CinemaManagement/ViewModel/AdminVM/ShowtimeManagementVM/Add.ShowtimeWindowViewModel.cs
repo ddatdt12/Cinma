@@ -2,6 +2,7 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Views;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -24,7 +25,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public ICommand SaveCM { get; set; }
 
 
-        public void SaveShowtimeFunc(Window p)
+        public async Task SaveShowtimeFunc(Window p)
         {
             if (IsValidData())
             {
@@ -38,13 +39,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     TicketPrice = moviePrice,
                 };
 
-                (bool IsSuccess, string message) = ShowtimeService.Ins.AddShowtime(temp);
+                (bool IsSuccess, string message) = await ShowtimeService.Ins.AddShowtime(temp);
 
                 if (IsSuccess)
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
-                    ReloadShowtimeList(SelectedRoomId);
+                    await ReloadShowtimeList(SelectedRoomId);
                     ShadowMask.Visibility = Visibility.Collapsed;
                     p.Close();
                 }

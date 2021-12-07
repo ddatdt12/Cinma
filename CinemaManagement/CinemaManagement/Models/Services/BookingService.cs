@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +41,7 @@ namespace CinemaManagement.Models.Services
         /// </summary>
         /// <param name="newTicketList"></param>
         /// <returns></returns>
-        public (bool IsSuccess, string message) CreateTicketBooking(BillDTO bill, List<TicketDTO> newTicketList)
+        public async Task<(bool IsSuccess, string message)> CreateTicketBooking(BillDTO bill, List<TicketDTO> newTicketList)
         {
             if (newTicketList.Count() == 0)
             {
@@ -51,11 +52,12 @@ namespace CinemaManagement.Models.Services
                 //Update seat 
                 var idSeatList = new List<int>();
                 newTicketList.ForEach(s => idSeatList.Add(s.SeatId));
+
                 //Make seat of showtime status = true
                 int showtimeId = newTicketList[0].ShowtimeId;
                 using (var context = new CinemaManagementEntities())
                 {
-                    var seatSets = context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId));
+                    var seatSets = await context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId)).ToListAsync();
                     foreach (var s in seatSets)
                     {
                         if (s.Status)
@@ -67,12 +69,12 @@ namespace CinemaManagement.Models.Services
                     }
 
                     //Bill
-                    string billId = CreateNewBill(context, bill);
+                    string billId = await CreateNewBill(context, bill);
 
                     //Ticket
                     AddNewTickets(context, billId, newTicketList);
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception e)
@@ -90,7 +92,7 @@ namespace CinemaManagement.Models.Services
         /// <param name="newTicketList"></param>
         /// <param name="orderedProductList"></param>
         /// <returns></returns>
-        public (bool IsSuccess, string message) CreateFullOptionBooking(BillDTO bill, List<TicketDTO> newTicketList, List<ProductBillInfoDTO> orderedProductList)
+        public async Task<(bool IsSuccess, string message)> CreateFullOptionBooking(BillDTO bill, List<TicketDTO> newTicketList, List<ProductBillInfoDTO> orderedProductList)
         {
             if (newTicketList.Count() == 0)
             {
@@ -105,7 +107,7 @@ namespace CinemaManagement.Models.Services
                     newTicketList.ForEach(s => idSeatList.Add(s.SeatId));
                     //Make seat of showtime status = true
                     int showtimeId = newTicketList[0].ShowtimeId;
-                    var seatSets = context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId));
+                    var seatSets = await context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId)).ToListAsync();
                     foreach (var s in seatSets)
                     {
                         if (s.Status)
@@ -116,7 +118,7 @@ namespace CinemaManagement.Models.Services
                         s.Status = true;
                     }
                     //Bill
-                    string billId = CreateNewBill(context, bill);
+                    string billId = await CreateNewBill(context, bill);
 
                     //Ticket
                     AddNewTickets(context, billId, newTicketList);
@@ -133,7 +135,7 @@ namespace CinemaManagement.Models.Services
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, $"Error Server {e}");
+                return (false, $"Lỗi hệ thống");
             }
             return (true, "Thực hiện giao dịch thành công");
         }
@@ -144,14 +146,14 @@ namespace CinemaManagement.Models.Services
         /// <param name="bill"></param>
         /// <param name="orderedProductList"></param>
         /// <returns></returns>
-        public (bool IsSuccess, string message) CreateProductOrder(BillDTO bill, List<ProductBillInfoDTO> orderedProductList)
+        public async Task<(bool IsSuccess, string message)> CreateProductOrder(BillDTO bill, List<ProductBillInfoDTO> orderedProductList)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
                     //Bill
-                    string billId = CreateNewBill(context, bill);
+                    string billId = await CreateNewBill(context, bill);
 
                     //Product
                     bool addSuccess = AddNewProductBills(context, billId, orderedProductList);
@@ -160,7 +162,7 @@ namespace CinemaManagement.Models.Services
                         return (false, "Số lượng sản phẩm không đủ để đáp ứng!");
                     }
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception e)
@@ -172,9 +174,9 @@ namespace CinemaManagement.Models.Services
         }
 
 
-        private string CreateNewBill(CinemaManagementEntities context, BillDTO bill)
+        private async Task<string> CreateNewBill(CinemaManagementEntities context, BillDTO bill)
         {
-            string maxId = context.Bills.Max(b => b.Id);
+            string maxId = await context.Bills.MaxAsync(b => b.Id);
             string billId = CreateNextBillId(maxId);
             Bill newBill = new Bill
             {

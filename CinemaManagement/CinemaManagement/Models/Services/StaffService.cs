@@ -30,19 +30,19 @@ namespace CinemaManagement.Models.Services
             using (var context = new CinemaManagementEntities())
             {
                 var staffs = (from s in context.Staffs
-                          where s.IsDeleted == false
-                          select new StaffDTO
-                          {
-                              Id = s.Id,
-                              BirthDate = s.BirthDate,
-                              Gender = s.Gender,
-                              Username = s.Username,
-                              Name = s.Name,
-                              Role = s.Role,
-                              PhoneNumber = s.PhoneNumber,
-                              StartingDate = s.StartingDate,
-                              Password = s.Password
-                          }).ToListAsync();
+                              where s.IsDeleted == false
+                              select new StaffDTO
+                              {
+                                  Id = s.Id,
+                                  BirthDate = s.BirthDate,
+                                  Gender = s.Gender,
+                                  Username = s.Username,
+                                  Name = s.Name,
+                                  Role = s.Role,
+                                  PhoneNumber = s.PhoneNumber,
+                                  StartingDate = s.StartingDate,
+                                  Password = s.Password
+                              }).ToListAsync();
                 return await staffs;
             }
         }
@@ -89,32 +89,30 @@ namespace CinemaManagement.Models.Services
             string newIdString = $"000{int.Parse(maxId.Substring(2)) + 1}";
             return "NV" + newIdString.Substring(newIdString.Length - 3, 3);
         }
-        public (bool, string, StaffDTO) AddStaff(StaffDTO newStaff)
+        public async Task<(bool, string, StaffDTO)> AddStaff(StaffDTO newStaff)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    bool usernameIsExist = context.Staffs.Any(s => s.Username == newStaff.Username);
+                    bool usernameIsExist = await context.Staffs.AnyAsync(s => s.Username == newStaff.Username);
 
                     if (usernameIsExist)
                     {
                         return (false, "Tài khoản đã tồn tại!", null);
                     }
-                    var maxId = context.Staffs.Max(s => s.Id);
+
+                    var maxId = await context.Staffs.MaxAsync(s => s.Id);
 
                     Staff st = Copy(newStaff);
                     st.Id = CreateNextStaffId(maxId);
                     st.Password = Helper.MD5Hash(newStaff.Password);
                     context.Staffs.Add(st);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
-            catch (DbEntityValidationException e)
-            {
-                return (false, "Lỗi hệ thống", null);
-            }
-            catch (Exception e)
+
+            catch (Exception)
             {
                 return (false, "Lỗi hệ thống", null);
             }
@@ -162,13 +160,6 @@ namespace CinemaManagement.Models.Services
                     await context.SaveChangesAsync();
                 }
             }
-            catch (DbEntityValidationException e)
-            {
-                Console.WriteLine(e);
-                return (false, "DbEntityValidationException");
-
-            }
-
             catch (Exception e)
             {
                 Console.WriteLine(e);
@@ -185,33 +176,32 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     Staff staff = await context.Staffs.FindAsync(StaffId);
-                    if (staff == null)
+                    if (staff is null)
                     {
                         return (false, "Tài khoản không tồn tại");
                     }
 
-                    staff.Password = newPassword;
-
-                    context.SaveChanges();
+                    staff.Password = Helper.MD5Hash(newPassword);
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, "Lỗi Server");
+                return (false, "Lỗi hệ thống");
             }
             return (true, "Cập nhật mật khẩu thành công");
 
         }
-        public (bool, string) DeleteStaff(string Id)
+        public async Task<(bool, string)> DeleteStaff(string Id)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    Staff staff = (from p in context.Staffs
-                                   where p.Id == Id && !p.IsDeleted
-                                   select p).SingleOrDefault();
+                    Staff staff = await (from p in context.Staffs
+                                         where p.Id == Id && !p.IsDeleted
+                                         select p).FirstOrDefaultAsync();
                     if (staff is null || staff?.IsDeleted == true)
                     {
                         return (false, "Nhân viên không tồn tại!");
@@ -219,15 +209,47 @@ namespace CinemaManagement.Models.Services
                     staff.IsDeleted = true;
                     staff.Username = null;
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
                 return (false, $"Lỗi hệ thống.");
             }
             return (true, "Xóa nhân viên thành công");
+        }
+
+        /// <summary>
+        /// Dùng để tìm email của staff và gửi mail cho chức năng quên mật khẩu
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public (string error, string email, string Id) GetStaffEmail(string username)
+        {
+            try
+            {
+                using (var context = new CinemaManagementEntities())
+                {
+                    Staff staff = (from p in context.Staffs
+                                   where p.Username == username && !p.IsDeleted
+                                   select p).FirstOrDefault();
+                    if (staff is null || staff?.IsDeleted == true)
+                    {
+                        return ("Tài khoản đăng nhập không tồn tại!", null, null);
+                    }
+
+                    if (staff.Email is null)
+                    {
+                        return ("Tài khoản chưa đăng kí email. Vui lòng liên hệ quản lý để được hỗ trợ", null, null);
+                    }
+
+                    return (null, staff.Email, staff.Id);
+                }
+            }
+            catch (Exception)
+            {
+                return ($"Lỗi hệ thống.", null, null);
+            }
         }
 
     }

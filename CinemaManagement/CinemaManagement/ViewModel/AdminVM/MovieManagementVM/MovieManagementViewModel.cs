@@ -160,11 +160,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 try
                 {
                     GenreList = GenreService.Ins.GetAllGenre();
-                    await LoadMovieListView(Operation.READ);
-                }
-                catch (InvalidOperationException e)
-                {
-                    Console.WriteLine(e.Message);
+                    MovieList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetAllMovie());
                 }
                 catch (Exception e)
                 {
@@ -210,37 +206,37 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
-            LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
-              {
-                  string message = "Bạn có chắc muốn xoá phim này không? Dữ liệu không thể phục hồi sau khi xoá!";
-                  MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
-                  result.ShowDialog();
-                  switch (result.DialogResult)
-                  {
-                      case true:
-                          {
-                              (bool successDelMovie, string messageFromDelMovie) = MovieService.Ins.DeleteMovie(SelectedItem.Id);
+            LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+             {
+                 string message = "Bạn có chắc muốn xoá phim này không? Dữ liệu không thể phục hồi sau khi xoá!";
+                 MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
+                 result.ShowDialog();
+                 switch (result.DialogResult)
+                 {
+                     case true:
+                         {
+                             (bool successDelMovie, string messageFromDelMovie) = MovieService.Ins.DeleteMovie(SelectedItem.Id);
 
-                              if (successDelMovie)
-                              {
-                                  File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-                                  await LoadMovieListView(Operation.DELETE);
-                                  SelectedItem = null;
-                                  MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
-                                  mb.ShowDialog();
-                                  break;
-                              }
-                              else
-                              {
-                                  MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Error, MessageButtons.OK);
-                                  mb.ShowDialog();
-                                  break;
-                              }
-                          }
-                      case false:
-                          break;
-                  }
-              });
+                             if (successDelMovie)
+                             {
+                                 File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
+                                 LoadMovieListView(Operation.DELETE);
+                                 SelectedItem = null;
+                                 MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
+                                 mb.ShowDialog();
+                                 break;
+                             }
+                             else
+                             {
+                                 MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Error, MessageButtons.OK);
+                                 mb.ShowDialog();
+                                 break;
+                             }
+                         }
+                     case false:
+                         break;
+                 }
+             });
             UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openfile = new OpenFileDialog();
@@ -257,14 +253,14 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 IsImageChanged = false;
 
             });
-            UpdateMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                UpdateMovieFunc(p);
-            });
-            SaveMovieCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                SaveMovieFunc(p);
-            });
+            UpdateMovieCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+             {
+                 await UpdateMovieFunc(p);
+             });
+            SaveMovieCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+             {
+                 await SaveMovieFunc(p);
+             });
         }
 
         public void LoadImage()
@@ -321,15 +317,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         }
 
         //Operation is enum have 4 values { READ, UPDATE, CREATE, DELETE }
-        public async Task LoadMovieListView(Operation oper = Operation.READ, MovieDTO m = null)
+        public void LoadMovieListView(Operation oper = Operation.READ, MovieDTO m = null)
         {
             switch (oper)
             {
                 case Operation.CREATE:
                     MovieList.Add(m);
-                    break;
-                case Operation.READ:
-                    MovieList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetAllMovie());
                     break;
                 case Operation.UPDATE:
                     var movieFound = MovieList.FirstOrDefault(x => x.Id == m.Id);
@@ -375,7 +368,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             ListCountrySource.Add("Thái Lan");
             ListCountrySource.Add("Trung Quốc");
             ListCountrySource.Add("Việt Nam");
-
         }
         public void MovieImageChanged()
         {

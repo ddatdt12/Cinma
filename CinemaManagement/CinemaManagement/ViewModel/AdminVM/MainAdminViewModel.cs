@@ -15,12 +15,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CinemaManagement.Views;
+using System.Threading.Tasks;
 
 namespace CinemaManagement.ViewModel
 {
 
     public partial class MainAdminViewModel : BaseViewModel
     {
+        public static CustomerDTO currenStaff;
         public ICommand SignoutCM { get; set; }
         public ICommand LoadQLPPageCM { get; set; }
         public ICommand LoadQLNVPageCM { get; set; }
@@ -51,11 +53,11 @@ namespace CinemaManagement.ViewModel
         public MainAdminViewModel()
         {
 
-            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                SelectedFuncName = "Quản lý suất chiếu";
-                CountErrorFunc();
-            });
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+             {
+                 SelectedFuncName = "Quản lý suất chiếu";
+                 await CountErrorFunc();
+             });
             SignoutCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
                {
                    FrameworkElement window = GetParentWindow(p);
@@ -123,10 +125,10 @@ namespace CinemaManagement.ViewModel
 
 
             // this is  the ErrorViewmodel resources
-            LoadDetailErrorCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
-            {
-                ChoseWindow();
-            });
+            LoadDetailErrorCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+           {
+               ChoseWindow();
+           });
             UpdateErrorCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
                 if (SelectedStatus is null)
@@ -137,10 +139,10 @@ namespace CinemaManagement.ViewModel
                 }
                 await UpdateErrorFunc(p);
             });
-            ReloadErrorListCM = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
-            {
-                ReloadErrorList();
-            });
+            ReloadErrorListCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
+             {
+                 await ReloadErrorList();
+             });
             SelectedDate = DateTime.Today;
             SelectedFinishDate = DateTime.Today;
 
@@ -158,16 +160,9 @@ namespace CinemaManagement.ViewModel
                 return parent;
             }
         }
-        public void CountErrorFunc()
+        public async Task CountErrorFunc()
         {
-            List<TroubleDTO> countlist = new List<TroubleDTO>(TroubleService.Ins.GetAllTrouble());
-            int counttemp = 0;
-            ErrorCount = "0";
-            foreach (var item in countlist)
-            {
-                if (item.Status == Utils.STATUS.WAITING)
-                    counttemp++;
-            }
+            int counttemp = await TroubleService.Ins.GetWaitingTroubleCount();
             ErrorCount = counttemp.ToString();
         }
     }

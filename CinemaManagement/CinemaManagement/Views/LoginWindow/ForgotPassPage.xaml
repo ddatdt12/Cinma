@@ -59,48 +59,51 @@
             </Label>
 
             <!--Login Area-->
-            <StackPanel Margin="0,50,0,0"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal"
-                        x:Name="email">
-                <materialDesign:PackIcon Kind="Email"
-                                         Height="20"
-                                         Width="20"
-                                         VerticalAlignment="Bottom" />
-                <TextBox materialDesign:HintAssist.Hint="Email"
-                         Foreground="Black"
-                         FontSize="15"
-                         Width="200"
-                         x:Name="emailfield"
-                         Margin="5,0,0,0"
-                         BorderBrush="LightGray"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="{Binding usremail,Mode=OneWayToSource}" />
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Center"
-                        Orientation="Horizontal"
-                        x:Name="secretcode"
-                        IsEnabled="False">
-                <materialDesign:PackIcon Kind="Lock"
-                                         Height="20"
-                                         Width="20"
-                                         VerticalAlignment="Bottom" />
-                <PasswordBox materialDesign:HintAssist.Hint="Mã bảo mật"
+            <Grid>
+                <StackPanel Margin="0 90 0 0"
+                            HorizontalAlignment="Center"
+                            Orientation="Horizontal"
+                            x:Name="Username">
+                    <materialDesign:PackIcon Kind="Email"
+                                             Height="20"
+                                             Width="20"
+                                             VerticalAlignment="Bottom" />
+                    <TextBox materialDesign:HintAssist.Hint="Tài khoản cần khôi phục"
                              Foreground="Black"
                              FontSize="15"
                              Width="200"
+                             x:Name="requestUsernameField"
                              Margin="5,0,0,0"
                              BorderBrush="LightGray"
-                             x:Name="codefield"
-                             Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PasswordChanged">
-                            <i:InvokeCommandAction Command="{Binding CodeChangedCM}"
-                                                   CommandParameter="{Binding ElementName=codefield}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </PasswordBox>
-            </StackPanel>
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding usrename,Mode=OneWayToSource}" />
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center"
+                            Margin="0 90 0 0"
+                            Orientation="Horizontal"
+                            x:Name="secretcode"
+                            Visibility="Collapsed">
+                    <materialDesign:PackIcon Kind="Lock"
+                                             Height="20"
+                                             Width="20"
+                                             VerticalAlignment="Bottom" />
+                    <PasswordBox materialDesign:HintAssist.Hint="Mã bảo mật"
+                                 Foreground="Black"
+                                 FontSize="15"
+                                 Width="200"
+                                 Margin="5,0,0,0"
+                                 BorderBrush="LightGray"
+                                 x:Name="codefield"
+                                 Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding CodeChangedCM}"
+                                                       CommandParameter="{Binding ElementName=codefield}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
+                </StackPanel>
+            </Grid>
             <!--Login Button-->
             <StackPanel HorizontalAlignment="Right"
                         Orientation="Vertical"
@@ -114,7 +117,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Content=""
                            x:Name="errorlbl"
-                           Margin="80,10,0,0"
+                           Margin="80,10,-30,0"
                            Foreground="Red"
                            FontSize="15"
                            Grid.ColumnSpan="2" />
@@ -123,14 +126,16 @@
                            x:Name="havecode"
                            Grid.ColumnSpan="2">
                         <Label.Content>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal"
+                                        x:Name="resend">
                                 <TextBlock Text="Bạn đã nhận được mã"
                                            FontSize="15" />
                                 <TextBlock Text=" chưa"
                                            FontSize="15"
-                                           MouseDown="TextBlock_MouseLeftButtonUp"
                                            MouseEnter="TextBlock_MouseEnter"
-                                           MouseLeave="TextBlock_MouseLeave" />
+                                           MouseLeave="TextBlock_MouseLeave"
+                                           MouseDown="TextBlock_MouseLeftButtonUp"
+                                           Foreground="Blue" />
                                 <TextBlock Text="?"
                                            FontSize="15" />
                             </StackPanel>
@@ -164,7 +169,6 @@
                                 Click="acceptbutn_Click"
                                 Command="{Binding ConfirmCM}"
                                 CommandParameter="{Binding ElementName=codefield}" />
-
                     </Grid>
                 </Grid>
 

@@ -315,7 +315,6 @@
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utils\Constant.cs" />
-    <Compile Include="Utils\PropertyCopier.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\RegexUtilities.cs" />
     <Compile Include="ViewModel\AdminVM\ErrorVM\ErrorViewModel.cs" />

@@ -14,7 +14,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         {
 
             (bool isValid, string error) = IsValidData(Operation.CREATE);
-
             if (isValid)
             {
                 StaffDTO staff = new StaffDTO();
@@ -28,13 +27,13 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 staff.Password = MatKhau;
 
 
-                (bool successAddStaff, string messageFromAddStaff, StaffDTO newStaff) = StaffService.Ins.AddStaff(staff);
+                (bool successAddStaff, string messageFromAddStaff, StaffDTO newStaff) = await StaffService.Ins.AddStaff(staff);
 
                 if (successAddStaff)
                 {
                     MaskName.Visibility = Visibility.Collapsed;
+                    LoadStaffListView(Operation.CREATE, newStaff);
                     p.Close();
-                    await LoadStaffListView(Operation.CREATE, newStaff);
                     MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddStaff, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                 }

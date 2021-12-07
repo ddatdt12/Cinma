@@ -2,6 +2,7 @@
 using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,13 +38,13 @@ namespace CinemaManagement.Models.Services
             string newIdString = $"000{int.Parse(maxId.Substring(2)) + 1}";
             return "TR" + newIdString.Substring(newIdString.Length - 4, 4);
         }
-        public List<TroubleDTO> GetAllTrouble()
+        public async Task<List<TroubleDTO>> GetAllTrouble()
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    List<TroubleDTO> troubleList = (from trou in context.Troubles
+                    List<TroubleDTO> troubleList =await (from trou in context.Troubles
                                                     select new TroubleDTO
                                                     {
                                                         Id = trou.Id,
@@ -58,9 +59,9 @@ namespace CinemaManagement.Models.Services
                                                         FinishDate = trou.FinishDate,
                                                         StaffId = trou.StaffId,
                                                         StaffName = trou.Staff.Name,
-                                                    }).ToList();
+                                                    }).ToListAsync();
 
-                    return troubleList;
+                    return  troubleList;
                 }
             }
             catch (Exception e)
@@ -68,13 +69,13 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
-        public (bool, string, TroubleDTO) CreateNewTrouble(TroubleDTO newTrouble)
+        public async Task<(bool, string, TroubleDTO)> CreateNewTrouble(TroubleDTO newTrouble)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var maxId = context.Troubles.Max(t => t.Id);
+                    var maxId = await context.Troubles.MaxAsync(t => t.Id);
                     Trouble tr = new Trouble()
                     {
                         Id = CreateNextTroubleId(maxId),
@@ -88,7 +89,7 @@ namespace CinemaManagement.Models.Services
                     };
                     context.Troubles.Add(tr);
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
 
                     newTrouble.Id = tr.Id;
                     return (true, null, newTrouble);
@@ -101,14 +102,14 @@ namespace CinemaManagement.Models.Services
         }
 
 
-        public (bool, string) UpdateTroubleInfo(TroubleDTO updatedTrouble)
+        public async Task<(bool, string)> UpdateTroubleInfo(TroubleDTO updatedTrouble)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
 
-                    var trouble = context.Troubles.Find(updatedTrouble.Id);
+                    var trouble = await context.Troubles.FindAsync(updatedTrouble.Id);
 
                     trouble.Title = updatedTrouble.Title;
                     trouble.Description = updatedTrouble.Description;
@@ -117,7 +118,7 @@ namespace CinemaManagement.Models.Services
                     trouble.StaffId = updatedTrouble.StaffId;
                     trouble.Level = updatedTrouble.Level ?? trouble.Level;
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
 
                     return (true, null);
                 }
@@ -127,7 +128,7 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
-        public (bool, string) UpdateStatusTrouble(TroubleDTO updatedTrouble)
+        public async Task<(bool, string)> UpdateStatusTrouble(TroubleDTO updatedTrouble)
         {
             try
             {
@@ -135,11 +136,11 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
 
-                    var trouble = context.Troubles.Find(updatedTrouble.Id);
+                    var trouble = await context.Troubles.FindAsync(updatedTrouble.Id);
 
                     if (updatedTrouble.Status == STATUS.IN_PROGRESS)
                     {
-                        trouble.StartDate = DateTime.Now;
+                        trouble.StartDate = updatedTrouble.StartDate;
                     }
                     else if (updatedTrouble.Status == STATUS.DONE)
                     {
@@ -147,7 +148,7 @@ namespace CinemaManagement.Models.Services
                         {
                             trouble.StartDate = DateTime.Now;
                         }
-                        trouble.FinishDate = DateTime.Now;
+                        trouble.FinishDate = updatedTrouble.FinishDate;
                         trouble.RepairCost = updatedTrouble.RepairCost;
                     }
                     else if (updatedTrouble.Status == STATUS.CANCLE)
@@ -158,7 +159,7 @@ namespace CinemaManagement.Models.Services
 
                     trouble.Status = updatedTrouble.Status;
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
 
                     return (true, "Cập nhật thành công");
                 }
@@ -168,13 +169,13 @@ namespace CinemaManagement.Models.Services
                 return (false, e.Message);
             }
         }
-        public int GetWaitingTroubleCount()
+        public async Task<int> GetWaitingTroubleCount()
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    return context.Troubles.Count();
+                    return await context.Troubles.CountAsync(t => t.Status == STATUS.WAITING);
                 }
             }
             catch (Exception e)

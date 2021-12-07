@@ -26,14 +26,14 @@ namespace CinemaManagement.Models.Services
             private set => _ins = value;
         }
 
-        public List<ProductReceiptDTO> GetProductReceipt()
+        public async Task<List<ProductReceiptDTO>> GetProductReceipt()
         {
             List<ProductReceiptDTO> productReceipts;
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    productReceipts = (from pr in context.ProductReceipts
+                    productReceipts = await (from pr in context.ProductReceipts
                                        select new ProductReceiptDTO
                                        {
                                            Id = pr.Id,
@@ -44,7 +44,7 @@ namespace CinemaManagement.Models.Services
                                            Quantity = pr.Quantity,
                                            ImportPrice = pr.ImportPrice,
                                            CreatedAt = pr.CreatedAt,
-                                       }).ToList();
+                                       }).ToListAsync();
                 }
             }
             catch (Exception e)
@@ -54,26 +54,26 @@ namespace CinemaManagement.Models.Services
             return productReceipts;
         }
 
-        public List<ProductReceiptDTO> GetProductReceipt(int month)
+        public async Task<List<ProductReceiptDTO>> GetProductReceipt(int month)
         {
             List<ProductReceiptDTO> productReceipts;
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    productReceipts = (from pr in context.ProductReceipts
-                                       where pr.CreatedAt.Year == DateTime.Today.Year && pr.CreatedAt.Month == month
-                                       select new ProductReceiptDTO
-                                       {
-                                           Id = pr.Id,
-                                           ProductId = pr.ProductId,
-                                           ProductName = pr.Product.DisplayName,
-                                           StaffId = pr.Staff.Id,
-                                           StaffName = pr.Staff.Name,
-                                           Quantity = pr.Quantity,
-                                           ImportPrice = pr.ImportPrice,
-                                           CreatedAt = pr.CreatedAt,
-                                       }).ToList();
+                    productReceipts = await (from pr in context.ProductReceipts
+                                             where pr.CreatedAt.Year == DateTime.Today.Year && pr.CreatedAt.Month == month
+                                             select new ProductReceiptDTO
+                                             {
+                                                 Id = pr.Id,
+                                                 ProductId = pr.ProductId,
+                                                 ProductName = pr.Product.DisplayName,
+                                                 StaffId = pr.Staff.Id,
+                                                 StaffName = pr.Staff.Name,
+                                                 Quantity = pr.Quantity,
+                                                 ImportPrice = pr.ImportPrice,
+                                                 CreatedAt = pr.CreatedAt,
+                                             }).ToListAsync();
                 }
             }
             catch (Exception e)
@@ -92,13 +92,13 @@ namespace CinemaManagement.Models.Services
             string newIdString = $"000{int.Parse(maxId.Substring(3)) + 1}";
             return "PRC" + newIdString.Substring(newIdString.Length - 3, 3);
         }
-        public (bool, string, ProductReceiptDTO) CreateProductReceipt(ProductReceiptDTO newPReceipt)
+        public async Task<(bool, string, ProductReceiptDTO)> CreateProductReceipt(ProductReceiptDTO newPReceipt)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    Product prod = context.Products.Find(newPReceipt.ProductId);
+                    Product prod = await context.Products.FindAsync(newPReceipt.ProductId);
                     prod.Quantity += newPReceipt.Quantity;
 
                     string maxId = context.ProductReceipts.Max(pr => pr.Id);
@@ -113,7 +113,8 @@ namespace CinemaManagement.Models.Services
                         StaffId = newPReceipt.StaffId,
                     };
                     context.ProductReceipts.Add(pR);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
+
                     newPReceipt.Id = pR.Id;
                 }
             }

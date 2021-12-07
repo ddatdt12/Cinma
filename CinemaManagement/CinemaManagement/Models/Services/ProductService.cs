@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -27,25 +28,25 @@ namespace CinemaManagement.Models.Services
             private set => _ins = value;
         }
 
-        public List<ProductDTO> GetAllProduct()
+        public async Task<List<ProductDTO>> GetAllProduct()
         {
             try
             {
                 List<ProductDTO> productDTOs;
                 using (var context = new CinemaManagementEntities())
                 {
-                    productDTOs = (from p in context.Products
-                                   where !p.IsDeleted
-                                   select new ProductDTO
-                                   {
-                                       Id = p.Id,
-                                       DisplayName = p.DisplayName,
-                                       Price = p.Price,
-                                       Category = p.Category,
-                                       Quantity = p.Quantity,
-                                       Image = p.Image
-                                   }
-                     ).ToList();
+                    productDTOs = await (from p in context.Products
+                                         where !p.IsDeleted
+                                         select new ProductDTO
+                                         {
+                                             Id = p.Id,
+                                             DisplayName = p.DisplayName,
+                                             Price = p.Price,
+                                             Category = p.Category,
+                                             Quantity = p.Quantity,
+                                             Image = p.Image
+                                         }
+                     ).ToListAsync();
                 }
                 return productDTOs;
             }
@@ -57,14 +58,14 @@ namespace CinemaManagement.Models.Services
 
 
 
-        public (bool, string, ProductDTO) AddNewProduct(ProductDTO newProd)
+        public async Task<(bool, string, ProductDTO)> AddNewProduct(ProductDTO newProd)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
 
-                    Product prod = context.Products.Where((p) => p.DisplayName == newProd.DisplayName).FirstOrDefault();
+                    Product prod = await context.Products.Where((p) => p.DisplayName == newProd.DisplayName).FirstOrDefaultAsync();
 
                     if (prod != null)
                     {
@@ -79,7 +80,7 @@ namespace CinemaManagement.Models.Services
                         prod.Category = newProd.Category;
                         prod.Image = newProd.Image;
                         prod.IsDeleted = false;
-                        context.SaveChanges();
+                        await context.SaveChangesAsync();
                         newProd.Id = prod.Id;
                     }
                     else
@@ -92,16 +93,12 @@ namespace CinemaManagement.Models.Services
                             Image = newProd.Image,
                         };
                         context.Products.Add(product);
-                        context.SaveChanges();
+                        await context.SaveChangesAsync();
                         newProd.Id = product.Id;
                     }
 
                     return (true, "Thêm sản phẩm mới thành công", newProd);
                 }
-            }
-            catch (DbEntityValidationException e)
-            {
-                return (false, "DbEntityValidationException", null);
             }
             catch (Exception e)
             {
@@ -110,20 +107,20 @@ namespace CinemaManagement.Models.Services
             }
         }
 
-        public (bool, string) UpdateProduct(ProductDTO updatedProd)
+        public async Task<(bool, string)> UpdateProduct(ProductDTO updatedProd)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    Product prod = context.Products.Find(updatedProd.Id);
+                    Product prod = await context.Products.FindAsync(updatedProd.Id);
 
                     if (prod is null)
                     {
                         return (false, "Sản phẩm không tồn tại");
                     }
 
-                    bool IsExistProdName = context.Products.Any((p) => p.Id != prod.Id && p.DisplayName == updatedProd.DisplayName);
+                    bool IsExistProdName = await context.Products.AnyAsync((p) => p.Id != prod.Id && p.DisplayName == updatedProd.DisplayName);
                     if (IsExistProdName)
                     {
                         return (false, "Tên sản phẩm này đã tồn tại! Vui lòng chọn tên khác");
@@ -133,13 +130,13 @@ namespace CinemaManagement.Models.Services
                     prod.Image = updatedProd.Image;
                     prod.Category = updatedProd.Category;
 
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                     return (true, "Cập nhật thành công");
                 }
             }
             catch (DbEntityValidationException e)
             {
-                return (false, "DbEntityValidationException");
+                return (false,$"DbEntityValidationException {e.Message}");
 
             }
             catch (DbUpdateException e)

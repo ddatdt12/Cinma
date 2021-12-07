@@ -70,8 +70,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     filepath = Helper.GetProductImgPath(Image);
                     product.Image = imgfullname = Helper.CreateImageFullName(Helper.CreateImageName(product.DisplayName), Image.Split('.')[1]);
                 }
-                await Task.Delay(0);
-                (bool successUpdateProduct, string messageFromUpdateProduct) = ProductService.Ins.UpdateProduct(product);
+                (bool successUpdateProduct, string messageFromUpdateProduct) = await ProductService.Ins.UpdateProduct(product);
 
                 if (successUpdateProduct)
                 {

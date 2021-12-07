@@ -158,13 +158,24 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                  GenerateListRoom();
                  RenewData();
                  AddShowtimeWindow temp = new AddShowtimeWindow();
-                 MovieList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetAllMovie());
+
+                 try
+                 {
+                     MovieList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetAllMovie());
+                 }
+                 catch (Exception)
+                 {
+
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                     mb.ShowDialog();
+                 }
+
                  ShadowMask.Visibility = Visibility.Visible;
                  temp.ShowDialog();
              });
-            SaveCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            SaveCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-                SaveShowtimeFunc(p);
+                await SaveShowtimeFunc(p);
             });
             LoadDeleteShowtimeCM = new RelayCommand<ListBox>((p) => { if (SelectedShowtime is null) return false; return true; }, async (p) =>
              {
@@ -172,7 +183,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                  try
                  {
                      //Kiểm tra suất chiếu đã có người đặt ghế nào chưa để có thông báo phù hợp
-                     bool isShowHaveBooking = ShowtimeService.Ins.CheckShowtimeHaveBooking(SelectedShowtime.Id);
+                     bool isShowHaveBooking = await ShowtimeService.Ins.CheckShowtimeHaveBooking(SelectedShowtime.Id);
                      if (isShowHaveBooking)
                      {
                          message = $"Suất chiếu này có ghế đã được đặt.\n{message}";
@@ -188,7 +199,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                  result.ShowDialog();
                  if (result.DialogResult == true)
                  {
-                     (bool deleteSuccess, string messageFromDelete) = ShowtimeService.Ins.DeleteShowtime(SelectedShowtime.Id);
+                     (bool deleteSuccess, string messageFromDelete) = await ShowtimeService.Ins.DeleteShowtime(SelectedShowtime.Id);
                      if (deleteSuccess)
                      {
                          for (int i = 0; i < ListShowtimeofMovie.Count; i++)
@@ -275,12 +286,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                  }
 
              });
-            EditPriceCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
+
+            EditPriceCM = new RelayCommand<Label>((p) => { return true; }, async (p) =>
             {
                 if (SelectedShowtime is null) return;
                 if (p.Content.ToString() == "Lưu") return;
 
-                (bool IsSuccess, string message) = ShowtimeService.Ins.UpdateTicketPrice(SelectedShowtime.Id, moviePrice);
+                (bool IsSuccess, string message) = await ShowtimeService.Ins.UpdateTicketPrice(SelectedShowtime.Id, moviePrice);
 
                 if (IsSuccess)
                 {
@@ -294,6 +306,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     mb.ShowDialog();
                 }
             });
+
             SelectedDateCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
                 await ReloadShowtimeList(-1);
@@ -304,9 +317,30 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public async Task ReloadShowtimeList(int id = -1)
         {
             if (id != -1)
-                ShowtimeList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
+            {
+                try
+                {
+                    ShowtimeList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
+                }
+                catch (Exception)
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
+            }
             else
-                ShowtimeList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate));
+            {
+                try
+                {
+                    ShowtimeList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate));
+                }
+                catch (Exception)
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
+            }
+
         }
         public void GenerateListRoom()
         {
@@ -316,7 +350,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 RoomDTO temp = new RoomDTO
                 {
                     Id = i + 1,
-
                 };
                 ListRoom.Add(temp);
             }

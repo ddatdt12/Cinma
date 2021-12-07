@@ -157,14 +157,14 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     var MovieIdList = await (from showSet in context.ShowtimeSettings
-                                       where DbFunctions.TruncateTime(showSet.ShowDate) == date.Date && showSet.RoomId == roomId
-                                       select showSet into S
-                                       from show in S.Showtimes
-                                       select new
-                                       {
-                                           MovieId = show.MovieId,
-                                           ShowTime = show,
-                                       }).GroupBy(m => m.MovieId).ToListAsync();
+                                             where DbFunctions.TruncateTime(showSet.ShowDate) == date.Date && showSet.RoomId == roomId
+                                             select showSet into S
+                                             from show in S.Showtimes
+                                             select new
+                                             {
+                                                 MovieId = show.MovieId,
+                                                 ShowTime = show,
+                                             }).GroupBy(m => m.MovieId).ToListAsync();
 
 
                     for (int i = 0; i < MovieIdList.Count(); i++)
@@ -215,7 +215,7 @@ namespace CinemaManagement.Models.Services
             return movieList;
         }
 
-        public (bool, string, MovieDTO) AddMovie(MovieDTO newMovie)
+        public async Task<(bool, string, MovieDTO)> AddMovie(MovieDTO newMovie)
         {
             try
             {
@@ -245,7 +245,7 @@ namespace CinemaManagement.Models.Services
                             m.Genres.Add(genre);
                         }
                         m.IsDeleted = false;
-                        context.SaveChanges();
+                        await context.SaveChangesAsync();
                         newMovie.Id = m.Id;
                     }
                     else
@@ -267,7 +267,7 @@ namespace CinemaManagement.Models.Services
                             mov.Genres.Add(genre);
                         }
                         context.Movies.Add(mov);
-                        context.SaveChanges();
+                        await context.SaveChangesAsync();
                         newMovie.Id = mov.Id;
                     }
                 }
@@ -296,7 +296,7 @@ namespace CinemaManagement.Models.Services
             return (true, "Thêm phim thành công", newMovie);
         }
 
-        public (bool, string) UpdateMovie(MovieDTO updatedMovie)
+        public async Task<(bool, string)> UpdateMovie(MovieDTO updatedMovie)
         {
             try
             {
@@ -315,8 +315,17 @@ namespace CinemaManagement.Models.Services
                         return (false, "Tên phim đã tồn tại!");
                     }
 
-                    PropertyCopier<MovieDTO, Movie>.Copy(updatedMovie, movie);
-                    context.SaveChanges();
+
+                    movie.DisplayName = updatedMovie.DisplayName;
+                    movie.RunningTime = updatedMovie.RunningTime;
+                    movie.Country = updatedMovie.Country;
+                    movie.Description = updatedMovie.Description;
+                    movie.ReleaseYear = updatedMovie.ReleaseYear;
+                    movie.MovieType = updatedMovie?.MovieType;
+                    movie.Director = updatedMovie.Director;
+                    movie.Image = updatedMovie.Image;
+
+                    await context.SaveChangesAsync();
                     return (true, "Cập nhật thành công");
                 }
             }

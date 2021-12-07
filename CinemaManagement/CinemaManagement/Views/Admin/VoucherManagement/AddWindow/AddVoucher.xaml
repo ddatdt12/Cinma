@@ -185,10 +185,10 @@
                               x:Name="cbb"
                               SelectionChanged="ComboBox_SelectionChanged"
                               SelectedItem="{Binding SelectedCbbFilter,Mode=OneWayToSource}">
-                        <ComboBoxItem>Toàn bộ</ComboBoxItem>
-                        <ComboBoxItem>Chưa phát hành</ComboBoxItem>
-                        <ComboBoxItem>Đã phát hành</ComboBoxItem>
-                        <ComboBoxItem>Đã sử dụng</ComboBoxItem>
+                        <ComboBoxItem Tag="Toàn bộ">Toàn bộ</ComboBoxItem>
+                        <ComboBoxItem Tag="Chưa phát hành">Chưa phát hành</ComboBoxItem>
+                        <ComboBoxItem Tag="Ðã phát hành">Ðã phát hành</ComboBoxItem>
+                        <ComboBoxItem Tag="Đã sử dụng">Đã sử dụng</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
 
@@ -205,7 +205,7 @@
                                                         Focusable="False">
                                                 <CheckBox Content="{Binding Id}"
                                                           x:Name="allcheck"
-                                                          Loaded="allcheck_load"
+                                                          IsChecked="{Binding IsChecked}"
                                                           Visibility="{Binding Status,Converter={StaticResource Converter}}">
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="Click">
@@ -277,10 +277,15 @@
                               HorizontalAlignment="Left"
                               Margin="13,18,20,0"
                               x:Name="topcheckbox"
-                              Checked="CheckBox_Checked"
-                              Unchecked="CheckBox_Unchecked"
                               Command="{Binding CheckAllMiniVoucherCM}"
                               CommandParameter="{Binding ElementName=topcheckbox}" />
+                    <Grid>
+                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                     Value="0"
+                                     IsIndeterminate="{Binding IsReleaseVoucherLoading,UpdateSourceTrigger=PropertyChanged}"
+                                     Width="100"
+                                     Height="100" />
+                    </Grid>
                 </Grid>
 
 

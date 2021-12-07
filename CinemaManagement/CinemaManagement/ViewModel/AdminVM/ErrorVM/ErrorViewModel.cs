@@ -5,6 +5,7 @@ using CinemaManagement.Views.Admin.ErrorManagement;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,13 @@ namespace CinemaManagement.ViewModel
 {
     public partial class MainAdminViewModel : BaseViewModel
     {
+        private bool _IsGettingSource;
+        public bool IsGettingSource
+        {
+            get { return _IsGettingSource; }
+            set { _IsGettingSource = value; OnPropertyChanged(); }
+        }
+
         private ComboBoxItem _SelectedFilterList;
         public ComboBoxItem SelectedFilterList
         {
@@ -86,73 +94,68 @@ namespace CinemaManagement.ViewModel
                 w.ShowDialog();
             }
         }
-        public void ReloadErrorList()
+
+        public async Task<List<TroubleDTO>> GetAllTrouble()
+        {
+            try
+            {
+                return await TroubleService.Ins.GetAllTrouble();
+            }
+            catch (Exception)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+        }
+        public async Task ReloadErrorList()
         {
             try
             {
                 if (SelectedFilterList is null) return;
 
-                List<TroubleDTO> temp = new List<TroubleDTO>(TroubleService.Ins.GetAllTrouble());
-                ListError = new ObservableCollection<TroubleDTO>();
+                try
+                {
+                    List<TroubleDTO> troubleDTOs = await GetAllTrouble();
 
-                //reduce the number notifi of main page
-                int counttemp = 0;
-                foreach (var item in temp)
-                {
-                    if (item.Status == Utils.STATUS.WAITING)
-                        counttemp++;
-                }
-                ErrorCount = counttemp.ToString();
-                ///================
+                    ListError = new ObservableCollection<TroubleDTO>();
 
-                if (SelectedFilterList.Content.ToString() == Utils.STATUS.WAITING)
-                {
-                    foreach (var item in temp)
+                    //reduce the number notifi of main page
+                    int counttemp = 0;
+                    foreach (var item in troubleDTOs)
                     {
-                        if (item.Status == SelectedFilterList.Content.ToString())
-                            ListError.Add(item);
+                        if (item.Status == Utils.STATUS.WAITING)
+                            counttemp++;
                     }
-                    return;
-                }
-                if (SelectedFilterList.Content.ToString() == Utils.STATUS.IN_PROGRESS)
-                {
-                    foreach (var item in temp)
-                    {
-                        if (item.Status == SelectedFilterList.Content.ToString())
-                            ListError.Add(item);
-                    }
-                    return;
-                }
-                if (SelectedFilterList.Content.ToString() == Utils.STATUS.DONE)
-                {
-                    foreach (var item in temp)
-                    {
-                        if (item.Status == SelectedFilterList.Content.ToString())
-                            ListError.Add(item);
-                    }
-                    return;
-                }
-                if (SelectedFilterList.Content.ToString() == Utils.STATUS.CANCLE)
-                {
-                    foreach (var item in temp)
-                    {
-                        if (item.Status == SelectedFilterList.Content.ToString())
-                            ListError.Add(item);
-                    }
-                    return;
-                }
+                    ErrorCount = counttemp.ToString();
+                    ///================
 
-                ListError = new ObservableCollection<TroubleDTO>(temp);
+                    if ((string)SelectedFilterList.Tag == "Toàn bộ")
+                    {
+                        ListError = new ObservableCollection<TroubleDTO>(troubleDTOs);
+                    }
+                    else
+                    {
+                        ListError = new ObservableCollection<TroubleDTO>(troubleDTOs.Where(tr => tr.Status == SelectedFilterList.Tag.ToString()));
+                    }
+
+                }
+                catch (Exception)
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
 
             }
             catch (Exception e)
             {
-                throw e;
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
             }
         }
         public async Task UpdateErrorFunc(Window p)
         {
-            await Task.Delay(0);
             if (SelectedStatus.Content.ToString() == Utils.STATUS.IN_PROGRESS)
             {
                 if (DateTime.Compare(SelectedItem.SubmittedAt.Date, SelectedDate.Date) > 0)
@@ -168,13 +171,13 @@ namespace CinemaManagement.ViewModel
                     StartDate = SelectedDate,
                     Status = SelectedStatus.Content.ToString(),
                 };
-                (bool isS, string messageFromUpdate) = TroubleService.Ins.UpdateStatusTrouble(trouble);
+                (bool isS, string messageFromUpdate) = await TroubleService.Ins.UpdateStatusTrouble(trouble);
 
                 if (isS)
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
-                    ReloadErrorList();
+                    await ReloadErrorList();
                     p.Close();
                 }
                 else
@@ -191,13 +194,14 @@ namespace CinemaManagement.ViewModel
                     Id = SelectedItem.Id,
                     Status = SelectedStatus.Content.ToString(),
                 };
-                (bool isS, string messageFromUpdate) = TroubleService.Ins.UpdateStatusTrouble(trouble);
+
+                (bool isS, string messageFromUpdate) = await TroubleService.Ins.UpdateStatusTrouble(trouble);
 
                 if (isS)
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
-                    ReloadErrorList();
+                    await ReloadErrorList();
                     p.Close();
                 }
                 else
@@ -219,7 +223,6 @@ namespace CinemaManagement.ViewModel
                     }
                 }
 
-
                 TroubleDTO trouble = new TroubleDTO
                 {
                     Id = SelectedItem.Id,
@@ -227,13 +230,14 @@ namespace CinemaManagement.ViewModel
                     Status = SelectedStatus.Content.ToString(),
                     RepairCost = RepairCost,
                 };
-                (bool isS, string messageFromUpdate) = TroubleService.Ins.UpdateStatusTrouble(trouble);
+
+                (bool isS, string messageFromUpdate) = await TroubleService.Ins.UpdateStatusTrouble(trouble);
 
                 if (isS)
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
-                    ReloadErrorList();
+                    await ReloadErrorList();
                     p.Close();
                 }
                 else

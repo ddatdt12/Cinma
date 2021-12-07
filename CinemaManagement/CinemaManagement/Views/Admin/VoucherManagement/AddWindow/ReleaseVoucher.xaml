@@ -150,6 +150,9 @@
                                               SelectedItem="{Binding ReleaseCustomerList}"
                                               SelectionChanged="ComboBox_SelectionChanged_1">
                                         <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Loaded">
+                                                <i:InvokeCommandAction Command="{Binding RefreshEmailListCM}" />
+                                            </i:EventTrigger>
                                             <i:EventTrigger EventName="SelectionChanged">
                                                 <i:InvokeCommandAction Command="{Binding RefreshEmailListCM}" />
                                             </i:EventTrigger>
@@ -259,7 +262,6 @@
                             </StackPanel>
                         </StackPanel>
                         <Grid Grid.Row="1">
-
                             <Button VerticalAlignment="Top"
                                     HorizontalAlignment="Right"
                                     Width="100"

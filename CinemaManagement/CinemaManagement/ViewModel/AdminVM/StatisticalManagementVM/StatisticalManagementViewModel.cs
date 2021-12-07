@@ -36,7 +36,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             LoadViewCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 mainFrame = p;
-                p.Content = new IncomeStatistical();
             });
             StoreButtonNameCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
             {
@@ -49,7 +48,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             {
                 ChangeView(p);
                 mainFrame.Content = new IncomeStatistical();
-
             });
             LoadRankStatisticalCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
             {
@@ -61,7 +59,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 ChangeView(p);
                 mainFrame.Content = new BestSellingStatistical();
             });
-            ChangeBestSellPeriodCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            ChangeBestSellPeriodCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
                 await ChangeBestSellPeriod();
             });
@@ -69,15 +67,15 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             {
                 await ChangeBestSellPeriod2();
             });
-            ChangeIncomePeriodCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            ChangeIncomePeriodCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
                 await ChangeIncomePeriod();
             });
-            ChangeRankingPeriodCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            ChangeRankingPeriodCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
                 await ChangeRankingPeriod();
             });
-            ChangeRankingPeriod2CM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            ChangeRankingPeriod2CM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
                 await ChangeRankingPeriod2();
             });

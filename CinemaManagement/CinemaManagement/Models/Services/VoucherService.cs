@@ -26,6 +26,31 @@ namespace CinemaManagement.Models.Services
         private VoucherService()
         {
         }
+
+        public async Task<VoucherDTO> GetVoucherInfo(string Code)
+        {
+            using (var context = new CinemaManagementEntities())
+            {
+                try
+                {
+                    return await context.Vouchers.Where(v => v.Code == Code).Select(v => new VoucherDTO
+                    {
+                        Id = v.Id,
+                        Code = v.Code,
+                        Status = v.Status,
+                        VoucherReleaseId = v.VoucherReleaseId,
+                        UsedAt = v.UsedAt,
+                        CustomerName = v.Customer != null ? v.Customer.Name : null,
+                        ReleaseAt = v.ReleaseAt,
+                    }).FirstOrDefaultAsync();
+                }
+                catch (Exception e)
+                {
+
+                    throw e;
+                }
+            }
+        }
         private string CreateNextVoucherReleaseId(string maxId)
         {
             //NVxxx
@@ -36,6 +61,7 @@ namespace CinemaManagement.Models.Services
             string newIdString = $"000{int.Parse(maxId.Substring(4)) + 1}";
             return "VCRL" + newIdString.Substring(newIdString.Length - 4, 4);
         }
+
         public async Task<List<VoucherReleaseDTO>> GetAllVoucherReleases()
         {
             try
@@ -43,22 +69,22 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     var VrList = await (from vr in context.VoucherReleases
-                                  orderby vr.Id descending
-                                  select new VoucherReleaseDTO
-                                  {
-                                      Id = vr.Id,
-                                      ReleaseName = vr.ReleaseName,
-                                      StartDate = vr.StartDate,
-                                      FinishDate = vr.FinishDate,
-                                      MinimumOrderValue = vr.MinimumOrderValue,
-                                      ParValue = vr.ParValue,
-                                      ObjectType = vr.ObjectType,
-                                      Status = vr.Status,
-                                      StaffId = vr.StaffId,
-                                      StaffName = vr.Staff.Name,
-                                      VCount = vr.Vouchers.Count(),
-                                      UnusedVCount = vr.Vouchers.Count(v => v.Status == VOUCHER_STATUS.UNRELEASED),
-                                  }).ToListAsync();
+                                        orderby vr.Id descending
+                                        select new VoucherReleaseDTO
+                                        {
+                                            Id = vr.Id,
+                                            ReleaseName = vr.ReleaseName,
+                                            StartDate = vr.StartDate,
+                                            FinishDate = vr.FinishDate,
+                                            MinimumOrderValue = vr.MinimumOrderValue,
+                                            ParValue = vr.ParValue,
+                                            ObjectType = vr.ObjectType,
+                                            Status = vr.Status,
+                                            StaffId = vr.StaffId,
+                                            StaffName = vr.Staff.Name,
+                                            VCount = vr.Vouchers.Count(),
+                                            UnusedVCount = vr.Vouchers.Count(v => v.Status == VOUCHER_STATUS.UNRELEASED),
+                                        }).ToListAsync();
                     return VrList;
                 }
             }
@@ -108,13 +134,61 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
+
+        public async Task<VoucherReleaseDTO> GetVoucherReleaseInfo(string Id)
+        {
+            try
+            {
+                using (var context = new CinemaManagementEntities())
+                {
+                    //var voucherRelease = await context.VoucherReleases.FindAsync(Id);
+                    return await context.VoucherReleases.Where(v => v.Id == Id).Select(vR => new VoucherReleaseDTO
+                    {
+                        Id = vR.Id,
+                        ReleaseName = vR.ReleaseName,
+                        StartDate = vR.StartDate,
+                        FinishDate = vR.FinishDate,
+                        EnableMerge = vR.EnableMerge,
+                        MinimumOrderValue = vR.MinimumOrderValue,
+                        ParValue = vR.ParValue,
+                        ObjectType = vR.ObjectType,
+                        Status = vR.Status,
+                        StaffId = vR.StaffId,
+                        StaffName = vR.Staff.Name,
+                        VCount = vR.Vouchers.Count(),
+                        UnusedVCount = vR.Vouchers.Count(v => v.Status == VOUCHER_STATUS.UNRELEASED),
+                    }).FirstOrDefaultAsync();
+
+                    //return (new VoucherReleaseDTO
+                    //{
+                    //    Id = voucherRelease.Id,
+                    //    ReleaseName = voucherRelease.ReleaseName,
+                    //    StartDate = voucherRelease.StartDate,
+                    //    FinishDate = voucherRelease.FinishDate,
+                    //    EnableMerge = voucherRelease.EnableMerge,
+                    //    MinimumOrderValue = voucherRelease.MinimumOrderValue,
+                    //    ParValue = voucherRelease.ParValue,
+                    //    ObjectType = voucherRelease.ObjectType,
+                    //    Status = voucherRelease.Status,
+                    //    StaffId = voucherRelease.StaffId,
+                    //    StaffName = voucherRelease.Staff.Name,
+                    //    VCount = voucherRelease.Vouchers.Count(),
+                    //    UnusedVCount = voucherRelease.Vouchers.Count(v => v.Status == VOUCHER_STATUS.UNRELEASED),
+                    //});
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
         public async Task<(bool, string, VoucherReleaseDTO newVR)> CreateVoucherRelease(VoucherReleaseDTO newVR)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    string maxId = context.VoucherReleases.Max(vR => vR.Id);
+                    string maxId = await context.VoucherReleases.MaxAsync(vR => vR.Id);
                     VoucherRelease voucherRelease = new VoucherRelease
                     {
                         Id = CreateNextVoucherReleaseId(maxId),
@@ -130,7 +204,7 @@ namespace CinemaManagement.Models.Services
                     };
 
                     context.VoucherReleases.Add(voucherRelease);
-                    await context .SaveChangesAsync();
+                    await context.SaveChangesAsync();
 
                     newVR.Id = voucherRelease.Id;
                     return (true, "Thêm đợt phát hành mới thành công", newVR);
