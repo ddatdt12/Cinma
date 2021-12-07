@@ -12,13 +12,20 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CinemaManagement.Models.Services;
 
 namespace CinemaManagement.ViewModel
 {
 
     public class ForgotPassViewModel : BaseViewModel
     {
-        public static bool IsExistsAccount = false;
+
+        //Dành cho người quên mật khẩu
+        public static string ForgotPasswordEmail = null;
+        public static string RequestingStaffId = null;
+
+        private int RandomCode; 
+
         public Button SendmailBtn { get; set; }
         private string _usremail;
         public string usremail
@@ -41,6 +48,7 @@ namespace CinemaManagement.ViewModel
             set { newPass = value; OnPropertyChanged(); }
         }
 
+
         public ICommand ConfirmCM { get; set; }
         public ICommand CancelCM { get; set; }
         public ICommand SendMailCM { get; set; }
@@ -62,7 +70,7 @@ namespace CinemaManagement.ViewModel
                 {
                     if (true)
                     {
-                        LoginViewModel.MainFrame.Content = new ChangePassPage();
+                            LoginViewModel.MainFrame.Content = new ChangePassPage();
                     }
                     else
                     {
@@ -82,46 +90,29 @@ namespace CinemaManagement.ViewModel
             });
             SendMailCM = new RelayCommand<Button>((p) => { return true; }, async (p) =>
              {
-
+                 //k biết tác dụng của này
                  if (string.IsNullOrEmpty(usremail)) return;
 
-                 if (!IsExistsAccount) return;
-
-                 //(bool isSuccess, string message)  = await sendHtmlEmail();
-                 //MessageBox.Show(message);
-
-                 //string to, from, pass, messageBody;
-                 //MailMessage message = new MailMessage();
-                 //string to1 = "binzml1714@gmail.com";
-                 //string to2 = "ddatdt12@gmail.com";
-                 //from = "20521163@gm.uit.edu.vn";
-                 //pass = "NoLove1205@";
-                 //messageBody = "";
-                 //message.To.Add(to1);
-                 //message.To.Add(to2);
-                 //message.From = new MailAddress(from);
-                 //message.Body = "From : " + "<br>Message: " + messageBody;
-                 //message.Subject = "this is subject";
-                 //message.IsBodyHtml = true;
-                 //SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-                 //smtp.EnableSsl = true;
-                 //smtp.Port = 587;
-                 //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                 //smtp.Credentials = new NetworkCredential(from, pass);
-
-                 //try
-                 //{
-                 //    smtp.Send(message);
-                 //}
-                 //catch (Exception ex)
-                 //{
-                 //    MessageBox.Show(ex.Message);
-                 //}
+                 if (ForgotPasswordEmail is null) return;
 
 
+                 Random rd = new Random();
+                 int MIN_VALUE = 11111;
+                 int MAX_VALUE = 99999;
+                 RandomCode = rd.Next(MIN_VALUE, MAX_VALUE);
+                 try
+                 {
+                     // xử lí giao diện 
+                     await SendEmailForStaff(ForgotPasswordEmail, RandomCode);
+                 }
+                 catch (Exception e)
+                 {
+                     MessageBox.Show(e.Message);
+                     return;
+                 }
 
              });
-            SaveNewPassCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
+            SaveNewPassCM = new RelayCommand<Label>((p) => { return true; },async (p) =>
             {
                 if (string.IsNullOrEmpty(NewPass))
                 {
@@ -130,8 +121,14 @@ namespace CinemaManagement.ViewModel
                 }
                 else
                 {
-                    p.Content = "Thay đổi mật khẩu thành công!";
-                    p.Visibility = Visibility.Visible;
+                    string newPass = "1234567";
+                    (bool updatedSuccess, string messageFromUpdate) = await StaffService.Ins.UpdatePassword(RequestingStaffId, newPass);
+
+                    if (updatedSuccess)
+                    {
+                        p.Content = "Thay đổi mật khẩu thành công!";
+                        p.Visibility = Visibility.Visible;
+                    }
                 }
             });
             NewPassChanged = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
@@ -143,30 +140,8 @@ namespace CinemaManagement.ViewModel
                 SendmailBtn = p;
             });
         }
-        protected async Task<(bool, string)> sendHtmlEmail()
-        {
-            string to1 = "binzml1714@gmail.com";
-            string to2 = "ddatdt12@gmail.com";
 
-            List<string> listCode1 = new List<string> { "CODE1", "CODE2", "CODE3", "CODE4" };
-            List<string> listCode2 = new List<string> { "CODE5", "CODE6", "CODE7", "CODE8" };
-
-
-            Task t1 = sendEmailForACustomer(to1, listCode1);
-            Task t2 = sendEmailForACustomer(to2, listCode2);
-
-            try
-            {
-                await Task.WhenAll(t1, t2);
-                return (false, "Gửi thành công");
-            }
-            catch (Exception e)
-            {
-                return (false, e.Message);
-            }
-
-        }
-        protected Task sendEmailForACustomer(string customerEmail, List<string> listCode)
+        protected Task SendEmailForStaff(string customerEmail, int randomCode)
         {
             var appSettings = ConfigurationManager.AppSettings;
             string APP_EMAIL = appSettings["APP_EMAIL"];
@@ -183,24 +158,18 @@ namespace CinemaManagement.ViewModel
             MailMessage mail = new MailMessage();
             mail.IsBodyHtml = true;
 
-            //create Alrternative HTML view
+            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(GetResetPasswordTemplate(randomCode), null, "text/html");
 
-            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(GetCustomerGratitudeTemplate(listCode), null, "text/html");
-            //Add Image
-            LinkedResource theEmailImage = new LinkedResource(Helper.GetImagePath("poster.png"));
-            theEmailImage.ContentId = "myImageID";
-
-
-            //Add the Image to the Alternate view
-            htmlView.LinkedResources.Add(theEmailImage);
             //Add view to the Email Message
             mail.AlternateViews.Add(htmlView);
 
-            mail.From = new MailAddress(FROM_EMAIL, "Squadin Cinema");
+            mail.From = new MailAddress(APP_EMAIL, "Squadin Cinema");
             mail.To.Add(customerEmail);
-            mail.Subject = "Tri ân khách hàng thân thiết";
+            mail.Subject = "Lấy lại mật khẩu đăng nhập";
+
 
             return smtp.SendMailAsync(mail);
+
         }
 
         FrameworkElement GetParentWindow(FrameworkElement p)
@@ -214,34 +183,12 @@ namespace CinemaManagement.ViewModel
             return parent;
         }
 
-        private string GetResetPasswordTemplate()
+        private string GetResetPasswordTemplate(int randomCode)
         {
             string resetPasswordHTML = Helper.GetEmailTemplatePath(RESET_PASS_TEMPLATE_FILE);
-            String HTML = File.ReadAllText(resetPasswordHTML).Replace("RESET_PASSWORD_CODE", "123123");
+            string HTML = File.ReadAllText(resetPasswordHTML).Replace("{RESET_PASSWORD_CODE}", randomCode.ToString());
             return HTML;
         }
-
-        private string GetCustomerGratitudeTemplate(List<string> listCode)
-        {
-            string templateHTML = Helper.GetEmailTemplatePath(GRATITUDE_TEMPLATE_FILE);
-            string listVoucherHTML = "";
-
-            for (int i = 0; i < listCode.Count; i++)
-            {
-                listVoucherHTML += VOUCHER_ITEM_HTML.Replace("{INDEX}", $"{i + 1}").Replace("{CODE_HERE}", listCode[i]);
-            }
-
-
-            String HTML = File.ReadAllText(templateHTML).Replace("{LIST_CODE_HERE}", listVoucherHTML);
-            return HTML;
-        }
-
-        string FROM_EMAIL = "squandincinema@gmail.com";
-        string PASS_EMAIL = "khongcopass@2k2";
-
         const string RESET_PASS_TEMPLATE_FILE = "reset_password_html.txt";
-        const string GRATITUDE_TEMPLATE_FILE = "top5_customer_gratitude_html.txt";
-
-        const string VOUCHER_ITEM_HTML = "<li>Voucher {INDEX}: {CODE_HERE}</li>";
     }
 }

@@ -71,7 +71,7 @@
                          Foreground="Black"
                          FontSize="15"
                          Width="200"
-                         x:Name="emailfield"
+                         x:Name="requestUsernameField"
                          Margin="5,0,0,0"
                          BorderBrush="LightGray"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"

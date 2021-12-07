@@ -146,6 +146,7 @@
           <Property Name="StartingDate" Type="smalldatetime" />
           <Property Name="Role" Type="nvarchar" MaxLength="20" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="80" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
@@ -731,6 +732,7 @@
           <NavigationProperty Name="ProductReceipts" Relationship="Self.PRODUCT_RECEIPT_StaffId_FK" FromRole="Staff" ToRole="ProductReceipt" />
           <NavigationProperty Name="Troubles" Relationship="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" FromRole="Staff" ToRole="Trouble" />
           <NavigationProperty Name="VoucherReleases" Relationship="CinemaManagementModel.FK__VoucherRe__Staff__2B0A656D" FromRole="Staff" ToRole="VoucherRelease" />
+          <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
@@ -1266,6 +1268,7 @@
           <EntitySetMapping Name="Staffs">
             <EntityTypeMapping TypeName="CinemaManagementModel.Staff">
               <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Username" ColumnName="Username" />

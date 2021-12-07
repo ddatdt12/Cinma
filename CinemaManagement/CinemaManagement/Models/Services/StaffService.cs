@@ -30,19 +30,19 @@ namespace CinemaManagement.Models.Services
             using (var context = new CinemaManagementEntities())
             {
                 var staffs = (from s in context.Staffs
-                          where s.IsDeleted == false
-                          select new StaffDTO
-                          {
-                              Id = s.Id,
-                              BirthDate = s.BirthDate,
-                              Gender = s.Gender,
-                              Username = s.Username,
-                              Name = s.Name,
-                              Role = s.Role,
-                              PhoneNumber = s.PhoneNumber,
-                              StartingDate = s.StartingDate,
-                              Password = s.Password
-                          }).ToListAsync();
+                              where s.IsDeleted == false
+                              select new StaffDTO
+                              {
+                                  Id = s.Id,
+                                  BirthDate = s.BirthDate,
+                                  Gender = s.Gender,
+                                  Username = s.Username,
+                                  Name = s.Name,
+                                  Role = s.Role,
+                                  PhoneNumber = s.PhoneNumber,
+                                  StartingDate = s.StartingDate,
+                                  Password = s.Password
+                              }).ToListAsync();
                 return await staffs;
             }
         }
@@ -176,14 +176,13 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     Staff staff = await context.Staffs.FindAsync(StaffId);
-                    if (staff == null)
+                    if (staff is null)
                     {
                         return (false, "Tài khoản không tồn tại");
                     }
 
                     staff.Password = newPassword;
-
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception e)
@@ -201,8 +200,8 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     Staff staff = await (from p in context.Staffs
-                                   where p.Id == Id && !p.IsDeleted
-                                   select p).FirstOrDefaultAsync();
+                                         where p.Id == Id && !p.IsDeleted
+                                         select p).FirstOrDefaultAsync();
                     if (staff is null || staff?.IsDeleted == true)
                     {
                         return (false, "Nhân viên không tồn tại!");
@@ -218,6 +217,39 @@ namespace CinemaManagement.Models.Services
                 return (false, $"Lỗi hệ thống.");
             }
             return (true, "Xóa nhân viên thành công");
+        }
+
+        /// <summary>
+        /// Dùng để tìm email của staff và gửi mail cho chức năng qên mật khẩu
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public (string error,  string email, string Id) GetStaffEmail(string username)
+        {
+            try
+            {
+                using (var context = new CinemaManagementEntities())
+                {
+                    Staff staff =  (from p in context.Staffs
+                                         where p.Username == username && !p.IsDeleted
+                                         select p).FirstOrDefault();
+                    if (staff is null || staff?.IsDeleted == true)
+                    {
+                        return ("Tài khoản đăng nhập không tồn tại!", null, null);
+                    }
+
+                    if (staff.Email is null)
+                    {
+                        return ("Tài khoản chưa đăng kí email. Vui lòng liên hệ quản lý để được hỗ trợ", null, null);
+                    }
+
+                    return (null, staff.Email, staff.Id);
+                }
+            }
+            catch (Exception)
+            {
+                return ($"Lỗi hệ thống.", null, null);
+            }
         }
 
     }
