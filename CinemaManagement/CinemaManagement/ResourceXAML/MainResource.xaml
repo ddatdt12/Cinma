@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:viewmodel="clr-namespace:CinemaManagement.ViewModel"
                     xmlns:viewmodel1="clr-namespace:CinemaManagement.ViewModel.AdminVM.MovieManagementVM"
                     xmlns:viewmodel21="clr-namespace:CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel"
                     xmlns:viewmodel22="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM"
@@ -10,7 +9,10 @@
                     xmlns:viewmodelFood="clr-namespace:CinemaManagement.ViewModel.AdminVM.FoodManagementVM"
                     xmlns:viewmodel3="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.TicketVM"
                     xmlns:viewmodel31="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM"
-                    xmlns:viewmodel4="clr-namespace:CinemaManagement.ViewModel.AdminVM.VoucherManagementVM">
+                    xmlns:viewmodel4="clr-namespace:CinemaManagement.ViewModel.AdminVM.VoucherManagementVM"
+                    xmlns:viewmodelTicketBill="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.TicketBillVM"
+                    xmlns:viewmodel32="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM"
+                    xmlns:viewmodel="clr-namespace:CinemaManagement.ViewModel">
 
     <viewmodel:MainStaffViewModel x:Key="MainStaffVM" />
     <viewmodel:LoginViewModel x:Key="LoginVM" />
@@ -23,9 +25,10 @@
     <viewmodel23:StaffManagementViewModel x:Key="StaffManagementVM" />
     <viewmodel24:StatisticalManagementViewModel x:Key="StatisticalManagementVM" />
     <viewmodel3:TicketWindowViewModel x:Key="TicketWindowVM" />
-    <viewmodel31:OrderFoodViewModel x:Key="OrderFoodWindowVM" />
-    <viewmodel31:OrderFoodPageViewModel x:Key="OrderFoodPageWindowVM" />
     <viewmodel4:VoucherViewModel x:Key="VoucherVM" />
     <viewmodelFood:FoodManagementViewModel x:Key="FoodManagementVM" />
-    
+    <viewmodelTicketBill:TicketBillViewModel x:Key="BillTicketVM" />
+    <viewmodel31:OrderFoodPageViewModel x:Key="OrderFoodPageVM" />
+    <viewmodel32:DeviceReportPageViewModel x:Key="DeviceReportPageVM" />
+
 </ResourceDictionary>

@@ -2,7 +2,9 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
+using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
 using CinemaManagement.Views.LoginWindow;
+using CinemaManagement.Views.Staff.DeviceProblemsWindow;
 using CinemaManagement.Views.Staff.MovieScheduleWindow;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.ShowtimePage;
@@ -92,7 +94,7 @@ namespace CinemaManagement.ViewModel
         public ICommand FirstLoadCM { get; set; }
         public ICommand SelectedGenreCM { get; set; }
         public ICommand SelectedDateCM { get; set; }
-
+        public ICommand LoadErrorPageCM { get; set; }
         public ICommand SignoutCM { get; set; }
 
         private string _UserName;
@@ -151,6 +153,7 @@ namespace CinemaManagement.ViewModel
             LoadMovieScheduleWindow = new RelayCommand<Page>((p) => { return true; }, (p) =>
             {
                 MovieScheduleWindow w;
+                OrderFoodPageViewModel.checkOnlyFoodOfPage = false;
                 if (SelectedItem != null)
                 {
                     MovieScheduleWindowViewModel.tempFilebinding = SelectedItem;
@@ -164,11 +167,13 @@ namespace CinemaManagement.ViewModel
             });
             LoadShowtimePageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
+                OrderFoodPageViewModel.checkOnlyFoodOfPage = false;
                 p.Content = new ShowtimePage();
 
             });
             LoadFoodPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
+                OrderFoodPageViewModel.checkOnlyFoodOfPage = true;
                 p.Content = new FoodPage();
 
             });
@@ -176,6 +181,10 @@ namespace CinemaManagement.ViewModel
              {
                  p.SelectedIndex = -1;
                  LoadShowtimeData();
+             });
+            LoadErrorPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+             {
+                 p.Content = new DeviceReportPage();
              });
             SignoutCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {

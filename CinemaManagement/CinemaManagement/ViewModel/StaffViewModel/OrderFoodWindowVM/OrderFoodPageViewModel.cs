@@ -1,7 +1,13 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
-using CinemaManagement.Views.Staff.OrderFoodWindow;
+using CinemaManagement.Views;
+using CinemaManagement.Views.Staff;
+using CinemaManagement.Views.Staff.TicketBill;
+using CinemaManagement.Views.Staff.TicketWindow;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,7 +16,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
 {
     public class OrderFoodPageViewModel : BaseViewModel
     {
-        public ICommand GoBackCommand { get; set; }
         public ICommand MouseMoveCommand { get; set; }
         public ICommand FilterAllProductsCommand { get; set; }
         public ICommand FilterFoodCommand { get; set; }
@@ -92,17 +97,21 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             }
         }
 
+        public static ObservableCollection<ProductDTO> ListOrder;
+
+        public static bool checkOnlyFoodOfPage;
         public OrderFoodPageViewModel()
         {
             AllProduct = new ObservableCollection<ProductDTO>();
             OrderList = new ObservableCollection<ProductDTO>();
             MenuList = new ObservableCollection<ProductDTO>();
+            ListOrder = new ObservableCollection<ProductDTO>();
 
             //Khởi tạo giá trị ban đầu cho tổng giá tiền
             ReCalculate();
 
             //Gán giá trị demo mẫu đồ ăn và thức uống
-            Demo();
+            LoadListProduct();
 
             //Khởi tạo giá trị ban đầu các item cho MenuList
             MenuList = AllProduct;
@@ -164,7 +173,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                     }
                     else
                     {
-                        MessageBox.Show("Hết hàng!", "Cảnh báo");
+                        MessageBoxCustom mgb = new MessageBoxCustom("", "Hết hàng!", MessageType.Warning, MessageButtons.OK);
+                        mgb.ShowDialog();
                     }
                 }
             });
@@ -172,13 +182,16 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             //Xóa tất cả sản phẩm order
             DeleteAllOrderCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+                MessageBoxCustom mgb;
                 if (OrderList.Count == 0)
                 {
-                    MessageBox.Show("Danh sách rỗng", "Thông báo");
+                    mgb = new MessageBoxCustom("Lỗi", "Danh sách không có sản phẩm nào!", MessageType.Error, MessageButtons.OK);
+                    mgb.ShowDialog();
                 }
                 else
                 {
-                    if (MessageBox.Show("Bạn muốn xóa tất cả?", "Xóa", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                    mgb = new MessageBoxCustom("Xác nhận", "Xoá danh sách vừa chọn?", MessageType.Warning, MessageButtons.YesNo);
+                    if (mgb.ShowDialog() == true)
                     {
                         for (int i = 0; i < OrderList.Count; ++i)
                         {
@@ -224,8 +237,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                 {
                     if (SelectedProductToBill.Quantity <= 1)
                     {
-                        MessageBox.Show("Đã đạt số lượng tối thiểu!", "Cảnh báo");
-                        return;
+                        MessageBoxCustom mgb = new MessageBoxCustom("", "Đã đạt số lượng tối thiểu!", MessageType.Error, MessageButtons.OK);
+                        mgb.ShowDialog();
                     }
                     else
                     {
@@ -255,7 +268,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                             }
                             else
                             {
-                                MessageBox.Show("Số lượng còn lại không đủ!", "Cảnh báo");
+                                MessageBoxCustom mgb = new MessageBoxCustom("", "Số lượng không đủ!", MessageType.Error, MessageButtons.OK);
+                                mgb.ShowDialog();
                             }
                             return;
                         }
@@ -266,27 +280,42 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             //Mua hàng, lưu xuống bill
             BuyCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                if (MessageBox.Show("Xác nhận thanh toán? Nhấn OK.", "Xác nhận", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                MessageBoxCustom mgb = new MessageBoxCustom("", "Xác nhận thanh toán", MessageType.Success, MessageButtons.OK);
+                if (checkOnlyFoodOfPage)
                 {
-                    //var prodList = ProductService.Ins.GetAllProduct();
-                    //BillDTO bill = new BillDTO { CustomerId = "KH0002", StaffId = "NV002", _TotalPrice = 100000 };
-                    //List<ProductBillInfoDTO> orderedProds = new List<ProductBillInfoDTO>();
-                    //orderedProds.Add(new ProductBillInfoDTO { ProductId = prodList[1].Id, PricePerItem = prodList[1].Price, Quantity = 3 });
-                    //orderedProds.Add(new ProductBillInfoDTO { ProductId = prodList[2].Id, PricePerItem = prodList[2].Price, Quantity = 2 });
-                    ////ticketList.Add(new TicketDTO { SeatId=43, Price = showtime.TicketPrice , ShowtimeId = showtime.Id });
-                    ////ticketList.Add(new TicketDTO { SeatId=44, Price = showtime.TicketPrice , ShowtimeId = showtime.Id });
-                    //(bool isSuccess, string message) = BookingService.Ins.CreateProductOrder(bill, orderedProds);
+                    if (OrderList.Count == 0)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Danh sách thanh toán rỗng", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
+                    else
+                    {
+                        mgb.ShowDialog();
+                        if (mgb.DialogResult == true && OrderList.Count > 0)
+                        {
+                            ListOrder = new ObservableCollection<ProductDTO>(OrderList);
+                            MainStaffWindow ms = Application.Current.Windows.OfType<MainStaffWindow>().FirstOrDefault();
+                            ms.mainFrame.Content = new TicketBillOnlyFoodPage();
+                        }
+                    }
+                }
+                else
+                {
+                    mgb.ShowDialog();
+                    if (mgb.DialogResult == true && OrderList.Count == 0)
+                    {
+                        ListOrder = new ObservableCollection<ProductDTO>(OrderList);
+                        TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
+                        tk.TicketBookingFrame.Content = new TicketBillNoFoodPage();
+                    }
+                    else if (mgb.DialogResult == true && OrderList.Count > 0)
+                    {
+                        ListOrder = new ObservableCollection<ProductDTO>(OrderList);
+                        TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
+                        tk.TicketBookingFrame.Content = new TicketBillPage();
+                    }
                 }
             });
-
-            GoBackCommand = new RelayCommand<Page>((p) => { return true; }, (p) =>
-            {
-                if (p != null)
-                {
-                    p.NavigationService.GoBack();
-                }
-            });
-
             MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {
                 Window window = GetWindowParent(p);
@@ -334,7 +363,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             ObservableCollection<ProductDTO> temp = new ObservableCollection<ProductDTO>();
             foreach (ProductDTO item in AllProduct)
             {
-                if (item.Category == "Thức uống")
+                if (item.Category != "Đồ ăn")
                     temp.Add(item);
             }
             MenuList = new ObservableCollection<ProductDTO>(temp);
@@ -359,7 +388,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
         }
         public void FilterOrderList()
         {
-            ObservableCollection<ProductDTO> temp = new ObservableCollection<ProductDTO>();
             OrderList = new ObservableCollection<ProductDTO>(OrderList);
         }
         public void MinusAllProductList(ProductDTO item)
@@ -387,20 +415,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             }
         }
 
-        public void Demo()
+        public async Task LoadListProduct()
         {
-            AllProduct.Add(new ProductDTO(1, "Burger gà", "Đồ ăn", 45000, "/Resources/FoodLayout/Food/Burger/Chicken.jpg", 5));
-            AllProduct.Add(new ProductDTO(2, "Trà sữa", "Thức uống", 20000, "/Resources/FoodLayout/Food/Drink/Milk Tea.jpg", 9));
-            AllProduct.Add(new ProductDTO(3, "Coca Cola", "Thức uống", 25000, "/Resources/FoodLayout/Food/Drink/Coca Cola.jpg", 10));
-            AllProduct.Add(new ProductDTO(4, "Bỏng ngô Caramel", "Đồ ăn", 30000, "/Resources/FoodLayout/Food/Popcorn/Caramel.jpg", 50));
-            AllProduct.Add(new ProductDTO(5, "Snack Ostar", "Đồ ăn", 15000, "/Resources/FoodLayout/Food/Snack/Ostar.jpg", 25));
-            AllProduct.Add(new ProductDTO(6, "Burger bò", "Đồ ăn", 45000, "/Resources/FoodLayout/Food/Burger/Beef.jpg", 10));
-            AllProduct.Add(new ProductDTO(7, "Snack Poca", "Đồ ăn", 15000, "/Resources/FoodLayout/Food/Snack/Poca.jpg", 50));
-            AllProduct.Add(new ProductDTO(8, "Snack Tonies", "Đồ ăn", 15000, "/Resources/FoodLayout/Food/Snack/Tonies.jpg", 30));
-            AllProduct.Add(new ProductDTO(9, "Hotdog Choripan", "Đồ ăn", 30000, "/Resources/FoodLayout/Food/Hotdog/Choripan.jpg", 40));
-            AllProduct.Add(new ProductDTO(10, "Cà phê Espresso", "Thức uống", 50000, "/Resources/FoodLayout/Food/Drink/Espresso Coffee.jpg", 90));
-            AllProduct.Add(new ProductDTO(11, "Trà đào", "Thức uống", 20000, "/Resources/FoodLayout/Food/Drink/Peach Tea.jpg", 120));
-            AllProduct.Add(new ProductDTO(12, "Pepsi", "Thức uống", 25000, "/Resources/FoodLayout/Food/Drink/Pepsi.jpg", 100));
+            AllProduct = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
         }
     }
 }

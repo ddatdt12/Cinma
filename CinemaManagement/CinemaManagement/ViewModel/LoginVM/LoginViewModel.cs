@@ -1,7 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
-using CinemaManagement.Views;
 using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff;
 using System;
@@ -53,7 +52,16 @@ namespace CinemaManagement.ViewModel
 
         public LoginViewModel()
         {
-
+            try
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             MouseLeftButtonDownWindowCM = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {
                 if (p != null)

@@ -1,9 +1,7 @@
-﻿using CinemaManagement.DTOs;
+﻿using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.TicketWindow;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,12 +20,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
         public ICommand FirstLoadCM { get; set; }
         public TicketWindowViewModel()
         {
-
-            FirstLoadCM = new RelayCommand<object>((p) => { return true; },async (p) =>
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                await GenerateSeat();
                 CaculateTime();
                 Output_ToString();
-                await GenerateSeat();
                 sumCurrentSeat = "Số ghế   (" + (ListSeat.Count - ListStatusSeat.Count).ToString() + "/128)";
             });
             CloseTicketWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
@@ -38,6 +35,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                 {
                     w.DataContext = new TicketWindowViewModel();
                     w.Close();
+                    TicketBillViewModel.ClearAll();
                 }
             });
             MinimizeTicketWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
@@ -106,6 +104,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             });
             LoadFoodPageCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+                if(WaitingList.Count == 0)
+                {
+                    new MessageBoxCustom("Cảnh báo", "Vui lòng chọn ghế trước khi sang bước tiếp theo", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                    return;
+                }    
                 TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
                 tk.TicketBookingFrame.Content = new FoodPage();
             });

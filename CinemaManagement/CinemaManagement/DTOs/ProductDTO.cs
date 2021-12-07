@@ -7,7 +7,9 @@ namespace CinemaManagement.DTOs
 {
     public class ProductDTO
     {
-        public ProductDTO() { }
+        public ProductDTO()
+        {
+        }
         public ProductDTO(int id,
                           string displayname,
                           string category,
@@ -36,7 +38,7 @@ namespace CinemaManagement.DTOs
         public int Quantity { get; set; }
         public string Image
         {
-            get;set;
+            get; set;
         }
         public ImageSource _imgSource;
         public ImageSource ImgSource
@@ -65,6 +67,6 @@ namespace CinemaManagement.DTOs
                 return Helper.FormatVNMoney(Revenue);
             }
         }
-        public int SalesQuantity { get; set; }
+        public int SalesQuantity;
     }
 }

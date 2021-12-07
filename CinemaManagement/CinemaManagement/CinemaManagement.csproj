@@ -151,6 +151,9 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Collections.Immutable.1.7.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
     </Reference>
@@ -159,16 +162,12 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Configuration.ConfigurationManager, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Configuration.ConfigurationManager.6.0.0\lib\net461\System.Configuration.ConfigurationManager.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Common, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.Common.4.3.0\lib\net451\System.Data.Common.dll</HintPath>
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -180,7 +179,6 @@
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -190,20 +188,9 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
-    <Reference Include="System.Security.AccessControl, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.AccessControl.6.0.0\lib\net461\System.Security.AccessControl.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Permissions, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Permissions.6.0.0\lib\net461\System.Security.Permissions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Security.Principal.Windows.5.0.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
@@ -267,7 +254,6 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataProvider.cs" />
     <Compile Include="Models\Genre.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
@@ -364,11 +350,15 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\AddError.cs" />
+    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\DeviceReportPageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\EditConverter.cs" />
+    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\EditError.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodPageViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\ShowtimePageVM\ShowtimePageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\TicketBillVM\TicketBillViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketBookingPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
     <Compile Include="Views\Admin\ErrorManagement\DoneError.xaml.cs">
@@ -503,6 +493,18 @@
     <Compile Include="Views\MessageBoxCustom.xaml.cs">
       <DependentUpon>MessageBoxCustom.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Staff\DeviceProblemsWindow\AddError.xaml.cs">
+      <DependentUpon>AddError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\DeviceProblemsWindow\DeviceReportPage.xaml.cs">
+      <DependentUpon>DeviceReportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\DeviceProblemsWindow\EditError.xaml.cs">
+      <DependentUpon>EditError.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\DeviceProblemsWindow\ViewError.xaml.cs">
+      <DependentUpon>ViewError.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
       <DependentUpon>MainStaffWindow.xaml</DependentUpon>
     </Compile>
@@ -512,11 +514,17 @@
     <Compile Include="Views\Staff\OrderFoodWindow\FoodPage.xaml.cs">
       <DependentUpon>FoodPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml.cs">
-      <DependentUpon>FoodWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Staff\ShowtimePage\ShowtimePage.xaml.cs">
       <DependentUpon>ShowtimePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\TicketBill\TicketBillNoFoodPage.xaml.cs">
+      <DependentUpon>TicketBillNoFoodPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\TicketBill\TicketBillOnlyFoodPage.xaml.cs">
+      <DependentUpon>TicketBillOnlyFoodPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\TicketBill\TicketBillPage.xaml.cs">
+      <DependentUpon>TicketBillPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\TicketWindow\TicketBookingPage.xaml.cs">
       <DependentUpon>TicketBookingPage.xaml</DependentUpon>
@@ -681,8 +689,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Admin\VoucherManagement\AddWindow\ReleaseVoucher.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Admin\VoucherManagement\Infor_EditWindow\Edit_InforPage.xaml">
       <SubType>Designer</SubType>
@@ -716,6 +724,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Staff\DeviceProblemsWindow\AddError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Staff\DeviceProblemsWindow\DeviceReportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Staff\DeviceProblemsWindow\EditError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Staff\DeviceProblemsWindow\ViewError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Staff\MainStaffWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -728,11 +752,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Staff\OrderFoodWindow\FoodWindow.xaml">
+    <Page Include="Views\Staff\ShowtimePage\ShowtimePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Staff\ShowtimePage\ShowtimePage.xaml">
+    <Page Include="Views\Staff\TicketBill\TicketBillNoFoodPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Staff\TicketBill\TicketBillOnlyFoodPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Staff\TicketBill\TicketBillPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -828,8 +860,6 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
-    <Resource Include="Views\Staff\ShowtimePage\movie-theatre-png-35891.png" />
-    <Resource Include="Views\Staff\ShowtimePage\pngtree-blue-movie-film-texture-background-image_321897.jpg" />
     <Resource Include="Resources\Icon\error.png" />
     <Resource Include="Resources\Icon\ErrorIcon.png" />
     <Resource Include="Resources\Icon\info.png" />

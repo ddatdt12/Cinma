@@ -11,8 +11,16 @@ namespace CinemaManagement.Views
         {
             InitializeComponent();
             txtMessage.Text = Message;
-            if(txtMessage.Text.Length > 26)
+            if(txtMessage.Text.Length > 25)
             txtMessage.Margin = new Thickness(15, 5, 5, 5);
+            if (txtMessage.Text.Length > 50)
+            {
+                txtMessage.Margin = new Thickness(4, 10, 5, 5);
+                txtMessage.FontSize = 15;
+                txtMessage.Width = 255;
+                txtMessage.Height = 45;
+                ImgMessage.Margin = new Thickness(0, 0, 0, 5);
+            }
             txtTitle.Text = Title;
             switch (Type)
             {
