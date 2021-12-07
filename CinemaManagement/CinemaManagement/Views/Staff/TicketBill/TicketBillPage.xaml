@@ -205,7 +205,8 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Họ và tên:" />
-                        <TextBox Grid.Column="1" />
+                        <TextBox Grid.Column="1" 
+                                 Margin="0 0 30 0"/>
                         <Grid.Style>
                             <Style>
                                 <Style.Triggers>
@@ -227,7 +228,8 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Email:" />
-                        <TextBox Grid.Column="1" />
+                        <TextBox Grid.Column="1" 
+                                 Margin="0 0 30 0"/>
                         <Grid.Style>
                             <Style>
                                 <Style.Triggers>
@@ -276,8 +278,7 @@
                         <TextBlock Text="Họ và tên:" />
                         <TextBox Grid.Column="1"
                                  IsEnabled="False"
-                                 Text="Dương đẹp trai"
-                                 Margin="0 0 10 0"
+                                 Margin="0 0 30 0"
                                  VerticalContentAlignment="Bottom"
                                  VerticalAlignment="Center" />
                         <Grid.Style>
@@ -303,8 +304,7 @@
                         <TextBlock Text="Email:" />
                         <TextBox Grid.Column="1"
                                  IsEnabled="False"
-                                 Text="Dương đẹp trai"
-                                 Margin="0 0 10 0"
+                                 Margin="0 0 30 0"
                                  VerticalContentAlignment="Bottom"
                                  VerticalAlignment="Center" />
                         <Grid.Style>

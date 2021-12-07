@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
+using CinemaManagement.ViewModel.StaffViewModel.TicketVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,7 @@ namespace CinemaManagement.Views.Staff.TicketBill
         public TicketBillOnlyFoodPage()
         {
             InitializeComponent();
+            DataContext = new TicketBillViewModel();
         }
 
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)

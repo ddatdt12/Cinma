@@ -280,7 +280,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             BuyCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 MessageBoxCustom mgb = new MessageBoxCustom("", "Xác nhận thanh toán", MessageType.Success, MessageButtons.OK);
-                if (checkOnlyFoodOfPage)
+                mgb.ShowDialog();
+                if (mgb.DialogResult == true && checkOnlyFoodOfPage)
                 {
                     if (OrderList.Count == 0)
                     {

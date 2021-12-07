@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.TicketWindow;
@@ -37,6 +38,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                 {
                     w.DataContext = new TicketWindowViewModel();
                     w.Close();
+                    TicketBillViewModel.ClearAll();
                 }
             });
             MinimizeTicketWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>

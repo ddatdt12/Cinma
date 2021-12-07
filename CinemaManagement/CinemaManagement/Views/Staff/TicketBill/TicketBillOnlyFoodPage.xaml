@@ -24,7 +24,7 @@
                              Width="450"
                              Height="70"
                              VerticalAlignment="Top"
-                             Margin="200 40 0 0"
+                             Margin="180 40 0 0"
                              UniformCornerRadius="6">
             <Label Content="THANH TOÁN HÓA ĐƠN"
                    VerticalAlignment="Center"
@@ -37,7 +37,7 @@
         <materialDesign:Card VerticalAlignment="Stretch"
                              HorizontalAlignment="Left"
                              Width="450"
-                             Margin="200 130 0 40"
+                             Margin="180 130 0 40"
                              UniformCornerRadius="6">
             <Grid>
                 <Grid.RowDefinitions>
@@ -198,7 +198,8 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Họ và tên:" />
-                        <TextBox Grid.Column="1" />
+                        <TextBox Grid.Column="1" 
+                                 Margin="0 0 30 0"/>
                         <Grid.Style>
                             <Style>
                                 <Style.Triggers>
@@ -220,7 +221,8 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Email:" />
-                        <TextBox Grid.Column="1" />
+                        <TextBox Grid.Column="1" 
+                                 Margin="0 0 30 0"/>
                         <Grid.Style>
                             <Style>
                                 <Style.Triggers>
@@ -269,7 +271,7 @@
                         <TextBlock Text="Họ và tên:" />
                         <TextBox Grid.Column="1"
                                  IsEnabled="False"
-                                 Margin="0 0 10 0"
+                                 Margin="0 0 30 0"
                                  VerticalContentAlignment="Bottom"
                                  VerticalAlignment="Center" />
                         <Grid.Style>
@@ -295,7 +297,7 @@
                         <TextBlock Text="Email:" />
                         <TextBox Grid.Column="1"
                                  IsEnabled="False"
-                                 Margin="0 0 10 0"
+                                 Margin="0 0 30 0"
                                  VerticalContentAlignment="Bottom"
                                  VerticalAlignment="Center" />
                         <Grid.Style>
@@ -470,7 +472,7 @@
                              HorizontalAlignment="Center"
                              Height="640"
                              Width="450"
-                             Margin="460 40 0 0"
+                             Margin="480 40 0 0"
                              UniformCornerRadius="6">
             <Grid>
 
@@ -580,7 +582,7 @@
                                                    Grid.Column="1"
                                                    HorizontalAlignment="Right"
                                                    FontSize="20"
-                                                   Content="{Binding TotalPriceMovie}" />
+                                                   Content="{Binding TotalPriceFood}" />
                                         </Grid>
                                     </StackPanel>
                                 </StackPanel>
