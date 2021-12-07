@@ -90,6 +90,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
         #endregion
 
+        private bool isloadding;
+        public bool IsLoadding
+        {
+            get { return isloadding; }
+            set { isloadding = value; OnPropertyChanged(); }
+        }
 
         string filepath;
         string appPath;
@@ -159,8 +165,10 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 try
                 {
+                    IsLoadding = true;
                     GenreList = GenreService.Ins.GetAllGenre();
-                    MovieList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetAllMovie());
+                    MovieList = new ObservableCollection<MovieDTO>(await Task.Run(()=> MovieService.Ins.GetAllMovie()));
+                    IsLoadding = false;
                 }
                 catch (Exception e)
                 {

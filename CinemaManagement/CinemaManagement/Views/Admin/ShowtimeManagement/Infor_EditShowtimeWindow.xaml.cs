@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,15 +11,10 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagement
     public partial class Infor_EditShowtimeWindow : Window
     {
         Border SelectedShowtime = null;
-        
+
         public Infor_EditShowtimeWindow()
         {
             InitializeComponent();
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-        //    this.DragMove();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -49,7 +45,7 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagement
             }
             else
             {
-                _showtimePrice.IsEnabled = false ;
+                _showtimePrice.IsEnabled = false;
                 _lblEdit.Content = "Thay đổi";
             }
 
@@ -62,6 +58,15 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagement
         private static bool IsTextAllowed(string text)
         {
             return !_regex.IsMatch(text);
+        }
+
+        private void EditWindow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                this.Close();
+                ShowtimeManagementViewModel.ShadowMask.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

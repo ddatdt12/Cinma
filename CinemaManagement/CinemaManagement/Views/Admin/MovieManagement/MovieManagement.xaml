@@ -109,7 +109,8 @@
                         </i:Interaction.Triggers>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Tên phim">
+                                <GridViewColumn Header="Tên phim"
+                                                Width="450">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding DisplayName}"
@@ -117,7 +118,8 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Loại phim">
+                                <GridViewColumn Header="Loại phim"
+                                                Width="150">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding MovieType}"
@@ -126,8 +128,27 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
+                                <GridViewColumn Header="Quốc gia"
+                                                Width="180">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Country}"
+                                                       Margin="20,0,0,0"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Thể loại">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Genres[0].DisplayName}"
+                                                       Margin="20,0,0,0"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                                 <GridViewColumn Header="Thời lượng(phút)"
-                                                Width="500">
+                                                Width="200">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding RunningTime}"
@@ -193,6 +214,11 @@
                                    FontSize="15" />
                         </StackPanel>
                     </Grid>
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 Height="100"
+                                 Width="100"
+                                 IsIndeterminate="{Binding IsLoadding}"
+                                 Margin="0,-700,0,0" />
                 </StackPanel>
             </materialDesign:Card>
         </Grid>

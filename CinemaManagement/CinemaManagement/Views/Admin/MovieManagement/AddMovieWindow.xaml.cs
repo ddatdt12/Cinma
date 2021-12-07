@@ -32,6 +32,7 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 
             e.Handled = true;
             this.Close();
+            MovieManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
         }
 
 

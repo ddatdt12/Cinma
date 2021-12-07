@@ -140,14 +140,14 @@ namespace CinemaManagement.Models.Services
             }
             return (true, "Cập nhật giá thành công!");
         }
-        public Task<bool> CheckShowtimeHaveBooking(int showtimeId)
+        public async Task<bool> CheckShowtimeHaveBooking(int showtimeId)
         {
 
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var IsExist = context.SeatSettings.AnyAsync(s => s.ShowtimeId == showtimeId && s.Status);
+                    var IsExist = await context.SeatSettings.AnyAsync(s => s.ShowtimeId == showtimeId && s.Status);
                     return IsExist;
                 }
             }

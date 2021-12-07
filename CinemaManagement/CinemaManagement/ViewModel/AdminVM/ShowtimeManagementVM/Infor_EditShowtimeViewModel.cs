@@ -88,6 +88,9 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 EditShowtimeWindow = p;
                 oldSelectedItem = SelectedItem;
                 ShadowMask.Visibility = System.Windows.Visibility.Visible;
+                ListSeat1 = new ObservableCollection<SeatSettingDTO>();
+                ListSeat2 = new ObservableCollection<SeatSettingDTO>();
+                IsFree = IsBought = 0;
                 p.ShowDialog();
             }
         }

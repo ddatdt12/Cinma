@@ -8,14 +8,14 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         WindowStyle="None"
-        MouseLeftButtonDown="Window_MouseDown"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         DataContext="{StaticResource ShowtimeManagementVM}"
         Height="600"
         Width="1100"
-        x:Name="EditWindow">
+        x:Name="EditWindow"
+        PreviewKeyUp="EditWindow_PreviewKeyUp">
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>
@@ -173,7 +173,6 @@
                                     <DataTemplate>
                                         <Border BorderBrush="Wheat"
                                                 BorderThickness="1"
-                                                CornerRadius="8"
                                                 Background="Wheat"
                                                 Width="120"
                                                 MouseLeftButtonUp="Border_MouseLeftButtonUp">

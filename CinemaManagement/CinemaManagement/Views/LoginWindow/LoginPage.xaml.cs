@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using CinemaManagement.ViewModel;
+using System.Windows.Controls;
 
 namespace CinemaManagement.Views.LoginWindow
 {
@@ -13,6 +14,16 @@ namespace CinemaManagement.Views.LoginWindow
         private void ProgressBar_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             pgb = sender as ProgressBar;
+        }
+
+        private void mainPage_PreviewKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Return)
+            {
+                var viewmodel = (LoginViewModel)DataContext;
+                if (viewmodel.LoginCM.CanExecute(true))
+                    viewmodel.LoginCM.Execute(Error);
+            }
         }
     }
 }

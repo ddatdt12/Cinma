@@ -60,6 +60,7 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.Resources>
                         <Style TargetType="TextBlock">
@@ -175,8 +176,17 @@
                                  x:Name="_Phone"
                                  Text="{Binding Phone,Mode=TwoWay}" />
                     </Grid>
-
                     <Grid Grid.Row="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Email" />
+                        <TextBox Grid.Column="1"
+                                 x:Name="_Mail"
+                                 Text="{Binding Mail,Mode=TwoWay}" />
+                    </Grid>
+                    <Grid Grid.Row="6">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120" />
                             <ColumnDefinition />
@@ -193,7 +203,7 @@
                         </ComboBox>
                     </Grid>
 
-                    <Grid Grid.Row="6">
+                    <Grid Grid.Row="7">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120" />
                             <ColumnDefinition />
@@ -212,7 +222,7 @@
                     </Grid>
                     <!--#endregion-->
 
-                    <Grid Grid.Row="7">
+                    <Grid Grid.Row="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120" />
                             <ColumnDefinition />
@@ -223,19 +233,9 @@
                                  Text="{Binding TaiKhoan,Mode=TwoWay}" />
                     </Grid>
 
-                    <!--<Grid Grid.Row="8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="Mật khẩu" />
-                <TextBox Grid.Column="1"
-                         x:Name="MatKhau"
-                         IsEnabled="False"
-                         Text="{Binding MatKhau, Mode=TwoWay}" />
-            </Grid>-->
-
-                    <Grid Grid.Row="9">
+                    <Grid Grid.Row="9"
+                          Margin="0,0,0,10"
+                          Grid.RowSpan="2">
                         <Grid.Resources>
                             <Style TargetType="Button"
                                    BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">

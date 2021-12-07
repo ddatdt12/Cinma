@@ -47,6 +47,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             set { _Phone = value; OnPropertyChanged(); }
         }
 
+        private string _Mail;
+        public string Mail
+        {
+            get { return _Mail; }
+            set { _Mail = value; OnPropertyChanged(); }
+        }
         private ComboBoxItem _Role;
         public ComboBoxItem Role
         {

@@ -12,7 +12,15 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
     {
         public async Task AddStaff(Window p)
         {
-
+            if (!string.IsNullOrEmpty(Mail))
+            {
+                if (!Utils.RegexUtilities.IsValidEmail(Mail))
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Email không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
+                    return;
+                }
+            }
             (bool isValid, string error) = IsValidData(Operation.CREATE);
             if (isValid)
             {
@@ -25,7 +33,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 staff.StartingDate = StartDate;
                 staff.Username = TaiKhoan;
                 staff.Password = MatKhau;
-
+                //staff.Email = Mail;
 
                 (bool successAddStaff, string messageFromAddStaff, StaffDTO newStaff) = await StaffService.Ins.AddStaff(staff);
 

@@ -86,5 +86,6 @@ namespace CinemaManagement.Views.LoginWindow
             secretcode.Visibility = Visibility.Collapsed;
             Username.Visibility = Visibility.Visible;
         }
+
     }
 }

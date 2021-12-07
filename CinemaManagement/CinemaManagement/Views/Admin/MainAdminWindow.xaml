@@ -22,13 +22,12 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        MouseDown="MainFrame_MouseDown"
         Panel.ZIndex="999">
 
     <Window.Resources>
         <local1:HintCountConverter x:Key="CountConverter" />
     </Window.Resources>
-    
+
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
@@ -40,6 +39,7 @@
             <RowDefinition Height="20" />
             <RowDefinition Height="800" />
         </Grid.RowDefinitions>
+      
         <!--#FF383737-->
         <StackPanel   Background="#132644"
                       Grid.Row="0">
@@ -118,7 +118,12 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Frame>
-
+            <Grid Grid.RowSpan="2"
+                  Background="Gray"
+                  Opacity="0.3"
+                  Visibility="Collapsed"
+                  x:Name="shadow"
+                  MouseDown="MainFrame_MouseDown" />
             <!--thanh cong cu-->
             <materialDesign:ColorZone Mode="Inverted"
                                       Padding="16"
@@ -355,7 +360,8 @@
                                       Unchecked="SlideButton_Unchecked"
                                       VerticalAlignment="Top"
                                       Margin="0,20,0,0"
-                                      Foreground="White" />
+                                      Foreground="White"
+                                      Loaded="SlideButton_Loaded"/>
                         <Border Background="Red"
                                 CornerRadius="100"
                                 Width="30"
@@ -406,7 +412,6 @@
                         </StackPanel>
                     </materialDesign:PopupBox>
                 </StackPanel>
-
             </DockPanel>
         </Grid>
     </Grid>

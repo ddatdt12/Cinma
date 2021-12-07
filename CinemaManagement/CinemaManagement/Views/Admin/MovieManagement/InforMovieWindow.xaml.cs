@@ -37,5 +37,14 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
             MovieManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
             this.Close();
         }
+
+        private void main_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key != System.Windows.Input.Key.Escape) return;
+
+            e.Handled = true;
+            this.Close();
+            MovieManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
+        }
     }
 }
