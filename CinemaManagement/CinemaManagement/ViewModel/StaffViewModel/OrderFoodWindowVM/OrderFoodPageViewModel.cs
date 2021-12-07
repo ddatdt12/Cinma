@@ -7,6 +7,7 @@ using CinemaManagement.Views.Staff.TicketBill;
 using CinemaManagement.Views.Staff.TicketWindow;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -414,9 +415,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             }
         }
 
-        public void LoadListProduct()
+        public async Task LoadListProduct()
         {
-            AllProduct = new ObservableCollection<ProductDTO>(ProductService.Ins.GetAllProduct());
+            AllProduct = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
         }
     }
 }

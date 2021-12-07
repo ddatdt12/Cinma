@@ -226,9 +226,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 }
             }
         }
-        public void GetData()
+        public async Task GetData()
         {
-            GetAllError = new ObservableCollection<TroubleDTO>(TroubleService.Ins.GetAllTrouble());
+            GetAllError = new ObservableCollection<TroubleDTO>(await TroubleService.Ins.GetAllTrouble());
             ListError = new ObservableCollection<TroubleDTO>(GetAllError);
         }
         public void RenewWindowData()

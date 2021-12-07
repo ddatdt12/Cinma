@@ -6,6 +6,7 @@ using CinemaManagement.Views.Staff.DeviceProblemsWindow;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -22,7 +23,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         }
         public ICommand SaveErrorCM { get; set; }
 
-        public void SaveErrorFunc(AddError p)
+        public async Task SaveErrorFunc(AddError p)
         {
             if (filepath != null && IsValidData())
             {
@@ -38,7 +39,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     StaffId = "NV002",
                 };
 
-                (bool successAddtrouble, string messageFromAddtrouble, TroubleDTO newtrouble) = TroubleService.Ins.CreateNewTrouble(trouble);
+                (bool successAddtrouble, string messageFromAddtrouble, TroubleDTO newtrouble) = await TroubleService.Ins.CreateNewTrouble(trouble);
 
                 if (successAddtrouble)
                 {

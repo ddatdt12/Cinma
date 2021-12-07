@@ -6,6 +6,7 @@ using CinemaManagement.Views.Staff.DeviceProblemsWindow;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -25,8 +26,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             get { return troubleID; }
             set { troubleID = value; }
         }
-
-
 
         public void LoadEditError(EditError w1)
         {
@@ -51,7 +50,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 w1.FrameImage.Source = Helper.GetTroubleImageSource("null.jpg");
             }
         }
-        public void UpdateErrorFunc(EditError p)
+        public async Task UpdateErrorFunc(EditError p)
         {
             if (TroubleID != null && IsValidData())
             {
@@ -78,14 +77,14 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     tb.Image = imgfullname = Helper.CreateImageFullName(Helper.CreateImageName(tb.Title), SelectedItem.Image.Split('.')[1]);
                 }
 
-                (bool successUpdateTB, string messageFromUpdateTB) = TroubleService.Ins.UpdateTroubleInfo(tb);
+                (bool successUpdateTB, string messageFromUpdateTB) =await TroubleService.Ins.UpdateTroubleInfo(tb);
 
                 if (successUpdateTB)
                 {
                     SaveImgToApp();
                     MessageBoxCustom mb = new MessageBoxCustom("", "Cập nhật thành công!", MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
-                    GetData();
+                    await GetData();
 
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
