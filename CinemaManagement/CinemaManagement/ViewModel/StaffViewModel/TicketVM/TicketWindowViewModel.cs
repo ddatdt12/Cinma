@@ -1,10 +1,7 @@
-﻿using CinemaManagement.DTOs;
-using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
+﻿using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.TicketWindow;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;

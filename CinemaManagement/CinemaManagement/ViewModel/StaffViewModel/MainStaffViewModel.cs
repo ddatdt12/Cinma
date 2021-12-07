@@ -1,11 +1,9 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
-using CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM;
 using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
 using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
 using CinemaManagement.Views.LoginWindow;
-using CinemaManagement.Views.Staff;
 using CinemaManagement.Views.Staff.DeviceProblemsWindow;
 using CinemaManagement.Views.Staff.MovieScheduleWindow;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
