@@ -1,5 +1,4 @@
 ﻿using CinemaManagement.Utils;
-using System.Collections.Generic;
 
 namespace CinemaManagement.DTOs
 {

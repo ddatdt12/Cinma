@@ -43,7 +43,8 @@ namespace CinemaManagement.DTOs
         public string Gender { get; set; }
         public Nullable<System.DateTime> StartingDate { get; set; }
         public string Role { get; set; }
-
+        public string Email { get; set; }
+        public System.DateTime CreatedAt { get; set; }
         public virtual IList<BillDTO> Bills { get; set; }
 
 

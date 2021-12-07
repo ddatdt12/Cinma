@@ -46,7 +46,6 @@ namespace CinemaManagement.Models.Services
                 }
                 catch (Exception e)
                 {
-
                     throw e;
                 }
             }

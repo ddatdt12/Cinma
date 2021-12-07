@@ -3,7 +3,6 @@ using CinemaManagement.Utils;
 using System.Data.Entity;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -41,7 +40,8 @@ namespace CinemaManagement.Models.Services
                                   Role = s.Role,
                                   PhoneNumber = s.PhoneNumber,
                                   StartingDate = s.StartingDate,
-                                  Password = s.Password
+                                  Password = s.Password,
+                                  Email = s.Email
                               }).ToListAsync();
                 return await staffs;
             }
@@ -65,7 +65,8 @@ namespace CinemaManagement.Models.Services
                                            Name = s.Name,
                                            Role = s.Role,
                                            PhoneNumber = s.PhoneNumber,
-                                           StartingDate = s.StartingDate
+                                           StartingDate = s.StartingDate,
+                                           Email = s.Email
                                        }).FirstOrDefaultAsync();
 
                     if (staff == null)
@@ -96,10 +97,15 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     bool usernameIsExist = await context.Staffs.AnyAsync(s => s.Username == newStaff.Username);
+                    bool emailIsExist = await context.Staffs.AnyAsync(s => s.Email == newStaff.Email);
 
                     if (usernameIsExist)
                     {
                         return (false, "Tài khoản đã tồn tại!", null);
+                    }
+                    if (emailIsExist)
+                    {
+                        return (false, "Email đã được đăng kí!", null);
                     }
 
                     var maxId = await context.Staffs.MaxAsync(s => s.Id);
@@ -128,7 +134,8 @@ namespace CinemaManagement.Models.Services
                 Name = s.Name,
                 Role = s.Role,
                 PhoneNumber = s.PhoneNumber,
-                StartingDate = s.StartingDate
+                StartingDate = s.StartingDate,
+                Email = s.Email
             };
         }
 
@@ -156,6 +163,7 @@ namespace CinemaManagement.Models.Services
                     staff.Role = updatedStaff.Role;
                     staff.PhoneNumber = updatedStaff.PhoneNumber;
                     staff.StartingDate = updatedStaff.StartingDate;
+                    staff.Email = updatedStaff.Email;
 
                     await context.SaveChangesAsync();
                 }
@@ -208,6 +216,7 @@ namespace CinemaManagement.Models.Services
                     }
                     staff.IsDeleted = true;
                     staff.Username = null;
+                    staff.Email = null;
 
                     await context.SaveChangesAsync();
                 }

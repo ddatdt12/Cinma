@@ -1,8 +1,5 @@
-﻿using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Core;
-using CinemaManagement.Utils;
 using System.Data.Entity;
 using CinemaManagement.DTOs;
 using System.Collections.Generic;

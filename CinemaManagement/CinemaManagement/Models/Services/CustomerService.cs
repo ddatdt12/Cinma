@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CinemaManagement.Models.Services
@@ -114,6 +113,28 @@ namespace CinemaManagement.Models.Services
                             Email = cus.Email
                         }).ToListAsync();
                     return cusStatistic;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public async Task<List<CustomerDTO>> GetNewCustomer()
+        {
+            try
+            {
+                using (var context = new CinemaManagementEntities())
+                {
+                    var customers = await context.Customers.Where(c => c.CreatedAt.Year == DateTime.Today.Year && DbFunctions.DiffDays(c.CreatedAt, DateTime.Now) <= 30)
+                        .Select(c => new CustomerDTO
+                        {
+                            Id = c.Id,
+                            Name = c.Name,
+                            Email = c.Email
+                        }).ToListAsync();
+                    return customers;
                 }
             }
             catch (Exception e)

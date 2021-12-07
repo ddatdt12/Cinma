@@ -326,6 +326,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
 
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(ListViewVoucher.Concat(newListCode));
+
                 SelectedItem.Vouchers = new ObservableCollection<VoucherDTO>(ListViewVoucher);
                 StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
 

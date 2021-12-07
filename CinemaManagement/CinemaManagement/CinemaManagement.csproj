@@ -254,7 +254,6 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataProvider.cs" />
     <Compile Include="Models\Genre.cs">
       <DependentUpon>CinemaManagementModel.tt</DependentUpon>
     </Compile>
@@ -351,7 +350,6 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\AddError.cs" />
     <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\DeviceReportPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\EditConverter.cs" />
