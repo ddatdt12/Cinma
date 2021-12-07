@@ -162,7 +162,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     return;
                 }
             }
-
             // Danh sách code và khách hàng
             List<string> listCode = ReleaseVoucherList.Select(v => v.Code).ToList();
             List<string> listCustomerEmail = ListCustomerEmail.Select(v => v.Email).ToList();
@@ -241,6 +240,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                         return;
                     }
             }
+        }
+
+
+        public List<VoucherDTO> GetRandomUnreleasedCode(int quantity)
+        {
+            return StoreAllMini.Where(v => v.Status == VOUCHER_STATUS.UNRELEASED).Take(quantity).ToList();
         }
 
         bool IsExport = false;

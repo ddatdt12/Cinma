@@ -12,11 +12,6 @@
                     xmlns:viewmodel31="clr-namespace:CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM"
                     xmlns:viewmodel4="clr-namespace:CinemaManagement.ViewModel.AdminVM.VoucherManagementVM">
 
-
-
-
-
-    <viewmodel:MainViewModel x:Key="MainVM" />
     <viewmodel:MainStaffViewModel x:Key="MainStaffVM" />
     <viewmodel:LoginViewModel x:Key="LoginVM" />
     <viewmodel:ForgotPassViewModel x:Key="ForgotPassVM" />
