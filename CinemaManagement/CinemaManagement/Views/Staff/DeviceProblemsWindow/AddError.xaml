@@ -180,20 +180,25 @@
                         <!--Images Source-->
                         <Image Source="{Binding ImageSource,Mode=TwoWay}"
                                x:Name="FrameImage"
-                               Height="340"
-                               Width="250"
+                               Height="320"
+                               Width="260"
                                HorizontalAlignment="Left"
-                               Margin="-50,0,0,0"
+                               Margin="-50,0,0,5"
                                Stretch="Fill" />
 
                         <!--Upload Images-->
                         <Button HorizontalAlignment="Left"
-                                Content="Tải ảnh"
                                 Cursor="Hand"
-                                Width="100"
+                                Width="60"
+                                Height="40"
                                 VerticalAlignment="Bottom"
                                 materialDesign:ButtonAssist.CornerRadius="10"
-                                Command="{Binding UploadImageCM}" />
+                                Command="{Binding UploadImageCM}">
+                            <materialDesign:PackIcon Kind="FolderUpload" 
+                                                     Width="Auto"
+                                                     Height="Auto"
+                                                     Foreground="White"/>
+                        </Button>
                     </StackPanel>
                 </Grid>
 

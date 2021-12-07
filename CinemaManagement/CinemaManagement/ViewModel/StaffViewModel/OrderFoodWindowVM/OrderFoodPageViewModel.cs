@@ -5,7 +5,6 @@ using CinemaManagement.Views;
 using CinemaManagement.Views.Staff;
 using CinemaManagement.Views.Staff.TicketBill;
 using CinemaManagement.Views.Staff.TicketWindow;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -173,7 +172,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                     }
                     else
                     {
-                        MessageBox.Show("Hết hàng!", "Cảnh báo");
+                        MessageBoxCustom mgb = new MessageBoxCustom("", "Hết hàng!", MessageType.Warning, MessageButtons.OK);
+                        mgb.ShowDialog();
                     }
                 }
             });
@@ -181,13 +181,16 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             //Xóa tất cả sản phẩm order
             DeleteAllOrderCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
+                MessageBoxCustom mgb;
                 if (OrderList.Count == 0)
                 {
-                    MessageBox.Show("Danh sách rỗng", "Thông báo");
+                    mgb = new MessageBoxCustom("Lỗi", "Danh sách không có sản phẩm nào!", MessageType.Error, MessageButtons.OK);
+                    mgb.ShowDialog();
                 }
                 else
                 {
-                    if (MessageBox.Show("Bạn muốn xóa tất cả?", "Xóa", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                    mgb = new MessageBoxCustom("Xác nhận", "Xoá danh sách vừa chọn?", MessageType.Info, MessageButtons.YesNo);
+                    if (mgb.ShowDialog() == true)
                     {
                         for (int i = 0; i < OrderList.Count; ++i)
                         {
@@ -264,7 +267,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                             }
                             else
                             {
-                                MessageBox.Show("Số lượng còn lại không đủ!", "Cảnh báo");
+                                MessageBoxCustom mgb = new MessageBoxCustom("", "Số lượng không đủ!", MessageType.Warning, MessageButtons.OK);
+                                mgb.ShowDialog();
                             }
                             return;
                         }
@@ -276,24 +280,39 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             BuyCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 MessageBoxCustom mgb = new MessageBoxCustom("", "Xác nhận thanh toán", MessageType.Success, MessageButtons.OK);
-                mgb.ShowDialog();
-                if (mgb.DialogResult == true && checkOnlyFoodOfPage)
+                if (checkOnlyFoodOfPage)
                 {
-                    ListOrder = new ObservableCollection<ProductDTO>(OrderList);
-                    MainStaffWindow ms = Application.Current.Windows.OfType<MainStaffWindow>().FirstOrDefault();
-                    ms.mainFrame.Content = new TicketBillOnlyFoodPage();
+                    if (OrderList.Count == 0)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Danh sách thanh toán rỗng", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
+                    else
+                    {
+                        mgb.ShowDialog();
+                        if (mgb.DialogResult == true && OrderList.Count > 0)
+                        {
+                            ListOrder = new ObservableCollection<ProductDTO>(OrderList);
+                            MainStaffWindow ms = Application.Current.Windows.OfType<MainStaffWindow>().FirstOrDefault();
+                            ms.mainFrame.Content = new TicketBillOnlyFoodPage();
+                        }
+                    }
                 }
-                else if(mgb.DialogResult == true && OrderList.Count == 0)
+                else
                 {
-                    ListOrder = new ObservableCollection<ProductDTO>(OrderList);
-                    TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
-                    tk.TicketBookingFrame.Content = new TicketBillNoFoodPage();
-                }
-                else if (mgb.DialogResult == true && OrderList.Count > 0)
-                {
-                    ListOrder = new ObservableCollection<ProductDTO>(OrderList);
-                    TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
-                    tk.TicketBookingFrame.Content = new TicketBillPage();
+                    mgb.ShowDialog();
+                    if (mgb.DialogResult == true && OrderList.Count == 0)
+                    {
+                        ListOrder = new ObservableCollection<ProductDTO>(OrderList);
+                        TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
+                        tk.TicketBookingFrame.Content = new TicketBillNoFoodPage();
+                    }
+                    else if (mgb.DialogResult == true && OrderList.Count > 0)
+                    {
+                        ListOrder = new ObservableCollection<ProductDTO>(OrderList);
+                        TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
+                        tk.TicketBookingFrame.Content = new TicketBillPage();
+                    }
                 }
             });
             MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
@@ -343,7 +362,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             ObservableCollection<ProductDTO> temp = new ObservableCollection<ProductDTO>();
             foreach (ProductDTO item in AllProduct)
             {
-                if (item.Category == "Thức uống")
+                if (item.Category != "Đồ ăn")
                     temp.Add(item);
             }
             MenuList = new ObservableCollection<ProductDTO>(temp);
@@ -368,7 +387,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
         }
         public void FilterOrderList()
         {
-            ObservableCollection<ProductDTO> temp = new ObservableCollection<ProductDTO>();
             OrderList = new ObservableCollection<ProductDTO>(OrderList);
         }
         public void MinusAllProductList(ProductDTO item)

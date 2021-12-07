@@ -34,7 +34,7 @@
     <Grid>
         <Border BorderBrush="Gray"
                 BorderThickness="1"
-                Background="White">
+                Background="#f3f5f7">
             <Grid>
 
                 <Grid>
@@ -55,7 +55,7 @@
                                   VerticalContentAlignment="Center"
                                   HorizontalAlignment="Left"
                                   HorizontalContentAlignment="Center"
-                                  Margin="80,0,0,15"
+                                  Margin="60,0,0,15"
                                   FontSize="15"
                                   SelectedIndex="0"
                                   SelectedItem="{Binding ItemViewMode,Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
@@ -75,7 +75,7 @@
                         <Button Content="Thêm +"
                                 Width="100"
                                 Height="40"
-                                Margin="0,0,30.773,10"
+                                Margin="0,0,20,10"
                                 materialDesign:ButtonAssist.CornerRadius="5"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
