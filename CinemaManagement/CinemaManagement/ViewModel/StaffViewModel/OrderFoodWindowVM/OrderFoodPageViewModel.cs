@@ -189,7 +189,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                 }
                 else
                 {
-                    mgb = new MessageBoxCustom("Xác nhận", "Xoá danh sách vừa chọn?", MessageType.Info, MessageButtons.YesNo);
+                    mgb = new MessageBoxCustom("Xác nhận", "Xoá danh sách vừa chọn?", MessageType.Warning, MessageButtons.YesNo);
                     if (mgb.ShowDialog() == true)
                     {
                         for (int i = 0; i < OrderList.Count; ++i)
@@ -236,8 +236,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                 {
                     if (SelectedProductToBill.Quantity <= 1)
                     {
-                        MessageBox.Show("Đã đạt số lượng tối thiểu!", "Cảnh báo");
-                        return;
+                        MessageBoxCustom mgb = new MessageBoxCustom("", "Đã đạt số lượng tối thiểu!", MessageType.Error, MessageButtons.OK);
+                        mgb.ShowDialog();
                     }
                     else
                     {
@@ -267,7 +267,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                             }
                             else
                             {
-                                MessageBoxCustom mgb = new MessageBoxCustom("", "Số lượng không đủ!", MessageType.Warning, MessageButtons.OK);
+                                MessageBoxCustom mgb = new MessageBoxCustom("", "Số lượng không đủ!", MessageType.Error, MessageButtons.OK);
                                 mgb.ShowDialog();
                             }
                             return;
@@ -280,8 +280,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             BuyCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 MessageBoxCustom mgb = new MessageBoxCustom("", "Xác nhận thanh toán", MessageType.Success, MessageButtons.OK);
-                mgb.ShowDialog();
-                if (mgb.DialogResult == true && checkOnlyFoodOfPage)
+                if (checkOnlyFoodOfPage)
                 {
                     if (OrderList.Count == 0)
                     {
