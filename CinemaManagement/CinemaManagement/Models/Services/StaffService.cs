@@ -181,7 +181,7 @@ namespace CinemaManagement.Models.Services
                         return (false, "Tài khoản không tồn tại");
                     }
 
-                    staff.Password = newPassword;
+                    staff.Password = Helper.MD5Hash(newPassword);
                     await context.SaveChangesAsync();
                 }
             }
@@ -220,19 +220,19 @@ namespace CinemaManagement.Models.Services
         }
 
         /// <summary>
-        /// Dùng để tìm email của staff và gửi mail cho chức năng qên mật khẩu
+        /// Dùng để tìm email của staff và gửi mail cho chức năng quên mật khẩu
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public (string error,  string email, string Id) GetStaffEmail(string username)
+        public (string error, string email, string Id) GetStaffEmail(string username)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    Staff staff =  (from p in context.Staffs
-                                         where p.Username == username && !p.IsDeleted
-                                         select p).FirstOrDefault();
+                    Staff staff = (from p in context.Staffs
+                                   where p.Username == username && !p.IsDeleted
+                                   select p).FirstOrDefault();
                     if (staff is null || staff?.IsDeleted == true)
                     {
                         return ("Tài khoản đăng nhập không tồn tại!", null, null);

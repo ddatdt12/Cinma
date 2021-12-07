@@ -75,7 +75,7 @@
                          BorderBrush="LightGray"
                          IsEnabled="False"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         Text="dothanhdat" />
+                         Text="{Binding usrename}" />
             </StackPanel>
             <StackPanel HorizontalAlignment="Center"
                         Orientation="Horizontal">
@@ -100,8 +100,7 @@
                 </PasswordBox>
             </StackPanel>
             <!--Login Button-->
-            <StackPanel HorizontalAlignment="Right"
-                        Orientation="Vertical"
+            <Grid HorizontalAlignment="Right"
                         Margin="0,0,85,0"
                         Width="300"
                         Grid.Row="1">
@@ -119,7 +118,7 @@
                             Command="{Binding SaveNewPassCM}"
                             CommandParameter="{Binding ElementName=error}" />
                 </Grid>
-            </StackPanel>
+            </Grid>
 
         </StackPanel>
     </Grid>

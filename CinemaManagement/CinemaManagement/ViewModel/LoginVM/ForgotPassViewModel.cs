@@ -1,10 +1,7 @@
 ﻿using CinemaManagement.Utils;
-using CinemaManagement.Views;
 using CinemaManagement.Views.LoginWindow;
 using System.Configuration;
-using System.Collections.Specialized;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
@@ -13,25 +10,32 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 
 namespace CinemaManagement.ViewModel
 {
 
     public class ForgotPassViewModel : BaseViewModel
     {
+        private bool isSendMail;
+        public bool IsSendMail
+        {
+            get { return isSendMail; }
+            set { isSendMail = value; OnPropertyChanged(); }
+        }
 
         //Dành cho người quên mật khẩu
         public static string ForgotPasswordEmail = null;
         public static string RequestingStaffId = null;
 
-        private int RandomCode; 
+        private int RandomCode;
 
         public Button SendmailBtn { get; set; }
-        private string _usremail;
-        public string usremail
+        private string _usrename;
+        public string usrename
         {
-            get { return _usremail; }
-            set { _usremail = value; OnPropertyChanged(); }
+            get { return _usrename; }
+            set { _usrename = value; OnPropertyChanged(); }
         }
 
         private string _code;
@@ -68,13 +72,15 @@ namespace CinemaManagement.ViewModel
             {
                 if (!string.IsNullOrEmpty(p.Password))
                 {
-                    if (true)
+                    if (p.Password == RandomCode.ToString())
                     {
-                            LoginViewModel.MainFrame.Content = new ChangePassPage();
+                        LoginViewModel.MainFrame.Content = new ChangePassPage();
                     }
                     else
                     {
-
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Mã bảo mật sai", MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
+                        return;
                     }
                 }
 
@@ -90,9 +96,9 @@ namespace CinemaManagement.ViewModel
             });
             SendMailCM = new RelayCommand<Button>((p) => { return true; }, async (p) =>
              {
-                 //k biết tác dụng của này
-                 if (string.IsNullOrEmpty(usremail)) return;
-
+                 //field null then return
+                 if (string.IsNullOrEmpty(usrename)) return;
+                 // exists mail or not
                  if (ForgotPasswordEmail is null) return;
 
 
@@ -102,35 +108,43 @@ namespace CinemaManagement.ViewModel
                  RandomCode = rd.Next(MIN_VALUE, MAX_VALUE);
                  try
                  {
-                     // xử lí giao diện 
                      await SendEmailForStaff(ForgotPasswordEmail, RandomCode);
                  }
                  catch (Exception e)
                  {
-                     MessageBox.Show(e.Message);
+                     MessageBoxCustom mb = new MessageBoxCustom("", e.Message, MessageType.Error, MessageButtons.OK);
+                     mb.ShowDialog();
                      return;
                  }
 
              });
-            SaveNewPassCM = new RelayCommand<Label>((p) => { return true; },async (p) =>
-            {
-                if (string.IsNullOrEmpty(NewPass))
-                {
-                    p.Content = "Không hợp lệ!";
-                    p.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    string newPass = "1234567";
-                    (bool updatedSuccess, string messageFromUpdate) = await StaffService.Ins.UpdatePassword(RequestingStaffId, newPass);
+            SaveNewPassCM = new RelayCommand<Label>((p) => { return true; }, async (p) =>
+             {
+                 if (string.IsNullOrEmpty(NewPass))
+                 {
+                     p.Content = "Không hợp lệ!";
+                     p.Visibility = Visibility.Visible;
+                 }
+                 else
+                 {
+                     string newPass = NewPass;
+                     (bool updatedSuccess, string messageFromUpdate) = await Task<(bool updatedSuccess, string messageFromUpdate)>.Run(() => StaffService.Ins.UpdatePassword(RequestingStaffId, newPass));
 
-                    if (updatedSuccess)
-                    {
-                        p.Content = "Thay đổi mật khẩu thành công!";
-                        p.Visibility = Visibility.Visible;
-                    }
-                }
-            });
+                     if (updatedSuccess)
+                     {
+                         p.Content = "";
+                         MessageBoxCustom mb = new MessageBoxCustom("", "Đổi mật khẩu thành công!", MessageType.Success, MessageButtons.OK);
+                         mb.ShowDialog();
+                         LoginViewModel.MainFrame.Content = new LoginPage();
+                     }
+                     else
+                     {
+                         MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Error, MessageButtons.OK);
+                         mb.ShowDialog();
+                         return;
+                     }
+                 }
+             });
             NewPassChanged = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
             {
                 NewPass = p.Password;
