@@ -165,6 +165,20 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             set { _TotalPrice = value; OnPropertyChanged(); }
         }
 
+        private string _DiscountStr;
+        public string DiscountStr
+        {
+            get { return _DiscountStr; }
+            set { _DiscountStr = value; OnPropertyChanged(); }
+        }
+
+        private string _LastPriceStr;
+        public string LastPriceStr
+        {
+            get { return _LastPriceStr; }
+            set { _LastPriceStr = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         private string _PhoneNumber;
@@ -218,6 +232,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         public ICommand SignUpCM { get; set; }
 
         public ICommand AddVoucherCM { get; set; }
+        public ICommand AddVoucherNoFoodCM { get; set; }
+        public ICommand AddVoucherOnlyFoodCM { get; set; }
         public ICommand DeleteVoucherCM { get; set; }
 
         private static List<SeatSettingDTO> _ListSeat;
@@ -256,6 +272,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             set { _SelectedItem = value; OnPropertyChanged(); }
         }
 
+        public decimal LastPrice;
+
         DateTime start, end;
         public void CaculateTime()
         {
@@ -286,6 +304,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             }
             TotalPriceFood = Helper.FormatVNMoney(TotalFood);
 
+            bool IsBookMovie = false;
+
             // Movie
             if (OrderFoodPageViewModel.checkOnlyFoodOfPage == false)
             {
@@ -305,23 +325,34 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                 Price = Helper.FormatVNMoney(Showtime.TicketPrice);
                 TotalPriceMovie = Helper.FormatVNMoney(Showtime.TicketPrice * ListSeat.Count);
                 TotalFullMoviePrice = Showtime.TicketPrice * ListSeat.Count;
+                IsBookMovie = true;
             }
 
             //Total price
             decimal Total = TotalFood + TotalFullMoviePrice;
             TotalPrice = Helper.FormatVNMoney(Total);
 
-            // Voucher
-            //ListVoucher = new ObservableCollection<VoucherDTO>();
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    VoucherDTO temp = new VoucherDTO();
-            //    temp.Code = "DUONGDEPTRAI";
-            //    temp.Status = "Miễn phí đủ mọi thứ!";
-            //    ListVoucher.Add(temp);
+            //Discount
+            int Discount = 0;
+            DiscountStr = Helper.FormatVNMoney(Discount);
+            if (ListFood.Count==0)
+            {
+                LastPriceStr = TotalPriceMovie;
+                LastPrice = TotalFullMoviePrice;
+            }
+            else if(IsBookMovie)
+            {
+                LastPriceStr = TotalPrice;
+                LastPrice = Total;
+            }
+            else
+            {
+                LastPriceStr = TotalPriceFood;
+                LastPrice = TotalFood;
+            }
 
-            //}
 
+            // Display bool
             IsValidPhone = false;
             IsWalkinGuest = false;
             ShowPhone = true;
@@ -352,6 +383,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             CheckPhoneNumberCM = new RelayCommand<object>((p) => { return true; },
                 async (p) =>
                 {
+                    MessageBox.Show(LastPrice.ToString());
                     if (!string.IsNullOrEmpty(PhoneNumber))
                     {
                         CustomerDTO customer = await CustomerService.Ins.FindCustomerInfo(PhoneNumber);
@@ -487,15 +519,168 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                 {
                     if (!string.IsNullOrEmpty(VoucherID))
                     {
-                        VoucherDTO voucher = await VoucherService.Ins.GetVoucherInfo(VoucherID);
-                        if (voucher!=null)
+                        (string error, VoucherDTO voucher) = await VoucherService.Ins.GetVoucherInfo(VoucherID);
+                        if (error==null)
                         {
-                            ListVoucher.Add(voucher);
-                            VoucherID = "";
+                            if (ListVoucher.Count==0)
+                            {
+                                ListVoucher.Add(voucher);
+                                VoucherID = "";
+                                Discount += voucher.ParValue;
+                                DiscountStr = Helper.FormatVNMoney(Discount);
+                                LastPriceStr = Helper.FormatVNMoney(Total - Discount);
+                                LastPrice = Total - Discount;
+                            }
+                            else
+                            {
+                                if (!voucher.EnableMerge)
+                                {
+                                    new MessageBoxCustom("Cảnh báo", "Voucher này không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                }
+                                else
+                                {
+                                    for(int i=0; i<ListVoucher.Count;i++)
+                                    {
+                                        if (ListVoucher[i].VoucherReleaseId==voucher.VoucherReleaseId)
+                                        {
+                                            new MessageBoxCustom("Cảnh báo", "Voucher cùng đợt phát hành", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                            return;
+                                        }
+                                    }
+                                    ListVoucher.Add(voucher);
+                                    VoucherID = "";
+                                    Discount += voucher.ParValue;
+                                    DiscountStr = Helper.FormatVNMoney(Discount);
+                                    LastPriceStr = Helper.FormatVNMoney(Total - Discount);
+                                    LastPrice = Total - Discount;
+                                }
+                            }
                         }
                         else
                         {
-                            MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Mã voucher không hợp lệ", MessageType.Error, MessageButtons.OK);
+                            MessageBoxCustom mess = new MessageBoxCustom("Lỗi", error, MessageType.Error, MessageButtons.OK);
+                            mess.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        new MessageBoxCustom("Cảnh báo", "Mã voucher rỗng", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                    }
+                });
+
+            AddVoucherNoFoodCM = new RelayCommand<object>((p) => { return true; },
+                async (p) =>
+                {
+                    if (!string.IsNullOrEmpty(VoucherID))
+                    {
+                        (string error, VoucherDTO voucher) = await VoucherService.Ins.GetVoucherInfo(VoucherID);
+                        if (error == null)
+                        {
+                            if (ListVoucher.Count == 0)
+                            {
+                                ListVoucher.Add(voucher);
+                                VoucherID = "";
+                                Discount += voucher.ParValue;
+                                DiscountStr = Helper.FormatVNMoney(Discount);
+                                LastPriceStr = Helper.FormatVNMoney(TotalFullMoviePrice - Discount);
+                                LastPrice = TotalFullMoviePrice - Discount;
+                            }
+                            else
+                            {
+                                if (voucher.ObjectType== "Sản phẩm")
+                                {
+                                    new MessageBoxCustom("Cảnh báo", "Voucher không áp dụng cho phim", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                }
+                                else
+                                {
+                                    if (!voucher.EnableMerge)
+                                    {
+                                        new MessageBoxCustom("Cảnh báo", "Voucher này không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < ListVoucher.Count; i++)
+                                        {
+                                            if (ListVoucher[i].VoucherReleaseId == voucher.VoucherReleaseId)
+                                            {
+                                                new MessageBoxCustom("Cảnh báo", "Voucher cùng đợt phát hành", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                                return;
+                                            }
+                                        }
+                                        ListVoucher.Add(voucher);
+                                        VoucherID = "";
+                                        Discount += voucher.ParValue;
+                                        DiscountStr = Helper.FormatVNMoney(Discount);
+                                        LastPriceStr = Helper.FormatVNMoney(TotalFullMoviePrice - Discount);
+                                        LastPrice = TotalFullMoviePrice - Discount;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBoxCustom mess = new MessageBoxCustom("Lỗi", error, MessageType.Error, MessageButtons.OK);
+                            mess.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        new MessageBoxCustom("Cảnh báo", "Mã voucher rỗng", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                    }
+                });
+
+            AddVoucherOnlyFoodCM = new RelayCommand<object>((p) => { return true; },
+                async (p) =>
+                {
+                    if (!string.IsNullOrEmpty(VoucherID))
+                    {
+                        (string error, VoucherDTO voucher) = await VoucherService.Ins.GetVoucherInfo(VoucherID);
+                        if (error == null)
+                        {
+                            if (ListVoucher.Count == 0)
+                            {
+                                ListVoucher.Add(voucher);
+                                VoucherID = "";
+                                Discount += voucher.ParValue;
+                                DiscountStr = Helper.FormatVNMoney(Discount);
+                                LastPriceStr = Helper.FormatVNMoney(TotalFood - Discount);
+                                LastPrice = TotalFood - Discount;
+                            }
+                            else
+                            {
+                                if (voucher.ObjectType == "Vé xem phim")
+                                {
+                                    new MessageBoxCustom("Cảnh báo", "Voucher không áp dụng cho đồ ăn", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                }
+                                else
+                                {
+                                    if (!voucher.EnableMerge)
+                                    {
+                                        new MessageBoxCustom("Cảnh báo", "Voucher này không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < ListVoucher.Count; i++)
+                                        {
+                                            if (ListVoucher[i].VoucherReleaseId == voucher.VoucherReleaseId)
+                                            {
+                                                new MessageBoxCustom("Cảnh báo", "Voucher cùng đợt phát hành", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                                return;
+                                            }
+                                        }
+                                        ListVoucher.Add(voucher);
+                                        VoucherID = "";
+                                        Discount += voucher.ParValue;
+                                        DiscountStr = Helper.FormatVNMoney(Discount);
+                                        LastPriceStr = Helper.FormatVNMoney(TotalFood - Discount);
+                                        LastPrice = TotalFood - Discount;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBoxCustom mess = new MessageBoxCustom("Lỗi", error, MessageType.Error, MessageButtons.OK);
                             mess.ShowDialog();
                         }
                     }
@@ -508,7 +693,15 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             DeleteVoucherCM = new RelayCommand<object>((p) => { return true; },
                 (p) =>
                 {
-                    ListVoucher.Remove(SelectedItem);
+                    if (SelectedItem!=null)
+                    {
+                        VoucherDTO temp = SelectedItem;
+                        Discount -= temp.ParValue;
+                        LastPrice += temp.ParValue;
+                        LastPriceStr = Helper.FormatVNMoney(LastPrice);
+                        ListVoucher.Remove(SelectedItem);
+                    }
+                    
                 });
 
         }

@@ -387,7 +387,7 @@
                                                            FontSize="18"
                                                            FontWeight="DemiBold" />
                                                 <TextBlock Grid.Row="1"
-                                                           Text="{Binding Status}"
+                                                           Text="{Binding VoucherInfoStr}"
                                                            FontSize="16"
                                                            FontWeight="Light"
                                                            HorizontalAlignment="Right" />
@@ -639,7 +639,7 @@
                             <Label Content="Khuyến mãi"
                                    FontSize="20"
                                    Grid.Column="0" />
-                            <Label Content="{Binding BillDetail.DiscountPrice}"
+                            <Label Content="{Binding DiscountStr}"
                                    FontSize="20"
                                    Grid.Column="1"
                                    HorizontalAlignment="Right" />
@@ -652,7 +652,7 @@
                             <Label Content="Sau khuyến mãi"
                                    FontSize="20"
                                    Grid.Column="0" />
-                            <Label Content="{Binding BillDetail.TotalPrice}"
+                            <Label Content="{Binding LastPriceStr}"
                                    FontSize="20"
                                    Grid.Column="1"
                                    FontWeight="Bold"
