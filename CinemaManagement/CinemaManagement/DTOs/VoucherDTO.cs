@@ -22,6 +22,8 @@ namespace CinemaManagement.DTOs
         public string CustomerId { get; set; }
         public string CustomerName { get; set; }
 
+        public  VoucherReleaseDTO VoucherInfo;
+
         private bool _IsChecked;
 
         public bool IsChecked
@@ -29,7 +31,6 @@ namespace CinemaManagement.DTOs
             get { return _IsChecked; }
             set { _IsChecked = value; OnPropertyChanged(); }
         }
-
         public Nullable<System.DateTime> UsedAt { get; set; }
         public Nullable<System.DateTime> ReleaseAt { get; set; }
     }

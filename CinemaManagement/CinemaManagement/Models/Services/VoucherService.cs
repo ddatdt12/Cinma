@@ -27,13 +27,13 @@ namespace CinemaManagement.Models.Services
         {
         }
 
-        public async Task<VoucherDTO> GetVoucherInfo(string Code)
+        public async Task<(string error, VoucherDTO)> GetVoucherInfo(string Code)
         {
             using (var context = new CinemaManagementEntities())
             {
                 try
                 {
-                    return await context.Vouchers.Where(v => v.Code == Code).Select(v => new VoucherDTO
+                    var voucher = await context.Vouchers.Where(v => v.Code == Code).Select(v => new VoucherDTO
                     {
                         Id = v.Id,
                         Code = v.Code,
@@ -42,11 +42,44 @@ namespace CinemaManagement.Models.Services
                         UsedAt = v.UsedAt,
                         CustomerName = v.Customer != null ? v.Customer.Name : null,
                         ReleaseAt = v.ReleaseAt,
+                        VoucherInfo = new VoucherReleaseDTO {
+                            Id = v.VoucherRelease.Id,
+                            ReleaseName = v.VoucherRelease.ReleaseName,
+                            StartDate = v.VoucherRelease.StartDate,
+                            FinishDate = v.VoucherRelease.FinishDate,
+                            MinimumOrderValue = v.VoucherRelease.MinimumOrderValue,
+                            ParValue = v.VoucherRelease.ParValue,
+                            ObjectType = v.VoucherRelease.ObjectType,
+                            Status = v.VoucherRelease.Status,
+                            EnableMerge = v.VoucherRelease.EnableMerge,
+                        }
                     }).FirstOrDefaultAsync();
+
+                    if (voucher is null || !voucher.VoucherInfo.Status || voucher.Status == VOUCHER_STATUS.UNRELEASED)
+                    {
+                        return ("Mã giảm giá không tồn tại", null);
+                    }
+
+                    if (voucher.VoucherInfo.FinishDate < DateTime.Now)
+                    {
+                        return ("Mã giảm giá đã hết hạn sử dụng", null);
+                    }
+                   
+
+                    if (voucher.Status == VOUCHER_STATUS.USED )
+                    {
+                        return ("Mã giảm giá đã sử dụng", null);
+                    }
+
+                    return (null, voucher);
                 }
-                catch (Exception e)
+                catch(System.Data.Entity.Core.EntityException)
                 {
-                    throw e;
+                    return ("Mất kết nối cơ sở dữ liệu", null);
+                }
+                catch (Exception)
+                {
+                    return ("Lỗi hệ thống", null);
                 }
             }
         }

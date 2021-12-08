@@ -76,7 +76,7 @@ namespace CinemaManagement.ViewModel
             });
             LoginCM = new RelayCommand<Label>((p) => { return true; }, async (p) =>
              {
-                 (bool isSuccess , string message,  string CustomerId) = await CustomerService.Ins.CreateNewCustomer(new CustomerDTO {Name="Nhân viên mới",PhoneNumber="0987512345" });
+                 (string error, VoucherDTO voucher) =  await VoucherService.Ins.GetVoucherInfo("BF1PLX21");
                  string username = Username;
                  string password = Password;
 

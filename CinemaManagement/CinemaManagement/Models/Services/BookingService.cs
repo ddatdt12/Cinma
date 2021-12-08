@@ -128,7 +128,7 @@ namespace CinemaManagement.Models.Services
                     {
                         return (false, "Số lượng sản phẩm không đủ để đáp ứng!");
                     }
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception e)
@@ -140,7 +140,7 @@ namespace CinemaManagement.Models.Services
         }
 
         /// <summary>
-        /// (Dành cho chỉ đặt hàng) Tạo hóa đơn đặt hàng
+        /// (Dành cho chỉ đặt sản phẩm) Tạo hóa đơn đặt hàng
         /// </summary>
         /// <param name="bill"></param>
         /// <param name="orderedProductList"></param>
