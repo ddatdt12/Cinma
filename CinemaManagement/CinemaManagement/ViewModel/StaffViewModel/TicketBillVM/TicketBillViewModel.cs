@@ -1,7 +1,9 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
 using CinemaManagement.ViewModel.StaffViewModel.TicketVM;
+using CinemaManagement.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -44,25 +46,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         public static MovieDTO Movie;
         public static ObservableCollection<ProductDTO> ListFood;
 
-        public static void ClearAll()
-        {
-            if (TicketBillViewModel.ListFood!=null)
-            {
-                TicketBillViewModel.ListFood.Clear();
-            }
-            if (TicketBillViewModel.ListSeat!=null)
-            {
-                TicketBillViewModel.ListSeat.Clear();
-            }
-            if (TicketWindowViewModel.WaitingList!=null)
-            {
-                TicketWindowViewModel.WaitingList.Clear();
-            }
-        }
-
-        
         #region Biến Binding
 
+        #region Bool display
         private bool _IsWalkinGuest;
         public bool IsWalkinGuest
         {
@@ -112,12 +98,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             set { _ShowDoneButton = value; OnPropertyChanged(); }
         }
 
-        private string _VoucherID;
-        public string VoucherID
-        {
-            get { return _VoucherID; }
-            set { _VoucherID = value; OnPropertyChanged(); }
-        }
+        #endregion
+
+        #region Value display
 
         private string _MovieName;
         public string MovieName
@@ -184,24 +167,58 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 
         #endregion
 
+        private string _PhoneNumber;
+        public string PhoneNumber
+        {
+            get { return _PhoneNumber; }
+            set { _PhoneNumber = value; OnPropertyChanged(); }
+        }
+
+        private string _Name;
+        public string Name
+        {
+            get { return _Name; }
+            set { _Name = value; OnPropertyChanged(); }
+        }
+
+        private string _Email;
+        public string Email
+        {
+            get { return _Email; }
+            set { _Email = value; OnPropertyChanged(); }
+        }
+
+        private string _NameSignUp;
+        public string NameSignUp
+        {
+            get { return _NameSignUp; }
+            set { _NameSignUp = value; OnPropertyChanged(); }
+        }
+
+        private string _EmailSignUp;
+        public string EmailSignUp
+        {
+            get { return _EmailSignUp; }
+            set { _EmailSignUp = value; OnPropertyChanged(); }
+        }
+
+        private string _VoucherID;
+        public string VoucherID
+        {
+            get { return _VoucherID; }
+            set { _VoucherID = value; OnPropertyChanged(); }
+        }
+
+        #endregion
+
         public ICommand CboxWalkinGuestCM { get; set; }
         public ICommand CheckPhoneNumberCM { get; set; }
 
+        public ICommand OpenSignUpCM { get; set; }
         public ICommand SignUpCM { get; set; }
 
         public ICommand AddVoucherCM { get; set; }
         public ICommand DeleteVoucherCM { get; set; }
-
-        private ObservableCollection<CustomerDTO> _ListVoucher;
-        public ObservableCollection<CustomerDTO> ListVoucher
-        {
-            get => _ListVoucher;
-            set
-            {
-                _ListVoucher = value;
-                OnPropertyChanged();
-            }
-        }
 
         private static List<SeatSettingDTO> _ListSeat;
         public static List<SeatSettingDTO> ListSeat
@@ -221,8 +238,19 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             }
         }
 
-        private CustomerDTO _SelectedItem;
-        public CustomerDTO SelectedItem
+        private ObservableCollection<VoucherDTO> _ListVoucher;
+        public ObservableCollection<VoucherDTO> ListVoucher
+        {
+            get => _ListVoucher;
+            set
+            {
+                _ListVoucher = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private VoucherDTO _SelectedItem;
+        public VoucherDTO SelectedItem
         {
             get { return _SelectedItem; }
             set { _SelectedItem = value; OnPropertyChanged(); }
@@ -238,6 +266,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 
         public TicketBillViewModel()
         {
+            ListVoucher = new ObservableCollection<VoucherDTO>();
             decimal TotalFullMoviePrice = 0;
             // Food
             ListFood = OrderFoodPageViewModel.ListOrder;
@@ -283,15 +312,15 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             TotalPrice = Helper.FormatVNMoney(Total);
 
             // Voucher
-            ListVoucher = new ObservableCollection<CustomerDTO>();
-            for(int i=0; i<10;i++)
-            {
-                CustomerDTO temp = new CustomerDTO();
-                temp.Id = "DUONGDEPTRAI";
-                temp.Name = "Miễn phí đủ mọi thứ!";
-                ListVoucher.Add(temp);
-                
-            }
+            //ListVoucher = new ObservableCollection<VoucherDTO>();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    VoucherDTO temp = new VoucherDTO();
+            //    temp.Code = "DUONGDEPTRAI";
+            //    temp.Status = "Miễn phí đủ mọi thứ!";
+            //    ListVoucher.Add(temp);
+
+            //}
 
             IsValidPhone = false;
             IsWalkinGuest = false;
@@ -317,51 +346,144 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                     ShowPhoneError = false;
                     ShowSignUp = false;
                     ShowInfoCustomer = false;
-
+                    PhoneNumber = "";
                 });
 
             CheckPhoneNumberCM = new RelayCommand<object>((p) => { return true; },
-                (p) =>
+                async (p) =>
                 {
-                    IsValidPhone = !IsValidPhone;
-                    if (!IsValidPhone)
+                    if (!string.IsNullOrEmpty(PhoneNumber))
                     {
-                        ShowPhoneError = true;
-                        ShowInfoCustomer = false;
-                        ShowDoneButton = false;
+                        CustomerDTO customer = await CustomerService.Ins.FindCustomerInfo(PhoneNumber);
+                        if (customer != null)
+                        {
+                            Name = customer.Name;
+                            Email = customer.Email;
+                            IsValidPhone = true;
+                        }
+                        else
+                        {
+                            IsValidPhone = false;
+                        }
+
+                        if (IsValidPhone)
+                        {
+                            ShowPhoneError = false;
+                            ShowSignUp = false;
+                            ShowInfoCustomer = true;
+                            ShowDoneButton = true;
+                        }
+                        else
+                        {
+                            if (Helper.IsPhoneNumber(PhoneNumber))
+                            {
+                                ShowPhoneError = true;
+                                ShowInfoCustomer = false;
+                                ShowDoneButton = false;
+                            }
+                            else
+                            {
+                                MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Số điện thoại không hợp lệ", MessageType.Error, MessageButtons.OK);
+                                mess.ShowDialog();
+                            }
+                        }
                     }
                     else
                     {
-                        ShowPhoneError = false;
-                        ShowSignUp = false;
-                        ShowInfoCustomer = true;
-                        ShowDoneButton = true;
+                        new MessageBoxCustom("Cảnh báo", "Số điện thoại không được để trống", MessageType.Warning, MessageButtons.OK).ShowDialog();
                     }
 
                 });
 
-            SignUpCM = new RelayCommand<object>((p) => { return true; },
+            OpenSignUpCM = new RelayCommand<object>((p) => { return true; },
                 (p) =>
                 {
                     ShowSignUp = true;
 
                 });
 
-            AddVoucherCM = new RelayCommand<object>((p) => { return true; },
-                (p) =>
+            SignUpCM = new RelayCommand<object>((p) => { return true; },
+                async (p) =>
                 {
-                    if (!string.IsNullOrEmpty(VoucherID))
+                    CustomerDTO customer = new CustomerDTO();
+                    if (!string.IsNullOrEmpty(NameSignUp))
                     {
-                        CustomerDTO temp = new CustomerDTO();
-                        temp.Id = VoucherID;
-                        temp.Name = "Miễn phí tất cả các thứ!";
-                        temp.PhoneNumber = "0";
-                        ListVoucher.Add(temp);
-                        VoucherID = "";
+                        if (string.IsNullOrEmpty(EmailSignUp))
+                        {
+                            customer.PhoneNumber = PhoneNumber;
+                            customer.Name = NameSignUp;
+                            (bool successAddCustomer, string messageFromAddCustomer, string newCustomer) = await CustomerService.Ins.CreateNewCustomer(customer);
+                            if (successAddCustomer)
+                            {
+                                MessageBoxCustom mgb = new MessageBoxCustom("", "Đăng ký thành công", MessageType.Success, MessageButtons.OK);
+                                ShowPhoneError = false;
+                                ShowSignUp = false;
+                                PhoneNumber = "";
+                                NameSignUp = "";
+                                EmailSignUp = "";
+                            }
+                            else
+                            {
+                                MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Đăng ký thất bại", MessageType.Error, MessageButtons.OK);
+                                mess.ShowDialog();
+                            }
+                        }
+                        else
+                        {
+                            if (RegexUtilities.IsValidEmail(EmailSignUp))
+                            {
+                                customer.PhoneNumber = PhoneNumber;
+                                customer.Name = NameSignUp;
+                                customer.Email = EmailSignUp;
+                                (bool successAddCustomer, string messageFromAddCustomer, string newCustomer) = await CustomerService.Ins.CreateNewCustomer(customer);
+                                if (successAddCustomer)
+                                {
+                                    MessageBoxCustom mgb = new MessageBoxCustom("", "Đăng ký thành công", MessageType.Success, MessageButtons.OK);
+                                    ShowPhoneError = false;
+                                    ShowSignUp = false;
+                                    PhoneNumber = "";
+                                    NameSignUp = "";
+                                    EmailSignUp = "";
+                                }
+                                else
+                                {
+                                    MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Đăng ký thất bại", MessageType.Error, MessageButtons.OK);
+                                    mess.ShowDialog();
+                                }
+                            }
+                            else
+                            {
+                                MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Email không hợp lệ", MessageType.Error, MessageButtons.OK);
+                                mess.ShowDialog();
+                            }
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Mã voucher rỗng!");
+                        new MessageBoxCustom("Cảnh báo", "Vui lòng nhập họ và tên", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                    }
+                });
+
+            AddVoucherCM = new RelayCommand<object>((p) => { return true; },
+                async (p) =>
+                {
+                    if (!string.IsNullOrEmpty(VoucherID))
+                    {
+                        VoucherDTO voucher = await VoucherService.Ins.GetVoucherInfo(VoucherID);
+                        if (voucher!=null)
+                        {
+                            ListVoucher.Add(voucher);
+                            VoucherID = "";
+                        }
+                        else
+                        {
+                            MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Mã voucher không hợp lệ", MessageType.Error, MessageButtons.OK);
+                            mess.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        new MessageBoxCustom("Cảnh báo", "Mã voucher rỗng", MessageType.Warning, MessageButtons.OK).ShowDialog();
                     }
                 });
 

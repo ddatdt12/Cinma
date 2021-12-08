@@ -64,7 +64,7 @@ namespace CinemaManagement.Models.Services
                         return (false, "Số điện thoại này đã tồn tại", null);
                     }
                     var isExistEmail = await context.Customers.AnyAsync(c => c.Email == newCus.Email);
-                    if (isExistPhone)
+                    if (isExistEmail)
                     {
                         return (false, "Email này đã tồn tại", null);
                     }

@@ -35,7 +35,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                 {
                     w.DataContext = new TicketWindowViewModel();
                     w.Close();
-                    TicketBillViewModel.ClearAll();
                 }
             });
             MinimizeTicketWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
