@@ -51,29 +51,41 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
-
+        private string CreateNextCustomerId(string maxId)
+        {
+            if (maxId is null)
+            {
+                return "KH0001";
+            }
+            string newIdString = $"000{int.Parse(maxId.Substring(2)) + 1}";
+            return "KH" + newIdString.Substring(newIdString.Length - 4, 4);
+        }
         public async Task<(bool, string, string CustomerId)> CreateNewCustomer(CustomerDTO newCus)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var isExistPhone = await context.Customers.AnyAsync(c => c.PhoneNumber == newCus.PhoneNumber);
+                    bool isExistPhone = await context.Customers.AnyAsync(c => c.PhoneNumber == newCus.PhoneNumber);
+
                     if (isExistPhone)
                     {
                         return (false, "Số điện thoại này đã tồn tại", null);
                     }
-                    var isExistEmail = await context.Customers.AnyAsync(c => c.Email == newCus.Email);
+
+                    bool isExistEmail = await context.Customers.AnyAsync(c => c.Email == newCus.Email);
                     if (isExistPhone)
                     {
                         return (false, "Email này đã tồn tại", null);
                     }
-
+                    string currentMaxId = await context.Customers.MaxAsync(c => c.Id);
                     Customer cus = new Customer
                     {
+                        Id = CreateNextCustomerId(currentMaxId),
                         Name = newCus.Name,
                         PhoneNumber = newCus.PhoneNumber,
                         Email = newCus.Email,
+                        CreatedAt = DateTime.Now
                     };
 
                     context.Customers.Add(cus);

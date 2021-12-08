@@ -58,7 +58,7 @@ namespace CinemaManagement.ViewModel
             catch (InvalidOperationException)
             {
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 MessageBox.Show($"Mất kết nối cơ sở dữ liệu! Vui lòng kiểm tra lại", "Lỗi hệ thống", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -76,7 +76,7 @@ namespace CinemaManagement.ViewModel
             });
             LoginCM = new RelayCommand<Label>((p) => { return true; }, async (p) =>
              {
-
+                 (bool isSuccess , string message,  string CustomerId) = await CustomerService.Ins.CreateNewCustomer(new CustomerDTO {Name="Nhân viên mới",PhoneNumber="0987512345" });
                  string username = Username;
                  string password = Password;
 
