@@ -3,6 +3,7 @@ using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -42,7 +43,8 @@ namespace CinemaManagement.Models.Services
                         UsedAt = v.UsedAt,
                         CustomerName = v.Customer != null ? v.Customer.Name : null,
                         ReleaseAt = v.ReleaseAt,
-                        VoucherInfo = new VoucherReleaseDTO {
+                        VoucherInfo = new VoucherReleaseDTO
+                        {
                             Id = v.VoucherRelease.Id,
                             ReleaseName = v.VoucherRelease.ReleaseName,
                             StartDate = v.VoucherRelease.StartDate,
@@ -64,16 +66,21 @@ namespace CinemaManagement.Models.Services
                     {
                         return ("Mã giảm giá đã hết hạn sử dụng", null);
                     }
-                   
 
-                    if (voucher.Status == VOUCHER_STATUS.USED )
+                    if (voucher.Status == VOUCHER_STATUS.USED)
                     {
                         return ("Mã giảm giá đã sử dụng", null);
                     }
 
+                    voucher.ParValue = voucher.VoucherInfo.ParValue;
+                    voucher.ObjectType = voucher.VoucherInfo.ObjectType;
+                    voucher.EnableMerge = voucher.VoucherInfo.EnableMerge;
+
+                    voucher.VoucherInfoStr = $"Giảm {String.Format(CultureInfo.InvariantCulture, "{0:#,#}", voucher.ParValue)} đ ({voucher.ObjectType})";
+
                     return (null, voucher);
                 }
-                catch(System.Data.Entity.Core.EntityException)
+                catch (System.Data.Entity.Core.EntityException)
                 {
                     return ("Mất kết nối cơ sở dữ liệu", null);
                 }

@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -187,6 +188,14 @@ namespace CinemaManagement.Models.Services
                 StaffId = bill.StaffId
             };
             context.Bills.Add(newBill);
+
+            if (bill.VoucherIdList.Count > 0)
+            {
+                string voucherIds = string.Join(",", bill.VoucherIdList);
+                var sql = $@"Update [Voucher] SET Status = '{VOUCHER_STATUS.USED}', UsedAt = GETDATE()  WHERE Id IN ({voucherIds})";
+                await context.Database.ExecuteSqlCommandAsync(sql);
+            }
+
             return billId;
         }
         private void AddNewTickets(CinemaManagementEntities context, string billId, List<TicketDTO> newTicketList)

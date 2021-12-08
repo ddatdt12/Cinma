@@ -22,6 +22,12 @@ namespace CinemaManagement.DTOs
         public string CustomerId { get; set; }
         public string CustomerName { get; set; }
 
+        //Use for get voucher info
+        public int ParValue { get; set; }
+        public string VoucherInfoStr { get; set; }
+        public bool EnableMerge { get; set; }
+        public string ObjectType { get; set; }
+
         public  VoucherReleaseDTO VoucherInfo;
 
         private bool _IsChecked;
