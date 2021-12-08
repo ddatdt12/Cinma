@@ -68,11 +68,19 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                      //Loading UI Handler Here
                      ListBigVoucher = new ObservableCollection<VoucherReleaseDTO>(await VoucherService.Ins.GetAllVoucherReleases());
                  }
-                 catch (Exception)
+                 catch (System.Data.Entity.Core.EntityException e)
                  {
-                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống!", MessageType.Error, MessageButtons.OK);
+                     Console.WriteLine(e);
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                      mb.ShowDialog();
-
+                     throw;
+                 }
+                 catch (Exception e)
+                 {
+                     Console.WriteLine(e);
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                     mb.ShowDialog();
+                     throw;
                  }
              });
 
@@ -173,10 +181,19 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                      w.ShowDialog();
                  }
-                 catch (Exception)
+                 catch (System.Data.Entity.Core.EntityException e)
                  {
+                     Console.WriteLine(e);
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                     mb.ShowDialog();
+                     throw;
+                 }
+                 catch (Exception e)
+                 {
+                     Console.WriteLine(e);
                      MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                      mb.ShowDialog();
+                     throw;
                  }
 
              });

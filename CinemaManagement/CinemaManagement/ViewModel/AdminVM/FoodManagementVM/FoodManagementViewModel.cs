@@ -164,10 +164,19 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                      FoodList = new ObservableCollection<ProductDTO>(StoreAllFood);
                      IsLoadding = false;
                  }
+                 catch (System.Data.Entity.Core.EntityException e)
+                 {
+                     Console.WriteLine(e);
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                     mb.ShowDialog();
+                     throw;
+                 }
                  catch (Exception e)
                  {
-                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                     Console.WriteLine(e);
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                      mb.ShowDialog();
+                     throw;
                  }
 
                  IsImageChanged = false;
@@ -204,10 +213,19 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                             }
                         }
                     }
-                    catch (Exception)
+                    catch (System.Data.Entity.Core.EntityException e)
                     {
-                        MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                        Console.WriteLine(e);
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                         mb.ShowDialog();
+                        throw;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
+                        throw;
                     }
 
                 });

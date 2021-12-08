@@ -2,6 +2,7 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.ShowtimeManagement;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -117,10 +118,19 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 ListSeat = new List<SeatSettingDTO>(await SeatService.Ins.GetSeatsByShowtime(SelectedShowtime.Id));
             }
-            catch (System.Exception)
+            catch (System.Data.Entity.Core.EntityException e)
             {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
+                throw;
             }
 
             ListSeat1 = new ObservableCollection<SeatSettingDTO>();

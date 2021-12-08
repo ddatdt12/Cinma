@@ -163,11 +163,19 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                  {
                      MovieList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetAllMovie());
                  }
-                 catch (Exception)
+                 catch (System.Data.Entity.Core.EntityException e)
                  {
-
-                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                     Console.WriteLine(e);
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                      mb.ShowDialog();
+                     throw;
+                 }
+                 catch (Exception e)
+                 {
+                     Console.WriteLine(e);
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                     mb.ShowDialog();
+                     throw;
                  }
 
                  ShadowMask.Visibility = Visibility.Visible;
@@ -319,10 +327,19 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 {
                     ShowtimeList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
                 }
-                catch (Exception)
+                catch (System.Data.Entity.Core.EntityException e)
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                    Console.WriteLine(e);
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                    throw;
                 }
             }
             else
@@ -331,10 +348,19 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 {
                     ShowtimeList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate));
                 }
-                catch (Exception)
+                catch (System.Data.Entity.Core.EntityException e)
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                    Console.WriteLine(e);
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                    throw;
                 }
             }
 
