@@ -102,26 +102,29 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
         public void LoadEdit_InforViewDataFunc(Edit_InforPage w)
         {
-            Name = SelectedItem.ReleaseName;
-            Par = SelectedItem.ParValue;
-            Status2 = SelectedItem.Status;
-            if (Status2)
+            if (SelectedItem != null)
             {
-                w.yes.IsChecked = true;
-                w.no.IsChecked = false;
+                Name = SelectedItem.ReleaseName;
+                Par = SelectedItem.ParValue;
+                Status2 = SelectedItem.Status;
+                if (Status2)
+                {
+                    w.yes.IsChecked = true;
+                    w.no.IsChecked = false;
+                }
+                else
+                {
+                    w.yes.IsChecked = false;
+                    w.no.IsChecked = true;
+                }
+                Start = SelectedItem.StartDate;
+                Finish = SelectedItem.FinishDate;
+                Merge = SelectedItem.EnableMerge;
+                Object.Content = SelectedItem.ObjectType;
+                Minimum = SelectedItem.MinimumOrderValue;
+                w.unused.Content = SelectedItem.UnusedVCount;
+                w.total.Content = SelectedItem.VCount;
             }
-            else
-            {
-                w.yes.IsChecked = false;
-                w.no.IsChecked = true;
-            }
-            Start = SelectedItem.StartDate;
-            Finish = SelectedItem.FinishDate;
-            Merge = SelectedItem.EnableMerge;
-            Object.Content = SelectedItem.ObjectType;
-            Minimum = SelectedItem.MinimumOrderValue;
-            w.unused.Content = SelectedItem.UnusedVCount;
-            w.total.Content = SelectedItem.VCount;
         }
         public async Task UpdateBigVoucherFunc()
         {
