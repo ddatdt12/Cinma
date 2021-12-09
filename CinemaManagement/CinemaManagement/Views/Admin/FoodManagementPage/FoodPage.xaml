@@ -46,7 +46,7 @@
     </i:Interaction.Triggers>
 
     <Grid>
-        
+
         <Grid>
 
             <Grid.RowDefinitions>
@@ -159,7 +159,7 @@
                            Template="{StaticResource Add-edit}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding OpenAddFoodCommand}"/>
+                                <i:InvokeCommandAction Command="{Binding OpenAddFoodCommand}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Label>
@@ -189,10 +189,7 @@
                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                                  VerticalAlignment="Top">
                             <ListBox.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius"
-                                            Value="50" />
-                                </Style>
+
                             </ListBox.Resources>
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem"
@@ -205,14 +202,6 @@
                                         </Trigger>
                                     </Style.Triggers>
                                     <Style.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius"
-                                                    Value="50" />
-                                            <Setter Property="HorizontalAlignment"
-                                                    Value="Stretch" />
-                                            <Setter Property="VerticalAlignment"
-                                                    Value="Stretch" />
-                                        </Style>
                                         <Style TargetType="materialDesign:Card">
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver"
@@ -223,6 +212,10 @@
                                             </Style.Triggers>
                                             <Setter Property="Padding"
                                                     Value="0" />
+                                            <Setter Property="BorderBrush"
+                                                    Value="Black" />
+                                            <Setter Property="BorderThickness"
+                                                    Value="1" />
                                         </Style>
                                     </Style.Resources>
                                     <Setter Property="Padding"
@@ -238,115 +231,132 @@
                             </ListBox.ItemsPanel>
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid HorizontalAlignment="Center"
-                                          VerticalAlignment="Center">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="181" />
-                                            <RowDefinition Height="30" />
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-                                        <Grid Grid.Row="0">
-                                            <StackPanel Grid.Row="0"
+                                    <Border BorderBrush="Black"
+                                            BorderThickness="1"
+                                            CornerRadius="2">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="181" />
+                                                <RowDefinition Height="30" />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <StackPanel Grid.Row="0"
+                                                            Orientation="Horizontal">
+
+                                                    <StackPanel Width="205"
+                                                                Margin="8,7,5,10">
+                                                        <Border BorderBrush="Black"
+                                                                BorderThickness="1">
+                                                            <Image Source="{Binding ImgSource}"
+                                                                   Stretch="Fill"
+                                                                   Height="160"
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center" 
+                                                                    />
+                                                        </Border>
+
+                                                    </StackPanel>
+
+
+                                                    <StackPanel Margin="-5,5,0,0">
+                                                        <Border BorderBrush="Black"
+                                                                BorderThickness="1"
+                                                                CornerRadius="4"
+                                                                Margin="3"
+                                                                Cursor="Hand"
+                                                                Height="35"
+                                                                Width="35">
+                                                            <Border.Style>
+                                                                <Style TargetType="Border">
+                                                                    <Style.Triggers>
+                                                                        <Trigger Property="IsMouseOver"
+                                                                                 Value="True">
+                                                                            <Setter Property="Background"
+                                                                                    Value="#18ffff" />
+                                                                        </Trigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                            <Image Source="/Resources/IconPack/pencil.png"
+                                                                   VerticalAlignment="Center"
+                                                                   Margin="0"
+                                                                   HorizontalAlignment="Center" />
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                    <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.OpenEditFoodCommand}" />
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </Border>
+                                                        <Border BorderBrush="Black"
+                                                                BorderThickness="1"
+                                                                CornerRadius="4"
+                                                                Margin="3"
+                                                                Cursor="Hand"
+                                                                Height="35"
+                                                                Width="35">
+                                                            <Border.Style>
+                                                                <Style TargetType="Border">
+                                                                    <Style.Triggers>
+                                                                        <Trigger Property="IsMouseOver"
+                                                                                 Value="True">
+                                                                            <Setter Property="Background"
+                                                                                    Value="#ff616f" />
+                                                                        </Trigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                            <materialDesign:PackIcon Kind="GarbageCanEmpty"
+                                                                                     Width="34"
+                                                                                     Height="34"
+                                                                                     Cursor="Hand"
+                                                                                     VerticalAlignment="Center"
+                                                                                     HorizontalAlignment="Center"
+                                                                                     HorizontalContentAlignment="Center"
+                                                                                     VerticalContentAlignment="Center" />
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                                    <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.DeleteFoodCommand}" />
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </Border>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Grid>
+                                            <TextBlock Grid.Row="1"
+                                                       Text="{Binding DisplayName}"
+                                                       FontSize="20"
+                                                       Foreground="Black"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Center"
+                                                       Margin="10 0 0 0" />
+                                            <StackPanel Grid.Row="2"
                                                         Orientation="Horizontal">
-                                                <StackPanel Width="205"
-                                                            Margin="8,7,5,10">
-                                                    <Image Source="{Binding ImgSource}"
-                                                           Width="200"
-                                                           Height="166"
-                                                           Stretch="Fill" />
-                                                </StackPanel>
-                                                <StackPanel Margin="-5,5,0,0">
-                                                    <Border BorderBrush="Black"
-                                                            BorderThickness="1"
-                                                            CornerRadius="4"
-                                                            Margin="3"
-                                                            Cursor="Hand"
-                                                            Height="35"
-                                                            Width="35">
-                                                        <Border.Style>
-                                                            <Style TargetType="Border">
-                                                                <Style.Triggers>
-                                                                    <Trigger Property="IsMouseOver"
-                                                                             Value="True">
-                                                                        <Setter Property="Background"
-                                                                                Value="#18ffff" />
-                                                                    </Trigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Border.Style>
-                                                        <Image Source="/Resources/Images/ImageFood/edit.png"
-                                                               VerticalAlignment="Center"
-                                                               Margin="3"
-                                                               HorizontalAlignment="Center" />
-                                                        <i:Interaction.Triggers>
-                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                                <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.OpenEditFoodCommand}" />
-                                                            </i:EventTrigger>
-                                                        </i:Interaction.Triggers>
-                                                    </Border>
-                                                    <Border BorderBrush="Black"
-                                                            BorderThickness="1"
-                                                            CornerRadius="4"
-                                                            Margin="3"
-                                                            Cursor="Hand"
-                                                            Height="35"
-                                                            Width="35">
-                                                        <Border.Style>
-                                                            <Style TargetType="Border">
-                                                                <Style.Triggers>
-                                                                    <Trigger Property="IsMouseOver"
-                                                                             Value="True">
-                                                                        <Setter Property="Background"
-                                                                                Value="#ff616f" />
-                                                                    </Trigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Border.Style>
-                                                        <Image Source="/Resources/Images/ImageFood/delete.png"
-                                                               VerticalAlignment="Center"
-                                                               Margin="3"
-                                                               HorizontalAlignment="Center" />
-                                                        <i:Interaction.Triggers>
-                                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                                <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.DeleteFoodCommand}" />
-                                                            </i:EventTrigger>
-                                                        </i:Interaction.Triggers>
-                                                    </Border>
-                                                </StackPanel>
+
+                                                <TextBlock Text="  SL "
+                                                           FontSize="18"
+                                                           Margin="0 0 0 3"
+                                                           VerticalAlignment="Bottom"
+                                                           HorizontalAlignment="Right" />
+                                                <TextBlock Text="{Binding Quantity}"
+                                                           FontSize="18"
+                                                           Margin="0 0 70 3"
+                                                           VerticalAlignment="Bottom"
+                                                           HorizontalAlignment="Right" />
+
+                                                <TextBlock Text="{Binding PriceStr}"
+                                                           FontSize="18"
+                                                           VerticalAlignment="Bottom"
+                                                           HorizontalAlignment="Right"
+                                                           Margin="35 0 3 3" />
+                                                <Image Source="/Resources/Images/ImageFood/dong.png"
+                                                       Margin=" 0 0 3 3"
+                                                       Height="22"
+                                                       Width="22" />
                                             </StackPanel>
                                         </Grid>
-                                        <TextBlock Grid.Row="1"
-                                                   Text="{Binding DisplayName}"
-                                                   FontSize="20"
-                                                   Foreground="Black"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Center"
-                                                   Margin="10 0 0 0" />
-                                        <StackPanel Grid.Row="2"
-                                                    Orientation="Horizontal">
+                                    </Border>
 
-                                            <TextBlock Text="  SL "
-                                                       FontSize="18"
-                                                       Margin="0 0 0 3"
-                                                       VerticalAlignment="Bottom"
-                                                       HorizontalAlignment="Right" />
-                                            <TextBlock Text="{Binding Quantity}"
-                                                       FontSize="18"
-                                                       Margin="0 0 70 3"
-                                                       VerticalAlignment="Bottom"
-                                                       HorizontalAlignment="Right" />
-
-                                            <TextBlock Text="{Binding PriceStr}"
-                                                       FontSize="18"
-                                                       VerticalAlignment="Bottom"
-                                                       HorizontalAlignment="Right"
-                                                       Margin="35 0 3 3" />
-                                            <Image Source="/Resources/Images/ImageFood/dong.png"
-                                                   Margin=" 0 0 3 3"
-                                                   Height="22"
-                                                   Width="22" />
-                                        </StackPanel>
-                                    </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
@@ -372,5 +382,5 @@
                   x:Name="ShadowMask" />
         </Grid>
     </Grid>
-    
+
 </Page>

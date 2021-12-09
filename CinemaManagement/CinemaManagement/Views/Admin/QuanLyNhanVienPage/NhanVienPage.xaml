@@ -185,7 +185,7 @@
                                                         Orientation="Horizontal"
                                                         Margin="60,0,0,0">
                                                 <Border BorderBrush="Black"
-                                                        BorderThickness="2"
+                                                        BorderThickness="1"
                                                         CornerRadius="6"
                                                         Cursor="Hand">
                                                     <Border.Style>
@@ -211,7 +211,7 @@
                                                 </Border>
                                                 <Border Margin="30 0 0 0"
                                                         BorderBrush="Black"
-                                                        BorderThickness="2"
+                                                        BorderThickness="1"
                                                         CornerRadius="6"
                                                         Cursor="Hand">
                                                     <Border.Style>
