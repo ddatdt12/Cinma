@@ -95,12 +95,6 @@
                                    FontWeight="DemiBold"
                                    FontSize="20" />
                     </StackPanel>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseLeftButtonDown">
-                            <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}"
-                                                   CommandParameter="{Binding ElementName=AddFoodWd}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
                 </materialDesign:ColorZone>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>

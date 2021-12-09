@@ -14,11 +14,9 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
-using Microsoft.IdentityModel.Protocols;
 
 namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 {
@@ -27,7 +25,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public static int NumberCustomer;
 
         private ComboBoxItem _ReleaseCustomerList;
-
         public ComboBoxItem ReleaseCustomerList
         {
             get { return _ReleaseCustomerList; }
@@ -37,6 +34,13 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             }
         }
 
+        private ComboBoxItem perCus;
+        public ComboBoxItem PerCus
+        {
+            get { return perCus; }
+            set { perCus = value; OnPropertyChanged(); }
+        }
+
 
         public ICommand DeleteWaitingReleaseCM { get; set; }
         public ICommand MoreEmailCM { get; set; }
@@ -44,6 +48,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public ICommand OpenReleaseVoucherCM { get; set; }
         public ICommand ReleaseVoucherCM { get; set; }
         public ICommand ResetSelectedNumberCM { get; set; }
+        public ICommand ReleaseVoucherExcelCM { get; set; }
+        public ICommand CalculateNumberOfVoucherCM { get; set; }
 
         private ObservableCollection<VoucherDTO> releaseVoucherList;
         public ObservableCollection<VoucherDTO> ReleaseVoucherList
@@ -62,7 +68,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public async Task ReleaseVoucherFunc(ReleaseVoucher p)
         {
             string mess = "Số voucher không chia hết cho khách hàng!";
-            if (WaitingMiniVoucher.Count == 0)
+            if (ReleaseVoucherList.Count == 0)
             {
                 MessageBoxCustom mb = new MessageBoxCustom("", "Danh sách voucher đang trống!", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
@@ -88,7 +94,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 }
                 else
                 {
-                    if (WaitingMiniVoucher.Count % ListCustomerEmail.Count != 0)
+                    if (ReleaseVoucherList.Count % ListCustomerEmail.Count != 0)
                     {
                         MessageBoxCustom mb = new MessageBoxCustom("", mess, MessageType.Warning, MessageButtons.OK);
                         mb.ShowDialog();
@@ -106,16 +112,16 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     mb.ShowDialog();
                     return;
                 }
-                if (WaitingMiniVoucher.Count > ListCustomerEmail.Count)
+                if (ReleaseVoucherList.Count > ListCustomerEmail.Count)
                 {
-                    if (WaitingMiniVoucher.Count % ListCustomerEmail.Count != 0)
+                    if (ReleaseVoucherList.Count % ListCustomerEmail.Count != 0)
                     {
                         MessageBoxCustom mb = new MessageBoxCustom("", mess, MessageType.Warning, MessageButtons.OK);
                         mb.ShowDialog();
                         return;
                     }
                 }
-                else if (WaitingMiniVoucher.Count < ListCustomerEmail.Count)
+                else if (ReleaseVoucherList.Count < ListCustomerEmail.Count)
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("", mess, MessageType.Warning, MessageButtons.OK);
                     mb.ShowDialog();
@@ -125,53 +131,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
             // new customer
             //code here
-            if (NumberCustomer == -2)
-            {
-                ExportVoucherFunc();
-                if (IsExport)
-                {
-                    (bool release, string message) = await VoucherService.Ins.ReleaseMultiVoucher(WaitingMiniVoucher);
 
-                    if (release)
-                    {
-                        MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Success, MessageButtons.OK);
-                        mb.ShowDialog();
-                        WaitingMiniVoucher.Clear();
-                        try
-                        {
-                            (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
 
-                            SelectedItem = voucherReleaseDetail;
-                            ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
-                            StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
-                            AddVoucher.topcheck.IsChecked = false;
-                            AddVoucher._cbb.SelectedIndex = 0;
-                            NumberSelected = 0;
-                        }
-                        catch (System.Data.Entity.Core.EntityException e)
-                        {
-                            Console.WriteLine(e);
-                            MessageBoxCustom m = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
-                            m.ShowDialog();
-                            throw;
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e);
-                            MessageBoxCustom m = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
-                            m.ShowDialog();
-                            throw;
-                        }
-                        p.Close();
-                    }
-                    else
-                    {
-                        MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Error, MessageButtons.OK);
-                        mb.ShowDialog();
-                    }
-                    return;
-                }
-            }
             // Danh sách code và khách hàng
             List<string> listCode = ReleaseVoucherList.Select(v => v.Code).ToList();
             List<string> listCustomerEmail = ListCustomerEmail.Select(v => v.Email).ToList();
@@ -189,6 +150,11 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 return;
             }
 
+            WaitingMiniVoucher = new List<int>();
+            foreach (var item in ReleaseVoucherList)
+            {
+                WaitingMiniVoucher.Add(item.Id);
+            }
             (bool releaseSuccess, string messageFromRelease) = await VoucherService.Ins.ReleaseMultiVoucher(WaitingMiniVoucher);
 
             if (releaseSuccess)
@@ -196,6 +162,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 MessageBoxCustom mb = new MessageBoxCustom("", messageFromRelease, MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
                 WaitingMiniVoucher.Clear();
+                ReleaseVoucherList.Clear();
                 try
                 {
                     (VoucherReleaseDTO voucherReleaseDetail, bool haveAnyUsedVoucher) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
@@ -245,17 +212,44 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                             if (item.Email != null)
                                 ListCustomerEmail.Add(new CustomerEmail { Email = item.Email });
                         }
-
+                        ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
                         return;
                     }
                 case "Khác":
                     {
                         ListCustomerEmail = new ObservableCollection<CustomerEmail>();
+                        ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
                         return;
                     }
                 case "Khách hàng mới trong tháng":
                     {
                         ListCustomerEmail = new ObservableCollection<CustomerEmail>();
+                        try
+                        {
+                            List<CustomerDTO> newcuslist = new List<CustomerDTO>(await CustomerService.Ins.GetNewCustomer());
+                            if (newcuslist != null)
+                            {
+                                foreach (var it in newcuslist)
+                                {
+                                    ListCustomerEmail.Add(new CustomerEmail { Email = it.Email });
+                                }
+                            }
+                            ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
+                        }
+                        catch (System.Data.Entity.Core.EntityException e)
+                        {
+                            Console.WriteLine(e);
+                            MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                            throw;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                            throw;
+                        }
                         return;
                     }
             }
@@ -274,6 +268,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
+                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
                     Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
                     app.Visible = false;
                     Microsoft.Office.Interop.Excel.Workbook wb = app.Workbooks.Add(1);
@@ -283,10 +278,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     ws.Cells[2, 1] = "Ngày phát hành: " + DateTime.Today;
                     ws.Cells[3, 1] = "Hiệu lực đến: " + SelectedItem.FinishDate;
                     ws.Cells[4, 1] = "Số lượng: " + ReleaseVoucherList.Count;
-                    ws.Cells[6, 5] = "ID voucher";
-                    ws.Cells[6, 6] = "Mã voucher";
+                    ws.Cells[5, 1] = "Mệnh giá: " + Utils.Helper.FormatVNMoney(SelectedItem.ParValue);
+                    ws.Cells[6, 1] = "Mặt hàng áp dụng: " + SelectedItem.ObjectType;
+                    ws.Cells[8, 5] = "ID voucher";
+                    ws.Cells[8, 6] = "Mã voucher";
 
-                    int i2 = 7;
+                    int i2 = 9;
                     foreach (var item in ReleaseVoucherList)
                     {
 
@@ -300,6 +297,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     app.Quit();
 
                     IsExport = true;
+                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+
                 }
                 else
                 {

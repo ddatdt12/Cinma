@@ -368,17 +368,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
               {
                   MaskName = p;
               });
-
-            MouseMoveWindowCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
-            {
-                FrameworkElement window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
-                {
-                    w.DragMove();
-                }
-            }
-            );
         }
 
         public void LoadImage()

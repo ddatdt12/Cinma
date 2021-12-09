@@ -175,6 +175,7 @@
                         <TextBlock Text="Số điện thoại" />
                         <TextBox Grid.Column="1"
                                  x:Name="_Phone"
+                                 PreviewTextInput="_Phone_PreviewTextInput"
                                  Text="{Binding Phone, Mode=TwoWay}" />
                     </Grid>
                     <Grid Grid.Row="7">

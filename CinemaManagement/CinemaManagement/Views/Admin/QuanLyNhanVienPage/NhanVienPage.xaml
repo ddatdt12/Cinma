@@ -161,7 +161,7 @@
                                 <GridViewColumn Header="Email">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding }"
+                                            <TextBlock Text="{Binding Email}"
                                                        FontSize="18"
                                                        Margin="15,0,0,0"/>
                                         </DataTemplate>

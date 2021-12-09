@@ -33,7 +33,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 staff.StartingDate = StartDate;
                 staff.Username = TaiKhoan;
                 staff.Password = MatKhau;
-                //staff.Email = Mail;
+                staff.Email = Mail;
 
                 (bool successAddStaff, string messageFromAddStaff, StaffDTO newStaff) = await StaffService.Ins.AddStaff(staff);
 

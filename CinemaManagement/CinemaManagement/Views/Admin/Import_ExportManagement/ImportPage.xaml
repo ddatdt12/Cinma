@@ -172,7 +172,7 @@
                                 <DataTemplate>
                                     <TextBlock  Text="{Binding Quantity}"
                                                 FontSize="18"
-                                                Margin="10,0,0,0" />
+                                                Margin="20,0,0,0" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

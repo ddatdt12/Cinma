@@ -19,7 +19,7 @@
         WindowStartupLocation="CenterScreen"
         Name="EditFoodWd"
         ResizeMode="NoResize"
-        Title="EditFoodWindow"
+        MouseLeftButtonDown="EditFoodWd_MouseLeftButtonDown"
         Height="400"
         Width="280">
 
@@ -95,12 +95,6 @@
                                            FontWeight="DemiBold"
                                            FontSize="20" />
                             </StackPanel>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                    <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}"
-                                                           CommandParameter="{Binding ElementName=EditFoodWd}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
                         </materialDesign:ColorZone>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
@@ -137,6 +131,8 @@
                             <TextBlock Text="Giá tiền" />
                             <TextBox Grid.Column="1"
                                      x:Name="_price"
+                                     PreviewTextInput="_price_PreviewTextInput"
+                                     TextChanged="TextBox_TextChanged"
                                      Text="{Binding Price, Mode=TwoWay}" />
                         </Grid>
                         <Grid Grid.Row="4">

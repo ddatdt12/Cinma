@@ -39,7 +39,7 @@
             <RowDefinition Height="20" />
             <RowDefinition Height="800" />
         </Grid.RowDefinitions>
-      
+
         <!--#FF383737-->
         <StackPanel   Background="#132644"
                       Grid.Row="0">
@@ -361,7 +361,7 @@
                                       VerticalAlignment="Top"
                                       Margin="0,20,0,0"
                                       Foreground="White"
-                                      Loaded="SlideButton_Loaded"/>
+                                      Loaded="SlideButton_Loaded" />
                         <Border Background="Red"
                                 CornerRadius="100"
                                 Width="30"
@@ -378,7 +378,7 @@
                     </Grid>
                     <TextBlock VerticalAlignment="Top"
                                FontSize="30"
-                               Margin="0,20,0,0"
+                               Margin="10,20,0,0"
                                Text="{Binding SelectedFuncName}"
                                Foreground="White">
                     </TextBlock>
@@ -403,9 +403,6 @@
                                              Foreground="White"
                                              PlacementMode="BottomAndAlignRightEdges">
                         <StackPanel Orientation="Vertical">
-                            <Button x:Name="signout"
-                                    Content="Thông tin tài khoản" />
-
                             <Button Content="Đăng xuất"
                                     Command="{Binding SignoutCM}"
                                     CommandParameter="{Binding ElementName=mainadminwindow}" />

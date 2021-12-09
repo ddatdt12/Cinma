@@ -33,13 +33,13 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 staff.Role = Role.Content.ToString();
                 staff.StartingDate = StartDate;
                 staff.Username = TaiKhoan;
-                //staff.Email = Mail;
+                staff.Email = Mail;
                 (bool successUpdateStaff, string messageFromUpdateStaff) = await StaffService.Ins.UpdateStaff(staff);
-                LoadStaffListView(Utils.Operation.UPDATE, staff);
 
                 if (successUpdateStaff)
                 {
                     MaskName.Visibility = Visibility.Collapsed;
+                    LoadStaffListView(Utils.Operation.UPDATE, staff);
                     p.Close();
                     MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateStaff, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();

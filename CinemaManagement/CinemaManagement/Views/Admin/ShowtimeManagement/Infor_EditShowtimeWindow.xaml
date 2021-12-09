@@ -113,6 +113,7 @@
                                          Margin="10,0,0,0"
                                          Text="{Binding moviePrice,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                          IsEnabled="False"
+                                         TextChanged="TextBox_TextChanged"
                                          PreviewTextInput="_showtimePrice_PreviewTextInput">
                                     <TextBox.Style>
                                         <Style TargetType="TextBox">
@@ -250,7 +251,7 @@
                                 Margin="50,0,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
+                                <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Label Content="Đã đặt: "
@@ -265,7 +266,7 @@
                                 Margin="50,0,0,0">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
+                                <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Label Content="Còn trống: "

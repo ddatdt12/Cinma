@@ -112,6 +112,7 @@ namespace CinemaManagement.Models.Services
 
                     Staff st = Copy(newStaff);
                     st.Id = CreateNextStaffId(maxId);
+                    newStaff.Id = st.Id;
                     st.Password = Helper.MD5Hash(newStaff.Password);
                     context.Staffs.Add(st);
                     await context.SaveChangesAsync();
@@ -146,11 +147,15 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     bool usernameIsExist = context.Staffs.Any(s => s.Username == updatedStaff.Username && s.Id != updatedStaff.Id);
+                    bool emailIsExist = await context.Staffs.AnyAsync(s => s.Email == updatedStaff.Email);
                     if (usernameIsExist)
                     {
                         return (false, "Tài khoản đăng nhập đã tồn tại");
                     }
-
+                    if (emailIsExist)
+                    {
+                        return (false, "Email đã được đăng kí!");
+                    }
                     Staff staff = context.Staffs.Find(updatedStaff.Id);
                     if (staff == null)
                     {
@@ -221,7 +226,7 @@ namespace CinemaManagement.Models.Services
                     await context.SaveChangesAsync();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return (false, $"Lỗi hệ thống.");
             }

@@ -171,7 +171,7 @@
                                         <TextBlock Text="{Binding Name}"
                                                    FontSize="18"
                                                    Height="34"
-                                                   Margin="0,5,0,0" />
+                                                   Margin="20,5,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -181,7 +181,7 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding PhoneNumber}"
                                                    FontSize="18"
-                                                   Margin="0,5,0,0" />
+                                                   Margin="10,5,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -344,11 +344,12 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Tên nhân viên">
+                            <GridViewColumn Header="Tên nhân viên"
+                                            Width="220">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Name}"
-                                                   Margin="0,5,0,0"
+                                                   Margin="20,5,0,0"
                                                    FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -359,7 +360,7 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding BenefitContributionStr}"
                                                    FontSize="18"
-                                                   Margin="20,5,0,0" />
+                                                   Margin="10,5,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
