@@ -317,6 +317,10 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 await Task.WhenAll(listSendEmailTask);
                 return (true, "Gửi thành công");
             }
+            catch
+            {
+                throw;
+            }
         }
 
         private Task sendEmailForACustomer(string customerEmail, List<string> listCode)

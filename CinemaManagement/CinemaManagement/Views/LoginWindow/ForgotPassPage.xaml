@@ -28,42 +28,56 @@
     </Page.Triggers>
 
     <Grid>
-        <Label Cursor="Hand"
-               Height="30"
-               Width="30"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               x:Name="lbl">
-            <materialDesign:PackIcon Kind="ArrowLeft"
-                                     Height="26"
-                                     Width="26" />
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding CancelCM}"
-                                           CommandParameter="{Binding ElementName=lbl}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Label>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="66*" />
+            <RowDefinition Height="257*" />
+            <RowDefinition Height="50*" />
+        </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Vertical">
-            <!--Welcome-->
+
+        <!--Welcome-->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0">
+            <Label Cursor="Hand"
+                   Height="30"
+                   Grid.Row="0"
+                   Width="30"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   x:Name="lbl">
+                <materialDesign:PackIcon Kind="ArrowLeft"
+                                         Height="26"
+                                         Width="26" />
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding CancelCM}"
+                                               CommandParameter="{Binding ElementName=lbl}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Label>
+
             <Label FontFamily="junegull"
                    FontSize="35"
                    FontWeight="UltraBlack"
                    Foreground="#0c70b6"
-                   Content="RESET PASSWORD"
+                   Content="verification code"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Height="50"
-                   Margin="0,30,0,0">
+                   Margin="40,30,0,0">
             </Label>
+        </StackPanel>
 
-            <!--Login Area-->
-            <Grid>
-                <StackPanel Margin="0 90 0 0"
-                            HorizontalAlignment="Center"
+        <!---Error label-->
+        <Grid Grid.Row="1">
+            <StackPanel x:Name="topobj"
+                  Margin="0,0,0,70">
+                <StackPanel HorizontalAlignment="Center"
                             Orientation="Horizontal"
-                            x:Name="Username">
+                            VerticalAlignment="Top"
+                            x:Name="Username"
+                            Height="50"
+                            Margin="0,60,0,0">
                     <materialDesign:PackIcon Kind="Email"
                                              Height="20"
                                              Width="20"
@@ -72,6 +86,7 @@
                              Foreground="Black"
                              FontSize="15"
                              Width="200"
+                             Padding="0,18,0,0"
                              x:Name="requestUsernameField"
                              Margin="5,0,0,0"
                              BorderBrush="LightGray"
@@ -79,9 +94,11 @@
                              Text="{Binding usrename,Mode=OneWayToSource}" />
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Center"
-                            Margin="0 90 0 0"
+                            VerticalAlignment="Top"
+                            Margin="0,60,0,0"
                             Orientation="Horizontal"
                             x:Name="secretcode"
+                            Height="50"
                             Visibility="Collapsed">
                     <materialDesign:PackIcon Kind="Lock"
                                              Height="20"
@@ -92,6 +109,7 @@
                                  FontSize="15"
                                  Width="200"
                                  Margin="5,0,0,0"
+                                 Padding="0,18,0,0"
                                  BorderBrush="LightGray"
                                  x:Name="codefield"
                                  Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
@@ -103,78 +121,86 @@
                         </i:Interaction.Triggers>
                     </PasswordBox>
                 </StackPanel>
-            </Grid>
-            <!--Login Button-->
-            <StackPanel HorizontalAlignment="Right"
-                        Orientation="Vertical"
-                        Margin="0,0,85,0"
-                        Width="300"
-                        Grid.Row="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="103*" />
-                        <ColumnDefinition Width="47*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Content=""
-                           x:Name="errorlbl"
-                           Margin="80,10,-30,0"
-                           Foreground="Red"
-                           FontSize="15"
-                           Grid.ColumnSpan="2" />
-                    <Label Margin="80,10,0,0"
-                           Visibility="Collapsed"
-                           x:Name="havecode"
-                           Grid.ColumnSpan="2">
-                        <Label.Content>
-                            <StackPanel Orientation="Horizontal"
-                                        x:Name="resend">
-                                <TextBlock Text="Bạn đã nhận được mã"
-                                           FontSize="15" />
-                                <TextBlock Text=" chưa"
-                                           FontSize="15"
-                                           MouseEnter="TextBlock_MouseEnter"
-                                           MouseLeave="TextBlock_MouseLeave"
-                                           MouseDown="TextBlock_MouseLeftButtonUp"
-                                           Foreground="Blue" />
-                                <TextBlock Text="?"
-                                           FontSize="15" />
-                            </StackPanel>
-                        </Label.Content>
-                    </Label>
-                </Grid>
-
-                <Grid HorizontalAlignment="Right">
+                <StackPanel HorizontalAlignment="Right"
+                            Orientation="Vertical"
+                            Margin="0,0,85,0"
+                            Width="300">
                     <Grid>
-                        <Button Width="120"
-                                x:Name="sendmailbtn"
-                                Content="Gửi mã"
-                                materialDesign:ButtonAssist.CornerRadius="5"
-                                Margin="0,50,20,0"
-                                Click="sendmailbtn_Click"
-                                Command="{Binding SendMailCM}"
-                                CommandParameter="{Binding ElementName=sendmailbtn}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Loaded">
-                                    <i:InvokeCommandAction Command="{Binding SaveSendmailBtnCM}"
-                                                           CommandParameter="{Binding ElementName=sendmailbtn}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
-                        <Button Content="Xác nhận"
-                                Width="120"
-                                Visibility="Collapsed"
-                                x:Name="acceptbutn"
-                                materialDesign:ButtonAssist.CornerRadius="8"
-                                Margin="0,50,20,0"
-                                Click="acceptbutn_Click"
-                                Command="{Binding ConfirmCM}"
-                                CommandParameter="{Binding ElementName=codefield}" />
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="103*" />
+                            <ColumnDefinition Width="47*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Content=""
+                               x:Name="errorlbl"
+                               Margin="80,10,-30,0"
+                               Foreground="Red"
+                               FontSize="15"
+                               Grid.ColumnSpan="2" />
+                        <Label Margin="80,10,0,0"
+                               Visibility="Collapsed"
+                               x:Name="havecode"
+                               Grid.ColumnSpan="2">
+                            <Label.Content>
+                                <StackPanel Orientation="Horizontal"
+                                            x:Name="resend">
+                                    <TextBlock Text="Bạn đã nhận được mã"
+                                               FontSize="15" />
+                                    <TextBlock Text=" chưa"
+                                               FontSize="15"
+                                               MouseEnter="TextBlock_MouseEnter"
+                                               MouseLeave="TextBlock_MouseLeave"
+                                               MouseDown="TextBlock_MouseLeftButtonUp"
+                                               Foreground="Blue" />
+                                    <TextBlock Text="?"
+                                               FontSize="15" />
+                                </StackPanel>
+                            </Label.Content>
+                        </Label>
                     </Grid>
-                </Grid>
-
+                </StackPanel>
             </StackPanel>
+            <TextBlock Text="Chúng tôi sẽ gửi mã đặt lại mật khẩu thông qua Email liên kết với tài khoản trên"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       FontSize="15"
+                       Width="290"
+                       Grid.RowSpan="2"
+                       VerticalAlignment="Bottom"
+                       Margin="0,0,0,50"
+                       x:Name="_Instruct"/>
 
-        </StackPanel>
+        </Grid>
+
+        <Grid HorizontalAlignment="Right"
+              Grid.Row="2"
+              Width="120"
+              Margin="0,0,30,0">
+            <Grid>
+                <Button Width="120"
+                        x:Name="sendmailbtn"
+                        Content="Gửi mã"
+                        materialDesign:ButtonAssist.CornerRadius="5"
+                        Click="sendmailbtn_Click"
+                        Command="{Binding SendMailCM}"
+                        CommandParameter="{Binding ElementName=_Instruct}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding SaveSendmailBtnCM}"
+                                                   CommandParameter="{Binding ElementName=sendmailbtn}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Content="Xác nhận"
+                        Width="120"
+                        Visibility="Collapsed"
+                        x:Name="acceptbutn"
+                        materialDesign:ButtonAssist.CornerRadius="8"
+                        Click="acceptbutn_Click"
+                        Command="{Binding ConfirmCM}"
+                        CommandParameter="{Binding ElementName=codefield}" />
+            </Grid>
+        </Grid>
+
     </Grid>
 
 </Page>

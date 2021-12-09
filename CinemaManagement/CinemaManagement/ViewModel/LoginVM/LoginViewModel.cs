@@ -54,6 +54,7 @@ namespace CinemaManagement.ViewModel
         {
             try
             {
+                (_,_,_) = StaffService.Ins.GetStaffEmail("");
             }
             catch (InvalidOperationException)
             {
