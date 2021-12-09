@@ -158,11 +158,17 @@ namespace CinemaManagement.ViewModel
                 {
                     MovieScheduleWindowViewModel.tempFilebinding = SelectedItem;
                     w = new MovieScheduleWindow();
-                    w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
-                    w.imgframe.Source = Helper.GetMovieImageSource(SelectedItem.Image);
-                    w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
-                    w.txtframe.Text = SelectedItem.DisplayName;
-                    w.ShowDialog();
+                    if(w!=null)
+                    {
+                        if (SelectedItem != null)
+                        {
+                            w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
+                            w.imgframe.Source = Helper.GetMovieImageSource(SelectedItem.Image);
+                            w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
+                            w.txtframe.Text = SelectedItem.DisplayName;
+                            w.ShowDialog();
+                        }
+                    }
                 }
             });
             LoadShowtimePageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
