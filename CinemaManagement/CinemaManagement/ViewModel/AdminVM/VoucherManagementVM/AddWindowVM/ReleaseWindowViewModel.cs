@@ -262,7 +262,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         }
 
         bool IsExport = false;
-        public void ExportVoucherFunc()
+        public  async Task ExportVoucherFunc()
         {
             using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
             {
@@ -283,18 +283,24 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     ws.Cells[8, 5] = "ID voucher";
                     ws.Cells[8, 6] = "Mã voucher";
 
-                    int i2 = 9;
-                    foreach (var item in ReleaseVoucherList)
+
+                    await Task.Run(() =>
                     {
+                        int i2 = 9;
+                        foreach (var item in ReleaseVoucherList)
+                        {
 
-                        ws.Cells[i2, 5] = item.Id;
-                        ws.Cells[i2, 6] = item.Code;
+                            ws.Cells[i2, 5] = item.Id;
+                            ws.Cells[i2, 6] = item.Code;
 
-                        i2++;
-                    }
+                            i2++;
+                        }
+                    });
+                   
                     ws.SaveAs(sfd.FileName);
                     wb.Close();
                     app.Quit();
+
 
                     IsExport = true;
                     Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
@@ -310,29 +316,19 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         protected async Task<(bool, string)> sendHtmlEmail(List<string> customerEmailList, List<List<string>> ListCodePerEmailList)
         {
             List<Task> listSendEmailTask = new List<Task>();
-            for (int i = 0; i < customerEmailList.Count; i++)
-            {
-                listSendEmailTask.Add(sendEmailForACustomer(customerEmailList[i], ListCodePerEmailList[i]));
-            }
 
             try
             {
+                for (int i = 0; i < customerEmailList.Count; i++)
+                {
+                    listSendEmailTask.Add(sendEmailForACustomer(customerEmailList[i], ListCodePerEmailList[i]));
+                }
                 await Task.WhenAll(listSendEmailTask);
                 return (true, "Gửi thành công");
             }
-            catch (System.Data.Entity.Core.EntityException e)
+            catch (Exception)
             {
-                Console.WriteLine(e);
-                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
-                mb.ShowDialog();
-                throw;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
-                mb.ShowDialog();
-                throw;
+                return (false, "Phát sinh lỗi trong quá trình gửi mail. Vui lòng thử lại!");
             }
         }
 

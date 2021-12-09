@@ -451,7 +451,9 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                         }
                     }
                 }
-                ExportVoucherFunc();
+
+                await ExportVoucherFunc();
+
                 if (IsExport)
                 {
                     (bool release, string message) = await VoucherService.Ins.ReleaseMultiVoucher(WaitingMiniVoucher);
