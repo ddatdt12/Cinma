@@ -11,7 +11,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Views;
-using System.Text;
 
 namespace CinemaManagement.ViewModel
 {
@@ -95,27 +94,13 @@ namespace CinemaManagement.ViewModel
             {
                 code = p.Password;
             });
-            SendMailCM = new RelayCommand<TextBlock>((p) => { return true; }, async (p) =>
+            SendMailCM = new RelayCommand<Button>((p) => { return true; }, async (p) =>
              {
                  //field null then return
                  if (string.IsNullOrEmpty(usrename)) return;
                  // exists mail or not
                  if (ForgotPasswordEmail is null) return;
 
-                 string tempMail = ForgotPasswordEmail;
-                 StringBuilder sb = new StringBuilder(tempMail);
-                 for (int i = 2; i < tempMail.Length; i++)
-                 {
-                     if (sb[i] != '@')
-                         sb[i] = '*';
-                     else
-                     {
-                         sb[i - 2] = tempMail[i - 2];
-                         sb[i - 1] = tempMail[i - 1];
-                         i += 2;
-                     }
-                 }
-                 p.Text = "Mã bảo mật gồm 5 chữ số đã được gửi tới Email: " + sb.ToString();
 
                  Random rd = new Random();
                  int MIN_VALUE = 11111;
@@ -125,11 +110,11 @@ namespace CinemaManagement.ViewModel
                  {
                      await SendEmailForStaff(ForgotPasswordEmail, RandomCode);
                  }
-                 catch
+                 catch(Exception)
                  {
-                     throw;
+                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                     mb.ShowDialog();
                  }
-
              });
             SaveNewPassCM = new RelayCommand<Label>((p) => { return true; }, async (p) =>
              {

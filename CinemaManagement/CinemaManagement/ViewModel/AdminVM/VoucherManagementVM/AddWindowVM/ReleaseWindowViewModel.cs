@@ -307,20 +307,20 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         protected async Task<(bool, string)> sendHtmlEmail(List<string> customerEmailList, List<List<string>> ListCodePerEmailList)
         {
             List<Task> listSendEmailTask = new List<Task>();
-            for (int i = 0; i < customerEmailList.Count; i++)
-            {
-                listSendEmailTask.Add(sendEmailForACustomer(customerEmailList[i], ListCodePerEmailList[i]));
-            }
 
             try
             {
-                await Task.WhenAll(listSendEmailTask);
+                for (int i = 0; i < customerEmailList.Count; i++)
+                {
+                    listSendEmailTask.Add(sendEmailForACustomer(customerEmailList[i], ListCodePerEmailList[i]));
+                }
+                await Task.WhenAny(listSendEmailTask);
                 return (true, "Gửi thành công");
             }
-            catch
+            catch(Exception)
             {
-                throw;
-            }
+                return (false, "Phát sinh lỗi trong quá trình gửi mail. Vui lòng thử lại!");
+            }  
         }
 
         private Task sendEmailForACustomer(string customerEmail, List<string> listCode)
@@ -359,6 +359,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             mail.To.Add(customerEmail);
             mail.Subject = "Tri ân khách hàng thân thiết";
 
+            smtp.SendCompleted += (s, e) => smtp.Dispose();
             return smtp.SendMailAsync(mail);
         }
 
