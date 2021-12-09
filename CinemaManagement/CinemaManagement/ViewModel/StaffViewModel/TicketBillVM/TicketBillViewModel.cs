@@ -383,7 +383,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             CheckPhoneNumberCM = new RelayCommand<object>((p) => { return true; },
                 async (p) =>
                 {
-                    MessageBox.Show(LastPrice.ToString());
                     if (!string.IsNullOrEmpty(PhoneNumber))
                     {
                         CustomerDTO customer = await CustomerService.Ins.FindCustomerInfo(PhoneNumber);
