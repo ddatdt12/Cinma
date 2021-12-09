@@ -94,7 +94,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         private ObservableCollection<StaffDTO> _staffList;
         public ObservableCollection<StaffDTO> StaffList
         {
-        
+
             get => _staffList;
             set
             {
@@ -244,6 +244,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     wd.Role.Text = SelectedItem.Role;
                     wd.StartDate.Text = SelectedItem.StartingDate.ToString();
                     wd._TaiKhoan.Text = SelectedItem.Username;
+                    wd._Mail.Text = SelectedItem.Email;
 
                     Fullname = SelectedItem.Name;
                     Phone = SelectedItem.PhoneNumber;

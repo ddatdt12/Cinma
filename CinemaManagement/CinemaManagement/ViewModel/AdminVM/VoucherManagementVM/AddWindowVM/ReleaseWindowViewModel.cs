@@ -42,7 +42,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         }
 
 
-        public ICommand DeleteWaitingReleaseCM { get; set; }
         public ICommand MoreEmailCM { get; set; }
         public ICommand LessEmailCM { get; set; }
         public ICommand OpenReleaseVoucherCM { get; set; }
@@ -101,10 +100,9 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                         return;
                     }
                 }
-
             }
-            // input customer mail
-            else if (NumberCustomer == -1)
+            // input customer mail   // new customer
+            else if (NumberCustomer == -1 || NumberCustomer == 0)
             {
                 if (ListCustomerEmail.Count == 0)
                 {
@@ -128,9 +126,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     return;
                 }
             }
-
-            // new customer
-            //code here
 
 
             // Danh sách code và khách hàng
@@ -231,7 +226,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                             {
                                 foreach (var it in newcuslist)
                                 {
-                                    ListCustomerEmail.Add(new CustomerEmail { Email = it.Email });
+                                    if (!string.IsNullOrEmpty(it.Email))
+                                        ListCustomerEmail.Add(new CustomerEmail { Email = it.Email });
                                 }
                             }
                             ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
@@ -262,31 +258,30 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         }
 
         bool IsExport = false;
-        public  async Task ExportVoucherFunc()
+        public async Task ExportVoucherFunc()
         {
             using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
-                    Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
-                    app.Visible = false;
-                    Microsoft.Office.Interop.Excel.Workbook wb = app.Workbooks.Add(1);
-                    Microsoft.Office.Interop.Excel.Worksheet ws = (Microsoft.Office.Interop.Excel.Worksheet)wb.Worksheets[1];
-
-                    ws.Cells[1, 1] = "Tên đợt phát hành: " + SelectedItem.ReleaseName;
-                    ws.Cells[2, 1] = "Ngày phát hành: " + DateTime.Today;
-                    ws.Cells[3, 1] = "Hiệu lực đến: " + SelectedItem.FinishDate;
-                    ws.Cells[4, 1] = "Số lượng: " + ReleaseVoucherList.Count;
-                    ws.Cells[5, 1] = "Mệnh giá: " + Utils.Helper.FormatVNMoney(SelectedItem.ParValue);
-                    ws.Cells[6, 1] = "Mặt hàng áp dụng: " + SelectedItem.ObjectType;
-                    ws.Cells[8, 5] = "ID voucher";
-                    ws.Cells[8, 6] = "Mã voucher";
-
-
                     await Task.Run(() =>
                     {
+                        Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+                        app.Visible = false;
+                        Microsoft.Office.Interop.Excel.Workbook wb = app.Workbooks.Add(1);
+                        Microsoft.Office.Interop.Excel.Worksheet ws = (Microsoft.Office.Interop.Excel.Worksheet)wb.Worksheets[1];
+
+                        ws.Cells[1, 1] = "Tên đợt phát hành: " + SelectedItem.ReleaseName;
+                        ws.Cells[2, 1] = "Ngày phát hành: " + DateTime.Today;
+                        ws.Cells[3, 1] = "Hiệu lực đến: " + SelectedItem.FinishDate;
+                        ws.Cells[4, 1] = "Số lượng: " + ReleaseVoucherList.Count;
+                        ws.Cells[5, 1] = "Mệnh giá: " + Utils.Helper.FormatVNMoney(SelectedItem.ParValue);
+                        ws.Cells[6, 1] = "Mặt hàng áp dụng: " + SelectedItem.ObjectType;
+                        ws.Cells[8, 5] = "ID voucher";
+                        ws.Cells[8, 6] = "Mã voucher";
+
                         int i2 = 9;
+
                         foreach (var item in ReleaseVoucherList)
                         {
 
@@ -295,16 +290,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
                             i2++;
                         }
+                        ws.SaveAs(sfd.FileName);
+                        wb.Close();
+                        app.Quit();
+
+                        IsExport = true;
                     });
-                   
-                    ws.SaveAs(sfd.FileName);
-                    wb.Close();
-                    app.Quit();
-
-
-                    IsExport = true;
-                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
-
                 }
                 else
                 {
@@ -323,13 +314,13 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 {
                     listSendEmailTask.Add(sendEmailForACustomer(customerEmailList[i], ListCodePerEmailList[i]));
                 }
-                await Task.WhenAll(listSendEmailTask);
+                await Task.WhenAny(listSendEmailTask);
                 return (true, "Gửi thành công");
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return (false, "Phát sinh lỗi trong quá trình gửi mail. Vui lòng thử lại!");
-            }
+            }  
         }
 
         private Task sendEmailForACustomer(string customerEmail, List<string> listCode)
@@ -368,6 +359,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             mail.To.Add(customerEmail);
             mail.Subject = "Tri ân khách hàng thân thiết";
 
+            smtp.SendCompleted += (s, e) => smtp.Dispose();
             return smtp.SendMailAsync(mail);
         }
 

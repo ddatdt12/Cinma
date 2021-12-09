@@ -247,12 +247,10 @@
                                                             Cursor="Hand"
                                                             Height="35"
                                                             Width="35">
-                                                        <materialDesign:PackIcon Kind="Pencil"
-                                                                                 Height="30"
-                                                                                 Width="30"
-                                                                                 VerticalAlignment="Center"
-                                                                                 Margin="3"
-                                                                                 HorizontalAlignment="Center" />
+                                                        <Image Source="/Resources/IconPack/pencil.png"
+                                                               Width="30"
+                                                               Height="30"
+                                                               Cursor="Hand" />
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                                 <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.OpenEditFoodCommand}" />
@@ -266,12 +264,10 @@
                                                             Cursor="Hand"
                                                             Height="35"
                                                             Width="35">
-                                                        <materialDesign:PackIcon Kind="Bin"
-                                                                                 Height="30"
+                                                        <materialDesign:PackIcon Kind="GarbageCanEmpty"
                                                                                  Width="30"
-                                                                                 VerticalAlignment="Center"
-                                                                                 Margin="3"
-                                                                                 HorizontalAlignment="Center" />
+                                                                                 Height="30"
+                                                                                 Cursor="Hand" />
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                                 <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.DeleteFoodCommand}" />
