@@ -65,16 +65,23 @@
                 <StackPanel Grid.Column="1"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Right"
-                            Margin="0,0,10,5"
+                            Margin="0,0,-15,5"
                             Orientation="Horizontal">
                     <Grid>
-                        <Button Content="Phát hành voucher"
+                        <Button Content="Phát hành qua Mail"
                                 materialDesign:ButtonAssist.CornerRadius="5"
                                 Margin="0,0,10,0"
                                 FontWeight="Bold"
                                 x:Name="releasebtn"
                                 Command="{Binding OpenReleaseVoucherCM}"
                                 CommandParameter="{Binding ElementName=releasebtn}" />
+                    </Grid>
+                    <Grid>
+                        <Button Content="Phát hành qua Excel"
+                                materialDesign:ButtonAssist.CornerRadius="5"
+                                Margin="0,0,10,0"
+                                FontWeight="Bold"
+                                Command="{Binding ReleaseVoucherExcelCM}" />
                     </Grid>
 
 
@@ -145,23 +152,6 @@
                                                                      Height="25"
                                                                      VerticalAlignment="Center" />
                                             <TextBlock Text="Thêm danh sách voucher"
-                                                       Margin="5,0,0,0"
-                                                       FontSize="15"
-                                                       VerticalAlignment="Center" />
-                                        </StackPanel>
-                                    </MenuItem.Header>
-                                </MenuItem>
-                                <MenuItem Foreground="Black"
-                                          Background="LightGray"
-                                          Command="{Binding ReleaseVoucherExcelCM}">
-                                    <MenuItem.Header>
-                                        <StackPanel Orientation="Horizontal"
-                                                    Margin="-20,0,0,0">
-                                            <materialDesign:PackIcon Kind="FileExport"
-                                                                     Width="25"
-                                                                     Height="25"
-                                                                     VerticalAlignment="Center"/>
-                                            <TextBlock Text="Phát hành qua Excel"
                                                        Margin="5,0,0,0"
                                                        FontSize="15"
                                                        VerticalAlignment="Center" />

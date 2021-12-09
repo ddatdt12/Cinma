@@ -105,9 +105,15 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     MessageBoxCustom errorMessage = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     errorMessage.ShowDialog();
                 }
-                
+
             });
-            LoadAddInforCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
+            LoadAddInforCM = new RelayCommand<Card>((p) =>
+            {
+                if (Unlock == false) return false;
+                else
+                    return true;
+            },
+            (p) =>
             {
                 if (p is null) return;
                 ChangeView(p);
@@ -211,7 +217,13 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                  }
 
              });
-            LoadInforCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
+            LoadInforCM = new RelayCommand<Card>((p) =>
+            {
+                if (Unlock == false) return false;
+                else
+                    return true;
+            },
+            (p) =>
             {
                 ChangeView(p);
                 Edit_InforPage w = new Edit_InforPage();
@@ -337,22 +349,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 }
 
             });
-            DeleteWaitingReleaseCM = new RelayCommand<object>((p) => { return true; }, (p) =>
-            {
-                if (SelectedWaitingVoucher >= 0)
-                {
-                    foreach (var item in WaitingMiniVoucher)
-                    {
-                        if (item == ReleaseVoucherList[SelectedWaitingVoucher].Id)
-                        {
-                            WaitingMiniVoucher.Remove(item);
-                            break;
-                        }
-
-                    }
-                    ReleaseVoucherList.RemoveAt(SelectedWaitingVoucher);
-                }
-            });
             MoreEmailCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 foreach (var item in ListCustomerEmail)
@@ -379,10 +375,13 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 {
                     Email = "",
                 });
+                ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
+
             });
             LessEmailCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 ListCustomerEmail.RemoveAt(selectedWaitingVoucher);
+                ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
             });
 
             LoadViewCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
@@ -451,7 +450,9 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                         }
                     }
                 }
-                ExportVoucherFunc();
+                IsReleaseVoucherLoading = true;
+                await ExportVoucherFunc();
+                IsReleaseVoucherLoading = false;
                 if (IsExport)
                 {
                     (bool release, string message) = await VoucherService.Ins.ReleaseMultiVoucher(WaitingMiniVoucher);
@@ -500,7 +501,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 if (p is null) return;
                 ComboBoxItem selectedNum = (ComboBoxItem)p.SelectedItem;
                 ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(selectedNum.Content.ToString())));
-
             });
         }
         public void ChangeView(Card p)

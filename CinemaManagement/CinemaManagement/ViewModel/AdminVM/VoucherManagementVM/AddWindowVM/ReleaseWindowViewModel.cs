@@ -42,7 +42,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         }
 
 
-        public ICommand DeleteWaitingReleaseCM { get; set; }
         public ICommand MoreEmailCM { get; set; }
         public ICommand LessEmailCM { get; set; }
         public ICommand OpenReleaseVoucherCM { get; set; }
@@ -101,10 +100,9 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                         return;
                     }
                 }
-
             }
-            // input customer mail
-            else if (NumberCustomer == -1)
+            // input customer mail   // new customer
+            else if (NumberCustomer == -1 || NumberCustomer == 0)
             {
                 if (ListCustomerEmail.Count == 0)
                 {
@@ -128,9 +126,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     return;
                 }
             }
-
-            // new customer
-            //code here
 
 
             // Danh sách code và khách hàng
@@ -231,7 +226,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                             {
                                 foreach (var it in newcuslist)
                                 {
-                                    ListCustomerEmail.Add(new CustomerEmail { Email = it.Email });
+                                    if (!string.IsNullOrEmpty(it.Email))
+                                        ListCustomerEmail.Add(new CustomerEmail { Email = it.Email });
                                 }
                             }
                             ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
@@ -262,43 +258,44 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         }
 
         bool IsExport = false;
-        public void ExportVoucherFunc()
+        public async Task ExportVoucherFunc()
         {
             using (SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx", ValidateNames = true })
             {
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
-                    Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
-                    app.Visible = false;
-                    Microsoft.Office.Interop.Excel.Workbook wb = app.Workbooks.Add(1);
-                    Microsoft.Office.Interop.Excel.Worksheet ws = (Microsoft.Office.Interop.Excel.Worksheet)wb.Worksheets[1];
-
-                    ws.Cells[1, 1] = "Tên đợt phát hành: " + SelectedItem.ReleaseName;
-                    ws.Cells[2, 1] = "Ngày phát hành: " + DateTime.Today;
-                    ws.Cells[3, 1] = "Hiệu lực đến: " + SelectedItem.FinishDate;
-                    ws.Cells[4, 1] = "Số lượng: " + ReleaseVoucherList.Count;
-                    ws.Cells[5, 1] = "Mệnh giá: " + Utils.Helper.FormatVNMoney(SelectedItem.ParValue);
-                    ws.Cells[6, 1] = "Mặt hàng áp dụng: " + SelectedItem.ObjectType;
-                    ws.Cells[8, 5] = "ID voucher";
-                    ws.Cells[8, 6] = "Mã voucher";
-
-                    int i2 = 9;
-                    foreach (var item in ReleaseVoucherList)
+                    await Task.Run(() =>
                     {
+                        Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+                        app.Visible = false;
+                        Microsoft.Office.Interop.Excel.Workbook wb = app.Workbooks.Add(1);
+                        Microsoft.Office.Interop.Excel.Worksheet ws = (Microsoft.Office.Interop.Excel.Worksheet)wb.Worksheets[1];
 
-                        ws.Cells[i2, 5] = item.Id;
-                        ws.Cells[i2, 6] = item.Code;
+                        ws.Cells[1, 1] = "Tên đợt phát hành: " + SelectedItem.ReleaseName;
+                        ws.Cells[2, 1] = "Ngày phát hành: " + DateTime.Today;
+                        ws.Cells[3, 1] = "Hiệu lực đến: " + SelectedItem.FinishDate;
+                        ws.Cells[4, 1] = "Số lượng: " + ReleaseVoucherList.Count;
+                        ws.Cells[5, 1] = "Mệnh giá: " + Utils.Helper.FormatVNMoney(SelectedItem.ParValue);
+                        ws.Cells[6, 1] = "Mặt hàng áp dụng: " + SelectedItem.ObjectType;
+                        ws.Cells[8, 5] = "ID voucher";
+                        ws.Cells[8, 6] = "Mã voucher";
 
-                        i2++;
-                    }
-                    ws.SaveAs(sfd.FileName);
-                    wb.Close();
-                    app.Quit();
+                        int i2 = 9;
 
-                    IsExport = true;
-                    Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+                        foreach (var item in ReleaseVoucherList)
+                        {
 
+                            ws.Cells[i2, 5] = item.Id;
+                            ws.Cells[i2, 6] = item.Code;
+
+                            i2++;
+                        }
+                        ws.SaveAs(sfd.FileName);
+                        wb.Close();
+                        app.Quit();
+
+                        IsExport = true;
+                    });
                 }
                 else
                 {
@@ -319,20 +316,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             {
                 await Task.WhenAll(listSendEmailTask);
                 return (true, "Gửi thành công");
-            }
-            catch (System.Data.Entity.Core.EntityException e)
-            {
-                Console.WriteLine(e);
-                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
-                mb.ShowDialog();
-                throw;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
-                mb.ShowDialog();
-                throw;
             }
         }
 

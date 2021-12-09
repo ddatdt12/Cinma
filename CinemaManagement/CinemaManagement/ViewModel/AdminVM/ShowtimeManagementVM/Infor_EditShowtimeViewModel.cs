@@ -113,7 +113,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         }
         public async Task GenerateSeat()
         {
-            Mouse.OverrideCursor = Cursors.Wait;
             try
             {
                 ListSeat = new List<SeatSettingDTO>(await SeatService.Ins.GetSeatsByShowtime(SelectedShowtime.Id));
@@ -150,7 +149,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 if (item.Status)
                     IsBought++;
             }
-            Mouse.OverrideCursor = Cursors.Arrow;
             IsFree = ListSeat.Count - IsBought;
         }
     }

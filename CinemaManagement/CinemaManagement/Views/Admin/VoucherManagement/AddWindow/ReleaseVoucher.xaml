@@ -96,24 +96,6 @@
                                                    Margin="40,0,0,0"
                                                    FontSize="15"
                                                    Text="{Binding Code}" />
-                                        <Border>
-                                            <Label Margin="200,0,0,0"
-                                                   Content="x"
-                                                   Width="30"
-                                                   Height="30"
-                                                   FontSize="20"
-                                                   Background="Transparent"
-                                                   Foreground="Black"
-                                                   Cursor="Hand"
-                                                   BorderBrush="Black"
-                                                   materialDesign:ButtonAssist.CornerRadius="5">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=listbox, Path=DataContext.DeleteWaitingReleaseCM}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Label>
-                                        </Border>
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -272,7 +254,7 @@
                                                     <TextBox Padding="0,10,0,0"
                                                              FontSize="15"
                                                              materialDesign:HintAssist.Hint="Email"
-                                                             Text="{Binding  Email,Mode=OneWayToSource}" />
+                                                             Text="{Binding  Email,Mode=TwoWay}" />
                                                     <Border>
                                                         <Label Content="x"
                                                                Width="30"
