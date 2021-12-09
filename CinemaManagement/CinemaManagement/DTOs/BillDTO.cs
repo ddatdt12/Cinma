@@ -91,5 +91,6 @@ namespace CinemaManagement.DTOs
         //Use 2 list when show details Bill
         public List<ProductBillInfoDTO> ProductBillInfoes { get; set; }
         public TicketBillInfoDTO TicketInfo { get; set; }
+        public List<string> VoucherIdList { get; set; }
     }
 }

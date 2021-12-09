@@ -192,7 +192,7 @@
                                                         Orientation="Horizontal"
                                                         Margin="60,0,0,0">
                                                 <Border BorderBrush="Black"
-                                                        BorderThickness="2"
+                                                        BorderThickness="1"
                                                         CornerRadius="6"
                                                         Cursor="Hand">
                                                     <Image Source="/Resources/IconPack/pencil.png"
@@ -207,7 +207,7 @@
                                                 </Border>
                                                 <Border Margin="10 0 0 0"
                                                         BorderBrush="Black"
-                                                        BorderThickness="2"
+                                                        BorderThickness="1"
                                                         CornerRadius="6"
                                                         Cursor="Hand">
                                                     <materialDesign:PackIcon Kind="GarbageCanEmpty"

@@ -87,11 +87,25 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
             LoadAddWindowCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                AddVoucherWindow w = new AddVoucherWindow();
-                BindStaffID = StaffID;
-                Unlock = false;
-                ShadowMask.Visibility = Visibility.Visible;
-                w.ShowDialog();
+                try
+                {
+                    AddVoucherWindow w = new AddVoucherWindow();
+                    BindStaffID = StaffID;
+                    Unlock = false;
+                    ShadowMask.Visibility = Visibility.Visible;
+                    w.ShowDialog();
+                }
+                catch (System.Data.Entity.Core.EntityException)
+                {
+                    MessageBoxCustom errorMessage = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                    errorMessage.ShowDialog();
+                }
+                catch (Exception)
+                {
+                    MessageBoxCustom errorMessage = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    errorMessage.ShowDialog();
+                }
+                
             });
             LoadAddInforCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
             {
