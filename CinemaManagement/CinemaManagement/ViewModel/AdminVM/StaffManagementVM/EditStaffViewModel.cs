@@ -41,18 +41,18 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     MaskName.Visibility = Visibility.Collapsed;
                     LoadStaffListView(Utils.Operation.UPDATE, staff);
                     p.Close();
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateStaff, MessageType.Success, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdateStaff, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateStaff, MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromUpdateStaff, MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
             }
             else
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", error, MessageType.Warning, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", error, MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
             }
         }

@@ -32,19 +32,19 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     LoadProductListView(Operation.CREATE, newProduct);
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddProduct, MessageType.Success, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromAddProduct, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     filepath = null; 
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddProduct, MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromAddProduct, MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
             }
             else
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin", MessageType.Warning, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Vui lòng nhập đủ thông tin", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
             }
 

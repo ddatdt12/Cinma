@@ -80,7 +80,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 if (successUpdateMovie)
                 {
                     SaveImgToApp();
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateMovie, MessageType.Success, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdateMovie, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     LoadMovieListView(Operation.UPDATE, movie);
 
@@ -89,13 +89,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateMovie, MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromUpdateMovie, MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
             }
             else
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
             }
         }

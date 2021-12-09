@@ -43,7 +43,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
                 if (IsSuccess)
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Success, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", message, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     await ReloadShowtimeList(SelectedRoomId);
                     ShadowMask.Visibility = Visibility.Collapsed;
@@ -51,13 +51,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", message, MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
             }
             else
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đầy đủ thông tin!", MessageType.Warning, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Vui lòng nhập đầy đủ thông tin!", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
             }
         }

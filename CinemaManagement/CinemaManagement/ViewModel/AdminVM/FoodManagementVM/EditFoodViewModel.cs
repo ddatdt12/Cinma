@@ -76,21 +76,21 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 {
                     SaveImgToApp();
                     LoadProductListView(Operation.UPDATE, product);
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateProduct, MessageType.Success, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdateProduct, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdateProduct, MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromUpdateProduct, MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
 
             }
             else
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
             }
         }

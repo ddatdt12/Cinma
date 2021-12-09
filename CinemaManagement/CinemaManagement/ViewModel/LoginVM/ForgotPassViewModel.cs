@@ -78,7 +78,7 @@ namespace CinemaManagement.ViewModel
                     }
                     else
                     {
-                        MessageBoxCustom mb = new MessageBoxCustom("", "Mã bảo mật sai", MessageType.Error, MessageButtons.OK);
+                        MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mã bảo mật sai", MessageType.Error, MessageButtons.OK);
                         mb.ShowDialog();
                         return;
                     }
@@ -112,7 +112,7 @@ namespace CinemaManagement.ViewModel
                  }
                  catch(Exception)
                  {
-                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                      mb.ShowDialog();
                  }
              });
@@ -131,13 +131,13 @@ namespace CinemaManagement.ViewModel
                      if (updatedSuccess)
                      {
                          p.Content = "";
-                         MessageBoxCustom mb = new MessageBoxCustom("", "Đổi mật khẩu thành công!", MessageType.Success, MessageButtons.OK);
+                         MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Đổi mật khẩu thành công!", MessageType.Success, MessageButtons.OK);
                          mb.ShowDialog();
                          LoginViewModel.MainFrame.Content = new LoginPage();
                      }
                      else
                      {
-                         MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Error, MessageButtons.OK);
+                         MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromUpdate, MessageType.Error, MessageButtons.OK);
                          mb.ShowDialog();
                          return;
                      }

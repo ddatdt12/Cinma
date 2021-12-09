@@ -36,19 +36,19 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                         LoadProductListView(Operation.UPDATE_PROD_QUANTITY);
                         MaskName.Visibility = Visibility.Collapsed;
                         p.Close();
-                        MessageBoxCustom mb = new MessageBoxCustom("", messageFromAddProductReceipt, MessageType.Success, MessageButtons.OK);
+                        MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromAddProductReceipt, MessageType.Success, MessageButtons.OK);
                         mb.ShowDialog();
                     }
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Số lượng hoặc giá nhập không hợp lệ!", MessageType.Warning, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Số lượng hoặc giá nhập không hợp lệ!", MessageType.Warning, MessageButtons.OK);
                     mb.ShowDialog();
                 }
             }
             else
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng chọn sản phẩm!", MessageType.Warning, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Vui lòng chọn sản phẩm!", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
             }
         }

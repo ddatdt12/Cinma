@@ -18,19 +18,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 if (updatePassSuccesss)
                 {
                     p.Close();
-                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Success, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", message, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", message, MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
 
             }
             else
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", error, MessageType.Warning, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", error, MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
             }
         }

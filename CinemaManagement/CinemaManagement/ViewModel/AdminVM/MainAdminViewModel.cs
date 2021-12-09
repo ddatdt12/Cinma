@@ -149,7 +149,7 @@ namespace CinemaManagement.ViewModel
             {
                 if (SelectedStatus is null)
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Không hợp lệ!", MessageType.Warning, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Không hợp lệ!", MessageType.Warning, MessageButtons.OK);
                     mb.ShowDialog();
                     return;
                 }

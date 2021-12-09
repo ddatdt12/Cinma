@@ -166,14 +166,14 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                  catch (System.Data.Entity.Core.EntityException e)
                  {
                      Console.WriteLine(e);
-                     MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                      mb.ShowDialog();
                      throw;
                  }
                  catch (Exception e)
                  {
                      Console.WriteLine(e);
-                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                      mb.ShowDialog();
                      throw;
                  }
@@ -194,13 +194,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                  if (isShowHaveBooking)
                  {
                      message = $"Suất chiếu này có ghế đã được đặt. Bạn có muốn xoá không?";
-                     MessageBoxCustom ms = new MessageBoxCustom("", message, MessageType.Warning, MessageButtons.YesNo);
+                     MessageBoxCustom ms = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
                      ms.ShowDialog();
                      return;
                  }
 
 
-                 MessageBoxCustom result = new MessageBoxCustom("", message, MessageType.Warning, MessageButtons.YesNo);
+                 MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
                  result.ShowDialog();
                  if (result.DialogResult == true)
                  {
@@ -215,12 +215,12 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                          oldSelectedItem = SelectedItem;
                          await ReloadShowtimeList(SelectedRoomId);
                          SelectedShowtime = null;
-                         MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Success, MessageButtons.OK);
+                         MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelete, MessageType.Success, MessageButtons.OK);
                          mb.ShowDialog();
                      }
                      else
                      {
-                         MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Error, MessageButtons.OK);
+                         MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromDelete, MessageType.Error, MessageButtons.OK);
                          mb.ShowDialog();
                      }
 
@@ -302,12 +302,12 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 if (IsSuccess)
                 {
                     SelectedShowtime.TicketPrice = moviePrice;
-                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Success, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", message, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", message, MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", message, MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
             });
@@ -330,14 +330,14 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 catch (System.Data.Entity.Core.EntityException e)
                 {
                     Console.WriteLine(e);
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                     throw;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                     throw;
                 }
@@ -351,14 +351,14 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 catch (System.Data.Entity.Core.EntityException e)
                 {
                     Console.WriteLine(e);
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                     throw;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                     throw;
                 }

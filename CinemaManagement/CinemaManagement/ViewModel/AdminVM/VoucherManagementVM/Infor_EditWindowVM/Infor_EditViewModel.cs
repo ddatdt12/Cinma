@@ -130,7 +130,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         {
             if (string.IsNullOrEmpty(Name))
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin", MessageType.Warning, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Vui lòng nhập đủ thông tin", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
                 return;
             }
@@ -155,7 +155,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
             if (isSucess)
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", addSuccess, MessageType.Success, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Thông báo", addSuccess, MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
 
                 try
@@ -170,14 +170,14 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 catch (System.Data.Entity.Core.EntityException e)
                 {
                     Console.WriteLine(e);
-                    MessageBoxCustom m = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom m = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     m.ShowDialog();
                     throw;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    MessageBoxCustom m = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom m = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     m.ShowDialog();
                     throw;
                 }
@@ -185,7 +185,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             }
             else
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", addSuccess, MessageType.Error, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", addSuccess, MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
             }
         }
@@ -193,7 +193,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         {
             if (WaitingMiniVoucher.Count == 0)
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Danh sách chọn đang trống!", MessageType.Warning, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Danh sách chọn đang trống!", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
                 return;
             }
@@ -202,7 +202,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
             if (deleteSuccess)
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Success, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelete, MessageType.Success, MessageButtons.OK);
                 mb.ShowDialog();
                 try
                 {
@@ -216,21 +216,21 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 catch (System.Data.Entity.Core.EntityException e)
                 {
                     Console.WriteLine(e);
-                    MessageBoxCustom m = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom m = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     m.ShowDialog();
                     throw;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    MessageBoxCustom m = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom m = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     m.ShowDialog();
                     throw;
                 }
             }
             else
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelete, MessageType.Error, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromDelete, MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
             }
         }

@@ -173,14 +173,14 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 catch (System.Data.Entity.Core.EntityException e)
                 {
                     Console.WriteLine(e);
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                     throw;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                     throw;
                 }
@@ -239,13 +239,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                                  File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
                                  LoadMovieListView(Operation.DELETE);
                                  SelectedItem = null;
-                                 MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
+                                 MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
                                  mb.ShowDialog();
                                  break;
                              }
                              else
                              {
-                                 MessageBoxCustom mb = new MessageBoxCustom("", messageFromDelMovie, MessageType.Error, MessageButtons.OK);
+                                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromDelMovie, MessageType.Error, MessageButtons.OK);
                                  mb.ShowDialog();
                                  break;
                              }
