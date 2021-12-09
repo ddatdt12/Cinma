@@ -147,7 +147,7 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     bool usernameIsExist = context.Staffs.Any(s => s.Username == updatedStaff.Username && s.Id != updatedStaff.Id);
-                    bool emailIsExist = await context.Staffs.AnyAsync(s => s.Email == updatedStaff.Email);
+                    bool emailIsExist = await context.Staffs.AnyAsync(s => s.Email == updatedStaff.Email && s.Id != updatedStaff.Id);
                     if (usernameIsExist)
                     {
                         return (false, "Tài khoản đăng nhập đã tồn tại");

@@ -124,7 +124,7 @@ namespace CinemaManagement.Models.Services
                     AddNewTickets(context, billId, newTicketList);
 
                     //Product
-                    bool addSuccess = AddNewProductBills(context, billId, orderedProductList);
+                    bool addSuccess = await AddNewProductBills(context, billId, orderedProductList);
                     if (!addSuccess)
                     {
                         return (false, "Số lượng sản phẩm không đủ để đáp ứng!");
@@ -156,7 +156,7 @@ namespace CinemaManagement.Models.Services
                     string billId = await CreateNewBill(context, bill);
 
                     //Product
-                    bool addSuccess = AddNewProductBills(context, billId, orderedProductList);
+                    bool addSuccess = await AddNewProductBills(context, billId, orderedProductList);
                     if (!addSuccess)
                     {
                         return (false, "Số lượng sản phẩm không đủ để đáp ứng!");
@@ -215,7 +215,7 @@ namespace CinemaManagement.Models.Services
             context.Tickets.AddRange(ticketList);
         }
 
-        private bool AddNewProductBills(CinemaManagementEntities context, string billId, List<ProductBillInfoDTO> orderedProductList)
+        private async Task<bool> AddNewProductBills(CinemaManagementEntities context, string billId, List<ProductBillInfoDTO> orderedProductList)
         {
             List<ProductBillInfo> prodBillList = new List<ProductBillInfo>();
 
@@ -230,7 +230,7 @@ namespace CinemaManagement.Models.Services
                     PricePerItem = orderedProductList[i].PricePerItem,
                     Quantity = orderedProductList[i].Quantity
                 });
-                var Product = context.Products.Find(orderedProductList[i].ProductId);
+                var Product = await context.Products.FindAsync(orderedProductList[i].ProductId);
                 Product.Quantity -= orderedProductList[i].Quantity;
 
                 if (Product.Quantity < 0)

@@ -90,7 +90,7 @@ namespace CinemaManagement.Models.Services
 
                     context.Customers.Add(cus);
                     await context.SaveChangesAsync();
-                    return (true, "", cus.Id);
+                    return (true, "Đăng ký thành công", cus.Id);
                 }
             }
             catch (Exception e)
