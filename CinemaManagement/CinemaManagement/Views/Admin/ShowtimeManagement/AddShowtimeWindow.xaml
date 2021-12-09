@@ -13,6 +13,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="550"
         Width="800"
+        PreviewKeyUp="AddSuatChieu_PreviewKeyUp"
         x:Name="AddSuatChieu"
         MouseDown="AddSuatChieu_MouseDown"
         DataContext="{StaticResource ShowtimeManagementVM}"

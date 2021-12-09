@@ -75,13 +75,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             set { _Quantity = value; OnPropertyChanged(); }
         }
 
-        private string _FilterName;
-        public string FilterName
-        {
-            get { return _FilterName; }
-            set { _FilterName = value; OnPropertyChanged(); }
-        }
-
         #endregion
 
         string filepath;
@@ -105,7 +98,14 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             }
         }
 
-        public ICommand FilterTboxFoodCommand { get; set; }
+        private static ObservableCollection<ProductDTO> storeAllFood;
+        public static ObservableCollection<ProductDTO> StoreAllFood
+        {
+            get { return storeAllFood; }
+            set { storeAllFood = value; }
+        }
+
+
         public ICommand FilterCboxFoodCommand { get; set; }
         public ICommand ImportFoodChangeCommand { get; set; }
 
@@ -133,6 +133,12 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             set { _SelectedItem = value; OnPropertyChanged(); }
         }
 
+        private bool isLoadding;
+        public bool IsLoadding
+        {
+            get { return isLoadding; }
+            set { isLoadding = value; OnPropertyChanged(); }
+        }
 
 
         //SelectedProduct Dùng khi nhập hàng thêm số lượng sản phẩm
@@ -153,107 +159,73 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
              {
                  try
                  {
-                     FoodList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+                     IsLoadding = true;
+                     StoreAllFood = new ObservableCollection<ProductDTO>(await Task.Run(() => ProductService.Ins.GetAllProduct()));
+                     FoodList = new ObservableCollection<ProductDTO>(StoreAllFood);
+                     IsLoadding = false;
+                 }
+                 catch (System.Data.Entity.Core.EntityException e)
+                 {
+                     Console.WriteLine(e);
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                     mb.ShowDialog();
+                     throw;
                  }
                  catch (Exception e)
                  {
-                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống " + e.Message, MessageType.Error, MessageButtons.OK);
+                     Console.WriteLine(e);
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                      mb.ShowDialog();
+                     throw;
                  }
 
-                 FilterName = "";
                  IsImageChanged = false;
              });
-            FilterTboxFoodCommand = new RelayCommand<System.Windows.Controls.TextBox>((p) => { return true; }, async (p) =>
-                 {
-                     try
-                     {
-                         ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
-                         FoodList.Clear();
-                         string temp = p.Text.ToLower();
-                         if (Category.Content.ToString() == "Tất cả")
-                         {
-                             for (int i = 0; i < tempList.Count; i++)
-                             {
-                                 if (tempList[i].DisplayName.ToLower().Contains(temp))
-                                 {
-                                     FoodList.Add(tempList[i]);
-                                 }
-                             }
-                         }
-                         else if (Category.Content.ToString() == "Đồ ăn")
-                         {
-                             for (int i = 0; i < tempList.Count; i++)
-                             {
-                                 if (tempList[i].Category == "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
-                                 {
-                                     FoodList.Add(tempList[i]);
-                                 }
-                             }
-                         }
-                         else
-                         {
-                             for (int i = 0; i < tempList.Count; i++)
-                             {
-                                 if (tempList[i].Category != "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
-                                 {
-                                     FoodList.Add(tempList[i]);
-                                 }
-                             }
-                         }
-                     }
-                     catch (Exception)
-                     {
-                         MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
-                         mb.ShowDialog();
-                     }
-                 });
 
             FilterCboxFoodCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
                 {
                     try
                     {
-                        ObservableCollection<ProductDTO> tempList = new ObservableCollection<ProductDTO>();
+                        FoodList = new ObservableCollection<ProductDTO>();
 
-                        tempList = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
-
-                        FoodList.Clear();
-                        string temp = FilterName.ToLower();
                         if (Category.Content.ToString() == "Tất cả")
                         {
-                            for (int i = 0; i < tempList.Count; i++)
-                            {
-                                if (tempList[i].DisplayName.ToLower().Contains(temp))
-                                {
-                                    FoodList.Add(tempList[i]);
-                                }
-                            }
+                            FoodList = new ObservableCollection<ProductDTO>(StoreAllFood);
                         }
                         else if (Category.Content.ToString() == "Đồ ăn")
                         {
-                            for (int i = 0; i < tempList.Count; i++)
+                            for (int i = 0; i < StoreAllFood.Count; i++)
                             {
-                                if (tempList[i].Category == "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
+                                if (StoreAllFood[i].Category == "Đồ ăn")
                                 {
-                                    FoodList.Add(tempList[i]);
+                                    FoodList.Add(StoreAllFood[i]);
                                 }
                             }
                         }
                         else
                         {
-                            for (int i = 0; i < tempList.Count; i++)
+                            for (int i = 0; i < StoreAllFood.Count; i++)
                             {
-                                if (tempList[i].Category != "Đồ ăn" && tempList[i].DisplayName.ToLower().Contains(temp))
+                                if (StoreAllFood[i].Category != "Đồ ăn")
                                 {
-                                    FoodList.Add(tempList[i]);
+                                    FoodList.Add(StoreAllFood[i]);
                                 }
                             }
                         }
                     }
-                    catch (Exception)
+                    catch (System.Data.Entity.Core.EntityException e)
                     {
-                        MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                        Console.WriteLine(e);
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                         mb.ShowDialog();
+                        throw;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
+                        throw;
                     }
 
                 });
@@ -396,17 +368,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
               {
                   MaskName = p;
               });
-
-            MouseMoveWindowCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
-            {
-                FrameworkElement window = GetWindowParent(p);
-                var w = window as Window;
-                if (w != null)
-                {
-                    w.DragMove();
-                }
-            }
-            );
         }
 
         public void LoadImage()
@@ -471,10 +432,12 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             {
                 case Operation.CREATE:
                     FoodList.Add(product);
+                    StoreAllFood.Add(product);
                     break;
                 case Operation.UPDATE:
                     var productFound = FoodList.FirstOrDefault(s => s.Id == product.Id);
                     FoodList[FoodList.IndexOf(productFound)] = product;
+                    StoreAllFood[StoreAllFood.IndexOf(productFound)] = product;
                     break;
                 case Operation.UPDATE_PROD_QUANTITY:
                     var productFounded = FoodList.FirstOrDefault(s => s.Id == SelectedProduct.Id);
@@ -488,6 +451,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                         Price = productFounded.Price,
                     };
                     FoodList[FoodList.IndexOf(productFounded)] = updatedProd;
+                    StoreAllFood[StoreAllFood.IndexOf(productFounded)] = updatedProd;
                     break;
                 case Operation.DELETE:
                     for (int i = 0; i < FoodList.Count; i++)
@@ -495,6 +459,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                         if (FoodList[i].Id == Id)
                         {
                             FoodList.Remove(FoodList[i]);
+                            StoreAllFood.Remove(StoreAllFood[i]);
                             break;
                         }
                     }

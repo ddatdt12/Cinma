@@ -20,7 +20,7 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
-        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private static readonly Regex _regex = new Regex("[^0-9]+"); //regex that matches disallowed text
         private static bool IsTextAllowed(string text)
         {
             return !_regex.IsMatch(text);
@@ -32,6 +32,7 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
 
             e.Handled = true;
             this.Close();
+            MovieManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
         }
 
 

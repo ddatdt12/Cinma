@@ -18,7 +18,7 @@ namespace CinemaManagement.Views.Admin.FoodManagementPage
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
-        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private static readonly Regex _regex = new Regex("[^0-9]+"); //regex that matches disallowed text
         private static bool IsTextAllowed(string text)
         {
             return !_regex.IsMatch(text);
@@ -34,7 +34,7 @@ namespace CinemaManagement.Views.Admin.FoodManagementPage
 
         private void AddFoodWd_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            //this.DragMove();
+            this.DragMove();
         }
 
     }

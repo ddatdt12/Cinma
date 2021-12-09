@@ -216,11 +216,19 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     ListViewVoucher = new ObservableCollection<VoucherDTO>(SelectedItem.Vouchers);
                     StoreAllMini = new ObservableCollection<VoucherDTO>(ListViewVoucher);
                 }
-                catch (Exception)
+                catch (System.Data.Entity.Core.EntityException e)
                 {
+                    Console.WriteLine(e);
+                    MessageBoxCustom m = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                    m.ShowDialog();
+                    throw;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
                     MessageBoxCustom m = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     m.ShowDialog();
-                    ;
+                    throw;
                 }
 
             }
@@ -397,11 +405,19 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 //StoreAllMini = new ObservableCollection<VoucherDTO>(voucherReleaseDetail.Vouchers);
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(StoreAllMini);
             }
-            catch (Exception)
+            catch (System.Data.Entity.Core.EntityException e)
             {
-
-                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống!", MessageType.Error, MessageButtons.OK);
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
             }
         }
     }

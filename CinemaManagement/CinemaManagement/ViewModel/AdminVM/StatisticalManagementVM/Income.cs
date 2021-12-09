@@ -3,6 +3,7 @@ using CinemaManagement.Utils;
 using CinemaManagement.Views;
 using LiveCharts;
 using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -242,10 +243,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             }
             };
             }
-            catch (System.Exception)
+            catch (System.Data.Entity.Core.EntityException e)
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
             }
         }
         public async Task LoadIncomeByMonth()
@@ -293,12 +303,20 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             };
 
             }
-            catch (System.Exception)
+            catch (System.Data.Entity.Core.EntityException e)
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống ", MessageType.Error, MessageButtons.OK);
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
+                throw;
             }
-
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
         }
         public void CalculateTrueIncome(List<decimal> l1, List<decimal> l2)
         {

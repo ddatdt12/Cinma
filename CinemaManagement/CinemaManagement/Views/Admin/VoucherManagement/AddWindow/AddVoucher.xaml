@@ -151,6 +151,23 @@
                                         </StackPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
+                                <MenuItem Foreground="Black"
+                                          Background="LightGray"
+                                          Command="{Binding ReleaseVoucherExcelCM}">
+                                    <MenuItem.Header>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Margin="-20,0,0,0">
+                                            <materialDesign:PackIcon Kind="FileExport"
+                                                                     Width="25"
+                                                                     Height="25"
+                                                                     VerticalAlignment="Center"/>
+                                            <TextBlock Text="Phát hành qua Excel"
+                                                       Margin="5,0,0,0"
+                                                       FontSize="15"
+                                                       VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
                             </MenuItem>
                         </Menu>
                     </Border>

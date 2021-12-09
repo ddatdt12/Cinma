@@ -25,7 +25,7 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
-        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private static readonly Regex _regex = new Regex("[^0-9]+"); //regex that matches disallowed text
         private static bool IsTextAllowed(string text)
         {
             return !_regex.IsMatch(text);
@@ -50,7 +50,7 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
                 e.Handled = true;
             }
         }
-    
+
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
@@ -68,6 +68,15 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
         {
             MovieManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
             this.Close();
+        }
+
+        private void EditMovieWindow_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key != System.Windows.Input.Key.Escape) return;
+
+            e.Handled = true;
+            this.Close();
+            MovieManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -19,7 +19,7 @@
         WindowStartupLocation="CenterScreen"
         Name="EditFoodWd"
         ResizeMode="NoResize"
-        Title="EditFoodWindow"
+        MouseLeftButtonDown="EditFoodWd_MouseLeftButtonDown"
         Height="400"
         Width="280">
 
@@ -95,12 +95,6 @@
                                            FontWeight="DemiBold"
                                            FontSize="20" />
                             </StackPanel>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                    <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}"
-                                                           CommandParameter="{Binding ElementName=EditFoodWd}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
                         </materialDesign:ColorZone>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
@@ -137,6 +131,8 @@
                             <TextBlock Text="Giá tiền" />
                             <TextBox Grid.Column="1"
                                      x:Name="_price"
+                                     PreviewTextInput="_price_PreviewTextInput"
+                                     TextChanged="TextBox_TextChanged"
                                      Text="{Binding Price, Mode=TwoWay}" />
                         </Grid>
                         <Grid Grid.Row="4">
@@ -156,17 +152,29 @@
                                 </Border>
                             </Grid>
                             <Grid Grid.Column="1">
-                                <Image Source="/Resources/Images/ImageFood/add-image.png"
+                                <!--<Image Source="/Resources/Images/ImageFood/add-image.png"
                                        Margin="5 50 0 0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Bottom"
                                        Height="30"
-                                       Cursor="Hand" />
-                                <i:Interaction.Triggers>
+                                       Cursor="Hand" />-->
+                                <Button Padding="0"
+                                        Width="40"
+                                        VerticalAlignment="Bottom"
+                                        Margin="0,0,0,50"
+                                        materialDesign:ButtonAssist.CornerRadius="5"
+                                        Command="{Binding UpLoadImageCommand}">
+                                    <Button.Content>
+                                        <materialDesign:PackIcon Kind="FolderUpload"
+                                                                 Height="21"
+                                                                 Width="23" />
+                                    </Button.Content>
+                                </Button>
+                                <!--<i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseLeftButtonDown">
                                         <i:InvokeCommandAction Command="{Binding UpLoadImageCommand}" />
                                     </i:EventTrigger>
-                                </i:Interaction.Triggers>
+                                </i:Interaction.Triggers>-->
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="5">

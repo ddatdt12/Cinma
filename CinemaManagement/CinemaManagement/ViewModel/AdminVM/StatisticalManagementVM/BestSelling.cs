@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Views;
 using LiveCharts;
 using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -102,10 +103,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             {
                 Top5Movie = await StatisticsService.Ins.GetTop5BestMovieByYear(int.Parse(SelectedBestSellTime));
             }
-            catch (System.Exception)
+            catch (System.Data.Entity.Core.EntityException e)
             {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
+                throw;
             }
 
 
@@ -133,10 +143,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             {
                 Top5Movie = await StatisticsService.Ins.GetTop5BestMovieByMonth(int.Parse(SelectedBestSellTime.Remove(0, 6)));
             }
-            catch (System.Exception)
+            catch (System.Data.Entity.Core.EntityException e)
             {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
+                throw;
             }
 
 
@@ -193,10 +212,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             {
                 Top5Product = await StatisticsService.Ins.GetTop5BestProductByYear(int.Parse(SelectedBestSellTime2));
             }
-            catch (System.Exception)
+            catch (System.Data.Entity.Core.EntityException e)
             {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
+                throw;
             }
 
 
@@ -225,10 +253,19 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 Top5Product = await StatisticsService.Ins.GetTop5BestProductByMonth(int.Parse(SelectedBestSellTime2.Remove(0, 6)));
 
             }
-            catch (System.Exception)
+            catch (System.Data.Entity.Core.EntityException e)
             {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
+                throw;
             }
 
             List<decimal> chartdata = new List<decimal>();

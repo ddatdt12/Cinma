@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using CinemaManagement.ViewModel;
+using System.Windows.Controls;
 
 namespace CinemaManagement.Views.LoginWindow
 {

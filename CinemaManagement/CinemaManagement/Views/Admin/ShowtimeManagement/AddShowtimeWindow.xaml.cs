@@ -26,7 +26,7 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
-        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private static readonly Regex _regex = new Regex("[^0-9]+"); //regex that matches disallowed text
         private static bool IsTextAllowed(string text)
         {
             return !_regex.IsMatch(text);
@@ -38,7 +38,7 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
             if (tb.Text.Length == 0)
                 tb.Text = "0";
         }
-       
+
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
@@ -56,6 +56,19 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
         {
             this.Close();
             ShowtimeManagementViewModel.ShadowMask.Visibility = Visibility.Collapsed;
+        }
+
+        private void AddSuatChieu_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Escape:
+                    {
+                        this.Close();
+                        ShowtimeManagementViewModel.ShadowMask.Visibility = Visibility.Collapsed;
+                        return;
+                    }
+            }
         }
     }
 }

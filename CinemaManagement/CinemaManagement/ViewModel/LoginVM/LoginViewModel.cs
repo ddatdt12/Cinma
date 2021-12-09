@@ -84,7 +84,6 @@ namespace CinemaManagement.ViewModel
                  await CheckValidateAccount(username, password, p);
 
                  IsLoading = false;
-                 //await CheckValidateAccount(username, password, p);
              });
             PasswordChangedCM = new RelayCommand<PasswordBox>((p) => { return true; }, (p) =>
             {

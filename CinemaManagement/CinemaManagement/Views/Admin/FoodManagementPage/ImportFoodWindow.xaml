@@ -12,12 +12,13 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="Transparent"
-        FontFamily="{DynamicResource MaterialDesignFont}"
         DataContext="{StaticResource FoodManagementVM}"
         WindowStyle="None"
+        FontFamily="arial"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Name="ImportFoodWd"
+        MouseLeftButtonDown="ImportFoodWd_MouseLeftButtonDown"
         ResizeMode="NoResize"
         Height="250"
         Width="550">
@@ -87,12 +88,6 @@
                                        FontWeight="DemiBold"
                                        FontSize="20" />
                         </StackPanel>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding MouseMoveWindowCommand}"
-                                                       CommandParameter="{Binding ElementName=ImportFoodWd}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
                     </Border>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -136,6 +131,8 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="Số lượng" />
                                 <TextBox Grid.Column="1"
+                                         PreviewTextInput="_price_PreviewTextInput"
+                                         TextChanged="TextBox_TextChanged"
                                          Text="{Binding Quantity, Mode=TwoWay}" />
                             </Grid>
                             <Grid Grid.Row="2">
@@ -146,6 +143,8 @@
                                 <TextBlock Text="Giá nhập"
                                            x:Name="tboxName" />
                                 <TextBox Grid.Column="1"
+                                         PreviewTextInput="_price_PreviewTextInput"
+                                         TextChanged="TextBox_TextChanged"
                                          Text="{Binding Price, Mode=TwoWay}" />
                             </Grid>
 

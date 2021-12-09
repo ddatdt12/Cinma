@@ -162,11 +162,19 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                     {
                         BillDetail = await BillService.Ins.GetBillDetails(SelectedTicketBill.Id);
                     }
-                    catch (Exception)
+                    catch (System.Data.Entity.Core.EntityException e)
                     {
+                        Console.WriteLine(e);
+                        MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                        mb.ShowDialog();
+                        throw;
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
                         MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                         mb.ShowDialog();
-                        return;
+                        throw;
                     }
 
                     if (BillDetail.TicketInfo is null)
@@ -326,12 +334,19 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                             IsGettingSource = false;
                             return;
                         }
-                        catch (Exception)
+                        catch (System.Data.Entity.Core.EntityException e)
                         {
-
+                            Console.WriteLine(e);
+                            MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                            throw;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
                             MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                             mb.ShowDialog();
-                            return;
+                            throw;
                         }
 
                     }
@@ -359,11 +374,19 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                             IsGettingSource = false;
                             return;
                         }
-                        catch (Exception)
+                        catch (System.Data.Entity.Core.EntityException e)
                         {
+                            Console.WriteLine(e);
+                            MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                            throw;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
                             MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                             mb.ShowDialog();
-                            return;
+                            throw;
                         }
 
                     }
@@ -376,11 +399,19 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                             IsGettingSource = false;
                             return;
                         }
-                        catch (Exception)
+                        catch (System.Data.Entity.Core.EntityException e)
                         {
+                            Console.WriteLine(e);
+                            MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                            throw;
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
                             MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                             mb.ShowDialog();
-                            return;
+                            throw;
                         }
 
                     }
@@ -437,12 +468,19 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             {
                 ListBill = new ObservableCollection<BillDTO>(await BillService.Ins.GetBillByMonth(SelectedMonth + 1));
             }
-            catch (Exception)
+            catch (System.Data.Entity.Core.EntityException e)
             {
-
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                return;
+                throw;
             }
         }
         public async Task CheckImportMonthFilter()
@@ -451,11 +489,19 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             {
                 ListProduct = new ObservableCollection<ProductReceiptDTO>(await ProductReceiptService.Ins.GetProductReceipt(SelectedImportMonth + 1));
             }
-            catch (Exception)
+            catch (System.Data.Entity.Core.EntityException e)
             {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                return;
+                throw;
             }
 
         }

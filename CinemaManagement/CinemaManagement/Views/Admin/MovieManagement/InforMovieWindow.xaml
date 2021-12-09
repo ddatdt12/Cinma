@@ -18,6 +18,7 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Height="650"
         Width="1000"
+        PreviewKeyUp="main_PreviewKeyUp"
         x:Name="main">
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">

@@ -34,7 +34,6 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
         private void all_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             _FilterBox.Text = "";
-            result.Content = ShowtimeListview.Items.Count;
         }
     }
 }

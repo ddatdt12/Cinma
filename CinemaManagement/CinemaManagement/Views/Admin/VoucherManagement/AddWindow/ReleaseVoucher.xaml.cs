@@ -80,15 +80,8 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
                         emaillistbox.IsEnabled = true;
                         return;
                     }
-                case "Xuất Excel":
-                    {
-                        VoucherViewModel.NumberCustomer = -2;
-                        emaillistbox.IsEnabled = false;
-                        return;
-                    }
             }
         }
-
         private void Label_Loaded(object sender, RoutedEventArgs e)
         {
             Label lb = sender as Label;

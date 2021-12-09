@@ -1,10 +1,12 @@
 ﻿using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace CinemaManagement
 {
     public partial class MainAdminWindow : Window
     {
+        public static ToggleButton Slidebtn;
         public MainAdminWindow()
         {
             InitializeComponent();
@@ -33,12 +35,19 @@ namespace CinemaManagement
         private void SlideButton_Checked(object sender, RoutedEventArgs e)
         {
             topnotifi.Visibility = Visibility.Collapsed;
+            shadow.Visibility = Visibility.Visible;
         }
 
         private void SlideButton_Unchecked(object sender, RoutedEventArgs e)
         {
             if (count.Text != "0")
                 topnotifi.Visibility = Visibility.Visible;
+            shadow.Visibility = Visibility.Collapsed;
+        }
+
+        private void SlideButton_Loaded(object sender, RoutedEventArgs e)
+        {
+            Slidebtn = SlideButton;
         }
     }
 }

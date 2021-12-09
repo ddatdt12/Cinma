@@ -51,6 +51,7 @@
                         <RowDefinition Height="45*" />
                         <RowDefinition Height="44*" />
                         <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
                         <RowDefinition Height="45*" />
                         <RowDefinition Height="45*" />
                         <RowDefinition Height="44*" />
@@ -161,13 +162,23 @@
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
+                        <TextBlock Text="Email" />
+                        <TextBox Grid.Column="1"
+                                 x:Name="_Mail"
+                                 Text="{Binding Mail, Mode=TwoWay}" />
+                    </Grid>
+                    <Grid Grid.Row="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
                         <TextBlock Text="Số điện thoại" />
                         <TextBox Grid.Column="1"
                                  x:Name="_Phone"
+                                 PreviewTextInput="_Phone_PreviewTextInput"
                                  Text="{Binding Phone, Mode=TwoWay}" />
                     </Grid>
-
-                    <Grid Grid.Row="6">
+                    <Grid Grid.Row="7">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition />
@@ -184,7 +195,7 @@
                         </ComboBox>
                     </Grid>
 
-                    <Grid Grid.Row="7">
+                    <Grid Grid.Row="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition />
@@ -198,7 +209,7 @@
                     </Grid>
                     <!--#endregion-->
 
-                    <Grid Grid.Row="8">
+                    <Grid Grid.Row="9">
                         <TextBlock Text="Tài khoản đăng nhập"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"
@@ -211,7 +222,7 @@
                                    FontSize="17" />
                     </Grid>
 
-                    <Grid Grid.Row="9">
+                    <Grid Grid.Row="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition />
@@ -222,7 +233,7 @@
                                  Text="{Binding TaiKhoan, Mode=TwoWay}" />
                     </Grid>
 
-                    <Grid Grid.Row="10">
+                    <Grid Grid.Row="11">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition />
@@ -243,7 +254,7 @@
                         </PasswordBox>
                     </Grid>
 
-                    <Grid Grid.Row="11">
+                    <Grid Grid.Row="12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition />
@@ -264,7 +275,7 @@
                         </PasswordBox>
                     </Grid>
 
-                    <Grid Grid.Row="12">
+                    <Grid Grid.Row="13">
                         <Grid.Resources>
                             <Style TargetType="Button"
                                    BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">

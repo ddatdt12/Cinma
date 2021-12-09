@@ -73,35 +73,47 @@ namespace CinemaManagement.ViewModel
             LoadQLPPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
                 SelectedFuncName = "Quản lý phim";
+                if (MainAdminWindow.Slidebtn != null)
+                    MainAdminWindow.Slidebtn.IsChecked = false;
                 if (p != null)
                     p.Content = new MovieManagementWindow();
             });
             LoadSuatChieuPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
+                if (MainAdminWindow.Slidebtn != null)
+                    MainAdminWindow.Slidebtn.IsChecked = false;
                 SelectedFuncName = "Quản lý suất chiếu";
                 if (p != null)
                     p.Content = new ShowtimeManagement();
             });
             LoadQLNVPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
+                if (MainAdminWindow.Slidebtn != null)
+                    MainAdminWindow.Slidebtn.IsChecked = false;
                 SelectedFuncName = "Quản lý nhân sự";
                 if (p != null)
                     p.Content = new NhanVienPage();
             });
             LoadLSPage = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
+                if (MainAdminWindow.Slidebtn != null)
+                    MainAdminWindow.Slidebtn.IsChecked = false;
                 SelectedFuncName = "Lịch sử";
                 if (p != null)
                     p.Content = new Import_Export();
             });
             LoadTKPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
+                if (MainAdminWindow.Slidebtn != null)
+                    MainAdminWindow.Slidebtn.IsChecked = false;
                 SelectedFuncName = "Thống kê";
                 if (p != null)
                     p.Content = new StatisticalManagement();
             });
             LoadFoodPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
+                if (MainAdminWindow.Slidebtn != null)
+                    MainAdminWindow.Slidebtn.IsChecked = false;
                 SelectedFuncName = "Quản lý sản phẩm";
                 if (p != null)
                     p.Content = new FoodPage();
@@ -109,6 +121,8 @@ namespace CinemaManagement.ViewModel
             });
             LoadErrorPage = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
+                if (MainAdminWindow.Slidebtn != null)
+                    MainAdminWindow.Slidebtn.IsChecked = false;
                 SelectedFuncName = "Sự cố";
                 if (p != null)
                     p.Content = new ErrorManagement();
@@ -116,6 +130,8 @@ namespace CinemaManagement.ViewModel
             });
             LoadVCPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {
+                if (MainAdminWindow.Slidebtn != null)
+                    MainAdminWindow.Slidebtn.IsChecked = false;
                 SelectedFuncName = "Voucher";
                 if (p != null)
                     p.Content = new VoucherManagement();

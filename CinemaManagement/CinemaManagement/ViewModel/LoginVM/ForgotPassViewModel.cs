@@ -110,11 +110,19 @@ namespace CinemaManagement.ViewModel
                  {
                      await SendEmailForStaff(ForgotPasswordEmail, RandomCode);
                  }
+                 catch (System.Data.Entity.Core.EntityException e)
+                 {
+                     Console.WriteLine(e);
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                     mb.ShowDialog();
+                     throw;
+                 }
                  catch (Exception e)
                  {
-                     MessageBoxCustom mb = new MessageBoxCustom("", e.Message, MessageType.Error, MessageButtons.OK);
+                     Console.WriteLine(e);
+                     MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                      mb.ShowDialog();
-                     return;
+                     throw;
                  }
 
              });

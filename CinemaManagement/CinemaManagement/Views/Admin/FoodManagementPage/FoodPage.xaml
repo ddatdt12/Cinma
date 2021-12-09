@@ -46,7 +46,7 @@
     </i:Interaction.Triggers>
 
     <Grid>
-        
+
         <Grid>
 
             <Grid.RowDefinitions>
@@ -71,109 +71,93 @@
                              Width="500"
                              Height="30"
                              Padding="0"
-                             Margin="30,0,0,0"
+                             Margin="30,40,0,0"
                              x:Name="SearchBox"
                              VerticalAlignment="Center"
-                             Text="{Binding FilterName, Mode=TwoWay}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="TextChanged">
-                                <i:InvokeCommandAction Command="{Binding FilterTboxFoodCommand}"
-                                                       CommandParameter="{Binding ElementName=SearchBox}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
+                             TextChanged="TextBox_TextChanged">
                     </TextBox>
-                    <Border BorderBrush="Black"
-                            BorderThickness="2"
-                            Margin="150,10,0,0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center">
-                        <ComboBox FontSize="20"
-                                  Margin="5"
-                                  Width="150"
-                                  x:Name="cboxFilter"
-                                  VerticalContentAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  HorizontalContentAlignment="Center"
-                                  materialDesign:ComboBoxAssist.ClassicMode="True"
-                                  SelectedItem="{Binding Category}">
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="30,0,0,0">
+                        <StackPanel.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="VerticalAlignment"
+                                        Value="Center" />
+                                <Setter Property="Cursor"
+                                        Value="Hand" />
+                            </Style>
+                            <ControlTemplate TargetType="Label"
+                                             x:Key="Add-edit">
+                                <materialDesign:Card UniformCornerRadius="5"
+                                                     Width="110">
+                                    <Border BorderBrush="{StaticResource PrimaryHueDarkBrush}"
+                                            BorderThickness="2"
+                                            CornerRadius="5">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver"
+                                                             Value="True">
+                                                        <Setter Property="Background"
+                                                                Value="LightCyan" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <StackPanel>
+                                            <Image Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                                   Height="40"
+                                                   Width="50"
+                                                   HorizontalAlignment="Center"
+                                                   Margin="0 5 0 0" />
+                                            <TextBlock Text="{TemplateBinding Content}"
+                                                       Margin="5"
+                                                       FontFamily="Google Sans"
+                                                       Width="100"
+                                                       TextAlignment="Center"
+                                                       HorizontalAlignment="Center" />
+                                        </StackPanel>
+                                    </Border>
+                                </materialDesign:Card>
+                            </ControlTemplate>
+                        </StackPanel.Resources>
+                        <Label Tag="/Resources/Images/ImageFood/popcorn.png"
+                               Content="Thêm sản phẩm"
+                               Template="{StaticResource Add-edit}">
                             <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding FilterCboxFoodCommand}"
-                                                           CommandParameter="{Binding ElementName=cboxFilter}" />
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding OpenAddFoodCommand}" />
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
-                            <ComboBoxItem Content="Tất cả" />
-                            <ComboBoxItem Content="Đồ ăn" />
-                            <ComboBoxItem Content="Nước uống" />
-                        </ComboBox>
-                    </Border>
+                        </Label>
+                        <Label Tag="/Resources/Images/ImageFood/adding.png"
+                               Content="Nhập hàng"
+                               Template="{StaticResource Add-edit}"
+                               Margin="30 0 0 0">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <i:InvokeCommandAction Command="{Binding OpenImportFoodCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Label>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Grid.Column="1"
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Center"
-                            Margin="0 0 40 0">
-                    <StackPanel.Resources>
-                        <Style TargetType="Label">
-                            <Setter Property="VerticalAlignment"
-                                    Value="Center" />
-                            <Setter Property="Cursor"
-                                    Value="Hand" />
-                        </Style>
-                        <ControlTemplate TargetType="Label"
-                                         x:Key="Add-edit">
-                            <materialDesign:Card UniformCornerRadius="5"
-                                                 Width="110">
-                                <Border BorderBrush="Black"
-                                        BorderThickness="2"
-                                        CornerRadius="5">
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver"
-                                                         Value="True">
-                                                    <Setter Property="Background"
-                                                            Value="LightCyan" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                    <StackPanel>
-                                        <Image Source="{Binding Path=Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                                               Height="40"
-                                               Width="50"
-                                               HorizontalAlignment="Center"
-                                               Margin="0 5 0 0" />
-                                        <TextBlock Text="{TemplateBinding Content}"
-                                                   Margin="5"
-                                                   FontFamily="Google Sans"
-                                                   Width="100"
-                                                   TextAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
-                            </materialDesign:Card>
-                        </ControlTemplate>
-                    </StackPanel.Resources>
-                    <Label Tag="/Resources/Images/ImageFood/popcorn.png"
-                           Content="Thêm sản phẩm"
-                           Template="{StaticResource Add-edit}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding OpenAddFoodCommand}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Label>
-                    <Label Tag="/Resources/Images/ImageFood/adding.png"
-                           Content="Nhập sản phẩm"
-                           Template="{StaticResource Add-edit}"
-                           Margin="80 0 0 0">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding OpenImportFoodCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Label>
-                </StackPanel>
+                <ComboBox FontSize="25"
+                          Grid.Column="1"
+                          Width="150"
+                          Height="50"
+                          SelectedIndex="2"
+                          x:Name="cboxFilter"
+                          Margin="0,25,15,0"
+                          SelectionChanged="cboxFilter_SelectionChanged"
+                          VerticalContentAlignment="Center"
+                          HorizontalAlignment="Right"
+                          SelectedItem="{Binding Category}">
+                    <ComboBoxItem Content="Tất cả" />
+                    <ComboBoxItem Content="Đồ ăn" />
+                    <ComboBoxItem Content="Nước uống" />
+                </ComboBox>
             </Grid>
             <!--#endregion-->
 
@@ -263,21 +247,12 @@
                                                             Cursor="Hand"
                                                             Height="35"
                                                             Width="35">
-                                                        <Border.Style>
-                                                            <Style TargetType="Border">
-                                                                <Style.Triggers>
-                                                                    <Trigger Property="IsMouseOver"
-                                                                             Value="True">
-                                                                        <Setter Property="Background"
-                                                                                Value="#18ffff" />
-                                                                    </Trigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Border.Style>
-                                                        <Image Source="/Resources/Images/ImageFood/edit.png"
-                                                               VerticalAlignment="Center"
-                                                               Margin="3"
-                                                               HorizontalAlignment="Center" />
+                                                        <materialDesign:PackIcon Kind="Pencil"
+                                                                                 Height="30"
+                                                                                 Width="30"
+                                                                                 VerticalAlignment="Center"
+                                                                                 Margin="3"
+                                                                                 HorizontalAlignment="Center" />
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                                 <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.OpenEditFoodCommand}" />
@@ -291,21 +266,12 @@
                                                             Cursor="Hand"
                                                             Height="35"
                                                             Width="35">
-                                                        <Border.Style>
-                                                            <Style TargetType="Border">
-                                                                <Style.Triggers>
-                                                                    <Trigger Property="IsMouseOver"
-                                                                             Value="True">
-                                                                        <Setter Property="Background"
-                                                                                Value="#ff616f" />
-                                                                    </Trigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </Border.Style>
-                                                        <Image Source="/Resources/Images/ImageFood/delete.png"
-                                                               VerticalAlignment="Center"
-                                                               Margin="3"
-                                                               HorizontalAlignment="Center" />
+                                                        <materialDesign:PackIcon Kind="Bin"
+                                                                                 Height="30"
+                                                                                 Width="30"
+                                                                                 VerticalAlignment="Center"
+                                                                                 Margin="3"
+                                                                                 HorizontalAlignment="Center" />
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                                 <i:InvokeCommandAction Command="{Binding ElementName=listBox, Path=DataContext.DeleteFoodCommand}" />
@@ -362,6 +328,11 @@
                                    FontSize="15" />
                         </StackPanel>
                     </Grid>
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                 Height="100"
+                                 Width="100"
+                                 IsIndeterminate="{Binding IsLoadding}"
+                                 Margin="0,-700,0,0" />
                 </StackPanel>
             </materialDesign:Card>
 
@@ -372,5 +343,5 @@
                   x:Name="ShadowMask" />
         </Grid>
     </Grid>
-    
+
 </Page>

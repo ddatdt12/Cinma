@@ -18,6 +18,7 @@
         DataContext="{StaticResource MovieManagementVM}"
         Height="650"
         Width="1000"
+        PreviewKeyUp="EditMovieWindow_PreviewKeyUp"
         x:Name="EditMovieWindow">
     
     <Window.Triggers>

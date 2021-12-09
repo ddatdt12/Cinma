@@ -89,7 +89,7 @@
                             Height="55"
                             Style="{StaticResource MaterialDesignOutlinedDatePicker}"
                             BorderBrush="#0c70b6"
-                            Margin="500,0,0,0"
+                            Margin="530,0,0,0"
                             FontSize="25"
                             Foreground="Black"
                             Padding="10,0,20,0"
@@ -111,7 +111,7 @@
 
             <!--Changing ROOM-->
             <StackPanel Orientation="Vertical"
-                        Margin="0,18,0,0"
+                        Margin="5,18,0,0"
                         Width="100"
                         HorizontalAlignment="Left">
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
@@ -119,10 +119,10 @@
                              Content="Toàn bộ"
                              x:Name="all"
                              Padding="0,10,0,10"
-                             Click="all_Click"
                              BorderBrush="#0c70b6"
                              Command="{Binding ChangedRoomCM}"
-                             CommandParameter="{Binding ElementName=all}" />
+                             CommandParameter="{Binding ElementName=all}"
+                             Click="all_Click" />
                 <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonLeft}"
                              IsChecked="False"
                              Content="Phòng 1"

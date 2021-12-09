@@ -104,19 +104,12 @@
                               PreviewMouseWheel="listView_PreviewMouseWheel"
                               Height="570">
                     <ListView ItemsSource="{Binding StaffList}"
-                              FontFamily="Ubuntu"
                               SelectedItem="{Binding SelectedItem}"
                               x:Name="_ListView">
 
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem"
                                    BasedOn="{StaticResource MaterialDesignGridViewItem}">
-                                <Setter Property="HorizontalContentAlignment"
-                                        Value="Center" />
-                                <Setter Property="Height"
-                                        Value="50" />
-                                <Setter Property="VerticalContentAlignment"
-                                        Value="Center" />
                             </Style>
                         </ListView.ItemContainerStyle>
 
@@ -134,7 +127,8 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}"
-                                                       FontSize="18" />
+                                                       FontSize="18"
+                                                       Margin="15,0,0,0"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -142,7 +136,8 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Gender}"
-                                                       FontSize="18" />
+                                                       FontSize="18"
+                                                       Margin="15,0,0,0"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -158,7 +153,17 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding PhoneNumber}"
-                                                       FontSize="18" />
+                                                       FontSize="18"
+                                                       Margin="15,0,0,0"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Email">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Email}"
+                                                       FontSize="18"
+                                                       Margin="15,0,0,0"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -166,7 +171,8 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Role}"
-                                                       FontSize="18" />
+                                                       FontSize="18"
+                                                       Margin="15,0,0,0" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -174,7 +180,8 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding StartingDate,StringFormat=dd-MM-yyyy}"
-                                                       FontSize="18" />
+                                                       FontSize="18"
+                                                       Margin="15,0,0,0"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -185,20 +192,9 @@
                                                         Orientation="Horizontal"
                                                         Margin="60,0,0,0">
                                                 <Border BorderBrush="Black"
-                                                        BorderThickness="2"
+                                                        BorderThickness="1"
                                                         CornerRadius="6"
                                                         Cursor="Hand">
-                                                    <Border.Style>
-                                                        <Style TargetType="Border">
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsMouseOver"
-                                                                         Value="True">
-                                                                    <Setter Property="Background"
-                                                                            Value="#00e5ff" />
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Border.Style>
                                                     <Image Source="/Resources/IconPack/pencil.png"
                                                            Width="30"
                                                            Height="30"
@@ -209,22 +205,11 @@
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </Border>
-                                                <Border Margin="30 0 0 0"
+                                                <Border Margin="10 0 0 0"
                                                         BorderBrush="Black"
-                                                        BorderThickness="2"
+                                                        BorderThickness="1"
                                                         CornerRadius="6"
                                                         Cursor="Hand">
-                                                    <Border.Style>
-                                                        <Style TargetType="Border">
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsMouseOver"
-                                                                         Value="True">
-                                                                    <Setter Property="Background"
-                                                                            Value="#ff6255" />
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Border.Style>
                                                     <materialDesign:PackIcon Kind="GarbageCanEmpty"
                                                                              Width="30"
                                                                              Height="30"
@@ -242,11 +227,7 @@
                                 </GridViewColumn>
                             </GridView>
                         </ListView.View>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Background="Red"></Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                      
                     </ListView>
                 </ScrollViewer>
                 <Grid>
