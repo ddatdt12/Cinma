@@ -1,7 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
-using CinemaManagement.Views;
 using CinemaManagement.Views.Staff.DeviceProblemsWindow;
 using System;
 using System.Collections.ObjectModel;
@@ -100,6 +99,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         public ICommand OpenAddErrorCommand { get; set; }
         public ICommand MaskNameCM { get; set; }
         public ICommand UploadImageCM { get; set; }
+        public ICommand CloseCM { get; set; }
 
         string filepath;
         string appPath;
@@ -123,10 +123,10 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                         MaskName.Visibility = Visibility.Collapsed;
                     }
                 });
-            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                LoadListError();
-                LoadListStaff();
+                await LoadListError();
+                await LoadListStaff();
 
             });
             FilterListErrorCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, (p) =>
@@ -141,6 +141,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 {
                     ViewError w = new ViewError();
                     w.ShowDialog();
+                    return;
                 }
                 if (SelectedItem.Status == Utils.STATUS.CANCLE)
                 {
@@ -155,10 +156,10 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
-            SaveErrorCM = new RelayCommand<AddError>((p) => { return true; }, (p) =>
-            {
-                SaveErrorFunc(p);
-            });
+            SaveErrorCM = new RelayCommand<AddError>((p) => { return true; }, async (p) =>
+             {
+                 await SaveErrorFunc(p);
+             });
             UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openfile = new OpenFileDialog();
@@ -183,18 +184,25 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
-            UpdateErrorCM = new RelayCommand<EditError>((p) => { return true; }, (p) =>
+            UpdateErrorCM = new RelayCommand<EditError>((p) => { return true; }, async (p) =>
             {
-                UpdateErrorFunc(p);
+                await UpdateErrorFunc(p);
             });
 
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
             {
                 MaskName = p;
             });
+            CloseCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                MaskName.Visibility = Visibility.Collapsed;
+                SelectedItem = null;
+                p.Close();
+            });
+
         }
 
-        public void LoadListError()
+        public async Task LoadListError()
         {
             //Khởi tạo danh sách lỗi và giá trị biến tham số
             ListError = new ObservableCollection<TroubleDTO>();
@@ -203,7 +211,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             IsImageChanged = false;
 
             //Lấy dữ liệu cho ListError
-            GetData();
+            await GetData();
         }
         public void FilterListError()
         {

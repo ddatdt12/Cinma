@@ -5,17 +5,20 @@ using CinemaManagement.Views;
 using CinemaManagement.Views.Staff;
 using CinemaManagement.Views.Staff.TicketBill;
 using CinemaManagement.Views.Staff.TicketWindow;
+using MaterialDesignThemes.Wpf;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
 {
     public class OrderFoodPageViewModel : BaseViewModel
     {
+        public ICommand StoreCardViewCM { get; set; }
         public ICommand MouseMoveCommand { get; set; }
         public ICommand FilterAllProductsCommand { get; set; }
         public ICommand FilterFoodCommand { get; set; }
@@ -26,7 +29,10 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
         public ICommand DeleteProductCommand { get; set; }
         public ICommand DeleteAllOrderCommand { get; set; }
         public ICommand BuyCommand { get; set; }
+        public ICommand FirstLoadCM { get; set; }
 
+        Card StoreCardView { get; set; }
+        string SelectedView { get; set; }
 
         private decimal _TotalPrice;
         public string TotalPrice { get; set; }
@@ -102,36 +108,45 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
         public static bool checkOnlyFoodOfPage;
         public OrderFoodPageViewModel()
         {
-            AllProduct = new ObservableCollection<ProductDTO>();
-            OrderList = new ObservableCollection<ProductDTO>();
-            MenuList = new ObservableCollection<ProductDTO>();
-            ListOrder = new ObservableCollection<ProductDTO>();
 
-            //Khởi tạo giá trị ban đầu cho tổng giá tiền
-            ReCalculate();
+            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                AllProduct = new ObservableCollection<ProductDTO>();
+                OrderList = new ObservableCollection<ProductDTO>();
+                MenuList = new ObservableCollection<ProductDTO>();
+                ListOrder = new ObservableCollection<ProductDTO>();
 
-            //Gán giá trị demo mẫu đồ ăn và thức uống
-            LoadListProduct();
+                //Khởi tạo giá trị ban đầu cho tổng giá tiền
+                ReCalculate();
 
-            //Khởi tạo giá trị ban đầu các item cho MenuList
-            MenuList = AllProduct;
+                //Gán giá trị demo mẫu đồ ăn và thức uống
+                await LoadListProduct();
 
+                //Khởi tạo giá trị ban đầu các item cho MenuList
+                MenuList = AllProduct;
+            });
             //Filter All Products
-            FilterAllProductsCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            FilterAllProductsCommand = new RelayCommand<Card>((p) => { return true; }, (p) =>
             {
                 MenuList = new ObservableCollection<ProductDTO>(AllProduct);
+                SelectedView = "Tất cả";
+                ChangeView(p);
             });
 
             //Filter đồ ăn
-            FilterFoodCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            FilterFoodCommand = new RelayCommand<Card>((p) => { return true; }, (p) =>
             {
                 FilterFood();
+                SelectedView = "Đồ ăn";
+                ChangeView(p);
             });
 
             //Filter thức uống
-            FilterDrinkCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
+            FilterDrinkCommand = new RelayCommand<Card>((p) => { return true; }, (p) =>
             {
                 FilterDrink();
+                SelectedView = "Thức uống";
+                ChangeView(p);
             });
 
             //Chọn đồ ăn chuyển qua OrderList
@@ -324,8 +339,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                 {
                     w.DragMove();
                 }
-            }
-       );
+            });
+            StoreCardViewCM = new RelayCommand<Card>((p) => { return true; }, (p) =>
+            {
+                StoreCardView = p;
+            });
         }
         private Window GetWindowParent(Window p)
         {
@@ -370,13 +388,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
         }
         public void FilterMenuList()
         {
-            if (TabProduct.Header.ToString() == "Tất cả")
+            if (SelectedView == "Tất cả")
             {
                 MenuList = new ObservableCollection<ProductDTO>(AllProduct);
             }
             else
             {
-                if (TabProduct.Header.ToString() != "Thức uống")
+                if (SelectedView != "Thức uống")
                 {
                     FilterFood();
                 }
@@ -418,6 +436,15 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
         public async Task LoadListProduct()
         {
             AllProduct = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+        }
+        public void ChangeView(Card p)
+        {
+            if (p is null) return;
+            StoreCardView.Background = (SolidColorBrush)new BrushConverter().ConvertFromString("#f0f2f5");
+            StoreCardView.SetValue(ShadowAssist.ShadowDepthProperty, ShadowDepth.Depth2);
+            StoreCardView = p;
+            p.Background = new SolidColorBrush(Colors.White);
+            p.SetValue(ShadowAssist.ShadowDepthProperty, ShadowDepth.Depth0);
         }
     }
 }

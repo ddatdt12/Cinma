@@ -118,7 +118,7 @@
                                 Margin="20 2 20 0"
                                 Width="75"
                                 Content="OK"
-                                ToolTip="Ok" />
+                                />
                         <Button x:Name="btnCancel"
                                 Click="btnCancel_Click"
                                 Grid.Column="2"
@@ -127,7 +127,7 @@
                                 Margin="20 2 20 0"
                                 Width="75"
                                 Content="Cancel"
-                                ToolTip="Cancel" />
+                                />
                         <Button x:Name="btnYes"
                                 Click="btnYes_Click"
                                 Grid.Column="1"
@@ -136,7 +136,7 @@
                                 Margin="20 2 20 0"
                                 Width="75"
                                 Content="Yes"
-                                ToolTip="Yes" />
+                               />
                         <Button x:Name="btnNo"
                                 Click="btnNo_Click"
                                 Grid.Column="2"
@@ -145,7 +145,7 @@
                                 Margin="20 2 20 0"
                                 Width="75"
                                 Content="No"
-                                ToolTip="No" />
+                                />
                     </Grid>
                 </Grid>
             </Grid>

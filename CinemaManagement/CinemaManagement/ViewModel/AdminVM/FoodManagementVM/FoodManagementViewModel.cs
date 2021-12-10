@@ -182,7 +182,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                  IsImageChanged = false;
              });
 
-            FilterCboxFoodCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
+            FilterCboxFoodCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, (p) =>
                 {
                     try
                     {
