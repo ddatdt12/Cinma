@@ -11,8 +11,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
     {
         public ICommand LoadInforMovieCM { get; set; }
 
-
-
         public void LoadInforMovie(InforMovieWindow w1)
         {
             List<GenreDTO> tempgenre = new List<GenreDTO>(SelectedItem.Genres);

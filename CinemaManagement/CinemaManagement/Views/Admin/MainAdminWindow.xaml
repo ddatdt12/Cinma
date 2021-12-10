@@ -346,7 +346,8 @@
                                         <TextBlock Text="{Binding ErrorCount}"
                                                    FontSize="20"
                                                    VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
+                                                   HorizontalAlignment="Center"
+                                                   Foreground="White"/>
                                     </Border>
                                 </Grid>
 
@@ -373,7 +374,8 @@
                                        FontSize="20"
                                        x:Name="count"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
+                                       HorizontalAlignment="Center"
+                                       Foreground="White"/>
                         </Border>
                     </Grid>
                     <TextBlock VerticalAlignment="Top"

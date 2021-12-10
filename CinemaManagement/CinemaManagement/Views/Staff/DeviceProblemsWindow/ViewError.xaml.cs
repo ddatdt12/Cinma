@@ -12,10 +12,6 @@ namespace CinemaManagement.Views.Staff.DeviceProblemsWindow
         {
             InitializeComponent();
         }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {
             Button btn = sender as Button;
@@ -29,10 +25,12 @@ namespace CinemaManagement.Views.Staff.DeviceProblemsWindow
             btn.Background = new SolidColorBrush(Colors.Transparent);
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
+
+      
     }
    
 }
