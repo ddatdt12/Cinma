@@ -236,6 +236,10 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         public ICommand AddVoucherOnlyFoodCM { get; set; }
         public ICommand DeleteVoucherCM { get; set; }
 
+        public ICommand PayFullCM { get; set; }
+        public ICommand PayMovieCM { get; set; }
+        public ICommand PayFoodCM { get; set; }
+
         private static List<SeatSettingDTO> _ListSeat;
         public static List<SeatSettingDTO> ListSeat
         {
@@ -523,35 +527,56 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         {
                             if (ListVoucher.Count==0)
                             {
-                                ListVoucher.Add(voucher);
-                                VoucherID = "";
-                                Discount += voucher.ParValue;
-                                DiscountStr = Helper.FormatVNMoney(Discount);
-                                LastPriceStr = Helper.FormatVNMoney(Total - Discount);
-                                LastPrice = Total - Discount;
-                            }
-                            else
-                            {
-                                if (!voucher.EnableMerge)
+                                if (voucher.VoucherInfo.MinimumOrderValue<=LastPrice)
                                 {
-                                    new MessageBoxCustom("Cảnh báo", "Voucher này không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
-                                }
-                                else
-                                {
-                                    for(int i=0; i<ListVoucher.Count;i++)
-                                    {
-                                        if (ListVoucher[i].VoucherReleaseId==voucher.VoucherReleaseId)
-                                        {
-                                            new MessageBoxCustom("Cảnh báo", "Voucher cùng đợt phát hành", MessageType.Warning, MessageButtons.OK).ShowDialog();
-                                            return;
-                                        }
-                                    }
                                     ListVoucher.Add(voucher);
                                     VoucherID = "";
                                     Discount += voucher.ParValue;
                                     DiscountStr = Helper.FormatVNMoney(Discount);
                                     LastPriceStr = Helper.FormatVNMoney(Total - Discount);
                                     LastPrice = Total - Discount;
+                                }
+                                else
+                                {
+                                    new MessageBoxCustom("Cảnh báo", "Voucher chỉ áp dụng cho hóa đơn từ " + Helper.FormatVNMoney(voucher.VoucherInfo.MinimumOrderValue) + " trở lên", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                }
+                            }
+                            else
+                            {
+                                if (voucher.EnableMerge&&ListVoucher[0].EnableMerge==false)
+                                {
+                                    new MessageBoxCustom("Cảnh báo", "Voucher " + ListVoucher[0].Code + " không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                }
+                                else
+                                {
+                                    if (!voucher.EnableMerge)
+                                    {
+                                        new MessageBoxCustom("Cảnh báo", "Voucher này không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < ListVoucher.Count; i++)
+                                        {
+                                            if (ListVoucher[i].VoucherReleaseId == voucher.VoucherReleaseId)
+                                            {
+                                                new MessageBoxCustom("Cảnh báo", "Voucher cùng đợt phát hành", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                                return;
+                                            }
+                                        }
+                                        if (voucher.VoucherInfo.MinimumOrderValue <= LastPrice)
+                                        {
+                                            ListVoucher.Add(voucher);
+                                            VoucherID = "";
+                                            Discount += voucher.ParValue;
+                                            DiscountStr = Helper.FormatVNMoney(Discount);
+                                            LastPriceStr = Helper.FormatVNMoney(Total - Discount);
+                                            LastPrice = Total - Discount;
+                                        }
+                                        else
+                                        {
+                                            new MessageBoxCustom("Cảnh báo", "Voucher chỉ áp dụng cho hóa đơn từ " + Helper.FormatVNMoney(voucher.VoucherInfo.MinimumOrderValue) + " trở lên", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -577,41 +602,62 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         {
                             if (ListVoucher.Count == 0)
                             {
-                                ListVoucher.Add(voucher);
-                                VoucherID = "";
-                                Discount += voucher.ParValue;
-                                DiscountStr = Helper.FormatVNMoney(Discount);
-                                LastPriceStr = Helper.FormatVNMoney(TotalFullMoviePrice - Discount);
-                                LastPrice = TotalFullMoviePrice - Discount;
-                            }
-                            else
-                            {
-                                if (voucher.ObjectType== "Sản phẩm")
+                                if (voucher.VoucherInfo.MinimumOrderValue <= LastPrice)
                                 {
-                                    new MessageBoxCustom("Cảnh báo", "Voucher không áp dụng cho phim", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                    ListVoucher.Add(voucher);
+                                    VoucherID = "";
+                                    Discount += voucher.ParValue;
+                                    DiscountStr = Helper.FormatVNMoney(Discount);
+                                    LastPriceStr = Helper.FormatVNMoney(TotalFullMoviePrice - Discount);
+                                    LastPrice = TotalFullMoviePrice - Discount;
                                 }
                                 else
                                 {
-                                    if (!voucher.EnableMerge)
+                                    new MessageBoxCustom("Cảnh báo", "Voucher chỉ áp dụng cho hóa đơn từ " + Helper.FormatVNMoney(voucher.VoucherInfo.MinimumOrderValue) + " trở lên", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                }
+                            }
+                            else
+                            {
+                                if (voucher.EnableMerge && ListVoucher[0].EnableMerge == false)
+                                {
+                                    new MessageBoxCustom("Cảnh báo", "Voucher " + ListVoucher[0].Code + " không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                }
+                                else
+                                {
+                                    if (voucher.ObjectType == "Sản phẩm")
                                     {
-                                        new MessageBoxCustom("Cảnh báo", "Voucher này không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                        new MessageBoxCustom("Cảnh báo", "Voucher không áp dụng cho phim", MessageType.Warning, MessageButtons.OK).ShowDialog();
                                     }
                                     else
                                     {
-                                        for (int i = 0; i < ListVoucher.Count; i++)
+                                        if (!voucher.EnableMerge)
                                         {
-                                            if (ListVoucher[i].VoucherReleaseId == voucher.VoucherReleaseId)
+                                            new MessageBoxCustom("Cảnh báo", "Voucher này không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                        }
+                                        else
+                                        {
+                                            for (int i = 0; i < ListVoucher.Count; i++)
                                             {
-                                                new MessageBoxCustom("Cảnh báo", "Voucher cùng đợt phát hành", MessageType.Warning, MessageButtons.OK).ShowDialog();
-                                                return;
+                                                if (ListVoucher[i].VoucherReleaseId == voucher.VoucherReleaseId)
+                                                {
+                                                    new MessageBoxCustom("Cảnh báo", "Voucher cùng đợt phát hành", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                                    return;
+                                                }
+                                            }
+                                            if (voucher.VoucherInfo.MinimumOrderValue <= LastPrice)
+                                            {
+                                                ListVoucher.Add(voucher);
+                                                VoucherID = "";
+                                                Discount += voucher.ParValue;
+                                                DiscountStr = Helper.FormatVNMoney(Discount);
+                                                LastPriceStr = Helper.FormatVNMoney(TotalFullMoviePrice - Discount);
+                                                LastPrice = TotalFullMoviePrice - Discount;
+                                            }
+                                            else
+                                            {
+                                                new MessageBoxCustom("Cảnh báo", "Voucher chỉ áp dụng cho hóa đơn từ " + Helper.FormatVNMoney(voucher.VoucherInfo.MinimumOrderValue) + " trở lên", MessageType.Warning, MessageButtons.OK).ShowDialog();
                                             }
                                         }
-                                        ListVoucher.Add(voucher);
-                                        VoucherID = "";
-                                        Discount += voucher.ParValue;
-                                        DiscountStr = Helper.FormatVNMoney(Discount);
-                                        LastPriceStr = Helper.FormatVNMoney(TotalFullMoviePrice - Discount);
-                                        LastPrice = TotalFullMoviePrice - Discount;
                                     }
                                 }
                             }
@@ -638,41 +684,62 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         {
                             if (ListVoucher.Count == 0)
                             {
-                                ListVoucher.Add(voucher);
-                                VoucherID = "";
-                                Discount += voucher.ParValue;
-                                DiscountStr = Helper.FormatVNMoney(Discount);
-                                LastPriceStr = Helper.FormatVNMoney(TotalFood - Discount);
-                                LastPrice = TotalFood - Discount;
-                            }
-                            else
-                            {
-                                if (voucher.ObjectType == "Vé xem phim")
+                                if (voucher.VoucherInfo.MinimumOrderValue <= LastPrice)
                                 {
-                                    new MessageBoxCustom("Cảnh báo", "Voucher không áp dụng cho đồ ăn", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                    ListVoucher.Add(voucher);
+                                    VoucherID = "";
+                                    Discount += voucher.ParValue;
+                                    DiscountStr = Helper.FormatVNMoney(Discount);
+                                    LastPriceStr = Helper.FormatVNMoney(TotalFood - Discount);
+                                    LastPrice = TotalFood - Discount;
                                 }
                                 else
                                 {
-                                    if (!voucher.EnableMerge)
+                                    new MessageBoxCustom("Cảnh báo", "Voucher chỉ áp dụng cho hóa đơn từ " + Helper.FormatVNMoney(voucher.VoucherInfo.MinimumOrderValue) + " trở lên", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                }
+                            }
+                            else
+                            {
+                                if (voucher.EnableMerge && ListVoucher[0].EnableMerge == false)
+                                {
+                                    new MessageBoxCustom("Cảnh báo", "Voucher " + ListVoucher[0].Code + " không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                }
+                                else
+                                {
+                                    if (voucher.ObjectType == "Vé xem phim")
                                     {
-                                        new MessageBoxCustom("Cảnh báo", "Voucher này không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                        new MessageBoxCustom("Cảnh báo", "Voucher không áp dụng cho đồ ăn", MessageType.Warning, MessageButtons.OK).ShowDialog();
                                     }
                                     else
                                     {
-                                        for (int i = 0; i < ListVoucher.Count; i++)
+                                        if (!voucher.EnableMerge)
                                         {
-                                            if (ListVoucher[i].VoucherReleaseId == voucher.VoucherReleaseId)
+                                            new MessageBoxCustom("Cảnh báo", "Voucher này không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                        }
+                                        else
+                                        {
+                                            for (int i = 0; i < ListVoucher.Count; i++)
                                             {
-                                                new MessageBoxCustom("Cảnh báo", "Voucher cùng đợt phát hành", MessageType.Warning, MessageButtons.OK).ShowDialog();
-                                                return;
+                                                if (ListVoucher[i].VoucherReleaseId == voucher.VoucherReleaseId)
+                                                {
+                                                    new MessageBoxCustom("Cảnh báo", "Voucher cùng đợt phát hành", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                                                    return;
+                                                }
+                                            }
+                                            if (voucher.VoucherInfo.MinimumOrderValue <= LastPrice)
+                                            {
+                                                ListVoucher.Add(voucher);
+                                                VoucherID = "";
+                                                Discount += voucher.ParValue;
+                                                DiscountStr = Helper.FormatVNMoney(Discount);
+                                                LastPriceStr = Helper.FormatVNMoney(TotalFood - Discount);
+                                                LastPrice = TotalFood - Discount;
+                                            }
+                                            else
+                                            {
+                                                new MessageBoxCustom("Cảnh báo", "Voucher chỉ áp dụng cho hóa đơn từ " + Helper.FormatVNMoney(voucher.VoucherInfo.MinimumOrderValue) + " trở lên", MessageType.Warning, MessageButtons.OK).ShowDialog();
                                             }
                                         }
-                                        ListVoucher.Add(voucher);
-                                        VoucherID = "";
-                                        Discount += voucher.ParValue;
-                                        DiscountStr = Helper.FormatVNMoney(Discount);
-                                        LastPriceStr = Helper.FormatVNMoney(TotalFood - Discount);
-                                        LastPrice = TotalFood - Discount;
                                     }
                                 }
                             }
@@ -701,6 +768,27 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         ListVoucher.Remove(SelectedItem);
                     }
                     
+                });
+
+            PayFullCM = new RelayCommand<object>((p) => { return true; },
+                async (p) =>
+                {
+                    
+
+                });
+
+            PayMovieCM = new RelayCommand<object>((p) => { return true; },
+                async (p) =>
+                {
+
+
+                });
+
+            PayFoodCM = new RelayCommand<object>((p) => { return true; },
+                async (p) =>
+                {
+
+
                 });
 
         }
