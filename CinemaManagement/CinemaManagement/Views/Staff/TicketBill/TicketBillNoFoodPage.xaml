@@ -340,7 +340,7 @@
                                 ToolTip="Icon"
                                 VerticalAlignment="Bottom"
                                 Margin="10 0 10 0"
-                                Command="{Binding AddVoucherCM}">
+                                Command="{Binding AddVoucherNoFoodCM}">
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <materialDesign:PackIcon Kind="Plus"
@@ -454,7 +454,8 @@
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Right"
                             Margin="0 0 10 10"
-                            Content="Hoàn tất">
+                            Content="Hoàn tất"
+                            Command="{Binding PayMovieCM}">
                         <Button.Style>
                             <Style TargetType="Button"
                                    BasedOn="{StaticResource MaterialDesignRaisedButton}">
