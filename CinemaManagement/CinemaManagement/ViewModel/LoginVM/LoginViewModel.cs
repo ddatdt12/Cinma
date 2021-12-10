@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
+using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
 using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff;
 using System;
@@ -129,6 +130,7 @@ namespace CinemaManagement.ViewModel
 
                 Password = "";
                 VoucherViewModel.StaffID = staff.Id;
+                TicketBillViewModel.Staff = staff;
                 LoginWindow.Hide();
                 if (staff.Role == "Quản lý")
                 {

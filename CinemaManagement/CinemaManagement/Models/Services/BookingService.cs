@@ -183,16 +183,17 @@ namespace CinemaManagement.Models.Services
                 Id = billId,
                 DiscountPrice = bill.DiscountPrice,
                 TotalPrice = bill.TotalPrice,
-                CustomerId = bill.CustomerId,
+                CustomerId = bill.CustomerId == "KH0000" ? null : bill.CustomerId,
                 CreatedAt = DateTime.Now,
                 StaffId = bill.StaffId
             };
+
             context.Bills.Add(newBill);
 
-            if (bill.VoucherIdList.Count > 0)
+            if (bill.VoucherIdList != null && bill.VoucherIdList.Count > 0)
             {
                 string voucherIds = string.Join(",", bill.VoucherIdList);
-                var sql = $@"Update [Voucher] SET Status = '{VOUCHER_STATUS.USED}', UsedAt = GETDATE()  WHERE Id IN ({voucherIds})";
+                var sql = $@"Update [Voucher] SET Status = N'{VOUCHER_STATUS.USED}', UsedAt = GETDATE()  WHERE Id IN ({voucherIds})";
                 await context.Database.ExecuteSqlCommandAsync(sql);
             }
 
