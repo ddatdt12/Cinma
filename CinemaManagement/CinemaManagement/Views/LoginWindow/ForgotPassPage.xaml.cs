@@ -34,6 +34,7 @@ namespace CinemaManagement.Views.LoginWindow
 
                 if (error != null)
                 {
+                    errorlbl.FontSize = 15;
                     errorlbl.Content = error;
                     return;
                 }
@@ -45,6 +46,7 @@ namespace CinemaManagement.Views.LoginWindow
                 //check if account exists 
                 if (!RegexUtilities.IsValidEmail(staffEmail))
                 {
+                    errorlbl.FontSize = 13.5;
                     errorlbl.Content = "Tài khoản không tồn tại Email\nLiên hệ quản trị viên";
                     return;
                 }
@@ -107,7 +109,7 @@ namespace CinemaManagement.Views.LoginWindow
             Storyboard.SetTargetProperty(ta, new PropertyPath(MarginProperty));
 
             ta.From = new Thickness(0, 0, 0, 70);
-            ta.To = new Thickness(0, 50, 0, 0);
+            ta.To = new Thickness(0, 45, 0, 0);
             ta.Duration = new Duration(TimeSpan.FromSeconds(0.3));
 
             sb.Children.Add(ta);
@@ -119,8 +121,8 @@ namespace CinemaManagement.Views.LoginWindow
             ta2.SetValue(Storyboard.TargetNameProperty, "_Instruct");
             Storyboard.SetTargetProperty(ta2, new PropertyPath(MarginProperty));
 
-            ta2.From = new Thickness(0, 0, 0, 50);
-            ta2.To = new Thickness(0, 0, 0, 150);
+            ta2.From = new Thickness(20, 0, 0, 50);
+            ta2.To = new Thickness(20, 0, 0, 150);
             ta2.Duration = new Duration(TimeSpan.FromSeconds(0.3));
 
             sb2.Children.Add(ta2);
@@ -136,7 +138,7 @@ namespace CinemaManagement.Views.LoginWindow
             ta.SetValue(Storyboard.TargetNameProperty, "topobj");
             Storyboard.SetTargetProperty(ta, new PropertyPath(MarginProperty));
 
-            ta.From = new Thickness(0, 50, 0, 0);
+            ta.From = new Thickness(0, 45, 0, 0);
             ta.To = new Thickness(0, 0, 0, 70);
             ta.Duration = new Duration(TimeSpan.FromSeconds(0.3));
 
@@ -149,8 +151,8 @@ namespace CinemaManagement.Views.LoginWindow
             ta2.SetValue(Storyboard.TargetNameProperty, "_Instruct");
             Storyboard.SetTargetProperty(ta2, new PropertyPath(MarginProperty));
 
-            ta2.From = new Thickness(0, 0, 0, 150);
-            ta2.To = new Thickness(0, 0, 0, 50);
+            ta2.From = new Thickness(20, 0, 0, 150);
+            ta2.To = new Thickness(20, 0, 0, 50);
             ta2.Duration = new Duration(TimeSpan.FromSeconds(0.3));
 
             sb2.Children.Add(ta2);
