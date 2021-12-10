@@ -164,6 +164,17 @@
                                                 <Border BorderBrush="Black"
                                                         BorderThickness="0.5"
                                                         CornerRadius="5">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver"
+                                                                         Value="True">
+                                                                    <Setter Property="Background"
+                                                                            Value="#00e5ff" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
                                                     <StackPanel>
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonUp">
@@ -181,6 +192,17 @@
                                                         BorderBrush="Black"
                                                         CornerRadius="5"
                                                         Margin="10,0,0,0">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver"
+                                                                         Value="True">
+                                                                    <Setter Property="Background"
+                                                                            Value="#ff6255" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
                                                     <StackPanel>
                                                         <materialDesign:PackIcon Kind="GarbageCanEmpty"
                                                                                  Width="30"

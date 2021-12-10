@@ -27,11 +27,40 @@
             <ColumnDefinition Width="419*" />
         </Grid.ColumnDefinitions>
 
+        <Label Cursor="Hand"
+               Height="40"
+               Width="40"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center"
+               x:Name="lbl"
+               Margin="15 15 0 0">
+            <materialDesign:PackIcon Kind="ArrowLeft"
+                                     Height="35"
+                                     Width="35" />
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding CancelCM}"
+                                           CommandParameter="{Binding ElementName=lbl}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Label>
+
+        <!--<Button Style="{StaticResource MaterialDesignPaperLightButton}"
+                Width="50"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="15 15 0 0"
+                ToolTip="Resource name: MaterialDesignPaperLightButton"
+                Content="{materialDesign:PackIcon ArrowLeft}"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />-->
+
         <materialDesign:Card HorizontalAlignment="Left"
                              Width="360"
                              Height="70"
                              VerticalAlignment="Top"
-                             Margin="40 40 0 0"
+                             Margin="70 60 0 0"
                              UniformCornerRadius="6">
             <Label Content="THANH TOÁN HÓA ĐƠN"
                    VerticalAlignment="Center"
@@ -44,7 +73,7 @@
         <materialDesign:Card VerticalAlignment="Stretch"
                              HorizontalAlignment="Left"
                              Width="360"
-                             Margin="40 150 0 40"
+                             Margin="70 170 0 20"
                              UniformCornerRadius="6">
             <Grid>
                 <Grid.RowDefinitions>
@@ -492,7 +521,7 @@
                              HorizontalAlignment="Right"
                              Height="640"
                              Width="804"
-                             Margin="0 40 40 0"
+                             Margin="0 60 40 0"
                              UniformCornerRadius="6"
                              Grid.ColumnSpan="2">
             <Grid>

@@ -195,6 +195,17 @@
                                                         BorderThickness="1"
                                                         CornerRadius="6"
                                                         Cursor="Hand">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver"
+                                                                         Value="True">
+                                                                    <Setter Property="Background"
+                                                                            Value="#00e5ff" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
                                                     <Image Source="/Resources/IconPack/pencil.png"
                                                            Width="30"
                                                            Height="30"
@@ -210,6 +221,17 @@
                                                         BorderThickness="1"
                                                         CornerRadius="6"
                                                         Cursor="Hand">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver"
+                                                                         Value="True">
+                                                                    <Setter Property="Background"
+                                                                            Value="#ff6255" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
                                                     <materialDesign:PackIcon Kind="GarbageCanEmpty"
                                                                              Width="30"
                                                                              Height="30"
