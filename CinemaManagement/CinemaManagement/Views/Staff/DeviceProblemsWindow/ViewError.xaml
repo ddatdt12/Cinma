@@ -13,7 +13,7 @@
         DataContext="{StaticResource DeviceReportPageVM}"
         Height="500"
         Width="850"
-        MouseDown="Window_MouseDown"
+        MouseLeftButtonDown="window_MouseLeftButtonDown"
         WindowStartupLocation="CenterScreen"
         FontSize="15"
         x:Name="window">
@@ -35,7 +35,8 @@
                                FontSize="25"
                                FontWeight="Bold"
                                Margin="10,0,0,0" />
-                    <Button Click="Button_Click_1"
+                    <Button Command="{Binding CloseCM}"
+                            CommandParameter="{Binding ElementName=window}"
                             ToolBar.OverflowMode="AsNeeded"
                             Background="Transparent"
                             Foreground="Black"

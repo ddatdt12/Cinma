@@ -103,7 +103,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Ngày nhận"
-                                            Width="350">
+                                            Width="340">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding SubmittedAt}"

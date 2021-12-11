@@ -32,10 +32,5 @@ namespace CinemaManagement.Views.Admin.Import_ExportManagement
             btn.Background = new SolidColorBrush(Colors.Transparent);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            Import_ExportManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
-            this.Close();
-        }
     }
 }

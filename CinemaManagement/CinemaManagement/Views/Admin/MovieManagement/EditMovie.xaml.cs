@@ -64,12 +64,6 @@ namespace CinemaManagement.Views.Admin.QuanLyPhimPage
             btn.Background = new SolidColorBrush(Colors.Transparent);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            MovieManagementViewModel.MaskName.Visibility = Visibility.Collapsed;
-            this.Close();
-        }
-
         private void EditMovieWindow_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key != System.Windows.Input.Key.Escape) return;

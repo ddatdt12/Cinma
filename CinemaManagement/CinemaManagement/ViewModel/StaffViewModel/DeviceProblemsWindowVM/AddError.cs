@@ -4,11 +4,8 @@ using CinemaManagement.Utils;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Staff.DeviceProblemsWindow;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
@@ -46,7 +43,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     MessageBoxCustom mb = new MessageBoxCustom("", "Thêm sự cố thành công", MessageType.Success, MessageButtons.OK);
                     SaveImgToApp();
                     IsAddingError = false;
-                    ListError.Add(newtrouble);
+                    ListError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>(await TroubleService.Ins.GetAllTrouble());
                     MaskName.Visibility = Visibility.Collapsed;
                     mb.ShowDialog();
                     p.Close();

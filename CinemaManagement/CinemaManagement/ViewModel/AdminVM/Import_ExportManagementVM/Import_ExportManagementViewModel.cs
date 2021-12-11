@@ -5,6 +5,7 @@ using CinemaManagement.Views.Admin.Import_ExportManagement;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -91,6 +92,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public ICommand CheckImportItemFilterCM { get; set; }
         public ICommand SelectedImportMonthCM { get; set; }
         public ICommand SelectedMonthCM { get; set; }
+        public ICommand CloseCM { get; set; }
 
         private ObservableCollection<ProductReceiptDTO> _ListProduct;
         public ObservableCollection<ProductReceiptDTO> ListProduct
@@ -115,7 +117,8 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             SelectedMonthCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
             {
                 await CheckMonthFilter();
-            }); SelectedImportMonthCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
+            });
+            SelectedImportMonthCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
              {
                  await CheckImportMonthFilter();
              });
@@ -217,6 +220,12 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
             {
                 MaskName = p;
+            });
+            CloseCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                MaskName.Visibility = Visibility.Collapsed;
+                SelectedTicketBill = null;
+                p.Close();
             });
         }
 

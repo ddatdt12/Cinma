@@ -63,7 +63,7 @@
                             <ComboBoxItem>Chờ tiếp nhận</ComboBoxItem>
                             <ComboBoxItem>Đang giải quyết</ComboBoxItem>
                             <ComboBoxItem>Đã giải quyết</ComboBoxItem>
-                            <ComboBoxItem>Đã huỷ</ComboBoxItem>
+                            <ComboBoxItem>Đã hủy</ComboBoxItem>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction Command="{Binding FilterListErrorCommand}"
@@ -157,7 +157,7 @@
                                                 <Border Cursor="Hand"
                                                         BorderBrush="Black"
                                                         BorderThickness="1"
-                                                        Margin="10,20,0,0"
+                                                        Margin="10,30,0,0"
                                                         CornerRadius="5"
                                                         Background="Transparent"
                                                         Width="30"

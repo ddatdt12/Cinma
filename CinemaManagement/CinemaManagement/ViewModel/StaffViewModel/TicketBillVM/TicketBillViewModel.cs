@@ -7,6 +7,7 @@ using CinemaManagement.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -45,6 +46,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         public static ShowtimeDTO Showtime;
         public static MovieDTO Movie;
         public static ObservableCollection<ProductDTO> ListFood;
+        public static StaffDTO Staff;
+        public CustomerDTO customerDTO;
 
         #region Biến Binding
 
@@ -225,6 +228,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 
         #endregion
 
+        #region Command
+
         public ICommand CboxWalkinGuestCM { get; set; }
         public ICommand CheckPhoneNumberCM { get; set; }
 
@@ -239,6 +244,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         public ICommand PayFullCM { get; set; }
         public ICommand PayMovieCM { get; set; }
         public ICommand PayFoodCM { get; set; }
+
+        #endregion
 
         private static List<SeatSettingDTO> _ListSeat;
         public static List<SeatSettingDTO> ListSeat
@@ -288,6 +295,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 
         public TicketBillViewModel()
         {
+            customerDTO = new CustomerDTO();
             ListVoucher = new ObservableCollection<VoucherDTO>();
             decimal TotalFullMoviePrice = 0;
             // Food
@@ -337,7 +345,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             TotalPrice = Helper.FormatVNMoney(Total);
 
             //Discount
-            int Discount = 0;
+            decimal Discount = 0;
             DiscountStr = Helper.FormatVNMoney(Discount);
             if (ListFood.Count==0)
             {
@@ -395,6 +403,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                             Name = customer.Name;
                             Email = customer.Email;
                             IsValidPhone = true;
+                            customerDTO = customer;
                         }
                         else
                         {
@@ -773,22 +782,178 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             PayFullCM = new RelayCommand<object>((p) => { return true; },
                 async (p) =>
                 {
-                    
+                    try
+                    {
+                        List<ProductBillInfoDTO> productBills = new List<ProductBillInfoDTO>();
+                        for (int i = 0; i < ListFood.Count; i++)
+                        {
+                            ProductBillInfoDTO temp = new ProductBillInfoDTO();
+                            temp.ProductId = ListFood[i].Id;
+                            temp.Quantity = ListFood[i].Quantity;
+                            temp.ProductName = ListFood[i].DisplayName;
+                            temp.PricePerItem = ListFood[i].Price;
+                            productBills.Add(temp);
+                        }
+                        List<TicketDTO> tickets = new List<TicketDTO>();
+                        for (int i = 0; i < ListSeat.Count; i++)
+                        {
+                            TicketDTO temp = new TicketDTO();
+                            temp.ShowtimeId = Showtime.Id;
+                            temp.SeatId = ListSeat[i].SeatId;
+                            temp.Price = Showtime.TicketPrice;
+                            tickets.Add(temp);
+                        }
+                        BillDTO bill = new BillDTO();
+                        if (!IsWalkinGuest)
+                        {
+                            bill.CustomerId = customerDTO.Id;
+                        }
+                        bill.StaffId = Staff.Id;
+                        bill.TotalPrice = LastPrice;
+                        bill.DiscountPrice = Discount;
 
+                        bill.VoucherIdList = ListVoucher.Select(v => v.Id).ToList();
+                        (bool successBooking, string messageFromBooking) = await BookingService.Ins.CreateFullOptionBooking(bill, tickets, productBills);
+                        if (successBooking)
+                        {
+                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Success, MessageButtons.OK);
+                            mgb.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Error, MessageButtons.OK);
+                            mgb.ShowDialog();
+                        }
+                        
+                    }
+                    catch(System.Data.Entity.Core.EntityException e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
+                    catch(Exception e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
                 });
 
             PayMovieCM = new RelayCommand<object>((p) => { return true; },
                 async (p) =>
                 {
-
+                    try
+                    {
+                        List<TicketDTO> tickets = new List<TicketDTO>();
+                        for (int i = 0; i < ListSeat.Count; i++)
+                        {
+                            TicketDTO temp = new TicketDTO();
+                            temp.ShowtimeId = Showtime.Id;
+                            temp.SeatId = ListSeat[i].SeatId;
+                            temp.Price = Showtime.TicketPrice;
+                            tickets.Add(temp);
+                        }
+                        BillDTO bill = new BillDTO();
+                        if (!IsWalkinGuest)
+                        {
+                            bill.CustomerId = customerDTO.Id;
+                            bill.CustomerName = customerDTO.Name;
+                            bill.PhoneNumber = customerDTO.PhoneNumber;
+                        }
+                        bill.StaffId = Staff.Id;
+                        bill.StaffName = Staff.Name;
+                        bill.TotalPrice = LastPrice;
+                        bill.DiscountPrice = Discount;
+                        bill.CreatedAt = DateTime.Now;
+                        if (ListVoucher.Count > 0)
+                        {
+                            List<int> voucherID = new List<int>();
+                            for (int i = 0; i < ListVoucher.Count; i++)
+                            {
+                                voucherID.Add(ListVoucher[i].Id);
+                            }
+                        }
+                        (bool successBooking, string messageFromBooking) = await BookingService.Ins.CreateTicketBooking(bill, tickets);
+                        if (successBooking)
+                        {
+                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Success, MessageButtons.OK);
+                            mgb.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Error, MessageButtons.OK);
+                            mgb.ShowDialog();
+                        }
+                    }
+                    catch (System.Data.Entity.Core.EntityException e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
 
                 });
 
             PayFoodCM = new RelayCommand<object>((p) => { return true; },
                 async (p) =>
                 {
-
-
+                    try
+                    {
+                        List<ProductBillInfoDTO> productBills = new List<ProductBillInfoDTO>();
+                        for (int i = 0; i < ListFood.Count; i++)
+                        {
+                            ProductBillInfoDTO temp = new ProductBillInfoDTO();
+                            temp.ProductId = ListFood[i].Id;
+                            temp.Quantity = ListFood[i].Quantity;
+                            temp.ProductName = ListFood[i].DisplayName;
+                            temp.PricePerItem = ListFood[i].Price;
+                            productBills.Add(temp);
+                        }
+                        BillDTO bill = new BillDTO();
+                        if (!IsWalkinGuest)
+                        {
+                            bill.CustomerId = customerDTO.Id;
+                            bill.CustomerName = customerDTO.Name;
+                            bill.PhoneNumber = customerDTO.PhoneNumber;
+                        }
+                        bill.StaffId = Staff.Id;
+                        bill.StaffName = Staff.Name;
+                        bill.TotalPrice = LastPrice;
+                        bill.DiscountPrice = Discount;
+                        bill.CreatedAt = DateTime.Now;
+                        if (ListVoucher.Count > 0)
+                        {
+                            List<int> voucherID = new List<int>();
+                            for (int i = 0; i < ListVoucher.Count; i++)
+                            {
+                                voucherID.Add(ListVoucher[i].Id);
+                            }
+                        }
+                        (bool successBooking, string messageFromBooking) = await BookingService.Ins.CreateProductOrder(bill, productBills);
+                        if (successBooking)
+                        {
+                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Success, MessageButtons.OK);
+                            mgb.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Error, MessageButtons.OK);
+                            mgb.ShowDialog();
+                        }
+                    }
+                    catch (System.Data.Entity.Core.EntityException e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
                 });
 
         }

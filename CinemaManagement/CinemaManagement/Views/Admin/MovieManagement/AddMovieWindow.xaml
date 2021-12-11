@@ -65,7 +65,8 @@
                                         VerticalAlignment="Top"
                                         HorizontalAlignment="Right"
                                         Grid.Row="0">
-                                <Button Click="Button_Click_1"
+                                <Button Command="{Binding CloseCM}"
+                                        CommandParameter="{Binding ElementName=addmoviewindow}"
                                         ToolBar.OverflowMode="AsNeeded"
                                         Background="Transparent"
                                         Foreground="Black"

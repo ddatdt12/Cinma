@@ -154,6 +154,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         public ICommand UpdateMovieCM { get; set; }
         public ICommand MaskNameCM { get; set; }
         public ICommand FirstLoadCM { get; set; }
+        public ICommand CloseCM { get; set; }
 
         public MovieManagementViewModel()
         {
@@ -167,7 +168,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 {
                     IsLoadding = true;
                     GenreList = GenreService.Ins.GetAllGenre();
-                    MovieList = new ObservableCollection<MovieDTO>(await Task.Run(()=> MovieService.Ins.GetAllMovie()));
+                    MovieList = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetAllMovie()));
                     IsLoadding = false;
                 }
                 catch (System.Data.Entity.Core.EntityException e)
@@ -278,6 +279,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
              {
                  await SaveMovieFunc(p);
              });
+            CloseCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                MaskName.Visibility = Visibility.Collapsed;
+                SelectedItem = null;
+                p.Close();
+            });
         }
 
         public void LoadImage()
