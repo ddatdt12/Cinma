@@ -135,9 +135,9 @@
                                                 <i:InvokeCommandAction Command="{Binding RefreshEmailListCM}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
-                                        <ComboBoxItem>Top 5 khách hàng trong tháng</ComboBoxItem>
-                                        <ComboBoxItem>Khách hàng mới trong tháng</ComboBoxItem>
-                                        <ComboBoxItem>Khác</ComboBoxItem>
+                                        <ComboBoxItem Tag="TOP_5_CUSTOMER">Top 5 khách hàng trong tháng</ComboBoxItem>
+                                        <ComboBoxItem Tag="NEW_CUSTOMER">Khách hàng mới trong tháng</ComboBoxItem>
+                                        <ComboBoxItem Tag="COMMON">Khác</ComboBoxItem>
                                     </ComboBox>
                                 </Grid>
                             </StackPanel>

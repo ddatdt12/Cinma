@@ -87,7 +87,7 @@ namespace CinemaManagement.DTOs
             }
         }
         public DateTime CreatedAt { get; set; }
-        public List<string> VoucherIdList { get; set; }
+        public List<int> VoucherIdList { get; set; }
 
 
         //Use 2 list when show details Bill
