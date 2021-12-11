@@ -1,11 +1,15 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
+using CinemaManagement.ViewModel.StaffViewModel.TicketVM;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Staff;
 using CinemaManagement.Views.Staff.TicketBill;
 using CinemaManagement.Views.Staff.TicketWindow;
 using MaterialDesignThemes.Wpf;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +22,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
 {
     public class OrderFoodPageViewModel : BaseViewModel
     {
+        public static List<SeatSettingDTO> tempListSeatSettings;
+        public static bool IsBacking = false;
+
+        #region Commands
+
         public ICommand StoreCardViewCM { get; set; }
         public ICommand MouseMoveCommand { get; set; }
         public ICommand FilterAllProductsCommand { get; set; }
@@ -30,6 +39,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
         public ICommand DeleteAllOrderCommand { get; set; }
         public ICommand BuyCommand { get; set; }
         public ICommand FirstLoadCM { get; set; }
+        public ICommand BackToMovieBookingPageCM { get; set; }
+
+        #endregion
 
         Card StoreCardView { get; set; }
         string SelectedView { get; set; }
@@ -106,15 +118,48 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
         public static ObservableCollection<ProductDTO> ListOrder;
 
         public static bool checkOnlyFoodOfPage;
+
+        private bool _ShowBackIcon;
+        public bool ShowBackIcon
+        {
+            get => _ShowBackIcon;
+            set
+            {
+                _ShowBackIcon = value;
+                OnPropertyChanged();
+            }
+        }
+
         public OrderFoodPageViewModel()
         {
+            tempListSeatSettings = TicketWindowViewModel.WaitingList;
+            ShowBackIcon = true;
+            IsBacking = false;
 
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                
+
                 AllProduct = new ObservableCollection<ProductDTO>();
                 OrderList = new ObservableCollection<ProductDTO>();
                 MenuList = new ObservableCollection<ProductDTO>();
                 ListOrder = new ObservableCollection<ProductDTO>();
+                if(!TicketBillViewModel.IsBacking)
+                {
+                    OrderList = ListOrder;
+                }
+                
+
+                if (TicketBillViewModel.ListFood != null && TicketBillViewModel.IsBacking)
+                {
+                    OrderList = TicketBillViewModel.ListFood;
+                    TicketBillViewModel.IsBacking = false;
+                }
+
+                if(checkOnlyFoodOfPage)
+                {
+                    ShowBackIcon = false;
+                }
 
                 //Khởi tạo giá trị ban đầu cho tổng giá tiền
                 ReCalculate();
@@ -344,7 +389,30 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             {
                 StoreCardView = p;
             });
+
+            BackToMovieBookingPageCM = new RelayCommand<object>((p) => { return true; },
+                (p) =>
+                {
+                    try
+                    {
+                        IsBacking = true;
+                        TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
+                        tk.TicketBookingFrame.Content = new TicketBookingPage();
+                    }
+                    catch (System.Data.Entity.Core.EntityException e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
+
+                });
         }
+
         private Window GetWindowParent(Window p)
         {
             Window parent = p;

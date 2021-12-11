@@ -1,4 +1,5 @@
-﻿using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
+﻿using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
+using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.TicketWindow;
@@ -107,7 +108,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                 {
                     new MessageBoxCustom("Cảnh báo", "Vui lòng chọn ghế trước khi sang bước tiếp theo", MessageType.Warning, MessageButtons.OK).ShowDialog();
                     return;
-                }    
+                }
+                if (OrderFoodPageViewModel.ListOrder != null)
+                {
+                    OrderFoodPageViewModel.ListOrder.Clear();
+                }
                 TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
                 tk.TicketBookingFrame.Content = new FoodPage();
             });

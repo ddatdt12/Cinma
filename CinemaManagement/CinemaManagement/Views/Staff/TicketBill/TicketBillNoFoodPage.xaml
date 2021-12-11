@@ -21,6 +21,26 @@
 
     <Grid>
 
+        <Label Cursor="Hand"
+               Height="40"
+               Width="40"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center"
+               x:Name="lbl"
+               Margin="15 15 0 0">
+            <materialDesign:PackIcon Kind="ArrowLeft"
+                                     Height="35"
+                                     Width="35" />
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding BackToFoodPageCM}"
+                                           CommandParameter="{Binding ElementName=lbl}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Label>
+
         <materialDesign:Card HorizontalAlignment="Left"
                              Width="450"
                              Height="70"

@@ -41,7 +41,7 @@
                                      Width="35" />
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding CancelCM}"
+                    <i:InvokeCommandAction Command="{Binding BackToFoodPageCM}"
                                            CommandParameter="{Binding ElementName=lbl}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>

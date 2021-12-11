@@ -1,5 +1,8 @@
-﻿using CinemaManagement.ViewModel.StaffViewModel.TicketVM;
+﻿using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
+using CinemaManagement.ViewModel.StaffViewModel.TicketVM;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace CinemaManagement.Views.Staff.TicketWindow
 {
@@ -9,6 +12,7 @@ namespace CinemaManagement.Views.Staff.TicketWindow
         {
             InitializeComponent();
             DataContext = new TicketWindowViewModel();
+                
         }
     }
 }

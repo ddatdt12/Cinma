@@ -1,10 +1,13 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
+using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
+using CinemaManagement.Views.Staff.TicketWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -22,6 +25,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
         public ICommand SelectedSeatCM { get; set; }
         public ICommand LoadStatusSeatCM { get; set; }
         public ICommand SetStatusSeatCM { get; set; }
+
+        #region Biến binding
 
         private string _price;
         public string price
@@ -152,13 +157,26 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             set { _totalSeat = value; OnPropertyChanged(); }
         }
 
+        #endregion
+
         public async Task GenerateSeat()
         {
+
+            //
             ListSeat = new List<SeatSettingDTO>(await SeatService.Ins.GetSeatsByShowtime(CurrentShowtime.Id));
             ListStatusSeat = new List<SeatSettingDTO>();
             ListSeat1 = new ObservableCollection<SeatSettingDTO>();
             ListSeat2 = new ObservableCollection<SeatSettingDTO>();
             WaitingList = new List<SeatSettingDTO>();
+
+            if (OrderFoodPageViewModel.IsBacking)
+            {
+                OrderFoodPageViewModel.IsBacking = false;
+                TicketBookingPage tk = new TicketBookingPage();
+                tk.SeatListBox1.ItemTemplate.LoadContent();
+
+            }
+
             foreach (var item in ListSeat)
             {
                 if (item.SeatPosition.Length == 2 && item.SeatPosition[1] < '3')
@@ -183,13 +201,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                     if (item.SeatPosition == id)
                     {
                         WaitingList.RemoveAll(r => r.SeatPosition == id);
-                        listlabel.RemoveAll(r => r.Content.ToString() == id);
+                        //listlabel.RemoveAll(r => r.Content.ToString() == id);
                         ReCalculate();
                         return;
                     }
                 }
                 WaitingList.Add(SelectedSeat);
-                listlabel.Add(p);
+                //listlabel.Add(p);
                 ReCalculate();
             }
         }

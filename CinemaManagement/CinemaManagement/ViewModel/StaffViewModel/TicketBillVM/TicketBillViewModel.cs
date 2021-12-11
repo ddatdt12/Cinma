@@ -4,6 +4,9 @@ using CinemaManagement.Utils;
 using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
 using CinemaManagement.ViewModel.StaffViewModel.TicketVM;
 using CinemaManagement.Views;
+using CinemaManagement.Views.Staff;
+using CinemaManagement.Views.Staff.OrderFoodWindow;
+using CinemaManagement.Views.Staff.TicketWindow;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -47,6 +50,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         public static MovieDTO Movie;
         public static ObservableCollection<ProductDTO> ListFood;
         public static StaffDTO Staff;
+        public static bool IsBacking;
         public CustomerDTO customerDTO;
 
         #region Biến Binding
@@ -245,6 +249,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         public ICommand PayMovieCM { get; set; }
         public ICommand PayFoodCM { get; set; }
 
+        public ICommand BackToFoodPageCM { get; set; }
+
         #endregion
 
         private static List<SeatSettingDTO> _ListSeat;
@@ -295,8 +301,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 
         public TicketBillViewModel()
         {
+            // Biến khởi tạo
+            IsBacking = false;
             customerDTO = new CustomerDTO();
             ListVoucher = new ObservableCollection<VoucherDTO>();
+
             decimal TotalFullMoviePrice = 0;
             // Food
             ListFood = OrderFoodPageViewModel.ListOrder;
@@ -856,14 +865,10 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         if (!IsWalkinGuest)
                         {
                             bill.CustomerId = customerDTO.Id;
-                            bill.CustomerName = customerDTO.Name;
-                            bill.PhoneNumber = customerDTO.PhoneNumber;
                         }
                         bill.StaffId = Staff.Id;
-                        bill.StaffName = Staff.Name;
                         bill.TotalPrice = LastPrice;
                         bill.DiscountPrice = Discount;
-                        bill.CreatedAt = DateTime.Now;
                         if (ListVoucher.Count > 0)
                         {
                             List<int> voucherID = new List<int>();
@@ -916,14 +921,10 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         if (!IsWalkinGuest)
                         {
                             bill.CustomerId = customerDTO.Id;
-                            bill.CustomerName = customerDTO.Name;
-                            bill.PhoneNumber = customerDTO.PhoneNumber;
                         }
                         bill.StaffId = Staff.Id;
-                        bill.StaffName = Staff.Name;
                         bill.TotalPrice = LastPrice;
                         bill.DiscountPrice = Discount;
-                        bill.CreatedAt = DateTime.Now;
                         if (ListVoucher.Count > 0)
                         {
                             List<int> voucherID = new List<int>();
@@ -956,6 +957,35 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                     }
                 });
 
+            BackToFoodPageCM = new RelayCommand<object>((p) => { return true; },
+                (p) =>
+                {
+                    try
+                    {
+                        IsBacking = true;
+                        if (OrderFoodPageViewModel.checkOnlyFoodOfPage)
+                        {
+                            MainStaffWindow tk = Application.Current.Windows.OfType<MainStaffWindow>().FirstOrDefault();
+                            tk.mainFrame.Content = new FoodPage();
+                        }
+                        else
+                        {
+                            TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
+                            tk.TicketBookingFrame.Content = new FoodPage();
+                        }
+                    }
+                    catch (System.Data.Entity.Core.EntityException e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
+                    
+                });
         }
 
     }

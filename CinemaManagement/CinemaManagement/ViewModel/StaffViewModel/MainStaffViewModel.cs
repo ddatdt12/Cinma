@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
 using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
+using CinemaManagement.Views;
 using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff.DeviceProblemsWindow;
 using CinemaManagement.Views.Staff.MovieScheduleWindow;
@@ -156,18 +157,31 @@ namespace CinemaManagement.ViewModel
                 OrderFoodPageViewModel.checkOnlyFoodOfPage = false;
                 if (SelectedItem != null)
                 {
-                    MovieScheduleWindowViewModel.tempFilebinding = SelectedItem;
-                    w = new MovieScheduleWindow();
-                    if(w!=null)
+                    try
                     {
-                        if (SelectedItem != null)
+                        MovieScheduleWindowViewModel.tempFilebinding = SelectedItem;
+                        w = new MovieScheduleWindow();
+                        if (w != null)
                         {
-                            w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
-                            w.imgframe.Source = Helper.GetMovieImageSource(SelectedItem.Image);
-                            w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
-                            w.txtframe.Text = SelectedItem.DisplayName;
-                            w.ShowDialog();
+                            if (SelectedItem != null)
+                            {
+                                w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
+                                w.imgframe.Source = Helper.GetMovieImageSource(SelectedItem.Image);
+                                w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
+                                w.txtframe.Text = SelectedItem.DisplayName;
+                                w.ShowDialog();
+                            }
                         }
+                    }
+                    catch (System.Data.Entity.Core.EntityException e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                        mess.ShowDialog();
                     }
                 }
             });
@@ -179,7 +193,11 @@ namespace CinemaManagement.ViewModel
             });
             LoadFoodPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                OrderFoodPageViewModel.checkOnlyFoodOfPage = true;
+                if (OrderFoodPageViewModel.ListOrder!=null)
+                {
+                    OrderFoodPageViewModel.ListOrder.Clear();
+                }
+                OrderFoodPageViewModel.checkOnlyFoodOfPage = true; 
                 p.Content = new FoodPage();
 
             });

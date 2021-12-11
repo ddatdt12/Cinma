@@ -33,6 +33,37 @@
             <RowDefinition Height="90*" />
         </Grid.RowDefinitions>
 
+        <Label Cursor="Hand"
+               Height="40"
+               Width="40"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               VerticalContentAlignment="Center"
+               HorizontalContentAlignment="Center"
+               x:Name="lbl"
+               Margin="15 15 0 0">
+            <materialDesign:PackIcon Kind="ArrowLeft"
+                                     Height="35"
+                                     Width="35" />
+            <Label.Style>
+                <Style TargetType="Label">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShowBackIcon}"
+                                     Value="False">
+                            <Setter Property="Visibility"
+                                    Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Label.Style>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:InvokeCommandAction Command="{Binding BackToMovieBookingPageCM}"
+                                           CommandParameter="{Binding ElementName=lbl}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Label>
+
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -42,10 +73,10 @@
             <TextBlock Text="Danh mục sản phẩm"
                        FontFamily="Segoe UI Semibold"
                        FontSize="30"
-                       Margin="30,30,0,0"
+                       Margin="300,30,0,0"
                        FontWeight="Bold"
                        TextAlignment="Center"
-                       HorizontalAlignment="Left"
+                       HorizontalAlignment="Center"
                        Grid.Column="0" />
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal">
@@ -503,8 +534,8 @@
                     </Border>
                     <Button Command="{Binding BuyCommand}"
                             VerticalAlignment="Bottom"
-                            HorizontalAlignment="Right"
-                            Margin="0,0,20,10"
+                            HorizontalAlignment="Center"
+                            Margin="20,0,0,10"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Grid.Row="2"
                             Height="50"

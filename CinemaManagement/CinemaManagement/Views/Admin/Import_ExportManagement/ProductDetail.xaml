@@ -136,7 +136,7 @@
                                                             HorizontalAlignment="Right">
                                                     <TextBlock Text="{Binding TotalPriceStr}"
                                                                FontSize="22" />
-                                                    <TextBlock Text="d"
+                                                    <TextBlock Text=""
                                                                FontSize="15" />
                                                 </StackPanel>
 
