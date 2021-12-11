@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Globalization;
 
 namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 {
@@ -127,16 +128,15 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 }
             }
 
-
+            //SelectedItem
             // Danh sách code và khách hàng
             List<string> listCode = ReleaseVoucherList.Select(v => v.Code).ToList();
-            List<string> listCustomerEmail = ListCustomerEmail.Select(v => v.Email).ToList();
 
             //Chia danh sách code theo số lượng khách hàng
-            int sizePerItem = listCode.Count / listCustomerEmail.Count;
+            int sizePerItem = listCode.Count / ListCustomerEmail.Count;
             List<List<string>> ListCodePerEmailList = ChunkBy(listCode, sizePerItem);
 
-            (bool sendSuccess, string messageFromSendEmail) = await sendHtmlEmail(listCustomerEmail, ListCodePerEmailList);
+            (bool sendSuccess, string messageFromSendEmail) = await sendHtmlEmail(ReleaseCustomerList.Tag.ToString(), ListCustomerEmail.ToList(), ListCodePerEmailList);
 
             if (!sendSuccess)
             {
@@ -205,7 +205,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                         foreach (var item in list)
                         {
                             if (item.Email != null)
-                                ListCustomerEmail.Add(new CustomerEmail { Email = item.Email });
+                                ListCustomerEmail.Add(new CustomerEmail { Email = item.Email, Name = item.Name });
                         }
                         ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
                         return;
@@ -227,7 +227,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                                 foreach (var it in newcuslist)
                                 {
                                     if (!string.IsNullOrEmpty(it.Email))
-                                        ListCustomerEmail.Add(new CustomerEmail { Email = it.Email });
+                                        ListCustomerEmail.Add(new CustomerEmail { Email = it.Email, Name = it.Name });
                                 }
                             }
                             ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
@@ -304,31 +304,31 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             }
         }
 
-        protected async Task<(bool, string)> sendHtmlEmail(List<string> customerEmailList, List<List<string>> ListCodePerEmailList)
+        protected async Task<(bool, string)> sendHtmlEmail(string type, List<CustomerEmail> customerList, List<List<string>> ListCodePerEmailList)
         {
-            List<Task> listSendEmailTask = new List<Task>();
+            var appSettings = ConfigurationManager.AppSettings;
+            APP_EMAIL = appSettings["APP_EMAIL"];
+            APP_PASSWORD = appSettings["APP_PASSWORD"];
 
+            List<Task> listSendEmailTask = new List<Task>();
             try
             {
-                for (int i = 0; i < customerEmailList.Count; i++)
+                for (int i = 0; i < customerList.Count; i++)
                 {
-                    listSendEmailTask.Add(sendEmailForACustomer(customerEmailList[i], ListCodePerEmailList[i]));
+                    listSendEmailTask.Add(sendEmailForACustomer(type, customerList[i], ListCodePerEmailList[i]));
                 }
                 await Task.WhenAny(listSendEmailTask);
                 return (true, "Gửi thành công");
+
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return (false, "Phát sinh lỗi trong quá trình gửi mail. Vui lòng thử lại!");
-            }  
+            }
         }
 
-        private Task sendEmailForACustomer(string customerEmail, List<string> listCode)
+        private Task sendEmailForACustomer(string type, CustomerEmail customerEmail, List<string> listCode)
         {
-            var appSettings = ConfigurationManager.AppSettings;
-            string APP_EMAIL = appSettings["APP_EMAIL"];
-            string APP_PASSWORD = appSettings["APP_PASSWORD"];
-
             //SMTP CONFIG
             SmtpClient smtp = new SmtpClient("smtp.gmail.com");
             smtp.EnableSsl = true;
@@ -340,44 +340,83 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             MailMessage mail = new MailMessage();
             mail.IsBodyHtml = true;
 
-            //create Alrternative HTML view
-
-            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(GetCustomerGratitudeTemplate(listCode), Encoding.UTF8, "text/html");
-            //Add Image
-            LinkedResource image = new LinkedResource(Helper.GetImagePath("poster.png"), "image/png");
-            image.ContentId = "myImageID";
-            image.ContentType.Name = "thank_you_picture";
-            image.TransferEncoding = TransferEncoding.Base64;
-            image.ContentLink = new Uri("cid:" + image.ContentId);
-
-            //Add the Image to the Alternate view
-            htmlView.LinkedResources.Add(image);
             //Add view to the Email Message
-            mail.AlternateViews.Add(htmlView);
+            mail.AlternateViews.Add(GetAlternateViews(type, customerEmail.Name, listCode));
 
             mail.From = new MailAddress(APP_EMAIL, "Squadin Cinema");
-            mail.To.Add(customerEmail);
-            mail.Subject = "Tri ân khách hàng thân thiết";
-
-            smtp.SendCompleted += (s, e) => smtp.Dispose();
+            mail.To.Add(customerEmail.Email);
+            if (type == EMAIL_TYPE.NEW_CUSTOMER)
+            {
+                mail.Subject = "Chào mừng khách hàng mới";
+            }
+            else
+            {
+                mail.Subject = "Tri ân khách hàng";
+            }
             return smtp.SendMailAsync(mail);
         }
 
-        private string GetCustomerGratitudeTemplate(List<string> listCode)
+        private AlternateView GetAlternateViews(string type, string customerName, List<string> listCode)
         {
-            string templateHTML = Helper.GetEmailTemplatePath(GRATITUDE_TEMPLATE_FILE);
+            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(GetCustomerTemplate(type, customerName, listCode), Encoding.UTF8, "text/html");
+
+            if (type == EMAIL_TYPE.NEW_CUSTOMER)
+            {
+                //Add Image
+                LinkedResource image = new LinkedResource(Helper.GetImagePath(@"Email\welcome.png"), "image/png");
+                image.ContentId = "myImageID";
+                image.ContentType.Name = "welcome_picture";
+                image.TransferEncoding = TransferEncoding.Base64;
+                image.ContentLink = new Uri("cid:" + image.ContentId);
+
+                //Add the Image to the Alternate view
+                htmlView.LinkedResources.Add(image);
+            }
+            else
+            {
+                LinkedResource image = new LinkedResource(Helper.GetImagePath(@"Email\thank_you.png"), "image/png");
+                image.ContentId = "myImageID";
+                image.ContentType.Name = "thank_you_picture";
+                image.TransferEncoding = TransferEncoding.Base64;
+                image.ContentLink = new Uri("cid:" + image.ContentId);
+
+                htmlView.LinkedResources.Add(image);
+            }
+
+            return htmlView;
+        }
+
+        private string GetCustomerTemplate(string type, string customerName, List<string> listCode)
+        {
+            string templateHTML;
+            if (type == EMAIL_TYPE.NEW_CUSTOMER)
+            {
+                templateHTML = Helper.GetEmailTemplatePath(GRATITUDE_TEMPLATE_FILE);
+            }
+            else if (type == EMAIL_TYPE.NEW_CUSTOMER)
+            {
+                templateHTML = Helper.GetEmailTemplatePath(NEWCUSTOMER_TEMPLATE_FILE);
+            }
+            else
+            {
+                templateHTML = Helper.GetEmailTemplatePath(COMMON_TEMPLATE_FILE);
+            }
             string listVoucherHTML = "";
 
             for (int i = 0; i < listCode.Count; i++)
             {
-                listVoucherHTML += VOUCHER_ITEM_HTML.Replace("{INDEX}", $"{i + 1}").Replace("{CODE_HERE}", listCode[i]);
+                listVoucherHTML += VOUCHER_ITEM_HTML.Replace("{CODE_HERE}", listCode[i]);
             }
-
-
-            String HTML = File.ReadAllText(templateHTML).Replace("{LIST_CODE_HERE}", listVoucherHTML);
+            String HTML = File.ReadAllText(templateHTML).Replace("{VOUCHER_LIST}", listVoucherHTML).Replace("{CUSTOMER_NAME}", customerName ?? "Bạn")
+                .Replace("{DISCOUNT_AMOUNT}", Helper.FormatVNMoney(SelectedItem.ParValue)).Replace("{MINIMUM_ORDER}", Helper.FormatVNMoney(SelectedItem.MinimumOrderValue)).Replace("{EXPIRE_DATE}", ConvertToStartToFinishDateString(SelectedItem.StartDate, SelectedItem.FinishDate));
             return HTML;
         }
 
+
+        private string ConvertToStartToFinishDateString(DateTime start, DateTime finish)
+        {
+            return $"{start.ToString("dd/M/yyyy", CultureInfo.InvariantCulture)} - {finish.ToString("dd/M/yyyy", CultureInfo.InvariantCulture)}";
+        }
         public List<List<string>> ChunkBy(List<string> source, int chunkSize)
         {
             return source
@@ -387,13 +426,26 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 .ToList();
         }
 
-        const string GRATITUDE_TEMPLATE_FILE = "top5_customer_gratitude_html.txt";
-        const string VOUCHER_ITEM_HTML = "<li>Voucher {INDEX}: {CODE_HERE}</li>";
+
+        string APP_EMAIL;
+        string APP_PASSWORD;
+
+
+        const string GRATITUDE_TEMPLATE_FILE = "top5_customer_gratitude_html.html";
+        const string NEWCUSTOMER_TEMPLATE_FILE = "new_customer_html.html";
+        const string COMMON_TEMPLATE_FILE = "common_template.html";
+        const string VOUCHER_ITEM_HTML = "<span style=\"display: block; margin-bottom: 15px;\">{CODE_HERE}</span>";
 
     }
-
+    class EMAIL_TYPE
+    {
+        public readonly static string TOP_5_CUSTOMER = "TOP_5_CUSTOMER";
+        public readonly static string NEW_CUSTOMER = "NEW_CUSTOMER";
+        public readonly static string COMMON = "COMMON";
+    }
     public class CustomerEmail
     {
+        public string Name { get; set; }
         public string Email { get; set; }
         public CustomerEmail() { }
     }
