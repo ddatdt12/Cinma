@@ -27,25 +27,36 @@
             <ColumnDefinition Width="419*" />
         </Grid.ColumnDefinitions>
 
-        <Label Cursor="Hand"
-               Height="40"
-               Width="40"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               VerticalContentAlignment="Center"
-               HorizontalContentAlignment="Center"
-               x:Name="lbl"
-               Margin="15 15 0 0">
+        <Border CornerRadius="90"
+                Height="55"
+                Width="55"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="15 15 0 0"
+                Cursor="Hand">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    Value="Gray" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
             <materialDesign:PackIcon Kind="ArrowLeft"
-                                     Height="35"
-                                     Width="35" />
+                                     Height="45"
+                                     Width="45"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center" />
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding BackToFoodPageCM}"
-                                           CommandParameter="{Binding ElementName=lbl}" />
+                    <i:InvokeCommandAction Command="{Binding BackToFoodPageCM}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </Label>
+        </Border>
+
 
         <!--<Button Style="{StaticResource MaterialDesignPaperLightButton}"
                 Width="50"
@@ -157,11 +168,10 @@
                             <ColumnDefinition Width="70" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Điện thoại:"
-                                   Margin="10 15 15 0" 
-                                   />
-                        <TextBox Grid.Column="1" 
+                                   Margin="10 15 15 0" />
+                        <TextBox Grid.Column="1"
                                  x:Name="TboxPhoneNumber"
-                                 Text="{Binding PhoneNumber, Mode=TwoWay}"/>
+                                 Text="{Binding PhoneNumber, Mode=TwoWay}" />
                         <Button Grid.Column="2"
                                 Content="{materialDesign:PackIcon PhoneCheckOutline}"
                                 ToolTip="Icon"
@@ -237,9 +247,9 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Họ và tên:" />
-                        <TextBox Grid.Column="1" 
+                        <TextBox Grid.Column="1"
                                  Margin="0 0 30 0"
-                                 Text="{Binding NameSignUp, Mode=TwoWay}"/>
+                                 Text="{Binding NameSignUp, Mode=TwoWay}" />
                         <Grid.Style>
                             <Style>
                                 <Style.Triggers>
@@ -261,9 +271,9 @@
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Email:" />
-                        <TextBox Grid.Column="1" 
+                        <TextBox Grid.Column="1"
                                  Margin="0 0 30 0"
-                                 Text="{Binding EmailSignUp, Mode=TwoWay}"/>
+                                 Text="{Binding EmailSignUp, Mode=TwoWay}" />
                         <Grid.Style>
                             <Style>
                                 <Style.Triggers>
@@ -284,8 +294,8 @@
                                 Width="100"
                                 VerticalAlignment="Bottom"
                                 HorizontalAlignment="Right"
-                                Margin="0 0 10 10" 
-                                Command="{Binding SignUpCM}"/>
+                                Margin="0 0 10 10"
+                                Command="{Binding SignUpCM}" />
                         <Grid.Style>
                             <Style>
                                 <Style.Triggers>
@@ -315,9 +325,9 @@
                                  IsEnabled="False"
                                  Margin="0 0 30 0"
                                  VerticalContentAlignment="Bottom"
-                                 VerticalAlignment="Center" 
+                                 VerticalAlignment="Center"
                                  Text="{Binding Name}"
-                                 TextAlignment="Center"/>
+                                 TextAlignment="Center" />
                         <Grid.Style>
                             <Style>
                                 <Style.Triggers>
@@ -343,9 +353,9 @@
                                  IsEnabled="False"
                                  Margin="0 0 30 0"
                                  VerticalContentAlignment="Bottom"
-                                 VerticalAlignment="Center" 
+                                 VerticalAlignment="Center"
                                  Text="{Binding Email}"
-                                 TextAlignment="Center"/>
+                                 TextAlignment="Center" />
                         <Grid.Style>
                             <Style>
                                 <Style.Triggers>
@@ -586,7 +596,7 @@
                                                        FontSize="20"
                                                        x:Name="_moviename"
                                                        Content="{Binding MovieName}"
-                                                       FontWeight="Bold"/>
+                                                       FontWeight="Bold" />
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
@@ -657,7 +667,7 @@
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20"
-                                                       FontWeight="Bold"/>
+                                                       FontWeight="Bold" />
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
@@ -675,7 +685,7 @@
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
                                                        FontSize="20"
-                                                       FontWeight="Bold"/>
+                                                       FontWeight="Bold" />
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
@@ -718,8 +728,8 @@
                                                 <Label x:Name="_totalticket"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
-                                                       FontSize="20" 
-                                                       Content="{Binding TotalPriceMovie}"/>
+                                                       FontSize="20"
+                                                       Content="{Binding TotalPriceMovie}" />
                                             </Grid>
                                         </StackPanel>
                                     </StackPanel>
@@ -789,14 +799,14 @@
                                                                         Grid.Column="0">
                                                                 <StackPanel>
                                                                     <TextBlock Text="{Binding DisplayName}"
-                                                                               FontSize="20" 
+                                                                               FontSize="20"
                                                                                TextWrapping="WrapWithOverflow"
                                                                                Margin="0 5 0 0"
-                                                                               FontWeight="Medium"/>
+                                                                               FontWeight="Medium" />
                                                                     <StackPanel Orientation="Horizontal">
                                                                         <TextBlock Text="{Binding Quantity}"
-                                                                                   FontSize="20" 
-                                                                                   Margin="0 20 0 0"/>
+                                                                                   FontSize="20"
+                                                                                   Margin="0 20 0 0" />
                                                                         <TextBlock Text="x"
                                                                                    FontSize="20"
                                                                                    VerticalAlignment="Bottom"
@@ -814,8 +824,8 @@
                                                                         VerticalAlignment="Bottom">
                                                                 <TextBlock Text="{Binding TotalPriceStr}"
                                                                            FontSize="20"
-                                                                           FontWeight="Medium" 
-                                                                           Margin="0 0 5 10"/>
+                                                                           FontWeight="Medium"
+                                                                           Margin="0 0 5 10" />
                                                             </StackPanel>
 
                                                         </Grid>
@@ -845,8 +855,8 @@
                                                 <Label x:Name="_totalproduct"
                                                        Grid.Column="1"
                                                        HorizontalAlignment="Right"
-                                                       FontSize="20" 
-                                                       Content="{Binding TotalPriceFood}"/>
+                                                       FontSize="20"
+                                                       Content="{Binding TotalPriceFood}" />
                                             </Grid>
                                         </StackPanel>
                                     </StackPanel>

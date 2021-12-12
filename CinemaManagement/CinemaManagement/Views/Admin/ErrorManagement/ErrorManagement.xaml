@@ -137,8 +137,18 @@
                                                 BorderThickness="1"
                                                 Margin="20,30,0,0"
                                                 CornerRadius="5"
-                                                Background="Transparent"
                                                 Visibility="{Binding Status,Converter={StaticResource StatusEditConverter}}">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver"
+                                                                 Value="True">
+                                                            <Setter Property="Background"
+                                                                    Value="#00e5ff" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
                                             <materialDesign:PackIcon Kind="Pencil"
                                                                      Width="30"
                                                                      Height="30" />

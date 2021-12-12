@@ -33,21 +33,22 @@
             <RowDefinition Height="90*" />
         </Grid.RowDefinitions>
 
-        <Label Cursor="Hand"
-               Height="40"
-               Width="40"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               VerticalContentAlignment="Center"
-               HorizontalContentAlignment="Center"
-               x:Name="lbl"
-               Margin="15 15 0 0">
-            <materialDesign:PackIcon Kind="ArrowLeft"
-                                     Height="35"
-                                     Width="35" />
-            <Label.Style>
-                <Style TargetType="Label">
+
+        <Border CornerRadius="90"
+                Height="55"
+                Width="55"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="15 15 0 0"
+                Cursor="Hand">
+            <Border.Style>
+                <Style TargetType="Border">
                     <Style.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    Value="Gray" />
+                        </Trigger>
                         <DataTrigger Binding="{Binding ShowBackIcon}"
                                      Value="False">
                             <Setter Property="Visibility"
@@ -55,14 +56,18 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </Label.Style>
+            </Border.Style>
+            <materialDesign:PackIcon Kind="ArrowLeft"
+                                     Height="45"
+                                     Width="45"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center" />
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding BackToMovieBookingPageCM}"
-                                           CommandParameter="{Binding ElementName=lbl}" />
+                    <i:InvokeCommandAction Command="{Binding BackToMovieBookingPageCM}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </Label>
+        </Border>
 
 
         <Grid Grid.Row="0">

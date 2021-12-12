@@ -163,7 +163,8 @@
                                             <StackPanel Orientation="Horizontal">
                                                 <Border BorderBrush="Black"
                                                         BorderThickness="0.5"
-                                                        CornerRadius="5">
+                                                        CornerRadius="5"
+                                                        Cursor="Hand">
                                                     <Border.Style>
                                                         <Style TargetType="Border">
                                                             <Style.Triggers>
@@ -176,22 +177,23 @@
                                                         </Style>
                                                     </Border.Style>
                                                     <StackPanel>
-                                                        <i:Interaction.Triggers>
-                                                            <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                                <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadEditMovieCM}" />
-                                                            </i:EventTrigger>
-                                                        </i:Interaction.Triggers>
+                                                        
                                                         <Image Source="/Resources/IconPack/pencil.png"
                                                                Width="30"
-                                                               Height="30"
-                                                               Cursor="Hand" />
+                                                               Height="30"/>
 
                                                     </StackPanel>
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadEditMovieCM}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
                                                 </Border>
                                                 <Border BorderThickness="0.5"
                                                         BorderBrush="Black"
                                                         CornerRadius="5"
-                                                        Margin="10,0,0,0">
+                                                        Margin="10,0,0,0"
+                                                        Cursor="Hand">
                                                     <Border.Style>
                                                         <Style TargetType="Border">
                                                             <Style.Triggers>
@@ -206,15 +208,14 @@
                                                     <StackPanel>
                                                         <materialDesign:PackIcon Kind="GarbageCanEmpty"
                                                                                  Width="30"
-                                                                                 Height="30"
-                                                                                 Cursor="Hand">
-                                                            <i:Interaction.Triggers>
-                                                                <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                                    <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadDeleteMovieCM}" />
-                                                                </i:EventTrigger>
-                                                            </i:Interaction.Triggers>
+                                                                                 Height="30">
                                                         </materialDesign:PackIcon>
                                                     </StackPanel>
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                            <i:InvokeCommandAction Command="{Binding ElementName=MovieListView, Path=DataContext.LoadDeleteMovieCM}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
                                                 </Border>
                                             </StackPanel>
 

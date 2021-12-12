@@ -5,6 +5,7 @@ using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
 using CinemaManagement.ViewModel.StaffViewModel.TicketVM;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Staff;
+using CinemaManagement.Views.Staff.MovieScheduleWindow;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.TicketWindow;
 using System;
@@ -827,6 +828,10 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         {
                             MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Success, MessageButtons.OK);
                             mgb.ShowDialog();
+                            TicketWindow ticketWindow = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
+                            MovieScheduleWindow movieScheduleWindow = Application.Current.Windows.OfType<MovieScheduleWindow>().FirstOrDefault();
+                            ticketWindow.Close();
+                            movieScheduleWindow.Close();
                         }
                         else
                         {
@@ -882,6 +887,10 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         {
                             MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Success, MessageButtons.OK);
                             mgb.ShowDialog();
+                            TicketWindow ticketWindow = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
+                            MovieScheduleWindow movieScheduleWindow = Application.Current.Windows.OfType<MovieScheduleWindow>().FirstOrDefault();
+                            ticketWindow.Close();
+                            movieScheduleWindow.Close();
                         }
                         else
                         {
@@ -938,6 +947,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         {
                             MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Success, MessageButtons.OK);
                             mgb.ShowDialog();
+                            MainStaffWindow tk = Application.Current.Windows.OfType<MainStaffWindow>().FirstOrDefault();
+                            tk.mainFrame.Content = new FoodPage();
                         }
                         else
                         {

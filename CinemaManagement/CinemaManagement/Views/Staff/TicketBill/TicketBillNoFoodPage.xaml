@@ -21,25 +21,35 @@
 
     <Grid>
 
-        <Label Cursor="Hand"
-               Height="40"
-               Width="40"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Top"
-               VerticalContentAlignment="Center"
-               HorizontalContentAlignment="Center"
-               x:Name="lbl"
-               Margin="15 15 0 0">
+        <Border CornerRadius="90"
+                Height="55"
+                Width="55"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="15 15 0 0"
+                Cursor="Hand">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    Value="Gray" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
             <materialDesign:PackIcon Kind="ArrowLeft"
-                                     Height="35"
-                                     Width="35" />
+                                     Height="45"
+                                     Width="45"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center" />
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding BackToFoodPageCM}"
-                                           CommandParameter="{Binding ElementName=lbl}" />
+                    <i:InvokeCommandAction Command="{Binding BackToFoodPageCM}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-        </Label>
+        </Border>
 
         <materialDesign:Card HorizontalAlignment="Left"
                              Width="450"
@@ -480,7 +490,7 @@
                             <Style TargetType="Button"
                                    BasedOn="{StaticResource MaterialDesignRaisedButton}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ShowInfoCustomer}"
+                                    <DataTrigger Binding="{Binding ShowDoneButton}"
                                                  Value="False">
                                         <Setter Property="Button.Visibility"
                                                 Value="Hidden" />

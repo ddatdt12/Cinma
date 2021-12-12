@@ -100,7 +100,7 @@
                                                     <Trigger Property="IsMouseOver"
                                                              Value="True">
                                                         <Setter Property="Background"
-                                                                Value="LightCyan" />
+                                                                Value="#b2ebf2" />
                                                     </Trigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -204,6 +204,11 @@
                                                     <Setter Property="Background"
                                                             Value="#cfd8dc" />
                                                 </Trigger>
+                                                <Trigger Property="IsMouseOver"
+                                                         Value="False">
+                                                    <Setter Property="Background"
+                                                            Value="#f5f5f5" />
+                                                </Trigger>
                                             </Style.Triggers>
                                             <Setter Property="Padding"
                                                     Value="0" />
@@ -232,13 +237,19 @@
                                         <Grid Grid.Row="0">
                                             <StackPanel Grid.Row="0"
                                                         Orientation="Horizontal">
-                                                <StackPanel Width="205"
-                                                            Margin="8,7,5,10">
-                                                    <Image Source="{Binding ImgSource}"
-                                                           Width="200"
-                                                           Height="166"
-                                                           Stretch="Fill" />
-                                                </StackPanel>
+                                                <Border BorderThickness="1"
+                                                        BorderBrush="Black"
+                                                        Margin="8,7,5,10"
+                                                        Width="205">
+                                                    <StackPanel 
+                                                                >
+                                                        <Image Source="{Binding ImgSource}"
+                                                               Width="205"
+                                                               Height="166"
+                                                               Stretch="Fill" />
+                                                    </StackPanel>
+                                                </Border>
+                                                
                                                 <StackPanel Margin="-5,5,0,0">
                                                     <Border BorderBrush="Black"
                                                             BorderThickness="1"
