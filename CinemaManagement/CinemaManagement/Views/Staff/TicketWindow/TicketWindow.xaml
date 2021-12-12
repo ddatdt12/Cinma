@@ -24,8 +24,8 @@
         >
     <Window.Clip>
         <RectangleGeometry Rect="0,0,1300,740"
-                           RadiusX="25"
-                           RadiusY="25" />
+                           RadiusX="10"
+                           RadiusY="10" />
     </Window.Clip>
 
     <Border CornerRadius="10"
