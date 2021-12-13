@@ -484,7 +484,7 @@
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Right"
                             Margin="0 0 10 10"
-                            Content="Hoàn tất"
+                            Content="Thanh toán"
                             Command="{Binding PayMovieCM}">
                         <Button.Style>
                             <Style TargetType="Button"

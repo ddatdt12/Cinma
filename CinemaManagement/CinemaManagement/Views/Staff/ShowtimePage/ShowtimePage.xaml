@@ -19,99 +19,13 @@
         <!---MAIN FRAME-->
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
-                <RowDefinition Height="660" />
+                <RowDefinition Height="15*" />
+                <RowDefinition Height="85*" />
             </Grid.RowDefinitions>
-            <Border Background="#f2f5f9"
-                    Grid.Row="0"
-                    Height="60"
-                    VerticalAlignment="Top"
-                    BorderBrush="Black"
-                    BorderThickness="0 0 0 2.5">
-                <StackPanel Orientation="Horizontal">
-                    <Grid>
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="0 10 0 5">
-                                <materialDesign:PackIcon Kind="Magnify"
-                                                         Width="25"
-                                                         Height="35"
-                                                         Foreground="Black"
-                                                         VerticalAlignment="Bottom" />
-                                <TextBox x:Name="FilterBox"
-                                         Width="300"
-                                         VerticalAlignment="Bottom"
-                                         Height="35"
-                                         FontSize="16"
-                                         Foreground="Black"
-                                         Padding="0 7 0 0"
-                                         materialDesign:HintAssist.Hint="Tìm kiếm phim"
-                                         FontWeight="DemiBold"
-                                         TextChanged="FilterBox_TextChanged" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="10 10 0 5">
-                                <materialDesign:PackIcon Kind="Filter"
-                                                         Width="25"
-                                                         Height="35"
-                                                         Foreground="Black"
-                                                         VerticalAlignment="Bottom" />
-                                <ComboBox materialDesign:HintAssist.Hint="Thể loại"
-                                          VerticalContentAlignment="Bottom"
-                                          Width="175"
-                                          Height="40"
-                                          HorizontalAlignment="Left"
-                                          FontSize="17"
-                                          FontWeight="DemiBold"
-                                          ItemsSource="{Binding GenreList}"
-                                          DisplayMemberPath="DisplayName"
-                                          materialDesign:HintAssist.HintOpacity="0.5"
-                                          BorderBrush="Black"
-                                          SelectedItem="{Binding SelectedGenre,UpdateSourceTrigger=PropertyChanged}"
-                                          Foreground="Black"
-                                          VerticalAlignment="Bottom"
-                                          x:Name="Filtercbb">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding SelectedGenreCM}" />
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                    <ComboBox.ItemContainerStyle>
-                                        <Style TargetType="ComboBoxItem">
-                                            <Setter Property="Foreground"
-                                                    Value="Black" />
-                                            <Setter Property="Margin"
-                                                    Value="5" />
-                                        </Style>
-                                    </ComboBox.ItemContainerStyle>
-                                </ComboBox>
-                            </StackPanel>
-                            <DatePicker materialDesign:HintAssist.Hint="Ngày chiếu"
-                                        SelectedDate="{Binding SelectedDate,UpdateSourceTrigger=PropertyChanged}"
-                                        Text="{Binding SetCurrentDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                        Width="175"
-                                        Height="40"
-                                        FontSize="15"
-                                        materialDesign:HintAssist.HintOpacity="0.5"
-                                        BorderBrush="Black"
-                                        Padding="0 10 0 0"
-                                        Margin="30,20,0,5"
-                                        HorizontalContentAlignment="Left"
-                                        VerticalAlignment="Bottom"
-                                        FontWeight="DemiBold">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="SelectedDateChanged">
-                                        <i:InvokeCommandAction Command="{Binding SelectedDateCM}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </DatePicker>
-                        </StackPanel>
-                    </Grid>
-                </StackPanel>
-            </Border>
+         
             <ListBox ItemsSource="{Binding ListMovie,UpdateSourceTrigger=PropertyChanged}"
+                     Background="#fff"
                      Grid.Row="1"
-                     Background="#f3f5f7"
                      x:Name="MainListBox"
                      SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemContainerStyle>
@@ -176,6 +90,100 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <materialDesign:ColorZone Background="#fff"
+                                      Grid.Row="0"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                      materialDesign:ShadowAssist.ShadowEdges="Bottom"
+                                      Height="122"
+                                      Grid.RowSpan="2">
+                <Grid>
+                    <Label Content="Phim đang chiếu"
+                           FontWeight="Bold"
+                           FontSize="28"
+                           Margin="20,10,10,10" />
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,0,0,10">
+                        <Grid>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="20 10 0 5">
+                                    <materialDesign:PackIcon Kind="Magnify"
+                                                             Width="25"
+                                                             Height="35"
+                                                             Foreground="Black"
+                                                             VerticalAlignment="Bottom" />
+                                    <TextBox x:Name="FilterBox"
+                                             Width="300"
+                                             VerticalAlignment="Bottom"
+                                             Height="35"
+                                             FontSize="16"
+                                             Foreground="Black"
+                                             Padding="0 7 0 0"
+                                             materialDesign:HintAssist.Hint="Tìm kiếm phim"
+                                             FontWeight="DemiBold"
+                                             TextChanged="FilterBox_TextChanged" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="10 10 0 5">
+                                    <materialDesign:PackIcon Kind="Filter"
+                                                             Width="25"
+                                                             Height="35"
+                                                             Foreground="Black"
+                                                             VerticalAlignment="Bottom" />
+                                    <ComboBox materialDesign:HintAssist.Hint="Thể loại"
+                                              VerticalContentAlignment="Bottom"
+                                              Width="175"
+                                              Height="40"
+                                              HorizontalAlignment="Left"
+                                              FontSize="17"
+                                              FontWeight="DemiBold"
+                                              ItemsSource="{Binding GenreList}"
+                                              DisplayMemberPath="DisplayName"
+                                              materialDesign:HintAssist.HintOpacity="0.5"
+                                              BorderBrush="Black"
+                                              SelectedItem="{Binding SelectedGenre,UpdateSourceTrigger=PropertyChanged}"
+                                              Foreground="Black"
+                                              VerticalAlignment="Bottom"
+                                              x:Name="Filtercbb">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding SelectedGenreCM}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ComboBox.ItemContainerStyle>
+                                            <Style TargetType="ComboBoxItem">
+                                                <Setter Property="Foreground"
+                                                        Value="Black" />
+                                                <Setter Property="Margin"
+                                                        Value="5" />
+                                            </Style>
+                                        </ComboBox.ItemContainerStyle>
+                                    </ComboBox>
+                                </StackPanel>
+                                <DatePicker materialDesign:HintAssist.Hint="Ngày chiếu"
+                                            SelectedDate="{Binding SelectedDate,UpdateSourceTrigger=PropertyChanged}"
+                                            Text="{Binding SetCurrentDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                            Width="175"
+                                            Height="40"
+                                            FontSize="15"
+                                            materialDesign:HintAssist.HintOpacity="0.5"
+                                            BorderBrush="Black"
+                                            Padding="0 10 0 0"
+                                            Margin="30,20,0,5"
+                                            HorizontalContentAlignment="Left"
+                                            VerticalAlignment="Bottom"
+                                            FontWeight="DemiBold">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectedDateChanged">
+                                            <i:InvokeCommandAction Command="{Binding SelectedDateCM}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </DatePicker>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:ColorZone>
         </Grid>
     </Grid>
 </Page>

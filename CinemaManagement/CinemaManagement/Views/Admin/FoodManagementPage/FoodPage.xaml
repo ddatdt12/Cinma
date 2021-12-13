@@ -171,7 +171,9 @@
                         <ListBox ItemsSource="{Binding FoodList}"
                                  x:Name="listBox"
                                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-                                 VerticalAlignment="Top">
+                                 VerticalAlignment="Top"
+                                 materialDesign:ListBoxItemAssist.ShowSelection="False"
+                                 materialDesign:ListBoxAssist.IsToggle="False">
                             <ListBox.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius"
@@ -179,21 +181,26 @@
                                 </Style>
                             </ListBox.Resources>
                             <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                <Style TargetType="ListBoxItem"
+                                       BasedOn="{StaticResource MaterialDesignListBoxItem}">
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver"
                                                  Value="True">
                                             <Setter Property="IsSelected"
                                                     Value="True" />
+                                            <Setter Property="Background"
+                                                    Value="#FFD0EAF6" />
                                         </Trigger>
                                     </Style.Triggers>
                                     <Style.Resources>
                                         <!--<Style TargetType="Border">
                                             
-                                            --><!--<Setter Property="HorizontalAlignment"
+                                            -->
+                                        <!--<Setter Property="HorizontalAlignment"
                                                     Value="Stretch" />
                                             <Setter Property="VerticalAlignment"
-                                                    Value="Stretch" />--><!--
+                                                    Value="Stretch" />-->
+                                        <!--
                                         </Style>-->
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius"
@@ -219,6 +226,8 @@
                                             Value="9 8 8 8" />
                                     <Setter Property="Width"
                                             Value="300" />
+                                    <Setter Property="materialDesign:ListBoxItemAssist.ShowSelection"
+                                            Value="False" />
                                 </Style>
                             </ListBox.ItemContainerStyle>
                             <ListBox.ItemsPanel>
@@ -346,7 +355,7 @@
                                         </Grid>
 
                                     </Border>
-                                    
+
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>

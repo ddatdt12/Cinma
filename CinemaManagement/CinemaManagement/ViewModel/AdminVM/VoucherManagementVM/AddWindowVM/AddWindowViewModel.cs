@@ -74,15 +74,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             get { return minimumValue; }
             set { minimumValue = value; OnPropertyChanged(); }
         }
-
-        public static string StaffID;
-        private string bindStaffID;
-        public string BindStaffID
-        {
-            get { return bindStaffID; }
-            set { bindStaffID = value; }
-        }
-
         #endregion
 
 
@@ -187,7 +178,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
                 return;
             }
-
+            if (ParValue >= MinimumValue)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Mệnh giá voucher phải bé hơn tổng tối thiểu", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+                return;
+            }
             VoucherReleaseDTO vr = new VoucherReleaseDTO
             {
                 StartDate = StartDate,
@@ -197,7 +193,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 ObjectType = ObjectType.Content.ToString(),
                 ParValue = ParValue,
                 ReleaseName = ReleaseName,
-                StaffId = BindStaffID,
+                StaffId = MainAdminViewModel.currentStaff.Id,
                 Status = Status,
             };
 

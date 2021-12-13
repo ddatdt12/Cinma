@@ -76,13 +76,11 @@
                                         Value="auto" />
                             </Style>
                         </StackPanel.Resources>
-                        <Grid>
+                        <Grid Height="218">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="48*" />
                                 <ColumnDefinition Width="52*" />
                             </Grid.ColumnDefinitions>
-
-
 
                             <StackPanel Grid.Column="0"
                                         Margin="0,10,0,0">
@@ -106,7 +104,10 @@
                                 <TextBox TextAlignment="Right"
                                          Text="{Binding LastChar}" />
                             </StackPanel>
-
+                            <Label Content="Lưu ý: ký tự bắt đầu + ký tự kết thúc + 4 &lt; độ dài mã"
+                                   Grid.ColumnSpan="2"
+                                   FontSize="14"
+                                   VerticalAlignment="Bottom" />
                         </Grid>
                     </StackPanel>
 

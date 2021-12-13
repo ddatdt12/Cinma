@@ -13,8 +13,9 @@
         Background="Transparent"
         DataContext="{StaticResource ShowtimeManagementVM}"
         Height="600"
-        Width="1100"
+        Width="1200"
         x:Name="EditWindow"
+        MouseLeftButtonDown="EditWindow_MouseLeftButtonDown"
         PreviewKeyUp="EditWindow_PreviewKeyUp">
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
@@ -33,6 +34,7 @@
     </Window.Triggers>
     <Window.Resources>
         <local:SeatStatusConverter x:Key="seatconverter" />
+        <local:ForeGroundConverter x:Key="foreground" />
     </Window.Resources>
 
     <Border Background="#FFF0F3F7"
@@ -68,7 +70,8 @@
                                 BorderBrush="Black">
                             <Label Content="Chi tiết suất chiếu"
                                    FontWeight="Bold"
-                                   FontSize="30" />
+                                   FontSize="30"
+                                   Margin="20,0,0,0" />
                         </Border>
                     </StackPanel>
                     <StackPanel Grid.Row="1">
@@ -147,35 +150,34 @@
                                    Margin="10,10,0,0" />
                             <ListBox x:Name="_Showtime"
                                      FontSize="20"
-                                     Margin="10,0,0,0"
                                      ItemsSource="{Binding ListShowtimeofMovie,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                     SelectedItem="{Binding SelectedShowtime}">
+                                     SelectedItem="{Binding SelectedShowtime}"
+                                     Height="100">
 
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <UniformGrid Columns="3" />
                                     </ItemsPanelTemplate>
                                 </ListBox.ItemsPanel>
-
                                 <ListBox.ItemContainerStyle>
-                                    <Style TargetType="ListBoxItem">
+                                    <Style TargetType="ListBoxItem"
+                                           BasedOn="{StaticResource MaterialDesignListBoxItem}">
                                         <Setter Property="Margin"
-                                                Value="10,10,13,5" />
-                                        <Setter Property="Padding"
-                                                Value="0" />
-                                        <Setter Property="Padding"
-                                                Value="0" />
-                                        <Setter Property="BorderThickness"
-                                                Value="0" />
+                                                Value="8,8,0,0" />
+                                        <Setter Property="VerticalAlignment"
+                                                Value="Top" />
+                                        <Setter Property="materialDesign:ListBoxItemAssist.ShowSelection"
+                                                Value="False" />
                                     </Style>
                                 </ListBox.ItemContainerStyle>
 
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Border BorderBrush="Wheat"
+                                        <Border BorderBrush="Black"
                                                 BorderThickness="1"
-                                                Background="Wheat"
-                                                Width="120"
+                                                CornerRadius="8"
+                                                Width="110"
+                                                Cursor="Hand"
                                                 MouseLeftButtonUp="Border_MouseLeftButtonUp">
                                             <Label Content="{Binding StartTime}"
                                                    Width="120"
@@ -191,7 +193,6 @@
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                         </Border>
-
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -212,7 +213,7 @@
 
                         <Button Width="100"
                                 Content="Thoát"
-                                Margin="200,30,0,0"
+                                Margin="225,30,0,0"
                                 materialDesign:ButtonAssist.CornerRadius="8"
                                 Command="{Binding CloseEditCM}"
                                 CommandParameter="{Binding ElementName=EditWindow}" />
@@ -228,7 +229,16 @@
                     <RowDefinition Height="20*" />
                     <RowDefinition Height="80*" />
                 </Grid.RowDefinitions>
-
+                <Border BorderBrush="Black"
+                        BorderThickness="0,0,0,1"
+                        Height="49"
+                        VerticalAlignment="Top">
+                    <Label Grid.Row="0"
+                           Content="Danh sách ghế"
+                           FontWeight="Bold"
+                           FontSize="30"
+                           Margin="20,0,0,0" />
+                </Border>
                 <StackPanel Grid.Row="0"
                             Margin="100,80,0,0"
                             Orientation="Horizontal">
@@ -307,7 +317,7 @@
                                           Height="30">
                                     <Label Content="{Binding SeatPosition}"
                                            Background="{Binding Status,Converter={StaticResource seatconverter}}"
-                                           Foreground="black"
+                                           Foreground="{Binding Status,Converter={StaticResource foreground}}"
                                            FontSize="11"
                                            Padding="0"
                                            FontWeight="Bold"
@@ -340,7 +350,7 @@
                                           Height="30">
                                     <Label Content="{Binding SeatPosition}"
                                            Background="{Binding Status,Converter={StaticResource seatconverter} }"
-                                           Foreground="black"
+                                           Foreground="{Binding Status,Converter={StaticResource foreground}}"
                                            FontWeight="Bold"
                                            FontSize="11">
                                     </Label>

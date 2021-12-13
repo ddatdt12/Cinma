@@ -12,7 +12,6 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
         {
             InitializeComponent();
             this.Language = XmlLanguage.GetLanguage("vi-VN");
-
         }
 
         private bool Filter(object item)

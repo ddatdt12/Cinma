@@ -25,11 +25,11 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagement
         private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (SelectedShowtime != null)
-                SelectedShowtime.Background = new SolidColorBrush(Colors.Wheat);
+                SelectedShowtime.BorderBrush = new SolidColorBrush(Colors.Black);
 
             SelectedShowtime = (Border)sender;
 
-            SelectedShowtime.Background = new SolidColorBrush(Colors.LightBlue);
+            SelectedShowtime.BorderBrush = new SolidColorBrush(Colors.Red);
         }
 
 
@@ -73,6 +73,11 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagement
                 this.Close();
                 ShowtimeManagementViewModel.ShadowMask.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void EditWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

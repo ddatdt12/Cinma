@@ -173,6 +173,8 @@
                     <materialDesign:PackIcon Kind="InfoCircle"
                                              Margin="104,18,0,0"
                                              Cursor="Hand"
+                                             Height="20"
+                                             Width="20"
                                              ToolTip="Số tiền tối thiểu của đơn hàng để có thể áp dụng voucher" />
 
                     <TextBox Grid.Column="1"

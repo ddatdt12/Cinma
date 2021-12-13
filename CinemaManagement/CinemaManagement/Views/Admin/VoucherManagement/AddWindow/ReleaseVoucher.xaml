@@ -169,8 +169,10 @@
                                         <Label Content="Voucher/Khách:"
                                                Grid.Column="0" />
                                         <materialDesign:PackIcon Kind="InfoCircle"
-                                                                 Margin="0,5,0,0"
+                                                                 Margin="0,3,0,0"
                                                                  Cursor="Hand"
+                                                                 Height="20"
+                                                                 Width="20"
                                                                  ToolTip="Số lượng voucher mà mỗi khách hàng được tặng" />
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal"
@@ -198,9 +200,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal"
                                         Margin="10,30,0,0">
-                                <Grid Width="439"
-                                      x:Name="emaillistbox"
-                                      IsEnabled="False">
+                                <Grid Width="439">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40*" />
                                         <ColumnDefinition Width="60*" />
@@ -214,6 +214,7 @@
                                                     x:Name="addnewemail"
                                                     Background="Transparent"
                                                     Foreground="Black"
+                                                    IsEnabled="False"
                                                     BorderBrush="Black"
                                                     materialDesign:ShadowAssist.ShadowDepth="Depth0"
                                                     HorizontalAlignment="Left"
@@ -225,6 +226,8 @@
                                             <materialDesign:PackIcon Kind="InfoCircle"
                                                                      Margin="10,15,0,0"
                                                                      Cursor="Hand"
+                                                                     Height="20"
+                                                                     Width="20"
                                                                      ToolTip="Số voucher phải chia hết cho số khách hàng" />
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
@@ -253,8 +256,11 @@
                                                 <StackPanel Orientation="Horizontal">
                                                     <TextBox Padding="0,10,0,0"
                                                              FontSize="15"
+                                                             x:Name="mailbox"
+                                                             IsReadOnly="{Binding IsReadonly}"
                                                              materialDesign:HintAssist.Hint="Email"
-                                                             Text="{Binding  Email,Mode=TwoWay}" />
+                                                             Text="{Binding Email,Mode=TwoWay}">
+                                                    </TextBox>
                                                     <Border>
                                                         <Label Content="x"
                                                                Width="30"
@@ -263,11 +269,12 @@
                                                                Background="Transparent"
                                                                Foreground="Black"
                                                                Cursor="Hand"
+                                                               IsEnabled="{Binding IsEnable}"
                                                                BorderBrush="Black"
                                                                materialDesign:ButtonAssist.CornerRadius="5">
                                                             <i:Interaction.Triggers>
                                                                 <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                                    <i:InvokeCommandAction Command="{Binding ElementName=emaillistbox, Path=DataContext.LessEmailCM}" />
+                                                                    <i:InvokeCommandAction Command="{Binding ElementName=listbox, Path=DataContext.LessEmailCM}" />
                                                                 </i:EventTrigger>
                                                             </i:Interaction.Triggers>
                                                         </Label>

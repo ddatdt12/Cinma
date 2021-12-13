@@ -14,7 +14,7 @@
         Width="850"
         MouseDown="Window_MouseDown"
         WindowStartupLocation="CenterScreen"
-        FontSize="15"
+        FontSize="20"
         x:Name="window">
     <Border BorderThickness="1"
             BorderBrush="Black"
@@ -91,13 +91,22 @@
                                        Margin="0,15,0,0"
                                        FontSize="15" />
                         </Border>
-                        <StackPanel Margin="0,10,0,0">
-                            <TextBlock Text="Ngày tiếp nhận:" />
-                            <TextBlock Text="{Binding SelectedItem.SubmittedAt,StringFormat=dd/MM/yyyy HH:mm:ss}" />
+                        <StackPanel Margin="0,10,0,0"
+                                    Orientation="Horizontal">
+                            <StackPanel>
+                                <TextBlock Text="Ngày tiếp nhận:" />
+                                <TextBlock Text="{Binding SelectedItem.SubmittedAt,StringFormat=dd/MM/yyyy HH:mm:ss}" />
+                            </StackPanel>
+                            <StackPanel Margin="100,0,0,0">
+                                <TextBlock Text="Nhân viên báo cáo:" />
+                                <TextBlock Text="{Binding SelectedItem.StaffName}" />
+                            </StackPanel>
                         </StackPanel>
                         <StackPanel Margin="0,10,0,0">
                             <TextBlock Text="Trạng thái:" />
-                            <ComboBox Width="140"
+                            <ComboBox Width="180"
+                                      Padding="0,5,0,0"
+                                      Height="32"
                                       materialDesign:HintAssist.HintOpacity="1"
                                       materialDesign:HintAssist.Hint="{Binding SelectedItem.Status}"
                                       SelectionChanged="ComboBox_SelectionChanged"
@@ -114,6 +123,8 @@
                                     IsEnabled="False">
                             <TextBlock Text="Ngày sửa:" />
                             <DatePicker Width="140"
+                                        Padding="0,5,0,0"
+                                        Height="32"
                                         HorizontalAlignment="Left"
                                         SelectedDate="{Binding SelectedItem.StartDate}" />
                         </StackPanel>
@@ -123,6 +134,8 @@
                                     IsEnabled="False">
                             <TextBlock Text="Ngày hoàn thành:" />
                             <DatePicker Width="140"
+                                        Padding="0,5,0,0"
+                                        Height="32"
                                         HorizontalAlignment="Left"
                                         DisplayDateStart="{Binding SelectedItem.SubmittedAt}"
                                         SelectedDate="{Binding SelectedFinishDate,Mode=TwoWay}" />
@@ -133,10 +146,12 @@
                                     IsEnabled="False">
                             <TextBlock Text="Chi phí:" />
                             <TextBox Width="140"
+                                     Padding="0,5,0,0"
+                                     Height="32"
                                      HorizontalAlignment="Left"
                                      PreviewTextInput="TextBox_PreviewTextInput"
-                                     TextChanged="TextBox_TextChanged" 
-                                     Text="{Binding RepairCost,Mode=TwoWay}"/>
+                                     TextChanged="TextBox_TextChanged"
+                                     Text="{Binding RepairCost,Mode=TwoWay}" />
                         </StackPanel>
                     </StackPanel>
                     <Button Grid.Row="1"

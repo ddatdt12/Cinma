@@ -138,17 +138,17 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
 
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                
+
 
                 AllProduct = new ObservableCollection<ProductDTO>();
                 OrderList = new ObservableCollection<ProductDTO>();
                 MenuList = new ObservableCollection<ProductDTO>();
                 ListOrder = new ObservableCollection<ProductDTO>();
-                if(!TicketBillViewModel.IsBacking)
+                if (!TicketBillViewModel.IsBacking)
                 {
                     OrderList = ListOrder;
                 }
-                
+
 
                 if (TicketBillViewModel.ListFood != null && TicketBillViewModel.IsBacking)
                 {
@@ -156,7 +156,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                     TicketBillViewModel.IsBacking = false;
                 }
 
-                if(checkOnlyFoodOfPage)
+                if (checkOnlyFoodOfPage)
                 {
                     ShowBackIcon = false;
                 }
@@ -340,7 +340,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             //Mua hàng, lưu xuống bill
             BuyCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
-                MessageBoxCustom mgb = new MessageBoxCustom("", "Xác nhận thanh toán", MessageType.Success, MessageButtons.OK);
                 if (checkOnlyFoodOfPage)
                 {
                     if (OrderList.Count == 0)
@@ -350,25 +349,20 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                     }
                     else
                     {
-                        mgb.ShowDialog();
-                        if (mgb.DialogResult == true && OrderList.Count > 0)
-                        {
-                            ListOrder = new ObservableCollection<ProductDTO>(OrderList);
-                            MainStaffWindow ms = Application.Current.Windows.OfType<MainStaffWindow>().FirstOrDefault();
-                            ms.mainFrame.Content = new TicketBillOnlyFoodPage();
-                        }
+                        ListOrder = new ObservableCollection<ProductDTO>(OrderList);
+                        MainStaffWindow ms = Application.Current.Windows.OfType<MainStaffWindow>().FirstOrDefault();
+                        ms.mainFrame.Content = new TicketBillOnlyFoodPage();
                     }
                 }
                 else
                 {
-                    mgb.ShowDialog();
-                    if (mgb.DialogResult == true && OrderList.Count == 0)
+                    if (OrderList.Count == 0)
                     {
                         ListOrder = new ObservableCollection<ProductDTO>(OrderList);
                         TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
                         tk.TicketBookingFrame.Content = new TicketBillNoFoodPage();
                     }
-                    else if (mgb.DialogResult == true && OrderList.Count > 0)
+                    else if (OrderList.Count > 0)
                     {
                         ListOrder = new ObservableCollection<ProductDTO>(OrderList);
                         TicketWindow tk = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();

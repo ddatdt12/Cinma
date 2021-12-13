@@ -22,7 +22,7 @@ namespace CinemaManagement.ViewModel
 
     public partial class MainAdminViewModel : BaseViewModel
     {
-        public static CustomerDTO currenStaff;
+        public static StaffDTO currentStaff;
         public ICommand SignoutCM { get; set; }
         public ICommand LoadQLPPageCM { get; set; }
         public ICommand LoadQLNVPageCM { get; set; }

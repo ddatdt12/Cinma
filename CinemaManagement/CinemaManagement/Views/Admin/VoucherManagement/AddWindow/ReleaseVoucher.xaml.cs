@@ -33,20 +33,7 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
             VoucherViewModel.WaitingMiniVoucher.Clear();
             this.Close();
         }
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ComboBox cbb = sender as ComboBox;
-            ComboBoxItem item = (ComboBoxItem)cbb.SelectedItem;
 
-            if (item.Content.ToString() == "Khác")
-            {
-                emaillistbox.IsEnabled = true;
-            }
-            else
-            {
-                emaillistbox.IsEnabled = false;
-            }
-        }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
@@ -62,22 +49,22 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.AddWindow
                 case "Top 5 khách hàng trong tháng":
                     {
                         VoucherViewModel.NumberCustomer = 5;
-                        if (emaillistbox != null)
+                        if (maillistbox != null)
                         {
-                            emaillistbox.IsEnabled = false;
+                            addnewemail.IsEnabled = false;
                         }
                         return;
                     }
                 case "Khách hàng mới trong tháng":
                     {
                         VoucherViewModel.NumberCustomer = 0;
-                        emaillistbox.IsEnabled = false;
+                        addnewemail.IsEnabled = false;
                         return;
                     }
                 case "Khác":
                     {
                         VoucherViewModel.NumberCustomer = -1;
-                        emaillistbox.IsEnabled = true;
+                        addnewemail.IsEnabled = true;
                         return;
                     }
             }

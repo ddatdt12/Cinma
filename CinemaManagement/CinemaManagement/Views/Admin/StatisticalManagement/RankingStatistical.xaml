@@ -48,7 +48,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal"
-                        Margin="30,0,0,0"
+                        Margin="30,10,0,0"
                         Grid.Row="0">
                 <!---PERIOD-->
                 <StackPanel Margin="0,10,0,0">
@@ -142,63 +142,66 @@
 
             </StackPanel>
 
+            <StackPanel Grid.Row="2"
+                        Margin="10,0,20,10">
+                <Label Content="Top 5 khách hàng chi tiêu nhiều nhất"
+                       FontSize="25"
+                       FontWeight="bold"
+                       Margin="0,10,0,0"/>
+                <materialDesign:Card UniformCornerRadius="5"
+                                     Height="340"
+                                     VerticalAlignment="Bottom">
+                    <ListView ItemsSource="{Binding Top5Customer}">
+                        <ListView.View>
 
-            <materialDesign:Card Margin="10,0,20,10"
-                                 UniformCornerRadius="5"
-                                 Height="340"
-                                 VerticalAlignment="Bottom"
-                                 Grid.Row="2">
-                <ListView ItemsSource="{Binding Top5Customer}">
-                    <ListView.View>
-
-                        <GridView>
-                            <GridViewColumn Header="STT"
-                                            Width="90">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock  Text="{Binding RelativeSource={RelativeSource FindAncestor, 
+                            <GridView>
+                                <GridViewColumn Header="STT"
+                                                Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock  Text="{Binding RelativeSource={RelativeSource FindAncestor, 
                                          AncestorType={x:Type ListViewItem}}, 
                                          Converter={StaticResource IndexConverter}}"
-                                                    FontSize="18"
-                                                    Margin="20,5,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Tên khách hàng"
-                                            Width="250">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"
-                                                   FontSize="18"
-                                                   Height="34"
-                                                   Margin="20,5,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Số điện thoại"
-                                            Width="250">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding PhoneNumber}"
-                                                   FontSize="18"
-                                                   Margin="10,5,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Chi tiêu">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding ExpenseStr}"
-                                                   FontSize="18"
-                                                   Margin="0,5,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </materialDesign:Card>
-
+                                                        FontSize="18"
+                                                        Margin="20,5,0,0" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Tên khách hàng"
+                                                Width="250">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"
+                                                       FontSize="18"
+                                                       Height="34"
+                                                       Margin="20,5,0,0" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Số điện thoại"
+                                                Width="250">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding PhoneNumber}"
+                                                       FontSize="18"
+                                                       Margin="10,5,0,0" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Chi tiêu">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ExpenseStr}"
+                                                       FontSize="18"
+                                                       Margin="0,5,0,0" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </materialDesign:Card>
+            </StackPanel>
         </Grid>
 
 
@@ -211,7 +214,7 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal"
-                        Margin="30,0,0,0"
+                        Margin="30,10,0,0"
                         Grid.Row="0">
                 <!---PERIOD-->
                 <StackPanel Margin="0,10,0,0">
@@ -312,62 +315,68 @@
 
             </StackPanel>
 
-
-            <materialDesign:Card Margin="5,0,10,10"
-                                 UniformCornerRadius="5"
-                                 Height="340"
-                                 VerticalAlignment="Bottom"
-                                 Grid.Row="2">
-                <ListView ItemsSource="{Binding Top5Staff}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="STT"
-                                            Width="90">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock  Text="{Binding RelativeSource={RelativeSource FindAncestor, 
+            <StackPanel Grid.Row="2"
+                        Margin="5,0,10,10">
+                <Label Content="Top 5 nhân viên đóng góp nhiều nhất"
+                       FontSize="25"
+                       FontWeight="bold"
+                       Margin="0,10,0,0" />
+                <materialDesign:Card 
+                                     UniformCornerRadius="5"
+                                     Height="340"
+                                     VerticalAlignment="Bottom"
+                                     Grid.Row="2">
+                    <ListView ItemsSource="{Binding Top5Staff}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="STT"
+                                                Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock  Text="{Binding RelativeSource={RelativeSource FindAncestor, 
                                          AncestorType={x:Type ListViewItem}}, 
                                          Converter={StaticResource IndexConverter}}"
-                                                    FontSize="18"
-                                                    Margin="20,5,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Mã nhân viên"
-                                            Width="145">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Id}"
-                                                   Margin="20,5,0,0"
-                                                   FontSize="18"
-                                                   Height="34" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Tên nhân viên"
-                                            Width="220">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"
-                                                   Margin="20,5,0,0"
-                                                   FontSize="18" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Doanh số"
-                                            Width="160">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding BenefitContributionStr}"
-                                                   FontSize="18"
-                                                   Margin="10,5,0,0" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </materialDesign:Card>
+                                                        FontSize="18"
+                                                        Margin="20,5,0,0" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Mã nhân viên"
+                                                Width="145">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Id}"
+                                                       Margin="20,5,0,0"
+                                                       FontSize="18"
+                                                       Height="34" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Tên nhân viên"
+                                                Width="220">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"
+                                                       Margin="20,5,0,0"
+                                                       FontSize="18" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Doanh số"
+                                                Width="160">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding BenefitContributionStr}"
+                                                       FontSize="18"
+                                                       Margin="10,5,0,0" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </materialDesign:Card>
+            </StackPanel>
         </Grid>
 
     </Grid>

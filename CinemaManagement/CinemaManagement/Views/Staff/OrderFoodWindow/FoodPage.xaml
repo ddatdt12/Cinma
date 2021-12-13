@@ -11,10 +11,10 @@
       TextOptions.TextFormattingMode="Ideal"
       TextOptions.TextRenderingMode="Auto"
       Background="#f3f5f7"
-      FontFamily="{DynamicResource MaterialDesignFont}"
       DataContext="{StaticResource OrderFoodPageVM}"
       d:DesignHeight="720"
       d:DesignWidth="1300"
+      FontFamily="Arial"
       x:Name="Food_Page"
       ShowsNavigationUI="False">
 
@@ -47,7 +47,7 @@
                         <Trigger Property="IsMouseOver"
                                  Value="True">
                             <Setter Property="Background"
-                                    Value="Gray" />
+                                    Value="#e0e0e0" />
                         </Trigger>
                         <DataTrigger Binding="{Binding ShowBackIcon}"
                                      Value="False">
@@ -76,12 +76,9 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <TextBlock Text="Danh mục sản phẩm"
-                       FontFamily="Segoe UI Semibold"
                        FontSize="30"
-                       Margin="300,30,0,0"
+                       Margin="80,20,0,0"
                        FontWeight="Bold"
-                       TextAlignment="Center"
-                       HorizontalAlignment="Center"
                        Grid.Column="0" />
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal">
@@ -103,7 +100,7 @@
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">
                             <Setter Property="Foreground"
-                                    Value="Blue" />
+                                    Value="OrangeRed" />
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver"
                                          Value="True">
@@ -282,7 +279,7 @@
                                                 <Label.Template>
                                                     <ControlTemplate TargetType="Label">
                                                         <Grid>
-                                                            <Ellipse Fill="Gold" />
+                                                            <Ellipse Fill="#FF42A7FF" />
                                                             <ContentPresenter HorizontalAlignment="Center"
                                                                               VerticalAlignment="Center" />
                                                         </Grid>
@@ -293,7 +290,8 @@
                                                                          HorizontalAlignment="Center"
                                                                          VerticalAlignment="Center"
                                                                          Width="Auto"
-                                                                         Height="Auto" />
+                                                                         Height="Auto" 
+                                                                        />
                                                 <Label.InputBindings>
                                                     <MouseBinding Command="{Binding ElementName=lbxMenuProduct, Path=DataContext.SelectedProductCommand}"
                                                                   CommandParameter="{Binding ElementName=lblAddOrder}"
@@ -401,7 +399,7 @@
                                             <DockPanel Grid.Row="0">
                                                 <Border BorderBrush="{x:Null}"
                                                         Height="Auto"
-                                                        Width="80"
+                                                        Width="100"
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Center">
                                                     <TextBlock TextWrapping="Wrap"
@@ -416,7 +414,7 @@
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Right"
                                                        ToolTip="Xóa"
-                                                       Margin="0,0,10,0"
+                                                       Margin="0,0,15,0"
                                                        Cursor="Hand">
 
                                                     <Label.Template>
@@ -450,37 +448,40 @@
                                                             VerticalAlignment="Top"
                                                             Orientation="Horizontal">
 
-                                                    <Label Foreground="Red"
-                                                           Background="#FF53CE5D"
-                                                           Width="20"
-                                                           Height="20"
-                                                           x:Name="lblMinus"
-                                                           Cursor="Hand">
-                                                        <Grid>
+                                                    <Border Background="White"
+                                                            Width="30"
+                                                            BorderThickness="0.5"
+                                                            BorderBrush="Gray"
+                                                            Height="25"
+                                                            x:Name="lblMinus"
+                                                            Cursor="Hand">
+                                                        <Border>
                                                             <materialDesign:PackIcon Kind="Minus"
                                                                                      VerticalAlignment="Center"
                                                                                      HorizontalAlignment="Center" />
-                                                        </Grid>
+                                                        </Border>
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                                 <i:InvokeCommandAction Command="{Binding ElementName=lvOrderList, Path=DataContext.MinusCommand}" />
                                                             </i:EventTrigger>
                                                         </i:Interaction.Triggers>
-                                                    </Label>
+                                                    </Border>
 
-                                                    <TextBlock Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    <TextBox Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                                TextAlignment="Center"
-                                                               Padding="1"
+                                                               Padding="1,3,1,0"
                                                                FontSize="15"
                                                                Background="White"
-                                                               Width="25"
-                                                               Height="Auto" />
-                                                    <Label Foreground="Red"
-                                                           Background="#FF53CE5D"
-                                                           Width="20"
-                                                           Height="20"
-                                                           x:Name="lblPlus"
-                                                           Cursor="Hand">
+                                                               Width="35"
+                                                             Height="25"
+                                                             BorderThickness="0,0.5,0,0.5"/>
+                                                    <Border Background="White"
+                                                            Width="30"
+                                                            BorderThickness="0.5"
+                                                            BorderBrush="Gray"
+                                                            Height="25"
+                                                            x:Name="lblPlus"
+                                                            Cursor="Hand">
                                                         <Grid>
                                                             <materialDesign:PackIcon Kind="Plus"
                                                                                      VerticalAlignment="Center"
@@ -491,7 +492,7 @@
                                                                 <i:InvokeCommandAction Command="{Binding ElementName=lvOrderList, Path=DataContext.PlusCommand}" />
                                                             </i:EventTrigger>
                                                         </i:Interaction.Triggers>
-                                                    </Label>
+                                                    </Border>
                                                 </StackPanel>
                                                 <TextBlock DockPanel.Dock="Right"
                                                            HorizontalAlignment="Right"
@@ -499,13 +500,13 @@
                                                            Text="{Binding PriceStr}"
                                                            Width="Auto"
                                                            FontSize="15"
-                                                           Margin="0,0,10,0" />
+                                                           Margin="0,0,15,0" />
                                                 <Grid HorizontalAlignment="Right"
                                                       VerticalAlignment="Top"
                                                       Margin="5"
                                                       Height="15"
                                                       Width="15">
-                                                    <Image Source="/Resources/Icon/Money.jpg" />
+                                                    <Image Source="/Resources/Images/ImageFood/dong.png" />
                                                 </Grid>
                                             </DockPanel>
                                         </Grid>

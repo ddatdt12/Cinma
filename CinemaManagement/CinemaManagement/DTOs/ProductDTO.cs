@@ -67,6 +67,6 @@ namespace CinemaManagement.DTOs
                 return Helper.FormatVNMoney(Revenue);
             }
         }
-        public int SalesQuantity;
+        public int SalesQuantity { get; set; }
     }
 }

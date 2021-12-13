@@ -90,7 +90,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 try
                 {
                     AddVoucherWindow w = new AddVoucherWindow();
-                    BindStaffID = StaffID;
                     Unlock = false;
                     ShadowMask.Visibility = Visibility.Visible;
                     w.ShowDialog();
@@ -134,9 +133,17 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 AddVoucher w = new AddVoucher();
                 GetVoucherList();
                 if (SelectedItem.Status == false)
+                {
                     w.releasebtn.Visibility = Visibility.Collapsed;
+                    w.releasebtn2.Visibility = Visibility.Collapsed;
+                }
+
                 else
+                {
                     w.releasebtn.Visibility = Visibility.Visible;
+                    w.releasebtn2.Visibility = Visibility.Visible;
+                }
+
                 mainFrame.Content = w;
 
                 WaitingMiniVoucher = new List<int>();
@@ -374,6 +381,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 ListCustomerEmail.Add(new CustomerEmail
                 {
                     Email = "",
+                    IsReadonly = false,
+                    IsEnable = true
                 });
                 ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
 
@@ -443,11 +452,21 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                             VoucherDTO temp = new VoucherDTO
                             {
                                 Id = WaitingMiniVoucher[i],
-                                Code = StoreAllMini[j].Code
+                                Code = StoreAllMini[j].Code,
+                                Status = StoreAllMini[j].Status
                             };
                             ReleaseVoucherList.Add(temp);
                             break;
                         }
+                    }
+                }
+                foreach(var item in ReleaseVoucherList)
+                {
+                    if (item.Status == "Đã sử dụng")
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Tồn tại voucher đã sử dụng!", MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
+                        return;
                     }
                 }
                 IsReleaseVoucherLoading = true;

@@ -205,7 +205,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                         foreach (var item in list)
                         {
                             if (item.Email != null)
-                                ListCustomerEmail.Add(new CustomerEmail { Email = item.Email, Name = item.Name });
+                                ListCustomerEmail.Add(new CustomerEmail { Email = item.Email, Name = item.Name, IsReadonly = true, IsEnable = false });
                         }
                         ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
                         return;
@@ -227,7 +227,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                                 foreach (var it in newcuslist)
                                 {
                                     if (!string.IsNullOrEmpty(it.Email))
-                                        ListCustomerEmail.Add(new CustomerEmail { Email = it.Email, Name = it.Name });
+                                        ListCustomerEmail.Add(new CustomerEmail { Email = it.Email, Name = it.Name, IsReadonly = true, IsEnable = false });
                                 }
                             }
                             ReleaseVoucherList = new ObservableCollection<VoucherDTO>(GetRandomUnreleasedCode(ListCustomerEmail.Count * int.Parse(PerCus.Content.ToString())));
@@ -443,10 +443,24 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         public readonly static string NEW_CUSTOMER = "NEW_CUSTOMER";
         public readonly static string COMMON = "COMMON";
     }
-    public class CustomerEmail
+    public class CustomerEmail : BaseViewModel
     {
         public string Name { get; set; }
         public string Email { get; set; }
+        private bool isReadonly;
+        public bool IsReadonly
+        {
+            get { return isReadonly; }
+            set { isReadonly = value; OnPropertyChanged(); }
+
+        }
+        private bool isEnable;
+        public bool IsEnable
+        {
+            get { return isEnable; }
+            set { isEnable = value; OnPropertyChanged(); }
+        }
+
         public CustomerEmail() { }
     }
 }

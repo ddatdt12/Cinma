@@ -41,7 +41,7 @@
                         Margin="30,0,0,0"
                         Grid.Row="0">
                 <!---PERIOD-->
-                <StackPanel Margin="0,10,0,0"
+                <StackPanel Margin="0,20,0,0"
                             x:Name="_period">
                     <ComboBox Width="200"
                               FontSize="20"
@@ -65,7 +65,7 @@
                     </ComboBox>
                 </StackPanel>
                 <!---TIME-->
-                <StackPanel Margin="30,10,0,0"
+                <StackPanel Margin="30,20,0,0"
                             x:Name="_time">
                     <ComboBox Width="170"
                               FontSize="20"

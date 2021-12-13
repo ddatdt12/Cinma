@@ -31,7 +31,7 @@
             <ColumnDefinition Width="1300" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0"
-              Background="#FF383737">
+              Background="#132644">
             <Grid.RowDefinitions>
                 <RowDefinition Height="80" />
                 <RowDefinition Height="720" />
@@ -44,11 +44,19 @@
                         <DataTrigger Binding="{Binding Path=Tag.IsChecked, RelativeSource={RelativeSource Self}}"
                                      Value="True">
                             <Setter Property="Background"
-                                    Value="#FFDC7777" />
+                                    Value="#0c70b6" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Grid.Resources>
+            <StackPanel Grid.Row="0" Orientation="Horizontal"
+                        Grid.ColumnSpan="2">
+                <materialDesign:PackIcon Kind="Movie"
+                                         Height="80"
+                                         Width="80"
+                                         Foreground="White"
+                                         Margin="30,0,10,-0" />
+            </StackPanel>
             <StackPanel Grid.Row="1">
                 <Border CornerRadius="5">
                     <StackPanel Tag="{Binding ElementName=btnShowing}"
@@ -122,9 +130,8 @@
             </Grid.RowDefinitions>
             <!--thanh task bar de keo-->
             <Border Grid.Row="0"
-                    Background="#fffffff2"
                     BorderThickness="0 0 0 0.5"
-                    BorderBrush="Black">
+                    BorderBrush="Gray">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20" />

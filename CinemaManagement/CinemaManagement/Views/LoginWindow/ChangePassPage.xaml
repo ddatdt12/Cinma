@@ -47,15 +47,15 @@
 
         <StackPanel Orientation="Vertical">
             <!--Welcome-->
-            <Label FontFamily="junegull"
-                   FontSize="35"
+            <Label FontFamily="helvetica"
+                   FontSize="25"
                    FontWeight="UltraBlack"
                    Foreground="#0c70b6"
-                   Content="RESET PASSWORD"
+                   Content="KHÔI PHỤC MẬT KHẨU"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Height="50"
-                   Margin="0,30,0,0">
+                   Margin="45,40,30,0">
             </Label>
 
             <!--Login Area-->

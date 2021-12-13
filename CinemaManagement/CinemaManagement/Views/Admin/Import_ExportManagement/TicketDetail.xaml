@@ -90,8 +90,10 @@
                         <Border Grid.Row="0"
                                 BorderThickness="0,0,0,0.5"
                                 BorderBrush="Gray">
-                            <Image Source="/Resources/IconPack/filmstrip.png"
-                                   Stretch="Fill" />
+                            <Label Content="Vé xem phim"
+                                   FontSize="30"
+                                   FontWeight="Bold" 
+                                   Margin="20,0,0,0"/>
                         </Border>
                         <Border Grid.Row="1"
                                 BorderThickness="0,0,0,1"

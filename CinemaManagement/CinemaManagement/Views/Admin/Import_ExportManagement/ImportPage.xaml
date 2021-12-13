@@ -200,7 +200,7 @@
                                         Width="200">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock  Text="{Binding CreatedAt, StringFormat=dd-MM-yyyy HH:mm:ss}"
+                                    <TextBlock  Text="{Binding CreatedAt, StringFormat=dd/MM/yyyy HH:mm:ss}"
                                                 FontSize="18"
                                                 Margin="10,0,0,0" />
                                 </DataTemplate>

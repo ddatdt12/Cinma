@@ -134,6 +134,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
                 return;
             }
+            if (Par >= Minimum)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Mệnh giá voucher phải bé hơn tổng tối thiểu", MessageType.Warning, MessageButtons.OK);
+                mb.ShowDialog();
+                return;
+            }
 
             if (SelectedItem != null)
                 oldVer = SelectedItem;
@@ -147,7 +153,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 ObjectType = Object.Content.ToString(),
                 ParValue = Par,
                 ReleaseName = Name,
-                StaffId = BindStaffID,
+                StaffId = MainAdminViewModel.currentStaff.Id,
                 Status = Status2,
             };
 

@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 
 namespace CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow
 {
@@ -11,6 +12,7 @@ namespace CinemaManagement.Views.Admin.VoucherManagement.Infor_EditWindow
         public Edit_InforPage()
         {
             InitializeComponent();
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

@@ -55,7 +55,7 @@ namespace CinemaManagement.ViewModel
         {
             try
             {
-                (_,_,_) = StaffService.Ins.GetStaffEmail("");
+                (_, _, _) = StaffService.Ins.GetStaffEmail("");
             }
             catch (InvalidOperationException)
             {
@@ -129,12 +129,12 @@ namespace CinemaManagement.ViewModel
             {
 
                 Password = "";
-                VoucherViewModel.StaffID = staff.Id;
                 TicketBillViewModel.Staff = staff;
                 LoginWindow.Hide();
                 if (staff.Role == "Quản lý")
                 {
                     MainAdminWindow w1 = new MainAdminWindow();
+                    MainAdminViewModel.currentStaff = staff;
                     w1.CurrentUserName.Content = staff.Name;
                     w1.Show();
                     LoginWindow.Close();

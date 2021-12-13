@@ -60,12 +60,14 @@ namespace CinemaManagement.Views.Admin.StatisticalManagement
 
             List<string> l = new List<string>();
 
-            l.Add("2019");
-            l.Add("2020");
-            l.Add("2021");
-
+            int now = -1;
+            for (int i = 2020; i <= System.DateTime.Now.Year; i++)
+            {
+                now++;
+                l.Add(i.ToString());
+            }
             cbb.ItemsSource = l;
-            cbb.SelectedIndex = 2;
+            cbb.SelectedIndex = now;
         }
         public void GetMonthSource(ComboBox cbb)
         {
