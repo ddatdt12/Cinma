@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.ViewModel;
 using System;
 using System.Windows.Controls;
 using System.Windows.Data;

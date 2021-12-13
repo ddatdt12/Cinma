@@ -6,6 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         DataContext="{StaticResource DeviceReportPageVM}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -19,12 +20,18 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         x:Name="Add_Page">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
+                                   CommandParameter="{Binding ElementName=Add_Page}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
     <Border Background="White"
             BorderBrush="Black"
             BorderThickness="1"
             CornerRadius="10">
-        <Grid>
+        <Grid Background="Transparent">
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*" />
                 <RowDefinition Height="35*" />
@@ -102,7 +109,7 @@
                                        Width="300"
                                        Padding="0"
                                        Margin="0,10,0,0"
-                                       Text="Lê Hải Phong" />
+                                       x:Name="StaffName"/>
 
                         </StackPanel>
                     </StackPanel>

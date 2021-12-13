@@ -86,6 +86,9 @@ namespace CinemaManagement.ViewModel
                 _GenreList = value;
             }
         }
+
+        public static Grid MaskName { get; set; }
+
         #region commands
         public ICommand CloseMainStaffWindowCM { get; set; }
         public ICommand MinimizeMainStaffWindowCM { get; set; }
@@ -97,6 +100,7 @@ namespace CinemaManagement.ViewModel
         public ICommand SelectedDateCM { get; set; }
         public ICommand LoadErrorPageCM { get; set; }
         public ICommand SignoutCM { get; set; }
+        public ICommand MaskNameCM { get; set; }
 
         private string _UserName;
         public string UserName
@@ -109,6 +113,8 @@ namespace CinemaManagement.ViewModel
         #endregion
         public MainStaffViewModel()
         {
+            //IsShadow = false;
+
             SelectedGenreCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
                 await LoadMainListBox(1);
@@ -153,16 +159,20 @@ namespace CinemaManagement.ViewModel
                 });
             LoadMovieScheduleWindow = new RelayCommand<Page>((p) => { return true; }, (p) =>
             {
+                
                 MovieScheduleWindow w;
                 OrderFoodPageViewModel.checkOnlyFoodOfPage = false;
+                
                 if (SelectedItem != null)
                 {
                     try
                     {
                         MovieScheduleWindowViewModel.tempFilebinding = SelectedItem;
                         w = new MovieScheduleWindow();
+                        
                         if (w != null)
                         {
+                            MaskName.Visibility = Visibility.Visible;
                             if (SelectedItem != null)
                             {
                                 w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
@@ -216,6 +226,10 @@ namespace CinemaManagement.ViewModel
                 LoginWindow w1 = new LoginWindow();
                 w1.ShowDialog();
                 p.Close();
+            });
+            MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
+            {
+                MaskName = p;
             });
         }
     }

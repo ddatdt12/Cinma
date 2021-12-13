@@ -20,8 +20,8 @@
         Name="EditFoodWd"
         ResizeMode="NoResize"
         MouseLeftButtonDown="EditFoodWd_MouseLeftButtonDown"
-        Height="400"
-        Width="280">
+        Height="450"
+        Width="300">
 
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
@@ -54,7 +54,7 @@
                             <RowDefinition Height="50" />
                             <RowDefinition Height="50" />
                             <RowDefinition />
-                            <RowDefinition Height="50" />
+                            <RowDefinition Height="65" />
                         </Grid.RowDefinitions>
                         <Grid.Resources>
                             <Style TargetType="TextBlock">
@@ -137,31 +137,33 @@
                         </Grid>
                         <Grid Grid.Row="4">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="220" />
+                                <ColumnDefinition Width="230" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
                                 <Border BorderBrush="Black"
                                         BorderThickness="1"
-                                        Margin="20 5 0 0">
-                                    <Image Source="{Binding ImageSource, Mode=TwoWay}"
-                                           VerticalAlignment="Stretch"
-                                           HorizontalAlignment="Stretch"
-                                           Margin="10"
-                                           x:Name="EditImage" />
+                                        Margin="20 0 0 0"
+                                        Height="160"
+                                        Width="210">
+                                    <Image Source="{Binding ImageSource}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Margin="5" 
+                                           x:Name="EditImage"/>
                                 </Border>
                             </Grid>
                             <Grid Grid.Column="1">
                                 <!--<Image Source="/Resources/Images/ImageFood/add-image.png"
-                                       Margin="5 50 0 0"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Bottom"
-                                       Height="30"
-                                       Cursor="Hand" />-->
+                               Margin="5 50 0 0"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Bottom"
+                               Height="30"
+                               Cursor="Hand" />-->
                                 <Button Padding="0"
                                         Width="40"
-                                        VerticalAlignment="Bottom"
-                                        Margin="0,0,0,50"
+                                        VerticalAlignment="Center"
+                                        Margin="0,0,0,0"
                                         materialDesign:ButtonAssist.CornerRadius="5"
                                         Command="{Binding UpLoadImageCommand}">
                                     <Button.Content>
@@ -171,10 +173,10 @@
                                     </Button.Content>
                                 </Button>
                                 <!--<i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseLeftButtonDown">
-                                        <i:InvokeCommandAction Command="{Binding UpLoadImageCommand}" />
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>-->
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding UpLoadImageCommand}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>-->
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="5">
@@ -193,18 +195,26 @@
                                             Value="12" />
                                 </Style>
                             </Grid.Resources>
-                            <Button Content="Lưu"
-                                    Margin="0 0 10 10"
-                                    Command="{Binding EditFoodCommand}"
-                                    CommandParameter="{Binding ElementName=EditFoodWd}"
-                                    materialDesign:ButtonAssist.CornerRadius="8" />
+                            <TextBlock Text="Tỷ lệ ảnh: 200x150 (px)"
+                                       HorizontalAlignment="Left"
+                                       Margin="10 0 0 0"
+                                       VerticalAlignment="Top"
+                                       FontWeight="DemiBold" />
                             <Button Content="Hủy"
-                                    Margin="0 0 100 10"
+                                    Margin="0 0 90 10"
+                                    BorderBrush="Transparent"
+                                    materialDesign:ButtonAssist.CornerRadius="8"
                                     Command="{Binding CloseCommand}"
                                     CommandParameter="{Binding ElementName=EditFoodWd}"
-                                    Background="OrangeRed"
+                                    Background="OrangeRed" />
+
+                            <Button Content="Lưu"
+                                    Margin="0 0 10 10"
                                     materialDesign:ButtonAssist.CornerRadius="8"
-                                    BorderBrush="Transparent"/>
+                                    Command="{Binding EditFoodCommand}"
+                                    CommandParameter="{Binding ElementName=EditFoodWd}"
+                                    BorderBrush="Transparent" />
+
                         </Grid>
                     </Grid>
                 </materialDesign:Card>

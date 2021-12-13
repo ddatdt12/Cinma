@@ -19,8 +19,8 @@
         WindowStartupLocation="CenterScreen"
         Name="AddFoodWd"
         ResizeMode="NoResize"
-        Height="400"
-        Width="280"
+        Height="450"
+        Width="300"
         MouseLeftButtonDown="AddFoodWd_MouseLeftButtonDown">
 
     <Window.Triggers>
@@ -53,7 +53,7 @@
                     <RowDefinition Height="50" />
                     <RowDefinition Height="50" />
                     <RowDefinition />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="65" />
                 </Grid.RowDefinitions>
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
@@ -137,17 +137,19 @@
                 </Grid>
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="230" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Border BorderBrush="Black"
                                 BorderThickness="1"
-                                Margin="20 5 0 0">
+                                Margin="20 0 0 0"
+                                Height="160"
+                                Width="210">
                             <Image Source="{Binding ImageSource}"
-                                   VerticalAlignment="Stretch"
-                                   HorizontalAlignment="Stretch"
-                                   Margin="10" />
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Margin="5" />
                         </Border>
                     </Grid>
                     <Grid Grid.Column="1">
@@ -159,8 +161,8 @@
                                Cursor="Hand" />-->
                         <Button Padding="0"
                                 Width="40"
-                                VerticalAlignment="Bottom"
-                                Margin="0,0,0,50"
+                                VerticalAlignment="Center"
+                                Margin="0,0,0,0"
                                 materialDesign:ButtonAssist.CornerRadius="5"
                                 Command="{Binding UpLoadImageCommand}">
                             <Button.Content>
@@ -192,11 +194,13 @@
                                     Value="12" />
                         </Style>
                     </Grid.Resources>
-                    <TextBlock Text="Tỷ lệ ảnh 41:33" 
+                    <TextBlock Text="Tỷ lệ ảnh: 200x150 (px)"
                                HorizontalAlignment="Left"
-                               Margin="4 0 0 0"/>
+                               Margin="10 0 0 0"
+                               VerticalAlignment="Top"
+                               FontWeight="DemiBold"/>
                     <Button Content="Hủy"
-                            Margin="0 0 100 10"
+                            Margin="0 0 90 10"
                             BorderBrush="Transparent"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding CloseCommand}"
