@@ -33,17 +33,18 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     productReceipts = await (from pr in context.ProductReceipts
-                                       select new ProductReceiptDTO
-                                       {
-                                           Id = pr.Id,
-                                           ProductId = pr.ProductId,
-                                           ProductName = pr.Product.DisplayName,
-                                           StaffId = pr.Staff.Id,
-                                           StaffName = pr.Staff.Name,
-                                           Quantity = pr.Quantity,
-                                           ImportPrice = pr.ImportPrice,
-                                           CreatedAt = pr.CreatedAt,
-                                       }).ToListAsync();
+                                             orderby pr.CreatedAt descending
+                                             select new ProductReceiptDTO
+                                             {
+                                                 Id = pr.Id,
+                                                 ProductId = pr.ProductId,
+                                                 ProductName = pr.Product.DisplayName,
+                                                 StaffId = pr.Staff.Id,
+                                                 StaffName = pr.Staff.Name,
+                                                 Quantity = pr.Quantity,
+                                                 ImportPrice = pr.ImportPrice,
+                                                 CreatedAt = pr.CreatedAt,
+                                             }).ToListAsync();
                 }
             }
             catch (Exception e)
@@ -62,6 +63,7 @@ namespace CinemaManagement.Models.Services
                 {
                     productReceipts = await (from pr in context.ProductReceipts
                                              where pr.CreatedAt.Year == DateTime.Today.Year && pr.CreatedAt.Month == month
+                                             orderby pr.CreatedAt descending
                                              select new ProductReceiptDTO
                                              {
                                                  Id = pr.Id,
