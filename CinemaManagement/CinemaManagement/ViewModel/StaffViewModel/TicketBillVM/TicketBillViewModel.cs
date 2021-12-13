@@ -784,6 +784,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         Discount -= temp.ParValue;
                         LastPrice += temp.ParValue;
                         LastPriceStr = Helper.FormatVNMoney(LastPrice);
+                        DiscountStr = Helper.FormatVNMoney(Discount);
                         ListVoucher.Remove(SelectedItem);
                     }
                     
@@ -874,14 +875,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         bill.StaffId = Staff.Id;
                         bill.TotalPrice = LastPrice;
                         bill.DiscountPrice = Discount;
-                        if (ListVoucher.Count > 0)
-                        {
-                            List<int> voucherID = new List<int>();
-                            for (int i = 0; i < ListVoucher.Count; i++)
-                            {
-                                voucherID.Add(ListVoucher[i].Id);
-                            }
-                        }
+                        bill.VoucherIdList = ListVoucher.Select(v => v.Id).ToList();
                         (bool successBooking, string messageFromBooking) = await BookingService.Ins.CreateTicketBooking(bill, tickets);
                         if (successBooking)
                         {
@@ -934,14 +928,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         bill.StaffId = Staff.Id;
                         bill.TotalPrice = LastPrice;
                         bill.DiscountPrice = Discount;
-                        if (ListVoucher.Count > 0)
-                        {
-                            List<int> voucherID = new List<int>();
-                            for (int i = 0; i < ListVoucher.Count; i++)
-                            {
-                                voucherID.Add(ListVoucher[i].Id);
-                            }
-                        }
+                        bill.VoucherIdList = ListVoucher.Select(v => v.Id).ToList();
                         (bool successBooking, string messageFromBooking) = await BookingService.Ins.CreateProductOrder(bill, productBills);
                         if (successBooking)
                         {

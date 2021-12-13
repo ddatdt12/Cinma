@@ -192,6 +192,9 @@
                                     Value="12" />
                         </Style>
                     </Grid.Resources>
+                    <TextBlock Text="Tỷ lệ ảnh 41:33" 
+                               HorizontalAlignment="Left"
+                               Margin="4 0 0 0"/>
                     <Button Content="Hủy"
                             Margin="0 0 100 10"
                             BorderBrush="Transparent"
