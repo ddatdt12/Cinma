@@ -72,14 +72,29 @@
                             </i:Interaction.Triggers>
                         </ComboBox>
 
-                        <Button Content="Thêm +"
-                                Width="100"
+                        <Button Width="130"
                                 Height="40"
                                 Margin="0,0,20,10"
                                 materialDesign:ButtonAssist.CornerRadius="5"
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Bottom"
-                                Command="{Binding OpenAddErrorCommand}">
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Command="{Binding OpenAddErrorCommand}"
+                                Background="Red">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center">
+                                <materialDesign:PackIcon Kind="AlertCircleOutline" 
+                                                         Height="25"
+                                                         Width="25"
+                                                         VerticalAlignment="Center"/>
+                                <TextBlock Text="Báo cáo" 
+                                           Margin="3 0 0 0"
+                                           FontSize="18"
+                                           VerticalAlignment="Center"/>
+
+                            </StackPanel>
+                            
 
                         </Button>
                     </Grid>
