@@ -175,10 +175,10 @@
                                  materialDesign:ListBoxItemAssist.ShowSelection="False"
                                  materialDesign:ListBoxAssist.IsToggle="False">
                             <ListBox.Resources>
-                                <Style TargetType="Border">
+                                <!--<Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
                                     <Setter Property="CornerRadius"
                                             Value="50" />
-                                </Style>
+                                </Style>-->
                             </ListBox.Resources>
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem"
@@ -189,7 +189,7 @@
                                             <Setter Property="IsSelected"
                                                     Value="True" />
                                             <Setter Property="Background"
-                                                    Value="#FFD0EAF6" />
+                                                    Value="#FFD0EAF6" /> <!---->
                                         </Trigger>
                                     </Style.Triggers>
                                     <Style.Resources>
@@ -211,21 +211,19 @@
                                                     Value="0" />
                                             <Setter Property="Margin"
                                                     Value="0" />
-                                            <Style.Triggers>
+                                            <!--<Style.Triggers>
                                                 <Trigger Property="IsMouseOver"
                                                          Value="True">
                                                     <Setter Property="Background"
-                                                            Value="#b3e5fc" />
+                                                            Value="Red" /> --><!--#b3e5fc--><!--
                                                 </Trigger>
-                                            </Style.Triggers>
+                                            </Style.Triggers>-->
                                         </Style>
                                     </Style.Resources>
                                     <Setter Property="Padding"
                                             Value="0" />
                                     <Setter Property="Margin"
-                                            Value="9 8 8 8" />
-                                    <Setter Property="Width"
-                                            Value="300" />
+                                            Value="5 5 6 5" />
                                     <Setter Property="materialDesign:ListBoxItemAssist.ShowSelection"
                                             Value="False" />
                                 </Style>
@@ -252,12 +250,15 @@
                                                     <Border BorderThickness="1"
                                                             BorderBrush="Black"
                                                             Margin="8,7,5,10"
-                                                            Width="205">
+                                                            Width="210"
+                                                            Height="160">
                                                         <StackPanel>
                                                             <Image Source="{Binding ImgSource}"
-                                                                   Width="205"
-                                                                   Height="166"
-                                                                   Stretch="Fill" />
+                                                                   Width="200"
+                                                                   Height="150"
+                                                                   Margin="5"
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center"/>
                                                         </StackPanel>
                                                     </Border>
 

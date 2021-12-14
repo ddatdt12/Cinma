@@ -324,7 +324,7 @@
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\SeatStatusConverter.cs" />
     <Compile Include="ViewModel\AdminVM\ShowtimeManagementVM\ShowtimeManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\AddStaffViewModel.cs" />
-    <Compile Include="ViewModel\AdminVM\StaffManagementVM\DoiMatKhauWindowVM.cs" />
+    <Compile Include="ViewModel\AdminVM\StaffManagementVM\ChangePasswordWindowVM.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\EditStaffViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StaffManagementVM\StaffManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\StatisticalManagementVM\BestSelling.cs" />
@@ -414,17 +414,17 @@
     <Compile Include="Views\Admin\MovieManagement\MovieManagement.xaml.cs">
       <DependentUpon>MovieManagement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\DoiMatKhau.xaml.cs">
-      <DependentUpon>DoiMatKhau.xaml</DependentUpon>
+    <Compile Include="Views\Admin\StaffManagement\ChangePasswordWindow.xaml.cs">
+      <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml.cs">
-      <DependentUpon>NhanVienPage.xaml</DependentUpon>
+    <Compile Include="Views\Admin\StaffManagement\StaffManagementPage.xaml.cs">
+      <DependentUpon>StaffManagementPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\SuaNhanVienWindow.xaml.cs">
-      <DependentUpon>SuaNhanVienWindow.xaml</DependentUpon>
+    <Compile Include="Views\Admin\StaffManagement\EditStaffWindow.xaml.cs">
+      <DependentUpon>EditStaffWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml.cs">
-      <DependentUpon>ThemNhanVienWindow.xaml</DependentUpon>
+    <Compile Include="Views\Admin\StaffManagement\AddStaffWindow.xaml.cs">
+      <DependentUpon>AddStaffWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Admin\ShowtimeManagement\AddShowtimeWindow.xaml.cs">
       <DependentUpon>AddShowtimeWindow.xaml</DependentUpon>
@@ -628,19 +628,19 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\DoiMatKhau.xaml">
+    <Page Include="Views\Admin\StaffManagement\ChangePasswordWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\NhanVienPage.xaml">
+    <Page Include="Views\Admin\StaffManagement\StaffManagementPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\SuaNhanVienWindow.xaml">
+    <Page Include="Views\Admin\StaffManagement\EditStaffWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Admin\QuanLyNhanVienPage\ThemNhanVienWindow.xaml">
+    <Page Include="Views\Admin\StaffManagement\AddStaffWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

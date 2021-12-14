@@ -73,6 +73,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                         WaitingSeatList(p);
                         return;
                     }
+                    if(WaitingList.Count + 1 > 7)
+                    {
+                        new MessageBoxCustom("Lỗi", "Bạn chỉ được đặt tối đa 7 ghế!", MessageType.Error, MessageButtons.OK).ShowDialog();
+                        return;
+                    }
                     p.Background = new SolidColorBrush(Colors.Green);
                     p.Foreground = new SolidColorBrush(Colors.White);
                     WaitingSeatList(p);

@@ -51,6 +51,63 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
+
+        public async Task<List<CustomerDTO>> GetAllCustomerByTime(int year, int month = 0)
+        {
+            try
+            {
+                if (month == 0)
+                {
+                    using (var context = new CinemaManagementEntities())
+                    {
+                        var customer = await context.Customers.Where(c => c.CreatedAt.Year <= year).Select(c => new CustomerDTO
+                        {
+                            Id = c.Id,
+                            Name = c.Name,
+                            PhoneNumber = c.PhoneNumber,
+                            Email = c.Email,
+                            StartDate = c.CreatedAt,
+                            Expense = c.Bills.Where(b => b.CreatedAt.Year == year).Sum(b => (decimal?)b.TotalPrice) ?? 0
+                        }).ToListAsync();
+
+                        return customer;
+                    }
+                }
+                else
+                {
+
+                    DateTime dateLimit;
+
+                    if (month == DateTime.Now.Month)
+                    {
+                        dateLimit = DateTime.Now;
+                    }
+                    else
+                    {
+                        dateLimit = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+                    }
+                    using (var context = new CinemaManagementEntities())
+                    {
+                        var customer = await context.Customers.Where(c => c.CreatedAt <= dateLimit).Select(c => new CustomerDTO
+                        {
+                            Id = c.Id,
+                            Name = c.Name,
+                            PhoneNumber = c.PhoneNumber,
+                            Email = c.Email,
+                            StartDate = c.CreatedAt,
+                            Expense = c.Bills.Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month).Sum(b => (decimal?)b.TotalPrice) ?? 0
+                        }).ToListAsync();
+
+                        return customer;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
         private string CreateNextCustomerId(string maxId)
         {
             if (maxId is null)
@@ -98,6 +155,66 @@ namespace CinemaManagement.Models.Services
                 return (false, "Lỗi hệ thống", null);
             }
         }
+
+        public async Task<(bool, string)> UpdateCustomerInfo(CustomerDTO updatedCus)
+        {
+            try
+            {
+                using (var context = new CinemaManagementEntities())
+                {
+                    bool isExistPhone = await context.Customers.AnyAsync(c => c.Id != updatedCus.Id && c.PhoneNumber == updatedCus.PhoneNumber);
+
+                    if (isExistPhone)
+                    {
+                        return (false, "Số điện thoại này đã tồn tại");
+                    }
+
+                    bool isExistEmail = await context.Customers.AnyAsync(c => c.Id != updatedCus.Id && c.Email == updatedCus.Email);
+                    if (isExistEmail)
+                    {
+                        return (false, "Email này đã tồn tại");
+                    }
+
+                    var cus = await context.Customers.FindAsync(updatedCus.Id);
+
+                    cus.Name = updatedCus.Name;
+                    cus.PhoneNumber = updatedCus.PhoneNumber;
+                    cus.Email = updatedCus.Email;
+
+                    await context.SaveChangesAsync();
+                    return (true, "Cập nhật thành công");
+                }
+            }
+            catch (Exception)
+            {
+                return (false, "Lỗi hệ thống");
+            }
+        }
+
+        public async Task<(bool, string)> DeleteCustomer(string id)
+        {
+            try
+            {
+                using (var context = new CinemaManagementEntities())
+                {
+
+                   var cus = await context.Customers.FindAsync(id);
+                    if (cus is null)
+                    {
+                        return (false, "Khách hàng không tồn tại!");
+                    }
+                    context.Customers.Remove(cus);
+
+                    await context.SaveChangesAsync();
+                    return (true, "Xóa thành công");
+                }
+            }
+            catch (Exception)
+            {
+                return (false, "Lỗi hệ thống");
+            }
+        }
+
 
         public async Task<List<CustomerDTO>> GetTop5CustomerEmail()
         {

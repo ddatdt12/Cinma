@@ -3,6 +3,7 @@ using CinemaManagement.ViewModel.StaffViewModel.TicketVM;
 using CinemaManagement.Views.Staff.TicketWindow;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM
@@ -12,7 +13,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM
         #region
         public ICommand MouseMoveWindowCM { get; set; }
         public ICommand VisibleSeat { get; set; }
-
+        public ICommand CloseCM { get; set; }
 
         private List<ShowtimeDTO> _ListShowtime;
         public List<ShowtimeDTO> ListShowtime
@@ -63,6 +64,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM
                      w.ShowDialog();
                  }
              });
+            CloseCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                MainStaffViewModel.MaskName.Visibility = Visibility.Collapsed;
+                p.Close();
+            });
 
         }
         public void GetShowtimeRoom()
