@@ -33,6 +33,20 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             set { _CustomerExpe = value; OnPropertyChanged(); }
         }
 
+        private SeriesCollection _NewCusPie;
+        public SeriesCollection NewCusPie
+        {
+            get { return _NewCusPie; }
+            set { _NewCusPie = value; OnPropertyChanged(); }
+        }
+
+        private SeriesCollection _StaffContributePie;
+        public SeriesCollection StaffContributePie
+        {
+            get { return _StaffContributePie; }
+            set { _StaffContributePie = value; OnPropertyChanged(); }
+        }
+
         private ComboBoxItem _SelectedRankingPeriod;
         public ComboBoxItem SelectedRankingPeriod
         {
@@ -84,7 +98,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                             {
                                 await LoadRankingByMonth();
                             }
-
                             return;
                         }
                 }
@@ -99,18 +112,33 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 Top5Customer = Top5Cus;
 
                 CustomerExpe = new SeriesCollection
-            {
-                new PieSeries
                 {
-                    Values = new ChartValues<decimal>{TicketExpenseOfTop1 },
-                    Title = "Tiền vé",
-                },
-                new PieSeries
+                    new PieSeries
+                    {
+                        Values = new ChartValues<decimal>{TicketExpenseOfTop1 },
+                        Title = "Tiền vé",
+                    },
+                    new PieSeries
+                    {
+                        Values = new ChartValues<decimal>{ProductExpenseOfTop1 },
+                        Title = "Sản phẩm",
+                    }
+                };
+                NewCusPie = new SeriesCollection
                 {
-                    Values = new ChartValues<decimal>{ProductExpenseOfTop1 },
-                    Title = "Sản phẩm",
-                }
-            };
+                    new PieSeries
+                    {
+                        Values = new ChartValues<int>{20},
+                        Title = "Khách hàng mới",
+                        DataLabels = true
+                    },
+                    new PieSeries
+                    {
+                        Values = new ChartValues<int>{100},
+                        Title = "Tổng khách hàng",
+                        DataLabels = true
+                    },
+                };
             }
             catch (System.Data.Entity.Core.EntityException e)
             {
@@ -141,18 +169,33 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
 
 
                 CustomerExpe = new SeriesCollection
-            {
-                new PieSeries
                 {
-                    Values = new ChartValues<decimal>{TicketExpenseTop1Cus },
-                    Title = "Tiền vé",
-                },
-                new PieSeries
+                    new PieSeries
+                    {
+                        Values = new ChartValues<decimal>{TicketExpenseTop1Cus },
+                        Title = "Tiền vé",
+                    },
+                    new PieSeries
+                    {
+                        Values = new ChartValues<decimal>{ProductExpenseTop1Cus },
+                        Title = "Sản phẩm",
+                    }
+                };
+                NewCusPie = new SeriesCollection
                 {
-                    Values = new ChartValues<decimal>{ProductExpenseTop1Cus },
-                    Title = "Sản phẩm",
-                }
-            };
+                    new PieSeries
+                    {
+                        Values = new ChartValues<int>{5},
+                        Title = "Khách hàng mới",
+                        DataLabels = true
+                    },
+                    new PieSeries
+                    {
+                        Values = new ChartValues<int>{20},
+                        Title = "Tổng khách hàng",
+                        DataLabels = true
+                    },
+                };
             }
             catch (System.Data.Entity.Core.EntityException e)
             {
@@ -192,7 +235,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                             {
                                 await LoadRankingByMonth2();
                             }
-
                             return;
                         }
                 }
@@ -204,6 +246,21 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             try
             {
                 Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByYear(int.Parse(SelectedRankingTime2));
+                StaffContributePie = new SeriesCollection
+                {
+                    new PieSeries
+                    {
+                        Values = new ChartValues<decimal>{5000000},
+                        Title = "Tổng top 5",
+                        DataLabels = true,
+                    },
+                    new PieSeries
+                    {
+                        Values = new ChartValues<decimal>{7000000},
+                        Title = "Tổng nhân viên",
+                        DataLabels = true,
+                    }
+                };
             }
             catch (System.Data.Entity.Core.EntityException e)
             {
@@ -219,7 +276,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 mb.ShowDialog();
                 throw;
             }
-
         }
         public async Task LoadRankingByMonth2()
         {
@@ -227,6 +283,21 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             try
             {
                 Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByMonth(int.Parse(SelectedRankingTime2.Remove(0, 6)));
+                StaffContributePie = new SeriesCollection
+                {
+                    new PieSeries
+                    {
+                        Values = new ChartValues<decimal>{200000},
+                        Title = "Tổng top 5",
+                        DataLabels = true,
+                    },
+                    new PieSeries
+                    {
+                        Values = new ChartValues<decimal>{1000000},
+                        Title = "Tổng nhân viên",
+                        DataLabels = true,
+                    }
+                };
             }
             catch (System.Data.Entity.Core.EntityException e)
             {

@@ -16,6 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using CinemaManagement.Views;
 using System.Threading.Tasks;
+using CinemaManagement.Views.Admin.CustomerManagement;
 
 namespace CinemaManagement.ViewModel
 {
@@ -32,6 +33,7 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadFoodPageCM { get; set; }
         public ICommand LoadErrorPage { get; set; }
         public ICommand LoadVCPageCM { get; set; }
+        public ICommand LoadQLKHPageCM { get; set; }
         public ICommand FirstLoadCM { get; set; }
 
 
@@ -93,6 +95,14 @@ namespace CinemaManagement.ViewModel
                 SelectedFuncName = "Quản lý nhân sự";
                 if (p != null)
                     p.Content = new NhanVienPage();
+            });
+            LoadQLKHPageCM = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
+            {
+                if (MainAdminWindow.Slidebtn != null)
+                    MainAdminWindow.Slidebtn.IsChecked = false;
+                SelectedFuncName = "Quản lý khách hàng";
+                if (p != null)
+                    p.Content = new CustomerManagement();
             });
             LoadLSPage = new RelayCommand<Frame>((p) => { return p != null; }, (p) =>
             {

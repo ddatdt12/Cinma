@@ -135,9 +135,28 @@
 
                 <materialDesign:Card Margin="10,0,0,0"
                                      Width="400">
-                    <StackPanel>
-
-                    </StackPanel>
+                    <Grid>
+                        <lvc:PieChart LegendLocation="Right"
+                                      Background="Transparent"
+                                      Series="{Binding NewCusPie}"
+                                      Height="179"
+                                      InnerRadius="10"
+                                      Width="300" />
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="250,150,0,0"
+                                    Height="25">
+                            <Label Content="Khách vãng lai: "
+                                   HorizontalAlignment="Right"
+                                   FontSize="15"
+                                   Foreground="Black" />
+                            <Label Content="200"
+                                   Height="25"
+                                   Margin="-10,0,0,0"
+                                   HorizontalAlignment="Right"
+                                   FontSize="15"
+                                   Foreground="Black" />
+                        </StackPanel>
+                    </Grid>
                 </materialDesign:Card>
 
             </StackPanel>
@@ -147,7 +166,7 @@
                 <Label Content="Top 5 khách hàng chi tiêu nhiều nhất"
                        FontSize="25"
                        FontWeight="bold"
-                       Margin="0,10,0,0"/>
+                       Margin="0,10,0,0" />
                 <materialDesign:Card UniformCornerRadius="5"
                                      Height="340"
                                      VerticalAlignment="Bottom">
@@ -262,17 +281,6 @@
                 <materialDesign:Card Width="625"
                                      UniformCornerRadius="5">
                     <Grid>
-                        <!--<lvc:PieChart LegendLocation="None"
-                                      InnerRadius="70"
-                                      Margin="0,0,436,0"
-                                      Background="Transparent">
-                            <lvc:PieChart.Series>
-                                <lvc:PieSeries  Values="40"
-                                                Title="Tiền vé" />
-                                <lvc:PieSeries  Values="60"
-                                                Title="Sản phẩm" />
-                            </lvc:PieChart.Series>
-                        </lvc:PieChart>-->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="40*" />
                             <ColumnDefinition Width="60*" />
@@ -299,16 +307,13 @@
                             </StackPanel>
                         </Grid>
                         <StackPanel Grid.Column="1">
-                            <!--<Label Content="Thông tin nhân viên" FontWeight="Bold"
-                                   Margin="0,10,0,15"/>
-                            <Label Content="Họ tên:"/>
-                            <Label Content="Ngày sinh:"/>
-                            <Label Content="Điện thoại:"/>
-                            <Label Content="Ngày vào làm:"/>
-                            <Label Content="Thời gian cống hiến:"/>-->
+                            <lvc:PieChart LegendLocation="Right"
+                                          Background="Transparent"
+                                          Series="{Binding StaffContributePie}"
+                                          Height="179"
+                                          InnerRadius="10"
+                                          Width="300" />
                         </StackPanel>
-
-
                     </Grid>
 
                 </materialDesign:Card>
@@ -321,8 +326,7 @@
                        FontSize="25"
                        FontWeight="bold"
                        Margin="0,10,0,0" />
-                <materialDesign:Card 
-                                     UniformCornerRadius="5"
+                <materialDesign:Card UniformCornerRadius="5"
                                      Height="340"
                                      VerticalAlignment="Bottom"
                                      Grid.Row="2">

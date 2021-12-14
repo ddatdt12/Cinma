@@ -305,6 +305,7 @@
     <Compile Include="Utils\Constant.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\RegexUtilities.cs" />
+    <Compile Include="ViewModel\AdminVM\CustomerManagementVM\CustomerManagementViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\ErrorVM\ErrorViewModel.cs" />
     <Compile Include="ViewModel\AdminVM\ErrorVM\HintLevelConverter.cs" />
     <Compile Include="ViewModel\AdminVM\ErrorVM\StatusBrushConverter.cs" />
@@ -350,6 +351,12 @@
     <Compile Include="ViewModel\StaffViewModel\TicketBillVM\TicketBillViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketBookingPageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TicketVM\TicketWindowViewModel.cs" />
+    <Compile Include="Views\Admin\CustomerManagement\CustomerManagement.xaml.cs">
+      <DependentUpon>CustomerManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\CustomerManagement\EditCustomer.xaml.cs">
+      <DependentUpon>EditCustomer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Admin\ErrorManagement\DoneError.xaml.cs">
       <DependentUpon>DoneError.xaml</DependentUpon>
     </Compile>
@@ -534,6 +541,14 @@
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="ResourceXAML\MainResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\CustomerManagement\CustomerManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\CustomerManagement\EditCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

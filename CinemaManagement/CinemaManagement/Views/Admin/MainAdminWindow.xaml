@@ -144,7 +144,7 @@
                                             <Storyboard>
                                                 <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
                                                                  From="0"
-                                                                 To="280"
+                                                                 To="285"
                                                                  Duration="0:0:0.2" />
                                             </Storyboard>
                                         </BeginStoryboard>
@@ -154,7 +154,7 @@
                                             <Storyboard>
 
                                                 <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                                                 From="280"
+                                                                 From="285"
                                                                  To="0"
                                                                  Duration="0:0:0.2" />
                                             </Storyboard>
@@ -170,8 +170,8 @@
                     </StackPanel.RenderTransform>
 
                     <Grid Background="#132644"
-                          Width="280"
-                          Margin="-20,0,0,0">
+                          Width="285"
+                          Margin="-25,0,0,0">
                         <StackPanel>
                             <StackPanel.Resources>
                                 <Style TargetType="Button"
@@ -250,7 +250,7 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="AccountGroupOutline"
+                                <materialDesign:PackIcon Kind="AccountMultiple"
                                                          Width="30"
                                                          Height="30"
                                                          VerticalAlignment="Center"
@@ -266,7 +266,25 @@
                                         Command="{Binding LoadQLNVPageCM}"
                                         CommandParameter="{Binding ElementName=MainFrame}" />
                             </StackPanel>
-
+                            
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="AccountGroupOutline"
+                                                         Width="30"
+                                                         Height="30"
+                                                         VerticalAlignment="Center"
+                                                         Margin="10,0,0,0" />
+                                <Button Margin="0,0,0,5"
+                                        Content="Quản lý khách hàng"
+                                        Height="50"
+                                        FontSize="25"
+                                        Width="256"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadQLKHPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
+                            </StackPanel>
+                            
                             <StackPanel Orientation="Horizontal"
                                         Margin="10,0,0,0">
                                 <materialDesign:PackIcon Kind="Finance"
