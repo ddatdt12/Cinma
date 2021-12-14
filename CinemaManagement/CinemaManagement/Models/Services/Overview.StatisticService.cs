@@ -50,8 +50,6 @@ namespace CinemaManagement.Models.Services
 
         #region Revenue
 
-
-
         public async Task<(List<decimal>, decimal ProductRevenue, decimal TicketRevenue, string TicketRateStr)> GetRevenueByYear(int year)
         {
             List<decimal> MonthlyRevenueList = new List<decimal>(new decimal[12]);

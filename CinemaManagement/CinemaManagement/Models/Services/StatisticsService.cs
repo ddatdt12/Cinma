@@ -77,7 +77,7 @@ namespace CinemaManagement.Models.Services
                     using (var context = new CinemaManagementEntities())
                     {
                         int NewCustomerQuanity = await context.Customers.CountAsync(c => c.CreatedAt.Year == year);
-                        int TotalCustomerQuantity = await context.Customers.CountAsync(c => c.Bills.Any(b => b.CreatedAt.Year == year));
+                        int TotalCustomerQuantity = await context.Customers.CountAsync(c => c.Bills.Any(b => b.CreatedAt.Year == year) || c.CreatedAt.Year == year);
                         int WalkinGuestQuantity = await context.Bills.Where(b => b.CustomerId == null && b.CreatedAt.Year == year).CountAsync();
                         return (NewCustomerQuanity, TotalCustomerQuantity, WalkinGuestQuantity);
                     }
@@ -85,20 +85,11 @@ namespace CinemaManagement.Models.Services
                 else
                 {
 
-                    DateTime dateLimit;
-
-                    if (month == DateTime.Now.Month)
-                    {
-                        dateLimit = DateTime.Now;
-                    }
-                    else
-                    {
-                        dateLimit = new DateTime(year, month, DateTime.DaysInMonth(year, month));
-                    }
                     using (var context = new CinemaManagementEntities())
                     {
                         int NewCustomerQuanity = await context.Customers.CountAsync(c => c.CreatedAt.Year == year && c.CreatedAt.Month == month);
-                        int TotalCustomerQuantity = await context.Customers.CountAsync(c => c.Bills.Any(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month));
+                        int TotalCustomerQuantity = await context.Customers
+                            .CountAsync(c => c.Bills.Any(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month) || (c.CreatedAt.Year == year && c.CreatedAt.Month == month ));
                         int WalkinGuestQuantity = await context.Bills.Where(b => b.CustomerId == null && b.CreatedAt.Year == year && b.CreatedAt.Month == month).CountAsync();
                         return (NewCustomerQuanity, TotalCustomerQuantity, WalkinGuestQuantity);
                     }
@@ -228,6 +219,35 @@ namespace CinemaManagement.Models.Services
             }
         }
 
+
+        public async Task<decimal> GetTotalBenefitContributionOfStaffs(int year, int month = 0)
+        {
+            try
+            {
+                if (month == 0)
+                {
+                    using (var context = new CinemaManagementEntities())
+                    {
+                        decimal TotalBenefitContribution = await context.Bills.Where(b => b.CreatedAt.Year == year).SumAsync(b => (decimal?)b.TotalPrice) ?? 0;
+                        return TotalBenefitContribution;
+                    }
+                }
+                else
+                {
+                    using (var context = new CinemaManagementEntities())
+                    {
+                        decimal TotalBenefitContribution = await context.Bills.Where(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month).SumAsync(b => (decimal?)b.TotalPrice) ?? 0;
+                        return TotalBenefitContribution;
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
         #endregion
 
         #region Movie
