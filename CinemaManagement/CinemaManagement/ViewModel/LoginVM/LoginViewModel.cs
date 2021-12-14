@@ -91,6 +91,9 @@ namespace CinemaManagement.ViewModel
 
                  //Theo năm
                  (int NewCustomerQuanityInYear, int TotalCustomerQuantityInYear, int WalkinGuestQuantityInYear) = await StatisticsService.Ins.GetDetailedCustomerStatistics(2021);
+                 
+                 decimal TotalBenefitByYear = await StatisticsService.Ins.GetTotalBenefitContributionOfStaffs(2021);
+                 decimal TotalBenefitByMonth = await StatisticsService.Ins.GetTotalBenefitContributionOfStaffs(2021, 11);
 
 
                  //

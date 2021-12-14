@@ -193,7 +193,7 @@ namespace CinemaManagement.Models.Services
             if (bill.VoucherIdList != null && bill.VoucherIdList.Count > 0)
             {
                 string voucherIds = string.Join(",", bill.VoucherIdList);
-                var sql = $@"Update [Voucher] SET Status = N'{VOUCHER_STATUS.USED}', CustomerId ={newBill.CustomerId} , UsedAt = GETDATE()  WHERE Id IN ({voucherIds})";
+                var sql = $@"Update [Voucher] SET Status = N'{VOUCHER_STATUS.USED}', CustomerId = '{newBill.CustomerId}' , UsedAt = GETDATE()  WHERE Id IN ({voucherIds})";
                 await context.Database.ExecuteSqlCommandAsync(sql);
             }
 
