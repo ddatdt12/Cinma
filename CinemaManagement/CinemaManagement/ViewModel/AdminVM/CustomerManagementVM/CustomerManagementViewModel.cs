@@ -61,6 +61,28 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
             }
         }
 
+        private ComboBoxItem _SelectedPeriod;
+        public ComboBoxItem SelectedPeriod
+        {
+            get { return _SelectedPeriod; }
+            set { _SelectedPeriod = value; OnPropertyChanged(); }
+        }
+
+        private string _SelectedTime;
+        public string SelectedTime
+        {
+            get { return _SelectedTime; }
+            set { _SelectedTime = value; OnPropertyChanged(); }
+        }
+        int selectedyear;
+
+        private bool _IsGettingSource;
+        public bool IsGettingSource
+        {
+            get { return _IsGettingSource; }
+            set { _IsGettingSource = value; OnPropertyChanged(); }
+        }
+
         public ICommand GetListViewCommand { get; set; }
 
 
@@ -70,8 +92,7 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
         public ICommand OpenEditCustomerCM { get; set; }
         public ICommand CloseCommand { get; set; }
         public ICommand MaskNameCM { get; set; }
-        public ICommand FirstLoadCM { get; set; }
-
+        public ICommand ChangePeriodCM { get; set; }
 
 
 
@@ -88,75 +109,48 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
 
         public CustomerManagementViewModel()
         {
-
-            FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
-            {
-                try
-                {
-                    CustomerList = new ObservableCollection<CustomerDTO>(await CustomerService.Ins.GetNewCustomer());
-                }
-                catch (System.Data.Entity.Core.EntityException e)
-                {
-                    Console.WriteLine(e);
-                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
-                    mb.ShowDialog();
-                    throw;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
-                    mb.ShowDialog();
-                    throw;
-                }
-            });
-            GetListViewCommand = new RelayCommand<ListView>((p) => { return true; },
-                (p) =>
+            GetListViewCommand = new RelayCommand<ListView>((p) => { return true; }, (p) =>
                 {
                     listView = p;
                 });
-            EditCustomerCommand = new RelayCommand<Window>((p) => { return true; },
-                async (p) =>
+            EditCustomerCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
                 {
                     await EditCustomer(p);
                 });
 
-            DeleteCustomerCommand = new RelayCommand<Window>((p) => { return true; },
-                 async (p) =>
+            DeleteCustomerCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
                  {
                      MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", "Bạn có chắc muốn xoá khách hàng này không?", MessageType.Warning, MessageButtons.YesNo);
                      result.ShowDialog();
 
                      if (result.DialogResult == true)
                      {
-                         //(bool successDelete, string messageFromDelete) = await CustomerService.Ins.DeleteCustomer(SelectedItem.Id);
-                         //if (successDelete)
-                         //{
-                         //    LoadCustomerListView(Utils.Operation.DELETE);
-                         //    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelete, MessageType.Success, MessageButtons.OK);
-                         //    mb.ShowDialog();
-                         //}
-                         //else
-                         //{
-                         //    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromDelete, MessageType.Error, MessageButtons.OK);
-                         //    mb.ShowDialog();
-                         //}
+                         (bool isSuccess, string messageFromUpdate) = await CustomerService.Ins.DeleteCustomer(SelectedItem.Id);
+                         if (isSuccess)
+                         {
+                             LoadCustomerListView(Utils.Operation.DELETE);
+                             MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdate, MessageType.Success, MessageButtons.OK);
+                             mb.ShowDialog();
+                         }
+                         else
+                         {
+                             MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromUpdate, MessageType.Error, MessageButtons.OK);
+                             mb.ShowDialog();
+                         }
                      }
                  });
 
-            OpenEditCustomerCM = new RelayCommand<object>((p) => { return true; },
-                (p) =>
-                {
-                    EditCustomer wd = new EditCustomer();
-                    ResetData();
-                    wd._FullName.Text = SelectedItem.Name;
-                    //wd.Date.Text = SelectedItem.SignAt.ToString();
-                    wd._Phone.Text = SelectedItem.PhoneNumber.ToString();
-                    wd._Mail.Text = SelectedItem.Email;
-                    MaskName.Visibility = Visibility.Visible;
-                    wd.ShowDialog();
-                });
-
+            OpenEditCustomerCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                EditCustomer wd = new EditCustomer();
+                ResetData();
+                Fullname = SelectedItem.Name;
+                SignAt = SelectedItem.StartDate;
+                Phone = SelectedItem.PhoneNumber.ToString();
+                Mail = SelectedItem.Email;
+                MaskName.Visibility = Visibility.Visible;
+                wd.ShowDialog();
+            });
             CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {
 
@@ -165,11 +159,39 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();
                 }
-            }
-            );
+            });
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
             {
                 MaskName = p;
+            });
+            ChangePeriodCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                IsGettingSource = true;
+                if (SelectedPeriod != null)
+                {
+                    switch (SelectedPeriod.Content.ToString())
+                    {
+                        case "Theo năm":
+                            {
+                                if (SelectedPeriod != null)
+                                {
+                                    await LoadSourceByYear();
+                                    IsGettingSource = false;
+                                }
+                                return;
+                            }
+                        case "Theo tháng":
+                            {
+                                if (SelectedPeriod != null)
+                                {
+                                    await LoadSourceByMonth();
+                                    IsGettingSource = false;
+                                }
+                                return;
+                            }
+                    }
+                }
+
             });
         }
 
@@ -178,9 +200,6 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
 
             switch (oper)
             {
-                case Operation.CREATE:
-                    CustomerList.Add(cus);
-                    break;
                 case Operation.UPDATE:
                     var cusfound = CustomerList.FirstOrDefault(c => c.Id == cus.Id);
                     CustomerList[CustomerList.IndexOf(cusfound)] = cus;
@@ -226,23 +245,23 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
                 cus.Id = SelectedItem.Id;
                 cus.Name = Fullname;
                 cus.PhoneNumber = Phone;
-                //cus.SignAt = SignAt;
+                cus.StartDate = SignAt;
                 cus.Email = Mail;
-                //(bool successUpdate, string messageFromUpdate) = await CustomerService.Ins.Update(cus);
+                (bool isSuccess, string messageFromUpdate) = await CustomerService.Ins.UpdateCustomerInfo(cus);
 
-                //if (successUpdate)
-                //{
-                //    MaskName.Visibility = Visibility.Collapsed;
-                //    LoadCustomerListView(Utils.Operation.UPDATE, cus);
-                //    p.Close();
-                //    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdate, MessageType.Success, MessageButtons.OK);
-                //    mb.ShowDialog();
-                //}
-                //else
-                //{
-                //    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromUpdate, MessageType.Error, MessageButtons.OK);
-                //    mb.ShowDialog();
-                //}
+                if (isSuccess)
+                {
+                    MaskName.Visibility = Visibility.Collapsed;
+                    LoadCustomerListView(Utils.Operation.UPDATE, cus);
+                    p.Close();
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdate, MessageType.Success, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
+                else
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromUpdate, MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                }
             }
             else
             {
@@ -262,6 +281,55 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
                 return (false, "Số điện thoại không hợp lệ");
             }
             return (true, null);
+        }
+
+        public async Task LoadSourceByYear()
+        {
+            if (SelectedTime is null) return;
+            if (SelectedTime.Length != 4) return;
+            try
+            {
+                CustomerList = new ObservableCollection<CustomerDTO>(await CustomerService.Ins.GetAllCustomerByTime(int.Parse(SelectedTime.ToString())));
+            }
+            catch (System.Data.Entity.Core.EntityException e)
+            {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+            selectedyear = int.Parse(SelectedTime.ToString());
+
+        }
+        public async Task LoadSourceByMonth()
+        {
+            if (SelectedTime is null) return;
+            if (SelectedTime.ToString().Length == 4) return;
+            try
+            {
+                CustomerList = new ObservableCollection<CustomerDTO>(await CustomerService.Ins.GetAllCustomerByTime(selectedyear, int.Parse(SelectedTime.ToString().Remove(0, 6))));
+            }
+            catch (System.Data.Entity.Core.EntityException e)
+            {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
         }
     }
 }

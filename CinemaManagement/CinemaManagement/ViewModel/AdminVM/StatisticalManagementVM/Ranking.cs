@@ -75,7 +75,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             set { _SelectedRankingTime2 = value; OnPropertyChanged(); }
         }
 
-
+        private int walkingGuest;
+        public int WalkingGuest
+        {
+            get { return walkingGuest; }
+            set { walkingGuest = value; OnPropertyChanged(); }
+        }
 
 
         public async Task ChangeRankingPeriod()
@@ -109,6 +114,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             try
             {
                 (List<CustomerDTO> Top5Cus, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) = await StatisticsService.Ins.GetTop5CustomerExpenseByYear(int.Parse(SelectedRankingTime));
+                (int NewCustomerQuanityInYear, int TotalCustomerQuantityInYear, int WalkinGuestQuantityInYear) = await StatisticsService.Ins.GetDetailedCustomerStatistics(int.Parse(SelectedRankingTime));
                 Top5Customer = Top5Cus;
 
                 CustomerExpe = new SeriesCollection
@@ -128,17 +134,18 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 {
                     new PieSeries
                     {
-                        Values = new ChartValues<int>{20},
+                        Values = new ChartValues<int>{NewCustomerQuanityInYear},
                         Title = "Khách hàng mới",
                         DataLabels = true
                     },
                     new PieSeries
                     {
-                        Values = new ChartValues<int>{100},
+                        Values = new ChartValues<int>{TotalCustomerQuantityInYear},
                         Title = "Tổng khách hàng",
                         DataLabels = true
                     },
                 };
+                WalkingGuest = WalkinGuestQuantityInYear;
             }
             catch (System.Data.Entity.Core.EntityException e)
             {
@@ -154,10 +161,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 mb.ShowDialog();
                 throw;
             }
-
-
-
-
         }
         public async Task LoadRankingByMonth()
         {
@@ -165,6 +168,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             try
             {
                 (List<CustomerDTO> Top5Cus, decimal TicketExpenseTop1Cus, decimal ProductExpenseTop1Cus) = await StatisticsService.Ins.GetTop5CustomerExpenseByMonth(int.Parse(SelectedRankingTime.Remove(0, 6)));
+                (int NewCustomerQuanity, int TotalCustomerQuantity, int WalkinGuestQuantity) = await StatisticsService.Ins.GetDetailedCustomerStatistics(DateTime.Now.Year, int.Parse(SelectedRankingTime.Remove(0, 6)));
                 Top5Customer = Top5Cus;
 
 
@@ -185,17 +189,18 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 {
                     new PieSeries
                     {
-                        Values = new ChartValues<int>{5},
+                        Values = new ChartValues<int>{NewCustomerQuanity},
                         Title = "Khách hàng mới",
                         DataLabels = true
                     },
                     new PieSeries
                     {
-                        Values = new ChartValues<int>{20},
+                        Values = new ChartValues<int>{TotalCustomerQuantity},
                         Title = "Tổng khách hàng",
                         DataLabels = true
                     },
                 };
+                WalkingGuest = WalkinGuestQuantity;
             }
             catch (System.Data.Entity.Core.EntityException e)
             {
@@ -211,8 +216,6 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 mb.ShowDialog();
                 throw;
             }
-
-
         }
 
         public async Task ChangeRankingPeriod2()

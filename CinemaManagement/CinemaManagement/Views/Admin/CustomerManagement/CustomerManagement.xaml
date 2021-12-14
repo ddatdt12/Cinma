@@ -36,10 +36,8 @@
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding MaskNameCM}"
                                    CommandParameter="{Binding ElementName=ShadowMask}" />
-            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
 
     <Grid  Background="#f0f2f5">
         <Grid.RowDefinitions>
@@ -78,21 +76,21 @@
             </ComboBox>
             <ComboBox Width="200"
                       FontSize="20"
-                      Height="30"
+                      Height="32"
                       VerticalAlignment="Bottom"
                       Margin="10,0,0,0"
                       x:Name="periodbox1"
                       SelectedIndex="0"
-                      SelectedItem="{Binding SelectedBestSellPeriod}"
+                      SelectedItem="{Binding SelectedPeriod}"
                       SelectionChanged="periodbox1_SelectionChanged"
                       Loaded="periodbox1_Loaded">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
-                        <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriodCM}"
+                        <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
                                                CommandParameter="{Binding ElementName=periodbox1}" />
                     </i:EventTrigger>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriodCM}"
+                        <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
                                                CommandParameter="{Binding ElementName=periodbox1}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -101,19 +99,18 @@
             </ComboBox>
             <ComboBox Width="170"
                       FontSize="20"
-                      Height="30"
+                      Height="32"
                       VerticalAlignment="Bottom"
                       Margin="10,0,0,0"
                       x:Name="Time1"
-                      SelectedIndex="2"
-                      SelectedItem="{Binding SelectedBestSellTime,Mode=OneWayToSource}">
+                      SelectedItem="{Binding SelectedTime,Mode=OneWayToSource}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
-                        <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriodCM}"
+                        <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
                                                CommandParameter="{Binding ElementName=Time1}" />
                     </i:EventTrigger>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding ChangeBestSellPeriodCM}"
+                        <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
                                                CommandParameter="{Binding ElementName=Time1}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -147,7 +144,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Tên khách hàng"
-                                            Width="300">
+                                            Width="280">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Name}"
@@ -177,20 +174,20 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Ngày đăng ký"
-                                            Width="180">
+                                            Width="200">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding }"
+                                        <TextBlock Text="{Binding StartDate,StringFormat=dd/MM/yyyy}"
                                                    FontSize="18"
                                                    Margin="15,0,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Chi tiêu trong kỳ"
-                                            Width="200">
+                                            Width="240">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding}"
+                                        <TextBlock Text="{Binding ExpenseStr}"
                                                    FontSize="18"
                                                    Margin="15,0,0,0" />
                                     </DataTemplate>
@@ -200,8 +197,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel VerticalAlignment="Center"
-                                                    Orientation="Horizontal"
-                                                    Margin="60,0,0,0">
+                                                    Orientation="Horizontal">
                                             <Border BorderBrush="Black"
                                                     BorderThickness="1"
                                                     CornerRadius="6"
@@ -273,6 +269,11 @@
                                FontSize="15" />
                     </StackPanel>
                 </Grid>
+                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                             Height="100"
+                             Width="100"
+                             Margin="0,-600,0,0" 
+                             IsIndeterminate="{Binding IsGettingSource}"/>
             </StackPanel>
         </materialDesign:Card>
         <!--#endregion-->

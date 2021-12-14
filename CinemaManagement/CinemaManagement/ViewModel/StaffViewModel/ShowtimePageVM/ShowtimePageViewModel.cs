@@ -3,7 +3,6 @@ using CinemaManagement.Models.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel
@@ -22,10 +21,12 @@ namespace CinemaManagement.ViewModel
             set { _Shadow = value; OnPropertyChanged(); }
         }
 
-        public async void LoadShowtimeData()
+        public async Task LoadShowtimeData()
         {
             LoadCurrentDate();
+            IsLoading = true;
             await LoadMainListBox(0);
+            IsLoading = false;
         }
 
         public void LoadCurrentDate()
@@ -47,7 +48,7 @@ namespace CinemaManagement.ViewModel
                     {
                         if (SelectedGenre != null)
                         {
-                            FilterMovieByGenre(SelectedGenre.Id);
+                            await FilterMovieByGenre(SelectedGenre.Id);
                         }
                         break;
                     }
@@ -55,18 +56,21 @@ namespace CinemaManagement.ViewModel
 
         }
 
-        public void FilterMovieByGenre(int _Id)
+        public async Task FilterMovieByGenre(int _Id)
         {
-            ObservableCollection<MovieDTO> byGenre = new ObservableCollection<MovieDTO>();
-
-            foreach (var item in ListMovie1)
+            await Task.Run(() =>
             {
-                if (item.Genres[0].Id == _Id)
+                ObservableCollection<MovieDTO> byGenre = new ObservableCollection<MovieDTO>();
+
+                foreach (var item in ListMovie1)
                 {
-                    byGenre.Add(item);
+                    if (item.Genres[0].Id == _Id)
+                    {
+                        byGenre.Add(item);
+                    }
                 }
-            }
-            ListMovie = new ObservableCollection<MovieDTO>(byGenre);
+                ListMovie = new ObservableCollection<MovieDTO>(byGenre);
+            });
         }
     }
 }

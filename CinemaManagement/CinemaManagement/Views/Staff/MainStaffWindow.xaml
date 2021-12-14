@@ -23,7 +23,7 @@
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
-            
+
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
@@ -271,11 +271,16 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Frame>
+                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                             Height="100"
+                             Width="100"
+                             IsIndeterminate="{Binding IsLoading}"
+                             Grid.RowSpan="2" />
             </Grid>
-            
+
         </Grid>
-        
+
 
     </Grid>
-    
+
 </Window>

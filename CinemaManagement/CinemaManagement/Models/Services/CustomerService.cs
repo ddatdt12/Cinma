@@ -169,12 +169,14 @@ namespace CinemaManagement.Models.Services
                         return (false, "Số điện thoại này đã tồn tại");
                     }
 
-                    bool isExistEmail = await context.Customers.AnyAsync(c => c.Id != updatedCus.Id && c.Email == updatedCus.Email);
-                    if (isExistEmail)
+                    if (!string.IsNullOrEmpty(updatedCus.Email))
                     {
-                        return (false, "Email này đã tồn tại");
+                        bool isExistEmail = await context.Customers.AnyAsync(c => c.Id != updatedCus.Id && c.Email == updatedCus.Email);
+                        if (isExistEmail)
+                        {
+                            return (false, "Email này đã tồn tại");
+                        }
                     }
-
                     var cus = await context.Customers.FindAsync(updatedCus.Id);
 
                     cus.Name = updatedCus.Name;
@@ -198,7 +200,7 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
 
-                   var cus = await context.Customers.FindAsync(id);
+                    var cus = await context.Customers.FindAsync(id);
                     if (cus is null)
                     {
                         return (false, "Khách hàng không tồn tại!");

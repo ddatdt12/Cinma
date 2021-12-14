@@ -112,7 +112,7 @@
                                      Value="0"
                                      IsIndeterminate="True"
                                      Height="Auto"
-                                     Margin="38,22,177,24"
+                                     Margin="35,20,177,20"
                                      Width="Auto"
                                      Foreground="#FF455345" />
 
@@ -149,7 +149,7 @@
                                    HorizontalAlignment="Right"
                                    FontSize="15"
                                    Foreground="Black" />
-                            <Label Content="200"
+                            <Label Content="{Binding WalkingGuest}"
                                    Height="25"
                                    Margin="-10,0,0,0"
                                    HorizontalAlignment="Right"

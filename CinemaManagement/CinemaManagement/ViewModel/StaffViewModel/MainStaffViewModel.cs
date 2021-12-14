@@ -77,13 +77,13 @@ namespace CinemaManagement.ViewModel
             set { _setCurrentDate = value; OnPropertyChanged(); }
         }
 
-        private List<GenreDTO> _GenreList;
-        public List<GenreDTO> GenreList
+        private ObservableCollection<GenreDTO> _GenreList;
+        public ObservableCollection<GenreDTO> GenreList
         {
             get => _GenreList;
             set
             {
-                _GenreList = value;
+                _GenreList = value; OnPropertyChanged();
             }
         }
 
@@ -109,6 +109,13 @@ namespace CinemaManagement.ViewModel
             set { _UserName = value; OnPropertyChanged(); }
         }
 
+        private bool _IsLoading;
+        public bool IsLoading
+        {
+            get { return _IsLoading; }
+            set { _IsLoading = value; OnPropertyChanged(); }
+        }
+
 
         #endregion
         public MainStaffViewModel()
@@ -128,7 +135,7 @@ namespace CinemaManagement.ViewModel
                  LoadCurrentDate();
                  SelectedDate = GetCurrentDate;
                  ListMovie1 = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate));
-                 GenreList = GenreService.Ins.GetAllGenre();
+                 GenreList = new ObservableCollection<GenreDTO>(GenreService.Ins.GetAllGenre());
              });
             CloseMainStaffWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
                 {
@@ -159,17 +166,17 @@ namespace CinemaManagement.ViewModel
                 });
             LoadMovieScheduleWindow = new RelayCommand<Page>((p) => { return true; }, (p) =>
             {
-                
+
                 MovieScheduleWindow w;
                 OrderFoodPageViewModel.checkOnlyFoodOfPage = false;
-                
+
                 if (SelectedItem != null)
                 {
                     try
                     {
                         MovieScheduleWindowViewModel.tempFilebinding = SelectedItem;
                         w = new MovieScheduleWindow();
-                        
+
                         if (w != null)
                         {
                             MaskName.Visibility = Visibility.Visible;
@@ -203,18 +210,18 @@ namespace CinemaManagement.ViewModel
             });
             LoadFoodPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
-                if (OrderFoodPageViewModel.ListOrder!=null)
+                if (OrderFoodPageViewModel.ListOrder != null)
                 {
                     OrderFoodPageViewModel.ListOrder.Clear();
                 }
-                OrderFoodPageViewModel.checkOnlyFoodOfPage = true; 
+                OrderFoodPageViewModel.checkOnlyFoodOfPage = true;
                 p.Content = new FoodPage();
 
             });
-            LoadShowtimeDataCM = new RelayCommand<ComboBox>((p) => { return true; }, (p) =>
+            LoadShowtimeDataCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
              {
                  p.SelectedIndex = -1;
-                 LoadShowtimeData();
+                 await LoadShowtimeData();
              });
             LoadErrorPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
              {

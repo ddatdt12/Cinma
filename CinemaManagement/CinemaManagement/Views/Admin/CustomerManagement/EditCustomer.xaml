@@ -178,7 +178,7 @@
                 <Button Content="Lưu"
                         Margin="0 0 10 10"
                         materialDesign:ButtonAssist.CornerRadius="8"
-                        Command="{Binding Edit}"
+                        Command="{Binding EditCustomerCommand}"
                         CommandParameter="{Binding ElementName=SuaKH}" />
             </Grid>
         </StackPanel>
