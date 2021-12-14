@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace CinemaManagement.Views.Staff.DeviceProblemsWindow
         public AddError()
         {
             InitializeComponent();
+            StaffName.Text = TicketBillViewModel.Staff.Name;
         }
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {

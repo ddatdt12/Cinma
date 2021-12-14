@@ -10,149 +10,178 @@
         WindowStyle="None"
         BorderBrush="Red"
         DataContext="{StaticResource MovieScheduleWindowVM}"
+        Background="Transparent"
         WindowStartupLocation="CenterScreen"
         Height="400"
+        AllowsTransparency="True"
         Width="700">
-    <DockPanel Width="700"
-               LastChildFill="True">
-        <!--Thanh taskbar để kéo-->
-        <StackPanel DockPanel.Dock="Top"
-                    Height="40"
-                    VerticalAlignment="Top"
-                    Orientation="Horizontal"
-                    Background="#FF342B2B">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding MouseMoveWindowCM}"
-                                           CommandParameter="{Binding ElementName=Movie_Schedule}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <StackPanel Orientation="Horizontal"
-                        Margin="610 0 0 0">
-                <Button Cursor="Hand"
-                        Height="30"
-                        Width="auto"
-                        HorizontalAlignment="Center"
-                        Foreground="White"
-                        Background="Blue"
-                        Content="━"
-                        Click="Button_Click_1"
-                        FontSize="15"
-                        HorizontalContentAlignment="Left" />
-                <Button Cursor="Hand"
-                        Height="30"
-                        Width="auto"
-                        Margin="5,0,0,0"
-                        HorizontalAlignment="Center"
-                        Foreground="White"
-                        Click="Button_Click"
-                        Background="Red"
-                        Content="X"
-                        FontSize="15">
-                </Button>
-            </StackPanel>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseMoveWindowCM}"
+                                   CommandParameter="{Binding ElementName=Movie_Schedule}" />
             
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Border BorderBrush="Black"
+                BorderThickness="1"
+                CornerRadius="8"
+                Background="White">
+            <DockPanel Width="700"
+                       LastChildFill="True">
+                <!--Thanh taskbar để kéo-->
+                <Border CornerRadius="8 8 0 0"
+                        DockPanel.Dock="Top"
+                        Height="40"
+                        Width="700"
+                        Background="#FF342B2B">
+                    <StackPanel Orientation="Horizontal">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding MouseMoveWindowCM}"
+                                                       CommandParameter="{Binding ElementName=Movie_Schedule}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="610 0 0 0"
+                                    Background="Transparent">
+                            <Button Cursor="Hand"
+                                    Height="30"
+                                    Width="auto"
+                                    HorizontalAlignment="Center"
+                                    Foreground="White"
+                                    Background="Blue"
+                                    Content="━"
+                                    Click="Button_Click_1"
+                                    FontSize="15"
+                                    HorizontalContentAlignment="Left" />
+                            <Button Cursor="Hand"
+                                    Height="30"
+                                    Width="auto"
+                                    Margin="5,0,0,0"
+                                    HorizontalAlignment="Center"
+                                    Foreground="White"
+                                    Background="Red"
+                                    Content="X"
+                                    Command="{Binding CloseCM}"
+                                    CommandParameter="{Binding ElementName=Movie_Schedule}"
+                                    FontSize="15">
+                            </Button>
+                        </StackPanel>
 
-        </StackPanel>
-        <StackPanel DockPanel.Dock="Top"
-                    Height="60"
-                    VerticalAlignment="Top"
-                    Background="#FFA1B9C0"
-                    Orientation="Horizontal">
-            <TextBlock FontSize="18"
-                       VerticalAlignment="Center"
-                       Margin="20">
+
+                    </StackPanel>
+
+                </Border>
+
+
+
+                <StackPanel DockPanel.Dock="Top"
+                            Height="60"
+                            VerticalAlignment="Top"
+                            Background="#FFA1B9C0"
+                            Orientation="Horizontal">
+                    <TextBlock FontSize="18"
+                               VerticalAlignment="Center"
+                               Margin="20">
                     <Italic>
                         <Bold>
                             <Run Text="Squadin Cinema" />
                         </Bold>
                     </Italic>
-            </TextBlock>
-            <Border BorderThickness="0.5"
-                    BorderBrush="Black"
-                    CornerRadius="8"
-                    Width="150"
-                    Height="35"
-                    Margin="360,0,0,0">
-                <TextBlock x:Name="_ShowDate"
-                           Width="150"
-                           Height="40"
-                           FontSize="20"
-                           TextAlignment="Center" 
-                           Margin="0,5,0,0"/>
-            </Border>
-        </StackPanel>
-        <StackPanel DockPanel.Dock="Left"
-                    Width="230"
-                    HorizontalAlignment="Left">
-            <Image x:Name="imgframe"
-                   Height="210"
-                   HorizontalAlignment="Left"
-                   Margin="10 10 0 7" />
-            <TextBlock Margin="10 0 0 10"
-                       x:Name="txtframe"
-                       FontWeight="Bold"
-                       FontSize="16"
-                       TextWrapping="Wrap"
-                       Width="210" />
-        </StackPanel>
-        <StackPanel DockPanel.Dock="Right"
-                    Width="470">
-            <Expander HorizontalAlignment="Stretch"
-                      Header="2D English Sub"
-                      Collapsed="Expander_Collapsed">
-
-                <StackPanel Orientation="Vertical"
-                            Margin="24,0,24,10">
-                    <StackPanel Orientation="Horizontal">
-                        <ListBox x:Name="_ShowTimeList"
-                                 SelectedItem="{Binding SelectedShowtime}">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="6" />
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem"
-                                       BasedOn="{StaticResource styleListBoxItems}">
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Border Background="#ff97c5"
-                                            BorderThickness="2"
-                                            BorderBrush="Black"
-                                            CornerRadius="5"
-                                            Height="35"
-                                            Width="75"
-                                            HorizontalAlignment="Stretch"
-                                            x:Name="_borderShowtime"
-                                            MouseLeftButtonUp="Border_MouseLeftButtonUp">
-                                        <Label Content="{Binding StartTime}"
-                                               FontSize="17"/>
-                                    </Border>
-
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </StackPanel>
-                    <Grid>
-                        <Button Content="{Binding ShowTimeRoom}"
-                                Command="{Binding VisibleSeat}"
-                                Width="100"
-                                Margin="8"
-                                x:Name="_Room"
-                                Visibility="Collapsed"
-                                BorderThickness="1"
-                                BorderBrush="Black"
-                                HorizontalAlignment="Left" />
-                    </Grid>
+                    </TextBlock>
+                    <Border BorderThickness="0.5"
+                            BorderBrush="Black"
+                            CornerRadius="8"
+                            Width="150"
+                            Height="35"
+                            Margin="360,0,0,0">
+                        <TextBlock x:Name="_ShowDate"
+                                   Width="150"
+                                   Height="40"
+                                   FontSize="20"
+                                   TextAlignment="Center"
+                                   Margin="0,5,0,0" />
+                    </Border>
                 </StackPanel>
-            </Expander>
-            <Border Background="Black"
-                    Height="1"
-                    HorizontalAlignment="Stretch"
-                    SnapsToDevicePixels="True" />
-        </StackPanel>
-    </DockPanel>
+                <StackPanel DockPanel.Dock="Left"
+                            Width="230"
+                            HorizontalAlignment="Left">
+                    <Image x:Name="imgframe"
+                           Height="210"
+                           HorizontalAlignment="Left"
+                           Margin="10 10 0 7" />
+                    <TextBlock Margin="10 0 0 10"
+                               x:Name="txtframe"
+                               FontWeight="Bold"
+                               FontSize="16"
+                               TextWrapping="Wrap"
+                               Width="210" />
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Right"
+                            Width="470">
+                    <Expander HorizontalAlignment="Stretch"
+                              Header="2D English Sub"
+                              Collapsed="Expander_Collapsed">
+
+                        <StackPanel Orientation="Vertical"
+                                    Margin="24,0,24,10">
+                            <StackPanel Orientation="Horizontal">
+                                <ListBox x:Name="_ShowTimeList"
+                                         SelectedItem="{Binding SelectedShowtime}">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="6" />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem"
+                                               BasedOn="{StaticResource styleListBoxItems}">
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="#ff97c5"
+                                                    BorderThickness="2"
+                                                    BorderBrush="Black"
+                                                    CornerRadius="5"
+                                                    Height="35"
+                                                    Width="75"
+                                                    HorizontalAlignment="Stretch"
+                                                    x:Name="_borderShowtime"
+                                                    MouseLeftButtonUp="Border_MouseLeftButtonUp"
+                                                    Cursor="Hand">
+                                                <Label Content="{Binding StartTime}"
+                                                       FontSize="17" />
+                                            </Border>
+
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                            <Grid>
+                                <Button Content="{Binding ShowTimeRoom}"
+                                        Command="{Binding VisibleSeat}"
+                                        Width="100"
+                                        Margin="8"
+                                        x:Name="_Room"
+                                        Visibility="Collapsed"
+                                        BorderThickness="1"
+                                        BorderBrush="Black"
+                                        HorizontalAlignment="Left" />
+                            </Grid>
+                        </StackPanel>
+                    </Expander>
+                    <Border Background="Black"
+                            Height="1"
+                            HorizontalAlignment="Stretch"
+                            SnapsToDevicePixels="True" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        
+
+    </Grid>
+    
+
 </Window>

@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Markup;
 
 namespace CinemaManagement.Views.Admin.QuanLyNhanVienPage
 {
@@ -10,6 +11,7 @@ namespace CinemaManagement.Views.Admin.QuanLyNhanVienPage
         {
             InitializeComponent();
             //this.Owner = App.Current.MainWindow;
+            this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void ThemNV_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

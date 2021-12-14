@@ -3,6 +3,7 @@ using CinemaManagement.Models.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel
@@ -11,6 +12,15 @@ namespace CinemaManagement.ViewModel
     {
         public ICommand LoadShowtimePageCM { get; set; }
         public ICommand LoadShowtimeDataCM { get; set; }
+
+        public static bool IsShadow { get; set; }
+
+        private bool _Shadow;
+        public bool Shadow
+        {
+            get { return _Shadow; }
+            set { _Shadow = value; OnPropertyChanged(); }
+        }
 
         public async void LoadShowtimeData()
         {

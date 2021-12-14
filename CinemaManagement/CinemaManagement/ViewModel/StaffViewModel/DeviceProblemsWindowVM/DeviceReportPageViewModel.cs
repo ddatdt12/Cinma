@@ -100,6 +100,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         public ICommand MaskNameCM { get; set; }
         public ICommand UploadImageCM { get; set; }
         public ICommand CloseCM { get; set; }
+        public ICommand MouseMoveCommand { get; set; }
 
         string filepath;
         string appPath;
@@ -199,6 +200,16 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 SelectedItem = null;
                 p.Close();
             });
+            MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
+            {
+                Window window = GetWindowParent(p);
+                var w = window as Window;
+                if (w != null)
+                {
+                    w.DragMove();
+                }
+            }
+           );
 
         }
 
@@ -307,6 +318,17 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             {
                 System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
             }
+        }
+        Window GetWindowParent(Window p)
+        {
+            Window parent = p;
+
+            while (parent.Parent != null)
+            {
+                parent = parent.Parent as Window;
+            }
+
+            return parent;
         }
     }
 }
