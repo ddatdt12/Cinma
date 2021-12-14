@@ -201,13 +201,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
                     if (item.SeatPosition == id)
                     {
                         WaitingList.RemoveAll(r => r.SeatPosition == id);
-                        //listlabel.RemoveAll(r => r.Content.ToString() == id);
                         ReCalculate();
                         return;
                     }
                 }
                 WaitingList.Add(SelectedSeat);
-                //listlabel.Add(p);
                 ReCalculate();
             }
         }

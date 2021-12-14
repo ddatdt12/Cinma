@@ -360,8 +360,8 @@
                                             <Grid Width="280"
                                                   Margin="0,10,0,0">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition />
-                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="10*"/>
+                                                    <ColumnDefinition Width="20*"/>
                                                 </Grid.ColumnDefinitions>
 
                                                 <Label Content="Ghế"
