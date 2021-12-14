@@ -68,6 +68,50 @@ namespace CinemaManagement.Models.Services
             }
         }
 
+        public async Task<(int NewCustomerQuanity, int TotalCustomerQuantity, int WalkinGuestQuantity)> GetDetailedCustomerStatistics(int year, int month = 0)
+        {
+            try
+            {
+                if (month == 0)
+                {
+                    using (var context = new CinemaManagementEntities())
+                    {
+                        int NewCustomerQuanity = await context.Customers.CountAsync(c => c.CreatedAt.Year == year);
+                        int TotalCustomerQuantity = await context.Customers.CountAsync(c => c.Bills.Any(b => b.CreatedAt.Year == year));
+                        int WalkinGuestQuantity = await context.Bills.Where(b => b.CustomerId == null && b.CreatedAt.Year == year).CountAsync();
+                        return (NewCustomerQuanity, TotalCustomerQuantity, WalkinGuestQuantity);
+                    }
+                }
+                else
+                {
+
+                    DateTime dateLimit;
+
+                    if (month == DateTime.Now.Month)
+                    {
+                        dateLimit = DateTime.Now;
+                    }
+                    else
+                    {
+                        dateLimit = new DateTime(year, month, DateTime.DaysInMonth(year, month));
+                    }
+                    using (var context = new CinemaManagementEntities())
+                    {
+                        int NewCustomerQuanity = await context.Customers.CountAsync(c => c.CreatedAt.Year == year && c.CreatedAt.Month == month);
+                        int TotalCustomerQuantity = await context.Customers.CountAsync(c => c.Bills.Any(b => b.CreatedAt.Year == year && b.CreatedAt.Month == month));
+                        int WalkinGuestQuantity = await context.Bills.Where(b => b.CustomerId == null && b.CreatedAt.Year == year && b.CreatedAt.Month == month).CountAsync();
+                        return (NewCustomerQuanity, TotalCustomerQuantity, WalkinGuestQuantity);
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
         public async Task<(List<CustomerDTO>, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1)> GetTop5CustomerExpenseByMonth(int month)
         {
             try
