@@ -43,6 +43,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
 
         #endregion
 
+        #region biến
         Card StoreCardView { get; set; }
         string SelectedView { get; set; }
 
@@ -129,6 +130,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                 OnPropertyChanged();
             }
         }
+        #endregion
 
         public OrderFoodPageViewModel()
         {
@@ -276,17 +278,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
             {
                 if (SelectedProductToBill != null)
                 {
-                    for (int i = 0; i < AllProduct.Count; ++i)
-                    {
-                        if (SelectedProductToBill.Id == AllProduct[i].Id)
-                        {
-                            AllProduct[i].Quantity += SelectedProductToBill.Quantity;
-                            FilterMenuList();
-                            OrderList.Remove(SelectedProductToBill);
-                            ReCalculate();
-                            return;
-                        }
-                    }
+                    DeleteOrderProduct(SelectedProductToBill);
                 }
             });
 
@@ -297,8 +289,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                 {
                     if (SelectedProductToBill.Quantity <= 1)
                     {
-                        MessageBoxCustom mgb = new MessageBoxCustom("", "Đã đạt số lượng tối thiểu!", MessageType.Error, MessageButtons.OK);
-                        mgb.ShowDialog();
+                        ProductDTO temp = SelectedProductToBill;
+                        MessageBoxCustom mgb = new MessageBoxCustom("Xác nhận", "Xoá sản phẩm này?", MessageType.Warning, MessageButtons.YesNo);
+                        if (mgb.ShowDialog() == true)
+                        {
+                            DeleteOrderProduct(temp);
+                        }
                     }
                     else
                     {
@@ -498,6 +494,21 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
         public async Task LoadListProduct()
         {
             AllProduct = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+        }
+
+        public void DeleteOrderProduct(ProductDTO temp)
+        {
+            for (int i = 0; i < AllProduct.Count; ++i)
+            {
+                if (temp.Id == AllProduct[i].Id)
+                {
+                    AllProduct[i].Quantity += temp.Quantity;
+                    FilterMenuList();
+                    OrderList.Remove(temp);
+                    ReCalculate();
+                    return;
+                }
+            }
         }
         public void ChangeView(Card p)
         {

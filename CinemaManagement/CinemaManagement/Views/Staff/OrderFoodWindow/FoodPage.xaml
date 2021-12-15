@@ -244,8 +244,7 @@
 
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <materialDesign:Card BorderBrush="LightPink"
-                                                     BorderThickness="1"
+                                <materialDesign:Card BorderThickness="1"
                                                      UniformCornerRadius="5"
                                                      Margin="20,0,0,0"
                                                      Width="200"
@@ -256,8 +255,9 @@
                                             <RowDefinition Height="5*"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Image Source="{Binding ImgSource}"
-                                               Height="150"
-                                               Width="200"/>
+                                               Height="160"
+                                               Width="200"
+                                               Stretch="Fill"/>
                                         <Grid Grid.Row="1">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="7*"></RowDefinition>
@@ -348,7 +348,7 @@
                                      Margin="5"
                                      Grid.Row="0">
                     <ListView ItemsSource="{Binding OrderList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              SelectedItem="{Binding SelectedProductToBill, Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedProductToBill, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               x:Name="lvOrderList">
                         <ListView.ItemContainerStyle>
