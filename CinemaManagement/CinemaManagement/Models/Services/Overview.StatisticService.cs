@@ -207,7 +207,9 @@ namespace CinemaManagement.Models.Services
                              .SumAsync(pr => (decimal?)pr.ImportPrice) ?? 0;
 
                     //Repair Cost
-                    var LastYearRepairCost = LastYearProdExpense * 2;
+                    var LastYearRepairCost = await context.Troubles
+                             .Where(tr => tr.FinishDate != null && tr.FinishDate.Value.Year == year)
+                             .SumAsync(tr => (decimal?)tr.RepairCost) ?? 0;
                     return (LastYearProdExpense + LastYearRepairCost);
                 }
                 else
@@ -217,7 +219,9 @@ namespace CinemaManagement.Models.Services
                              .Where(pr => pr.CreatedAt.Year == year && pr.CreatedAt.Month == month)
                              .SumAsync(pr => (decimal?)pr.ImportPrice) ?? 0;
                     //Repair Cost
-                    var LastMonthRepairCost = LastMonthProdExpense * 2;
+                    var LastMonthRepairCost = await context.Troubles
+                             .Where(tr => tr.FinishDate != null && tr.FinishDate.Value.Year == year && tr.FinishDate.Value.Month == month)
+                             .SumAsync(tr => (decimal?)tr.RepairCost) ?? 0;
                     return (LastMonthProdExpense + LastMonthRepairCost);
                 }
             }
@@ -248,7 +252,16 @@ namespace CinemaManagement.Models.Services
                      }).ToListAsync();
 
                     //Repair Cost
-                    var MonthlyRepairCost = MonthlyProdExpense.Select(p => new { Month = p.Month, Outcome = p.Outcome * 2 }).ToList();
+                    //var MonthlyRepairCost = MonthlyProdExpense.Select(p => new { Month = p.Month, Outcome = p.Outcome * 2 }).ToList();
+                   var MonthlyRepairCost =  await context.Troubles
+                        .Where(t => t.FinishDate != null && t.FinishDate.Value.Year == year)
+                        .GroupBy(t => t.FinishDate.Value.Month)
+                        .Select(gr =>
+                        new
+                        {
+                            Month = gr.Key,
+                            Outcome = gr.Sum(t => (decimal?)t.RepairCost) ?? 0
+                        }).ToListAsync();
 
 
                     //Accumulate
@@ -263,6 +276,7 @@ namespace CinemaManagement.Models.Services
                         MonthlyExpense[ex.Month - 1] += decimal.Truncate(ex.Outcome);
                         RepairCostTotal += ex.Outcome;
                     }
+
                     decimal lastProductExpenseTotal = await GetFullExpenseLastTime(context, year - 1);
 
                     string ExpenseRateStr;
@@ -310,8 +324,16 @@ namespace CinemaManagement.Models.Services
                              Outcome = gr.Sum(b => (decimal?)b.ImportPrice) ?? 0
                          }).ToListAsync();
                     //Repair Cost
-                    var MonthlyRepairCost = MonthlyProdExpense.Select(p => new { Day = p.Day, Outcome = p.Outcome * 2 }).ToList();
-
+                    var MonthlyRepairCost = await context.Troubles
+                        .Where(t => t.FinishDate != null && t.FinishDate.Value.Year == year && t.FinishDate.Value.Month == month)
+                        .GroupBy(t => t.FinishDate.Value.Day)
+                        .Select(gr =>
+                        new
+                        {
+                            Day = gr.Key,
+                            Outcome = gr.Sum(t => (decimal?)t.RepairCost) ?? 0
+                        }).ToListAsync();
+                    //context.
                     //Accumulate
                     foreach (var ex in MonthlyProdExpense)
                     {

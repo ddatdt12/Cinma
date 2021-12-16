@@ -443,8 +443,8 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
         string APP_PASSWORD;
 
 
-        const string GRATITUDE_TEMPLATE_FILE = "top5_customer_gratitude_html.html";
-        const string NEWCUSTOMER_TEMPLATE_FILE = "new_customer_html.html";
+        const string GRATITUDE_TEMPLATE_FILE = "top5_customer_gratitude.html";
+        const string NEWCUSTOMER_TEMPLATE_FILE = "new_customer.html";
         const string COMMON_TEMPLATE_FILE = "common_template.html";
         const string VOUCHER_ITEM_HTML = "<span style=\"display: block; margin-bottom: 15px;\">{CODE_HERE}</span>";
 

@@ -302,6 +302,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 
         public TicketBillViewModel()
         {
+
+            #region Binding bill
+
             // Biến khởi tạo
             IsBacking = false;
             customerDTO = new CustomerDTO();
@@ -373,6 +376,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                 LastPrice = TotalFood;
             }
 
+            #endregion
 
             // Display bool
             IsValidPhone = false;
@@ -400,6 +404,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                     ShowSignUp = false;
                     ShowInfoCustomer = false;
                     PhoneNumber = "";
+                    NameSignUp = "";
+                    EmailSignUp = "";
                 });
 
             CheckPhoneNumberCM = new RelayCommand<object>((p) => { return true; },
@@ -434,6 +440,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                                 ShowPhoneError = true;
                                 ShowInfoCustomer = false;
                                 ShowDoneButton = false;
+                                NameSignUp = "";
+                                EmailSignUp = "";
                             }
                             else
                             {
@@ -446,7 +454,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                     {
                         new MessageBoxCustom("Cảnh báo", "Số điện thoại không được để trống", MessageType.Warning, MessageButtons.OK).ShowDialog();
                     }
-
+                    if (ListVoucher!=null)
+                    {
+                        ListVoucher.Clear();
+                    }
+                    
                 });
 
             OpenSignUpCM = new RelayCommand<object>((p) => { return true; },
@@ -475,11 +487,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                                     {
                                         MessageBoxCustom mgb = new MessageBoxCustom("", messageFromAddCustomer, MessageType.Success, MessageButtons.OK);
                                         mgb.ShowDialog();
-                                        ShowPhoneError = false;
-                                        ShowSignUp = false;
-                                        PhoneNumber = "";
                                         NameSignUp = "";
                                         EmailSignUp = "";
+                                        UpdateAddCustomer();
                                     }
                                     else
                                     {
@@ -499,11 +509,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                                         {
                                             MessageBoxCustom mgb = new MessageBoxCustom("", messageFromAddCustomer, MessageType.Success, MessageButtons.OK);
                                             mgb.ShowDialog();
-                                            ShowPhoneError = false;
-                                            ShowSignUp = false;
-                                            PhoneNumber = "";
                                             NameSignUp = "";
                                             EmailSignUp = "";
+                                            UpdateAddCustomer();
                                         }
                                         else
                                         {
@@ -833,6 +841,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                             MovieScheduleWindow movieScheduleWindow = Application.Current.Windows.OfType<MovieScheduleWindow>().FirstOrDefault();
                             ticketWindow.Close();
                             movieScheduleWindow.Close();
+                            MainStaffViewModel.MaskName.Visibility = Visibility.Collapsed;
                         }
                         else
                         {
@@ -885,6 +894,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                             MovieScheduleWindow movieScheduleWindow = Application.Current.Windows.OfType<MovieScheduleWindow>().FirstOrDefault();
                             ticketWindow.Close();
                             movieScheduleWindow.Close();
+                            MainStaffViewModel.MaskName.Visibility = Visibility.Collapsed;
                         }
                         else
                         {
@@ -984,6 +994,18 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                     }
                     
                 });
+        }
+
+        public async void UpdateAddCustomer()
+        {
+            CustomerDTO customer = await CustomerService.Ins.FindCustomerInfo(PhoneNumber);
+            Name = customer.Name;
+            Email = customer.Email;
+            ShowPhoneError = false;
+            ShowSignUp = false;
+            ShowInfoCustomer = true;
+            ShowDoneButton = true;
+            customerDTO = customer;
         }
 
     }
