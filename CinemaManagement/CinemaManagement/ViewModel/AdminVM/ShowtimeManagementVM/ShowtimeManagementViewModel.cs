@@ -168,14 +168,12 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                      Console.WriteLine(e);
                      MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                      mb.ShowDialog();
-                     throw;
                  }
                  catch (Exception e)
                  {
                      Console.WriteLine(e);
                      MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                      mb.ShowDialog();
-                     throw;
                  }
 
                  ShadowMask.Visibility = Visibility.Visible;
@@ -332,14 +330,12 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
-                    throw;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
-                    throw;
                 }
             }
             else
@@ -353,14 +349,12 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
-                    throw;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
-                    throw;
                 }
             }
 

@@ -140,8 +140,8 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                     },
                     new PieSeries
                     {
-                        Values = new ChartValues<int>{TotalCustomerQuantityInYear},
-                        Title = "Tổng khách hàng",
+                        Values = new ChartValues<int>{TotalCustomerQuantityInYear-NewCustomerQuanityInYear},
+                        Title = "Khách hàng cũ",
                         DataLabels = true
                     },
                 };
@@ -152,14 +152,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
         }
         public async Task LoadRankingByMonth()
@@ -195,8 +193,8 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                     },
                     new PieSeries
                     {
-                        Values = new ChartValues<int>{TotalCustomerQuantity},
-                        Title = "Tổng khách hàng",
+                        Values = new ChartValues<int>{TotalCustomerQuantity - NewCustomerQuanity},
+                        Title = "Khách hàng cũ",
                         DataLabels = true
                     },
                 };
@@ -207,14 +205,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
         }
 
@@ -249,35 +245,39 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             try
             {
                 Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByYear(int.Parse(SelectedRankingTime2));
-                StaffContributePie = new SeriesCollection
+                decimal TotalBenefitByYear = await StatisticsService.Ins.GetTotalBenefitContributionOfStaffs(int.Parse(SelectedRankingTime2));
+                decimal totaltop5 = 0;
+                foreach (var item in top5Staff)
                 {
-                    new PieSeries
+                    totaltop5 += item.BenefitContribution;
+                }
+                StaffContributePie = new SeriesCollection();
+                for (int i = 0; i < Top5Staff.Count; i++)
+                {
+                    PieSeries p = new PieSeries
                     {
-                        Values = new ChartValues<decimal>{5000000},
-                        Title = "Tổng top 5",
-                        DataLabels = true,
-                    },
-                    new PieSeries
-                    {
-                        Values = new ChartValues<decimal>{7000000},
-                        Title = "Tổng nhân viên",
-                        DataLabels = true,
-                    }
-                };
+                        Values = new ChartValues<decimal> { Top5Staff[i].BenefitContribution },
+                        Title = Top5Staff[i].Id,
+                    };
+                    StaffContributePie.Add(p);
+                }
+                StaffContributePie.Add(new PieSeries
+                {
+                    Values = new ChartValues<decimal> { TotalBenefitByYear - totaltop5 },
+                    Title = "Các nhân viên còn lại",
+                });
             }
             catch (System.Data.Entity.Core.EntityException e)
             {
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
         }
         public async Task LoadRankingByMonth2()
@@ -286,35 +286,39 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             try
             {
                 Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByMonth(int.Parse(SelectedRankingTime2.Remove(0, 6)));
-                StaffContributePie = new SeriesCollection
+                decimal TotalBenefitByMonth = await StatisticsService.Ins.GetTotalBenefitContributionOfStaffs(DateTime.Now.Year, int.Parse(SelectedRankingTime2.Remove(0, 6)));
+                decimal totaltop5 = 0;
+                foreach (var item in top5Staff)
                 {
-                    new PieSeries
+                    totaltop5 += item.BenefitContribution;
+                }
+                StaffContributePie = new SeriesCollection();
+                for (int i = 0; i < Top5Staff.Count; i++)
+                {
+                    PieSeries p = new PieSeries
                     {
-                        Values = new ChartValues<decimal>{200000},
-                        Title = "Tổng top 5",
-                        DataLabels = true,
-                    },
-                    new PieSeries
-                    {
-                        Values = new ChartValues<decimal>{1000000},
-                        Title = "Tổng nhân viên",
-                        DataLabels = true,
-                    }
-                };
+                        Values = new ChartValues<decimal> { Top5Staff[i].BenefitContribution },
+                        Title = Top5Staff[i].Id,
+                    };
+                    StaffContributePie.Add(p);
+                }
+                StaffContributePie.Add(new PieSeries
+                {
+                    Values = new ChartValues<decimal> { TotalBenefitByMonth - totaltop5 },
+                    Title = "Các nhân viên còn lại",
+                });
             }
             catch (System.Data.Entity.Core.EntityException e)
             {
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
         }
     }

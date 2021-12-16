@@ -82,6 +82,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     mb.ShowDialog();
                     return;
                 }
+                if (!Utils.RegexUtilities.IsValidEmail(item.Email))
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Tồn tại email không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                    mb.ShowDialog();
+                    return;
+                }
             }
             //top 5 customer
             if (NumberCustomer == 5)
@@ -128,7 +134,17 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 }
             }
 
-            //SelectedItem
+            if (ReleaseVoucherList.Count != int.Parse(PerCus.Content.ToString()) * ListCustomerEmail.Count)
+            {
+                MessageBoxCustom mb;
+                int per = ReleaseVoucherList.Count / ListCustomerEmail.Count;
+                mb = new MessageBoxCustom("Cảnh báo", $"Còn lại tối đa {per} voucher/khách hàng.\nBạn có chắc muốn gửi không?", MessageType.Warning, MessageButtons.YesNo);
+                mb.ShowDialog();
+                if (mb.DialogResult == false)
+                    return;
+            }
+
+
             // Danh sách code và khách hàng
             List<string> listCode = ReleaseVoucherList.Select(v => v.Code).ToList();
 
@@ -174,14 +190,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     Console.WriteLine(e);
                     MessageBoxCustom m = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     m.ShowDialog();
-                    throw;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
                     MessageBoxCustom m = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     m.ShowDialog();
-                    throw;
                 }
 
                 p.Close();
@@ -237,14 +251,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                             Console.WriteLine(e);
                             MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                             mb.ShowDialog();
-                            throw;
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine(e);
                             MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                             mb.ShowDialog();
-                            throw;
                         }
                         return;
                     }

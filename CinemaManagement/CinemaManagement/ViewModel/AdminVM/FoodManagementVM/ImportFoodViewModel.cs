@@ -27,7 +27,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     productReceipt.ProductId = SelectedProduct.Id;
                     productReceipt.ImportPrice = Price;
                     productReceipt.Quantity = Quantity;
-                    productReceipt.StaffId = "NV002";
+                    productReceipt.StaffId = MainAdminViewModel.currentStaff.Id;
 
                     (bool successAddProductReceipt, string messageFromAddProductReceipt, ProductReceiptDTO newProductReceipt) = await ProductReceiptService.Ins.CreateProductReceipt(productReceipt);
 

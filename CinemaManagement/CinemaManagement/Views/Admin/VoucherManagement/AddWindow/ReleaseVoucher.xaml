@@ -73,7 +73,7 @@
                     </StackPanel>
 
                     <materialDesign:Card Height="350"
-                                         Margin="10,0,0,10">
+                                         Margin="15,0,0,10">
                         <ListBox ItemsSource="{Binding ReleaseVoucherList}"
                                  x:Name="listbox"
                                  SelectedIndex="{Binding SelectedWaitingVoucher}">
@@ -105,7 +105,7 @@
                 </StackPanel>
 
                 <materialDesign:Card Grid.Column="1"
-                                     Margin="20,35,20,17">
+                                     Margin="20,38,20,14">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="90*" />

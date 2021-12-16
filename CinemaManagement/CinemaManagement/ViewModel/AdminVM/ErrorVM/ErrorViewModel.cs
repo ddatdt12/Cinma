@@ -159,7 +159,6 @@ namespace CinemaManagement.ViewModel
             {
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
         }
         public async Task UpdateErrorFunc(Window p)

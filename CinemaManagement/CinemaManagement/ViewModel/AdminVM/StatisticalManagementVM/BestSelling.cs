@@ -108,14 +108,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
 
 
@@ -148,14 +146,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
 
 
@@ -217,14 +213,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
 
 
@@ -258,14 +252,12 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
 
             List<decimal> chartdata = new List<decimal>();

@@ -217,14 +217,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                     Console.WriteLine(e);
                     MessageBoxCustom m = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     m.ShowDialog();
-                    throw;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
                     MessageBoxCustom m = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     m.ShowDialog();
-                    throw;
                 }
 
             }
@@ -406,14 +404,12 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                 mb.ShowDialog();
-                throw;
             }
         }
     }

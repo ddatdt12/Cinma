@@ -15,7 +15,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             {
                 if (!Utils.RegexUtilities.IsValidEmail(Mail))
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Email không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Email không hợp lệ", MessageType.Warning, MessageButtons.OK);
                     mb.ShowDialog();
                     return;
                 }
