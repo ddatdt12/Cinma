@@ -17,8 +17,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         {
             if (filepath != null && IsValidData())
             {
-                imgName = Helper.CreateImageName(movieName);
-                imgfullname = Helper.CreateImageFullName(imgName, extension);
                 List<GenreDTO> temp = new List<GenreDTO>();
                 temp.Add(movieGenre);
 
@@ -29,7 +27,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     Country = movieCountry,
                     Director = movieDirector,
                     Description = movieDes,
-                    Image = imgfullname,
+                    Image = Helper.ConvertImageToBase64Str(filepath),
                     Genres = temp,
                     ReleaseYear = int.Parse(movieYear),
                     RunningTime = int.Parse(movieDuration),
@@ -40,9 +38,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 if (successAddMovie)
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromAddMovie, MessageType.Success, MessageButtons.OK);
-                    mb.ShowDialog();
-                    SaveImgToApp();
-                    IsAddingMovie = false;
+                    mb.ShowDialog();       
                     LoadMovieListView(Operation.CREATE, newMovie);
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();

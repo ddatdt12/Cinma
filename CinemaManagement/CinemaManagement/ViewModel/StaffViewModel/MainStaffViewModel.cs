@@ -1,6 +1,5 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
-using CinemaManagement.Utils;
 using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
 using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
 using CinemaManagement.Views;
@@ -10,7 +9,6 @@ using CinemaManagement.Views.Staff.MovieScheduleWindow;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.ShowtimePage;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -184,7 +182,7 @@ namespace CinemaManagement.ViewModel
                             if (SelectedItem != null)
                             {
                                 w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
-                                w.imgframe.Source = Helper.GetMovieImageSource(SelectedItem.Image);
+                                w.imgframe.Source = SelectedItem.ImgSource;
                                 w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
                                 w.txtframe.Text = SelectedItem.DisplayName;
                                 w.ShowDialog();

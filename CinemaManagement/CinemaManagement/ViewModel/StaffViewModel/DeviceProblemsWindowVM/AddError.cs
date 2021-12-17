@@ -24,15 +24,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         {
             if (filepath != null && IsValidData())
             {
-                imgName = Helper.CreateImageName(Title);
-                imgfullname = Helper.CreateImageFullName(imgName, extension);
-
                 TroubleDTO trouble = new TroubleDTO
                 {
                     Title = Title,
                     Level = Level.Content.ToString(),
                     Description = Description,
-                    Image = imgfullname,
+                    Image = Helper.ConvertImageToBase64Str(filepath),
                     StaffId = MainStaffViewModel.CurrentStaff.Id,
                 };
 
@@ -41,8 +38,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 if (successAddtrouble)
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("", "Thêm sự cố thành công", MessageType.Success, MessageButtons.OK);
-                    SaveImgToApp();
-                    IsAddingError = false;
                     GetAllError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>(await TroubleService.Ins.GetAllTrouble());
                     ListError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>(GetAllError);
                     MaskName.Visibility = Visibility.Collapsed;

@@ -23,7 +23,7 @@ namespace CinemaManagement.DTOs
         public decimal RepairCost { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? FinishDate { get; set; }
-        public string Image
+        public byte[] Image
         {
             get; set;
         }
@@ -34,13 +34,13 @@ namespace CinemaManagement.DTOs
             {
                 if (_imgSource is null)
                 {
-                    if (File.Exists(Helper.GetTroubleImgPath(Image)))
+                    if (Image is null)
                     {
-                        _imgSource = Helper.GetTroubleImageSource(Image);
+                        _imgSource = Helper.GetNullImageSource("null.jpg");
                     }
                     else
                     {
-                        _imgSource = Helper.GetTroubleImageSource("null.jpg");
+                        _imgSource = Helper.ConvertByteToImageSource(Image);
                     }
                 }
                 return _imgSource;

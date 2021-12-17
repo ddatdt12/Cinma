@@ -49,7 +49,7 @@ namespace CinemaManagement.DTOs
                 {
                     if (Image is null)
                     {
-                        _imgSource = Helper.GetProductImageSource("null.jpg");
+                        _imgSource = Helper.GetNullImageSource("null.jpg");
                     }
                     else
                     {

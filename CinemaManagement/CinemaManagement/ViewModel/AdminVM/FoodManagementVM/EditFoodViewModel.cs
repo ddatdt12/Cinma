@@ -3,12 +3,8 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.FoodManagementPage;
-using System;
-using System.IO;
-using System.Net.Cache;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media.Imaging;
 
 namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 {
@@ -23,30 +19,9 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 Price = SelectedItem.Price;
                 Image = SelectedItem.Image;
                 Id = SelectedItem.Id;
-                oldFoodName = DisplayName;
-                //imgfullname = SelectedItem.Image;
                 IsImageChanged = false;
 
-
                 ImageSource = SelectedItem.ImgSource;
-
-                //if (File.Exists(Helper.GetProductImgPath(SelectedItem.Image)) == true)
-                //{
-                //    BitmapImage _image = new BitmapImage();
-                //    _image.BeginInit();
-                //    _image.CacheOption = BitmapCacheOption.None;
-                //    _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-                //    _image.CacheOption = BitmapCacheOption.OnLoad;
-                //    _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                //    _image.UriSource = new Uri(Helper.GetProductImgPath(SelectedItem.Image));
-                //    _image.EndInit();
-
-                //    ImageSource = _image;
-                //}
-                //else
-                //{
-                //    wd.EditImage.Source = Helper.GetProductImageSource("null.jpg");
-                //}
             }
         }
 
@@ -63,15 +38,11 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.Id = Id;
 
                 if (IsImageChanged)
-                {
-                    //imgName = Helper.CreateImageName(product.DisplayName);
-                    //imgfullname = Helper.CreateImageFullName(imgName, extension);
+                {                   
                     product.Image = Helper.ConvertImageToBase64Str(filepath);
                 }
                 else
                 {
-                    //filepath = Helper.GetProductImgPath(Image);
-                    //product.Image = imgfullname = Helper.CreateImageFullName(Helper.CreateImageName(product.DisplayName), Image.Split('.')[1]);
                     product.Image = Image;
                 }
                 long s = product.Image.Length;
@@ -79,7 +50,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 if (successUpdateProduct)
                 {
-                    //SaveImgToApp();
                     LoadProductListView(Operation.UPDATE, product);
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdateProduct, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();

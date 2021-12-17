@@ -31,7 +31,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         {
 
             IsImageChanged = false;
-            imgfullname = SelectedItem.Image;
             Title = SelectedItem.Title;
             w1.staffname.Text = SelectedItem.StaffName;
             w1.cbxStatusError.Text = SelectedItem.Status;
@@ -40,15 +39,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             Description = SelectedItem.Description;
             TroubleID = SelectedItem.Id;
 
-
-            if (File.Exists(Helper.GetTroubleImgPath(SelectedItem.Image)) == true)
-            {
-                ImageSource = Helper.GetTroubleImageSource(SelectedItem.Image);
-            }
-            else
-            {
-                w1.FrameImage.Source = Helper.GetTroubleImageSource("null.jpg");
-            }
+            ImageSource = SelectedItem.ImgSource;
         }
         public async Task UpdateErrorFunc(EditError p)
         {
@@ -61,27 +52,23 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     Title = Title,
                     Level = Level.Content.ToString(),
                     Description = Description,
-                    Image = imgfullname,
+                    Image = Helper.ConvertImageToBase64Str(filepath),
                     StaffId = "NV002",
                 };
 
                 if (IsImageChanged)
                 {
-                    imgName = Helper.CreateImageName(Title);
-                    imgfullname = Helper.CreateImageFullName(imgName, extension);
-                    tb.Image = imgfullname;
+                    tb.Image = Helper.ConvertImageToBase64Str(filepath);
                 }
                 else
                 {
-                    filepath = Helper.GetTroubleImgPath(SelectedItem.Image);
-                    tb.Image = imgfullname = Helper.CreateImageFullName(Helper.CreateImageName(tb.Title), SelectedItem.Image.Split('.')[1]);
+                    tb.Image = Image;
                 }
 
-                (bool successUpdateTB, string messageFromUpdateTB) =await TroubleService.Ins.UpdateTroubleInfo(tb);
+                (bool successUpdateTB, string messageFromUpdateTB) = await TroubleService.Ins.UpdateTroubleInfo(tb);
 
                 if (successUpdateTB)
                 {
-                    SaveImgToApp();
                     MessageBoxCustom mb = new MessageBoxCustom("", "Cập nhật thành công!", MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     await GetData();

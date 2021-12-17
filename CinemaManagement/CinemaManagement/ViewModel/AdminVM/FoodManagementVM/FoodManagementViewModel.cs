@@ -78,13 +78,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         #endregion
 
         string filepath;
-        string appPath;
-        string imgName;
-        string imgfullname;
-        string extension;
-        string oldFoodName;
         bool IsImageChanged = false;
-        bool IsAddingProduct = false;
         public static Grid MaskName { get; set; }
 
         private ObservableCollection<ProductDTO> _foodList;
@@ -125,7 +119,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ICommand FirstLoadCM { get; set; }
         public ICommand MouseMoveWindowCommand { get; set; }
 
-        //
+        
         private ProductDTO _SelectedItem;
         public ProductDTO SelectedItem
         {
@@ -139,7 +133,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             get { return isLoadding; }
             set { isLoadding = value; OnPropertyChanged(); }
         }
-
 
         //SelectedProduct Dùng khi nhập hàng thêm số lượng sản phẩm
         private ProductDTO _SelectedProduct;
@@ -252,7 +245,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 {
                     RenewWindowData();
                     AddFoodWindow wd = new AddFoodWindow();
-                    IsAddingProduct = true;
                     MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
                 });
@@ -263,8 +255,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
             OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
                 {
-
-                    oldFoodName = DisplayName;
                     EditFoodWindow wd = new EditFoodWindow();
                     LoadEditFood(wd);
 
@@ -304,7 +294,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                          (bool successDelMovie, string messageFromDelMovie) = ProductService.Ins.DeleteProduct(Id);
                          if (successDelMovie)
                          {
-                             //File.Delete(Helper.GetProductImgPath(Image));
                              MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
                              mb.ShowDialog();
                              LoadProductListView(Operation.DELETE);
@@ -341,7 +330,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     {
                         IsImageChanged = true;
                         filepath = openfile.FileName;
-                        extension = openfile.SafeFileName.Split('.')[1];
                         LoadImage();
                         return;
                     }

@@ -4,7 +4,6 @@ using CinemaManagement.Utils;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.QuanLyPhimPage;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -16,13 +15,11 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
         public ICommand LoadEditMovieCM { get; set; }
 
-
         public void LoadEditMovie(EditMovie w1)
         {
             List<GenreDTO> tempgenre = new List<GenreDTO>(SelectedItem.Genres);
 
             IsImageChanged = false;
-            imgfullname = SelectedItem.Image;
             movieID = SelectedItem.Id.ToString();
             movieName = SelectedItem.DisplayName;
             movieGenre = tempgenre[0];
@@ -32,22 +29,14 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieDuration = SelectedItem.RunningTime.ToString();
             movieDes = SelectedItem.Description;
             w1._Genre.Text = tempgenre[0].DisplayName;
+            Image = SelectedItem.Image;
 
-            if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)) == true)
-            {
-                ImageSource = Helper.GetMovieImageSource(SelectedItem.Image);
-            }
-            else
-            {
-                w1.imgframe.Source = Helper.GetMovieImageSource("null.jpg");
-            }
+            ImageSource = SelectedItem.ImgSource;
         }
         public async Task UpdateMovieFunc(Window p)
         {
             if (movieID != null && IsValidData())
             {
-
-
                 List<GenreDTO> temp = new List<GenreDTO>();
                 temp.Add(movieGenre);
 
@@ -65,21 +54,17 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (IsImageChanged)
                 {
-                    imgName = Helper.CreateImageName(movieName);
-                    imgfullname = Helper.CreateImageFullName(imgName, extension);
-                    movie.Image = imgfullname;
+                    movie.Image = Helper.ConvertImageToBase64Str(filepath);
                 }
                 else
                 {
-                    filepath = Helper.GetMovieImgPath(SelectedItem.Image);
-                    movie.Image = imgfullname = Helper.CreateImageFullName(Helper.CreateImageName(movieName), SelectedItem.Image.Split('.')[1]);
+                    movie.Image = Image;
                 }
 
                 (bool successUpdateMovie, string messageFromUpdateMovie) = await MovieService.Ins.UpdateMovie(movie);
 
                 if (successUpdateMovie)
                 {
-                    SaveImgToApp();
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdateMovie, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     LoadMovieListView(Operation.UPDATE, movie);

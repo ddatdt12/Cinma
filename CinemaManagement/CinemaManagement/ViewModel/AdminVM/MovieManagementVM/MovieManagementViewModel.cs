@@ -87,6 +87,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             set { _movieYear = value; OnPropertyChanged(); }
         }
 
+        private byte[] _Image;
+        public byte[] Image
+        {
+            get { return _Image; }
+            set { _Image = value; OnPropertyChanged(); }
+        }
+
 
         #endregion
 
@@ -98,13 +105,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
         }
 
         string filepath;
-        string appPath;
-        string imgName;
-        string imgfullname;
-        string extension;
-        string oldMovieName;
         bool IsImageChanged = false;
-        bool IsAddingMovie = false;
+
         public static Grid MaskName { get; set; }
 
         System.Windows.Controls.ListView MainListView;
@@ -199,7 +201,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             {
                 RenewWindowData();
                 Window w1 = new AddMovieWindow();
-                IsAddingMovie = true;
+             
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
 
@@ -216,7 +218,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             LoadEditMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
 
-                oldMovieName = movieName;
                 EditMovie w1 = new EditMovie();
                 LoadEditMovie(w1);
                 MaskName.Visibility = Visibility.Visible;
@@ -224,6 +225,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             });
             LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
              {
+                 Image = SelectedItem.Image;
                  string message = "Bạn có chắc muốn xoá phim này không? Dữ liệu không thể phục hồi sau khi xoá!";
                  MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
                  result.ShowDialog();
@@ -235,7 +237,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                              if (successDelMovie)
                              {
-                                 File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
                                  LoadMovieListView(Operation.DELETE);
                                  SelectedItem = null;
                                  MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
@@ -262,7 +263,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 {
                     IsImageChanged = true;
                     filepath = openfile.FileName;
-                    extension = openfile.SafeFileName.Split('.')[1];
                     LoadImage();
                     return;
                 }
@@ -296,46 +296,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             _image.UriSource = new Uri(filepath, UriKind.RelativeOrAbsolute);
             _image.EndInit();
             ImageSource = _image;
-        }
-        public void SaveImgToApp()
-        {
-            try
-            {
-                if (IsAddingMovie)
-                {
-                    appPath = Helper.GetMovieImgPath(imgfullname);
-                    File.Copy(filepath, appPath, true);
-                    return;
-                }
-                if (imgfullname != SelectedItem.Image)
-                {
-                    appPath = Helper.GetMovieImgPath(imgfullname);
-                    File.Copy(filepath, appPath, true);
-                    if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)))
-                        File.Delete(Helper.GetMovieImgPath(SelectedItem.Image));
-                }
-                else
-                {
-                    string temp_name = imgfullname.Split('.')[0] + "temp";
-                    string temp_ex = imgfullname.Split('.')[1];
-                    string temp_fullname = Helper.CreateImageFullName(temp_name, temp_ex);
-
-                    appPath = Helper.GetMovieImgPath(temp_fullname);
-                    File.Copy(filepath, appPath, true);
-                    if (File.Exists(Helper.GetMovieImgPath(imgfullname)))
-                        File.Delete(Helper.GetMovieImgPath(imgfullname));
-                    appPath = Helper.GetMovieImgPath(imgfullname);
-                    filepath = Helper.GetMovieImgPath(temp_fullname);
-                    File.Copy(filepath, appPath, true);
-                    if (File.Exists(Helper.GetMovieImgPath(temp_fullname)))
-                        File.Delete(Helper.GetMovieImgPath(temp_fullname));
-
-                }
-            }
-            catch (Exception exp)
-            {
-                System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
-            }
         }
 
         //Operation is enum have 4 values { READ, UPDATE, CREATE, DELETE }
@@ -390,18 +350,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             ListCountrySource.Add("Thái Lan");
             ListCountrySource.Add("Trung Quốc");
             ListCountrySource.Add("Việt Nam");
-        }
-        public void MovieImageChanged()
-        {
-            if (!IsAddingMovie)
-            {
-                if (movieName != null && IsImageChanged == true)
-                {
-                    extension = SelectedItem.Image.Split('.')[1];
-                    imgName = Helper.CreateImageName(movieName);
-                    imgfullname = Helper.CreateImageFullName(imgName, extension);
-                }
-            }
         }
         public bool IsValidData()
         {

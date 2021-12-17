@@ -78,7 +78,7 @@ namespace CinemaManagement.Utils
                 }
                 ListCode.Add(firstChars + newCode + lastChars);
             }
-           
+
             return (null, ListCode);
         }
         public static string ConvertDoubleToPercentageStr(double value)
@@ -120,65 +120,34 @@ namespace CinemaManagement.Utils
             return $"{imageName}.{ext}";
         }
 
-        public static ImageSource GetMovieImageSource(string imageName)
+        public static ImageSource GetNullImageSource(string imageName)
         {
+            if (!File.Exists(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Null", $"{imageName}" /*SelectedItem.Image*/)))
+                return null;
+
             BitmapImage _image = new BitmapImage();
             _image.BeginInit();
             _image.CacheOption = BitmapCacheOption.None;
             _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
             _image.CacheOption = BitmapCacheOption.OnLoad;
             _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            _image.UriSource = new Uri(GetMovieImgPath(imageName));
-            _image.EndInit();
-            return _image;
-        }
-        public static ImageSource GetProductImageSource(string imageName)
-        {
-            BitmapImage _image = new BitmapImage();
-            _image.BeginInit();
-            _image.CacheOption = BitmapCacheOption.None;
-            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-            _image.CacheOption = BitmapCacheOption.OnLoad;
-            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            _image.UriSource = new Uri(GetProductImgPath(imageName));
+            _image.UriSource = new Uri(GetNullImgPath(imageName));
             _image.EndInit();
             return _image;
         }
 
-        public static ImageSource GetTroubleImageSource(string imageName)
-        {
-            BitmapImage _image = new BitmapImage();
-            _image.BeginInit();
-            _image.CacheOption = BitmapCacheOption.None;
-            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-            _image.CacheOption = BitmapCacheOption.OnLoad;
-            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            _image.UriSource = new Uri(GetTroubleImgPath(imageName));
-            _image.EndInit();
-            return _image;
-        }
         public static string GetImagePath(string imageName)
         {
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images", $"{imageName}" /*SelectedItem.Image*/);
         }
-        public static string GetMovieImgPath(string imageName)
+        public static string GetNullImgPath(string imageName)
         {
-            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Movies", $"{imageName}" /*SelectedItem.Image*/);
-        }
-        public static string GetTroubleImgPath(string imageName)
-        {
-            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Troubles", $"{imageName}" /*SelectedItem.Image*/);
+            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Null", $"{imageName}" /*SelectedItem.Image*/);
         }
 
         public static string GetAdminPath(string filename)
         {
             return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Admin", $"{filename}" /*SelectedItem.Image*/);
-        }
-  
-
-        public static string GetProductImgPath(string imageName)
-        {
-            return Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Products", $"{imageName}" /*SelectedItem.Image*/);
         }
 
         public static string GetEmailTemplatePath(string fileName)
@@ -211,7 +180,7 @@ namespace CinemaManagement.Utils
         }
         public static string FormatVNMoney(decimal money)
         {
-            if (money == 0 )
+            if (money == 0)
             {
                 return "0 ₫";
             }

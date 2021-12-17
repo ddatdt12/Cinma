@@ -24,7 +24,7 @@ namespace CinemaManagement.DTOs
         public IList<ShowtimeDTO> Showtimes { get; set; }
         public IList<GenreDTO> Genres { get; set; }
 
-        public string Image
+        public byte[] Image
         {
             get;set;
         }
@@ -36,13 +36,13 @@ namespace CinemaManagement.DTOs
             {
                 if (_imgSource is null)
                 {
-                    if (File.Exists(Helper.GetMovieImgPath(Image)))
+                    if (Image is null)
                     {
-                        _imgSource = Helper.GetMovieImageSource(Image);
+                        _imgSource = Helper.GetNullImageSource("null.jpg");
                     }
                     else
                     {
-                        _imgSource = Helper.GetMovieImageSource("null.jpg");
+                        _imgSource = Helper.ConvertByteToImageSource(Image);
                     }
                 }
                 return _imgSource;

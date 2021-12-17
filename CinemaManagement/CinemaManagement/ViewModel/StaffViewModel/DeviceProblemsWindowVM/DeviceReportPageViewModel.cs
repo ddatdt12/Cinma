@@ -90,6 +90,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             get => _Level;
             set { _Level = value; OnPropertyChanged(); }
         }
+      
+        private byte[] _Image;
+        public byte[] Image
+        {
+            get { return _Image; }
+            set { _Image = value; OnPropertyChanged(); }
+        }
 
 
         public ICommand CancelCM { get; set; }
@@ -103,13 +110,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         public ICommand MouseMoveCommand { get; set; }
 
         string filepath;
-        string appPath;
-        string imgName;
-        string imgfullname;
-        string extension;
-        string oldErrorName;
         bool IsImageChanged = false;
-        bool IsAddingError = false;
 
         public static Grid MaskName { get; set; }
         public DeviceReportPageViewModel()
@@ -152,7 +153,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             {
                 RenewWindowData();
                 AddError w1 = new AddError();
-                IsAddingError = true;
                 MaskName.Visibility = Visibility.Visible;
                 w1.StaffName.Text = MainStaffViewModel.CurrentStaff.Name;
                 w1.ShowDialog();
@@ -170,7 +170,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 {
                     IsImageChanged = true;
                     filepath = openfile.FileName;
-                    extension = openfile.SafeFileName.Split('.')[1];
                     LoadImage();
                     return;
                 }
@@ -179,7 +178,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             });
             LoadEditErrorCM = new RelayCommand<EditError>((p) => { return true; }, (p) =>
             {
-                oldErrorName = Title;
                 EditError w1 = new EditError();
                 LoadEditError(w1);
                 MaskName.Visibility = Visibility.Visible;
@@ -278,46 +276,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             _image.UriSource = new Uri(filepath, UriKind.RelativeOrAbsolute);
             _image.EndInit();
             ImageSource = _image;
-        }
-        public void SaveImgToApp()
-        {
-            try
-            {
-                if (IsAddingError)
-                {
-                    appPath = Helper.GetTroubleImgPath(imgfullname);
-                    File.Copy(filepath, appPath, true);
-                    return;
-                }
-                if (imgfullname != SelectedItem.Image)
-                {
-                    appPath = Helper.GetTroubleImgPath(imgfullname);
-                    File.Copy(filepath, appPath, true);
-                    if (File.Exists(Helper.GetTroubleImgPath(SelectedItem.Image)))
-                        File.Delete(Helper.GetTroubleImgPath(SelectedItem.Image));
-                }
-                else
-                {
-                    string temp_name = imgfullname.Split('.')[0] + "temp";
-                    string temp_ex = imgfullname.Split('.')[1];
-                    string temp_fullname = Helper.CreateImageFullName(temp_name, temp_ex);
-
-                    appPath = Helper.GetTroubleImgPath(temp_fullname);
-                    File.Copy(filepath, appPath, true);
-                    if (File.Exists(Helper.GetTroubleImgPath(imgfullname)))
-                        File.Delete(Helper.GetTroubleImgPath(imgfullname));
-                    appPath = Helper.GetTroubleImgPath(imgfullname);
-                    filepath = Helper.GetTroubleImgPath(temp_fullname);
-                    File.Copy(filepath, appPath, true);
-                    if (File.Exists(Helper.GetTroubleImgPath(temp_fullname)))
-                        File.Delete(Helper.GetTroubleImgPath(temp_fullname));
-
-                }
-            }
-            catch (Exception exp)
-            {
-                System.Windows.MessageBox.Show("Unable to open file " + exp.Message);
-            }
         }
         Window GetWindowParent(Window p)
         {

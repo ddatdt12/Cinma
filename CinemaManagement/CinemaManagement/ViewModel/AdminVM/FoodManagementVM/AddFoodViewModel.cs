@@ -13,8 +13,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             if (filepath != null && IsValidData())
             {
-                imgName = Helper.CreateImageName(DisplayName);
-                //imgfullname = Helper.CreateImageFullName(imgName, extension);
                 ProductDTO product = new ProductDTO();
 
                 product.DisplayName = DisplayName;
@@ -27,7 +25,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 if (successAddProduct)
                 {
-                    IsAddingProduct = false;
                     LoadProductListView(Operation.CREATE, newProduct);
                     MaskName.Visibility = Visibility.Collapsed;
                     p.Close();

@@ -85,7 +85,7 @@
             <StackPanel Orientation="Horizontal">
                 <Label Margin="80,5,0,0"
                        x:Name="Error"
-                       Height="25"
+                       Height="30"
                        FontSize="15"
                        Foreground="Red" />
             </StackPanel>

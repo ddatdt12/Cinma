@@ -41,7 +41,6 @@ namespace CinemaManagement.Models
         public virtual DbSet<VoucherRelease> VoucherReleases { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Trouble> Troubles { get; set; }
     }
 }
