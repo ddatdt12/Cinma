@@ -206,7 +206,7 @@
                                                             </Style.Triggers>
                                                         </Style>
                                                     </Border.Style>
-                                                    <Image Source="/Resources/IconPack/pencil.png"
+                                                    <Image Source="/Resources/Icon/pencil.png"
                                                            Width="30"
                                                            Height="30"
                                                            Cursor="Hand" />

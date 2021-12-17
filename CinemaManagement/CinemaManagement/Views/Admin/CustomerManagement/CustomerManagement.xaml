@@ -74,47 +74,52 @@
                 <ComboBoxItem Content="Tên khách hàng" />
                 <ComboBoxItem Content="Số điện thoại" />
             </ComboBox>
-            <ComboBox Width="200"
-                      FontSize="20"
-                      Height="32"
-                      VerticalAlignment="Bottom"
-                      Margin="10,0,0,0"
-                      x:Name="periodbox1"
-                      SelectedIndex="0"
-                      SelectedItem="{Binding SelectedPeriod}"
-                      SelectionChanged="periodbox1_SelectionChanged"
-                      Loaded="periodbox1_Loaded">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Loaded">
-                        <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
-                                               CommandParameter="{Binding ElementName=periodbox1}" />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
-                                               CommandParameter="{Binding ElementName=periodbox1}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <ComboBoxItem>Theo năm</ComboBoxItem>
-                <ComboBoxItem>Theo tháng</ComboBoxItem>
-            </ComboBox>
-            <ComboBox Width="170"
-                      FontSize="20"
-                      Height="32"
-                      VerticalAlignment="Bottom"
-                      Margin="10,0,0,0"
-                      x:Name="Time1"
-                      SelectedItem="{Binding SelectedTime,Mode=OneWayToSource}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Loaded">
-                        <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
-                                               CommandParameter="{Binding ElementName=Time1}" />
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
-                                               CommandParameter="{Binding ElementName=Time1}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </ComboBox>
+            <StackPanel Orientation="Horizontal"
+                        Margin="510,0,0,0"
+                        HorizontalAlignment="Right">
+                <ComboBox Width="200"
+                          FontSize="20"
+                          Height="32"
+                          VerticalAlignment="Bottom"
+                          Margin="10,0,0,0"
+                          x:Name="periodbox1"
+                          SelectedIndex="0"
+                          SelectedItem="{Binding SelectedPeriod}"
+                          SelectionChanged="periodbox1_SelectionChanged"
+                          Loaded="periodbox1_Loaded">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
+                                                   CommandParameter="{Binding ElementName=periodbox1}" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
+                                                   CommandParameter="{Binding ElementName=periodbox1}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ComboBoxItem>Theo năm</ComboBoxItem>
+                    <ComboBoxItem>Theo tháng</ComboBoxItem>
+                </ComboBox>
+                <ComboBox Width="170"
+                          FontSize="20"
+                          Height="32"
+                          VerticalAlignment="Bottom"
+                          Margin="10,0,0,0"
+                          x:Name="Time1"
+                          SelectedItem="{Binding SelectedTime,Mode=OneWayToSource}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
+                                                   CommandParameter="{Binding ElementName=Time1}" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangePeriodCM}"
+                                                   CommandParameter="{Binding ElementName=Time1}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+            </StackPanel>
+         
         </StackPanel>
 
         <!--#region Danh sách customer-->
@@ -213,7 +218,7 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
-                                                <Image Source="/Resources/IconPack/pencil.png"
+                                                <Image Source="/Resources/Icon/pencil.png"
                                                        Width="30"
                                                        Height="30"
                                                        Cursor="Hand" />

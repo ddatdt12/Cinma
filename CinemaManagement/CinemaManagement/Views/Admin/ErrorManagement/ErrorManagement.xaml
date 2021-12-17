@@ -149,9 +149,10 @@
                                                     </Style.Triggers>
                                                 </Style>
                                             </Border.Style>
-                                            <materialDesign:PackIcon Kind="Pencil"
-                                                                     Width="30"
-                                                                     Height="30" />
+                                            <Image Source="/Resources/Icon/pencil.png"
+                                                   Width="30"
+                                                   Height="30"
+                                                   Cursor="Hand" />
                                             <i:Interaction.Triggers>
                                                 <i:EventTrigger EventName="MouseLeftButtonUp">
                                                     <i:InvokeCommandAction Command="{Binding ElementName=Listview, Path=DataContext.LoadDetailErrorCM}" />

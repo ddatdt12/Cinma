@@ -143,6 +143,7 @@ namespace CinemaManagement.ViewModel
                 else
                 {
                     MainStaffWindow w1 = new MainStaffWindow();
+                    MainStaffViewModel.CurrentStaff = staff;
                     w1._StaffName.Text = staff.Name;
                     w1.Show();
                     LoginWindow.Close();

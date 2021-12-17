@@ -264,7 +264,7 @@
                                                     </i:Interaction.Triggers>
                                                     <Image Height="30"
                                                            Width="30"
-                                                           Source="/Resources/IconPack/pencil.png" />
+                                                           Source="/Resources/Icon/pencil.png" />
                                                 </StackPanel>
 
 

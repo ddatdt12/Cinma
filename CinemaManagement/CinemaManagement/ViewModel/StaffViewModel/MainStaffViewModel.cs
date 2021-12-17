@@ -88,6 +88,7 @@ namespace CinemaManagement.ViewModel
         }
 
         public static Grid MaskName { get; set; }
+        public static StaffDTO CurrentStaff { get; set; }
 
         #region commands
         public ICommand CloseMainStaffWindowCM { get; set; }

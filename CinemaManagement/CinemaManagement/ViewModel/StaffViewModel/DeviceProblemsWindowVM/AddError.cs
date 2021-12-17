@@ -33,7 +33,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     Level = Level.Content.ToString(),
                     Description = Description,
                     Image = imgfullname,
-                    StaffId = "NV002",
+                    StaffId = MainStaffViewModel.CurrentStaff.Id,
                 };
 
                 (bool successAddtrouble, string messageFromAddtrouble, TroubleDTO newtrouble) = await TroubleService.Ins.CreateNewTrouble(trouble);
@@ -43,7 +43,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     MessageBoxCustom mb = new MessageBoxCustom("", "Thêm sự cố thành công", MessageType.Success, MessageButtons.OK);
                     SaveImgToApp();
                     IsAddingError = false;
-                    ListError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>(await TroubleService.Ins.GetAllTrouble());
+                    GetAllError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>(await TroubleService.Ins.GetAllTrouble());
+                    ListError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>(GetAllError);
                     MaskName.Visibility = Visibility.Collapsed;
                     mb.ShowDialog();
                     p.Close();

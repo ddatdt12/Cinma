@@ -9,6 +9,7 @@ namespace CinemaManagement.Views.Admin.CustomerManagement
         public EditCustomer()
         {
             InitializeComponent();
+            this.Language = System.Windows.Markup.XmlLanguage.GetLanguage("vi-VN");
         }
 
         private void SuaKH_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

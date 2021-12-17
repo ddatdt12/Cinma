@@ -230,26 +230,23 @@
                             <Grid Grid.Column="1">
                                 <StackPanel Orientation="Horizontal"
                                             HorizontalAlignment="Right">
+                                    <materialDesign:PackIcon Kind="AccountCircle"
+                                                             Width="50"
+                                                             Height="50"
+                                                             Background="Transparent"
+                                                             Foreground="Black" />
                                     <TextBlock VerticalAlignment="Bottom"
                                                x:Name="_StaffName"
                                                Height="40"
                                                FontSize="20"
                                                TextWrapping="Wrap"
                                                Foreground="Black"
-                                               Margin="0 10 0 0"
+                                               Margin="0 10 0 5"
                                                Padding="0 10 0 0" />
-                                    <materialDesign:PackIcon Kind="AccountCircle"
-                                                             Width="50"
-                                                             Height="50"
-                                                             Background="Transparent"
-                                                             Foreground="Black" />
                                     <materialDesign:PopupBox DockPanel.Dock="Right"
                                                              PlacementMode="BottomAndAlignRightEdges"
                                                              Foreground="Black">
                                         <StackPanel Orientation="Vertical">
-                                            <Button x:Name="signout"
-                                                    Content="Thông tin tài khoản" />
-
                                             <Button Content="Đăng xuất"
                                                     Command="{Binding SignoutCM}"
                                                     CommandParameter="{Binding ElementName=Main_Staff}" />
