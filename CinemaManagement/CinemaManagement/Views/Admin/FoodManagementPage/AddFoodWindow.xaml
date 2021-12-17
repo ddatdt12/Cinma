@@ -153,12 +153,6 @@
                         </Border>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <!--<Image Source="/Resources/Images/ImageFood/add-image.png"
-                               Margin="5 50 0 0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Bottom"
-                               Height="30"
-                               Cursor="Hand" />-->
                         <Button Padding="0"
                                 Width="40"
                                 VerticalAlignment="Center"
@@ -171,11 +165,6 @@
                                                          Width="23" />
                             </Button.Content>
                         </Button>
-                        <!--<i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding UpLoadImageCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="5">
@@ -196,7 +185,7 @@
                     </Grid.Resources>
                     <TextBlock Text="Tỷ lệ ảnh: 200x150 (px)"
                                HorizontalAlignment="Left"
-                               Margin="10 0 0 0"
+                               Margin="20 0 0 0"
                                VerticalAlignment="Top"
                                FontWeight="DemiBold"/>
                     <Button Content="Hủy"

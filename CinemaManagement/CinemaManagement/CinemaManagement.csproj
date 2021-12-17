@@ -815,14 +815,7 @@
     </None>
     <Resource Include="Font\junegull.ttf" />
     <Resource Include="Resources\Admin\MovieGenreSource.txt" />
-    <Resource Include="Resources\IconPack\award.png" />
-    <Resource Include="Resources\IconPack\award1.png" />
-    <Resource Include="Resources\IconPack\pencil.png" />
     <Resource Include="Resources\Images\Movies\null.jpg" />
-    <Resource Include="Resources\LayoutSignin\bo-gia.jpg" />
-    <Resource Include="Resources\LayoutSignin\conan_movie_24.jpg" />
-    <Resource Include="Resources\LayoutSignin\godzilla_vs_Kong.jpg" />
-    <Resource Include="Resources\LayoutSignin\Mat_biec.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\1.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\2.jpg" />
     <Resource Include="Resources\LayoutSignin\StoryboardMovie\3.jpg" />
@@ -862,6 +855,20 @@
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
       <LastGenOutput>CinemaManagementModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Resources\EmailTemplate\common_template.html" />
+    <Content Include="Resources\EmailTemplate\new_customer.html" />
+    <Resource Include="Resources\Images\Movies\palm_springs_mo_mat_thay_hom_qua.jpg" />
+    <Resource Include="Resources\Images\Email\poster.png" />
+    <Resource Include="Resources\Images\Email\thank_you.png" />
+    <Resource Include="Resources\Images\Email\welcome.png" />
+    <Resource Include="Resources\EmailTemplate\reset_password_html.txt" />
+    <Content Include="Resources\EmailTemplate\top5_customer_gratitude.html" />
+    <Resource Include="Resources\Icon\award1.png" />
+    <Resource Include="Resources\Icon\pencil.png" />
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\5.jpg" />
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\6.jpg" />
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\7.jpg" />
+    <Resource Include="Resources\LayoutSignin\StoryboardMovie\8.jpg" />
     <Resource Include="Resources\Icon\error.png" />
     <Resource Include="Resources\Icon\ErrorIcon.png" />
     <Resource Include="Resources\Icon\info.png" />
@@ -915,7 +922,6 @@
     <Resource Include="Resources\Images\Movies\john_wick_chapter_4.jpg" />
     <Resource Include="Resources\Images\Movies\lat_mat_48h.jpg" />
     <Resource Include="Resources\Images\Movies\nobita_va_dao_giau_vang.jpg" />
-    <Resource Include="Resources\Images\Movies\Palm_springs.jpg" />
     <Resource Include="Resources\Images\Movies\the_walking_dead.jpg" />
     <Resource Include="Resources\Images\Movies\thor_love_and_thunder.jpg" />
     <Resource Include="Resources\Images\Movies\tro_choi_con_muc.jpg" />

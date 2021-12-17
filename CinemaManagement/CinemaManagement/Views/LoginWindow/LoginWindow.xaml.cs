@@ -126,7 +126,7 @@ namespace CinemaManagement.Views.LoginWindow
 
             i++;
 
-            if (i > 4)//number of pictures
+            if (i > 8)//number of pictures
 
             {
 

@@ -112,7 +112,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         bool IsAddingError = false;
 
         public static Grid MaskName { get; set; }
-        public static StaffDTO CurrentStaff { get; set; }
         public DeviceReportPageViewModel()
         {
             GetCurrentDate = System.DateTime.Today;
@@ -155,6 +154,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 AddError w1 = new AddError();
                 IsAddingError = true;
                 MaskName.Visibility = Visibility.Visible;
+                w1.StaffName.Text = MainStaffViewModel.CurrentStaff.Name;
                 w1.ShowDialog();
             });
             SaveErrorCM = new RelayCommand<AddError>((p) => { return true; }, async (p) =>
