@@ -19,7 +19,8 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        x:Name="Add_Page">
+        x:Name="Add_Page"
+        AllowsTransparency="True">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
@@ -238,7 +239,8 @@
                     <StackPanel VerticalAlignment="Bottom"
                                 HorizontalAlignment="Right"
                                 Orientation="Horizontal"
-                                Margin="10">
+                                Margin="10"
+                                Background="Transparent">
                         <!--Confirm-->
                         <Button Content="Xác nhận"
                                 Background="#007bff"
