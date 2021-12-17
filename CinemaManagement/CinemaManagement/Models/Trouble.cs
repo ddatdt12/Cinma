@@ -22,9 +22,9 @@ namespace CinemaManagement.Models
         public decimal RepairCost { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> FinishDate { get; set; }
-        public string Image { get; set; }
         public string StaffId { get; set; }
         public string Level { get; set; }
+        public byte[] Image { get; set; }
     
         public virtual Staff Staff { get; set; }
     }

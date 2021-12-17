@@ -13,7 +13,40 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
+        public static byte[] ConvertImageToBase64Str(string imageFilePath)
+        {
+            FileStream fs = new FileStream(imageFilePath, FileMode.Open, FileAccess.Read);
 
+            //Initialize a byte array with size of stream
+            byte[] imgByteArr = new byte[fs.Length];
+
+            //Read data from the file stream and put into the byte array
+            fs.Read(imgByteArr, 0, Convert.ToInt32(fs.Length));
+
+            //Close a file stream
+            fs.Close();
+            return imgByteArr;
+        }
+        public static ImageSource ConvertByteToImageSource(byte[] image)
+        {
+            //Byte[] image = Convert.FromBase64String(imageStr);
+            BitmapImage bi = new BitmapImage();
+            MemoryStream stream = new MemoryStream();
+            if (image == null)
+            {
+                return null;
+            }
+            stream.Write(image, 0, image.Length);
+            stream.Position = 0;
+            System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
+            bi.BeginInit();
+            MemoryStream ms = new MemoryStream();
+            img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            ms.Seek(0, SeekOrigin.Begin);
+            bi.StreamSource = ms;
+            bi.EndInit();
+            return bi;
+        }
         public static (string, List<string>) GetListCode(int quantity, int length, string firstChars, string lastChars)
         {
             List<string> ListCode = new List<string>();

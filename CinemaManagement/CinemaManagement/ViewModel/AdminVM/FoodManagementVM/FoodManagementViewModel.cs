@@ -61,8 +61,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             set { _Id = value; OnPropertyChanged(); }
         }
 
-        private string _Image;
-        public string Image
+        private byte[] _Image;
+        public byte[] Image
         {
             get { return _Image; }
             set { _Image = value; OnPropertyChanged(); }
@@ -230,19 +230,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 {
                     if (SelectedProduct != null)
                     {
-                        if (File.Exists(Helper.GetProductImgPath(SelectedProduct.Image)) == true)
-                        {
-                            BitmapImage _image = new BitmapImage();
-                            _image.BeginInit();
-                            _image.CacheOption = BitmapCacheOption.None;
-                            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-                            _image.CacheOption = BitmapCacheOption.OnLoad;
-                            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                            _image.UriSource = new Uri(Helper.GetProductImgPath(SelectedProduct.Image));
-                            _image.EndInit();
-
-                            ImageSource = _image;
-                        }
+                        ImageSource = SelectedProduct.ImgSource;
                     }
                 });
 
@@ -316,7 +304,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                          (bool successDelMovie, string messageFromDelMovie) = ProductService.Ins.DeleteProduct(Id);
                          if (successDelMovie)
                          {
-                             File.Delete(Helper.GetProductImgPath(Image));
+                             //File.Delete(Helper.GetProductImgPath(Image));
                              MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
                              mb.ShowDialog();
                              LoadProductListView(Operation.DELETE);
@@ -380,47 +368,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             ImageSource = _image;
         }
 
-        public void SaveImgToApp()
-        {
-            try
-            {
-                if (IsAddingProduct)
-                {
-                    appPath = Helper.GetProductImgPath(imgfullname);
-                    File.Copy(filepath, appPath, true);
-                    return;
-                }
-                if (imgfullname != Image)
-                {
-                    appPath = Helper.GetProductImgPath(imgfullname);
-                    File.Copy(filepath, appPath, true);
-                    if (File.Exists(Helper.GetProductImgPath(Image)))
-                        File.Delete(Helper.GetProductImgPath(Image));
-                }
-                else
-                {
-                    string temp_name = imgfullname.Split('.')[0] + "temp";
-                    string temp_ex = imgfullname.Split('.')[1];
-                    string temp_fullname = Helper.CreateImageFullName(temp_name, temp_ex);
-
-                    appPath = Helper.GetProductImgPath(temp_fullname);
-                    File.Copy(filepath, appPath, true);
-                    if (File.Exists(Helper.GetProductImgPath(imgfullname)))
-                        File.Delete(Helper.GetProductImgPath(imgfullname));
-                    appPath = Helper.GetProductImgPath(imgfullname);
-                    filepath = Helper.GetProductImgPath(temp_fullname);
-                    File.Copy(filepath, appPath, true);
-                    if (File.Exists(Helper.GetProductImgPath(temp_fullname)))
-                        File.Delete(Helper.GetProductImgPath(temp_fullname));
-                }
-
-            }
-            catch (Exception exp)
-            {
-                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Unable to open file " + exp.Message, MessageType.Error, MessageButtons.OK);
-                mb.ShowDialog();
-            }
-        }
 
         public void LoadProductListView(Operation oper, ProductDTO product = null)
         {

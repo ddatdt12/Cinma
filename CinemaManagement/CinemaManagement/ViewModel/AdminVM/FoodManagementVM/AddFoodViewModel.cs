@@ -14,20 +14,19 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             if (filepath != null && IsValidData())
             {
                 imgName = Helper.CreateImageName(DisplayName);
-                imgfullname = Helper.CreateImageFullName(imgName, extension);
+                //imgfullname = Helper.CreateImageFullName(imgName, extension);
                 ProductDTO product = new ProductDTO();
 
                 product.DisplayName = DisplayName;
                 product.Category = Category.Content.ToString();
                 product.Price = Price;
-                product.Image = imgfullname;
+                product.Image = Helper.ConvertImageToBase64Str(filepath);
                 product.Quantity = 0;
 
                 (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = await ProductService.Ins.AddNewProduct(product);
 
                 if (successAddProduct)
                 {
-                    SaveImgToApp();
                     IsAddingProduct = false;
                     LoadProductListView(Operation.CREATE, newProduct);
                     MaskName.Visibility = Visibility.Collapsed;

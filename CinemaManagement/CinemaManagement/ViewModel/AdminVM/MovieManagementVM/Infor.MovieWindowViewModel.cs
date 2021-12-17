@@ -25,6 +25,9 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieYear = SelectedItem.ReleaseYear.ToString();
             w1.Year.Text = SelectedItem.ReleaseYear.ToString();
 
+
+            //ImageSource = Helper.GetMovieImageSource(SelectedItem.Image);
+
             if (File.Exists(Helper.GetMovieImgPath(SelectedItem.Image)))
             {
                 ImageSource = Helper.GetMovieImageSource(SelectedItem.Image);

@@ -8,8 +8,6 @@
         <EntityTypeShape EntityType="CinemaManagementModel.Bill" Width="1.5" PointX="6" PointY="15.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Customer" Width="1.5" PointX="3.75" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Genre" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Movie" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="9" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.ProductBillInfo" Width="1.5" PointX="5.75" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.ProductReceipt" Width="1.5" PointX="9.875" PointY="15.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CinemaManagementModel.Room" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
@@ -23,9 +21,6 @@
         <AssociationConnector Association="CinemaManagementModel.FK__Bill__StaffId__5AEE82B9" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__ProductBi__BillI__6754599E" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__Ticket__BillId__5FB337D6" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__Showtime__MovieI__4F7CD00D" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.FK__ProductBi__Produ__68487DD7" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.PRODUCT_RECEIPT_PRODUCTID_FK" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.PRODUCT_RECEIPT_StaffId_FK" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.ROOMID_SEAT_FK" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.ROOMID_SETTINGSHOWTIME_FK" ManuallyRouted="false" />
@@ -34,14 +29,20 @@
         <AssociationConnector Association="CinemaManagementModel.FK__SeatSetti__Showt__5535A963" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__Showtime__Showti__5070F446" ManuallyRouted="false" />
         <AssociationConnector Association="CinemaManagementModel.FK__Ticket__Showtime__619B8048" ManuallyRouted="false" />
-        <AssociationConnector Association="CinemaManagementModel.GenreDetails" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CinemaManagementModel.Trouble" Width="1.5" PointX="0.875" PointY="14.375" />
-        <AssociationConnector Association="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" />
         <EntityTypeShape EntityType="CinemaManagementModel.Voucher" Width="1.5" PointX="8.25" PointY="20.625" />
         <EntityTypeShape EntityType="CinemaManagementModel.VoucherRelease" Width="1.5" PointX="6" PointY="20.375" />
         <AssociationConnector Association="CinemaManagementModel.FK__Voucher__Custome__2FCF1A8A" />
         <AssociationConnector Association="CinemaManagementModel.FK__VoucherRe__Staff__2B0A656D" />
         <AssociationConnector Association="CinemaManagementModel.FK__Voucher__Voucher__2EDAF651" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Product" Width="1.5" PointX="8.375" PointY="9" />
+        <AssociationConnector Association="CinemaManagementModel.FK__ProductBi__Produ__68487DD7" />
+        <AssociationConnector Association="CinemaManagementModel.PRODUCT_RECEIPT_PRODUCTID_FK" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Movie" Width="1.5" PointX="3" PointY="9.75" />
+        <EntityTypeShape EntityType="CinemaManagementModel.sysdiagram" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CinemaManagementModel.Trouble" Width="1.5" PointX="6" PointY="25.375" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Showtime__MovieI__4F7CD00D" />
+        <AssociationConnector Association="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" />
+        <AssociationConnector Association="CinemaManagementModel.GenreDetails" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

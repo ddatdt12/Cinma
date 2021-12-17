@@ -24,26 +24,29 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 Image = SelectedItem.Image;
                 Id = SelectedItem.Id;
                 oldFoodName = DisplayName;
-                imgfullname = SelectedItem.Image;
+                //imgfullname = SelectedItem.Image;
                 IsImageChanged = false;
 
-                if (File.Exists(Helper.GetProductImgPath(SelectedItem.Image)) == true)
-                {
-                    BitmapImage _image = new BitmapImage();
-                    _image.BeginInit();
-                    _image.CacheOption = BitmapCacheOption.None;
-                    _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-                    _image.CacheOption = BitmapCacheOption.OnLoad;
-                    _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-                    _image.UriSource = new Uri(Helper.GetProductImgPath(SelectedItem.Image));
-                    _image.EndInit();
 
-                    ImageSource = _image;
-                }
-                else
-                {
-                    wd.EditImage.Source = Helper.GetProductImageSource("null.jpg");
-                }
+                ImageSource = SelectedItem.ImgSource;
+
+                //if (File.Exists(Helper.GetProductImgPath(SelectedItem.Image)) == true)
+                //{
+                //    BitmapImage _image = new BitmapImage();
+                //    _image.BeginInit();
+                //    _image.CacheOption = BitmapCacheOption.None;
+                //    _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
+                //    _image.CacheOption = BitmapCacheOption.OnLoad;
+                //    _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+                //    _image.UriSource = new Uri(Helper.GetProductImgPath(SelectedItem.Image));
+                //    _image.EndInit();
+
+                //    ImageSource = _image;
+                //}
+                //else
+                //{
+                //    wd.EditImage.Source = Helper.GetProductImageSource("null.jpg");
+                //}
             }
         }
 
@@ -61,20 +64,22 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 if (IsImageChanged)
                 {
-                    imgName = Helper.CreateImageName(product.DisplayName);
-                    imgfullname = Helper.CreateImageFullName(imgName, extension);
-                    product.Image = imgfullname;
+                    //imgName = Helper.CreateImageName(product.DisplayName);
+                    //imgfullname = Helper.CreateImageFullName(imgName, extension);
+                    product.Image = Helper.ConvertImageToBase64Str(filepath);
                 }
                 else
                 {
-                    filepath = Helper.GetProductImgPath(Image);
-                    product.Image = imgfullname = Helper.CreateImageFullName(Helper.CreateImageName(product.DisplayName), Image.Split('.')[1]);
+                    //filepath = Helper.GetProductImgPath(Image);
+                    //product.Image = imgfullname = Helper.CreateImageFullName(Helper.CreateImageName(product.DisplayName), Image.Split('.')[1]);
+                    product.Image = Image;
                 }
+                long s = product.Image.Length;
                 (bool successUpdateProduct, string messageFromUpdateProduct) = await ProductService.Ins.UpdateProduct(product);
 
                 if (successUpdateProduct)
                 {
-                    SaveImgToApp();
+                    //SaveImgToApp();
                     LoadProductListView(Operation.UPDATE, product);
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdateProduct, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();

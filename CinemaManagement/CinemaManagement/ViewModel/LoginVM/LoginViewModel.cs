@@ -78,36 +78,6 @@ namespace CinemaManagement.ViewModel
             });
             LoginCM = new RelayCommand<Label>((p) => { return true; }, async (p) =>
              {
-                 //Bên quản lý Customer
-                 //Theo năm
-                 var byYear = await CustomerService.Ins.GetAllCustomerByTime(2021);
-
-                 //Theo tháng
-                 var byMonth = await CustomerService.Ins.GetAllCustomerByTime(2021, 11);
-
-                 //Dành cho thống kê
-                 //Theo tháng
-                 (int NewCustomerQuanity, int TotalCustomerQuantity, int WalkinGuestQuantity) = await StatisticsService.Ins.GetDetailedCustomerStatistics(2021, 11);
-
-                 //Theo năm
-                 (int NewCustomerQuanityInYear, int TotalCustomerQuantityInYear, int WalkinGuestQuantityInYear) = await StatisticsService.Ins.GetDetailedCustomerStatistics(2021);
-                 
-                 decimal TotalBenefitByYear = await StatisticsService.Ins.GetTotalBenefitContributionOfStaffs(2021);
-                 decimal TotalBenefitByMonth = await StatisticsService.Ins.GetTotalBenefitContributionOfStaffs(2021, 11);
-
-
-                 //
-                 //CustomerDTO updated = new CustomerDTO
-                 //{
-                 //    Id = "KH0001",
-                 //    Name = "Đỗ Tiến Đạt",
-                 //    PhoneNumber = "09876582123",
-                 //    Email = "ddatdt12@gmail.com",
-                 //};
-                 //(bool isSuccess, string messageFromUpdate) = await CustomerService.Ins.UpdateCustomerInfo(updated);
-                 //(bool isSuccess, string messageFromUpdate) = await CustomerService.Ins.DeleteCustomer(CustomerId);
-                 // 
-
                  string username = Username;    
                  string password = Password;
 

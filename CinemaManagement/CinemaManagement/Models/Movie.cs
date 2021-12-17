@@ -30,7 +30,7 @@ namespace CinemaManagement.Models
         public string MovieType { get; set; }
         public string Director { get; set; }
         public bool IsDeleted { get; set; }
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Showtime> Showtimes { get; set; }
