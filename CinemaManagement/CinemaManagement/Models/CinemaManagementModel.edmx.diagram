@@ -38,7 +38,6 @@
         <AssociationConnector Association="CinemaManagementModel.FK__ProductBi__Produ__68487DD7" />
         <AssociationConnector Association="CinemaManagementModel.PRODUCT_RECEIPT_PRODUCTID_FK" />
         <EntityTypeShape EntityType="CinemaManagementModel.Movie" Width="1.5" PointX="3" PointY="9.75" />
-        <EntityTypeShape EntityType="CinemaManagementModel.sysdiagram" Width="1.5" PointX="8.375" PointY="0.75" />
         <EntityTypeShape EntityType="CinemaManagementModel.Trouble" Width="1.5" PointX="6" PointY="25.375" />
         <AssociationConnector Association="CinemaManagementModel.FK__Showtime__MovieI__4F7CD00D" />
         <AssociationConnector Association="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" />
