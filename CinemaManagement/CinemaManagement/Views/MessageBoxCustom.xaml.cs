@@ -13,12 +13,12 @@ namespace CinemaManagement.Views
             txtMessage.Text = Message;
             if(txtMessage.Text.Length > 25)
             txtMessage.Margin = new Thickness(15, 5, 5, 5);
-            if (txtMessage.Text.Length > 50)
+            if (txtMessage.Text.Length > 54)
             {
                 txtMessage.Margin = new Thickness(4, 10, 5, 5);
-                txtMessage.FontSize = 15;
+                txtMessage.FontSize = 16;
                 txtMessage.Width = 255;
-                txtMessage.Height = 45;
+                txtMessage.Height = 55;
                 ImgMessage.Margin = new Thickness(0, 0, 0, 5);
             }
             txtTitle.Text = Title;
