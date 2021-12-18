@@ -336,8 +336,9 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                         try
                         {
                             IsGettingSource = true;
-                            await Task.Delay(0);
+
                             ListProduct = new ObservableCollection<ProductReceiptDTO>(await ProductReceiptService.Ins.GetProductReceipt());
+                            
                             IsGettingSource = false;
                             return;
                         }

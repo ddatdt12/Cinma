@@ -3,10 +3,8 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.FoodManagementPage;
-using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Net.Cache;
 using System.Threading.Tasks;
@@ -54,6 +52,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             set { _ImageSource = value; OnPropertyChanged(); }
         }
 
+
         private int _Id;
         public int Id
         {
@@ -61,8 +60,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             set { _Id = value; OnPropertyChanged(); }
         }
 
-        private byte[] _Image;
-        public byte[] Image
+        private string _Image;
+        public string Image
         {
             get { return _Image; }
             set { _Image = value; OnPropertyChanged(); }
@@ -119,7 +118,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         public ICommand FirstLoadCM { get; set; }
         public ICommand MouseMoveWindowCommand { get; set; }
 
-        
+
         private ProductDTO _SelectedItem;
         public ProductDTO SelectedItem
         {
@@ -154,8 +153,9 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                  {
                      IsLoadding = true;
                      StoreAllFood = new ObservableCollection<ProductDTO>(await Task.Run(() => ProductService.Ins.GetAllProduct()));
-                     FoodList = new ObservableCollection<ProductDTO>(StoreAllFood);
                      IsLoadding = false;
+
+                     FoodList = new ObservableCollection<ProductDTO>(StoreAllFood);
                  }
                  catch (System.Data.Entity.Core.EntityException e)
                  {
@@ -221,9 +221,9 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
             ImportFoodChangeCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
                 {
-                    if (SelectedProduct != null)
+                    if (SelectedProduct != null && SelectedProduct.Image != null)
                     {
-                        ImageSource = SelectedProduct.ImgSource;
+                        ImageSource = CloudinaryService.Ins.LoadImageFromURL(SelectedProduct.Image);
                     }
                 });
 
@@ -277,10 +277,19 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 });
 
-            EditFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
-               {
-                   await EditFood(p);
-               });
+            EditFoodCommand = new RelayCommand<Window>((p) =>
+            {
+                if (IsLoadding)
+                {
+                    return false;
+                }
+                return true;
+            }, async (p) =>
+            {
+                IsLoadding = true;
+                await EditFood(p);
+                IsLoadding = false;
+            });
 
             DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
                  {
@@ -290,7 +299,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                      mbx.ShowDialog();
                      if (mbx.DialogResult == true)
                      {
-                         await Task.Delay(0);
                          (bool successDelMovie, string messageFromDelMovie) = ProductService.Ins.DeleteProduct(Id);
                          if (successDelMovie)
                          {
@@ -341,7 +349,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                   MaskName = p;
               });
         }
-
+        
         public void LoadImage()
         {
             BitmapImage _image = new BitmapImage();

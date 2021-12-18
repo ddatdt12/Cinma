@@ -32,23 +32,22 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                List<ProductDTO> productDTOs;
                 using (var context = new CinemaManagementEntities())
                 {
-                    productDTOs = await (from p in context.Products
-                                         where !p.IsDeleted
-                                         select new ProductDTO
-                                         {
-                                             Id = p.Id,
-                                             DisplayName = p.DisplayName,
-                                             Price = p.Price,
-                                             Category = p.Category,
-                                             Quantity = p.Quantity,
-                                             Image = p.Image
-                                         }
+                    List<ProductDTO> productDTOs = await (from p in context.Products
+                                                          where !p.IsDeleted
+                                                          select new ProductDTO
+                                                          {
+                                                              Id = p.Id,
+                                                              DisplayName = p.DisplayName,
+                                                              Price = p.Price,
+                                                              Category = p.Category,
+                                                              Quantity = p.Quantity,
+                                                              Image = p.Image
+                                                          }
                      ).ToListAsync();
+                    return productDTOs;
                 }
-                return productDTOs;
             }
             catch (Exception e)
             {
@@ -136,7 +135,7 @@ namespace CinemaManagement.Models.Services
             }
             catch (DbEntityValidationException e)
             {
-                return (false,$"DbEntityValidationException {e.Message}");
+                return (false, $"DbEntityValidationException {e.Message}");
 
             }
             catch (DbUpdateException e)
