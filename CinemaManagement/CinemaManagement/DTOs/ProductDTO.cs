@@ -14,7 +14,7 @@ namespace CinemaManagement.DTOs
                           string displayname,
                           string category,
                           decimal price,
-                          byte[] image,
+                          string image,
                           int quantity)
         {
             this.Id = id;
@@ -36,28 +36,9 @@ namespace CinemaManagement.DTOs
             }
         }
         public int Quantity { get; set; }
-        public byte[] Image
+        public string Image
         {
             get; set;
-        }
-        public ImageSource _imgSource;
-        public ImageSource ImgSource
-        {
-            get
-            {
-                if (_imgSource is null)
-                {
-                    if (Image is null)
-                    {
-                        _imgSource = Helper.GetNullImageSource("null.jpg");
-                    }
-                    else
-                    {
-                        _imgSource = Helper.ConvertByteToImageSource(Image);
-                    }
-                }
-                return _imgSource;
-            }
         }
         public decimal Revenue { get; set; }
         public string RevenueStr

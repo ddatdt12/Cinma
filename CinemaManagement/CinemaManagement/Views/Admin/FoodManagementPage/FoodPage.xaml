@@ -253,7 +253,7 @@
                                                             Width="210"
                                                             Height="160">
                                                         <StackPanel>
-                                                            <Image Source="{Binding ImgSource}"
+                                                            <Image Source="{Binding Image}"
                                                                    Width="200"
                                                                    Height="150"
                                                                    Margin="5"

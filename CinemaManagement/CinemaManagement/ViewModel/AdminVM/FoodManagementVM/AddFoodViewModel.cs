@@ -2,6 +2,8 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -18,8 +20,10 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.DisplayName = DisplayName;
                 product.Category = Category.Content.ToString();
                 product.Price = Price;
-                product.Image = Helper.ConvertImageToBase64Str(filepath);
                 product.Quantity = 0;
+
+                //Upload image
+                product.Image = await CloudinaryService.Ins.UploadImage(filepath);
 
                 (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = await ProductService.Ins.AddNewProduct(product);
 
