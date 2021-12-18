@@ -26,6 +26,7 @@ namespace CinemaManagement.Models
         public string PhoneNumber { get; set; }
         public System.DateTime CreatedAt { get; set; }
         public string Email { get; set; }
+        public bool IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bill> Bills { get; set; }

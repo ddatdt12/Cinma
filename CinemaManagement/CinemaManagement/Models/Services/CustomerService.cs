@@ -32,7 +32,7 @@ namespace CinemaManagement.Models.Services
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var customer = await context.Customers.Where(c => c.PhoneNumber == phoneNumber).FirstOrDefaultAsync();
+                    var customer = await context.Customers.Where(c => !c.IsDeleted && c.PhoneNumber == phoneNumber).FirstOrDefaultAsync();
                     if (customer is null)
                     {
                         return null;
@@ -60,7 +60,7 @@ namespace CinemaManagement.Models.Services
                 {
                     using (var context = new CinemaManagementEntities())
                     {
-                        var customer = await context.Customers.Where(c => c.CreatedAt.Year <= year).Select(c => new CustomerDTO
+                        var customer = await context.Customers.Where(c => !c.IsDeleted && c.CreatedAt.Year <= year).Select(c => new CustomerDTO
                         {
                             Id = c.Id,
                             Name = c.Name,
@@ -88,7 +88,7 @@ namespace CinemaManagement.Models.Services
                     }
                     using (var context = new CinemaManagementEntities())
                     {
-                        var customer = await context.Customers.Where(c => c.CreatedAt <= dateLimit).Select(c => new CustomerDTO
+                        var customer = await context.Customers.Where(c => !c.IsDeleted && c.CreatedAt <= dateLimit).Select(c => new CustomerDTO
                         {
                             Id = c.Id,
                             Name = c.Name,
@@ -123,29 +123,45 @@ namespace CinemaManagement.Models.Services
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    bool isExistPhone = await context.Customers.AnyAsync(c => c.PhoneNumber == newCus.PhoneNumber);
-
-                    if (isExistPhone)
+                    if (newCus.Email != null)
                     {
-                        return (false, "Số điện thoại này đã tồn tại", null);
+                        bool isExistEmail = await context.Customers.AnyAsync(c => c.Email == newCus.Email);
+                        if (isExistEmail)
+                        {
+                            return (false, "Email này đã tồn tại", null);
+                        }
                     }
 
-                    bool isExistEmail = await context.Customers.AnyAsync(c => c.Email == newCus.Email);
-                    if (isExistPhone)
+                    var cus = await context.Customers.Where(c => c.PhoneNumber == newCus.PhoneNumber).FirstOrDefaultAsync();
+                    if (cus != null)
                     {
-                        return (false, "Email này đã tồn tại", null);
+                        if (!cus.IsDeleted)
+                        {
+                            return (false, "Số điện thoại này đã tồn tại", null);
+                        }
+                        else
+                        {
+                            cus.Name = newCus.Name;
+                            cus.Email = newCus.Email;
+                            cus.CreatedAt = DateTime.Now;
+                            cus.IsDeleted = false;
+                        }
                     }
-                    string currentMaxId = await context.Customers.MaxAsync(c => c.Id);
-                    Customer cus = new Customer
+                    else
                     {
-                        Id = CreateNextCustomerId(currentMaxId),
-                        Name = newCus.Name,
-                        PhoneNumber = newCus.PhoneNumber,
-                        Email = newCus.Email,
-                        CreatedAt = DateTime.Now
-                    };
+                        string currentMaxId = await context.Customers.MaxAsync(c => c.Id);
+                        Customer newCusomer = new Customer
+                        {
+                            Id = CreateNextCustomerId(currentMaxId),
+                            Name = newCus.Name,
+                            PhoneNumber = newCus.PhoneNumber,
+                            Email = newCus.Email,
+                            CreatedAt = DateTime.Now,
+                        };
 
-                    context.Customers.Add(cus);
+                        context.Customers.Add(cus);
+                    }
+                    
                     await context.SaveChangesAsync();
                     return (true, "Đăng ký thành công", cus.Id);
                 }
@@ -199,14 +215,13 @@ namespace CinemaManagement.Models.Services
             {
                 using (var context = new CinemaManagementEntities())
                 {
-
                     var cus = await context.Customers.FindAsync(id);
-                    if (cus is null)
+                    if (cus is null || cus.IsDeleted)
                     {
                         return (false, "Khách hàng không tồn tại!");
                     }
-                    context.Customers.Remove(cus);
 
+                    cus.IsDeleted = true;
                     await context.SaveChangesAsync();
                     return (true, "Xóa thành công");
                 }

@@ -25,6 +25,7 @@
           <Property Name="PhoneNumber" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="80" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -593,6 +594,7 @@
           <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__CustomerId__59FA5E80" FromRole="Customer" ToRole="Bill" />
           <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Vouchers" Relationship="CinemaManagementModel.FK__Voucher__Custome__2FCF1A8A" FromRole="Customer" ToRole="Voucher" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -1151,6 +1153,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="CinemaManagementModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
