@@ -23,10 +23,8 @@ namespace CinemaManagement.ViewModel
 
         public async Task LoadShowtimeData()
         {
-            LoadCurrentDate();
-            IsLoading = true;
+            LoadCurrentDate();   
             await LoadMainListBox(0);
-            IsLoading = false;
         }
 
         public void LoadCurrentDate()
@@ -41,7 +39,7 @@ namespace CinemaManagement.ViewModel
             {
                 case 0:
                     {
-                        ListMovie = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate));
+                        ListMovie = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate)));
                         break;
                     }
                 case 1:

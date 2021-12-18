@@ -2,6 +2,7 @@
 using LiveCharts;
 using MaterialDesignThemes.Wpf;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -15,6 +16,13 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
 
         public SeriesCollection pie { get; set; }
         public SeriesCollection pie2 { get; set; }
+
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set { isLoading = value; OnPropertyChanged(); }
+        }
 
 
         public ICommand LoadViewCM { get; set; }
@@ -61,23 +69,33 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             });
             ChangeBestSellPeriodCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
+                IsLoading = true;
                 await ChangeBestSellPeriod();
+                IsLoading = false;
             });
             ChangeBestSellPeriod2CM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                IsLoading = true;
                 await ChangeBestSellPeriod2();
+                IsLoading = false;
             });
             ChangeIncomePeriodCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
+                IsLoading = true;
                 await ChangeIncomePeriod();
+                IsLoading = false;
             });
             ChangeRankingPeriodCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
+                IsLoading = true;
                 await ChangeRankingPeriod();
+                IsLoading = false;
             });
             ChangeRankingPeriod2CM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
             {
+                IsLoading = true;
                 await ChangeRankingPeriod2();
+                IsLoading = false;
             });
         }
 

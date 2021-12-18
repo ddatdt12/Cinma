@@ -90,13 +90,21 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             get => _Level;
             set { _Level = value; OnPropertyChanged(); }
         }
-      
+
         private byte[] _Image;
         public byte[] Image
         {
             get { return _Image; }
             set { _Image = value; OnPropertyChanged(); }
         }
+
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set { isLoading = value; OnPropertyChanged(); }
+        }
+
 
 
         public ICommand CancelCM { get; set; }
@@ -126,8 +134,10 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 });
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                IsLoading = true;
                 await LoadListError();
                 await LoadListStaff();
+                IsLoading = false;
 
             });
             FilterListErrorCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, (p) =>
@@ -140,6 +150,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
 
                 if (SelectedItem.Status == Utils.STATUS.IN_PROGRESS || SelectedItem.Status == Utils.STATUS.DONE)
                 {
+                    MaskName.Visibility = Visibility.Visible;
                     ViewError w = new ViewError();
                     w.ShowDialog();
                     return;
@@ -206,8 +217,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 {
                     w.DragMove();
                 }
-            }
-           );
+            });
 
         }
 
@@ -245,7 +255,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         }
         public async Task GetData()
         {
-            GetAllError = new ObservableCollection<TroubleDTO>(await TroubleService.Ins.GetAllTrouble());
+            GetAllError = new ObservableCollection<TroubleDTO>(await Task.Run(() => TroubleService.Ins.GetAllTrouble()));
             ListError = new ObservableCollection<TroubleDTO>(GetAllError);
         }
         public void RenewWindowData()

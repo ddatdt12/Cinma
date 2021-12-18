@@ -15,6 +15,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
     public partial class ShowtimeManagementViewModel : BaseViewModel
     {
         public static Grid ShadowMask { get; set; }
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set { isLoading = value; OnPropertyChanged(); }
+        }
+
         // this is for  binding data
         private MovieDTO _movieSelected;
         public MovieDTO movieSelected
@@ -161,7 +168,9 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
                  try
                  {
+                     IsLoading = true;
                      MovieList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetAllMovie());
+                     IsLoading = false;
                  }
                  catch (System.Data.Entity.Core.EntityException e)
                  {
@@ -289,7 +298,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                  }
 
              });
-
             EditPriceCM = new RelayCommand<Label>((p) => { return true; }, async (p) =>
             {
                 if (SelectedShowtime is null) return;
@@ -309,7 +317,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     mb.ShowDialog();
                 }
             });
-
             SelectedDateCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
                 await ReloadShowtimeList(-1);
@@ -319,11 +326,14 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
         public async Task ReloadShowtimeList(int id = -1)
         {
+
             if (id != -1)
             {
                 try
                 {
-                    ShowtimeList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate, id));
+                    IsLoading = true;
+                    ShowtimeList = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate, id)));
+                    IsLoading = false;
                 }
                 catch (System.Data.Entity.Core.EntityException e)
                 {
@@ -342,7 +352,9 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 try
                 {
-                    ShowtimeList = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate));
+                    IsLoading = true;
+                    ShowtimeList = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate)));
+                    IsLoading = false;
                 }
                 catch (System.Data.Entity.Core.EntityException e)
                 {
@@ -357,7 +369,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     mb.ShowDialog();
                 }
             }
-
         }
         public void GenerateListRoom()
         {

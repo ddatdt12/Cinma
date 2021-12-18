@@ -119,15 +119,17 @@ namespace CinemaManagement.ViewModel
         #endregion
         public MainStaffViewModel()
         {
-            //IsShadow = false;
-
             SelectedGenreCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                IsLoading = true;
                 await LoadMainListBox(1);
+                IsLoading = false;
             });
             SelectedDateCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                IsLoading = true;
                 await LoadMainListBox(0);
+                IsLoading = false;
             });
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
              {

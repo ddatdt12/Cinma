@@ -346,29 +346,31 @@
                                     </ResourceDictionary>
                                 </StackPanel.Resources>
 
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,8,0,0">
                                     <TextBlock Text="Chu kỳ:"
                                                Width="105" />
                                     <TextBlock Text="{Binding Path=Text,ElementName=periodbox}" />
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,5,0,0">
                                     <TextBlock Text="Thời gian:"
                                                Width="105" />
                                     <TextBlock Text="{Binding Path=Text,ElementName=Timebox}" />
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,5,0,0">
                                     <TextBlock Text="Số hoá đơn:"
                                                Width="105" />
                                     <TextBlock Text="{Binding TotalBill}" />
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,5,0,0">
                                     <TextBlock Text="Lợi nhuận:"
                                                Width="105" />
                                     <TextBlock Text="{Binding TrueIncome}" />
                                 </StackPanel>
                             </StackPanel>
-
-
                         </materialDesign:Card>
                     </StackPanel>
 
