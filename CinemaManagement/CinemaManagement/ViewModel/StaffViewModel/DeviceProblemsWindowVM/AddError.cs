@@ -29,7 +29,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     Title = Title,
                     Level = Level.Content.ToString(),
                     Description = Description,
-                    Image = Helper.ConvertImageToBase64Str(filepath),
+                    Image = await CloudinaryService.Ins.UploadImage(filepath),
                     StaffId = MainStaffViewModel.CurrentStaff.Id,
                 };
 

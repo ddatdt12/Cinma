@@ -2,8 +2,6 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views;
-using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
 using System.Threading.Tasks;
 using System.Windows;
 

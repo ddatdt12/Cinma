@@ -133,7 +133,7 @@
                                      x:Name="_price"
                                      PreviewTextInput="_price_PreviewTextInput"
                                      TextChanged="TextBox_TextChanged"
-                                     Text="{Binding Price, Mode=TwoWay}" />
+                                     Text="{Binding Price,StringFormat=., Mode=TwoWay}" />
                         </Grid>
                         <Grid Grid.Row="4">
                             <Grid.ColumnDefinitions>

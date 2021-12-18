@@ -133,6 +133,14 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             set { isLoadding = value; OnPropertyChanged(); }
         }
 
+        private bool isSaving;
+        public bool IsSaving
+        {
+            get { return isSaving; }
+            set { isSaving = value; OnPropertyChanged(); }
+        }
+
+
         //SelectedProduct Dùng khi nhập hàng thêm số lượng sản phẩm
         private ProductDTO _SelectedProduct;
         public ProductDTO SelectedProduct
@@ -248,15 +256,19 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
                 });
-            AddFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            AddFoodCommand = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, async (p) =>
                 {
+                    IsSaving = true;
                     await AddFood(p);
+                    IsSaving = false;
                 });
 
             OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
                 {
                     EditFoodWindow wd = new EditFoodWindow();
+                    isLoadding = true;
                     LoadEditFood(wd);
+                    isLoadding = false;
 
                     if (SelectedItem != null)
                     {
@@ -277,21 +289,14 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 });
 
-            EditFoodCommand = new RelayCommand<Window>((p) =>
+            EditFoodCommand = new RelayCommand<Window>((p) => { if (IsSaving) { return false; } return true; }, async (p) =>
             {
-                if (IsLoadding)
-                {
-                    return false;
-                }
-                return true;
-            }, async (p) =>
-            {
-                IsLoadding = true;
+                isSaving = true;
                 await EditFood(p);
-                IsLoadding = false;
+                IsSaving = false;
             });
 
-            DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
                  {
                      Image = SelectedItem.Image;
                      Id = SelectedItem.Id;
@@ -317,7 +322,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                      }
                  });
 
-            CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
+            CloseCommand = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, (p) =>
             {
                 Window window = GetWindowParent(p);
                 var w = window as Window;
@@ -349,7 +354,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                   MaskName = p;
               });
         }
-        
+
         public void LoadImage()
         {
             BitmapImage _image = new BitmapImage();

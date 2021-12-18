@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Utils;
 using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
 using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
 using CinemaManagement.Views;
@@ -184,7 +185,7 @@ namespace CinemaManagement.ViewModel
                             if (SelectedItem != null)
                             {
                                 w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
-                                w.imgframe.Source = SelectedItem.ImgSource;
+                                w.imgframe.Source = CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
                                 w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
                                 w.txtframe.Text = SelectedItem.DisplayName;
                                 w.ShowDialog();

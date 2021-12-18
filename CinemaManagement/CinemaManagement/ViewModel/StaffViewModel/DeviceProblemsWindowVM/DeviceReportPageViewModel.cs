@@ -91,8 +91,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             set { _Level = value; OnPropertyChanged(); }
         }
 
-        private byte[] _Image;
-        public byte[] Image
+        private string _Image;
+        public string Image
         {
             get { return _Image; }
             set { _Image = value; OnPropertyChanged(); }
@@ -105,6 +105,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             set { isLoading = value; OnPropertyChanged(); }
         }
 
+        private bool isSaving;
+        public bool IsSaving
+        {
+            get { return isSaving; }
+            set { isSaving = value; OnPropertyChanged(); }
+        }
 
 
         public ICommand CancelCM { get; set; }
@@ -168,9 +174,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 w1.StaffName.Text = MainStaffViewModel.CurrentStaff.Name;
                 w1.ShowDialog();
             });
-            SaveErrorCM = new RelayCommand<AddError>((p) => { return true; }, async (p) =>
+            SaveErrorCM = new RelayCommand<AddError>((p) => { if (IsSaving) return false; return true; }, async (p) =>
              {
+                 IsSaving = true;
                  await SaveErrorFunc(p);
+                 IsSaving = false;
              });
             UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -194,9 +202,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
-            UpdateErrorCM = new RelayCommand<EditError>((p) => { return true; }, async (p) =>
+            UpdateErrorCM = new RelayCommand<EditError>((p) => { if (IsSaving) return false; return true; }, async (p) =>
             {
+                IsSaving = true;
                 await UpdateErrorFunc(p);
+                IsSaving = false;
             });
 
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>

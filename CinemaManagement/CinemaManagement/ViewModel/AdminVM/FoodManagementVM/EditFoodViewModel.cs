@@ -14,6 +14,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             if (SelectedItem != null)
             {
+
                 DisplayName = SelectedItem.DisplayName;
                 wd._category.Text = SelectedItem.Category;
                 Price = SelectedItem.Price;
@@ -46,7 +47,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 (bool successUpdateProduct, string messageFromUpdateProduct) = await ProductService.Ins.UpdateProduct(product);
 
-                if (true)
+                if (successUpdateProduct)
                 {
                     LoadProductListView(Operation.UPDATE, product);
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdateProduct, MessageType.Success, MessageButtons.OK);
