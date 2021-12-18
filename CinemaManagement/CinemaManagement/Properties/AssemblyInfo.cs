@@ -6,9 +6,9 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CinameManagement")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("CinameManagement")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Team 3 LTTQ 2021")]
 [assembly: AssemblyProduct("CinameManagement")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]

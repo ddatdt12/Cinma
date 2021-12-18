@@ -55,6 +55,9 @@
   <PropertyGroup>
     <StartupObject>CinemaManagement.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Icon\iconApp.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
@@ -845,6 +848,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="Resources\Icon\iconApp.ico" />
+    <Resource Include="icon - chỉnh sửa 1.ico" />
     <Content Include="Models\CinemaManagementModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
@@ -872,7 +877,6 @@
     <Resource Include="Resources\Icon\error.png" />
     <Resource Include="Resources\Icon\ErrorIcon.png" />
     <Resource Include="Resources\Icon\info.png" />
-    <Resource Include="Resources\Icon\logo.png" />
     <Resource Include="Resources\Icon\Money.jpg" />
     <Resource Include="Resources\Icon\succes.png" />
     <Resource Include="Resources\Icon\warning.png" />

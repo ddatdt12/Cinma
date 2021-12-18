@@ -45,7 +45,7 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center">
-                        <Image Source="/Resources/Icon/logo.png"
+                        <Image Source="/Resources/Icon/iconApp.ico"
                                Width="25"
                                Height="25" />
                         <TextBlock x:Name="txtTitle"
