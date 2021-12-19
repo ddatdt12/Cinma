@@ -897,7 +897,6 @@
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Icon\iconApp.ico" />
-    <Resource Include="icon - chỉnh sửa 1.ico" />
     <Content Include="Models\CinemaManagementModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CinemaManagementModel.edmx</DependentUpon>
