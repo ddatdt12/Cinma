@@ -28,6 +28,8 @@ namespace CinemaManagement.Models
         public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
+        public virtual DbSet<Movie> Movies { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductBillInfo> ProductBillInfoes { get; set; }
         public virtual DbSet<ProductReceipt> ProductReceipts { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
@@ -37,10 +39,8 @@ namespace CinemaManagement.Models
         public virtual DbSet<ShowtimeSetting> ShowtimeSettings { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
+        public virtual DbSet<Trouble> Troubles { get; set; }
         public virtual DbSet<Voucher> Vouchers { get; set; }
         public virtual DbSet<VoucherRelease> VoucherReleases { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Movie> Movies { get; set; }
-        public virtual DbSet<Trouble> Troubles { get; set; }
     }
 }

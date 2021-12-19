@@ -27,11 +27,11 @@ namespace CinemaManagement.Models
         public decimal TicketPrice { get; set; }
         public System.TimeSpan StartTime { get; set; }
     
+        public virtual Movie Movie { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SeatSetting> SeatSettings { get; set; }
         public virtual ShowtimeSetting ShowtimeSetting { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Tickets { get; set; }
-        public virtual Movie Movie { get; set; }
     }
 }

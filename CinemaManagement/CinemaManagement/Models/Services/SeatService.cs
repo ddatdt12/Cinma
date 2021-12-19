@@ -56,30 +56,5 @@ namespace CinemaManagement.Models.Services
                 throw e;
             }
         }
-        public async Task SettingSeatForNewShowtime(CinemaManagementEntities context, int roomId, int showtimeId)
-        {
-            try
-            {
-                var seatIds = await (from s in context.Seats
-                               where s.RoomId == roomId
-                               select s.Id
-                           ).ToListAsync();
-                List<SeatSetting> seatSetList = new List<SeatSetting>();
-                foreach (var seatId in seatIds)
-                {
-                    seatSetList.Add(new SeatSetting
-                    {
-                        SeatId = seatId,
-                        ShowtimeId = showtimeId
-                    });
-                }
-                context.SeatSettings.AddRange(seatSetList);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
     }
 }
