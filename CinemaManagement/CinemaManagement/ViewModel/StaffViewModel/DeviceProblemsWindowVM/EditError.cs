@@ -52,8 +52,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     Title = Title,
                     Level = Level.Content.ToString(),
                     Description = Description,
-                    Image = await CloudinaryService.Ins.UploadImage(filepath),
-                    StaffId = "NV002",
+                    StaffId = MainStaffViewModel.CurrentStaff.Id,
                 };
 
                 if (IsImageChanged)
@@ -62,7 +61,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 }
                 else
                 {
-                    tb.Image = Image;
+                    tb.Image = SelectedItem.Image;
                 }
 
                 (bool successUpdateTB, string messageFromUpdateTB) = await TroubleService.Ins.UpdateTroubleInfo(tb);

@@ -52,12 +52,15 @@
                     </Style>
                 </Grid.Resources>
                 <StackPanel Grid.Row="0"
-                            Orientation="Horizontal"
                             Grid.ColumnSpan="2">
                     <Image Source="/Resources/Icon/iconApp.ico"
-                           Height="80"
-                           Width="80"
-                           Margin="30,0,10,-0" />
+                           Height="50"
+                           Width="50"
+                           VerticalAlignment="Top" />
+                    <Label Content="Squadin Cinema"
+                           FontWeight="Bold"
+                           HorizontalContentAlignment="Center"
+                           Foreground="White" />
                 </StackPanel>
                 <StackPanel Grid.Row="1">
                     <Border CornerRadius="5">
@@ -107,7 +110,7 @@
                                     Orientation="Horizontal"
                                     Height="60"
                                     Width="140">
-                            <materialDesign:PackIcon Kind="Unity"
+                            <materialDesign:PackIcon Kind="AlertOctagon"
                                                      Width="30"
                                                      Height="32"
                                                      VerticalAlignment="Center"
@@ -267,8 +270,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Frame>
-                <ProgressBar
-                             Height="100"
+                <ProgressBar Height="100"
                              Width="100"
                              IsIndeterminate="{Binding IsLoading}"
                              Grid.RowSpan="2">

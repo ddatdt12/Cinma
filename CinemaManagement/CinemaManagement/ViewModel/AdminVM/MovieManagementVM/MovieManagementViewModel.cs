@@ -346,6 +346,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieDes = null;
             ImageSource = null;
             movieYear = null;
+            filepath = null;
         }
         public void InsertCountryToComboBox()
         {
