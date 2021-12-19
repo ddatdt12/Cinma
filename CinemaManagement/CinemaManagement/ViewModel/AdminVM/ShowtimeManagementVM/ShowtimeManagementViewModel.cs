@@ -188,9 +188,8 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                  ShadowMask.Visibility = Visibility.Visible;
                  temp.ShowDialog();
              });
-            SaveCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, async (p) =>
+            SaveCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-                IsSaving = true;
                 await SaveShowtimeFunc(p);
             });
             LoadDeleteShowtimeCM = new RelayCommand<ListBox>((p) => { if (SelectedShowtime is null) return false; return true; }, async (p) =>
@@ -204,10 +203,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                      message = $"Suất chiếu này có ghế đã được đặt. Bạn có muốn xoá không?";
                      MessageBoxCustom ms = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
                      ms.ShowDialog();
-                     if (ms.DialogResult == true)
-                     {
-                         await DeleteShowtimeFunc();
-                     }
                      return;
                  }
 
@@ -216,7 +211,28 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                  result.ShowDialog();
                  if (result.DialogResult == true)
                  {
-                     await DeleteShowtimeFunc();
+                     (bool deleteSuccess, string messageFromDelete) = await ShowtimeService.Ins.DeleteShowtime(SelectedShowtime.Id);
+                     if (deleteSuccess)
+                     {
+                         for (int i = 0; i < ListShowtimeofMovie.Count; i++)
+                         {
+                             if (ListShowtimeofMovie[i].Id == SelectedShowtime.Id)
+                                 ListShowtimeofMovie.RemoveAt(i);
+                         }
+                         oldSelectedItem = SelectedItem;
+                         SelectedShowtime = null;
+                         MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelete, MessageType.Success, MessageButtons.OK);
+                         mb.ShowDialog();
+
+                         await ReloadShowtimeList(SelectedRoomId);
+                     }
+                     else
+                     {
+                         MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromDelete, MessageType.Error, MessageButtons.OK);
+                         mb.ShowDialog();
+                     }
+
+
                  }
              });
             ChangedRoomCM = new RelayCommand<RadioButton>((p) => { return true; }, async (p) =>
@@ -320,15 +336,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     ShowtimeList = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate, id)));
                     IsLoading = false;
                 }
-                catch (System.Data.Entity.Core.EntityException e)
+                catch (System.Data.Entity.Core.EntityException )
                 {
-                    Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
@@ -341,15 +355,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     ShowtimeList = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate)));
                     IsLoading = false;
                 }
-                catch (System.Data.Entity.Core.EntityException e)
+                catch (System.Data.Entity.Core.EntityException)
                 {
-                    Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
@@ -373,28 +385,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 && !string.IsNullOrEmpty(showtimeDate.ToString())
                 && !string.IsNullOrEmpty(Showtime.ToString())
                 && ShowtimeRoom != null && !(moviePrice == 0);
-        }
-        public async Task DeleteShowtimeFunc()
-        {
-            (bool deleteSuccess, string messageFromDelete) = await ShowtimeService.Ins.DeleteShowtime(SelectedShowtime.Id);
-            if (deleteSuccess)
-            {
-                for (int i = 0; i < ListShowtimeofMovie.Count; i++)
-                {
-                    if (ListShowtimeofMovie[i].Id == SelectedShowtime.Id)
-                        ListShowtimeofMovie.RemoveAt(i);
-                }
-                oldSelectedItem = SelectedItem;
-                SelectedShowtime = null;
-                MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelete, MessageType.Success, MessageButtons.OK);
-                mb.ShowDialog();
-            }
-            else
-            {
-                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromDelete, MessageType.Error, MessageButtons.OK);
-                mb.ShowDialog();
-            }
-
         }
     }
 }

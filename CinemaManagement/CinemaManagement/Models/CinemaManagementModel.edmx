@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CinemaManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CinemaManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Bill">
           <Key>
             <PropertyRef Name="Id" />
@@ -564,7 +564,8 @@
             <End Role="ShowtimeSetting" EntitySet="ShowtimeSetting" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CinemaManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -590,11 +591,11 @@
           <Property Name="Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" Nullable="false" />
-          <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__CustomerId__59FA5E80" FromRole="Customer" ToRole="Bill" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Vouchers" Relationship="CinemaManagementModel.FK__Voucher__Custome__2FCF1A8A" FromRole="Customer" ToRole="Voucher" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__CustomerId__59FA5E80" FromRole="Customer" ToRole="Bill" />
+          <NavigationProperty Name="Vouchers" Relationship="Self.FK__Voucher__Custome__3493CFA7" FromRole="Customer" ToRole="Voucher" />
         </EntityType>
         <EntityType Name="Genre">
           <Key>
@@ -602,7 +603,38 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Movies" Relationship="CinemaManagementModel.GenreDetails" FromRole="Genre" ToRole="Movie" />
+          <NavigationProperty Name="Movies" Relationship="Self.GenreDetails" FromRole="Genre" ToRole="Movie" />
+        </EntityType>
+        <EntityType Name="Movie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RunningTime" Type="Int32" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReleaseYear" Type="Int32" />
+          <Property Name="MovieType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Director" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Showtimes" Relationship="Self.FK__Showtime__MovieI__4F7CD00D" FromRole="Movie" ToRole="Showtime" />
+          <NavigationProperty Name="Genres" Relationship="Self.GenreDetails" FromRole="Movie" ToRole="Genre" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProductBillInfoes" Relationship="Self.FK__ProductBi__Produ__68487DD7" FromRole="Product" ToRole="ProductBillInfo" />
+          <NavigationProperty Name="ProductReceipts" Relationship="Self.PRODUCT_RECEIPT_PRODUCTID_FK" FromRole="Product" ToRole="ProductReceipt" />
         </EntityType>
         <EntityType Name="ProductBillInfo">
           <Key>
@@ -614,7 +646,7 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="PricePerItem" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="Bill" Relationship="Self.FK__ProductBi__BillI__6754599E" FromRole="ProductBillInfo" ToRole="Bill" />
-          <NavigationProperty Name="Product" Relationship="CinemaManagementModel.FK__ProductBi__Produ__68487DD7" FromRole="ProductBillInfo" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__ProductBi__Produ__68487DD7" FromRole="ProductBillInfo" ToRole="Product" />
         </EntityType>
         <EntityType Name="ProductReceipt">
           <Key>
@@ -626,8 +658,8 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StaffId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.PRODUCT_RECEIPT_PRODUCTID_FK" FromRole="ProductReceipt" ToRole="Product" />
           <NavigationProperty Name="Staff" Relationship="Self.PRODUCT_RECEIPT_StaffId_FK" FromRole="ProductReceipt" ToRole="Staff" />
-          <NavigationProperty Name="Product" Relationship="CinemaManagementModel.PRODUCT_RECEIPT_PRODUCTID_FK" FromRole="ProductReceipt" ToRole="Product" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -670,10 +702,10 @@
           <Property Name="MovieId" Type="Int32" Nullable="false" />
           <Property Name="TicketPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Movie" Relationship="Self.FK__Showtime__MovieI__4F7CD00D" FromRole="Showtime" ToRole="Movie" />
           <NavigationProperty Name="SeatSettings" Relationship="Self.FK__SeatSetti__Showt__5535A963" FromRole="Showtime" ToRole="SeatSetting" />
           <NavigationProperty Name="ShowtimeSetting" Relationship="Self.FK__Showtime__Showti__5070F446" FromRole="Showtime" ToRole="ShowtimeSetting" />
           <NavigationProperty Name="Tickets" Relationship="Self.FK__Ticket__Showtime__619B8048" FromRole="Showtime" ToRole="Ticket" />
-          <NavigationProperty Name="Movie" Relationship="CinemaManagementModel.FK__Showtime__MovieI__4F7CD00D" FromRole="Showtime" ToRole="Movie" />
         </EntityType>
         <EntityType Name="ShowtimeSetting">
           <Key>
@@ -699,11 +731,11 @@
           <Property Name="StartingDate" Type="DateTime" Precision="0" />
           <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Bills" Relationship="Self.FK__Bill__StaffId__5AEE82B9" FromRole="Staff" ToRole="Bill" />
           <NavigationProperty Name="ProductReceipts" Relationship="Self.PRODUCT_RECEIPT_StaffId_FK" FromRole="Staff" ToRole="ProductReceipt" />
-          <NavigationProperty Name="VoucherReleases" Relationship="CinemaManagementModel.FK__VoucherRe__Staff__2B0A656D" FromRole="Staff" ToRole="VoucherRelease" />
-          <Property Name="Email" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Troubles" Relationship="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" FromRole="Staff" ToRole="Trouble" />
+          <NavigationProperty Name="Troubles" Relationship="Self.FK__Trouble__StaffId__76969D2E" FromRole="Staff" ToRole="Trouble" />
+          <NavigationProperty Name="VoucherReleases" Relationship="Self.FK__VoucherRe__Staff__2B0A656D" FromRole="Staff" ToRole="VoucherRelease" />
         </EntityType>
         <EntityType Name="Ticket">
           <Key>
@@ -717,6 +749,54 @@
           <NavigationProperty Name="Bill" Relationship="Self.FK__Ticket__BillId__5FB337D6" FromRole="Ticket" ToRole="Bill" />
           <NavigationProperty Name="Seat" Relationship="Self.FK__Ticket__SeatId__60A75C0F" FromRole="Ticket" ToRole="Seat" />
           <NavigationProperty Name="Showtime" Relationship="Self.FK__Ticket__Showtime__619B8048" FromRole="Ticket" ToRole="Showtime" />
+        </EntityType>
+        <EntityType Name="Trouble">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="SubmittedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RepairCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="FinishDate" Type="DateTime" Precision="3" />
+          <Property Name="StaffId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Level" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK__Trouble__StaffId__76969D2E" FromRole="Trouble" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VoucherReleaseId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UsedAt" Type="DateTime" Precision="0" />
+          <Property Name="ReleaseAt" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Voucher__Custome__3493CFA7" FromRole="Voucher" ToRole="Customer" />
+          <NavigationProperty Name="VoucherRelease" Relationship="Self.FK_VOUCHER_VOUCERRELEASE" FromRole="Voucher" ToRole="VoucherRelease" />
+        </EntityType>
+        <EntityType Name="VoucherRelease">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReleaseName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FinishDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="ParValue" Type="Int32" Nullable="false" />
+          <Property Name="MinimumOrderValue" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ObjectType" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EnableMerge" Type="Boolean" Nullable="false" />
+          <Property Name="StaffId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK__VoucherRe__Staff__2B0A656D" FromRole="VoucherRelease" ToRole="Staff" />
+          <NavigationProperty Name="Vouchers" Relationship="Self.FK_VOUCHER_VOUCERRELEASE" FromRole="VoucherRelease" ToRole="Voucher" />
         </EntityType>
         <Association Name="FK__Bill__CustomerId__59FA5E80">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
@@ -763,6 +843,54 @@
             </Principal>
             <Dependent Role="Ticket">
               <PropertyRef Name="BillId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Voucher__Custome__3493CFA7">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Showtime__MovieI__4F7CD00D">
+          <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
+          <End Role="Showtime" Type="Self.Showtime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Showtime">
+              <PropertyRef Name="MovieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductBi__Produ__68487DD7">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductBillInfo" Type="Self.ProductBillInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductBillInfo">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PRODUCT_RECEIPT_PRODUCTID_FK">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductReceipt" Type="Self.ProductReceipt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductReceipt">
+              <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -866,10 +994,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Trouble__StaffId__76969D2E">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Trouble" Type="Self.Trouble" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trouble">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VoucherRe__Staff__2B0A656D">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="VoucherRelease" Type="Self.VoucherRelease" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VoucherRelease">
+              <PropertyRef Name="StaffId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VOUCHER_VOUCERRELEASE">
+          <End Role="VoucherRelease" Type="Self.VoucherRelease" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VoucherRelease">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="VoucherReleaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="GenreDetails">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="*" />
+          <End Role="Movie" Type="Self.Movie" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="CinemaManagementEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Bills" EntityType="Self.Bill" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Genres" EntityType="Self.Genre" />
+          <EntitySet Name="Movies" EntityType="Self.Movie" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductBillInfoes" EntityType="Self.ProductBillInfo" />
           <EntitySet Name="ProductReceipts" EntityType="Self.ProductReceipt" />
           <EntitySet Name="Rooms" EntityType="Self.Room" />
@@ -879,6 +1051,9 @@
           <EntitySet Name="ShowtimeSettings" EntityType="Self.ShowtimeSetting" />
           <EntitySet Name="Staffs" EntityType="Self.Staff" />
           <EntitySet Name="Tickets" EntityType="Self.Ticket" />
+          <EntitySet Name="Troubles" EntityType="Self.Trouble" />
+          <EntitySet Name="Vouchers" EntityType="Self.Voucher" />
+          <EntitySet Name="VoucherReleases" EntityType="Self.VoucherRelease" />
           <AssociationSet Name="FK__Bill__CustomerId__59FA5E80" Association="Self.FK__Bill__CustomerId__59FA5E80">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Bill" EntitySet="Bills" />
@@ -894,6 +1069,22 @@
           <AssociationSet Name="FK__Ticket__BillId__5FB337D6" Association="Self.FK__Ticket__BillId__5FB337D6">
             <End Role="Bill" EntitySet="Bills" />
             <End Role="Ticket" EntitySet="Tickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Voucher__Custome__3493CFA7" Association="Self.FK__Voucher__Custome__3493CFA7">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Voucher" EntitySet="Vouchers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Showtime__MovieI__4F7CD00D" Association="Self.FK__Showtime__MovieI__4F7CD00D">
+            <End Role="Movie" EntitySet="Movies" />
+            <End Role="Showtime" EntitySet="Showtimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductBi__Produ__68487DD7" Association="Self.FK__ProductBi__Produ__68487DD7">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductBillInfo" EntitySet="ProductBillInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="PRODUCT_RECEIPT_PRODUCTID_FK" Association="Self.PRODUCT_RECEIPT_PRODUCTID_FK">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductReceipt" EntitySet="ProductReceipts" />
           </AssociationSet>
           <AssociationSet Name="PRODUCT_RECEIPT_StaffId_FK" Association="Self.PRODUCT_RECEIPT_StaffId_FK">
             <End Role="Staff" EntitySet="Staffs" />
@@ -927,212 +1118,24 @@
             <End Role="Showtime" EntitySet="Showtimes" />
             <End Role="Ticket" EntitySet="Tickets" />
           </AssociationSet>
-          <EntitySet Name="Vouchers" EntityType="CinemaManagementModel.Voucher" />
-          <EntitySet Name="VoucherReleases" EntityType="CinemaManagementModel.VoucherRelease" />
-          <AssociationSet Name="FK__Voucher__Custome__2FCF1A8A" Association="CinemaManagementModel.FK__Voucher__Custome__2FCF1A8A">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Voucher" EntitySet="Vouchers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__VoucherRe__Staff__2B0A656D" Association="CinemaManagementModel.FK__VoucherRe__Staff__2B0A656D">
-            <End Role="Staff" EntitySet="Staffs" />
-            <End Role="VoucherRelease" EntitySet="VoucherReleases" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Voucher__Voucher__2EDAF651" Association="CinemaManagementModel.FK__Voucher__Voucher__2EDAF651">
-            <End Role="VoucherRelease" EntitySet="VoucherReleases" />
-            <End Role="Voucher" EntitySet="Vouchers" />
-          </AssociationSet>
-          <EntitySet Name="Products" EntityType="CinemaManagementModel.Product" />
-          <AssociationSet Name="FK__ProductBi__Produ__68487DD7" Association="CinemaManagementModel.FK__ProductBi__Produ__68487DD7">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="ProductBillInfo" EntitySet="ProductBillInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="PRODUCT_RECEIPT_PRODUCTID_FK" Association="CinemaManagementModel.PRODUCT_RECEIPT_PRODUCTID_FK">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="ProductReceipt" EntitySet="ProductReceipts" />
-          </AssociationSet>
-          <EntitySet Name="Movies" EntityType="CinemaManagementModel.Movie" />
-          <EntitySet Name="Troubles" EntityType="CinemaManagementModel.Trouble" />
-          <AssociationSet Name="FK__Showtime__MovieI__4F7CD00D" Association="CinemaManagementModel.FK__Showtime__MovieI__4F7CD00D">
-            <End Role="Movie" EntitySet="Movies" />
-            <End Role="Showtime" EntitySet="Showtimes" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Trouble__StaffId__76969D2E" Association="CinemaManagementModel.FK__Trouble__StaffId__76969D2E">
+          <AssociationSet Name="FK__Trouble__StaffId__76969D2E" Association="Self.FK__Trouble__StaffId__76969D2E">
             <End Role="Staff" EntitySet="Staffs" />
             <End Role="Trouble" EntitySet="Troubles" />
           </AssociationSet>
-          <AssociationSet Name="GenreDetails" Association="CinemaManagementModel.GenreDetails">
+          <AssociationSet Name="FK__VoucherRe__Staff__2B0A656D" Association="Self.FK__VoucherRe__Staff__2B0A656D">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="VoucherRelease" EntitySet="VoucherReleases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VOUCHER_VOUCERRELEASE" Association="Self.FK_VOUCHER_VOUCERRELEASE">
+            <End Role="VoucherRelease" EntitySet="VoucherReleases" />
+            <End Role="Voucher" EntitySet="Vouchers" />
+          </AssociationSet>
+          <AssociationSet Name="GenreDetails" Association="Self.GenreDetails">
             <End Role="Genre" EntitySet="Genres" />
             <End Role="Movie" EntitySet="Movies" />
           </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="Voucher">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="VoucherReleaseId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="CustomerId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UsedAt" Type="DateTime" Precision="0" />
-          <Property Name="ReleaseAt" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Customer" Relationship="CinemaManagementModel.FK__Voucher__Custome__2FCF1A8A" FromRole="Voucher" ToRole="Customer" />
-          <NavigationProperty Name="VoucherRelease" Relationship="CinemaManagementModel.FK__Voucher__Voucher__2EDAF651" FromRole="Voucher" ToRole="VoucherRelease" />
-        </EntityType>
-        <EntityType Name="VoucherRelease">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ReleaseName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FinishDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Status" Type="Boolean" Nullable="false" />
-          <Property Name="ParValue" Type="Int32" Nullable="false" />
-          <Property Name="MinimumOrderValue" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="ObjectType" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <Property Name="EnableMerge" Type="Boolean" Nullable="false" />
-          <Property Name="StaffId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Staff" Relationship="CinemaManagementModel.FK__VoucherRe__Staff__2B0A656D" FromRole="VoucherRelease" ToRole="Staff" />
-          <NavigationProperty Name="Vouchers" Relationship="CinemaManagementModel.FK__Voucher__Voucher__2EDAF651" FromRole="VoucherRelease" ToRole="Voucher" />
-        </EntityType>
-        <Association Name="FK__Voucher__Custome__2FCF1A8A">
-          <End Type="CinemaManagementModel.Customer" Role="Customer" Multiplicity="0..1" />
-          <End Type="CinemaManagementModel.Voucher" Role="Voucher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Voucher">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__VoucherRe__Staff__2B0A656D">
-          <End Type="CinemaManagementModel.Staff" Role="Staff" Multiplicity="1" />
-          <End Type="CinemaManagementModel.VoucherRelease" Role="VoucherRelease" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staff">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VoucherRelease">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Voucher__Voucher__2EDAF651">
-          <End Type="CinemaManagementModel.VoucherRelease" Role="VoucherRelease" Multiplicity="1" />
-          <End Type="CinemaManagementModel.Voucher" Role="Voucher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VoucherRelease">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Voucher">
-              <PropertyRef Name="VoucherReleaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Category" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ProductBillInfoes" Relationship="CinemaManagementModel.FK__ProductBi__Produ__68487DD7" FromRole="Product" ToRole="ProductBillInfo" />
-          <NavigationProperty Name="ProductReceipts" Relationship="CinemaManagementModel.PRODUCT_RECEIPT_PRODUCTID_FK" FromRole="Product" ToRole="ProductReceipt" />
-        </EntityType>
-        <Association Name="FK__ProductBi__Produ__68487DD7">
-          <End Type="CinemaManagementModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="CinemaManagementModel.ProductBillInfo" Role="ProductBillInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductBillInfo">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PRODUCT_RECEIPT_PRODUCTID_FK">
-          <End Type="CinemaManagementModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="CinemaManagementModel.ProductReceipt" Role="ProductReceipt" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProductReceipt">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Movie">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="RunningTime" Type="Int32" Nullable="false" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ReleaseYear" Type="Int32" />
-          <Property Name="MovieType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Director" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Showtimes" Relationship="CinemaManagementModel.FK__Showtime__MovieI__4F7CD00D" FromRole="Movie" ToRole="Showtime" />
-          <NavigationProperty Name="Genres" Relationship="CinemaManagementModel.GenreDetails" FromRole="Movie" ToRole="Genre" />
-        </EntityType>
-        <EntityType Name="Trouble">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="SubmittedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="RepairCost" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="FinishDate" Type="DateTime" Precision="3" />
-          <Property Name="StaffId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Level" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Image" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Staff" Relationship="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" FromRole="Trouble" ToRole="Staff" />
-        </EntityType>
-        <Association Name="FK__Showtime__MovieI__4F7CD00D">
-          <End Type="CinemaManagementModel.Movie" Role="Movie" Multiplicity="1" />
-          <End Type="CinemaManagementModel.Showtime" Role="Showtime" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Movie">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Showtime">
-              <PropertyRef Name="MovieId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Trouble__StaffId__76969D2E">
-          <End Type="CinemaManagementModel.Staff" Role="Staff" Multiplicity="1" />
-          <End Type="CinemaManagementModel.Trouble" Role="Trouble" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Staff">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Trouble">
-              <PropertyRef Name="StaffId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="GenreDetails">
-          <End Type="CinemaManagementModel.Genre" Role="Genre" Multiplicity="*" />
-          <End Type="CinemaManagementModel.Movie" Role="Movie" Multiplicity="*" />
-        </Association>
-        </Schema>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1153,12 +1156,12 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="CinemaManagementModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1167,6 +1170,35 @@
               <MappingFragment StoreEntitySet="Genre">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movies">
+            <EntityTypeMapping TypeName="CinemaManagementModel.Movie">
+              <MappingFragment StoreEntitySet="Movie">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="RunningTime" ColumnName="RunningTime" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ReleaseYear" ColumnName="ReleaseYear" />
+                <ScalarProperty Name="MovieType" ColumnName="MovieType" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="CinemaManagementModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1242,7 +1274,6 @@
           <EntitySetMapping Name="Staffs">
             <EntityTypeMapping TypeName="CinemaManagementModel.Staff">
               <MappingFragment StoreEntitySet="Staff">
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1253,6 +1284,7 @@
                 <ScalarProperty Name="StartingDate" ColumnName="StartingDate" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1267,87 +1299,58 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Troubles">
+            <EntityTypeMapping TypeName="CinemaManagementModel.Trouble">
+              <MappingFragment StoreEntitySet="Trouble">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SubmittedAt" ColumnName="SubmittedAt" />
+                <ScalarProperty Name="RepairCost" ColumnName="RepairCost" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Vouchers">
             <EntityTypeMapping TypeName="CinemaManagementModel.Voucher">
               <MappingFragment StoreEntitySet="Voucher">
-                <ScalarProperty Name="ReleaseAt" ColumnName="ReleaseAt" />
-                <ScalarProperty Name="UsedAt" ColumnName="UsedAt" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="VoucherReleaseId" ColumnName="VoucherReleaseId" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="VoucherReleaseId" ColumnName="VoucherReleaseId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="UsedAt" ColumnName="UsedAt" />
+                <ScalarProperty Name="ReleaseAt" ColumnName="ReleaseAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VoucherReleases">
             <EntityTypeMapping TypeName="CinemaManagementModel.VoucherRelease">
               <MappingFragment StoreEntitySet="VoucherRelease">
-                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
-                <ScalarProperty Name="EnableMerge" ColumnName="EnableMerge" />
-                <ScalarProperty Name="ObjectType" ColumnName="ObjectType" />
-                <ScalarProperty Name="MinimumOrderValue" ColumnName="MinimumOrderValue" />
-                <ScalarProperty Name="ParValue" ColumnName="ParValue" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ReleaseName" ColumnName="ReleaseName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="CinemaManagementModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Movies">
-            <EntityTypeMapping TypeName="CinemaManagementModel.Movie">
-              <MappingFragment StoreEntitySet="Movie">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Director" ColumnName="Director" />
-                <ScalarProperty Name="MovieType" ColumnName="MovieType" />
-                <ScalarProperty Name="ReleaseYear" ColumnName="ReleaseYear" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="RunningTime" ColumnName="RunningTime" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Troubles">
-            <EntityTypeMapping TypeName="CinemaManagementModel.Trouble">
-              <MappingFragment StoreEntitySet="Trouble">
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Level" ColumnName="Level" />
-                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
-                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="RepairCost" ColumnName="RepairCost" />
-                <ScalarProperty Name="SubmittedAt" ColumnName="SubmittedAt" />
+                <ScalarProperty Name="FinishDate" ColumnName="FinishDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ParValue" ColumnName="ParValue" />
+                <ScalarProperty Name="MinimumOrderValue" ColumnName="MinimumOrderValue" />
+                <ScalarProperty Name="ObjectType" ColumnName="ObjectType" />
+                <ScalarProperty Name="EnableMerge" ColumnName="EnableMerge" />
+                <ScalarProperty Name="StaffId" ColumnName="StaffId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="GenreDetails" TypeName="CinemaManagementModel.GenreDetails" StoreEntitySet="GenreDetails">
-            <EndProperty Name="Movie">
-              <ScalarProperty Name="Id" ColumnName="MovieId" />
-            </EndProperty>
             <EndProperty Name="Genre">
               <ScalarProperty Name="Id" ColumnName="GenreId" />
+            </EndProperty>
+            <EndProperty Name="Movie">
+              <ScalarProperty Name="Id" ColumnName="MovieId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
