@@ -12,6 +12,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="Transparent"
+        AllowsTransparency="True"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="650"
         Width="1000"
@@ -41,6 +42,20 @@
                                    FontSize="25"
                                    Margin="20,10,0,0"
                                    FontWeight="Bold" />
+                        <Button Command="{Binding CancelCM}"
+                                CommandParameter="{Binding ElementName=edit}"
+                                ToolBar.OverflowMode="AsNeeded"
+                                Background="Transparent"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Foreground="Black"
+                                BorderBrush="Transparent"
+                                MouseEnter="Button_MouseEnter_1"
+                                MouseLeave="Button_MouseLeave_1"
+                                materialDesign:ButtonAssist.CornerRadius="0,10,0,0">
+                            <materialDesign:PackIcon Kind="WindowClose"
+                                                     Padding="0" />
+                        </Button>
                     </Grid>
                 </Border>
             </Grid>

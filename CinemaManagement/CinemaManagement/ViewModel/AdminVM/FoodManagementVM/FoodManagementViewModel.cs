@@ -431,6 +431,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             DisplayName = "";
             ImageSource = null;
             Price = 0;
+            filepath = null;
         }
         Window GetWindowParent(Window p)
         {

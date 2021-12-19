@@ -37,7 +37,7 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Border BorderThickness="0.5"
-            BorderBrush="White"
+            BorderBrush="Black"
             CornerRadius="10"
             Background="white">
         <Grid>

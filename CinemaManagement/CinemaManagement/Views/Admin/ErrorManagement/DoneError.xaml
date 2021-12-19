@@ -60,7 +60,7 @@
                         BorderThickness="1"
                         BorderBrush="Black">
                     <Border.Background>
-                        <ImageBrush ImageSource="{Binding SelectedItem.ImgSource}" />
+                        <ImageBrush ImageSource="{Binding SelectedItem.Image}" />
                     </Border.Background>
                 </Border>
 

@@ -68,7 +68,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 }
                 else
                 {
-                    tb.Image = Image;
+                    tb.Image = SelectedItem.Image;
                 }
 
                 (bool successUpdateTB, string messageFromUpdateTB) = await TroubleService.Ins.UpdateTroubleInfo(tb);
