@@ -31,7 +31,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             w1._Genre.Text = tempgenre[0].DisplayName;
             Image = SelectedItem.Image;
 
-            ImageSource =await  CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
+            ImageSource = await CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
         }
         public async Task UpdateMovieFunc(Window p)
         {
@@ -56,12 +56,12 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 {
                     if (Image != null)
                     {
-                        CloudinaryService.Ins.DeleteImage(Image);
+                        await CloudinaryService.Ins.DeleteImage(Image);
                     }
 
                     movie.Image = await CloudinaryService.Ins.UploadImage(filepath);
 
-                    
+
 
 
                     if (movie.Image is null)
@@ -79,6 +79,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (successUpdateMovie)
                 {
+                    isSaving = false;
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdateMovie, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     LoadMovieListView(Operation.UPDATE, movie);

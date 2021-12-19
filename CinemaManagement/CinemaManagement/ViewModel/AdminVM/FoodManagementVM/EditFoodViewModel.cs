@@ -36,12 +36,11 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.Id = Id;
                 product.Quantity = Quantity;
 
-                IsLoadding = true;
                 if (IsImageChanged)
                 {
                     if (Image != null)
                     {
-                        CloudinaryService.Ins.DeleteImage(Image);
+                       await CloudinaryService.Ins.DeleteImage(Image);
                     }
 
                     product.Image = await Task.Run(() => CloudinaryService.Ins.UploadImage(filepath));
@@ -59,11 +58,9 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 (bool successUpdateProduct, string messageFromUpdateProduct) = await ProductService.Ins.UpdateProduct(product);
 
-                IsLoadding = false;
-
-
                 if (successUpdateProduct)
                 {
+                    isSaving = false;
                     LoadProductListView(Operation.UPDATE, product);
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdateProduct, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();

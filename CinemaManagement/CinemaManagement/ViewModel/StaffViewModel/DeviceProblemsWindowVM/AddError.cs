@@ -44,6 +44,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
 
                 if (successAddtrouble)
                 {
+                    isSaving = false;
                     MessageBoxCustom mb = new MessageBoxCustom("", "Thêm sự cố thành công", MessageType.Success, MessageButtons.OK);
                     GetAllError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>(await TroubleService.Ins.GetAllTrouble());
                     ListError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>(GetAllError);

@@ -154,12 +154,6 @@
                                 </Border>
                             </Grid>
                             <Grid Grid.Column="1">
-                                <!--<Image Source="/Resources/Images/ImageFood/add-image.png"
-                               Margin="5 50 0 0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Bottom"
-                               Height="30"
-                               Cursor="Hand" />-->
                                 <Button Padding="0"
                                         Width="40"
                                         VerticalAlignment="Center"
@@ -172,11 +166,6 @@
                                                                  Width="23" />
                                     </Button.Content>
                                 </Button>
-                                <!--<i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding UpLoadImageCommand}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>-->
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="5">
@@ -216,6 +205,53 @@
                                     BorderBrush="Transparent" />
 
                         </Grid>
+
+                        <Grid Grid.RowSpan="6"
+                              Background="LightGray"
+                              Opacity="0.3">
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSaving}"
+                                                     Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+                        </Grid>
+                        <materialDesign:Card Height="100"
+                                             Width="100"
+                                             Grid.RowSpan="6"
+                                             UniformCornerRadius="5">
+                            <StackPanel>
+                                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                             IsIndeterminate="True"
+                                             Margin="0,30,0,0"
+                                             x:Name="prg" />
+                                <Label HorizontalContentAlignment="Center"
+                                       FontSize="15"
+                                       Content="Đang xử lý..."
+                                       Margin="0,10,0,0">
+                                </Label>
+                            </StackPanel>
+                            <materialDesign:Card.Style>
+                                <Style TargetType="materialDesign:Card">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSaving}"
+                                                     Value="True">
+                                            <Setter Property="Visibility"
+                                                    Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:Card.Style>
+                        </materialDesign:Card>
                     </Grid>
                 </materialDesign:Card>
             </Border>

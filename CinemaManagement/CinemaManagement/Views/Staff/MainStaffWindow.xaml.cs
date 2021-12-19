@@ -11,7 +11,6 @@ namespace CinemaManagement.Views.Staff
         public MainStaffWindow()
         {
             InitializeComponent();
-            
         }
     }
 }

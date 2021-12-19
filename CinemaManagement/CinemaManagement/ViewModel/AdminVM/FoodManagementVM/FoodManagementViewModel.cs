@@ -215,7 +215,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     catch (System.Data.Entity.Core.EntityException e)
                     {
                         Console.WriteLine(e);
-                        MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK); 
+                        MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                         mb.ShowDialog();
                     }
                     catch (Exception e)
@@ -260,7 +260,6 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 {
                     IsSaving = true;
                     await AddFood(p);
-                    IsSaving = false;
                 });
             OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
                  {
@@ -296,10 +295,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             EditFoodCommand = new RelayCommand<Window>((p) => { if (IsSaving) { return false; } return true; }, async (p) =>
             {
                 isSaving = true;
-
                 await EditFood(p);
-
-                IsSaving = false;
             });
 
             DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
@@ -313,7 +309,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                           IsLoadding = true;
 
                           (bool successDelMovie, string messageFromDelMovie) = await ProductService.Ins.DeleteProduct(Id);
-                          
+
                           IsLoadding = false;
 
                           if (successDelMovie)
@@ -342,8 +338,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     MaskName.Visibility = Visibility.Collapsed;
                     w.Close();
                 }
-            }
-            );
+            });
 
             UpLoadImageCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
                 {

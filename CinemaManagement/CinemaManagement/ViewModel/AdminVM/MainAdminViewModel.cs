@@ -167,7 +167,9 @@ namespace CinemaManagement.ViewModel
             });
             ReloadErrorListCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
              {
+                 IsGettingSource = true;
                  await ReloadErrorList();
+                 IsGettingSource = false;
              });
             SelectedDate = DateTime.Today;
             SelectedFinishDate = DateTime.Today;

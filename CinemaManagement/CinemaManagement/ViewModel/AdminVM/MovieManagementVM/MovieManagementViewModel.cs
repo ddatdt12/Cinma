@@ -138,7 +138,6 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             set { _ListCountrySource = value; OnPropertyChanged(); }
         }
 
-
         private List<GenreDTO> _GenreList;
         public List<GenreDTO> GenreList
         {
@@ -285,13 +284,11 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
              {
                  IsSaving = true;
                  await UpdateMovieFunc(p);
-                 IsSaving = false;
              });
             SaveMovieCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, async (p) =>
              {
                  IsSaving = true;
                  await SaveMovieFunc(p);
-                 IsSaving = false;
              });
             CloseCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {

@@ -46,6 +46,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (successAddMovie)
                 {
+                    isSaving = false;
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromAddMovie, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();       
                     LoadMovieListView(Operation.CREATE, newMovie);

@@ -55,7 +55,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     Task<string> uploadImage = CloudinaryService.Ins.UploadImage(filepath);
                     if (SelectedItem.Image != null)
                     {
-                        CloudinaryService.Ins.DeleteImage(SelectedItem.Image);
+                        await CloudinaryService.Ins.DeleteImage(SelectedItem.Image);
                     }
 
                     tb.Image = await uploadImage;
@@ -75,6 +75,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
 
                 if (successUpdateTB)
                 {
+                    isSaving = false;
                     MessageBoxCustom mb = new MessageBoxCustom("", "Cập nhật thành công!", MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     await GetData();

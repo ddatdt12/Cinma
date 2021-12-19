@@ -54,7 +54,7 @@
                            BorderBrush="Transparent"
                            Width="30"
                            HorizontalAlignment="Center"
-                           Margin="1215 0 0 0">
+                           Margin="1235 0 0 0">
                         <materialDesign:PackIcon Kind="WindowMinimize"
                                                  Height="15"
                                                  Width="20"
@@ -79,42 +79,20 @@
                             </Style>
                         </Label.Style>
                     </Label>
-                    <Label Cursor="Hand"
-                           Width="30"
-                           HorizontalAlignment="Center"
-                           ToolBar.OverflowMode="AsNeeded"
-                           Height="20"
-                           Foreground="Black"
-                           materialDesign:ButtonAssist.CornerRadius="0,0,10,0"
-                           Margin="23,0,0,0">
+                    <Button Command="{Binding CloseTicketWindowCM}"
+                            CommandParameter="{Binding ElementName=Ticket_Window}"
+                            Background="Transparent"
+                            Foreground="White"
+                            Width="35"
+                            Padding="0"
+                            BorderBrush="Transparent"
+                            MouseEnter="Button_MouseEnter_1"
+                            MouseLeave="Button_MouseLeave_1"
+                            materialDesign:ButtonAssist.CornerRadius="0,10,0,0"
+                            Height="Auto">
                         <materialDesign:PackIcon Kind="WindowClose"
-                                                 Padding="0"
-                                                 Foreground="White"
-                                                 Width="20"
-                                                 Height="15"
-                                                 Margin="0,-3,0,0" />
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                <i:InvokeCommandAction Command="{Binding CloseTicketWindowCM}"
-                                                       CommandParameter="{Binding ElementName=Ticket_Window}" />
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <Label.Style>
-                            <Style TargetType="Label">
-                                <Setter Property="Background"
-                                        Value="Transparent"></Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver"
-                                             Value="True">
-                                        <Setter Property="Background"
-                                                Value="Red" />
-                                        <Setter Property="materialDesign:ButtonAssist.CornerRadius"
-                                                Value="0,0,10,0" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Label.Style>
-                    </Label>
+                                                 Padding="0" />
+                    </Button>
                 </StackPanel>
             </Border>
             <!--2 listbox chứa toàn bộ ghế-->
