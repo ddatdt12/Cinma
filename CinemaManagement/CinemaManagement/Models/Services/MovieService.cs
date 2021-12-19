@@ -357,7 +357,7 @@ namespace CinemaManagement.Models.Services
 
                     if (movie.Image != null)
                     {
-                        await CloudinaryService.Ins.DeleteImage(movie.Image);
+                        CloudinaryService.Ins.DeleteImage(movie.Image);
                         movie.Image = null;
                     }
                     movie.IsDeleted = true;
