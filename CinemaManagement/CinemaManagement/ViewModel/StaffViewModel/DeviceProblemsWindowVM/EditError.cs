@@ -53,9 +53,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 if (IsImageChanged)
                 {
                     Task<string> uploadImage = CloudinaryService.Ins.UploadImage(filepath);
-                    if (Image != null)
+                    if (SelectedItem.Image != null)
                     {
-                        CloudinaryService.Ins.DeleteImage(Image);
+                        CloudinaryService.Ins.DeleteImage(SelectedItem.Image);
                     }
 
                     tb.Image = await uploadImage;
