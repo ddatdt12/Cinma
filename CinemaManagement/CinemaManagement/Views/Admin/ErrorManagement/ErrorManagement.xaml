@@ -51,6 +51,36 @@
             <ComboBoxItem Tag="Đã giải quyết">Đã giải quyết</ComboBoxItem>
             <ComboBoxItem Tag="Đã hủy">Đã hủy</ComboBoxItem>
         </ComboBox>
+        <Button VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                materialDesign:ButtonAssist.CornerRadius="100"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                Margin="0,30,120,0"
+                Width="35"
+                Padding="0"
+                Height="35"
+                Command="{Binding ReloadErrorListCM}"
+                CommandParameter="{Binding ElementName=filtercbb}">
+            <Button.Style>
+                <Style TargetType="Button"
+                       BasedOn="{StaticResource MaterialDesignFlatSecondaryButton}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True">
+                            <Setter Property="Background"
+                                    Value="LightGray" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Button.Content>
+                <materialDesign:PackIcon Kind="Refresh"
+                                         Foreground="Black"
+                                         Height="30"
+                                         Width="30" />
+            </Button.Content>
+        </Button>
         <materialDesign:Card Width="1200"
                              Height="630"
                              Margin="0,50,0,0">
@@ -82,7 +112,7 @@
                                                 <Border.Background>
                                                     <ImageBrush x:Name="smallimg"
                                                                 Stretch="Fill"
-                                                                ImageSource="{Binding ImgSource}" />
+                                                                ImageSource="{Binding Image}" />
                                                 </Border.Background>
                                             </Border>
                                             <StackPanel Margin="20,0,0,0">
@@ -176,7 +206,7 @@
                                FontSize="15" />
                     </StackPanel>
                 </Grid>
-                
+
             </StackPanel>
         </materialDesign:Card>
         <Grid Grid.RowSpan="2">

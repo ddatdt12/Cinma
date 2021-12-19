@@ -274,6 +274,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             Description = null;
             ImageSource = null;
             Level = null;
+            filepath = null;
         }
 
         public async Task LoadListStaff()

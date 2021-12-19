@@ -13,40 +13,7 @@ namespace CinemaManagement.Utils
 {
     public class Helper
     {
-        public static byte[] ConvertImageToBase64Str(string imageFilePath)
-        {
-            FileStream fs = new FileStream(imageFilePath, FileMode.Open, FileAccess.Read);
-
-            //Initialize a byte array with size of stream
-            byte[] imgByteArr = new byte[fs.Length];
-
-            //Read data from the file stream and put into the byte array
-            fs.Read(imgByteArr, 0, Convert.ToInt32(fs.Length));
-
-            //Close a file stream
-            fs.Close();
-            return imgByteArr;
-        }
-        public static ImageSource ConvertByteToImageSource(byte[] image)
-        {
-            //Byte[] image = Convert.FromBase64String(imageStr);
-            BitmapImage bi = new BitmapImage();
-            MemoryStream stream = new MemoryStream();
-            if (image == null)
-            {
-                return null;
-            }
-            stream.Write(image, 0, image.Length);
-            stream.Position = 0;
-            System.Drawing.Image img = System.Drawing.Image.FromStream(stream);
-            bi.BeginInit();
-            MemoryStream ms = new MemoryStream();
-            img.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
-            ms.Seek(0, SeekOrigin.Begin);
-            bi.StreamSource = ms;
-            bi.EndInit();
-            return bi;
-        }
+        
         public static (string, List<string>) GetListCode(int quantity, int length, string firstChars, string lastChars)
         {
             List<string> ListCode = new List<string>();
@@ -106,35 +73,7 @@ namespace CinemaManagement.Utils
         {
             return t.ToString(@"hh\:mm");
         }
-        public static string CreateImageName(string imageName)
-        {
-            imageName = RemoveUnicode(imageName).Replace(@"\", string.Empty);
 
-            Regex reg = new Regex("[*'\",_&#^@:|<>?/]");
-            imageName = reg.Replace(imageName, string.Empty);
-
-            return String.Join("_", imageName.Split(' ')).ToLower();
-        }
-        public static string CreateImageFullName(string imageName, string ext)
-        {
-            return $"{imageName}.{ext}";
-        }
-
-        public static ImageSource GetNullImageSource(string imageName)
-        {
-            if (!File.Exists(Path.Combine(Environment.CurrentDirectory, @"..\..\Resources\Images\Null", $"{imageName}" /*SelectedItem.Image*/)))
-                return null;
-
-            BitmapImage _image = new BitmapImage();
-            _image.BeginInit();
-            _image.CacheOption = BitmapCacheOption.None;
-            _image.UriCachePolicy = new RequestCachePolicy(RequestCacheLevel.BypassCache);
-            _image.CacheOption = BitmapCacheOption.OnLoad;
-            _image.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
-            _image.UriSource = new Uri(GetNullImgPath(imageName));
-            _image.EndInit();
-            return _image;
-        }
 
         public static string GetImagePath(string imageName)
         {

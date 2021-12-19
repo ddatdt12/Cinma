@@ -227,13 +227,13 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                 });
 
-            ImportFoodChangeCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
-                {
-                    if (SelectedProduct != null && SelectedProduct.Image != null)
-                    {
-                        ImageSource = CloudinaryService.Ins.LoadImageFromURL(SelectedProduct.Image);
-                    }
-                });
+            ImportFoodChangeCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
+                 {
+                     if (SelectedProduct != null && SelectedProduct.Image != null)
+                     {
+                         ImageSource = await CloudinaryService.Ins.LoadImageFromURL(SelectedProduct.Image);
+                     }
+                 });
 
             OpenImportFoodCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
                 {
@@ -263,64 +263,74 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     IsSaving = false;
                 });
 
-            OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; }, (p) =>
-                {
-                    EditFoodWindow wd = new EditFoodWindow();
-                    isLoadding = true;
-                    LoadEditFood(wd);
-                    isLoadding = false;
+            OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
+                 {
+                     EditFoodWindow wd = new EditFoodWindow();
 
-                    if (SelectedItem != null)
-                    {
-                        string tempCategory = SelectedItem.Category;
-                        if (tempCategory == "Đồ ăn")
-                        {
-                            wd._category.Text = SelectedItem.Category;
-                        }
-                        else
-                        {
-                            wd._category.Text = "Nước uống";
-                        }
+                     IsLoadding = true;
 
-                    }
+                     await LoadEditFood(wd);
 
-                    MaskName.Visibility = Visibility.Visible;
-                    wd.ShowDialog();
+                     IsLoadding = false;
 
-                });
+                     if (SelectedItem != null)
+                     {
+                         string tempCategory = SelectedItem.Category;
+                         if (tempCategory == "Đồ ăn")
+                         {
+                             wd._category.Text = SelectedItem.Category;
+                         }
+                         else
+                         {
+                             wd._category.Text = "Nước uống";
+                         }
+
+                     }
+
+                     MaskName.Visibility = Visibility.Visible;
+                     wd.ShowDialog();
+
+                 });
 
             EditFoodCommand = new RelayCommand<Window>((p) => { if (IsSaving) { return false; } return true; }, async (p) =>
             {
                 isSaving = true;
+
                 await EditFood(p);
+
                 IsSaving = false;
             });
 
-            DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
-                 {
-                     Image = SelectedItem.Image;
-                     Id = SelectedItem.Id;
-                     MessageBoxCustom mbx = new MessageBoxCustom("Cảnh báo", "Bạn có chắc muốn xoá sản phẩm này không?", MessageType.Warning, MessageButtons.YesNo);
-                     mbx.ShowDialog();
-                     if (mbx.DialogResult == true)
-                     {
-                         (bool successDelMovie, string messageFromDelMovie) = ProductService.Ins.DeleteProduct(Id);
-                         if (successDelMovie)
-                         {
-                             MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
-                             mb.ShowDialog();
-                             LoadProductListView(Operation.DELETE);
-                             SelectedItem = null;
-                             return;
-                         }
-                         else
-                         {
-                             MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromDelMovie, MessageType.Error, MessageButtons.OK);
-                             mb.ShowDialog();
-                             return;
-                         }
-                     }
-                 });
+            DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+                  {
+                      Image = SelectedItem.Image;
+                      Id = SelectedItem.Id;
+                      MessageBoxCustom mbx = new MessageBoxCustom("Cảnh báo", "Bạn có chắc muốn xoá sản phẩm này không?", MessageType.Warning, MessageButtons.YesNo);
+                      mbx.ShowDialog();
+                      if (mbx.DialogResult == true)
+                      {
+                          IsLoadding = true;
+
+                          (bool successDelMovie, string messageFromDelMovie) = await ProductService.Ins.DeleteProduct(Id);
+                          
+                          IsLoadding = false;
+
+                          if (successDelMovie)
+                          {
+                              MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelMovie, MessageType.Success, MessageButtons.OK);
+                              mb.ShowDialog();
+                              LoadProductListView(Operation.DELETE);
+                              SelectedItem = null;
+                              return;
+                          }
+                          else
+                          {
+                              MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromDelMovie, MessageType.Error, MessageButtons.OK);
+                              mb.ShowDialog();
+                              return;
+                          }
+                      }
+                  });
 
             CloseCommand = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, (p) =>
             {
@@ -421,6 +431,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             DisplayName = "";
             ImageSource = null;
             Price = 0;
+            filepath = null;
         }
         Window GetWindowParent(Window p)
         {
