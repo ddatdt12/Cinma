@@ -268,6 +268,8 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 
                      IsLoadding = true;
 
+                     Quantity = SelectedItem.Quantity;
+
                      await LoadEditFood(wd);
 
                      IsLoadding = false;
