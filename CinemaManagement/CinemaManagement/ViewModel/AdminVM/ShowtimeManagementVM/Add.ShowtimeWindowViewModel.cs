@@ -13,7 +13,6 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
     {
 
         private DateTime _EndTime;
-
         public DateTime EndTime
         {
             get { return _EndTime; }
@@ -23,6 +22,14 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
         public ICommand LoadAddShowtimeCM { get; set; }
         public ICommand SaveCM { get; set; }
+
+        private bool isSaving;
+        public bool IsSaving
+        {
+            get { return isSaving; }
+            set { isSaving = value; OnPropertyChanged(); }
+        }
+
 
 
         public async Task SaveShowtimeFunc(Window p)
@@ -43,6 +50,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
                 if (IsSuccess)
                 {
+                    IsSaving = false;
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", message, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     await ReloadShowtimeList(SelectedRoomId);

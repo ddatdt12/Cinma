@@ -42,17 +42,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM
         #endregion
         public MovieScheduleWindowViewModel()
         {
-
-            MouseMoveWindowCM = new RelayCommand<FrameworkElement>((p) => { return p == null ? false : true; }, (p) =>
-            {
-                FrameworkElement window = Window.GetWindow(p);
-                var w = window as Window;
-                if (w != null)
-                {
-                    w.DragMove();
-                }
-            });
-
             VisibleSeat = new RelayCommand<object>((p) => { return true; }, (p) =>
              {
                  if (ShowTimeRoom != null)

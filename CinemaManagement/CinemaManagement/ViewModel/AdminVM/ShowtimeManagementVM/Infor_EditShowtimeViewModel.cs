@@ -102,10 +102,8 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             p._movieName.Text = SelectedItem.DisplayName;
             p._ShowtimeDate.Text = SelectedDate.ToString("dd-MM-yyyy");
 
-            if (SelectedRoomId == -1)
-                p._ShowtimeRoom.Text = "Phòng: Toàn bộ ";
-            else
-                p._ShowtimeRoom.Text = "Phòng: " + SelectedRoomId.ToString();
+            if (SelectedRoomId != -1)
+                p._ShowtimeRoom.Text = SelectedRoomId.ToString();
 
             ListShowtimeofMovie = new ObservableCollection<ShowtimeDTO>(SelectedItem.Showtimes);
 

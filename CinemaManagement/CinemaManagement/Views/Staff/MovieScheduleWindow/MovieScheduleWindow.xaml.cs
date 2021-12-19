@@ -38,5 +38,10 @@ namespace CinemaManagement.Views.Staff.MovieScheduleWindow
         {
             _Room.Visibility = Visibility.Collapsed;
         }
+
+        private void Movie_Schedule_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

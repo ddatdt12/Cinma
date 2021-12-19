@@ -408,7 +408,7 @@
                     </Grid>
                     <TextBlock VerticalAlignment="Top"
                                FontSize="30"
-                               Margin="10,20,0,0"
+                               Margin="15,20,0,0"
                                Text="{Binding SelectedFuncName}"
                                Foreground="White">
                     </TextBlock>

@@ -14,14 +14,8 @@
         WindowStartupLocation="CenterScreen"
         Height="400"
         AllowsTransparency="True"
-        Width="700">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseLeftButtonDown">
-            <i:InvokeCommandAction Command="{Binding MouseMoveWindowCM}"
-                                   CommandParameter="{Binding ElementName=Movie_Schedule}" />
-            
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+        Width="700"
+        MouseLeftButtonDown="Movie_Schedule_MouseLeftButtonDown">
     <Grid>
         <Border BorderBrush="Black"
                 BorderThickness="1"

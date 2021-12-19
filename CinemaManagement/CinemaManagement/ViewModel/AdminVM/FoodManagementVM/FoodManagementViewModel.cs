@@ -260,14 +260,14 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 {
                     IsSaving = true;
                     await AddFood(p);
-                    IsSaving = false;
                 });
-
             OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
                  {
                      EditFoodWindow wd = new EditFoodWindow();
 
                      IsLoadding = true;
+
+                     Quantity = SelectedItem.Quantity;
 
                      await LoadEditFood(wd);
 
@@ -295,10 +295,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             EditFoodCommand = new RelayCommand<Window>((p) => { if (IsSaving) { return false; } return true; }, async (p) =>
             {
                 isSaving = true;
-
                 await EditFood(p);
-
-                IsSaving = false;
             });
 
             DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
@@ -312,7 +309,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                           IsLoadding = true;
 
                           (bool successDelMovie, string messageFromDelMovie) = await ProductService.Ins.DeleteProduct(Id);
-                          
+
                           IsLoadding = false;
 
                           if (successDelMovie)
@@ -341,8 +338,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     MaskName.Visibility = Visibility.Collapsed;
                     w.Close();
                 }
-            }
-            );
+            });
 
             UpLoadImageCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
                 {

@@ -220,10 +220,11 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                                  ListShowtimeofMovie.RemoveAt(i);
                          }
                          oldSelectedItem = SelectedItem;
-                         await ReloadShowtimeList(SelectedRoomId);
                          SelectedShowtime = null;
                          MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelete, MessageType.Success, MessageButtons.OK);
                          mb.ShowDialog();
+
+                         await ReloadShowtimeList(SelectedRoomId);
                      }
                      else
                      {
@@ -335,15 +336,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     ShowtimeList = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate, id)));
                     IsLoading = false;
                 }
-                catch (System.Data.Entity.Core.EntityException e)
+                catch (System.Data.Entity.Core.EntityException )
                 {
-                    Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
@@ -356,15 +355,13 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     ShowtimeList = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate)));
                     IsLoading = false;
                 }
-                catch (System.Data.Entity.Core.EntityException e)
+                catch (System.Data.Entity.Core.EntityException)
                 {
-                    Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Console.WriteLine(e);
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }

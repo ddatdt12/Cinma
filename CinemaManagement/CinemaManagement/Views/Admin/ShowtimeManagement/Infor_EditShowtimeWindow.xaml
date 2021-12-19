@@ -102,10 +102,14 @@
                         <StackPanel>
                             <Label Content="Phòng chiếu"
                                    Margin="10,10,0,0" />
-                            <TextBlock x:Name="_ShowtimeRoom"
-                                       FontSize="20"
-                                       Margin="10,0,0,0" />
-
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontSize="20"
+                                           Margin="10,0,0,0"
+                                           Text="Phòng: " />
+                                <TextBlock x:Name="_ShowtimeRoom"
+                                           FontSize="20"
+                                           Text="{Binding  SelectedShowtime.RoomId}" />
+                            </StackPanel>
                         </StackPanel>
                         <StackPanel>
                             <Label Content="Giá vé"

@@ -1,6 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Utils;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -80,7 +81,21 @@ namespace CinemaManagement.Models.Services
                     context.Showtimes.Add(showtime);
 
                     //setting seats in room for new showtime 
-                    await SeatService.Ins.SettingSeatForNewShowtime(context, showtimeSet.RoomId, showtime.Id);
+                    var seatIds = await (from s in context.Seats
+                                         where s.RoomId == showtimeSet.RoomId
+                                         select s.Id
+                           ).ToListAsync();
+                    List<SeatSetting> seatSetList = new List<SeatSetting>();
+                    foreach (var seatId in seatIds)
+                    {
+                        seatSetList.Add(new SeatSetting
+                        {
+                            SeatId = seatId,
+                            ShowtimeId = showtime.Id
+                        });
+                    }
+                    context.SeatSettings.AddRange(seatSetList);
+
 
                     await context.SaveChangesAsync();
                     newShowtime.Id = showtime.Id;
@@ -100,7 +115,7 @@ namespace CinemaManagement.Models.Services
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    Showtime show = context.Showtimes.Find(showtimeId);
+                    Showtime show = await context.Showtimes.FindAsync(showtimeId);
                     if (show is null)
                     {
                         return (false, "Suất chiếu không tồn tại!");
