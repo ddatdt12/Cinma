@@ -38,6 +38,11 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 IsLoadding = true;
                 if (IsImageChanged)
                 {
+                    if (Image != null)
+                    {
+                        CloudinaryService.Ins.DeleteImage(Image);
+                    }
+
                     product.Image = await Task.Run(() => CloudinaryService.Ins.UploadImage(filepath));
 
                     if (product.Image is null)

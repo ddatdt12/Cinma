@@ -165,10 +165,10 @@ namespace CinemaManagement.Models.Services
 
                     if (prod.Image != null)
                     {
-                        await CloudinaryService .Ins.DeleteImage(prod.Image);
+                        CloudinaryService .Ins.DeleteImage(prod.Image);
+                        prod.Image = null;
                     }
                     prod.IsDeleted = true;
-                    prod.Image = null;
 
                     await context.SaveChangesAsync();
                 }

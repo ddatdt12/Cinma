@@ -54,7 +54,15 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (IsImageChanged)
                 {
+                    if (Image != null)
+                    {
+                        CloudinaryService.Ins.DeleteImage(Image);
+                    }
+
                     movie.Image = await CloudinaryService.Ins.UploadImage(filepath);
+
+                    
+
 
                     if (movie.Image is null)
                     {

@@ -52,7 +52,14 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
 
                 if (IsImageChanged)
                 {
-                    tb.Image = await CloudinaryService.Ins.UploadImage(filepath);
+                    Task<string> uploadImage = CloudinaryService.Ins.UploadImage(filepath);
+                    if (Image != null)
+                    {
+                        CloudinaryService.Ins.DeleteImage(Image);
+                    }
+
+                    tb.Image = await uploadImage;
+
                     if (tb.Image is null)
                     {
                         MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lỗi phát sinh trong quá trình lưu ảnh. Vui lòng thử lại", MessageType.Error, MessageButtons.OK);

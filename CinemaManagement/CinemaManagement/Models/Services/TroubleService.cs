@@ -114,6 +114,7 @@ namespace CinemaManagement.Models.Services
 
                     trouble.Title = updatedTrouble.Title;
                     trouble.Description = updatedTrouble.Description;
+
                     trouble.Image = updatedTrouble.Image;
                     trouble.SubmittedAt = DateTime.Now;
                     trouble.StaffId = updatedTrouble.StaffId;
