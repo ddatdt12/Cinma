@@ -85,7 +85,7 @@
 
             </StackPanel>
             <materialDesign:Card Background="#f0f2f5"
-                                 Width="1106"
+                                 Width="1110"
                                  materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                  materialDesign:ShadowAssist.ShadowEdges="Bottom"
                                  BorderThickness="0"
@@ -107,5 +107,35 @@
             </Frame>
 
         </Grid>
+
+        <Grid VerticalAlignment="Top"
+              Height="720"
+              Background="Transparent"
+              Grid.RowSpan="2">
+            <ProgressBar Grid.RowSpan="2"
+                         IsIndeterminate="{Binding IsLoading}"
+                         BorderThickness="0"
+                         VerticalAlignment="Top"
+                         Margin="0,60,0,0"
+                         x:Name="load"
+                         Height="3" />
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=load,Path=IsIndeterminate}"
+                                     Value="True">
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+
+                </Style>
+            </Grid.Style>
+        </Grid>
+
     </Grid>
+
+
 </Page>

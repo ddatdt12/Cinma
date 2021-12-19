@@ -113,8 +113,8 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             if (SelectedRankingTime.Length != 4) return;
             try
             {
-                (List<CustomerDTO> Top5Cus, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) = await StatisticsService.Ins.GetTop5CustomerExpenseByYear(int.Parse(SelectedRankingTime));
-                (int NewCustomerQuanityInYear, int TotalCustomerQuantityInYear, int WalkinGuestQuantityInYear) = await StatisticsService.Ins.GetDetailedCustomerStatistics(int.Parse(SelectedRankingTime));
+                (List<CustomerDTO> Top5Cus, decimal TicketExpenseOfTop1, decimal ProductExpenseOfTop1) = await Task.Run(() => StatisticsService.Ins.GetTop5CustomerExpenseByYear(int.Parse(SelectedRankingTime)));
+                (int NewCustomerQuanityInYear, int TotalCustomerQuantityInYear, int WalkinGuestQuantityInYear) = await Task.Run(() => StatisticsService.Ins.GetDetailedCustomerStatistics(int.Parse(SelectedRankingTime)));
                 Top5Customer = Top5Cus;
 
                 CustomerExpe = new SeriesCollection
@@ -165,8 +165,8 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             if (SelectedRankingTime.Length == 4) return;
             try
             {
-                (List<CustomerDTO> Top5Cus, decimal TicketExpenseTop1Cus, decimal ProductExpenseTop1Cus) = await StatisticsService.Ins.GetTop5CustomerExpenseByMonth(int.Parse(SelectedRankingTime.Remove(0, 6)));
-                (int NewCustomerQuanity, int TotalCustomerQuantity, int WalkinGuestQuantity) = await StatisticsService.Ins.GetDetailedCustomerStatistics(DateTime.Now.Year, int.Parse(SelectedRankingTime.Remove(0, 6)));
+                (List<CustomerDTO> Top5Cus, decimal TicketExpenseTop1Cus, decimal ProductExpenseTop1Cus) = await Task.Run(() => StatisticsService.Ins.GetTop5CustomerExpenseByMonth(int.Parse(SelectedRankingTime.Remove(0, 6))));
+                (int NewCustomerQuanity, int TotalCustomerQuantity, int WalkinGuestQuantity) = await Task.Run(() => StatisticsService.Ins.GetDetailedCustomerStatistics(DateTime.Now.Year, int.Parse(SelectedRankingTime.Remove(0, 6))));
                 Top5Customer = Top5Cus;
 
 
@@ -245,7 +245,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             try
             {
                 Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByYear(int.Parse(SelectedRankingTime2));
-                decimal TotalBenefitByYear = await StatisticsService.Ins.GetTotalBenefitContributionOfStaffs(int.Parse(SelectedRankingTime2));
+                decimal TotalBenefitByYear = await Task.Run(() => StatisticsService.Ins.GetTotalBenefitContributionOfStaffs(int.Parse(SelectedRankingTime2)));
                 decimal totaltop5 = 0;
                 foreach (var item in top5Staff)
                 {
@@ -286,7 +286,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             try
             {
                 Top5Staff = await StatisticsService.Ins.GetTop5ContributionStaffByMonth(int.Parse(SelectedRankingTime2.Remove(0, 6)));
-                decimal TotalBenefitByMonth = await StatisticsService.Ins.GetTotalBenefitContributionOfStaffs(DateTime.Now.Year, int.Parse(SelectedRankingTime2.Remove(0, 6)));
+                decimal TotalBenefitByMonth = await Task.Run(() => StatisticsService.Ins.GetTotalBenefitContributionOfStaffs(DateTime.Now.Year, int.Parse(SelectedRankingTime2.Remove(0, 6))));
                 decimal totaltop5 = 0;
                 foreach (var item in top5Staff)
                 {

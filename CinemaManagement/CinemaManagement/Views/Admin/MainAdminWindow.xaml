@@ -188,12 +188,22 @@
                                     </Style.Setters>
                                 </Style>
                             </StackPanel.Resources>
-                            <StackPanel HorizontalAlignment="Center">
-                                <materialDesign:PackIcon Kind="HomeCircle"
-                                                         Height="60"
-                                                         Width="80"
-                                                         Cursor="Hand">
-                                </materialDesign:PackIcon>
+                            <StackPanel HorizontalAlignment="Center"
+                                        Orientation="Horizontal"
+                                        Width="150">
+                                <Image Source="/Resources/Icon/iconApp.ico"
+                                       Height="50"
+                                       Width="50"
+                                       VerticalAlignment="Top" />
+                                <Label FontWeight="Bold"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"
+                                       HorizontalContentAlignment="Center"
+                                       Foreground="White">
+                                    <Label.Content>
+                                        <TextBlock>Squadin<LineBreak /> Cinema</TextBlock>
+                                    </Label.Content>
+                                </Label>
                             </StackPanel>
                             <StackPanel  Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Filmstrip"
@@ -266,7 +276,7 @@
                                         Command="{Binding LoadQLNVPageCM}"
                                         CommandParameter="{Binding ElementName=MainFrame}" />
                             </StackPanel>
-                            
+
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="AccountGroupOutline"
                                                          Width="30"
@@ -284,7 +294,7 @@
                                         Command="{Binding LoadQLKHPageCM}"
                                         CommandParameter="{Binding ElementName=MainFrame}" />
                             </StackPanel>
-                            
+
                             <StackPanel Orientation="Horizontal"
                                         Margin="10,0,0,0">
                                 <materialDesign:PackIcon Kind="Finance"
@@ -365,7 +375,7 @@
                                                    FontSize="20"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center"
-                                                   Foreground="White"/>
+                                                   Foreground="White" />
                                     </Border>
                                 </Grid>
 
@@ -393,7 +403,7 @@
                                        x:Name="count"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
-                                       Foreground="White"/>
+                                       Foreground="White" />
                         </Border>
                     </Grid>
                     <TextBlock VerticalAlignment="Top"

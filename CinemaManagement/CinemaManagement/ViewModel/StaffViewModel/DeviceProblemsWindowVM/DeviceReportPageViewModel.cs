@@ -90,12 +90,26 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             get => _Level;
             set { _Level = value; OnPropertyChanged(); }
         }
-      
-        private byte[] _Image;
-        public byte[] Image
+
+        private string _Image;
+        public string Image
         {
             get { return _Image; }
             set { _Image = value; OnPropertyChanged(); }
+        }
+
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set { isLoading = value; OnPropertyChanged(); }
+        }
+
+        private bool isSaving;
+        public bool IsSaving
+        {
+            get { return isSaving; }
+            set { isSaving = value; OnPropertyChanged(); }
         }
 
 
@@ -126,8 +140,10 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 });
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+                IsLoading = true;
                 await LoadListError();
                 await LoadListStaff();
+                IsLoading = false;
 
             });
             FilterListErrorCommand = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, (p) =>
@@ -140,6 +156,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
 
                 if (SelectedItem.Status == Utils.STATUS.IN_PROGRESS || SelectedItem.Status == Utils.STATUS.DONE)
                 {
+                    MaskName.Visibility = Visibility.Visible;
                     ViewError w = new ViewError();
                     w.ShowDialog();
                     return;
@@ -157,9 +174,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 w1.StaffName.Text = MainStaffViewModel.CurrentStaff.Name;
                 w1.ShowDialog();
             });
-            SaveErrorCM = new RelayCommand<AddError>((p) => { return true; }, async (p) =>
+            SaveErrorCM = new RelayCommand<AddError>((p) => { if (IsSaving) return false; return true; }, async (p) =>
              {
+                 IsSaving = true;
                  await SaveErrorFunc(p);
+                 IsSaving = false;
              });
             UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -183,9 +202,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
-            UpdateErrorCM = new RelayCommand<EditError>((p) => { return true; }, async (p) =>
+            UpdateErrorCM = new RelayCommand<EditError>((p) => { if (IsSaving) return false; return true; }, async (p) =>
             {
+                IsSaving = true;
                 await UpdateErrorFunc(p);
+                IsSaving = false;
             });
 
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
@@ -206,8 +227,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                 {
                     w.DragMove();
                 }
-            }
-           );
+            });
 
         }
 
@@ -245,7 +265,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         }
         public async Task GetData()
         {
-            GetAllError = new ObservableCollection<TroubleDTO>(await TroubleService.Ins.GetAllTrouble());
+            GetAllError = new ObservableCollection<TroubleDTO>(await Task.Run(() => TroubleService.Ins.GetAllTrouble()));
             ListError = new ObservableCollection<TroubleDTO>(GetAllError);
         }
         public void RenewWindowData()
@@ -254,6 +274,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             Description = null;
             ImageSource = null;
             Level = null;
+            filepath = null;
         }
 
         public async Task LoadListStaff()

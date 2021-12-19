@@ -15,7 +15,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
         public ICommand LoadEditMovieCM { get; set; }
 
-        public void LoadEditMovie(EditMovie w1)
+        public async void LoadEditMovie(EditMovie w1)
         {
             List<GenreDTO> tempgenre = new List<GenreDTO>(SelectedItem.Genres);
 
@@ -31,7 +31,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             w1._Genre.Text = tempgenre[0].DisplayName;
             Image = SelectedItem.Image;
 
-            ImageSource = SelectedItem.ImgSource;
+            ImageSource =await  CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
         }
         public async Task UpdateMovieFunc(Window p)
         {
@@ -54,7 +54,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (IsImageChanged)
                 {
-                    movie.Image = Helper.ConvertImageToBase64Str(filepath);
+                    movie.Image = await CloudinaryService.Ins.UploadImage(filepath);
+
+                    if (movie.Image is null)
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lỗi phát sinh trong quá trình lưu ảnh. Vui lòng thử lại", MessageType.Error, MessageButtons.OK);
+                        return;
+                    }
                 }
                 else
                 {

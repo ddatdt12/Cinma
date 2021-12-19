@@ -10,7 +10,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 {
     public partial class FoodManagementViewModel : BaseViewModel
     {
-        public void LoadEditFood(EditFoodWindow wd)
+        public async Task LoadEditFood(EditFoodWindow wd)
         {
             if (SelectedItem != null)
             {
@@ -21,7 +21,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 Id = SelectedItem.Id;
                 IsImageChanged = false;
 
-                ImageSource = SelectedItem.ImgSource;
+                ImageSource = await CloudinaryService.Ins.LoadImageFromURL(Image);
             }
         }
 
@@ -29,24 +29,33 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             if (Id != -1 && IsValidData())
             {
-
                 ProductDTO product = new ProductDTO();
-
                 product.DisplayName = DisplayName;
                 product.Category = Category.Content.ToString();
                 product.Price = Price;
                 product.Id = Id;
                 product.Quantity = Quantity;
+
+                IsLoadding = true;
                 if (IsImageChanged)
-                {                   
-                    product.Image = Helper.ConvertImageToBase64Str(filepath);
+                {
+                    product.Image = await Task.Run(() => CloudinaryService.Ins.UploadImage(filepath));
+
+                    if (product.Image is null)
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lỗi phát sinh trong quá trình lưu ảnh. Vui lòng thử lại", MessageType.Error, MessageButtons.OK);
+                        return;
+                    }
                 }
                 else
                 {
                     product.Image = Image;
                 }
-                long s = product.Image.Length;
+
                 (bool successUpdateProduct, string messageFromUpdateProduct) = await ProductService.Ins.UpdateProduct(product);
+
+                IsLoadding = false;
+
 
                 if (successUpdateProduct)
                 {

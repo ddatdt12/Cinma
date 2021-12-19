@@ -176,6 +176,7 @@
                 <Button Width="120"
                         x:Name="sendmailbtn"
                         Content="Gửi mã"
+                        Padding="0,0,0,5"
                         materialDesign:ButtonAssist.CornerRadius="8"
                         Click="sendmailbtn_Click"
                         Command="{Binding SendMailCM}"
@@ -189,6 +190,7 @@
                 </Button>
                 <Button Content="Xác nhận"
                         Width="120"
+                        Padding="0,0,0,5"
                         Visibility="Collapsed"
                         x:Name="acceptbutn"
                         materialDesign:ButtonAssist.CornerRadius="8"

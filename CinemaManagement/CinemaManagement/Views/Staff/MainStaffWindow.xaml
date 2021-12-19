@@ -53,11 +53,21 @@
                 </Grid.Resources>
                 <StackPanel Grid.Row="0"
                             Orientation="Horizontal"
-                            Grid.ColumnSpan="2">
+                            Grid.ColumnSpan="2"
+                            Height="40">
                     <Image Source="/Resources/Icon/iconApp.ico"
-                           Height="80"
-                           Width="80"
-                           Margin="30,0,10,-0" />
+                           Width="40"
+                           Margin="10,-5,5,0" />
+                    <TextBlock TextWrapping="Wrap"
+                               materialDesign:TextBlockAssist.AutoToolTip="True"
+                               VerticalAlignment="Bottom"
+                               TextAlignment="Center"
+                               Text="Squadin Cinema"
+                               FontFamily="Helvetica"
+                               FontWeight="Bold"
+                               Foreground="#e3e9fa"
+                               FontSize="16" 
+                               Width="70"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1">
                     <Border CornerRadius="5">
@@ -267,11 +277,26 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Frame>
-                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                <ProgressBar
                              Height="100"
                              Width="100"
                              IsIndeterminate="{Binding IsLoading}"
-                             Grid.RowSpan="2" />
+                             Grid.RowSpan="2">
+                    <ProgressBar.Style>
+                        <Style TargetType="ProgressBar"
+                               BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
+                            <Style.Triggers>
+                                <Trigger Property="IsIndeterminate"
+                                         Value="False">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ProgressBar.Style>
+                </ProgressBar>
             </Grid>
 
         </Grid>

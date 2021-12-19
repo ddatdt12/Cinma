@@ -31,7 +31,7 @@
                FontSize="35"
                FontWeight="UltraBlack"
                Foreground="#0c70b6"
-               Content="Welcome Back"
+               Content="WELCOME BACK"
                VerticalAlignment="Center"
                HorizontalAlignment="Center"
                Height="50"
@@ -103,6 +103,7 @@
                     <Button Content="Đăng nhập"
                             Width="120"
                             x:Name="loginbtn"
+                            Padding="0,0,0,5"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding LoginCM}"
                             CommandParameter="{Binding ElementName=Error}">

@@ -23,28 +23,9 @@ namespace CinemaManagement.DTOs
         public decimal RepairCost { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? FinishDate { get; set; }
-        public byte[] Image
+        public string Image
         {
             get; set;
-        }
-        public ImageSource _imgSource;
-        public ImageSource ImgSource
-        {
-            get
-            {
-                if (_imgSource is null)
-                {
-                    if (Image is null)
-                    {
-                        _imgSource = Helper.GetNullImageSource("null.jpg");
-                    }
-                    else
-                    {
-                        _imgSource = Helper.ConvertByteToImageSource(Image);
-                    }
-                }
-                return _imgSource;
-            }
         }
         public string StaffId { get; set; }
         public string StaffName { get; set; }

@@ -43,24 +43,26 @@ namespace CinemaManagement.Models.Services
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    List<TroubleDTO> troubleList =await (from trou in context.Troubles
-                                                    select new TroubleDTO
-                                                    {
-                                                        Id = trou.Id,
-                                                        Title = trou.Title,
-                                                        Description = trou.Description,
-                                                        Image = trou.Image,
-                                                        Level = trou.Level,
-                                                        Status = trou.Status,
-                                                        RepairCost = trou.RepairCost,
-                                                        SubmittedAt = trou.SubmittedAt,
-                                                        StartDate = trou.StartDate,
-                                                        FinishDate = trou.FinishDate,
-                                                        StaffId = trou.StaffId,
-                                                        StaffName = trou.Staff.Name,
-                                                    }).ToListAsync();
+                    List<TroubleDTO> troubleList = await (from trou
+                                                          in context.Troubles
+                                                          orderby trou.SubmittedAt descending
+                                                          select new TroubleDTO
+                                                          {
+                                                              Id = trou.Id,
+                                                              Title = trou.Title,
+                                                              Description = trou.Description,
+                                                              Image = trou.Image,
+                                                              Level = trou.Level,
+                                                              Status = trou.Status,
+                                                              RepairCost = trou.RepairCost,
+                                                              SubmittedAt = trou.SubmittedAt,
+                                                              StartDate = trou.StartDate,
+                                                              FinishDate = trou.FinishDate,
+                                                              StaffId = trou.StaffId,
+                                                              StaffName = trou.Staff.Name,
+                                                          }).ToListAsync();
 
-                    return  troubleList;
+                    return troubleList;
                 }
             }
             catch (Exception e)

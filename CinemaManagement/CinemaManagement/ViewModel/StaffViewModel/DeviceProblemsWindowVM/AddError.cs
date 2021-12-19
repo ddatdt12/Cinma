@@ -24,12 +24,19 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         {
             if (filepath != null && IsValidData())
             {
+                string troubleImage = await CloudinaryService.Ins.UploadImage(filepath);
+                if (troubleImage is null)
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lỗi phát sinh trong quá trình lưu ảnh. Vui lòng thử lại", MessageType.Error, MessageButtons.OK);
+                    return;
+                }
+
                 TroubleDTO trouble = new TroubleDTO
                 {
                     Title = Title,
                     Level = Level.Content.ToString(),
                     Description = Description,
-                    Image = Helper.ConvertImageToBase64Str(filepath),
+                    Image = troubleImage,
                     StaffId = MainStaffViewModel.CurrentStaff.Id,
                 };
 

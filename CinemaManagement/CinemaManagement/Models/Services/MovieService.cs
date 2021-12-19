@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System;
 using System.Data.Entity.Validation;
 using System.Linq;
+using CinemaManagement.Utils;
 
 namespace CinemaManagement.Models.Services
 {
@@ -340,22 +341,29 @@ namespace CinemaManagement.Models.Services
             }
 
         }
-        public (bool, string) DeleteMovie(int Id)
+        public async Task<(bool, string)> DeleteMovie(int Id)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    Movie movie = (from p in context.Movies
-                                   where p.Id == Id && !p.IsDeleted
-                                   select p).SingleOrDefault();
-                    if (movie == null || movie?.IsDeleted == true)
+                    Movie movie = await (from p in context.Movies
+                                         where p.Id == Id && !p.IsDeleted
+                                         select p).FirstOrDefaultAsync();
+                    if (movie == null)
                     {
                         return (false, "Phim không tồn tại!");
                     }
+
+                    if (movie.Image != null)
+                    {
+                        await CloudinaryService.Ins.DeleteImage(movie.Image);
+                        movie.Image = null;
+                    }
                     movie.IsDeleted = true;
 
-                    context.SaveChanges();
+
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception e)

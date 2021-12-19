@@ -8,7 +8,6 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="InprogressError"
         DataContext="{StaticResource MainAdminVM}"
         Height="500"
         Width="850"
@@ -61,7 +60,7 @@
                         BorderThickness="1"
                         BorderBrush="Black">
                     <Border.Background>
-                        <ImageBrush ImageSource="{Binding SelectedItem.ImgSource}" />
+                        <ImageBrush ImageSource="{Binding SelectedItem.Image}" />
                     </Border.Background>
                 </Border>
 

@@ -1,4 +1,5 @@
 ﻿using CinemaManagement.DTOs;
+using CinemaManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -32,23 +33,22 @@ namespace CinemaManagement.Models.Services
         {
             try
             {
-                List<ProductDTO> productDTOs;
                 using (var context = new CinemaManagementEntities())
                 {
-                    productDTOs = await (from p in context.Products
-                                         where !p.IsDeleted
-                                         select new ProductDTO
-                                         {
-                                             Id = p.Id,
-                                             DisplayName = p.DisplayName,
-                                             Price = p.Price,
-                                             Category = p.Category,
-                                             Quantity = p.Quantity,
-                                             Image = p.Image
-                                         }
+                    List<ProductDTO> productDTOs = await (from p in context.Products
+                                                          where !p.IsDeleted
+                                                          select new ProductDTO
+                                                          {
+                                                              Id = p.Id,
+                                                              DisplayName = p.DisplayName,
+                                                              Price = p.Price,
+                                                              Category = p.Category,
+                                                              Quantity = p.Quantity,
+                                                              Image = p.Image
+                                                          }
                      ).ToListAsync();
+                    return productDTOs;
                 }
-                return productDTOs;
             }
             catch (Exception e)
             {
@@ -136,7 +136,7 @@ namespace CinemaManagement.Models.Services
             }
             catch (DbEntityValidationException e)
             {
-                return (false,$"DbEntityValidationException {e.Message}");
+                return (false, $"DbEntityValidationException {e.Message}");
 
             }
             catch (DbUpdateException e)
@@ -149,22 +149,28 @@ namespace CinemaManagement.Models.Services
             }
 
         }
-        public (bool, string) DeleteProduct(int Id)
+        public async Task<(bool, string)> DeleteProduct(int Id)
         {
             try
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    Product prod = (from p in context.Products
+                    Product prod = await (from p in context.Products
                                     where p.Id == Id && !p.IsDeleted
-                                    select p).FirstOrDefault();
-                    if (prod is null || prod?.IsDeleted == true)
+                                    select p).FirstOrDefaultAsync();
+                    if (prod is null)
                     {
                         return (false, "Sản phẩm không tồn tại!");
                     }
-                    prod.IsDeleted = true;
 
-                    context.SaveChanges();
+                    if (prod.Image != null)
+                    {
+                        await CloudinaryService .Ins.DeleteImage(prod.Image);
+                    }
+                    prod.IsDeleted = true;
+                    prod.Image = null;
+
+                    await context.SaveChangesAsync();
                 }
             }
             catch (Exception e)

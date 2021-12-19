@@ -9,13 +9,12 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="InprogressError"
         DataContext="{StaticResource DeviceReportPageVM}"
         Height="500"
         Width="850"
         MouseLeftButtonDown="window_MouseLeftButtonDown"
         WindowStartupLocation="CenterScreen"
-        FontSize="15"
+        FontSize="20"
         x:Name="window">
     <Border BorderThickness="1"
             BorderBrush="Black"
@@ -27,7 +26,7 @@
                 <RowDefinition Height="83*" />
             </Grid.RowDefinitions>
 
-            <Border BorderThickness="0,0,0,0.5"
+            <Border BorderThickness="0,0,0,1"
                     BorderBrush="Black"
                     Grid.Row="0">
                 <StackPanel Orientation="Horizontal">
@@ -63,7 +62,7 @@
                         BorderThickness="1"
                         BorderBrush="Black">
                     <Border.Background>
-                        <ImageBrush ImageSource="{Binding SelectedItem.ImgSource}" />
+                        <ImageBrush ImageSource="{Binding SelectedItem.Image}" />
                     </Border.Background>
                 </Border>
 
@@ -98,8 +97,8 @@
                                 <TextBlock Text="Ngày tiếp nhận:" />
                                 <TextBlock Text="{Binding SelectedItem.SubmittedAt,StringFormat=dd/MM/yyyy HH:mm:ss}" />
                             </StackPanel>
-                            <StackPanel Margin="120,10,0,0">
-                                <TextBlock Text="Nhân viên:" />
+                            <StackPanel Margin="100,10,0,0">
+                                <TextBlock Text="Nhân viên báo cáo:" />
                                 <TextBlock Text="{Binding SelectedItem.StaffName}" />
                             </StackPanel>
                         </StackPanel>
@@ -117,8 +116,7 @@
                                     x:Name="_startday"
                                     IsEnabled="False">
                             <TextBlock Text="Ngày sửa:" />
-                            <TextBlock Width="140"
-                                       HorizontalAlignment="Left"
+                            <TextBlock HorizontalAlignment="Left"
                                        Text="{Binding SelectedItem.StartDate,StringFormat=dd/MM/yyyy HH:mm:ss}" />
                         </StackPanel>
 
@@ -126,8 +124,7 @@
                                     x:Name="_Finishday"
                                     IsEnabled="False">
                             <TextBlock Text="Ngày hoàn thành:" />
-                            <TextBlock Width="140"
-                                       HorizontalAlignment="Left"
+                            <TextBlock HorizontalAlignment="Left"
                                        Text="{Binding SelectedItem.FinishDate,StringFormat=dd/MM/yyyy HH:mm:ss}" />
                         </StackPanel>
 
@@ -135,8 +132,7 @@
                                     x:Name="_cost"
                                     IsEnabled="False">
                             <TextBlock Text="Chi phí:" />
-                            <TextBlock Width="140"
-                                       HorizontalAlignment="Left"
+                            <TextBlock HorizontalAlignment="Left"
                                        Text="{Binding SelectedItem.RepairCostStr}" />
                         </StackPanel>
                     </StackPanel>

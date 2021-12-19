@@ -101,7 +101,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             if (SelectedBestSellTime.Length != 4) return;
             try
             {
-                Top5Movie = await StatisticsService.Ins.GetTop5BestMovieByYear(int.Parse(SelectedBestSellTime));
+                Top5Movie = await Task.Run(() => StatisticsService.Ins.GetTop5BestMovieByYear(int.Parse(SelectedBestSellTime)));
             }
             catch (System.Data.Entity.Core.EntityException e)
             {
@@ -139,7 +139,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             if (SelectedBestSellTime.Length == 4) return;
             try
             {
-                Top5Movie = await StatisticsService.Ins.GetTop5BestMovieByMonth(int.Parse(SelectedBestSellTime.Remove(0, 6)));
+                Top5Movie = await Task.Run(() => StatisticsService.Ins.GetTop5BestMovieByMonth(int.Parse(SelectedBestSellTime.Remove(0, 6))));
             }
             catch (System.Data.Entity.Core.EntityException e)
             {
@@ -206,7 +206,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             if (SelectedBestSellTime2.Length != 4) return;
             try
             {
-                Top5Product = await StatisticsService.Ins.GetTop5BestProductByYear(int.Parse(SelectedBestSellTime2));
+                Top5Product = await Task.Run(() => StatisticsService.Ins.GetTop5BestProductByYear(int.Parse(SelectedBestSellTime2)));
             }
             catch (System.Data.Entity.Core.EntityException e)
             {
@@ -244,7 +244,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
             if (SelectedBestSellTime2.Length == 4) return;
             try
             {
-                Top5Product = await StatisticsService.Ins.GetTop5BestProductByMonth(int.Parse(SelectedBestSellTime2.Remove(0, 6)));
+                Top5Product = await Task.Run(() => StatisticsService.Ins.GetTop5BestProductByMonth(int.Parse(SelectedBestSellTime2.Remove(0, 6))));
 
             }
             catch (System.Data.Entity.Core.EntityException e)

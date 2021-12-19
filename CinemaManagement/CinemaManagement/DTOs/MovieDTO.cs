@@ -24,29 +24,9 @@ namespace CinemaManagement.DTOs
         public IList<ShowtimeDTO> Showtimes { get; set; }
         public IList<GenreDTO> Genres { get; set; }
 
-        public byte[] Image
+        public string Image
         {
             get;set;
-        }
-
-        public ImageSource _imgSource;
-        public ImageSource ImgSource
-        {
-            get
-            {
-                if (_imgSource is null)
-                {
-                    if (Image is null)
-                    {
-                        _imgSource = Helper.GetNullImageSource("null.jpg");
-                    }
-                    else
-                    {
-                        _imgSource = Helper.ConvertByteToImageSource(Image);
-                    }
-                }
-                return _imgSource;
-            }
         }
         public decimal Revenue { get; set; }
         public string RevenueStr

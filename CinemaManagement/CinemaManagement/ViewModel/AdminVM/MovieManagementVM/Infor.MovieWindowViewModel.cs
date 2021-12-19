@@ -11,7 +11,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
     {
         public ICommand LoadInforMovieCM { get; set; }
 
-        public void LoadInforMovie(InforMovieWindow w1)
+        public async void LoadInforMovie(InforMovieWindow w1)
         {
             List<GenreDTO> tempgenre = new List<GenreDTO>(SelectedItem.Genres);
 
@@ -25,7 +25,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieYear = SelectedItem.ReleaseYear.ToString();
             w1.Year.Text = SelectedItem.ReleaseYear.ToString();
 
-            ImageSource = SelectedItem.ImgSource;
+            ImageSource = await CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
 
         }
     }

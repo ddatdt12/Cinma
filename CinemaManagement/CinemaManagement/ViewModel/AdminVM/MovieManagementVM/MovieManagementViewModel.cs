@@ -87,8 +87,8 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             set { _movieYear = value; OnPropertyChanged(); }
         }
 
-        private byte[] _Image;
-        public byte[] Image
+        private string _Image;
+        public string Image
         {
             get { return _Image; }
             set { _Image = value; OnPropertyChanged(); }
@@ -103,6 +103,14 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             get { return isloadding; }
             set { isloadding = value; OnPropertyChanged(); }
         }
+
+        private bool isSaving;
+        public bool IsSaving
+        {
+            get { return isSaving; }
+            set { isSaving = value; OnPropertyChanged(); }
+        }
+
 
         string filepath;
         bool IsImageChanged = false;
@@ -201,7 +209,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             {
                 RenewWindowData();
                 Window w1 = new AddMovieWindow();
-             
+
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
 
@@ -223,7 +231,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
-            LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; },async (p) =>
              {
                  Image = SelectedItem.Image;
                  string message = "Bạn có chắc muốn xoá phim này không? Dữ liệu không thể phục hồi sau khi xoá!";
@@ -233,7 +241,11 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                  {
                      case true:
                          {
-                             (bool successDelMovie, string messageFromDelMovie) = MovieService.Ins.DeleteMovie(SelectedItem.Id);
+                             IsLoadding = true;
+                             
+                             (bool successDelMovie, string messageFromDelMovie) = await MovieService.Ins.DeleteMovie(SelectedItem.Id);
+                             
+                             IsLoadding = false;
 
                              if (successDelMovie)
                              {
@@ -269,13 +281,17 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 IsImageChanged = false;
 
             });
-            UpdateMovieCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            UpdateMovieCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, async (p) =>
              {
+                 IsSaving = true;
                  await UpdateMovieFunc(p);
+                 IsSaving = false;
              });
-            SaveMovieCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            SaveMovieCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, async (p) =>
              {
+                 IsSaving = true;
                  await SaveMovieFunc(p);
+                 IsSaving = false;
              });
             CloseCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
@@ -334,6 +350,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieDes = null;
             ImageSource = null;
             movieYear = null;
+            filepath = null;
         }
         public void InsertCountryToComboBox()
         {

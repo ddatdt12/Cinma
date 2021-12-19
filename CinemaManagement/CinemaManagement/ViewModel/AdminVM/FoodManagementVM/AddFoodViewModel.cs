@@ -18,9 +18,16 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.DisplayName = DisplayName;
                 product.Category = Category.Content.ToString();
                 product.Price = Price;
-                product.Image = Helper.ConvertImageToBase64Str(filepath);
                 product.Quantity = 0;
 
+                //Upload image
+                product.Image = await CloudinaryService.Ins.UploadImage(filepath);
+
+                if (product.Image is null)
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lỗi phát sinh trong quá trình lưu ảnh. Vui lòng thử lại", MessageType.Error, MessageButtons.OK);
+                    return;
+                }
                 (bool successAddProduct, string messageFromAddProduct, ProductDTO newProduct) = await ProductService.Ins.AddNewProduct(product);
 
                 if (successAddProduct)
@@ -30,7 +37,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     p.Close();
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromAddProduct, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
-                    filepath = null; 
+                    filepath = null;
                 }
                 else
                 {

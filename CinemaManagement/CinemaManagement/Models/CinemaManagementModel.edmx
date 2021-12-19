@@ -55,7 +55,7 @@
           <Property Name="MovieType" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Director" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="Image" Type="varchar" MaxLength="1500" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -67,7 +67,7 @@
           <Property Name="Price" Type="money" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="Image" Type="varchar" MaxLength="1500" />
         </EntityType>
         <EntityType Name="ProductBillInfo">
           <Key>
@@ -173,7 +173,7 @@
           <Property Name="FinishDate" Type="datetime" />
           <Property Name="StaffId" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Level" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="Image" Type="varchar" MaxLength="1500" />
         </EntityType>
         <EntityType Name="Voucher">
           <Key>
@@ -1042,7 +1042,7 @@
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Image" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ProductBillInfoes" Relationship="CinemaManagementModel.FK__ProductBi__Produ__68487DD7" FromRole="Product" ToRole="ProductBillInfo" />
           <NavigationProperty Name="ProductReceipts" Relationship="CinemaManagementModel.PRODUCT_RECEIPT_PRODUCTID_FK" FromRole="Product" ToRole="ProductReceipt" />
         </EntityType>
@@ -1083,7 +1083,7 @@
           <Property Name="MovieType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Director" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Image" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Showtimes" Relationship="CinemaManagementModel.FK__Showtime__MovieI__4F7CD00D" FromRole="Movie" ToRole="Showtime" />
           <NavigationProperty Name="Genres" Relationship="CinemaManagementModel.GenreDetails" FromRole="Movie" ToRole="Genre" />
         </EntityType>
@@ -1101,7 +1101,7 @@
           <Property Name="FinishDate" Type="DateTime" Precision="3" />
           <Property Name="StaffId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Level" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Image" Type="String" MaxLength="1500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Staff" Relationship="CinemaManagementModel.FK__Trouble__StaffId__76969D2E" FromRole="Trouble" ToRole="Staff" />
         </EntityType>
         <Association Name="FK__Showtime__MovieI__4F7CD00D">

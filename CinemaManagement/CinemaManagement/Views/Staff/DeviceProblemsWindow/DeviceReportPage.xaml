@@ -84,17 +84,17 @@
                                 Background="Red">
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Center">
-                                <materialDesign:PackIcon Kind="AlertCircleOutline" 
+                                <materialDesign:PackIcon Kind="AlertCircleOutline"
                                                          Height="25"
                                                          Width="25"
-                                                         VerticalAlignment="Center"/>
-                                <TextBlock Text="Báo cáo" 
+                                                         VerticalAlignment="Center" />
+                                <TextBlock Text="Báo cáo"
                                            Margin="3 0 0 0"
                                            FontSize="18"
-                                           VerticalAlignment="Center"/>
+                                           VerticalAlignment="Center" />
 
                             </StackPanel>
-                            
+
 
                         </Button>
                     </Grid>
@@ -121,7 +121,7 @@
                                                             Height="100">
                                                         <Border.Background>
                                                             <ImageBrush Stretch="Fill"
-                                                                        ImageSource="{Binding ImgSource}" />
+                                                                        ImageSource="{Binding Image}" />
                                                         </Border.Background>
                                                     </Border>
                                                     <StackPanel Margin="20,0,0,0">
@@ -201,5 +201,25 @@
               Opacity="0.3"
               Visibility="Collapsed"
               x:Name="ShadowMask" />
+        <ProgressBar Height="100"
+                     Width="100"
+                     IsIndeterminate="{Binding IsLoading}">
+            <ProgressBar.Style>
+                <Style TargetType="ProgressBar"
+                       BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
+                    <Style.Triggers>
+                        <Trigger Property="IsIndeterminate"
+                                 Value="True">
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ProgressBar.Style>
+        </ProgressBar>
+
+
     </Grid>
 </Page>
