@@ -121,7 +121,7 @@
                                                             Height="100">
                                                         <Border.Background>
                                                             <ImageBrush Stretch="Fill"
-                                                                        ImageSource="{Binding ImgSource}" />
+                                                                        ImageSource="{Binding Image}" />
                                                         </Border.Background>
                                                     </Border>
                                                     <StackPanel Margin="20,0,0,0">

@@ -231,7 +231,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 MaskName.Visibility = Visibility.Visible;
                 w1.ShowDialog();
             });
-            LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            LoadDeleteMovieCM = new RelayCommand<object>((p) => { return true; },async (p) =>
              {
                  Image = SelectedItem.Image;
                  string message = "Bạn có chắc muốn xoá phim này không? Dữ liệu không thể phục hồi sau khi xoá!";
@@ -241,7 +241,11 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                  {
                      case true:
                          {
-                             (bool successDelMovie, string messageFromDelMovie) = MovieService.Ins.DeleteMovie(SelectedItem.Id);
+                             IsLoadding = true;
+                             
+                             (bool successDelMovie, string messageFromDelMovie) = await MovieService.Ins.DeleteMovie(SelectedItem.Id);
+                             
+                             IsLoadding = false;
 
                              if (successDelMovie)
                              {
