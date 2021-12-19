@@ -10,11 +10,10 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
 {
     public partial class FoodManagementViewModel : BaseViewModel
     {
-        public void LoadEditFood(EditFoodWindow wd)
+        public async Task LoadEditFood(EditFoodWindow wd)
         {
             if (SelectedItem != null)
             {
-
                 DisplayName = SelectedItem.DisplayName;
                 wd._category.Text = SelectedItem.Category;
                 Price = SelectedItem.Price;
@@ -22,7 +21,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 Id = SelectedItem.Id;
                 IsImageChanged = false;
 
-                ImageSource = CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
+                ImageSource = await CloudinaryService.Ins.LoadImageFromURL(Image);
             }
         }
 
@@ -36,9 +35,16 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.Price = Price;
                 product.Id = Id;
 
+                IsLoadding = true;
                 if (IsImageChanged)
                 {
-                    product.Image = await CloudinaryService.Ins.UploadImage(filepath);
+                    product.Image = await Task.Run(() => CloudinaryService.Ins.UploadImage(filepath));
+
+                    if (product.Image is null)
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lỗi phát sinh trong quá trình lưu ảnh. Vui lòng thử lại", MessageType.Error, MessageButtons.OK);
+                        return;
+                    }
                 }
                 else
                 {
@@ -46,6 +52,9 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 }
 
                 (bool successUpdateProduct, string messageFromUpdateProduct) = await ProductService.Ins.UpdateProduct(product);
+
+                IsLoadding = false;
+
 
                 if (successUpdateProduct)
                 {

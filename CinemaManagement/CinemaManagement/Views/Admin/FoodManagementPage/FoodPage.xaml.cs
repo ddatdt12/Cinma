@@ -9,12 +9,10 @@ namespace CinemaManagement.Views.Admin.FoodManagementPage
 {
     public partial class FoodPage : Page
     {
-        bool firstload = false;
         public FoodPage()
         {
             InitializeComponent();
             cboxFilter.SelectedIndex = 0;
-            firstload = true;
         }
 
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)

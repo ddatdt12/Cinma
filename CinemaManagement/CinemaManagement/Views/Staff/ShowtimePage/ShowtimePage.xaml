@@ -68,7 +68,7 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                                 <StackPanel>
-                                    <Image Source="{Binding ImgSource}"
+                                    <Image Source="{Binding Image}"
                                            HorizontalAlignment="Left"
                                            VerticalAlignment="Top"
                                            Width="210"

@@ -1,9 +1,5 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
@@ -33,18 +29,45 @@ namespace CinemaManagement.Utils
             cloudinary.Api.Secure = true;
         }
 
+
+        
         public async Task<string> UploadImage(string filePath)
         {
-            var uploadParams = new ImageUploadParams()
+            try
             {
-                File = new FileDescription(filePath)
-            };
-            var uploadResult = await cloudinary.UploadAsync(uploadParams);
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(filePath),
+                    Folder = "squadinImages"
+                };
+                var uploadResult = await cloudinary.UploadAsync(uploadParams);
 
-            return uploadResult.SecureUrl.AbsoluteUri;
+                return uploadResult.SecureUrl.AbsoluteUri;
+            }
+            catch (System.Exception e)
+            {
+                return null;
+            }
+        }
+        public async Task DeleteImage(string imageURL)
+        {
+            try
+            {
+                string publicId = GetPublicIdFromURL(imageURL);
+                var deletionParams = new DeletionParams(publicId)
+                {
+                    ResourceType = ResourceType.Image,
+                };
+
+                var deletionResult = await cloudinary.DestroyAsync(deletionParams);
+            }
+            catch (System.Exception)
+            {
+                return;
+            }
         }
 
-        public BitmapImage LoadImageFromURL(string imageURL)
+        public async Task<BitmapImage> LoadImageFromURL(string imageURL)
         {
             if (string.IsNullOrEmpty(imageURL))
             {
@@ -52,7 +75,16 @@ namespace CinemaManagement.Utils
             }
             System.Net.WebRequest request =
                         System.Net.WebRequest.Create(imageURL);
-            System.Net.WebResponse response = request.GetResponse();
+            System.Net.HttpWebResponse response;
+            try
+            {
+                response = (await request.GetResponseAsync()) as System.Net.HttpWebResponse;
+            }
+            catch (System.Net.WebException)
+            {
+                return null;
+            }
+
             System.IO.Stream responseStream =
                 response.GetResponseStream();
 
@@ -63,6 +95,19 @@ namespace CinemaManagement.Utils
             bitmap.EndInit();
 
             return bitmap;
+        }
+        private string GetPublicIdFromURL(string url)
+        {
+            string strStart = "squadinImages";
+            string strEnd = ".";
+            if (url.Contains("squadinImages") && url.Contains("."))
+            {
+                int Start, End;
+                Start = url.IndexOf(strStart, 0);
+                End = url.IndexOf(strEnd, Start);
+                return url.Substring(Start, End - Start);
+            }
+            return null;
         }
     }
 }

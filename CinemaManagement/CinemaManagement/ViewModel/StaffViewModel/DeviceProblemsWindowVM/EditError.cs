@@ -3,12 +3,8 @@ using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Staff.DeviceProblemsWindow;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
@@ -27,9 +23,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             set { troubleID = value; }
         }
 
-        public void LoadEditError(EditError w1)
+        public async void LoadEditError(EditError w1)
         {
-
             IsImageChanged = false;
             Title = SelectedItem.Title;
             w1.staffname.Text = SelectedItem.StaffName;
@@ -39,7 +34,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             Description = SelectedItem.Description;
             TroubleID = SelectedItem.Id;
 
-            ImageSource = CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image); ;
+            ImageSource = await CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image); ;
         }
         public async Task UpdateErrorFunc(EditError p)
         {
@@ -52,13 +47,17 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     Title = Title,
                     Level = Level.Content.ToString(),
                     Description = Description,
-                    Image = await CloudinaryService.Ins.UploadImage(filepath),
-                    StaffId = "NV002",
+                    StaffId = MainStaffViewModel.CurrentStaff.Id,
                 };
 
                 if (IsImageChanged)
                 {
                     tb.Image = await CloudinaryService.Ins.UploadImage(filepath);
+                    if (tb.Image is null)
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lỗi phát sinh trong quá trình lưu ảnh. Vui lòng thử lại", MessageType.Error, MessageButtons.OK);
+                        return;
+                    }
                 }
                 else
                 {

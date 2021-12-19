@@ -20,6 +20,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                 List<GenreDTO> temp = new List<GenreDTO>();
                 temp.Add(movieGenre);
 
+                string movieImage = await CloudinaryService.Ins.UploadImage(filepath);
+
+                if (movieImage is null)
+                {
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Lỗi phát sinh trong quá trình lưu ảnh. Vui lòng thử lại", MessageType.Error, MessageButtons.OK);
+                    return;
+                }
 
                 MovieDTO movie = new MovieDTO
                 {
@@ -27,11 +34,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     Country = movieCountry,
                     Director = movieDirector,
                     Description = movieDes,
-                    Image = await CloudinaryService.Ins.UploadImage(filepath),
+                    Image = movieImage,
                     Genres = temp,
                     ReleaseYear = int.Parse(movieYear),
                     RunningTime = int.Parse(movieDuration),
                 };
+
+
 
                 (bool successAddMovie, string messageFromAddMovie, MovieDTO newMovie) = await MovieService.Ins.AddMovie(movie);
 

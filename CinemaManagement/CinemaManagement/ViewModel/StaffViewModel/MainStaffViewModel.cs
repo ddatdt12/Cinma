@@ -166,7 +166,7 @@ namespace CinemaManagement.ViewModel
                         w.DragMove();
                     }
                 });
-            LoadMovieScheduleWindow = new RelayCommand<Page>((p) => { return true; }, (p) =>
+            LoadMovieScheduleWindow = new RelayCommand<Page>((p) => { return true; }, async (p) =>
             {
 
                 MovieScheduleWindow w;
@@ -185,7 +185,7 @@ namespace CinemaManagement.ViewModel
                             if (SelectedItem != null)
                             {
                                 w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
-                                w.imgframe.Source = CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
+                                w.imgframe.Source =await  CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
                                 w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
                                 w.txtframe.Text = SelectedItem.DisplayName;
                                 w.ShowDialog();
