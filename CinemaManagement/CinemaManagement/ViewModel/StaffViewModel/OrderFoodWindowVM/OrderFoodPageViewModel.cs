@@ -25,6 +25,14 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
         public static List<SeatSettingDTO> tempListSeatSettings;
         public static bool IsBacking = false;
 
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set { isLoading = value; OnPropertyChanged(); }
+        }
+
+
         #region Commands
 
         public ICommand StoreCardViewCM { get; set; }
@@ -166,7 +174,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                 //Khởi tạo giá trị ban đầu cho tổng giá tiền
                 ReCalculate();
 
-                //Gán giá trị demo mẫu đồ ăn và thức uống
                 await LoadListProduct();
 
                 //Khởi tạo giá trị ban đầu các item cho MenuList
@@ -493,7 +500,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
 
         public async Task LoadListProduct()
         {
+            IsLoading = true;
             AllProduct = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+            IsLoading = false;
         }
 
         public void DeleteOrderProduct(ProductDTO temp)

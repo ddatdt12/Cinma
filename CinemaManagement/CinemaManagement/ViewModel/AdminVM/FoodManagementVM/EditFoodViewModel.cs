@@ -14,6 +14,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             if (SelectedItem != null)
             {
+
                 DisplayName = SelectedItem.DisplayName;
                 wd._category.Text = SelectedItem.Category;
                 Price = SelectedItem.Price;
@@ -21,7 +22,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 Id = SelectedItem.Id;
                 IsImageChanged = false;
 
-                ImageSource = SelectedItem.ImgSource;
+                ImageSource = CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
             }
         }
 
@@ -29,23 +30,21 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
         {
             if (Id != -1 && IsValidData())
             {
-
                 ProductDTO product = new ProductDTO();
-
                 product.DisplayName = DisplayName;
                 product.Category = Category.Content.ToString();
                 product.Price = Price;
                 product.Id = Id;
 
                 if (IsImageChanged)
-                {                   
-                    product.Image = Helper.ConvertImageToBase64Str(filepath);
+                {
+                    product.Image = await CloudinaryService.Ins.UploadImage(filepath);
                 }
                 else
                 {
                     product.Image = Image;
                 }
-                long s = product.Image.Length;
+
                 (bool successUpdateProduct, string messageFromUpdateProduct) = await ProductService.Ins.UpdateProduct(product);
 
                 if (successUpdateProduct)

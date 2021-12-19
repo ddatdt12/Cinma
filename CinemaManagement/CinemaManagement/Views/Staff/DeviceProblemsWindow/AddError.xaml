@@ -109,7 +109,7 @@
                                        Height="40"
                                        Width="300"
                                        Padding="0"
-                                       Margin="0,10,0,0"
+                                       Margin="5,10,0,0"
                                        x:Name="StaffName"/>
 
                         </StackPanel>
@@ -229,9 +229,6 @@
                                                      Height="Auto"
                                                      Foreground="White" />
                         </Button>
-
-                        <!--Upload Images-->
-
                     </StackPanel>
                 </Grid>
 

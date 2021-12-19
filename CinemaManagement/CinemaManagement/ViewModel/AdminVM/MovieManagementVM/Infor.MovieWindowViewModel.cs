@@ -25,7 +25,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             movieYear = SelectedItem.ReleaseYear.ToString();
             w1.Year.Text = SelectedItem.ReleaseYear.ToString();
 
-            ImageSource = SelectedItem.ImgSource;
+            ImageSource = CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
 
         }
     }

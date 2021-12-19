@@ -39,7 +39,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             Description = SelectedItem.Description;
             TroubleID = SelectedItem.Id;
 
-            ImageSource = SelectedItem.ImgSource;
+            ImageSource = CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image); ;
         }
         public async Task UpdateErrorFunc(EditError p)
         {
@@ -52,13 +52,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     Title = Title,
                     Level = Level.Content.ToString(),
                     Description = Description,
-                    Image = Helper.ConvertImageToBase64Str(filepath),
+                    Image = await CloudinaryService.Ins.UploadImage(filepath),
                     StaffId = "NV002",
                 };
 
                 if (IsImageChanged)
                 {
-                    tb.Image = Helper.ConvertImageToBase64Str(filepath);
+                    tb.Image = await CloudinaryService.Ins.UploadImage(filepath);
                 }
                 else
                 {

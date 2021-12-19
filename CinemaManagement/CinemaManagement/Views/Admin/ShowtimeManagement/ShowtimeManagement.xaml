@@ -37,8 +37,6 @@
         </EventTrigger>
     </Page.Triggers>
 
-
-
     <Grid Background="#f0f2f5">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" />
@@ -95,7 +93,7 @@
                             Padding="10,0,20,0"
                             materialDesign:ValidationAssist.Background="#f0f2f5"
                             materialDesign:ValidationAssist.FontSize="0.01"
-                            SelectedDate="{Binding SelectedDate,Mode=TwoWay}">
+                            SelectedDate="{Binding SelectedDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectedDateChanged">
                             <i:InvokeCommandAction Command="{Binding SelectedDateCM}"
@@ -296,5 +294,10 @@
               Opacity="0.3"
               Visibility="Collapsed"
               x:Name="ShadowMask" />
+        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                     Height="100"
+                     Width="100"
+                     Grid.RowSpan="2"
+                     IsIndeterminate="{Binding IsLoading}" />
     </Grid>
 </Page>

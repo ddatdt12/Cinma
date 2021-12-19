@@ -394,9 +394,6 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             ListViewVoucher = new ObservableCollection<VoucherDTO>();
             try
             {
-                //await Task.Delay(0);
-                //(VoucherReleaseDTO voucherReleaseDetail, _) = await VoucherService.Ins.GetVoucherReleaseDetails(SelectedItem.Id);
-                //StoreAllMini = new ObservableCollection<VoucherDTO>(voucherReleaseDetail.Vouchers);
                 ListViewVoucher = new ObservableCollection<VoucherDTO>(StoreAllMini);
             }
             catch (System.Data.Entity.Core.EntityException e)

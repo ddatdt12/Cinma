@@ -252,7 +252,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
         public void Output_ToString()
         {
             showTimeRoomNumber = showTimeRoom;
-            imgSourceFilmName = tempFilmName.ImgSource;
+            imgSourceFilmName = CloudinaryService.Ins.LoadImageFromURL(tempFilmName.Image);
             txtFilm = tempFilmName.DisplayName;
             startTime = CurrentShowtime.StartTime.ToString("hh\\:mm");
             endTime = end.ToString("HH:mm");

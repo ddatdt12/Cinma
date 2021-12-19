@@ -277,11 +277,26 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Frame>
-                <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
+                <ProgressBar
                              Height="100"
                              Width="100"
                              IsIndeterminate="{Binding IsLoading}"
-                             Grid.RowSpan="2" />
+                             Grid.RowSpan="2">
+                    <ProgressBar.Style>
+                        <Style TargetType="ProgressBar"
+                               BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
+                            <Setter Property="Visibility"
+                                    Value="Visible" />
+                            <Style.Triggers>
+                                <Trigger Property="IsIndeterminate"
+                                         Value="False">
+                                    <Setter Property="Visibility"
+                                            Value="Collapsed" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ProgressBar.Style>
+                </ProgressBar>
             </Grid>
 
         </Grid>

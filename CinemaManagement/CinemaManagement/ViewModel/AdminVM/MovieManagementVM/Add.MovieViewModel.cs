@@ -27,7 +27,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
                     Country = movieCountry,
                     Director = movieDirector,
                     Description = movieDes,
-                    Image = Helper.ConvertImageToBase64Str(filepath),
+                    Image = await CloudinaryService.Ins.UploadImage(filepath),
                     Genres = temp,
                     ReleaseYear = int.Parse(movieYear),
                     RunningTime = int.Parse(movieDuration),

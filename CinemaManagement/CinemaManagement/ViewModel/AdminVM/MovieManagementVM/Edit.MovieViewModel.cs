@@ -31,7 +31,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             w1._Genre.Text = tempgenre[0].DisplayName;
             Image = SelectedItem.Image;
 
-            ImageSource = SelectedItem.ImgSource;
+            ImageSource = CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
         }
         public async Task UpdateMovieFunc(Window p)
         {
@@ -54,7 +54,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
 
                 if (IsImageChanged)
                 {
-                    movie.Image = Helper.ConvertImageToBase64Str(filepath);
+                    movie.Image = await CloudinaryService.Ins.UploadImage(filepath);
                 }
                 else
                 {
