@@ -34,6 +34,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                 product.Category = Category.Content.ToString();
                 product.Price = Price;
                 product.Id = Id;
+                product.Quantity = Quantity;
 
                 IsLoadding = true;
                 if (IsImageChanged)

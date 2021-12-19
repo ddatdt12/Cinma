@@ -215,7 +215,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     catch (System.Data.Entity.Core.EntityException e)
                     {
                         Console.WriteLine(e);
-                        MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                        MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK); 
                         mb.ShowDialog();
                     }
                     catch (Exception e)
@@ -262,12 +262,13 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     await AddFood(p);
                     IsSaving = false;
                 });
-
             OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
                  {
                      EditFoodWindow wd = new EditFoodWindow();
 
                      IsLoadding = true;
+
+                     Quantity = SelectedItem.Quantity;
 
                      await LoadEditFood(wd);
 
