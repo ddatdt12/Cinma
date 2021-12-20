@@ -69,7 +69,7 @@
                         <ColumnDefinition Width="35*" />
                         <ColumnDefinition  Width="65*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Mệnh giá"
+                    <TextBlock Text="Mệnh giá(VND)"
                                VerticalAlignment="Bottom"
                                Width="auto"
                                Grid.Column="0" />
@@ -125,7 +125,7 @@
                                     Focusable="False"
                                     Margin="15,0,0,0"
                                     SelectedDate="{Binding FinishDate}"
-                                    DisplayDateStart="{Binding ElementName=startdate,Path=SelectedDate}" />
+                                    DisplayDateStart="{Binding StartDate}" />
                     </StackPanel>
                 </Grid>
                 <CheckBox Content="Áp dụng gộp nhiều voucher cho một hoá đơn"
@@ -142,17 +142,17 @@
             <StackPanel>
                 <Grid Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="35*" />
-                        <ColumnDefinition  Width="65*" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="Nhóm hàng"
                                VerticalAlignment="Bottom"
                                Width="auto"
-                               Grid.Column="0" />
+                               Grid.Column="0"
+                               Height="18"
+                               Margin="0,0,191,0" />
 
-                    <ComboBox Grid.Column="1"
-                              SelectedIndex="0"
-                              Margin="50,0,0,0"
+                    <ComboBox SelectedIndex="0"
+                              Margin="218,0,0,0"
                               SelectedItem="{Binding ObjectType}">
                         <ComboBoxItem>Toàn bộ</ComboBoxItem>
                         <ComboBoxItem>Sản phẩm</ComboBoxItem>
@@ -163,15 +163,16 @@
                 </Grid>
                 <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="35*" />
-                        <ColumnDefinition  Width="65*" />
+                        <ColumnDefinition Width="166*" />
+                        <ColumnDefinition  Width="193*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Tổng tối thiểu"
+                    <TextBlock Text="Tổng tối thiểu(VND)"
                                VerticalAlignment="Bottom"
                                Width="auto"
-                               Grid.Column="0" />
+                               Grid.Column="0"
+                               Height="18" />
                     <materialDesign:PackIcon Kind="InfoCircle"
-                                             Margin="104,18,0,0"
+                                             Margin="145,18,0,0"
                                              Cursor="Hand"
                                              Height="20"
                                              Width="20"

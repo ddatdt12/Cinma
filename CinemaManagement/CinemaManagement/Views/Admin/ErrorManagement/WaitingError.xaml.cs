@@ -13,6 +13,7 @@ namespace CinemaManagement.Views.Admin.ErrorManagement
         {
             InitializeComponent();
             this.Language = XmlLanguage.GetLanguage("vi-VN");
+            costval.Text = "0";
         }
 
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
@@ -44,17 +45,21 @@ namespace CinemaManagement.Views.Admin.ErrorManagement
 
             if (cbb.SelectedValue.ToString() == "Đã hủy")
             {
-                _Finishday.IsEnabled = false;
-                _startday.IsEnabled = false;
-                _cost.IsEnabled = false;
+                _Finishday.Visibility = Visibility.Collapsed;
+                _startday.Visibility = Visibility.Collapsed;
+                _cost.Visibility = Visibility.Collapsed;
             }
             else if (cbb.SelectedValue.ToString() == "Đang giải quyết")
             {
                 _startday.IsEnabled = true;
+                _cost.IsEnabled = false;
+                _Finishday.IsEnabled = false;
+                costval.Text = "0";
             }
             else if (cbb.SelectedValue.ToString() == "Đã giải quyết")
             {
-                _startday.IsEnabled = true;
+                _startday.IsEnabled = false;
+                start.SelectedDate = System.DateTime.Today;
                 _Finishday.IsEnabled = true;
                 _cost.IsEnabled = true;
             }

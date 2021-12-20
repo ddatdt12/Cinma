@@ -148,13 +148,26 @@
                                                FontSize="15"
                                                MouseEnter="TextBlock_MouseEnter"
                                                MouseLeave="TextBlock_MouseLeave"
-                                               MouseDown="TextBlock_MouseLeftButtonUp"
-                                               Foreground="Blue" />
+                                               MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"
+                                               Foreground="Blue">
+                                          <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding SendMailCM}"
+                                                CommandParameter="{Binding ElementName=_Instruct}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                                    </TextBlock>
                                     <TextBlock Text="?"
                                                FontSize="15" />
                                 </StackPanel>
                             </Label.Content>
                         </Label>
+                        <Label Content="Đã gửi lại mã bảo mật"
+                               Margin="80,30,-50,0"
+                               FontSize="15"
+                               Width="300"
+                               x:Name="tbao"
+                               Visibility="Collapsed"/>
                     </Grid>
                 </StackPanel>
             </StackPanel>
@@ -199,6 +212,6 @@
                         CommandParameter="{Binding ElementName=codefield}" />
             </Grid>
         </Grid>
-        
+
     </Grid>
 </Page>

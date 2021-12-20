@@ -265,7 +265,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             {
                 Window window = GetWindowParent(p);
                 var w = window as Window;
-                
+
                 if (w != null)
                 {
                     if (w is DoiMatKhau)
@@ -331,6 +331,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             Phone = null;
             TaiKhoan = null;
             MatKhau = null;
+            Mail = null;
         }
         Window GetWindowParent(Window p)
         {

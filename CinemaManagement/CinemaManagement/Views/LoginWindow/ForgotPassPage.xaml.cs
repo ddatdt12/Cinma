@@ -83,20 +83,6 @@ namespace CinemaManagement.Views.LoginWindow
             }
         }
 
-        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            errorlbl.Content = "";
-            havecode.Visibility = Visibility.Collapsed;
-            sendmailbtn.Visibility = Visibility.Visible;
-            acceptbutn.Visibility = Visibility.Collapsed;
-            codefield.Password = "";
-            secretcode.Visibility = Visibility.Collapsed;
-            Username.Visibility = Visibility.Visible;
-
-            Move2();
-            _Instruct.Text = "Chúng tôi sẽ gửi mã đặt lại mật khẩu thông qua Email liên kết với tài khoản trên";
-        }
-
 
         public void Move1()
         {
@@ -157,6 +143,11 @@ namespace CinemaManagement.Views.LoginWindow
             sb2.Begin(this);
 
             ismove = false;
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            tbao.Visibility = Visibility.Visible;
         }
     }
 }

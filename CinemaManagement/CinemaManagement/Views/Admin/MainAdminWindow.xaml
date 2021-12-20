@@ -113,7 +113,7 @@
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
-                        <i:InvokeCommandAction Command="{Binding LoadSuatChieuPageCM}"
+                        <i:InvokeCommandAction Command="{Binding LoadQLPPageCM}"
                                                CommandParameter="{Binding ElementName=MainFrame}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -205,23 +205,6 @@
                                     </Label.Content>
                                 </Label>
                             </StackPanel>
-                            <StackPanel  Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="Filmstrip"
-                                                         Height="30"
-                                                         Width="30"
-                                                         Margin="10,0,0,0"
-                                                         VerticalAlignment="Center" />
-                                <Button Content="Quản lý suất chiếu"
-                                        Height="50"
-                                        FontSize="25"
-                                        Width="240"
-                                        HorizontalContentAlignment="Left"
-                                        Background="Transparent"
-                                        BorderBrush="Transparent"
-                                        Command="{Binding LoadSuatChieuPageCM}"
-                                        CommandParameter="{Binding ElementName=MainFrame}" />
-
-                            </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="MovieEdit"
@@ -239,6 +222,24 @@
                                         Width="240"
                                         Command="{Binding LoadQLPPageCM}"
                                         CommandParameter="{Binding ElementName=MainFrame}" />
+                            </StackPanel>
+                            
+                            <StackPanel  Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Filmstrip"
+                                                         Height="30"
+                                                         Width="30"
+                                                         Margin="10,0,0,0"
+                                                         VerticalAlignment="Center" />
+                                <Button Content="Quản lý suất chiếu"
+                                        Height="50"
+                                        FontSize="25"
+                                        Width="240"
+                                        HorizontalContentAlignment="Left"
+                                        Background="Transparent"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding LoadSuatChieuPageCM}"
+                                        CommandParameter="{Binding ElementName=MainFrame}" />
+
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">

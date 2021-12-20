@@ -70,7 +70,7 @@
                         <ColumnDefinition Width="35*" />
                         <ColumnDefinition  Width="65*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Mệnh giá"
+                    <TextBlock Text="Mệnh giá (VND)"
                                VerticalAlignment="Bottom"
                                Width="auto"
                                Grid.Column="0" />
@@ -156,7 +156,7 @@
 
                     <ComboBox Grid.Column="1"
                               SelectedIndex="0"
-                              Margin="50,0,0,0"
+                              Margin="94,0,0,0"
                               SelectedItem="{Binding Object,Mode=TwoWay}">
                         <ComboBoxItem>Toàn bộ</ComboBoxItem>
                         <ComboBoxItem>Sản phẩm</ComboBoxItem>
@@ -167,17 +167,19 @@
                 </Grid>
                 <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="35*" />
-                        <ColumnDefinition  Width="65*" />
+                        <ColumnDefinition Width="171*" />
+                        <ColumnDefinition  Width="188*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Tổng tối thiểu"
+                    <TextBlock Text="Tổng tối thiểu (VND)"
                                VerticalAlignment="Bottom"
                                Width="auto"
-                               Grid.Column="0" />
+                               Grid.Column="0"
+                               Height="18" />
                     <materialDesign:PackIcon Kind="InfoCircle"
-                                             Margin="104,18,0,0"
+                                             Margin="149,16,0,0"
                                              Cursor="Hand"
-                                             ToolTip="Số tiền tối thiểu của đơn hàng để có thể áp dụng voucher" />
+                                             ToolTip="Số tiền tối thiểu của đơn hàng để có thể áp dụng voucher"
+                                             RenderTransformOrigin="-5.625,0.156" />
 
                     <TextBox Grid.Column="1"
                              Margin="50,0,0,5"
