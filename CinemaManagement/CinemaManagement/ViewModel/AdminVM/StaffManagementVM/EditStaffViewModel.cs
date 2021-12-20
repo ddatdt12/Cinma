@@ -38,11 +38,11 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
 
                 if (successUpdateStaff)
                 {
-                    MaskName.Visibility = Visibility.Collapsed;
                     LoadStaffListView(Utils.Operation.UPDATE, staff);
                     p.Close();
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdateStaff, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
+                    MaskName.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
