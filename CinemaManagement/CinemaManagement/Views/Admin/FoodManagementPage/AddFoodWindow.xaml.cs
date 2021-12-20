@@ -10,8 +10,6 @@ namespace CinemaManagement.Views.Admin.FoodManagementPage
         public AddFoodWindow()
         {
             InitializeComponent();
-            //this.Owner = App.Current.MainWindow;
-            
         }
 
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
