@@ -646,11 +646,12 @@
                                                 <Label Content="Ghế"
                                                        Grid.Column="0"
                                                        FontSize="20" />
-                                                <Label Content="{Binding Seat}"
-                                                       Grid.Column="1"
-                                                       HorizontalAlignment="Right"
-                                                       FontSize="20"
-                                                       FontWeight="Bold" />
+                                                <TextBlock Text="{Binding Seat}"
+                                                           TextWrapping="Wrap"
+                                                           Grid.Column="1"
+                                                           HorizontalAlignment="Right"
+                                                           FontSize="20"
+                                                           FontWeight="Bold" />
                                             </Grid>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
