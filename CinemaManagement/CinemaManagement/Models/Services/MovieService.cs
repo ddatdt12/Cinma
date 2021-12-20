@@ -184,6 +184,12 @@ namespace CinemaManagement.Models.Services
                             if (mov is null)
                             {
                                 Movie movie = m.ShowTime.Movie;
+
+                                if (movie is null)
+                                {
+                                    movie = await context.Movies.FindAsync(m.ShowTime.MovieId);
+                                }
+
                                 mov = new MovieDTO
                                 {
                                     Id = movie.Id,

@@ -2,9 +2,11 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Views;
 using CinemaManagement.Views.Admin.ShowtimeManagementVM;
+using Microsoft.VisualStudio.Services.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -61,8 +63,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             set { _moviePrice = value; OnPropertyChanged(); }
         }
 
-        // this is for  binding data
-
+        private List<MovieDTO> listMovieAllRoom = new List<MovieDTO>();
 
 
 
@@ -150,6 +151,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             });
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
+
                 GetCurrentDate = DateTime.Today;
                 SelectedDate = GetCurrentDate;
                 showtimeDate = GetCurrentDate;
@@ -190,7 +192,12 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
              });
             SaveCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
+                IsSaving = true;
+
                 await SaveShowtimeFunc(p);
+
+                IsSaving = false;
+
             });
             LoadDeleteShowtimeCM = new RelayCommand<ListBox>((p) => { if (SelectedShowtime is null) return false; return true; }, async (p) =>
              {
@@ -203,36 +210,42 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                      message = $"Suất chiếu này có ghế đã được đặt. Bạn có muốn xoá không?";
                      MessageBoxCustom ms = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
                      ms.ShowDialog();
-                     return;
+                     if (ms.DialogResult == false)
+                     {
+                         return;
+                     }
+                 }
+                 else
+                 {
+                     MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
+                     result.ShowDialog();
+                     if (result.DialogResult == false)
+                     {
+                         return; 
+                     }
                  }
 
-
-                 MessageBoxCustom result = new MessageBoxCustom("Cảnh báo", message, MessageType.Warning, MessageButtons.YesNo);
-                 result.ShowDialog();
-                 if (result.DialogResult == true)
+                 int showtimeId = SelectedShowtime.Id;
+                 (bool deleteSuccess, string messageFromDelete) = await ShowtimeService.Ins.DeleteShowtime(SelectedShowtime.Id);
+                 if (deleteSuccess)
                  {
-                     (bool deleteSuccess, string messageFromDelete) = await ShowtimeService.Ins.DeleteShowtime(SelectedShowtime.Id);
-                     if (deleteSuccess)
+                     for (int i = 0; i < ListShowtimeofMovie.Count; i++)
                      {
-                         for (int i = 0; i < ListShowtimeofMovie.Count; i++)
-                         {
-                             if (ListShowtimeofMovie[i].Id == SelectedShowtime.Id)
-                                 ListShowtimeofMovie.RemoveAt(i);
-                         }
-                         oldSelectedItem = SelectedItem;
-                         SelectedShowtime = null;
-                         MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelete, MessageType.Success, MessageButtons.OK);
-                         mb.ShowDialog();
-
-                         await ReloadShowtimeList(SelectedRoomId);
+                         if (ListShowtimeofMovie[i].Id == showtimeId)
+                             ListShowtimeofMovie.RemoveAt(i);
                      }
-                     else
-                     {
-                         MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromDelete, MessageType.Error, MessageButtons.OK);
-                         mb.ShowDialog();
-                     }
+                     oldSelectedItem = SelectedItem;
+                     SelectedShowtime = null;
+                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromDelete, MessageType.Success, MessageButtons.OK);
+                     mb.ShowDialog();
 
-
+                     await ReloadShowtimeList(-1);
+                     GetShowingMovieByRoomInDate(SelectedRoomId);
+                 }
+                 else
+                 {
+                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromDelete, MessageType.Error, MessageButtons.OK);
+                     mb.ShowDialog();
                  }
              });
             ChangedRoomCM = new RelayCommand<RadioButton>((p) => { return true; }, async (p) =>
@@ -242,7 +255,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     case "all":
                         {
                             SelectedRoomId = -1;
-                            await ReloadShowtimeList(SelectedRoomId);
+                            GetShowingMovieByRoomInDate(SelectedRoomId);
                             break;
                         }
                     case "r1":
@@ -321,6 +334,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             SelectedDateCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
                 await ReloadShowtimeList(-1);
+                GetShowingMovieByRoomInDate(SelectedRoomId);
             });
         }
 
@@ -332,11 +346,9 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 try
                 {
-                    IsLoading = true;
-                    ShowtimeList = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate, id)));
-                    IsLoading = false;
+                    GetShowingMovieByRoomInDate(id);
                 }
-                catch (System.Data.Entity.Core.EntityException )
+                catch (System.Data.Entity.Core.EntityException)
                 {
                     MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
@@ -351,8 +363,12 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
             {
                 try
                 {
+                    ShowtimeList = new ObservableCollection<MovieDTO>();
                     IsLoading = true;
-                    ShowtimeList = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate)));
+
+                    listMovieAllRoom = await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate));
+
+                    ShowtimeList = new ObservableCollection<MovieDTO>(listMovieAllRoom);
                     IsLoading = false;
                 }
                 catch (System.Data.Entity.Core.EntityException)
@@ -366,6 +382,29 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     mb.ShowDialog();
                 }
             }
+        }
+        private void GetShowingMovieByRoomInDate(int roomId)
+        {
+            if (roomId == -1)
+            {
+                ShowtimeList = new ObservableCollection<MovieDTO>(listMovieAllRoom);
+                return;
+            }
+            List<MovieDTO> listMoviesByRoom = listMovieAllRoom.Where(m => m.Showtimes.Any(s => s.RoomId == roomId)).Select(m => new MovieDTO
+            {
+                Id = m.Id,
+                DisplayName = m.DisplayName,
+                RunningTime = m.RunningTime,
+                Country = m.Country,
+                Description = m.Description,
+                ReleaseYear = m.ReleaseYear,
+                MovieType = m.MovieType,
+                Director = m.Director,
+                Image = m.Image,
+                Genres = new List<GenreDTO>(m.Genres),
+                Showtimes = m.Showtimes.Where(s => s.RoomId == roomId).ToList()
+            }).ToList();
+            ShowtimeList = new ObservableCollection<MovieDTO>(listMoviesByRoom);
         }
         public void GenerateListRoom()
         {

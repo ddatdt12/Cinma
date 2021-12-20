@@ -392,7 +392,7 @@
                                             <ColumnDefinition Width="25*"></ColumnDefinition>
                                         </Grid.ColumnDefinitions>
                                         <Grid>
-                                            <Image Source="{Binding ImgSource}"
+                                            <Image Source="{Binding Image}"
                                                    Stretch="Fill" />
                                         </Grid>
                                         <Grid Grid.Column="1"

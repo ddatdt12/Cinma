@@ -259,7 +259,10 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             AddFoodCommand = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, async (p) =>
                 {
                     IsSaving = true;
+
                     await AddFood(p);
+
+                    IsSaving = false;
                 });
             OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
                  {

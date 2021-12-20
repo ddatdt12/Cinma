@@ -15,9 +15,8 @@
         Width="800"
         PreviewKeyUp="AddSuatChieu_PreviewKeyUp"
         x:Name="AddSuatChieu"
-        MouseDown="AddSuatChieu_MouseDown"
-        DataContext="{StaticResource ShowtimeManagementVM}"
-        Title="AddSuatChieuWindow">
+        MouseLeftButtonDown="AddSuatChieu_MouseLeftButtonDown"
+        DataContext="{StaticResource ShowtimeManagementVM}">
 
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
