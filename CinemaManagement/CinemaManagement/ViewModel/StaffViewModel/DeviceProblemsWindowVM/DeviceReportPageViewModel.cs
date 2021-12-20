@@ -177,7 +177,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             SaveErrorCM = new RelayCommand<AddError>((p) => { if (IsSaving) return false; return true; }, async (p) =>
              {
                  IsSaving = true;
-                 await SaveErrorFunc(p);             });
+                 await SaveErrorFunc(p);
+                 isSaving = false;
+             });
             UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {
                 OpenFileDialog openfile = new OpenFileDialog();
@@ -204,6 +206,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             {
                 IsSaving = true;
                 await UpdateErrorFunc(p);
+                isSaving = false;
             });
 
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
@@ -225,7 +228,6 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
                     w.DragMove();
                 }
             });
-
         }
 
         public async Task LoadListError()
