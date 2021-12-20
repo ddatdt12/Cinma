@@ -121,7 +121,6 @@
                                  Loaded="ProgressBar_Loaded"
                                  Visibility="Collapsed" />
                 </Grid>
-                <Button Click="Button_Click" />
             </StackPanel>
         </StackPanel>
 

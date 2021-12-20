@@ -55,6 +55,9 @@ namespace CinemaManagement.Views.Admin.ErrorManagement
                 _cost.IsEnabled = false;
                 _Finishday.IsEnabled = false;
                 costval.Text = "0";
+                _Finishday.Visibility = Visibility.Visible;
+                _startday.Visibility = Visibility.Visible;
+                _cost.Visibility = Visibility.Visible;
             }
             else if (cbb.SelectedValue.ToString() == "Đã giải quyết")
             {
@@ -62,6 +65,9 @@ namespace CinemaManagement.Views.Admin.ErrorManagement
                 start.SelectedDate = System.DateTime.Today;
                 _Finishday.IsEnabled = true;
                 _cost.IsEnabled = true;
+                _Finishday.Visibility = Visibility.Visible;
+                _startday.Visibility = Visibility.Visible;
+                _cost.Visibility = Visibility.Visible;
             }
         }
 
@@ -69,7 +75,7 @@ namespace CinemaManagement.Views.Admin.ErrorManagement
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
-        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private static readonly Regex _regex = new Regex("[^0-9]"); //regex that matches disallowed text
         private static bool IsTextAllowed(string text)
         {
             return !_regex.IsMatch(text);

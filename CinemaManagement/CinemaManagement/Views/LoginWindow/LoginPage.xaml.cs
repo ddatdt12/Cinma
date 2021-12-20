@@ -25,10 +25,5 @@ namespace CinemaManagement.Views.LoginWindow
                     viewmodel.LoginCM.Execute(Error);
             }
         }
-
-        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            new MessageBoxCustom("", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK).ShowDialog();
-        }
     }
 }

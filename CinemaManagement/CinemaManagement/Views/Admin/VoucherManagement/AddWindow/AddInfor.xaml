@@ -69,7 +69,7 @@
                         <ColumnDefinition Width="35*" />
                         <ColumnDefinition  Width="65*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Mệnh giá(VND)"
+                    <TextBlock Text="Mệnh giá(VNĐ)"
                                VerticalAlignment="Bottom"
                                Width="auto"
                                Grid.Column="0" />
@@ -166,7 +166,7 @@
                         <ColumnDefinition Width="166*" />
                         <ColumnDefinition  Width="193*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Tổng tối thiểu(VND)"
+                    <TextBlock Text="Tổng tối thiểu(VNĐ)"
                                VerticalAlignment="Bottom"
                                Width="auto"
                                Grid.Column="0"
