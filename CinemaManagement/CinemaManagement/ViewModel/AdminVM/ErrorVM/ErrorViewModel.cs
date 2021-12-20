@@ -95,27 +95,6 @@ namespace CinemaManagement.ViewModel
             }
         }
 
-        public async Task<List<TroubleDTO>> GetAllTrouble()
-        {
-            try
-            {
-                return await TroubleService.Ins.GetAllTrouble();
-            }
-            catch (System.Data.Entity.Core.EntityException e)
-            {
-                Console.WriteLine(e);
-                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
-                mb.ShowDialog();
-                throw;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
-                mb.ShowDialog();
-                throw;
-            }
-        }
         public async Task ReloadErrorList()
         {
             try
@@ -124,7 +103,7 @@ namespace CinemaManagement.ViewModel
 
                 try
                 {
-                    List<TroubleDTO> troubleDTOs = await GetAllTrouble();
+                    List<TroubleDTO> troubleDTOs = await TroubleService.Ins.GetAllTrouble();
 
                     ListError = new ObservableCollection<TroubleDTO>();
 
@@ -155,6 +134,13 @@ namespace CinemaManagement.ViewModel
                 }
 
             }
+            catch (System.Data.Entity.Core.EntityException e)
+            {
+                Console.WriteLine(e);
+                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
             catch (Exception e)
             {
                 MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
@@ -167,7 +153,7 @@ namespace CinemaManagement.ViewModel
             {
                 if (DateTime.Compare(SelectedItem.SubmittedAt.Date, SelectedDate.Date) > 0)
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Ngày không hợp lệ!", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Ngày không hợp lệ!", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                     return;
                 }
@@ -182,14 +168,14 @@ namespace CinemaManagement.ViewModel
 
                 if (isS)
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Success, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdate, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     await ReloadErrorList();
                     p.Close();
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromUpdate, MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
 
@@ -206,14 +192,14 @@ namespace CinemaManagement.ViewModel
 
                 if (isS)
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Success, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdate, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     await ReloadErrorList();
                     p.Close();
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromUpdate, MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
             }
@@ -224,7 +210,7 @@ namespace CinemaManagement.ViewModel
                     DateTime t = SelectedItem.StartDate.Value;
                     if (DateTime.Compare(t.Date, SelectedFinishDate.Date) > 0)
                     {
-                        MessageBoxCustom mb = new MessageBoxCustom("", "Ngày không hợp lệ!", MessageType.Error, MessageButtons.OK);
+                        MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Ngày không hợp lệ!", MessageType.Error, MessageButtons.OK);
                         mb.ShowDialog();
                         return;
                     }
@@ -242,14 +228,14 @@ namespace CinemaManagement.ViewModel
 
                 if (isS)
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Success, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", messageFromUpdate, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
                     await ReloadErrorList();
                     p.Close();
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", messageFromUpdate, MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", messageFromUpdate, MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
 

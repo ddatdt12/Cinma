@@ -16,12 +16,6 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
             InitializeComponent();
             this.Language = XmlLanguage.GetLanguage("vi-VN");
         }
-
-        private void AddSuatChieu_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
-        }
-
         private void _moviePrice_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsTextAllowed(e.Text);
@@ -69,6 +63,11 @@ namespace CinemaManagement.Views.Admin.ShowtimeManagementVM
                         return;
                     }
             }
+        }
+
+        private void AddSuatChieu_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }
