@@ -247,6 +247,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     Fullname = SelectedItem.Name;
                     Phone = SelectedItem.PhoneNumber;
                     TaiKhoan = SelectedItem.Username;
+                    Mail = SelectedItem.Email;
 
                     MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
@@ -264,8 +265,14 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             {
                 Window window = GetWindowParent(p);
                 var w = window as Window;
+                
                 if (w != null)
                 {
+                    if (w is DoiMatKhau)
+                    {
+                        w.Close();
+                        return;
+                    }
                     MaskName.Visibility = Visibility.Collapsed;
                     w.Close();
                 }

@@ -264,7 +264,7 @@
                 <Label>
                     <TextBlock HorizontalAlignment="Left"
                                VerticalAlignment="Center"
-                               Margin="80 0 0 10">
+                               Margin="50 30 0 10">
                     <Hyperlink Command="{Binding OpenChangePassCommand}">Đổi mật khẩu</Hyperlink>
                     </TextBlock>
 
