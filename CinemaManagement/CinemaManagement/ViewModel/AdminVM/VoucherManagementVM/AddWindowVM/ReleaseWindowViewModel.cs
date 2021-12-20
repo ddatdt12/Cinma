@@ -370,32 +370,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
 
         private AlternateView GetAlternateViews(string type, string customerName, List<string> listCode)
         {
-            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(GetCustomerTemplate(type, customerName, listCode), Encoding.UTF8, "text/html");
-
-            if (type == EMAIL_TYPE.NEW_CUSTOMER)
-            {
-                //Add Image
-                LinkedResource image = new LinkedResource(Helper.GetImagePath(@"Email\welcome.png"), "image/png");
-                image.ContentId = "myImageID";
-                image.ContentType.Name = "welcome_picture";
-                image.TransferEncoding = TransferEncoding.Base64;
-                image.ContentLink = new Uri("cid:" + image.ContentId);
-
-                //Add the Image to the Alternate view
-                htmlView.LinkedResources.Add(image);
-            }
-            else
-            {
-                LinkedResource image = new LinkedResource(Helper.GetImagePath(@"Email\thank_you.png"), "image/png");
-                image.ContentId = "myImageID";
-                image.ContentType.Name = "thank_you_picture";
-                image.TransferEncoding = TransferEncoding.Base64;
-                image.ContentLink = new Uri("cid:" + image.ContentId);
-
-                htmlView.LinkedResources.Add(image);
-            }
-
-            return htmlView;
+            return AlternateView.CreateAlternateViewFromString(GetCustomerTemplate(type, customerName, listCode), Encoding.UTF8, "text/html");
         }
 
         private string GetCustomerTemplate(string type, string customerName, List<string> listCode)

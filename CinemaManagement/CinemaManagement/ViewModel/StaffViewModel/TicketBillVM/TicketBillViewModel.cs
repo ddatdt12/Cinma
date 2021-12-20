@@ -53,6 +53,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         public static StaffDTO Staff;
         public static bool IsBacking;
         public CustomerDTO customerDTO;
+        private bool isSaving;
+        public bool IsSaving
+        {
+            get { return isSaving; }
+            set { isSaving = value; OnPropertyChanged(); }
+        }
+
 
         #region Biến Binding
 
@@ -360,12 +367,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             //Discount
             decimal Discount = 0;
             DiscountStr = Helper.FormatVNMoney(Discount);
-            if (ListFood.Count==0)
+            if (ListFood.Count == 0)
             {
                 LastPriceStr = TotalPriceMovie;
                 LastPrice = TotalFullMoviePrice;
             }
-            else if(IsBookMovie)
+            else if (IsBookMovie)
             {
                 LastPriceStr = TotalPrice;
                 LastPrice = Total;
@@ -454,11 +461,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                     {
                         new MessageBoxCustom("Cảnh báo", "Số điện thoại không được để trống", MessageType.Warning, MessageButtons.OK).ShowDialog();
                     }
-                    if (ListVoucher!=null)
+                    if (ListVoucher != null)
                     {
                         ListVoucher.Clear();
                     }
-                    
+
                 });
 
             OpenSignUpCM = new RelayCommand<object>((p) => { return true; },
@@ -485,7 +492,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                                     (bool successAddCustomer, string messageFromAddCustomer, string newCustomer) = await CustomerService.Ins.CreateNewCustomer(customer);
                                     if (successAddCustomer)
                                     {
-                                        MessageBoxCustom mgb = new MessageBoxCustom("", messageFromAddCustomer, MessageType.Success, MessageButtons.OK);
+                                        MessageBoxCustom mgb = new MessageBoxCustom("Thông báo", messageFromAddCustomer, MessageType.Success, MessageButtons.OK);
                                         mgb.ShowDialog();
                                         NameSignUp = "";
                                         EmailSignUp = "";
@@ -507,7 +514,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                                         (bool successAddCustomer, string messageFromAddCustomer, string newCustomer) = await CustomerService.Ins.CreateNewCustomer(customer);
                                         if (successAddCustomer)
                                         {
-                                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromAddCustomer, MessageType.Success, MessageButtons.OK);
+                                            MessageBoxCustom mgb = new MessageBoxCustom("Thông báo", messageFromAddCustomer, MessageType.Success, MessageButtons.OK);
                                             mgb.ShowDialog();
                                             NameSignUp = "";
                                             EmailSignUp = "";
@@ -541,7 +548,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                     {
                         new MessageBoxCustom("Cảnh báo", "Vui lòng nhập số điện thoại", MessageType.Warning, MessageButtons.OK).ShowDialog();
                     }
-                    
+
                 });
 
             AddVoucherCM = new RelayCommand<object>((p) => { return true; },
@@ -550,11 +557,11 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                     if (!string.IsNullOrEmpty(VoucherID))
                     {
                         (string error, VoucherDTO voucher) = await VoucherService.Ins.GetVoucherInfo(VoucherID);
-                        if (error==null)
+                        if (error == null)
                         {
-                            if (ListVoucher.Count==0)
+                            if (ListVoucher.Count == 0)
                             {
-                                if (voucher.VoucherInfo.MinimumOrderValue<=LastPrice)
+                                if (voucher.VoucherInfo.MinimumOrderValue <= LastPrice)
                                 {
                                     ListVoucher.Add(voucher);
                                     VoucherID = "";
@@ -570,7 +577,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                             }
                             else
                             {
-                                if (voucher.EnableMerge&&ListVoucher[0].EnableMerge==false)
+                                if (voucher.EnableMerge && ListVoucher[0].EnableMerge == false)
                                 {
                                     new MessageBoxCustom("Cảnh báo", "Voucher " + ListVoucher[0].Code + " không được dùng với các voucher khác", MessageType.Warning, MessageButtons.OK).ShowDialog();
                                 }
@@ -786,7 +793,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
             DeleteVoucherCM = new RelayCommand<object>((p) => { return true; },
                 (p) =>
                 {
-                    if (SelectedItem!=null)
+                    if (SelectedItem != null)
                     {
                         VoucherDTO temp = SelectedItem;
                         Discount -= temp.ParValue;
@@ -795,7 +802,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         DiscountStr = Helper.FormatVNMoney(Discount);
                         ListVoucher.Remove(SelectedItem);
                     }
-                    
+
                 });
 
             PayFullCM = new RelayCommand<object>((p) => { return true; },
@@ -803,6 +810,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                 {
                     try
                     {
+                        IsSaving = true;
                         List<ProductBillInfoDTO> productBills = new List<ProductBillInfoDTO>();
                         for (int i = 0; i < ListFood.Count; i++)
                         {
@@ -835,7 +843,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         (bool successBooking, string messageFromBooking) = await BookingService.Ins.CreateFullOptionBooking(bill, tickets, productBills);
                         if (successBooking)
                         {
-                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Success, MessageButtons.OK);
+                            IsSaving = false;
+                            MessageBoxCustom mgb = new MessageBoxCustom("Thông báo", messageFromBooking, MessageType.Success, MessageButtons.OK);
                             mgb.ShowDialog();
                             TicketWindow ticketWindow = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
                             MovieScheduleWindow movieScheduleWindow = Application.Current.Windows.OfType<MovieScheduleWindow>().FirstOrDefault();
@@ -845,17 +854,18 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         }
                         else
                         {
-                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Error, MessageButtons.OK);
+                            IsSaving = false;
+                            MessageBoxCustom mgb = new MessageBoxCustom("Lỗi", messageFromBooking, MessageType.Error, MessageButtons.OK);
                             mgb.ShowDialog();
                         }
-                        
+
                     }
-                    catch(System.Data.Entity.Core.EntityException e)
+                    catch (System.Data.Entity.Core.EntityException e)
                     {
                         MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
                         mess.ShowDialog();
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                         mess.ShowDialog();
@@ -867,6 +877,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                 {
                     try
                     {
+                        IsSaving = true;
                         List<TicketDTO> tickets = new List<TicketDTO>();
                         for (int i = 0; i < ListSeat.Count; i++)
                         {
@@ -888,7 +899,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         (bool successBooking, string messageFromBooking) = await BookingService.Ins.CreateTicketBooking(bill, tickets);
                         if (successBooking)
                         {
-                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Success, MessageButtons.OK);
+                            IsSaving = false;
+                            MessageBoxCustom mgb = new MessageBoxCustom("Thông báo", messageFromBooking, MessageType.Success, MessageButtons.OK);
                             mgb.ShowDialog();
                             TicketWindow ticketWindow = Application.Current.Windows.OfType<TicketWindow>().FirstOrDefault();
                             MovieScheduleWindow movieScheduleWindow = Application.Current.Windows.OfType<MovieScheduleWindow>().FirstOrDefault();
@@ -898,7 +910,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         }
                         else
                         {
-                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Error, MessageButtons.OK);
+                            IsSaving = false;
+                            MessageBoxCustom mgb = new MessageBoxCustom("Lỗi", messageFromBooking, MessageType.Error, MessageButtons.OK);
                             mgb.ShowDialog();
                         }
                     }
@@ -920,6 +933,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                 {
                     try
                     {
+                        IsSaving = true;
                         List<ProductBillInfoDTO> productBills = new List<ProductBillInfoDTO>();
                         for (int i = 0; i < ListFood.Count; i++)
                         {
@@ -942,14 +956,16 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         (bool successBooking, string messageFromBooking) = await BookingService.Ins.CreateProductOrder(bill, productBills);
                         if (successBooking)
                         {
-                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Success, MessageButtons.OK);
+                            IsSaving = false;
+                            MessageBoxCustom mgb = new MessageBoxCustom("Thông báo", messageFromBooking, MessageType.Success, MessageButtons.OK);
                             mgb.ShowDialog();
                             MainStaffWindow tk = Application.Current.Windows.OfType<MainStaffWindow>().FirstOrDefault();
                             tk.mainFrame.Content = new FoodPage();
                         }
                         else
                         {
-                            MessageBoxCustom mgb = new MessageBoxCustom("", messageFromBooking, MessageType.Error, MessageButtons.OK);
+                            IsSaving = false;
+                            MessageBoxCustom mgb = new MessageBoxCustom("Lỗi", messageFromBooking, MessageType.Error, MessageButtons.OK);
                             mgb.ShowDialog();
                         }
                     }
@@ -992,7 +1008,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                         mess.ShowDialog();
                     }
-                    
+
                 });
         }
 

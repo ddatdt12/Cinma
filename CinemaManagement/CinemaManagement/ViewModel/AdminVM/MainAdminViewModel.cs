@@ -167,8 +167,11 @@ namespace CinemaManagement.ViewModel
             });
             ReloadErrorListCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
              {
+                 ListError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>();
                  IsGettingSource = true;
+
                  await ReloadErrorList();
+
                  IsGettingSource = false;
              });
             SelectedDate = DateTime.Today;

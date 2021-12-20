@@ -171,6 +171,7 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
                 ListCountrySource = new List<string>();
+                MovieList = new ObservableCollection<MovieDTO>();
                 IsImageChanged = false;
 
                 try
@@ -284,11 +285,13 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
              {
                  IsSaving = true;
                  await UpdateMovieFunc(p);
+                 IsSaving = false;
              });
             SaveMovieCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, async (p) =>
              {
                  IsSaving = true;
                  await SaveMovieFunc(p);
+                 IsSaving = false;
              });
             CloseCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {

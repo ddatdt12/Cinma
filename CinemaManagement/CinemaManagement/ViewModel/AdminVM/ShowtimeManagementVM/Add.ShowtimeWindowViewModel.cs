@@ -48,14 +48,18 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
 
                 (bool IsSuccess, string message) = await ShowtimeService.Ins.AddShowtime(temp);
 
+
                 if (IsSuccess)
                 {
                     IsSaving = false;
                     MessageBoxCustom mb = new MessageBoxCustom("Thông báo", message, MessageType.Success, MessageButtons.OK);
                     mb.ShowDialog();
-                    await ReloadShowtimeList(SelectedRoomId);
-                    ShadowMask.Visibility = Visibility.Collapsed;
+
                     p.Close();
+                    ShadowMask.Visibility = Visibility.Collapsed;
+
+                    await ReloadShowtimeList(-1);
+                    GetShowingMovieByRoomInDate(SelectedRoomId);
                 }
                 else
                 {

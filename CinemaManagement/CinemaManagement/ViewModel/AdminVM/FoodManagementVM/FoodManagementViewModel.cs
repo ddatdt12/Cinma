@@ -159,6 +159,7 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
              {
                  try
                  {
+                     FoodList = new ObservableCollection<ProductDTO>();
                      IsLoadding = true;
                      StoreAllFood = new ObservableCollection<ProductDTO>(await Task.Run(() => ProductService.Ins.GetAllProduct()));
                      IsLoadding = false;
@@ -259,7 +260,10 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
             AddFoodCommand = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, async (p) =>
                 {
                     IsSaving = true;
+
                     await AddFood(p);
+
+                    IsSaving = false;
                 });
             OpenEditFoodCommand = new RelayCommand<object>((p) => { return true; }, async (p) =>
                  {
@@ -291,13 +295,12 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                      wd.ShowDialog();
 
                  });
-
             EditFoodCommand = new RelayCommand<Window>((p) => { if (IsSaving) { return false; } return true; }, async (p) =>
             {
                 isSaving = true;
                 await EditFood(p);
+                isSaving = false;
             });
-
             DeleteFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
                   {
                       Image = SelectedItem.Image;
