@@ -134,6 +134,13 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             set { _SelectedItem = value; OnPropertyChanged(); }
         }
 
+        private bool isSaving;
+        public bool IsSaving
+        {
+            get { return isSaving; }
+            set { isSaving = value; OnPropertyChanged(); }
+        }
+
         public static Grid MaskName { get; set; }
 
 
@@ -175,20 +182,26 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                     RePass = p.Password;
                 });
 
-            AddStaffCommand = new RelayCommand<Window>((p) => { return true; },
+            AddStaffCommand = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; },
                 async (p) =>
                 {
+                    IsSaving = true;
                     await AddStaff(p);
+                    IsSaving = false;
                 });
-            EditStaffCommand = new RelayCommand<Window>((p) => { return true; },
+            EditStaffCommand = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; },
                 async (p) =>
                 {
+                    IsSaving = true;
                     await EditStaff(p);
+                    IsSaving = false;
                 });
-            ChangePassCommand = new RelayCommand<Window>((p) => { return true; },
+            ChangePassCommand = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; },
                 async (p) =>
                 {
+                    IsSaving = true;
                     await ChangePass(p);
+                    IsSaving = false;
                 });
             DeleteStaffCommand = new RelayCommand<Window>((p) => { return true; },
                  async (p) =>
@@ -261,7 +274,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
                 wd.ShowDialog();
             });
 
-            CloseCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
+            CloseCommand = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, (p) =>
             {
                 Window window = GetWindowParent(p);
                 var w = window as Window;

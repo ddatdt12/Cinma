@@ -25,6 +25,5 @@ namespace CinemaManagement.Views.Staff.DeviceProblemsWindow
             Button btn = sender as Button;
             btn.Background = new SolidColorBrush(Colors.Transparent);
         }
-
     }
 }

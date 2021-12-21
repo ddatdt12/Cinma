@@ -70,6 +70,12 @@ namespace CinemaManagement.ViewModel
             get { return _RepairCost; }
             set { _RepairCost = value; OnPropertyChanged(); }
         }
+        private bool isSaving;
+        public bool IsSaving
+        {
+            get { return isSaving; }
+            set { isSaving = value; OnPropertyChanged(); }
+        }
 
 
         public ICommand LoadDetailErrorCM { get; set; }

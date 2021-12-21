@@ -213,12 +213,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             {
                 MaskName = p;
             });
-            CloseCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                MaskName.Visibility = Visibility.Collapsed;
-                SelectedItem = null;
-                p.Close();
-            });
+            CloseCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, (p) =>
+             {
+                 MaskName.Visibility = Visibility.Collapsed;
+                 SelectedItem = null;
+                 p.Close();
+             });
             MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {
                 Window window = GetWindowParent(p);
