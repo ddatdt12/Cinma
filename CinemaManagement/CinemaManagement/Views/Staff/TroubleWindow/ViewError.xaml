@@ -15,7 +15,7 @@
         MouseLeftButtonDown="window_MouseLeftButtonDown"
         WindowStartupLocation="CenterScreen"
         FontSize="20"
-        x:Name="window">
+        x:Name="Error_Detail_Page">
     <Border BorderThickness="1"
             BorderBrush="Black"
             CornerRadius="10"
@@ -35,7 +35,7 @@
                                FontWeight="Bold"
                                Margin="10,0,0,0" />
                     <Button Command="{Binding CloseCM}"
-                            CommandParameter="{Binding ElementName=window}"
+                            CommandParameter="{Binding ElementName=Error_Detail_Page}"
                             ToolBar.OverflowMode="AsNeeded"
                             Background="Transparent"
                             Foreground="Black"

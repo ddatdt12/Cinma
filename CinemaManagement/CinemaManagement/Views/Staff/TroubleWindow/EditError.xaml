@@ -19,7 +19,7 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        x:Name="edit">
+        x:Name="Troubleshooting_Page">
 
     <Border Background="White"
             BorderBrush="Black"
@@ -43,7 +43,7 @@
                                    Margin="20,10,0,0"
                                    FontWeight="Bold" />
                         <Button Command="{Binding CancelCM}"
-                                CommandParameter="{Binding ElementName=edit}"
+                                CommandParameter="{Binding ElementName=Troubleshooting_Page}"
                                 ToolBar.OverflowMode="AsNeeded"
                                 Background="Transparent"
                                 HorizontalAlignment="Right"
@@ -237,7 +237,7 @@
                                 Margin="10,0,0,0"
                                 materialDesign:ButtonAssist.CornerRadius="8"
                                 Command="{Binding UpdateErrorCM}"
-                                CommandParameter="{Binding ElementName=edit}" />
+                                CommandParameter="{Binding ElementName=Troubleshooting_Page}" />
                     </StackPanel>
                 </Grid>
             </Grid>

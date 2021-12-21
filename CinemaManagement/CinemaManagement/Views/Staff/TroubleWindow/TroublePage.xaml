@@ -17,8 +17,7 @@
       TextElement.FontSize="13"
       d:DesignHeight="720"
       d:DesignWidth="1300"
-      Title="DeviceReportPage"
-      x:Name="Device_Report_Page"
+      x:Name="Trouble_Page"
       ShowsNavigationUI="False">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

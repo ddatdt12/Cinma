@@ -19,12 +19,12 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        x:Name="Add_Page"
+        x:Name="Add_Trouble_Page"
         AllowsTransparency="True">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
-                                   CommandParameter="{Binding ElementName=Add_Page}" />
+                                   CommandParameter="{Binding ElementName=Add_Trouble_Page}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
@@ -54,7 +54,7 @@
                                     HorizontalAlignment="Right"
                                     Grid.Row="0">
                             <Button Command="{Binding CancelCM}"
-                                    CommandParameter="{Binding ElementName=Add_Page}"
+                                    CommandParameter="{Binding ElementName=Add_Trouble_Page}"
                                     ToolBar.OverflowMode="AsNeeded"
                                     Background="Transparent"
                                     Foreground="Black"
@@ -249,7 +249,7 @@
                                 Margin="10,0,0,0"
                                 materialDesign:ButtonAssist.CornerRadius="8"
                                 Command="{Binding SaveErrorCM}"
-                                CommandParameter="{Binding ElementName=Add_Page}" />
+                                CommandParameter="{Binding ElementName=Add_Trouble_Page}" />
                     </StackPanel>
                 </Grid>
             </Grid>
