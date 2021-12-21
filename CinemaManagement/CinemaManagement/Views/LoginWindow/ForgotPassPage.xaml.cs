@@ -45,7 +45,7 @@ namespace CinemaManagement.Views.LoginWindow
                 if (!RegexUtilities.IsValidEmail(staffEmail))
                 {
                     errorlbl.FontSize = 13.5;
-                    errorlbl.Content = "Tài khoản không tồn tại Email\nLiên hệ quản trị viên";
+                    errorlbl.Content = "Tài khoản chưa đăng kí email";
                     return;
                 }
                 else

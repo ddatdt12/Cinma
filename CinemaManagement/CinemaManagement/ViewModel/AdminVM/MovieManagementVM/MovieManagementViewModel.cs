@@ -290,7 +290,9 @@ namespace CinemaManagement.ViewModel.AdminVM.MovieManagementVM
             SaveMovieCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, async (p) =>
              {
                  IsSaving = true;
+
                  await SaveMovieFunc(p);
+
                  IsSaving = false;
              });
             CloseCM = new RelayCommand<Window>((p) => { return true; }, (p) =>

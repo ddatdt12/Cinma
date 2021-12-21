@@ -53,7 +53,8 @@
                      Margin="5,0,0,0"
                      BorderBrush="LightGray"
                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     Text="{Binding Username}" />
+                     Text="{Binding Username}"
+                     x:Name="usernameTextBox" />
         </StackPanel>
         <StackPanel HorizontalAlignment="Center"
                     Orientation="Horizontal">
@@ -106,7 +107,8 @@
                             Padding="0,0,0,5"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Command="{Binding LoginCM}"
-                            CommandParameter="{Binding ElementName=Error}">
+                            CommandParameter="{Binding ElementName=Error}"
+                            Click="loginbtn_Click">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Loaded">
                                 <i:InvokeCommandAction Command="{Binding SaveLoginBtnCM}"

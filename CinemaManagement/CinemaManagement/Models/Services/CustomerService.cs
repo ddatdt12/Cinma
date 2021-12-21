@@ -146,24 +146,25 @@ namespace CinemaManagement.Models.Services
                             cus.CreatedAt = DateTime.Now;
                             cus.IsDeleted = false;
                         }
-                    }
-                    else
-                    {
-                        string currentMaxId = await context.Customers.MaxAsync(c => c.Id);
-                        Customer newCusomer = new Customer
-                        {
-                            Id = CreateNextCustomerId(currentMaxId),
-                            Name = newCus.Name,
-                            PhoneNumber = newCus.PhoneNumber,
-                            Email = newCus.Email,
-                            CreatedAt = DateTime.Now,
-                        };
 
-                        context.Customers.Add(cus);
+                        await context.SaveChangesAsync();
+                        return (true, "Đăng ký thành công", cus.Id);
                     }
-                    
+
+
+                    string currentMaxId = await context.Customers.MaxAsync(c => c.Id);
+                    Customer newCusomer = new Customer
+                    {
+                        Id = CreateNextCustomerId(currentMaxId),
+                        Name = newCus.Name,
+                        PhoneNumber = newCus.PhoneNumber,
+                        Email = newCus.Email,
+                        CreatedAt = DateTime.Now,
+                    };
+
+                    context.Customers.Add(newCusomer);
                     await context.SaveChangesAsync();
-                    return (true, "Đăng ký thành công", cus.Id);
+                    return (true, "Đăng ký thành công", newCusomer.Id);
                 }
             }
             catch (Exception e)

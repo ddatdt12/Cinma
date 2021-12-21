@@ -20,10 +20,18 @@ namespace CinemaManagement.Views.LoginWindow
         {
             if (e.Key == System.Windows.Input.Key.Return)
             {
+                FloatingPasswordBox.Focus();
+                usernameTextBox.Focus();
                 var viewmodel = (LoginViewModel)DataContext;
                 if (viewmodel.LoginCM.CanExecute(true))
                     viewmodel.LoginCM.Execute(Error);
             }
+        }
+
+        private void loginbtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            FloatingPasswordBox.Focus();
+            usernameTextBox.Focus();
         }
     }
 }

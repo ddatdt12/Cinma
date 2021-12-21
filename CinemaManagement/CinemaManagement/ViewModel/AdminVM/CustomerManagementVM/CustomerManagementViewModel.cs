@@ -107,15 +107,27 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
         public static Grid MaskName { get; set; }
 
 
+        //Loading variable
+        private bool IsSaving = false;
         public CustomerManagementViewModel()
         {
             GetListViewCommand = new RelayCommand<ListView>((p) => { return true; }, (p) =>
                 {
                     listView = p;
                 });
-            EditCustomerCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            EditCustomerCommand = new RelayCommand<Window>((p) => { 
+                if (IsSaving)
                 {
+                    return false;
+                }
+                return true; 
+            }, async (p) =>
+                {
+                    IsSaving = true;
+
                     await EditCustomer(p);
+
+                    IsSaving = false;
                 });
 
             DeleteCustomerCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
@@ -125,7 +137,12 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
 
                      if (result.DialogResult == true)
                      {
+                         IsGettingSource = true;
+
                          (bool isSuccess, string messageFromUpdate) = await CustomerService.Ins.DeleteCustomer(SelectedItem.Id);
+                         
+                         IsGettingSource = false;
+
                          if (isSuccess)
                          {
                              LoadCustomerListView(Utils.Operation.DELETE);
@@ -247,6 +264,8 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
                 cus.PhoneNumber = Phone;
                 cus.StartDate = SignAt;
                 cus.Email = Mail;
+                cus.Expense = SelectedItem.Expense;
+
                 (bool isSuccess, string messageFromUpdate) = await CustomerService.Ins.UpdateCustomerInfo(cus);
 
                 if (isSuccess)
