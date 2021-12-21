@@ -64,6 +64,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         #region Biến Binding
 
         #region Bool display
+
         private bool _IsWalkinGuest;
         public bool IsWalkinGuest
         {
@@ -554,7 +555,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                         new MessageBoxCustom("Cảnh báo", "Vui lòng nhập số điện thoại", MessageType.Warning, MessageButtons.OK).ShowDialog();
                     }
 
-                });
+             });
 
             AddVoucherCM = new RelayCommand<object>((p) => { return true; },
                 async (p) =>
