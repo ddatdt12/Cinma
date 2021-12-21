@@ -287,7 +287,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
-                            <Image Source="/Resources/IconPack/award1.png"
+                            <Image Source="/Resources/Icon/award1.png"
                                    HorizontalAlignment="Left"
                                    Margin="0,-25,0,0"
                                    Width="216" />

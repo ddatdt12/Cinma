@@ -53,6 +53,7 @@
                              Width="300"
                              Height="30"
                              Padding="0"
+                             Margin="20,0,0,0"
                              TextChanged="TextBox_TextChanged"
                              HorizontalAlignment="Left" />
                     <ComboBox Height="30"

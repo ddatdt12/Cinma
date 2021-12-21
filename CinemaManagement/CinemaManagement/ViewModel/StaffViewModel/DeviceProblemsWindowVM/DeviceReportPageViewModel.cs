@@ -178,7 +178,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
              {
                  IsSaving = true;
                  await SaveErrorFunc(p);
-                 isSaving = false;
+                 IsSaving = false;
              });
             UploadImageCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {

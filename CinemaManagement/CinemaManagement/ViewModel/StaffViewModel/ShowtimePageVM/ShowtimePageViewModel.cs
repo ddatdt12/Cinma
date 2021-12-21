@@ -1,5 +1,6 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
+using CinemaManagement.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -41,9 +42,24 @@ namespace CinemaManagement.ViewModel
             {
                 case 0:
                     {
-                        IsLoading = true;
-                        ListMovie = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate)));
-                        IsLoading = false;
+                        try
+                        {
+                            IsLoading = true;
+                            ListMovie = new ObservableCollection<MovieDTO>(await Task.Run(() => MovieService.Ins.GetShowingMovieByDay(SelectedDate)));
+                            IsLoading = false;
+                        }
+                        catch (System.Data.Entity.Core.EntityException e)
+                        {
+                            Console.WriteLine(e);
+                            MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e);
+                            MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                            mb.ShowDialog();
+                        }
                         break;
                     }
                 case 1:

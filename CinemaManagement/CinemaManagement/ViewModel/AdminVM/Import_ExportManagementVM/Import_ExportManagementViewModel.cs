@@ -138,6 +138,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             {
                 SelectedView = 0;
                 IsGettingSource = true;
+                ListProduct = new ObservableCollection<ProductReceiptDTO>();
                 await GetImportListSource();
                 IsGettingSource = false;
                 ImportPage page = new ImportPage();
@@ -147,6 +148,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             {
                 SelectedView = 1;
                 IsGettingSource = true;
+                ListBill = new ObservableCollection<BillDTO>();
                 await GetExportListSource("date");
                 IsGettingSource = false;
                 ExportPage page = new ExportPage();
