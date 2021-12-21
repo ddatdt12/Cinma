@@ -64,6 +64,9 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
         #region Biến Binding
 
         #region Bool display
+
+        private bool Saving = false;
+
         private bool _IsWalkinGuest;
         public bool IsWalkinGuest
         {
@@ -475,81 +478,90 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
 
                 });
 
-            SignUpCM = new RelayCommand<object>((p) => { return true; },
-                async (p) =>
+            SignUpCM = new RelayCommand<object>((p) =>
+            {
+                if (Saving)
                 {
-                    CustomerDTO customer = new CustomerDTO();
-                    if (!string.IsNullOrEmpty(PhoneNumber))
-                    {
-                        if (Helper.IsPhoneNumber(PhoneNumber))
-                        {
-                            if (!string.IsNullOrEmpty(NameSignUp))
-                            {
-                                if (string.IsNullOrEmpty(EmailSignUp))
-                                {
-                                    customer.PhoneNumber = PhoneNumber;
-                                    customer.Name = NameSignUp;
-                                    (bool successAddCustomer, string messageFromAddCustomer, string newCustomer) = await CustomerService.Ins.CreateNewCustomer(customer);
-                                    if (successAddCustomer)
-                                    {
-                                        MessageBoxCustom mgb = new MessageBoxCustom("Thông báo", messageFromAddCustomer, MessageType.Success, MessageButtons.OK);
-                                        mgb.ShowDialog();
-                                        NameSignUp = "";
-                                        EmailSignUp = "";
-                                        UpdateAddCustomer();
-                                    }
-                                    else
-                                    {
-                                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", messageFromAddCustomer, MessageType.Error, MessageButtons.OK);
-                                        mess.ShowDialog();
-                                    }
-                                }
-                                else
-                                {
-                                    if (RegexUtilities.IsValidEmail(EmailSignUp))
-                                    {
-                                        customer.PhoneNumber = PhoneNumber;
-                                        customer.Name = NameSignUp;
-                                        customer.Email = EmailSignUp;
-                                        (bool successAddCustomer, string messageFromAddCustomer, string newCustomer) = await CustomerService.Ins.CreateNewCustomer(customer);
-                                        if (successAddCustomer)
-                                        {
-                                            MessageBoxCustom mgb = new MessageBoxCustom("Thông báo", messageFromAddCustomer, MessageType.Success, MessageButtons.OK);
-                                            mgb.ShowDialog();
-                                            NameSignUp = "";
-                                            EmailSignUp = "";
-                                            UpdateAddCustomer();
-                                        }
-                                        else
-                                        {
-                                            MessageBoxCustom mess = new MessageBoxCustom("Lỗi", messageFromAddCustomer, MessageType.Error, MessageButtons.OK);
-                                            mess.ShowDialog();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Email không hợp lệ", MessageType.Error, MessageButtons.OK);
-                                        mess.ShowDialog();
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                new MessageBoxCustom("Cảnh báo", "Vui lòng nhập họ và tên", MessageType.Warning, MessageButtons.OK).ShowDialog();
-                            }
-                        }
-                        else
-                        {
-                            MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Số điện thoại không hợp lệ", MessageType.Error, MessageButtons.OK);
-                            mess.ShowDialog();
-                        }
-                    }
-                    else
-                    {
-                        new MessageBoxCustom("Cảnh báo", "Vui lòng nhập số điện thoại", MessageType.Warning, MessageButtons.OK).ShowDialog();
-                    }
+                    return false;
+                }
+                return true;
+            }, async (p) =>
+             {
 
-                });
+                 CustomerDTO customer = new CustomerDTO();
+                 if (!string.IsNullOrEmpty(PhoneNumber))
+                 {
+                     if (Helper.IsPhoneNumber(PhoneNumber))
+                     {
+                         if (!string.IsNullOrEmpty(NameSignUp))
+                         {
+                             if (string.IsNullOrEmpty(EmailSignUp))
+                             {
+                                 customer.PhoneNumber = PhoneNumber;
+                                 customer.Name = NameSignUp;
+                                 (bool successAddCustomer, string messageFromAddCustomer, string newCustomer) = await CustomerService.Ins.CreateNewCustomer(customer);
+                                 if (successAddCustomer)
+                                 {
+                                     MessageBoxCustom mgb = new MessageBoxCustom("Thông báo", messageFromAddCustomer, MessageType.Success, MessageButtons.OK);
+                                     mgb.ShowDialog();
+                                     NameSignUp = "";
+                                     EmailSignUp = "";
+                                     UpdateAddCustomer();
+                                     Saving = true;
+                                 }
+                                 else
+                                 {
+                                     MessageBoxCustom mess = new MessageBoxCustom("Lỗi", messageFromAddCustomer, MessageType.Error, MessageButtons.OK);
+                                     mess.ShowDialog();
+                                 }
+                             }
+                             else
+                             {
+                                 if (RegexUtilities.IsValidEmail(EmailSignUp))
+                                 {
+                                     customer.PhoneNumber = PhoneNumber;
+                                     customer.Name = NameSignUp;
+                                     customer.Email = EmailSignUp;
+                                     (bool successAddCustomer, string messageFromAddCustomer, string newCustomer) = await CustomerService.Ins.CreateNewCustomer(customer);
+                                     if (successAddCustomer)
+                                     {
+                                         MessageBoxCustom mgb = new MessageBoxCustom("Thông báo", messageFromAddCustomer, MessageType.Success, MessageButtons.OK);
+                                         mgb.ShowDialog();
+                                         NameSignUp = "";
+                                         EmailSignUp = "";
+                                         UpdateAddCustomer();
+                                         Saving = true;
+                                     }
+                                     else
+                                     {
+                                         MessageBoxCustom mess = new MessageBoxCustom("Lỗi", messageFromAddCustomer, MessageType.Error, MessageButtons.OK);
+                                         mess.ShowDialog();
+                                     }
+                                 }
+                                 else
+                                 {
+                                     MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Email không hợp lệ", MessageType.Error, MessageButtons.OK);
+                                     mess.ShowDialog();
+                                 }
+                             }
+                         }
+                         else
+                         {
+                             new MessageBoxCustom("Cảnh báo", "Vui lòng nhập họ và tên", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                         }
+                     }
+                     else
+                     {
+                         MessageBoxCustom mess = new MessageBoxCustom("Lỗi", "Số điện thoại không hợp lệ", MessageType.Error, MessageButtons.OK);
+                         mess.ShowDialog();
+                     }
+                 }
+                 else
+                 {
+                     new MessageBoxCustom("Cảnh báo", "Vui lòng nhập số điện thoại", MessageType.Warning, MessageButtons.OK).ShowDialog();
+                 }
+
+             });
 
             AddVoucherCM = new RelayCommand<object>((p) => { return true; },
                 async (p) =>
