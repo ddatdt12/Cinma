@@ -489,7 +489,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketBillVM
                                 {
                                     customer.PhoneNumber = PhoneNumber;
                                     customer.Name = NameSignUp;
+                                    IsSaving = true; 
+
                                     (bool successAddCustomer, string messageFromAddCustomer, string newCustomer) = await CustomerService.Ins.CreateNewCustomer(customer);
+                                    IsSaving = false;
+
+
                                     if (successAddCustomer)
                                     {
                                         MessageBoxCustom mgb = new MessageBoxCustom("Thông báo", messageFromAddCustomer, MessageType.Success, MessageButtons.OK);
