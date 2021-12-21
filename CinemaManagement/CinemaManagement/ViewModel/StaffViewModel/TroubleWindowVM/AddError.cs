@@ -2,15 +2,15 @@
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
 using CinemaManagement.Views;
-using CinemaManagement.Views.Staff.DeviceProblemsWindow;
+using CinemaManagement.Views.Staff.TroubleWindow;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
+namespace CinemaManagement.ViewModel.StaffViewModel.TroubleWindowVM
 {
-    public partial class DeviceReportPageViewModel : BaseViewModel
+    public partial class TroublePageViewModel : BaseViewModel
     {
         private DateTime getCurrentDate;
         public DateTime GetCurrentDate

@@ -355,10 +355,10 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\AddError.cs" />
-    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\DeviceReportPageViewModel.cs" />
-    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\EditConverter.cs" />
-    <Compile Include="ViewModel\StaffViewModel\DeviceProblemsWindowVM\EditError.cs" />
+    <Compile Include="ViewModel\StaffViewModel\TroubleWindowVM\AddError.cs" />
+    <Compile Include="ViewModel\StaffViewModel\TroubleWindowVM\TroublePageViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\TroubleWindowVM\EditConverter.cs" />
+    <Compile Include="ViewModel\StaffViewModel\TroubleWindowVM\EditError.cs" />
     <Compile Include="ViewModel\StaffViewModel\MainStaffViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\MovieScheduleWindowVM\MovieScheduleWindowViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\OrderFoodWindowVM\OrderFoodPageViewModel.cs" />
@@ -504,16 +504,16 @@
     <Compile Include="Views\MessageBoxCustom.xaml.cs">
       <DependentUpon>MessageBoxCustom.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Staff\DeviceProblemsWindow\AddError.xaml.cs">
+    <Compile Include="Views\Staff\TroubleWindow\AddError.xaml.cs">
       <DependentUpon>AddError.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Staff\DeviceProblemsWindow\DeviceReportPage.xaml.cs">
-      <DependentUpon>DeviceReportPage.xaml</DependentUpon>
+    <Compile Include="Views\Staff\TroubleWindow\TroublePage.xaml.cs">
+      <DependentUpon>TroublePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Staff\DeviceProblemsWindow\EditError.xaml.cs">
+    <Compile Include="Views\Staff\TroubleWindow\EditError.xaml.cs">
       <DependentUpon>EditError.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Staff\DeviceProblemsWindow\ViewError.xaml.cs">
+    <Compile Include="Views\Staff\TroubleWindow\ViewError.xaml.cs">
       <DependentUpon>ViewError.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Staff\MainStaffWindow.xaml.cs">
@@ -739,19 +739,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Staff\DeviceProblemsWindow\AddError.xaml">
+    <Page Include="Views\Staff\TroubleWindow\AddError.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Staff\DeviceProblemsWindow\DeviceReportPage.xaml">
+    <Page Include="Views\Staff\TroubleWindow\TroublePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Staff\DeviceProblemsWindow\EditError.xaml">
+    <Page Include="Views\Staff\TroubleWindow\EditError.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Staff\DeviceProblemsWindow\ViewError.xaml">
+    <Page Include="Views\Staff\TroubleWindow\ViewError.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

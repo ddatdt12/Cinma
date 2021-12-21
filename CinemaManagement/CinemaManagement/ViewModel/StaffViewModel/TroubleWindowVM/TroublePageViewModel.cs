@@ -1,7 +1,7 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
 using CinemaManagement.Utils;
-using CinemaManagement.Views.Staff.DeviceProblemsWindow;
+using CinemaManagement.Views.Staff.TroubleWindow;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -14,9 +14,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
+namespace CinemaManagement.ViewModel.StaffViewModel.TroubleWindowVM
 {
-    public partial class DeviceReportPageViewModel : BaseViewModel
+    public partial class TroublePageViewModel : BaseViewModel
     {
         public static ObservableCollection<TroubleDTO> GetAllError { get; set; }
 
@@ -127,7 +127,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
         bool IsImageChanged = false;
 
         public static Grid MaskName { get; set; }
-        public DeviceReportPageViewModel()
+        public TroublePageViewModel()
         {
             GetCurrentDate = System.DateTime.Today;
             CancelCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -213,12 +213,12 @@ namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
             {
                 MaskName = p;
             });
-            CloseCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
-            {
-                MaskName.Visibility = Visibility.Collapsed;
-                SelectedItem = null;
-                p.Close();
-            });
+            CloseCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, (p) =>
+             {
+                 MaskName.Visibility = Visibility.Collapsed;
+                 SelectedItem = null;
+                 p.Close();
+             });
             MouseMoveCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
             {
                 Window window = GetWindowParent(p);

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace CinemaManagement.ViewModel.StaffViewModel.DeviceProblemsWindowVM
+namespace CinemaManagement.ViewModel.StaffViewModel.TroubleWindowVM
 {
     public class EditConverter : IValueConverter
     {

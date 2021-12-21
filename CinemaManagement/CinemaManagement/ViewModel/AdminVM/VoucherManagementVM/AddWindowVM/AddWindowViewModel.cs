@@ -184,7 +184,7 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 mb.ShowDialog();
                 return;
             }
-            if (Start > Finish)
+            if (StartDate > FinishDate)
             {
                 MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Ngày hiệu lực không hợp lệ", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();

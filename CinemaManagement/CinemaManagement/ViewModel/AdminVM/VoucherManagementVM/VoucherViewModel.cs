@@ -32,6 +32,14 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
             set { _IsReleaseVoucherLoading = value; OnPropertyChanged(); }
         }
 
+        private bool isSaving;
+        public bool IsSaving
+        {
+            get { return isSaving; }
+            set { isSaving = value; OnPropertyChanged(); }
+        }
+
+
         private VoucherReleaseDTO selectedItem;
         public VoucherReleaseDTO SelectedItem
         {
@@ -267,9 +275,11 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                      }
                  }
              });
-            SaveNewBigVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            SaveNewBigVoucherCM = new RelayCommand<object>((p) => { if (IsSaving) return false; return true; }, async (p) =>
             {
+                IsSaving = true;
                 await SaveNewBigVoucherFunc();
+                IsSaving = false;
             });
 
             SaveMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
@@ -287,9 +297,11 @@ namespace CinemaManagement.ViewModel.AdminVM.VoucherManagementVM
                 p.Content = oldstring;
                 p.IsHitTestVisible = true;
             });
-            UpdateBigVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            UpdateBigVoucherCM = new RelayCommand<object>((p) => { if (IsSaving) return false; return true; }, async (p) =>
             {
+                IsSaving = true;
                 await UpdateBigVoucherFunc();
+                IsSaving = false;
             });
             DeleteMiniVoucherCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {

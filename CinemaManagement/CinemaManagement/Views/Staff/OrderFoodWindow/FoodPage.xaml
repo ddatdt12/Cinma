@@ -33,10 +33,6 @@
             <RowDefinition Height="90*" />
         </Grid.RowDefinitions>
 
-
-
-
-
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
