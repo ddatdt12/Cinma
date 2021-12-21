@@ -11,13 +11,21 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
         public async Task EditStaff(Window p)
         {
             MatKhau = SelectedItem.Password;
-            if (!string.IsNullOrEmpty(Mail))
+
+            if (Mail != null)
             {
-                if (!Utils.RegexUtilities.IsValidEmail(Mail))
+                if (Mail.Trim() == "")
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Email không hợp lệ", MessageType.Warning, MessageButtons.OK);
-                    mb.ShowDialog();
-                    return;
+                    Mail = null;
+                }
+                else
+                {
+                    if (!Utils.RegexUtilities.IsValidEmail(Mail))
+                    {
+                        MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Email không hợp lệ", MessageType.Warning, MessageButtons.OK);
+                        mb.ShowDialog();
+                        return;
+                    }
                 }
             }
 

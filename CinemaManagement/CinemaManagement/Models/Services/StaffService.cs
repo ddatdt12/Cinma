@@ -97,8 +97,7 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     bool usernameIsExist = await context.Staffs.AnyAsync(s => s.Username == newStaff.Username);
-                    bool emailIsExist = await context.Staffs.AnyAsync(s => s.Email == newStaff.Email);
-                    bool PhoneNumberIsExist = await context.Staffs.AnyAsync(s => s.PhoneNumber== newStaff.PhoneNumber);
+                    bool PhoneNumberIsExist = await context.Staffs.AnyAsync(s => s.PhoneNumber == newStaff.PhoneNumber);
 
                     if (PhoneNumberIsExist)
                     {
@@ -108,17 +107,22 @@ namespace CinemaManagement.Models.Services
                     {
                         return (false, "Tài khoản đã tồn tại!", null);
                     }
-                    if (emailIsExist)
+
+                    if (newStaff.Email != null)
                     {
-                        return (false, "Email đã được đăng kí!", null);
+                        bool emailIsExist = await context.Staffs.AnyAsync(s => s.Email == newStaff.Email);
+                        if (emailIsExist)
+                        {
+                            return (false, "Email đã được đăng kí!", null);
+                        }
                     }
-
+                    
                     var maxId = await context.Staffs.MaxAsync(s => s.Id);
-
                     Staff st = Copy(newStaff);
                     st.Id = CreateNextStaffId(maxId);
                     newStaff.Id = st.Id;
                     st.Password = Helper.MD5Hash(newStaff.Password);
+
                     context.Staffs.Add(st);
                     await context.SaveChangesAsync();
                 }
@@ -151,21 +155,35 @@ namespace CinemaManagement.Models.Services
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    bool usernameIsExist = context.Staffs.Any(s => s.Username == updatedStaff.Username && s.Id != updatedStaff.Id);
-                    bool emailIsExist = await context.Staffs.AnyAsync(s => s.Email == updatedStaff.Email && s.Id != updatedStaff.Id);
+                    bool usernameIsExist = await context.Staffs.AnyAsync(s => s.Username == updatedStaff.Username && s.Id != updatedStaff.Id);
+
                     if (usernameIsExist)
                     {
                         return (false, "Tài khoản đăng nhập đã tồn tại");
                     }
-                    if (emailIsExist)
+
+                    if (updatedStaff.Email != null)
                     {
-                        return (false, "Email đã được đăng kí!");
+                        bool emailIsExist = await context.Staffs.AnyAsync(s => s.Email == updatedStaff.Email && s.Id != updatedStaff.Id);
+                        if (emailIsExist)
+                        {
+                            return (false, "Email đã được đăng kí!");
+                        }
                     }
-                    Staff staff = context.Staffs.Find(updatedStaff.Id);
+
+                    bool PhoneNumberIsExist = await context.Staffs.AnyAsync(s => s.PhoneNumber == updatedStaff.PhoneNumber && s.Id != updatedStaff.Id);
+
+                    if (PhoneNumberIsExist)
+                    {
+                        return (false, "Số điện thoại đã tồn tại!");
+                    }
+
+                    Staff staff = await context.Staffs.FindAsync(updatedStaff.Id);
                     if (staff == null)
                     {
                         return (false, "Nhân viên không tồn tại");
                     }
+
                     staff.BirthDate = updatedStaff.BirthDate;
                     staff.Gender = updatedStaff.Gender;
                     staff.Username = updatedStaff.Username;
@@ -231,7 +249,7 @@ namespace CinemaManagement.Models.Services
                     await context.SaveChangesAsync();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return (false, $"Lỗi hệ thống.");
             }
