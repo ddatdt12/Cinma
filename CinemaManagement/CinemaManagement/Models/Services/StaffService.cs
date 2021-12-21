@@ -69,6 +69,8 @@ namespace CinemaManagement.Models.Services
                                            Email = s.Email
                                        }).FirstOrDefaultAsync();
 
+
+
                     if (staff == null)
                     {
                         return (false, "Sai tài khoản hoặc mật khẩu", null);
@@ -76,6 +78,10 @@ namespace CinemaManagement.Models.Services
                     return (true, "", staff);
                 }
 
+            }
+            catch (System.Data.Entity.Core.EntityException)
+            {
+                return (false, "Mất kết nối cơ sở dữ liệu", null);
             }
             catch (Exception e)
             {
@@ -127,7 +133,10 @@ namespace CinemaManagement.Models.Services
                     await context.SaveChangesAsync();
                 }
             }
-
+            catch (System.Data.Entity.Core.EntityException)
+            {
+                return (false, "Mất kết nối cơ sở dữ liệu", null);
+            }
             catch (Exception)
             {
                 return (false, "Lỗi hệ thống", null);
@@ -196,6 +205,10 @@ namespace CinemaManagement.Models.Services
                     await context.SaveChangesAsync();
                 }
             }
+            catch (System.Data.Entity.Core.EntityException)
+            {
+                return (false, "Mất kết nối cơ sở dữ liệu");
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e);
@@ -220,6 +233,10 @@ namespace CinemaManagement.Models.Services
                     staff.Password = Helper.MD5Hash(newPassword);
                     await context.SaveChangesAsync();
                 }
+            }
+            catch (System.Data.Entity.Core.EntityException)
+            {
+                return (false, "Mất kết nối cơ sở dữ liệu");
             }
             catch (Exception e)
             {
@@ -248,6 +265,10 @@ namespace CinemaManagement.Models.Services
 
                     await context.SaveChangesAsync();
                 }
+            }
+            catch (System.Data.Entity.Core.EntityException)
+            {
+                return (false, "Mất kết nối cơ sở dữ liệu");
             }
             catch (Exception)
             {

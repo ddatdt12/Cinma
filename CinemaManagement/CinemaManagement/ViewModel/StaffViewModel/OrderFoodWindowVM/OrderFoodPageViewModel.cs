@@ -500,9 +500,27 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
 
         public async Task LoadListProduct()
         {
-            IsLoading = true;
-            AllProduct = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
-            IsLoading = false;
+            try
+            {
+                IsLoading = true;
+
+                AllProduct = new ObservableCollection<ProductDTO>(await ProductService.Ins.GetAllProduct());
+
+                IsLoading = false;
+                return;
+            }
+            catch (System.Data.Entity.Core.EntityException)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Mất kết nối cơ sở dữ liệu", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
+            catch (Exception)
+            {
+                MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                mb.ShowDialog();
+                throw;
+            }
         }
 
         public void DeleteOrderProduct(ProductDTO temp)
