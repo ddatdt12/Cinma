@@ -277,6 +277,10 @@
                                                                      Width="25" />
                                         </Button.Content>
                                     </Button>
+                                    <Label Content="210 x 300"
+                                           VerticalAlignment="Bottom"
+                                           Margin="-270,0,0,0"
+                                           Height="20" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

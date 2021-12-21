@@ -434,7 +434,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StatisticalManagementVM
                     ProductExPc = RepairPc = "0%";
                 else
                 {
-                    ProductExPc = "1000%";
+                    ProductExPc = "100%";
                     RepairPc = "0%";
                 }
                 return;

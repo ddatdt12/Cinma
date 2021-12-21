@@ -152,19 +152,21 @@ namespace CinemaManagement.ViewModel
 
             // this is  the ErrorViewmodel resources
             LoadDetailErrorCM = new RelayCommand<object>((p) => { return true; }, (p) =>
-           {
-               ChoseWindow();
-           });
-            UpdateErrorCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-                if (SelectedStatus is null)
-                {
-                    MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Không hợp lệ!", MessageType.Warning, MessageButtons.OK);
-                    mb.ShowDialog();
-                    return;
-                }
-                await UpdateErrorFunc(p);
+                ChoseWindow();
             });
+            UpdateErrorCM = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, async (p) =>
+             {
+                 if (SelectedStatus is null)
+                 {
+                     MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Không hợp lệ!", MessageType.Warning, MessageButtons.OK);
+                     mb.ShowDialog();
+                     return;
+                 }
+                 IsSaving = true;
+                 await UpdateErrorFunc(p);
+                 IsSaving = false;
+             });
             ReloadErrorListCM = new RelayCommand<ComboBox>((p) => { return true; }, async (p) =>
              {
                  ListError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>();

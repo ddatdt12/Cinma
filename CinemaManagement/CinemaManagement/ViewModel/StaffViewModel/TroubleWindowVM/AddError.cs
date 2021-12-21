@@ -44,8 +44,8 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TroubleWindowVM
 
                 if (successAddtrouble)
                 {
-                    isSaving = false;
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Thêm sự cố thành công", MessageType.Success, MessageButtons.OK);
+                    IsSaving = false;
+                    MessageBoxCustom mb = new MessageBoxCustom("Thông báo", "Thêm sự cố thành công", MessageType.Success, MessageButtons.OK);
                     GetAllError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>(await TroubleService.Ins.GetAllTrouble());
                     ListError = new System.Collections.ObjectModel.ObservableCollection<TroubleDTO>(GetAllError);
                     MaskName.Visibility = Visibility.Collapsed;
@@ -54,13 +54,13 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TroubleWindowVM
                 }
                 else
                 {
-                    MessageBoxCustom mb = new MessageBoxCustom("", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Lỗi hệ thống", MessageType.Error, MessageButtons.OK);
                     mb.ShowDialog();
                 }
             }
             else
             {
-                MessageBoxCustom mb = new MessageBoxCustom("", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK);
+                MessageBoxCustom mb = new MessageBoxCustom("Cảnh báo", "Vui lòng nhập đủ thông tin!", MessageType.Warning, MessageButtons.OK);
                 mb.ShowDialog();
             }
         }

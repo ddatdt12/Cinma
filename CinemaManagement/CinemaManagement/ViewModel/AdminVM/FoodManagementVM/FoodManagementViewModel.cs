@@ -243,11 +243,13 @@ namespace CinemaManagement.ViewModel.AdminVM.FoodManagementVM
                     MaskName.Visibility = Visibility.Visible;
                     wd.ShowDialog();
                 });
-            ImportFoodCommand = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            ImportFoodCommand = new RelayCommand<Window>((p) => { if (IsSaving) return false; return true; }, async (p) =>
                  {
+                     IsSaving = true;
                      ProductDTO a = new ProductDTO();
                      a = SelectedProduct;
                      await ImportFood(p);
+                     IsSaving = false;
                  });
 
             OpenAddFoodCommand = new RelayCommand<object>((p) => { return true; }, (p) =>

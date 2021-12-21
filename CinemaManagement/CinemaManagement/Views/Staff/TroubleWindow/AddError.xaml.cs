@@ -25,6 +25,5 @@ namespace CinemaManagement.Views.Staff.TroubleWindow
             Button btn = sender as Button;
             btn.Background = new SolidColorBrush(Colors.Transparent);
         }
-
     }
 }

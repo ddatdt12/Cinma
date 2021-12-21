@@ -51,10 +51,6 @@ namespace CinemaManagement.DTOs
         {
             get
             {
-                if (_PhoneNumber is null)
-                {
-                    return "0111111111";
-                }
                 return _PhoneNumber;
             }
             set

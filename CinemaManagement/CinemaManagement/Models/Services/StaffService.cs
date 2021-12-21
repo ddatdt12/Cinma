@@ -98,7 +98,12 @@ namespace CinemaManagement.Models.Services
                 {
                     bool usernameIsExist = await context.Staffs.AnyAsync(s => s.Username == newStaff.Username);
                     bool emailIsExist = await context.Staffs.AnyAsync(s => s.Email == newStaff.Email);
+                    bool PhoneNumberIsExist = await context.Staffs.AnyAsync(s => s.PhoneNumber== newStaff.PhoneNumber);
 
+                    if (PhoneNumberIsExist)
+                    {
+                        return (false, "Số điện thoại đã tồn tại!", null);
+                    }
                     if (usernameIsExist)
                     {
                         return (false, "Tài khoản đã tồn tại!", null);

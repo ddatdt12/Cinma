@@ -70,6 +70,12 @@ namespace CinemaManagement.ViewModel
             get { return _RepairCost; }
             set { _RepairCost = value; OnPropertyChanged(); }
         }
+        private bool isSaving;
+        public bool IsSaving
+        {
+            get { return isSaving; }
+            set { isSaving = value; OnPropertyChanged(); }
+        }
 
 
         public ICommand LoadDetailErrorCM { get; set; }
@@ -78,6 +84,8 @@ namespace CinemaManagement.ViewModel
 
         public void ChoseWindow()
         {
+            SelectedDate = DateTime.Today;
+            SelectedFinishDate = DateTime.Today;
             if (SelectedItem.Status == Utils.STATUS.DONE)
             {
                 DoneError w = new DoneError();
@@ -151,13 +159,6 @@ namespace CinemaManagement.ViewModel
         {
             if (SelectedStatus.Content.ToString() == Utils.STATUS.IN_PROGRESS)
             {
-                if (DateTime.Compare(SelectedItem.SubmittedAt.Date, SelectedDate.Date) > 0)
-                {
-                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Ngày không hợp lệ!", MessageType.Error, MessageButtons.OK);
-                    mb.ShowDialog();
-                    return;
-                }
-
                 TroubleDTO trouble = new TroubleDTO
                 {
                     Id = SelectedItem.Id,
@@ -205,20 +206,18 @@ namespace CinemaManagement.ViewModel
             }
             else if (SelectedStatus.Content.ToString() == Utils.STATUS.DONE)
             {
-                if (SelectedItem.StartDate.HasValue)
+                if (SelectedItem.StartDate > SelectedFinishDate)
                 {
-                    DateTime t = SelectedItem.StartDate.Value;
-                    if (DateTime.Compare(t.Date, SelectedFinishDate.Date) > 0)
-                    {
-                        MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Ngày không hợp lệ!", MessageType.Error, MessageButtons.OK);
-                        mb.ShowDialog();
-                        return;
-                    }
+                    MessageBoxCustom mb = new MessageBoxCustom("Lỗi", "Ngày không hợp lệ!", MessageType.Error, MessageButtons.OK);
+                    mb.ShowDialog();
+                    return;
                 }
+
 
                 TroubleDTO trouble = new TroubleDTO
                 {
                     Id = SelectedItem.Id,
+                    StartDate = SelectedDate,
                     FinishDate = SelectedFinishDate,
                     Status = SelectedStatus.Content.ToString(),
                     RepairCost = RepairCost,

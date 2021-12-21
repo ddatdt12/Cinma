@@ -13,6 +13,7 @@ namespace CinemaManagement.Views.Admin.ErrorManagement
         {
             InitializeComponent();
             this.Language = XmlLanguage.GetLanguage("vi-VN");
+            costval.Text = "0";
         }
 
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
@@ -44,19 +45,29 @@ namespace CinemaManagement.Views.Admin.ErrorManagement
 
             if (cbb.SelectedValue.ToString() == "Đã hủy")
             {
-                _Finishday.IsEnabled = false;
-                _startday.IsEnabled = false;
-                _cost.IsEnabled = false;
+                _Finishday.Visibility = Visibility.Collapsed;
+                _startday.Visibility = Visibility.Collapsed;
+                _cost.Visibility = Visibility.Collapsed;
             }
             else if (cbb.SelectedValue.ToString() == "Đang giải quyết")
             {
                 _startday.IsEnabled = true;
+                _cost.IsEnabled = false;
+                _Finishday.IsEnabled = false;
+                costval.Text = "0";
+                _Finishday.Visibility = Visibility.Visible;
+                _startday.Visibility = Visibility.Visible;
+                _cost.Visibility = Visibility.Visible;
             }
             else if (cbb.SelectedValue.ToString() == "Đã giải quyết")
             {
-                _startday.IsEnabled = true;
+                _startday.IsEnabled = false;
+                start.SelectedDate = System.DateTime.Today;
                 _Finishday.IsEnabled = true;
                 _cost.IsEnabled = true;
+                _Finishday.Visibility = Visibility.Visible;
+                _startday.Visibility = Visibility.Visible;
+                _cost.Visibility = Visibility.Visible;
             }
         }
 
@@ -64,7 +75,7 @@ namespace CinemaManagement.Views.Admin.ErrorManagement
         {
             e.Handled = !IsTextAllowed(e.Text);
         }
-        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private static readonly Regex _regex = new Regex("[^0-9]"); //regex that matches disallowed text
         private static bool IsTextAllowed(string text)
         {
             return !_regex.IsMatch(text);

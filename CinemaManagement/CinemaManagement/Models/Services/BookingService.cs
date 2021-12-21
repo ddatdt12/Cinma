@@ -49,23 +49,14 @@ namespace CinemaManagement.Models.Services
             }
             try
             {
-                //Update seat 
-                var idSeatList = new List<int>();
-                newTicketList.ForEach(s => idSeatList.Add(s.SeatId));
-
-                //Make seat of showtime status = true
-                int showtimeId = newTicketList[0].ShowtimeId;
+            
                 using (var context = new CinemaManagementEntities())
                 {
-                    var seatSets = await context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId)).ToListAsync();
-                    foreach (var s in seatSets)
+                    //Update seat 
+                    string error = await UpdateSeatsBooked(context, newTicketList);
+                    if (error != null)
                     {
-                        if (s.Status)
-                        {
-                            var seat = s.Seat;
-                            return (false, $"Ghế {seat.Row}{seat.SeatNumber} đã được đặt!");
-                        }
-                        s.Status = true;
+                        return (false, error);
                     }
 
                     //Bill
@@ -77,10 +68,22 @@ namespace CinemaManagement.Models.Services
                     await context.SaveChangesAsync();
                 }
             }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                using (var context = new CinemaManagementEntities())
+                {
+                    string error = await UpdateSeatsBooked(context, newTicketList);
+                    if (error != null)
+                    {
+                        return (false, error);
+                    }
+                }
+                return (false, "Danh sách ghế vừa đặt có chứa ghế đã được đặt. Vui lòng quay lại!");
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return (false, $"Error Server {e}");
+                return (false, $"Lỗi hệ thống");
             }
             return (true, "Đặt vé thành công");
         }
@@ -103,20 +106,13 @@ namespace CinemaManagement.Models.Services
                 using (var context = new CinemaManagementEntities())
                 {
                     //Update seat 
-                    var idSeatList = new List<int>();
-                    newTicketList.ForEach(s => idSeatList.Add(s.SeatId));
-                    //Make seat of showtime status = true
-                    int showtimeId = newTicketList[0].ShowtimeId;
-                    var seatSets = await context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId)).ToListAsync();
-                    foreach (var s in seatSets)
+                    string error = await UpdateSeatsBooked(context, newTicketList);
+
+                    if (error != null)
                     {
-                        if (s.Status)
-                        {
-                            var seat = s.Seat;
-                            return (false, $"Ghế {seat.Row}{seat.SeatNumber} đã được đặt!");
-                        }
-                        s.Status = true;
+                        return (false, error);
                     }
+
                     //Bill
                     string billId = await CreateNewBill(context, bill);
 
@@ -132,6 +128,18 @@ namespace CinemaManagement.Models.Services
                     await context.SaveChangesAsync();
                 }
             }
+            catch (System.Data.Entity.Infrastructure.DbUpdateException)
+            {
+                using (var context = new CinemaManagementEntities())
+                {
+                    string error = await UpdateSeatsBooked(context, newTicketList);
+                    if (error != null)
+                    {
+                        return (false, error);
+                    }
+                }
+                return (false, "Danh sách ghế vừa đặt có chứa ghế đã được đặt. Vui lòng quay lại!");
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e);
@@ -140,6 +148,35 @@ namespace CinemaManagement.Models.Services
             return (true, "Thực hiện giao dịch thành công");
         }
 
+
+        private async Task<string> UpdateSeatsBooked(CinemaManagementEntities context, List<TicketDTO> newTicketList)
+        {
+            var idSeatList = new List<int>();
+            newTicketList.ForEach(s => idSeatList.Add(s.SeatId));
+
+            //Make seat of showtime status = true
+            int showtimeId = newTicketList[0].ShowtimeId;
+            var seatSets = await context.SeatSettings.Where(s => s.ShowtimeId == showtimeId && idSeatList.Contains(s.SeatId)).ToListAsync();
+            List<string> bookedSeats = new List<string>();
+            foreach (var s in seatSets)
+            {
+                if (s.Status)
+                {
+                    var seat = s.Seat;
+                    bookedSeats.Add($"{seat.Row}{seat.SeatNumber}");
+                }
+                else
+                {
+                    s.Status = true;
+                }
+            }
+            if (bookedSeats.Count > 0)
+            {
+                return ($"Ghế {string.Join(", ", bookedSeats)} đã được đặt!");
+            }
+
+            return null;
+        }
         /// <summary>
         /// (Dành cho chỉ đặt sản phẩm) Tạo hóa đơn đặt hàng
         /// </summary>

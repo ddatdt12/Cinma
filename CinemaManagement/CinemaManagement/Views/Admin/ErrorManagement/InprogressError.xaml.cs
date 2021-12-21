@@ -46,11 +46,17 @@ namespace CinemaManagement.Views.Admin.ErrorManagement
             {
                 _Finishday.IsEnabled = false;
                 _cost.IsEnabled = false;
+                _Finishday.Visibility = Visibility.Collapsed;
+                _startday.Visibility = Visibility.Collapsed;
+                _cost.Visibility = Visibility.Collapsed;
             }
             else
             {
                 _Finishday.IsEnabled = true;
                 _cost.IsEnabled = true;
+                _Finishday.Visibility = Visibility.Visible;
+                _startday.Visibility = Visibility.Visible;
+                _cost.Visibility = Visibility.Visible;
             }
         }
 
