@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace CinemaManagement.Views.Staff.DeviceProblemsWindow
+namespace CinemaManagement.Views.Staff.TroubleWindow
 {
 
     public partial class ViewError : Window

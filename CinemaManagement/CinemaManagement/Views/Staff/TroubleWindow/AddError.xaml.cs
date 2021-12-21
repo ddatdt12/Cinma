@@ -1,15 +1,17 @@
-﻿using System.Windows;
+﻿using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace CinemaManagement.Views.Staff.DeviceProblemsWindow
+namespace CinemaManagement.Views.Staff.TroubleWindow
 {
-    public partial class EditError : Window
+    public partial class AddError : Window
     {
-        public EditError()
+        public AddError()
         {
             InitializeComponent();
+            StaffName.Text = TicketBillViewModel.Staff.Name;
         }
         private void Button_MouseEnter_1(object sender, MouseEventArgs e)
         {

@@ -5,7 +5,7 @@ using CinemaManagement.ViewModel.StaffViewModel.MovieScheduleWindowVM;
 using CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM;
 using CinemaManagement.Views;
 using CinemaManagement.Views.LoginWindow;
-using CinemaManagement.Views.Staff.DeviceProblemsWindow;
+using CinemaManagement.Views.Staff.TroubleWindow;
 using CinemaManagement.Views.Staff.MovieScheduleWindow;
 using CinemaManagement.Views.Staff.OrderFoodWindow;
 using CinemaManagement.Views.Staff.ShowtimePage;
@@ -227,7 +227,7 @@ namespace CinemaManagement.ViewModel
              });
             LoadErrorPageCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
              {
-                 p.Content = new DeviceReportPage();
+                 p.Content = new TroublePage();
              });
             SignoutCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
             {

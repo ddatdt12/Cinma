@@ -1,4 +1,4 @@
-﻿<Window x:Class="CinemaManagement.Views.Staff.DeviceProblemsWindow.AddError"
+﻿<Window x:Class="CinemaManagement.Views.Staff.TroubleWindow.EditError"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,33 +6,26 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-        DataContext="{StaticResource DeviceReportPageVM}"
+        DataContext="{StaticResource TroublePageVM}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="Transparent"
+        AllowsTransparency="True"
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="650"
         Width="1000"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        x:Name="Add_Page"
-        AllowsTransparency="True">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="MouseLeftButtonDown">
-            <i:InvokeCommandAction Command="{Binding MouseMoveCommand}"
-                                   CommandParameter="{Binding ElementName=Add_Page}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+        x:Name="edit">
 
     <Border Background="White"
             BorderBrush="Black"
             BorderThickness="1"
             CornerRadius="10">
-        <Grid Background="Transparent">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*" />
                 <RowDefinition Height="35*" />
@@ -45,29 +38,25 @@
                         materialDesign:ShadowAssist.ShadowEdges="Bottom"
                         materialDesign:ShadowAssist.ShadowDepth="Depth1">
                     <Grid>
-                        <TextBlock Text="Thêm sự cố thiết bị"
+                        <TextBlock Text="Sửa sự cố thiết bị"
                                    FontSize="25"
                                    Margin="20,10,0,0"
                                    FontWeight="Bold" />
-                        <StackPanel Orientation="Horizontal"
-                                    VerticalAlignment="Top"
-                                    HorizontalAlignment="Right"
-                                    Grid.Row="0">
-                            <Button Command="{Binding CancelCM}"
-                                    CommandParameter="{Binding ElementName=Add_Page}"
-                                    ToolBar.OverflowMode="AsNeeded"
-                                    Background="Transparent"
-                                    Foreground="Black"
-                                    BorderBrush="Transparent"
-                                    MouseEnter="Button_MouseEnter_1"
-                                    MouseLeave="Button_MouseLeave_1"
-                                    materialDesign:ButtonAssist.CornerRadius="0,10,0,0">
-                                <materialDesign:PackIcon Kind="WindowClose"
-                                                         Padding="0" />
-                            </Button>
-                        </StackPanel>
+                        <Button Command="{Binding CancelCM}"
+                                CommandParameter="{Binding ElementName=edit}"
+                                ToolBar.OverflowMode="AsNeeded"
+                                Background="Transparent"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Foreground="Black"
+                                BorderBrush="Transparent"
+                                MouseEnter="Button_MouseEnter_1"
+                                MouseLeave="Button_MouseLeave_1"
+                                materialDesign:ButtonAssist.CornerRadius="0,10,0,0">
+                            <materialDesign:PackIcon Kind="WindowClose"
+                                                     Padding="0" />
+                        </Button>
                     </Grid>
-
                 </Border>
             </Grid>
 
@@ -109,8 +98,8 @@
                                        Height="40"
                                        Width="300"
                                        Padding="0"
-                                       Margin="5,10,0,0"
-                                       x:Name="StaffName"/>
+                                       x:Name="staffname"
+                                       Margin="5,10,0,0" />
 
                         </StackPanel>
                     </StackPanel>
@@ -129,7 +118,6 @@
                             <TextBlock Margin="0,10,0,0"
                                        FontSize="22"
                                        Height="40"
-                                       Text="Chờ tiếp nhận"
                                        x:Name="cbxStatusError" />
                         </StackPanel>
 
@@ -143,6 +131,7 @@
                                            Margin="0,10,0,0"
                                            FontSize="25"
                                            Height="40"
+                                           x:Name="submitdate"
                                            Text="{Binding GetCurrentDate,StringFormat=dd/MM/yyyy}" />
                             </StackPanel>
                         </StackPanel>
@@ -156,7 +145,7 @@
                                           FontSize="25"
                                           Height="40"
                                           SelectedIndex="0"
-                                          SelectedItem="{Binding Level,Mode=OneWayToSource}">
+                                          SelectedItem="{Binding Level,Mode=TwoWay}">
                                     <ComboBoxItem>Bình thường</ComboBoxItem>
                                     <ComboBoxItem>Nghiêm trọng</ComboBoxItem>
                                 </ComboBox>
@@ -169,14 +158,13 @@
             <Grid Grid.Row="2">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="727*" />
-                        <ColumnDefinition Width="271*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel HorizontalAlignment="Left"
                                 Orientation="Horizontal"
-                                Margin="25,0,0,0.2"
-                                Width="405">
+                                Margin="25,0,0,0">
 
                         <!--Description-->
                         <StackPanel>
@@ -198,7 +186,7 @@
                                      Margin="5,5,0,0"
                                      Foreground="Black"
                                      materialDesign:ValidationAssist.Background="White"
-                                     Text="{Binding Description, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" />
+                                     Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                     </StackPanel>
 
@@ -248,8 +236,8 @@
                                 Width="100"
                                 Margin="10,0,0,0"
                                 materialDesign:ButtonAssist.CornerRadius="8"
-                                Command="{Binding SaveErrorCM}"
-                                CommandParameter="{Binding ElementName=Add_Page}" />
+                                Command="{Binding UpdateErrorCM}"
+                                CommandParameter="{Binding ElementName=edit}" />
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -302,4 +290,5 @@
             </materialDesign:Card>
         </Grid>
     </Border>
+
 </Window>
