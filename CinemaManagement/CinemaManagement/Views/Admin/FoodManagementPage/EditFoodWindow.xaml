@@ -46,7 +46,8 @@
             Background="White">
         <Grid Background="Transparent">
             <Border Background="Transparent">
-                <materialDesign:Card UniformCornerRadius="10" Background="Transparent">
+                <materialDesign:Card UniformCornerRadius="10"
+                                     Background="Transparent">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="50" />
@@ -149,8 +150,8 @@
                                     <Image Source="{Binding ImageSource}"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
-                                           Margin="5" 
-                                           x:Name="EditImage"/>
+                                           Margin="5"
+                                           x:Name="EditImage" />
                                 </Border>
                             </Grid>
                             <Grid Grid.Column="1">
@@ -184,11 +185,10 @@
                                             Value="12" />
                                 </Style>
                             </Grid.Resources>
-                            <TextBlock Text="Tỷ lệ ảnh: 200x150 (px)"
+                            <TextBlock Text="200x150"
                                        HorizontalAlignment="Left"
-                                       Margin="20 0 0 0"
-                                       VerticalAlignment="Top"
-                                       FontWeight="DemiBold" />
+                                       Margin="20 -10 0 0"
+                                       VerticalAlignment="Top" />
                             <Button Content="Hủy"
                                     Margin="0 0 90 10"
                                     BorderBrush="Transparent"

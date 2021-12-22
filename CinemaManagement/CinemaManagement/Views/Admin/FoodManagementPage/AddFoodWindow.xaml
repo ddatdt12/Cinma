@@ -183,11 +183,10 @@
                                     Value="12" />
                         </Style>
                     </Grid.Resources>
-                    <TextBlock Text="Tỷ lệ ảnh: 200x150 (px)"
+                    <TextBlock Text="200x150"
                                HorizontalAlignment="Left"
-                               Margin="20 0 0 0"
-                               VerticalAlignment="Top"
-                               FontWeight="DemiBold"/>
+                               Margin="20 -10 0 0"
+                               VerticalAlignment="Top" />
                     <Button Content="Hủy"
                             Margin="0 0 90 10"
                             BorderBrush="Transparent"
