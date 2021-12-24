@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:CinemaManagement.ViewModel.StaffViewModel"
         mc:Ignorable="d"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -20,6 +21,10 @@
         Width="1440"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <local:IsAdminConverter x:Key="AdminConverter" />
+    </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding FirstLoadCM}" />
@@ -256,6 +261,10 @@
                                                              PlacementMode="BottomAndAlignRightEdges"
                                                              Foreground="Black">
                                         <StackPanel Orientation="Vertical">
+                                            <Button Content="Đổi vai trò"
+                                                    Command="{Binding ChangeRoleCM}"
+                                                    CommandParameter="{Binding ElementName=Main_Staff}"
+                                                    Visibility="{Binding IsAdmin,Converter={StaticResource AdminConverter}}" />
                                             <Button Content="Đăng xuất"
                                                     Command="{Binding SignoutCM}"
                                                     CommandParameter="{Binding ElementName=Main_Staff}" />

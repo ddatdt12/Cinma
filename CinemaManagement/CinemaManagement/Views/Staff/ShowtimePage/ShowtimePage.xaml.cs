@@ -33,5 +33,10 @@ namespace CinemaManagement.Views.Staff.ShowtimePage
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(MainListBox.ItemsSource);
             view.Filter = Filter;
         }
+
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Filtercbb.SelectedItem = null;
+        }
     }
 }

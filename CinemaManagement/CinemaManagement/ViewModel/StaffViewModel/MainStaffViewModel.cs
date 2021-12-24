@@ -101,6 +101,7 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadErrorPageCM { get; set; }
         public ICommand SignoutCM { get; set; }
         public ICommand MaskNameCM { get; set; }
+        public ICommand ChangeRoleCM { get; set; }
 
         private string _UserName;
         public string UserName
@@ -114,6 +115,13 @@ namespace CinemaManagement.ViewModel
         {
             get { return _IsLoading; }
             set { _IsLoading = value; OnPropertyChanged(); }
+        }
+
+        private bool isAdmin;
+        public bool IsAdmin
+        {
+            get { return isAdmin; }
+            set { isAdmin = value; OnPropertyChanged(); }
         }
 
 
@@ -134,6 +142,11 @@ namespace CinemaManagement.ViewModel
             });
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
              {
+                 if (CurrentStaff.Role == "Quản lý")
+                     IsAdmin = true;
+                 else
+                     IsAdmin = false;
+
                  LoadCurrentDate();
                  SelectedDate = GetCurrentDate;
                  ListMovie1 = new ObservableCollection<MovieDTO>(await MovieService.Ins.GetShowingMovieByDay(SelectedDate));
@@ -185,9 +198,9 @@ namespace CinemaManagement.ViewModel
                             if (SelectedItem != null)
                             {
                                 w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
-                                w.imgframe.Source =await  CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
+                                w.imgframe.Source = await CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
                                 w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
-                                w.txtframe.Text = SelectedItem.DisplayName ?? "";
+                                w.txtframe.Text = SelectedItem?.DisplayName ?? "";
                                 w.ShowDialog();
                             }
                         }
@@ -239,6 +252,15 @@ namespace CinemaManagement.ViewModel
             MaskNameCM = new RelayCommand<Grid>((p) => { return true; }, (p) =>
             {
                 MaskName = p;
+            });
+            ChangeRoleCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Hide();
+                MainAdminWindow w1 = new MainAdminWindow();
+                MainAdminViewModel.currentStaff = CurrentStaff;
+                w1.CurrentUserName.Content = CurrentStaff.Name;
+                w1.Show();
+                p.Close();
             });
         }
     }
