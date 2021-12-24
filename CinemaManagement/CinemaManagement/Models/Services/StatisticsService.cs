@@ -31,7 +31,7 @@ namespace CinemaManagement.Models.Services
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    var cusStatistic = await context.Bills.Where(b => b.CreatedAt.Year == year)
+                    var cusStatistic = await context.Bills.Where(b => b.CreatedAt.Year == year && b.CustomerId != null)
                        .GroupBy(b => b.CustomerId)
                        .Select(grC => new
                        {
@@ -76,7 +76,7 @@ namespace CinemaManagement.Models.Services
                 {
                     using (var context = new CinemaManagementEntities())
                     {
-                        int NewCustomerQuanity = await context.Customers.CountAsync(c => c.CreatedAt.Year == year);
+                        int NewCustomerQuanity = await context.Customers.CountAsync(c => c.CreatedAt.Year == year );
                         int TotalCustomerQuantity = await context.Customers.CountAsync(c => c.Bills.Any(b => b.CreatedAt.Year == year) || c.CreatedAt.Year == year);
                         int WalkinGuestQuantity = await context.Bills.Where(b => b.CustomerId == null && b.CreatedAt.Year == year).CountAsync();
                         return (NewCustomerQuanity, TotalCustomerQuantity, WalkinGuestQuantity);
@@ -84,7 +84,6 @@ namespace CinemaManagement.Models.Services
                 }
                 else
                 {
-
                     using (var context = new CinemaManagementEntities())
                     {
                         int NewCustomerQuanity = await context.Customers.CountAsync(c => c.CreatedAt.Year == year && c.CreatedAt.Month == month);
@@ -109,7 +108,7 @@ namespace CinemaManagement.Models.Services
             {
                 using (var context = new CinemaManagementEntities())
                 {
-                    List<CustomerDTO> cusStatistic = await context.Bills.Where(b => b.CreatedAt.Year == DateTime.Now.Year && b.CreatedAt.Month == month)
+                    List<CustomerDTO> cusStatistic = await context.Bills.Where(b => b.CreatedAt.Year == DateTime.Now.Year && b.CreatedAt.Month == month && b.CustomerId != null)
                         .GroupBy(b => b.CustomerId)
                         .Select(grC => new
                         {

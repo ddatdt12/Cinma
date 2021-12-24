@@ -86,6 +86,7 @@ namespace CinemaManagement.ViewModel
         {
             SelectedDate = DateTime.Today;
             SelectedFinishDate = DateTime.Today;
+            RepairCost = 0;
             if (SelectedItem.Status == Utils.STATUS.DONE)
             {
                 DoneError w = new DoneError();
