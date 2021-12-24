@@ -200,7 +200,7 @@ namespace CinemaManagement.ViewModel
                                 w._ShowTimeList.ItemsSource = SelectedItem.Showtimes;
                                 w.imgframe.Source = await CloudinaryService.Ins.LoadImageFromURL(SelectedItem.Image);
                                 w._ShowDate.Text = SelectedDate.ToString("dd-MM-yyyy");
-                                w.txtframe.Text = SelectedItem.DisplayName;
+                                w.txtframe.Text = SelectedItem.DisplayName ?? "";
                                 w.ShowDialog();
                             }
                         }

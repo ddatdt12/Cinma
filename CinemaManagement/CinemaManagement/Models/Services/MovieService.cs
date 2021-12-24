@@ -12,7 +12,6 @@ namespace CinemaManagement.Models.Services
 {
     public class MovieService
     {
-
         private MovieService() { }
 
         private static MovieService _ins;
@@ -374,7 +373,6 @@ namespace CinemaManagement.Models.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
                 return (false, $"Error Server {e.Message}");
             }
             return (true, "Xóa phim thành công");

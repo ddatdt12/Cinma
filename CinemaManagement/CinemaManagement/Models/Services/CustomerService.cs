@@ -60,7 +60,7 @@ namespace CinemaManagement.Models.Services
                 {
                     using (var context = new CinemaManagementEntities())
                     {
-                        var customer = await context.Customers.Where(c => !c.IsDeleted && c.CreatedAt.Year <= year).Select(c => new CustomerDTO
+                        var customer = await context.Customers.Where(c => !c.IsDeleted && c.CreatedAt.Year == year).Select(c => new CustomerDTO
                         {
                             Id = c.Id,
                             Name = c.Name,
@@ -75,20 +75,10 @@ namespace CinemaManagement.Models.Services
                 }
                 else
                 {
-
-                    DateTime dateLimit;
-
-                    if (month == DateTime.Now.Month)
-                    {
-                        dateLimit = DateTime.Now;
-                    }
-                    else
-                    {
-                        dateLimit = new DateTime(year, month, DateTime.DaysInMonth(year, month));
-                    }
                     using (var context = new CinemaManagementEntities())
                     {
-                        var customer = await context.Customers.Where(c => !c.IsDeleted && c.CreatedAt <= dateLimit).Select(c => new CustomerDTO
+                        var customer = await context.Customers.Where(c => !c.IsDeleted && c.CreatedAt.Year == DateTime.Today.Year && c.CreatedAt.Month == month)
+                            .Select(c => new CustomerDTO
                         {
                             Id = c.Id,
                             Name = c.Name,

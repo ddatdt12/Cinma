@@ -192,10 +192,11 @@ StringFormat=dd/MM/yyyy HH:mm:ss}"
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Khách hàng"
-                                        Width="200">
+                                        Width="300">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock  Text="{Binding CustomerName}"
+                                                TextWrapping="Wrap"
                                                 FontSize="18"
                                                 Margin="20,0,0,0" />
                                 </DataTemplate>
@@ -223,7 +224,7 @@ StringFormat=dd/MM/yyyy HH:mm:ss}"
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Giảm giá"
-                                        Width="200">
+                                        Width="150">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock  Text="{Binding DiscountPriceStr}"

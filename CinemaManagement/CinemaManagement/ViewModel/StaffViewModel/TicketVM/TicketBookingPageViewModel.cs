@@ -224,6 +224,10 @@ namespace CinemaManagement.ViewModel.StaffViewModel.TicketVM
             TotalSeat = "";
             for (int i = 0; i < WaitingList.Count; i++)
             {
+                if (WaitingList[i] is null)
+                {
+                    return;
+                }
                 if (i == 0)
                     TotalSeat += WaitingList[i].SeatPosition;
                 else
