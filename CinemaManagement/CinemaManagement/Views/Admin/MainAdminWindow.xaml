@@ -434,6 +434,9 @@
                                              Foreground="White"
                                              PlacementMode="BottomAndAlignRightEdges">
                         <StackPanel Orientation="Vertical">
+                            <Button Content="Đổi vai trò"
+                                    Command="{Binding ChangeRoleCM}"
+                                    CommandParameter="{Binding ElementName=mainadminwindow}"/>
                             <Button Content="Đăng xuất"
                                     Command="{Binding SignoutCM}"
                                     CommandParameter="{Binding ElementName=mainadminwindow}" />
