@@ -1,11 +1,9 @@
 ﻿using CinemaManagement.DTOs;
 using CinemaManagement.Models.Services;
-using CinemaManagement.ViewModel.AdminVM.VoucherManagementVM;
 using CinemaManagement.ViewModel.StaffViewModel.TicketBillVM;
 using CinemaManagement.Views.LoginWindow;
 using CinemaManagement.Views.Staff;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +26,7 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadLoginPageCM { get; set; }
         public ICommand SaveLoginWindowNameCM { get; set; }
         public ICommand SaveLoginBtnCM { get; set; }
+        public ICommand AdminLoginCM { get; set; }
 
 
         private string _username;
@@ -48,6 +47,21 @@ namespace CinemaManagement.ViewModel
         {
             get { return isloadding; }
             set { isloadding = value; OnPropertyChanged(); }
+        }
+
+        private ComboBoxItem _SelectedRole;
+
+        public ComboBoxItem SelectedRole
+        {
+            get { return _SelectedRole; }
+            set { _SelectedRole = value; OnPropertyChanged(); }
+        }
+
+        private StaffDTO _CurrentStaff;
+        public StaffDTO CurrentStaff
+        {
+            get { return _CurrentStaff; }
+            set { _CurrentStaff = value; OnPropertyChanged(); }
         }
 
 
@@ -78,7 +92,7 @@ namespace CinemaManagement.ViewModel
             });
             LoginCM = new RelayCommand<Label>((p) => { return true; }, async (p) =>
              {
-                 string username = Username;    
+                 string username = Username;
                  string password = Password;
 
                  IsLoading = true;
@@ -104,6 +118,31 @@ namespace CinemaManagement.ViewModel
             {
                 LoginBtn = p;
             });
+            AdminLoginCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+                if (SelectedRole is null) return;
+
+                if (SelectedRole.Content.ToString() == "Quản lý")
+                {
+                    LoginWindow.Hide();
+                    MainAdminWindow w1 = new MainAdminWindow();
+                    MainAdminViewModel.currentStaff = CurrentStaff;
+                    w1.CurrentUserName.Content = CurrentStaff.Name;
+                    w1.Show();
+                    LoginWindow.Close();
+                    return;
+                }
+                else
+                {
+                    LoginWindow.Hide();
+                    MainStaffWindow w1 = new MainStaffWindow();
+                    MainStaffViewModel.CurrentStaff = CurrentStaff;
+                    w1._StaffName.Text = CurrentStaff.Name;
+                    w1.Show();
+                    LoginWindow.Close();
+                    return;
+                }
+            });
         }
 
         public async Task CheckValidateAccount(string usn, string pwr, Label lbl)
@@ -121,27 +160,22 @@ namespace CinemaManagement.ViewModel
             LoginPage.pgb.Visibility = Visibility.Visible;
 
             (bool loginSuccess, string message, StaffDTO staff) = await Task<(bool loginSuccess, string message, StaffDTO staff)>.Run(() => StaffService.Ins.Login(usn, pwr));
-
+            CurrentStaff = staff;
             LoginBtn.Content = "Đăng nhập";
             LoginBtn.IsHitTestVisible = true;
             LoginPage.pgb.Visibility = Visibility.Collapsed;
             if (loginSuccess)
             {
-
                 Password = "";
                 TicketBillViewModel.Staff = staff;
-                LoginWindow.Hide();
                 if (staff.Role == "Quản lý")
                 {
-                    MainAdminWindow w1 = new MainAdminWindow();
-                    MainAdminViewModel.currentStaff = staff;
-                    w1.CurrentUserName.Content = staff.Name;
-                    w1.Show();
-                    LoginWindow.Close();
-                    return;
+
+                    MainFrame.Content = new RolePage();
                 }
                 else
                 {
+                    LoginWindow.Hide();
                     MainStaffWindow w1 = new MainStaffWindow();
                     MainStaffViewModel.CurrentStaff = staff;
                     w1._StaffName.Text = staff.Name;

@@ -17,6 +17,7 @@ using System.Windows.Input;
 using CinemaManagement.Views;
 using System.Threading.Tasks;
 using CinemaManagement.Views.Admin.CustomerManagement;
+using CinemaManagement.Views.Staff;
 
 namespace CinemaManagement.ViewModel
 {
@@ -35,7 +36,7 @@ namespace CinemaManagement.ViewModel
         public ICommand LoadVCPageCM { get; set; }
         public ICommand LoadQLKHPageCM { get; set; }
         public ICommand FirstLoadCM { get; set; }
-
+        public ICommand ChangeRoleCM { get; set; }
 
         private string _SelectedFuncName;
         public string SelectedFuncName
@@ -147,7 +148,15 @@ namespace CinemaManagement.ViewModel
                     p.Content = new VoucherManagement();
 
             });
-
+            ChangeRoleCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                p.Hide();
+                MainStaffWindow w1 = new MainStaffWindow();
+                MainStaffViewModel.CurrentStaff = currentStaff;
+                w1._StaffName.Text = currentStaff.Name;
+                w1.Show();
+                p.Close();
+            });
 
 
             // this is  the ErrorViewmodel resources

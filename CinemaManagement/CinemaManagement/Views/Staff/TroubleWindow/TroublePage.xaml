@@ -102,6 +102,7 @@
                                          Margin="60,10,60,20">
                         <ListView ItemsSource="{Binding ListError}"
                                   SelectedItem="{Binding SelectedItem}"
+                                  ToolTip="Nháy đúp để xem chi tiết"
                                   x:Name="lvError">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseDoubleClick">
