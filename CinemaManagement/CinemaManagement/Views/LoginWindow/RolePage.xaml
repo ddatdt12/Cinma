@@ -1,0 +1,100 @@
+﻿<Page x:Class="CinemaManagement.Views.LoginWindow.RolePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      mc:Ignorable="d"
+      d:DesignHeight="373"
+      d:DesignWidth="426"
+      x:Name="mainPage"
+      DataContext="{StaticResource LoginVM}">
+    <Page.Triggers>
+        <EventTrigger RoutedEvent="Page.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <ThicknessAnimation Storyboard.TargetName="mainPage"
+                                        Storyboard.TargetProperty="Margin"
+                                        From="426,0,0,0"
+                                        To="0"
+                                        Duration="0:0:0.2" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Page.Triggers>
+    <StackPanel Orientation="Vertical">
+        <!--Welcome-->
+        <Label FontFamily="junegull"
+               FontSize="35"
+               FontWeight="UltraBlack"
+               Foreground="#0c70b6"
+               Content="WELCOME BACK"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"
+               Height="50"
+               Margin="0,30,0,0">
+        </Label>
+
+        <!--Login Area-->
+        <StackPanel Margin="0,50,0,0"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+            <materialDesign:PackIcon Kind="Account"
+                                     Height="20"
+                                     Width="20"
+                                     VerticalAlignment="Bottom" />
+            <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
+                     Foreground="Black"
+                     FontSize="15"
+                     Width="200"
+                     Margin="5,0,0,0"
+                     BorderBrush="LightGray"
+                     IsReadOnly="True"
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     Text="{Binding Username}"
+                     x:Name="usernameTextBox" />
+        </StackPanel>
+        <StackPanel>
+            <Label Content="Vai trò"
+                   Margin="123,5,0,-5" />
+            <StackPanel HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+
+                <materialDesign:PackIcon Kind="CompareHorizontal"
+                                         Height="20"
+                                         Width="20"
+                                         VerticalAlignment="Bottom" />
+                <ComboBox x:Name="FloatingPasswordBox"
+                          Foreground="Black"
+                          FontSize="15"
+                          Width="200"
+                          Margin="5,0,0,0"
+                          IsReadOnly="True"
+                          SelectedIndex="0"
+                          BorderBrush="LightGray"
+                          SelectedItem="{Binding SelectedRole}">
+                    <ComboBoxItem>Quản lý</ComboBoxItem>
+                    <ComboBoxItem>Nhân viên</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+
+
+            <Grid Margin="120,70,20,0">
+                <Button Content="Xác nhận"
+                        Width="120"
+                        x:Name="loginbtn"
+                        Padding="0,0,0,5"
+                        materialDesign:ButtonAssist.CornerRadius="8"
+                        Command="{Binding AdminLoginCM}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding SaveLoginBtnCM}"
+                                                   CommandParameter="{Binding ElementName=loginbtn}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+</Page>

@@ -17,6 +17,14 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
     public partial class ShowtimeManagementViewModel : BaseViewModel
     {
         public static Grid ShadowMask { get; set; }
+
+        private Label resultLabel;
+        public Label ResultLabel
+        {
+            get { return resultLabel; }
+            set { resultLabel = value; OnPropertyChanged(); }
+        }
+
         private bool isLoading;
         public bool IsLoading
         {
@@ -142,6 +150,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
         public ICommand FirstLoadCM { get; set; }
         public ICommand CalculateRunningTimeCM { get; set; }
         public ICommand SelectedDateCM { get; set; }
+        public ICommand SaveResultNameCM { get; set; }
 
         public ShowtimeManagementViewModel()
         {
@@ -221,7 +230,7 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                      result.ShowDialog();
                      if (result.DialogResult == false)
                      {
-                         return; 
+                         return;
                      }
                  }
 
@@ -336,6 +345,10 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                 await ReloadShowtimeList(-1);
                 GetShowingMovieByRoomInDate(SelectedRoomId);
             });
+            SaveResultNameCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
+            {
+                ResultLabel = p;
+            });
         }
 
 
@@ -382,12 +395,14 @@ namespace CinemaManagement.ViewModel.AdminVM.ShowtimeManagementViewModel
                     mb.ShowDialog();
                 }
             }
+            ResultLabel.Content = ShowtimeList.Count;
         }
         private void GetShowingMovieByRoomInDate(int roomId)
         {
             if (roomId == -1)
             {
                 ShowtimeList = new ObservableCollection<MovieDTO>(listMovieAllRoom);
+                ResultLabel.Content = ShowtimeList.Count;
                 return;
             }
             List<MovieDTO> listMoviesByRoom = listMovieAllRoom.Where(m => m.Showtimes.Any(s => s.RoomId == roomId)).Select(m => new MovieDTO

@@ -355,6 +355,7 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\ForgotPassViewModel.cs" />
     <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
+    <Compile Include="ViewModel\StaffViewModel\IsAdminConverter.cs" />
     <Compile Include="ViewModel\StaffViewModel\TroubleWindowVM\AddError.cs" />
     <Compile Include="ViewModel\StaffViewModel\TroubleWindowVM\TroublePageViewModel.cs" />
     <Compile Include="ViewModel\StaffViewModel\TroubleWindowVM\EditConverter.cs" />
@@ -500,6 +501,9 @@
     </Compile>
     <Compile Include="Views\LoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow\RolePage.xaml.cs">
+      <DependentUpon>RolePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MessageBoxCustom.xaml.cs">
       <DependentUpon>MessageBoxCustom.xaml</DependentUpon>
@@ -732,6 +736,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginWindow\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow\RolePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

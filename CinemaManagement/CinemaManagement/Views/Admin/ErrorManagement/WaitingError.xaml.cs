@@ -55,9 +55,9 @@ namespace CinemaManagement.Views.Admin.ErrorManagement
                 _cost.IsEnabled = false;
                 _Finishday.IsEnabled = false;
                 costval.Text = "0";
-                _Finishday.Visibility = Visibility.Visible;
+                _Finishday.Visibility = Visibility.Collapsed;
                 _startday.Visibility = Visibility.Visible;
-                _cost.Visibility = Visibility.Visible;
+                _cost.Visibility = Visibility.Collapsed;
             }
             else if (cbb.SelectedValue.ToString() == "Đã giải quyết")
             {
