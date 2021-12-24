@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -89,7 +90,7 @@ namespace CinemaManagement.Views.Admin.StatisticalManagement
             l.Add("Tháng 12");
 
             cbb.ItemsSource = l;
-            cbb.SelectedIndex = 0;
+            cbb.SelectedIndex = DateTime.Today.Month - 1;
         }
     }
 }

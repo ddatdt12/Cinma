@@ -101,7 +101,8 @@
                               ItemsSource="{Binding MovieList}"
                               SelectedItem="{Binding SelectedItem}"
                               Focusable="True"
-                              Height="578">
+                              Height="578"
+                              ToolTip="Nháy đúp để xem chi tiết">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDoubleClick">
                                 <i:InvokeCommandAction Command="{Binding LoadInforMovieCM}" />

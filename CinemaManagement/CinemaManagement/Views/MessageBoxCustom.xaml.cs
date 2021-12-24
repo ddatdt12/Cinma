@@ -64,11 +64,9 @@ namespace CinemaManagement.Views
         }
         public void ChangeBackGround(Color newcolor)
         {
-            btnYes.Background = new SolidColorBrush(newcolor);
-            btnOk.Background = new SolidColorBrush(newcolor);
-            btnNo.Background = new SolidColorBrush(newcolor);
-            btnCancel.Background = new SolidColorBrush(newcolor);
             BackGroundTittle.Background = new SolidColorBrush(newcolor);
+            btnOk.Background = new SolidColorBrush(newcolor);
+            btnYes.Background = new SolidColorBrush(newcolor);
             btnClose.Foreground = new SolidColorBrush(newcolor);
         }
 
