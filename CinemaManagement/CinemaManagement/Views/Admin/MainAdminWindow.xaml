@@ -188,23 +188,25 @@
                                     </Style.Setters>
                                 </Style>
                             </StackPanel.Resources>
-                            <StackPanel HorizontalAlignment="Center"
-                                        Orientation="Horizontal"
-                                        Width="150">
-                                <Image Source="/Resources/Icon/iconApp.ico"
-                                       Height="50"
-                                       Width="50"
-                                       VerticalAlignment="Top" />
-                                <Label FontWeight="Bold"
-                                       FontSize="18"
-                                       VerticalAlignment="Center"
-                                       HorizontalContentAlignment="Center"
-                                       Foreground="White">
-                                    <Label.Content>
-                                        <TextBlock>Squadin<LineBreak /> Cinema</TextBlock>
-                                    </Label.Content>
-                                </Label>
-                            </StackPanel>
+                            <Grid Height="80">
+                                <StackPanel HorizontalAlignment="Center"
+                                            Orientation="Horizontal"
+                                            Height="60">
+                                    <Image Source="/Resources/Icon/iconApp.ico"
+                                           Width="60"
+                                           Margin="10,-5,5,0" />
+                                    <TextBlock TextWrapping="Wrap"
+                                               materialDesign:TextBlockAssist.AutoToolTip="True"
+                                               VerticalAlignment="Bottom"
+                                               TextAlignment="Center"
+                                               Text="Squadin Cinema"
+                                               FontFamily="Helvetica"
+                                               FontWeight="Bold"
+                                               Foreground="#e3e9fa"
+                                               FontSize="20"
+                                               Width="100"/>
+                                </StackPanel>
+                            </Grid>
 
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="MovieEdit"
