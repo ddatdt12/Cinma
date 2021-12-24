@@ -543,7 +543,7 @@
                     <Button Command="{Binding BuyCommand}"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Center"
-                            Margin="20,0,0,10"
+                            Margin="20,0,0,15"
                             materialDesign:ButtonAssist.CornerRadius="8"
                             Grid.Row="2"
                             Height="50"

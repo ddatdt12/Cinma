@@ -116,7 +116,7 @@
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
-                                Width="85"
+                                Width="95"
                                 Content="Xác nhận"
                                 />
                         <Button x:Name="btnCancel"

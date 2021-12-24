@@ -242,7 +242,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                     }
                     else
                     {
-                        MessageBoxCustom mgb = new MessageBoxCustom("", "Hết hàng!", MessageType.Warning, MessageButtons.OK);
+                        MessageBoxCustom mgb = new MessageBoxCustom("Cảnh báo", "Hết hàng!", MessageType.Warning, MessageButtons.OK);
                         mgb.ShowDialog();
                     }
                 }
@@ -331,7 +331,7 @@ namespace CinemaManagement.ViewModel.StaffViewModel.OrderFoodWindowVM
                             }
                             else
                             {
-                                MessageBoxCustom mgb = new MessageBoxCustom("", "Số lượng không đủ!", MessageType.Error, MessageButtons.OK);
+                                MessageBoxCustom mgb = new MessageBoxCustom("Cảnh báo", "Số lượng không đủ!", MessageType.Warning, MessageButtons.OK);
                                 mgb.ShowDialog();
                             }
                             return;
