@@ -111,41 +111,44 @@
                         </Grid.ColumnDefinitions>
 
                         <Button x:Name="btnOk"
+                                Background="#FF4CAF50"
                                 Click="btnOk_Click"
                                 Grid.Column="1"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
-                                Width="75"
-                                Content="OK"
+                                Width="100"
+                                Content="Xác nhận"
                                 />
                         <Button x:Name="btnCancel"
+                                Background="#FF92A9C0"
                                 Click="btnCancel_Click"
                                 Grid.Column="2"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
                                 Width="75"
-                                Content="Cancel"
+                                Content="Đóng"
                                 />
                         <Button x:Name="btnYes"
+                                Background="#FF4CAF50"
                                 Click="btnYes_Click"
                                 Grid.Column="1"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
                                 Width="75"
-                                Content="Yes"
+                                Content="Có"
                                />
                         <Button x:Name="btnNo"
+                                Background="#FF92A9C0"
                                 Click="btnNo_Click"
                                 Grid.Column="2"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
                                 Width="75"
-                                Content="No"
-                                />
+                                Content="Không"/>
                     </Grid>
                 </Grid>
             </Grid>
