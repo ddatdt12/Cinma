@@ -162,7 +162,17 @@
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Email" />
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+                            <TextBlock Text="Email" />
+                            <materialDesign:PackIcon Kind="InfoCircle"
+                                                     Cursor="Hand"
+                                                     Height="15"
+                                                     VerticalAlignment="Center"
+                                                     Width="15"
+                                                     Margin="-10,8,10,0"
+                                                     ToolTip="Không bắt buộc" />
+                        </StackPanel>
                         <TextBox Grid.Column="1"
                                  x:Name="_Mail"
                                  Text="{Binding Mail, Mode=TwoWay}" />

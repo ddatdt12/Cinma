@@ -156,7 +156,6 @@
                                  Text="{Binding PhoneNumber, Mode=TwoWay}"/>
                         <Button Grid.Column="2"
                                 Content="{materialDesign:PackIcon PhoneCheckOutline}"
-                                ToolTip="Icon"
                                 VerticalAlignment="Bottom"
                                 Margin="15 0 10 0"
                                 Command="{Binding CheckPhoneNumberCM}" />
@@ -365,7 +364,6 @@
                                  Margin="10 0 15 4"
                                  Text="{Binding VoucherID, Mode=TwoWay}" />
                         <Button Grid.Column="2"
-                                ToolTip="Icon"
                                 VerticalAlignment="Bottom"
                                 Margin="10 0 10 0"
                                 Command="{Binding AddVoucherOnlyFoodCM}">

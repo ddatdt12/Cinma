@@ -116,17 +116,18 @@
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
-                                Width="75"
-                                Content="OK"
+                                Width="85"
+                                Content="Xác nhận"
                                 />
                         <Button x:Name="btnCancel"
+                                Background="#FF92A9C0"
                                 Click="btnCancel_Click"
                                 Grid.Column="2"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
                                 Width="75"
-                                Content="Cancel"
+                                Content="Đóng"
                                 />
                         <Button x:Name="btnYes"
                                 Click="btnYes_Click"
@@ -134,18 +135,18 @@
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
-                                Width="75"
-                                Content="Yes"
+                                Width="80"
+                                Content="Đồng ý"
                                />
                         <Button x:Name="btnNo"
+                                Background="#FF92A9C0"
                                 Click="btnNo_Click"
                                 Grid.Column="2"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
-                                Width="75"
-                                Content="No"
-                                />
+                                Width="80"
+                                Content="Không"/>
                     </Grid>
                 </Grid>
             </Grid>

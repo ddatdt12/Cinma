@@ -82,6 +82,14 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public int SelectedView = 0;
         public static Grid MaskName { get; set; }
 
+        private System.Windows.Controls.Label _ResultName;
+        public System.Windows.Controls.Label ResultName
+        {
+            get { return _ResultName; }
+            set { _ResultName = value; OnPropertyChanged(); }
+        }
+
+
         public ICommand LoadImportPageCM { get; set; }
         public ICommand LoadExportPageCM { get; set; }
         public ICommand ExportFileCM { get; set; }
@@ -93,6 +101,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         public ICommand SelectedImportMonthCM { get; set; }
         public ICommand SelectedMonthCM { get; set; }
         public ICommand CloseCM { get; set; }
+        public ICommand SaveResultNameCM { get; set; }
 
         private ObservableCollection<ProductReceiptDTO> _ListProduct;
         public ObservableCollection<ProductReceiptDTO> ListProduct
@@ -112,7 +121,8 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
         {
             GetCurrentDate = DateTime.Today;
             SelectedDate = GetCurrentDate;
-            SelectedMonth = 0;
+            SelectedMonth = DateTime.Now.Month - 1;
+            SelectedImportMonth = DateTime.Now.Month - 1;
 
             SelectedMonthCM = new RelayCommand<System.Windows.Controls.ComboBox>((p) => { return true; }, async (p) =>
             {
@@ -165,7 +175,9 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                 {
                     try
                     {
-                        BillDetail = await BillService.Ins.GetBillDetails(SelectedTicketBill.Id);
+                        IsGettingSource = true;
+                        BillDetail = await Task.Run(() => BillService.Ins.GetBillDetails(SelectedTicketBill.Id));
+                        IsGettingSource = false;
                     }
                     catch (System.Data.Entity.Core.EntityException e)
                     {
@@ -226,6 +238,10 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                 MaskName.Visibility = Visibility.Collapsed;
                 SelectedTicketBill = null;
                 p.Close();
+            });
+            SaveResultNameCM = new RelayCommand<System.Windows.Controls.Label>((p) => { return true; }, (p) =>
+            {
+                ResultName = p;
             });
         }
 
@@ -340,7 +356,8 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                             IsGettingSource = true;
 
                             ListProduct = new ObservableCollection<ProductReceiptDTO>(await ProductReceiptService.Ins.GetProductReceipt());
-                            
+                            if (ResultName != null)
+                                ResultName.Content = ListProduct.Count;
                             IsGettingSource = false;
                             return;
                         }
@@ -381,6 +398,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                         {
                             IsGettingSource = true;
                             ListBill = new ObservableCollection<BillDTO>(await BillService.Ins.GetBillByDate(SelectedDate));
+                            ResultName.Content = ListBill.Count;
                             IsGettingSource = false;
                             return;
                         }
@@ -406,6 +424,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                         {
                             IsGettingSource = true;
                             ListBill = new ObservableCollection<BillDTO>(await BillService.Ins.GetAllBill());
+                            ResultName.Content = ListBill.Count;
                             IsGettingSource = false;
                             return;
                         }
@@ -429,10 +448,10 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
                     {
                         IsGettingSource = true;
                         await CheckMonthFilter();
+                        ResultName.Content = ListBill.Count;
                         IsGettingSource = false;
                         return;
                     }
-
             }
         }
         public async Task CheckItemFilter()
@@ -496,6 +515,7 @@ namespace CinemaManagement.ViewModel.AdminVM.Import_ExportManagementVM
             try
             {
                 ListProduct = new ObservableCollection<ProductReceiptDTO>(await ProductReceiptService.Ins.GetProductReceipt(SelectedImportMonth + 1));
+                ResultName.Content = ListProduct.Count;
             }
             catch (System.Data.Entity.Core.EntityException e)
             {

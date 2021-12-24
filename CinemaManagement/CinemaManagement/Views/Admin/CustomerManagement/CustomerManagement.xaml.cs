@@ -96,7 +96,7 @@ namespace CinemaManagement.Views.Admin.CustomerManagement
             l.Add("Tháng 12");
 
             cbb.ItemsSource = l;
-            cbb.SelectedIndex = 0;
+            cbb.SelectedIndex = DateTime.Now.Month-1;
         }
     }
 }

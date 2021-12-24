@@ -81,13 +81,29 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Frame>
-                    <Grid Grid.RowSpan="2">
-                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}"
-                                     Value="0"
-                                     IsIndeterminate="{Binding IsGettingSource,UpdateSourceTrigger=PropertyChanged}"
-                                     Width="100"
-                                     Height="100" />
-                    </Grid>
+
+                    <ProgressBar Value="0"
+                                 IsIndeterminate="{Binding IsGettingSource}"
+                                 Width="100"
+                                 x:Name="load"
+                                 Height="100">
+                        <ProgressBar.Style>
+                            <Style TargetType="ProgressBar"
+                                   BasedOn="{StaticResource MaterialDesignCircularProgressBar}">
+                                <Setter Property="Visibility"
+                                        Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=load,Path=IsIndeterminate}"
+                                                 Value="True">
+                                        <Setter Property="Visibility"
+                                                Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ProgressBar.Style>
+                    </ProgressBar>
+
+
                 </Grid>
 
             </materialDesign:Card>
