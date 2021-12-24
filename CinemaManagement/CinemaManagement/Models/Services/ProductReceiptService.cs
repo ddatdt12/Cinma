@@ -109,7 +109,7 @@ namespace CinemaManagement.Models.Services
                         Id = CreateNextProdReceiptId(maxId),
                         ImportPrice = newPReceipt.ImportPrice,
                         ProductId = newPReceipt.ProductId,
-                        CreatedAt = DateTime.Today,
+                        CreatedAt = DateTime.Now,
                         Quantity = newPReceipt.Quantity,
                         StaffId = newPReceipt.StaffId,
                     };
