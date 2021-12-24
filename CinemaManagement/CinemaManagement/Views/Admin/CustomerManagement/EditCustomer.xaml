@@ -118,15 +118,15 @@
                 </Grid.Resources>
                 <TextBlock Text="Ngày đăng ký"
                            Margin="0,20,9,10" />
-                <DatePicker Width="358"
-                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                            HorizontalAlignment="Left"
-                            Margin="5,6,0,6"
-                            Grid.Column="1"
-                            x:Name="Date"
-                            SelectedDate="{Binding SignAt, Mode=TwoWay}"
-                            Grid.ColumnSpan="2">
-                </DatePicker>
+                <TextBox Width="358"
+                         HorizontalAlignment="Left"
+                         Margin="5,6,0,6"
+                         Grid.Column="1"
+                         Text="{Binding SelectedItem.StartDate,StringFormat=dd/MM/yyyy}"
+                         IsReadOnly="True"
+                         x:Name="Date"
+                         Grid.ColumnSpan="2">
+                </TextBox>
             </Grid>
 
             <Grid Background="Transparent">

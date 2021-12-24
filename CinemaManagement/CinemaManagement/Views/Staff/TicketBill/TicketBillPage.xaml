@@ -52,20 +52,10 @@
                                      HorizontalAlignment="Center" />
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonDown">
-                    <i:InvokeCommandAction Command="{Binding BackToFoodPageCM}"/>
+                    <i:InvokeCommandAction Command="{Binding BackToFoodPageCM}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </Border>
-
-
-        <!--<Button Style="{StaticResource MaterialDesignPaperLightButton}"
-                Width="50"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Left"
-                Margin="15 15 0 0"
-                ToolTip="Resource name: MaterialDesignPaperLightButton"
-                Content="{materialDesign:PackIcon ArrowLeft}"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />-->
 
         <materialDesign:Card HorizontalAlignment="Left"
                              Width="360"
@@ -105,15 +95,6 @@
                 <!--#endregion-->
 
                 <Grid Grid.Row="1">
-                    <!--<Grid.RowDefinitions>
-                        <RowDefinition Height="40" />
-                        <RowDefinition Height="45" />
-                        <RowDefinition Height="45" />
-                        <RowDefinition Height="43" />
-                        <RowDefinition Height="45" />
-                        <RowDefinition Height="45" />
-                        <RowDefinition Height="60" />
-                    </Grid.RowDefinitions>-->
 
                     <Grid.Resources>
                         <Style TargetType="TextBlock">
@@ -174,7 +155,6 @@
                                  Text="{Binding PhoneNumber, Mode=TwoWay}" />
                         <Button Grid.Column="2"
                                 Content="{materialDesign:PackIcon PhoneCheckOutline}"
-                                ToolTip="Icon"
                                 VerticalAlignment="Bottom"
                                 Margin="15 0 10 0"
                                 Command="{Binding CheckPhoneNumberCM}" />
@@ -383,7 +363,6 @@
                                  Margin="10 0 15 4"
                                  Text="{Binding VoucherID, Mode=TwoWay}" />
                         <Button Grid.Column="2"
-                                ToolTip="Icon"
                                 VerticalAlignment="Bottom"
                                 Margin="10 0 10 0"
                                 Command="{Binding AddVoucherCM}">

@@ -132,6 +132,7 @@
                                         Padding="10,0,0,0"
                                         Margin="0,0,64,0"
                                         x:Name="_movieDate"
+                                        DisplayDateStart="{Binding GetCurrentDate}"
                                         SelectedDate="{Binding showtimeDate, Mode=TwoWay}"
                                         materialDesign:HintAssist.IsFloating="False"
                                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"

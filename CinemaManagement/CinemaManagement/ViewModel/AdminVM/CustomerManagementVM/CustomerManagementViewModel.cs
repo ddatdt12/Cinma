@@ -16,6 +16,13 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
     public class CustomerManagementViewModel : BaseViewModel
     {
         ListView listView;
+        private Label _ResultLbl;
+        public Label ResultLbl
+        {
+            get { return _ResultLbl; }
+            set { _ResultLbl = value; OnPropertyChanged(); }
+        }
+
 
         #region Biến lưu dữ liệu thêm
 
@@ -24,13 +31,6 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
         {
             get { return _Fullname; }
             set { _Fullname = value; OnPropertyChanged(); }
-        }
-
-        private System.DateTime _SignAt;
-        public System.DateTime SignAt
-        {
-            get { return _SignAt; }
-            set { _SignAt = value; OnPropertyChanged(); }
         }
 
         private string _Phone;
@@ -93,7 +93,7 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
         public ICommand CloseCommand { get; set; }
         public ICommand MaskNameCM { get; set; }
         public ICommand ChangePeriodCM { get; set; }
-
+        public ICommand SaveResultNameCM { get; set; }
 
 
 
@@ -115,12 +115,13 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
                 {
                     listView = p;
                 });
-            EditCustomerCommand = new RelayCommand<Window>((p) => { 
+            EditCustomerCommand = new RelayCommand<Window>((p) =>
+            {
                 if (IsSaving)
                 {
                     return false;
                 }
-                return true; 
+                return true;
             }, async (p) =>
                 {
                     IsSaving = true;
@@ -140,7 +141,7 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
                          IsGettingSource = true;
 
                          (bool isSuccess, string messageFromUpdate) = await CustomerService.Ins.DeleteCustomer(SelectedItem.Id);
-                         
+
                          IsGettingSource = false;
 
                          if (isSuccess)
@@ -162,7 +163,6 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
                 EditCustomer wd = new EditCustomer();
                 ResetData();
                 Fullname = SelectedItem.Name;
-                SignAt = SelectedItem.StartDate;
                 Phone = SelectedItem.PhoneNumber.ToString();
                 Mail = SelectedItem.Email;
                 MaskName.Visibility = Visibility.Visible;
@@ -210,6 +210,10 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
                 }
 
             });
+            SaveResultNameCM = new RelayCommand<Label>((p) => { return true; }, (p) =>
+            {
+                ResultLbl = p;
+            });
         }
 
         public void LoadCustomerListView(Operation oper, CustomerDTO cus = null)
@@ -238,7 +242,6 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
         void ResetData()
         {
             Fullname = null;
-            SignAt = DateTime.Now;
             Phone = null;
             Mail = null;
         }
@@ -262,7 +265,6 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
                 cus.Id = SelectedItem.Id;
                 cus.Name = Fullname;
                 cus.PhoneNumber = Phone;
-                cus.StartDate = SignAt;
                 cus.Email = Mail;
                 cus.Expense = SelectedItem.Expense;
 
@@ -309,6 +311,7 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
             try
             {
                 CustomerList = new ObservableCollection<CustomerDTO>(await CustomerService.Ins.GetAllCustomerByTime(int.Parse(SelectedTime.ToString())));
+                ResultLbl.Content = CustomerList.Count;
             }
             catch (System.Data.Entity.Core.EntityException e)
             {
@@ -332,6 +335,7 @@ namespace CinemaManagement.ViewModel.AdminVM.CustomerManagementVM
             try
             {
                 CustomerList = new ObservableCollection<CustomerDTO>(await CustomerService.Ins.GetAllCustomerByTime(selectedyear, int.Parse(SelectedTime.ToString().Remove(0, 6))));
+                ResultLbl.Content = CustomerList.Count;
             }
             catch (System.Data.Entity.Core.EntityException e)
             {

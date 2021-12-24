@@ -123,7 +123,7 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Họ và tên">
+                                <GridViewColumn Header="Họ và tên" Width="280">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Name}"
@@ -185,12 +185,12 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn>
+                                <GridViewColumn Width="120">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel VerticalAlignment="Center"
                                                         Orientation="Horizontal"
-                                                        Margin="60,0,0,0">
+                                                        Margin="20,0,0,0">
                                                 <Border BorderBrush="Black"
                                                         BorderThickness="1"
                                                         CornerRadius="6"

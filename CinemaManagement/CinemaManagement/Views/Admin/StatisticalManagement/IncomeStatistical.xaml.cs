@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -70,7 +71,7 @@ namespace CinemaManagement.Views.Admin.StatisticalManagement
             l.Add("Tháng 12");
 
             cbb.ItemsSource = l;
-            cbb.SelectedIndex = 0;
+            cbb.SelectedIndex = DateTime.Today.Month - 1;
         }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {

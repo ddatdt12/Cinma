@@ -11,7 +11,7 @@
       d:DesignHeight="662"
       d:DesignWidth="1440"
       x:Name="mainPage"
-      FontFamily="airal"
+      FontFamily="arial"
       DataContext="{StaticResource StatisticalManagementVM}">
 
     <Page.Triggers>
@@ -125,13 +125,19 @@
 
             </StackPanel>
 
-
+            <Label Grid.RowSpan="3"
+                   Content="Top 5 phim doanh thu cao nhất"
+                   VerticalAlignment="Center"
+                   FontWeight="Bold"
+                   FontSize="25"
+                   Margin="10,0,0,0" />
             <materialDesign:Card Margin="10,0,10,10"
                                  UniformCornerRadius="5"
-                                 Height="340"
+                                 Height="300"
                                  VerticalAlignment="Bottom"
                                  Grid.Row="2">
-                <ListView ItemsSource="{Binding Top5Movie}">
+                <ListView ItemsSource="{Binding Top5Movie}"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <ListView.View>
 
                         <GridView>
@@ -143,7 +149,7 @@
                                          AncestorType={x:Type ListViewItem}}, 
                                          Converter={StaticResource IndexConverter}}"
                                                     FontSize="18"
-                                                    Margin="20,5,0,0" />
+                                                    Margin="20,0,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -153,8 +159,7 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding DisplayName}"
                                                    FontSize="18"
-                                                   Height="34"
-                                                   Margin="0,5,0,0" />
+                                                   Height="34" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -163,8 +168,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding RevenueStr}"
-                                                   FontSize="18"
-                                                   Margin="0,5,0,0" />
+                                                   FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -173,7 +177,7 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding TicketCount}"
                                                    FontSize="18"
-                                                   Margin="20,5,0,0" />
+                                                   Margin="20,0,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -267,13 +271,19 @@
                 </materialDesign:Card>
 
             </StackPanel>
-
+            <Label Grid.RowSpan="3"
+                   Content="Top 5 sản phẩm doanh thu cao nhất"
+                   VerticalAlignment="Center"
+                   FontWeight="Bold"
+                   FontSize="25"
+                   Margin="10,0,0,0" />
             <materialDesign:Card Margin="10,0,10,10"
                                  UniformCornerRadius="5"
-                                 Height="340"
+                                 Height="300"
                                  VerticalAlignment="Bottom"
                                  Grid.Row="2">
-                <ListView ItemsSource="{Binding Top5Product}">
+                <ListView ItemsSource="{Binding Top5Product}"
+                          ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <ListView.View>
 
                         <GridView>
@@ -285,7 +295,7 @@
                                          AncestorType={x:Type ListViewItem}}, 
                                          Converter={StaticResource IndexConverter}}"
                                                     FontSize="18"
-                                                    Margin="20,5,0,0" />
+                                                    Margin="20,0,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -295,8 +305,7 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding DisplayName}"
                                                    FontSize="18"
-                                                   Height="34"
-                                                   Margin="0,5,0,0" />
+                                                   Height="34" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -305,8 +314,7 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding RevenueStr}"
-                                                   FontSize="18"
-                                                   Margin="0,5,0,0" />
+                                                   FontSize="18" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -315,7 +323,7 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding SalesQuantity}"
                                                    FontSize="18"
-                                                   Margin="20,5,0,0" />
+                                                   Margin="20,0,0,0" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

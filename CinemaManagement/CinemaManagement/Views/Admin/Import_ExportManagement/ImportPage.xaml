@@ -21,8 +21,6 @@
                                      From="0"
                                      To="1"
                                      Duration="0:0:0.3" />
-
-
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
@@ -218,7 +216,14 @@
                            FontSize="15" />
                     <Label Content="{Binding ListProduct.Count}"
                            x:Name="result"
-                           FontSize="15" />
+                           FontSize="15">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding SaveResultNameCM}"
+                                                       CommandParameter="{Binding ElementName=result}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Label>
                 </StackPanel>
             </Grid>
         </StackPanel>

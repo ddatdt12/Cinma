@@ -33,7 +33,7 @@
                 <ColumnDefinition Width="197*" />
                 <ColumnDefinition Width="295*" />
             </Grid.ColumnDefinitions>
-           
+
             <Border Grid.Row="0"
                     x:Name="BackGroundTittle"
                     Grid.ColumnSpan="2"
@@ -117,8 +117,7 @@
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
                                 Width="75"
-                                Content="OK"
-                                />
+                                Content="OK" />
                         <Button x:Name="btnCancel"
                                 Click="btnCancel_Click"
                                 Grid.Column="2"
@@ -126,8 +125,7 @@
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
                                 Width="75"
-                                Content="Cancel"
-                                />
+                                Content="Cancel" />
                         <Button x:Name="btnYes"
                                 Click="btnYes_Click"
                                 Grid.Column="1"
@@ -135,8 +133,7 @@
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
                                 Width="75"
-                                Content="Yes"
-                               />
+                                Content="Yes" />
                         <Button x:Name="btnNo"
                                 Click="btnNo_Click"
                                 Grid.Column="2"
@@ -144,8 +141,7 @@
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
                                 Width="75"
-                                Content="No"
-                                />
+                                Content="No" />
                     </Grid>
                 </Grid>
             </Grid>

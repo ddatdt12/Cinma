@@ -57,9 +57,9 @@
                     <ComboBox Height="30"
                               Width="100"
                               Margin="10 0 0 0"
-                              Padding="0,10,10,0"
+                              Padding="0,10,0,0"
                               FontSize="14.2"
-                              SelectedIndex="0"
+                              SelectedIndex="1"
                               x:Name="cbbFilter"
                               SelectedValuePath="Content">
                         <ComboBoxItem Content="Mã đơn" />
@@ -160,6 +160,7 @@
                        ItemsSource="{Binding ListBill}"
                        Height="520"
                        VerticalAlignment="Top"
+                       ToolTip="Nháy đúp để xem chi tiết"
                        SelectedItem="{Binding SelectedTicketBill}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick">

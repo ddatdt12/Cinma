@@ -72,7 +72,7 @@ namespace CinemaManagement.ViewModel.AdminVM.StaffManagementVM
             var today = DateTime.Today;
 
             // Calculate the age.
-            var age = today.Year - birthDate.Year;
+            var age = StartDate.Value.Year - birthDate.Year;
 
             // Go back to the year in which the person was born in case of a leap year
             if (birthDate.DayOfYear > today.DayOfYear) age--;
