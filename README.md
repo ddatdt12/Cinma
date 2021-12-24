@@ -4,7 +4,7 @@
 Hỗ trợ các cụm rạp dễ dàng hơn trong việc quản lý.
 
 <!-- LOGO CINEMA -->
-![Logo Cinema](./Resources/Icon/iconApp.ico)
+![Logo Cinema](./ImageApp/CinemaSquadin.jpg)
 
 ## Mục lục
 
