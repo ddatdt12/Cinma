@@ -111,13 +111,12 @@
                         </Grid.ColumnDefinitions>
 
                         <Button x:Name="btnOk"
-                                Background="#FF4CAF50"
                                 Click="btnOk_Click"
                                 Grid.Column="1"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
-                                Width="100"
+                                Width="85"
                                 Content="Xác nhận"
                                 />
                         <Button x:Name="btnCancel"
@@ -131,14 +130,13 @@
                                 Content="Đóng"
                                 />
                         <Button x:Name="btnYes"
-                                Background="#FF4CAF50"
                                 Click="btnYes_Click"
                                 Grid.Column="1"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
-                                Width="75"
-                                Content="Có"
+                                Width="80"
+                                Content="Đồng ý"
                                />
                         <Button x:Name="btnNo"
                                 Background="#FF92A9C0"
@@ -147,7 +145,7 @@
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 BorderBrush="Black"
                                 Margin="20 2 20 0"
-                                Width="75"
+                                Width="80"
                                 Content="Không"/>
                     </Grid>
                 </Grid>
