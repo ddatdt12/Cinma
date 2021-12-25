@@ -426,7 +426,6 @@
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Center"
                         Height="50"
-                        Background="#FF5980B8"
                         Width="164"
                         Content="Tiếp tục"
                         FontSize="25"
